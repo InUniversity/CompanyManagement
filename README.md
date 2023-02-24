@@ -9,5 +9,8 @@ This is an application designed for use by management at a company.
     + Basic: OOP, ADO.NET.
     + Advance: material design, clean architecture (MVVM), SOLID.
 
+## Database design
+...comming soon...
+
 ## Refrerences
 ...comming soon...
