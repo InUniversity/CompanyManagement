@@ -5,20 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CompanyManagement"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="480" Width="800">
     <Grid Margin="0,0,-66,-6">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="799*"/>
+            <ColumnDefinition Width="316*"/>
+            <ColumnDefinition Width="483*"/>
             <ColumnDefinition Width="3*"/>
             <ColumnDefinition Width="64*"/>
             <ColumnDefinition Width="0*"/>
         </Grid.ColumnDefinitions>
-        <TabControl >
+        <TabControl Margin="0,0,0,10" Grid.ColumnSpan="2" >
             <TabItem Header="Lịch">
                 <StackPanel>
-                    
+
                 </StackPanel>
-              
+
             </TabItem>
             <TabItem  Header="Chấm công">
                 <StackPanel>
@@ -26,10 +27,14 @@
                 </StackPanel>
             </TabItem>
             <TabItem  Header="Giao việc">
-                <StackPanel>
-                    <TabControl TabStripPlacement="Left" Margin="0, 0, 0, 10" Height="410" >
+                <StackPanel Height="383">
+                    <TabControl TabStripPlacement="Left" Margin="0, 0, 0, 10" Height="428" >
                         <TabItem Header="Trang chủ">
-                           
+                            <StackPanel Margin="0,0,0,38">
+                                <DataGrid Height="341" d:ItemsSource="{d:SampleData ItemCount=5}"/>
+                                <Button Content="Button" Width="96" HorizontalAlignment="Right" Height="26" Click="Button_Click"/>
+
+                            </StackPanel>
                         </TabItem>
                         <TabItem Header="Việc của tôi">
 
