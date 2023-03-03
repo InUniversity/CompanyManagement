@@ -13,7 +13,7 @@ namespace CompanyManagement
     {
         SqlConnection conn = new SqlConnection(Properties.Settings.Default.connStr);
 
-        public void Running (string sqlstr)
+        public void ExecuteNonQuery(string sqlstr)
         {
             try
             {
@@ -31,15 +31,14 @@ namespace CompanyManagement
                 conn.Close();
             }
         }
-        public DataTable ReturnTable(string sqlStr)
+        public DataTable GetDataTable(string sqlStr)
         {
+            DataTable databasetable = new DataTable();
             try
             {
                 conn.Open();
                 SqlDataAdapter adapter = new SqlDataAdapter(sqlStr, conn);
-                DataTable databasetable = new DataTable();
                 adapter.Fill(databasetable);
-                return databasetable;
             }
             catch (Exception ex)
             {
@@ -49,7 +48,7 @@ namespace CompanyManagement
             {
                 conn.Close();
             }
-            return null;
+            return databasetable;
         }
     }
 }

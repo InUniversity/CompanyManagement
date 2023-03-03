@@ -6,7 +6,8 @@
 	ssn varchar(12),
 	phone_number varchar (10),
 	manager_id varchar (20),
-	salary int
+	salary int,
+	address_emp nvarchar(255)
 );
 
 CREATE TABLE StatusWork(
