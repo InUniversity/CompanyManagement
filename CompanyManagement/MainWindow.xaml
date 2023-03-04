@@ -4,55 +4,73 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CompanyManagement"
+        xmlns:uc="clr-namespace:CompanyManagement.UserControlCompanyManagement"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
-        Title="MainWindow" Height="480" Width="800">
-    <Grid Margin="0,0,-66,-6">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="316*"/>
-            <ColumnDefinition Width="483*"/>
-            <ColumnDefinition Width="3*"/>
-            <ColumnDefinition Width="64*"/>
-            <ColumnDefinition Width="0*"/>
-        </Grid.ColumnDefinitions>
-        <TabControl Margin="0,0,0,10" Grid.ColumnSpan="2" >
-            <TabItem Header="Lịch">
-                <StackPanel>
-
-                </StackPanel>
-
-            </TabItem>
-            <TabItem  Header="Chấm công">
-                <StackPanel>
-
-                </StackPanel>
-            </TabItem>
-            <TabItem  Header="Giao việc">
-                <StackPanel Height="383">
-                    <TabControl TabStripPlacement="Left" Margin="0, 0, 0, 10" Height="428" >
-                        <TabItem Header="Trang chủ">
-                            <StackPanel Margin="0,0,0,38">
-                                <DataGrid Height="341" d:ItemsSource="{d:SampleData ItemCount=5}"/>
-                                <Button Content="Button" Width="96" HorizontalAlignment="Right" Height="26" Click="Button_Click"/>
-
-                            </StackPanel>
-                        </TabItem>
-                        <TabItem Header="Việc của tôi">
-
-                        </TabItem>
-                        <TabItem Header="Thông báo">
-
-                        </TabItem>
-                        <TabItem Header="thống kê">
-
-                        </TabItem>
-                    </TabControl>
-                </StackPanel>
-            </TabItem>
-
-
-
-
-
-        </TabControl >
+        WindowStartupLocation="CenterScreen"
+        Title="MainWindow" Height="800" Width="1500">
+    <Grid>
+        <materialDesign:Card   Height="auto" Width="auto" >
+            <TabControl   
+                HorizontalContentAlignment="Left"
+                 materialDesign:ColorZoneAssist.Mode="PrimaryMid"
+                 Style="{StaticResource MaterialDesignFilledTabControl}">
+                <TabItem Header="Trang Chủ">
+                    <StackPanel>
+                        <Grid >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="auto">
+                               
+                            </Grid>
+                            <materialDesign:Card Grid.Column="1" >
+                            </materialDesign:Card>
+                        </Grid>
+                    </StackPanel>
+                </TabItem>
+                <TabItem Header="Lịch"></TabItem>
+                <TabItem Header="Chấm Công"></TabItem>
+                <TabItem Header="Giao Việc"></TabItem>
+                <TabItem Header="Xin Nghỉ"></TabItem>
+                <TabItem Header="Lương"></TabItem>
+                <TabItem Header="Nhiệm Vụ"></TabItem>
+                <TabItem Header="Thông báo" ></TabItem>
+                <TabItem Header="Thêm" ></TabItem>
+                <TabItem Header="Tôi" >
+                    <materialDesign:Card>
+                        <TabControl
+                            Width="auto"
+                            Height="auto"
+                            materialDesign:ColorZoneAssist.Mode="PrimaryLight"
+                            Style="{StaticResource MaterialDesignFilledTabControl}"
+                            TabStripPlacement="Left">
+                            
+                            <TabItem Header="Tài khoản">
+                               
+                            </TabItem>
+                            <TabItem Header="Thu nhập">
+                               
+                            </TabItem>
+                            <TabItem Header="Cài đặt">
+                            </TabItem>
+                            <TabItem Header="Trợ giúp">
+                            </TabItem>
+                            
+                        </TabControl>
+                    </materialDesign:Card>
+                </TabItem>
+             
+            </TabControl>
+            
+        </materialDesign:Card>
     </Grid>
 </Window>
