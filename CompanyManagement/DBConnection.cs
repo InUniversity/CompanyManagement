@@ -31,6 +31,7 @@ namespace CompanyManagement
                 conn.Close();
             }
         }
+
         public DataTable GetDataTable(string sqlStr)
         {
             DataTable databasetable = new DataTable();

@@ -26,21 +26,25 @@ namespace CompanyManagement
             get { return this.name; }
             set { this.name = value; }
         }
+
         public DateTime Start
         {
             get { return this.start; }
             set { this.start = value; }
         }
+
         public DateTime End
         {
             get { return this.end; }
             set { this.end = value; }
         }
+
         public int Budget
         {
             get { return this.budget; }
             set { this.budget = value; }
         }
+
         public string Status
         {
             get { return this.status; }
@@ -48,6 +52,7 @@ namespace CompanyManagement
         }
 
         public Project() { }
+
         public Project(string id, string name, DateTime start, DateTime end, int budget, string status)
         {
             this.id = id;
@@ -57,6 +62,5 @@ namespace CompanyManagement
             this.budget = budget;
             this.status = status;
         }
-        ~Project() { }
     }
 }

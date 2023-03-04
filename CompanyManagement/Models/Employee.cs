@@ -14,7 +14,7 @@ namespace CompanyManagement
         private string birthday;
         private string ssn;
         private string phone;
-        private string mgrid;
+        private string managerid;
         private int salary;
         private string address;
 
@@ -23,47 +23,57 @@ namespace CompanyManagement
             get { return this.id; }
             set { this.id = value; }
         }
+
         public string Name
         {
             get { return this.name; }
             set { this.name = value; }
         }
+
         public string Gender
         {
             get { return this.gender; }
             set { this.gender = value; }
         }
+
         public string Birthday
         {
             get { return this.birthday; }
             set { this.birthday = value; }
         }
+
         public string Ssn
         {
             get { return this.ssn; }
             set { this.ssn = value; }
         }
+
         public string Phone
         {
             get { return this.phone; }
             set { this.phone = value; }
         }
-        public string MgrID
+
+        public string ManagerID
         {
-            get { return this.mgrid; }
-            set { this.mgrid = value; }
+            get { return this.managerid; }
+            set { this.managerid = value; }
         }
+
         public int Salary
         {
             get { return this.salary; }
             set { this.salary = value; }
         }
+
         public string Address
         {
             get { return this.address; }
             set { this.address = value; }
         }
+
         public Employee() { }
+
         public Employee(string id, string name, string gender, string birthday, string ssn, string phone, string mgrid, int salary, string address)
         {
             this.id = id;
@@ -72,10 +82,9 @@ namespace CompanyManagement
             this.birthday = birthday;
             this.ssn = ssn;
             this.phone = phone;
-            this.mgrid = mgrid;
+            this.managerid = mgrid;
             this.salary = salary;
             this.address = address;
         }
-        ~Employee() { }
     }
 }

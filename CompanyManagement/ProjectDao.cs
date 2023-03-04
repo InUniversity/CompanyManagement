@@ -19,26 +19,31 @@ namespace CompanyManagement
         private const string STATUS ="statusProject";
 
         DBConnection dbconnection = new DBConnection();
+
         public void Add(Project project)
         {
             string sqlStr = $"INSERT INTO {TABLE_NAME}({ID}, {NAME}, {START}, {END}, {BUDGET}, {STATUS}) VALUES ('{project.ID}', '{project.Name}', '{project.Start}', '{project.End}', {project.Budget}, '{project.Status}')";
             dbconnection.ExecuteNonQuery(sqlStr);
         }
+
         public void Delete(Project project)
         {
             string sqlStr = $"DELETE FROM {TABLE_NAME} WHERE {ID} = '{project.ID}'";
             dbconnection.ExecuteNonQuery(sqlStr);
         }
+
         public void Save(Project project)
         {
             string sqlStr = $"UPDATE {TABLE_NAME} SET {NAME} = '{project.ID}', {START}= '{project.Start}', {END}= '{project.End}', {BUDGET}= {project.Budget}, {STATUS}= '{project.Status}' WHERE {ID} = '{project.ID}'";     
             dbconnection.ExecuteNonQuery(sqlStr);
         }
+
         public DataTable GetDataTable()
         {
             string sqlStr = $"SELECT * FROM {TABLE_NAME}";
             return dbconnection.GetDataTable(sqlStr);
         }
+
         public DataTable SearchByID(Project project)
         {
             string sqlStr = $"SELECT * FROM {TABLE_NAME} WHERE {ID} = '{project.ID}'";
