@@ -6,7 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Text;
-namespace CompanyManagement
+namespace CompanyManagement.Database
 {
     public class TaskDao
     {
@@ -21,7 +21,7 @@ namespace CompanyManagement
 
         public void Add(TaskInProject task)
         {
-            
+
             string sqlStr = $"INSERT INTO {TABLE_NAME}({ID}, {NAME}, {START}, {END}, {EMPLOYEE_ID} VALUES ('{task.ID}', {task.Name}, {task.Start}, {task.End}, {task.EmployeeID})";
             dbconnection.ExecuteNonQuery(sqlStr);
         }

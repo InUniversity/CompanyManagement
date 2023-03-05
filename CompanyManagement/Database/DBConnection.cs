@@ -7,7 +7,7 @@ using System.Data.SqlClient;
 using System.Windows;
 using System.Data;
 
-namespace CompanyManagement
+namespace CompanyManagement.Database
 {
     public class DBConnection
     {
@@ -22,7 +22,7 @@ namespace CompanyManagement
                 if (cmd.ExecuteNonQuery() > 0)
                     MessageBox.Show("Completed!");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show("Error " + ex);
             }

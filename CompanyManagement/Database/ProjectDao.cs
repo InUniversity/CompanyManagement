@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 
-namespace CompanyManagement
+namespace CompanyManagement.Database
 {
     public class ProjectDao
     {
@@ -16,7 +16,7 @@ namespace CompanyManagement
         public static string START = "date_start";
         public static string END = "date_end";
         public static string BUDGET = "budget";
-        public static string STATUS ="project_status";
+        public static string STATUS = "project_status";
 
         DBConnection dbconnection = new DBConnection();
 
@@ -35,8 +35,8 @@ namespace CompanyManagement
 
         public void Save(Project project)
         {
-            string sqlStr = $"UPDATE {TABLE_NAME} SET {NAME} = '{project.ID}', {START}= {project.Start}, {END}= {project.End}, {BUDGET}= {project.Budget}," + 
-                $"{STATUS}= '{project.Status}' WHERE {ID} = '{project.ID}'";     
+            string sqlStr = $"UPDATE {TABLE_NAME} SET {NAME} = '{project.ID}', {START}= {project.Start}, {END}= {project.End}, {BUDGET}= {project.Budget}," +
+                $"{STATUS}= '{project.Status}' WHERE {ID} = '{project.ID}'";
             dbconnection.ExecuteNonQuery(sqlStr);
         }
 

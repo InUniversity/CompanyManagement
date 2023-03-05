@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CompanyManagement
+namespace CompanyManagement.Database
 {
     public class EmployeeDao
     {
@@ -25,10 +25,10 @@ namespace CompanyManagement
 
         public void Add(Employee employee)
         {
-            string sqlStr = $"INSERT INTO {TABLE_NAME} ({ID}, {NAME}, {GENDER}, {BIRTHDAY}, {IDENTIFY_CARD}, {PHONE_NUMBER}, {MANAGER_ID}, {SALARY}, {ADDRESS})" + 
-                $"VALUES ('{employee.ID}', '{employee.Name}', '{employee.Gender}', {employee.Birthday}, '{employee.IndentifyCard}', '{employee.Phone}'," + 
+            string sqlStr = $"INSERT INTO {TABLE_NAME} ({ID}, {NAME}, {GENDER}, {BIRTHDAY}, {IDENTIFY_CARD}, {PHONE_NUMBER}, {MANAGER_ID}, {SALARY}, {ADDRESS})" +
+                $"VALUES ('{employee.ID}', '{employee.Name}', '{employee.Gender}', {employee.Birthday}, '{employee.IndentifyCard}', '{employee.Phone}'," +
                 $"'{employee.ManagerID}', '{employee.Salary}', '{employee.Address}')";
-                dbconnection.ExecuteNonQuery(sqlStr);
+            dbconnection.ExecuteNonQuery(sqlStr);
         }
 
         public void Delete(Employee employee)
@@ -39,11 +39,11 @@ namespace CompanyManagement
 
         public void Save(Employee employee)
         {
-            string sqlStr = $"UPDATE {TABLE_NAME}" + 
-                $"SET {NAME} = '{employee.Name}', {GENDER} = '{employee.Gender}', {BIRTHDAY}= {employee.Birthday}, {IDENTIFY_CARD}= '{employee.IndentifyCard}'," + 
+            string sqlStr = $"UPDATE {TABLE_NAME}" +
+                $"SET {NAME} = '{employee.Name}', {GENDER} = '{employee.Gender}', {BIRTHDAY}= {employee.Birthday}, {IDENTIFY_CARD}= '{employee.IndentifyCard}'," +
                 $"{PHONE_NUMBER} = '{employee.Phone}', {MANAGER_ID}= '{employee.ManagerID}', {SALARY}= '{employee.Salary}', {ADDRESS} = '{employee.Address}'" +
                 $" WHERE {ID} = '{employee.ID}'";
-            dbconnection.ExecuteNonQuery(sqlStr);        
+            dbconnection.ExecuteNonQuery(sqlStr);
         }
 
         public DataTable GetDataTable()
