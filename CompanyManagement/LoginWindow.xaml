@@ -1,0 +1,108 @@
+﻿<Window x:Class="CompanyManagement.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CompanyManagement"
+        xmlns:uc="clr-namespace:CompanyManagement.UserControlCompanyManagement"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        Height="800" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid Width="auto">
+                <Button
+                    Margin="2,0"
+                    materialDesign:ButtonProgressAssist.IsIndeterminate="True"
+                    materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
+                    materialDesign:ButtonProgressAssist.Value="-1"
+                    Content="Company Management"
+                    IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                    Style="{StaticResource MaterialDesignRaisedButton}" />
+            </Grid>
+        </Grid>
+        <materialDesign:Card Grid.Row="1" Width="500" Height="600" HorizontalAlignment="Center" VerticalContentAlignment="Center">
+            <Grid>
+                <Grid.Resources>
+                    <Style TargetType="Grid">
+                        <Setter Property="Margin" Value="10 10 10 0"></Setter> 
+                    </Style>
+                </Grid.Resources>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top">
+                    <TextBlock Text="Đăng Nhập" FontSize="20" FontWeight="ExtraBold" Foreground="Gray">
+                        
+                    </TextBlock>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <TextBox
+                        Height="50"
+                        VerticalAlignment="Top"
+                        materialDesign:HintAssist.Hint="Tên Đăng Nhập"
+                        materialDesign:TextFieldAssist.CharacterCounterVisibility="{Binding Path=IsChecked, ElementName=MaterialDesignFilledTextBoxTextCountComboBox, Converter={StaticResource BooleanToVisibilityConverter}}"
+                        MaxLength="40"
+                        Style="{StaticResource MaterialDesignFilledTextBox}"
+                        TextWrapping="Wrap" TextChanged="TextBox_TextChanged" />
+                </Grid>
+                <Grid Grid.Row="2">
+                    <PasswordBox
+                        Height="50"
+                        materialDesign:HintAssist.HelperText="ít nhất 8 ký tự"
+                        materialDesign:HintAssist.Hint="Mật Khẩu"
+                        materialDesign:TextFieldAssist.HasClearButton="True"
+                        IsEnabled="{Binding ElementName=RevealPasswordFilledEnabled, Path=IsChecked}"
+                        Style="{StaticResource MaterialDesignFilledRevealPasswordBox}" />
+                </Grid>
+                <Grid Grid.Row="3">
+                    <Grid Width="auto">
+                        <Button
+                            Name="btLogin"
+                            Height="50"
+                            materialDesign:ButtonAssist.CornerRadius="25"
+                            IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                            Style="{StaticResource MaterialDesignRaisedDarkButton}" Click="btLogin_Click">
+                            <TextBlock Text="Đăng nhập" />
+                        </Button>
+                    </Grid>
+                </Grid>
+                <Grid Grid.Row="4">
+                    <Button
+                        HorizontalAlignment="Left"
+                        Width="225"
+                         materialDesign:ButtonAssist.CornerRadius="25"
+                         Content="Quên mật khẩu"
+                         IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                         Style="{StaticResource MaterialDesignPaperDarkButton}"/>
+                    <Button
+                      Width="225"
+                        HorizontalAlignment="Right"
+                      Content="Thoát"
+                       materialDesign:ButtonAssist.CornerRadius="25"
+                        
+                      IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                      Style="{StaticResource MaterialDesignPaperButton}"
+                      ToolTip="Resource name: MaterialDesignPaperButton" />
+                </Grid>
+            </Grid>
+        </materialDesign:Card>
+    </Grid>
+</Window>
