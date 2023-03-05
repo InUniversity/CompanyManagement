@@ -23,27 +23,7 @@
                 HorizontalContentAlignment="Left"
                  materialDesign:ColorZoneAssist.Mode="PrimaryMid"
                  Style="{StaticResource MaterialDesignFilledTabControl}">
-                <TabItem Header="Trang Chủ">
-                    <StackPanel>
-                        <Grid >
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="200"></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-                            <Grid Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="auto">
-
-                            </Grid>
-                            <materialDesign:Card Grid.Column="1" >
-                            </materialDesign:Card>
-                        </Grid>
-                    </StackPanel>
-                </TabItem>
-                <TabItem Header="Lịch"></TabItem>
-                <TabItem Header="Chấm Công"></TabItem>
                 <TabItem Header="Giao Việc"></TabItem>
-                <TabItem Header="Xin Nghỉ"></TabItem>
-                <TabItem Header="Lương"></TabItem>
-                <TabItem Header="Nhiệm Vụ"></TabItem>
                 <TabItem Header="Nhân Sự">
                     <StackPanel>
                         <Grid>
@@ -369,32 +349,43 @@
                         </Grid>
                     </StackPanel>
                 </TabItem>
+                <TabItem Header="Chấm Công"></TabItem>
+                <TabItem Header="Lương"></TabItem>
+                <TabItem Header="Xin Nghỉ"></TabItem>
+                <TabItem Header="Nhiệm Vụ"></TabItem>
                 <TabItem Header="Thông báo" ></TabItem>
-                <TabItem Header="Thêm" ></TabItem>
-                <TabItem Header="Tôi" >
-                    <materialDesign:Card>
-                        <TabControl
+                <TabItem  Margin="740 0" Width="100" >
+                    <TabItem.Header>
+                        <StackPanel>
+                            <materialDesign:PackIcon Kind="Account" HorizontalAlignment="Right"/>
+                        </StackPanel>
+                    </TabItem.Header>
+                    <StackPanel>
+                        <materialDesign:Card Height="750">
+                            <TabControl
                             Width="auto"
                             Height="auto"
                             materialDesign:ColorZoneAssist.Mode="PrimaryLight"
                             Style="{StaticResource MaterialDesignFilledTabControl}"
                             TabStripPlacement="Left">
 
-                            <TabItem Header="Tài khoản">
+                                <TabItem Header="Tài khoản">
 
-                            </TabItem>
-                            <TabItem Header="Thu nhập">
+                                </TabItem>
+                                <TabItem Header="Thu nhập">
 
-                            </TabItem>
-                            <TabItem Header="Cài đặt">
-                            </TabItem>
-                            <TabItem Header="Trợ giúp">
-                            </TabItem>
+                                </TabItem>
+                                <TabItem Header="Cài đặt">
+                                </TabItem>
+                                <TabItem Header="Trợ giúp">
+                                </TabItem>
 
-                        </TabControl>
-                    </materialDesign:Card>
+                            </TabControl>
+                        </materialDesign:Card>
+                    </StackPanel>
+                    
                 </TabItem>
-
+               
             </TabControl>
 
         </materialDesign:Card>
