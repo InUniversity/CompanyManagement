@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace CompanyManagement
 {
@@ -61,6 +63,23 @@ namespace CompanyManagement
             this.end = end;
             this.budget = budget;
             this.status = status;
+        }
+
+        public Project(DataRow row)
+        {
+            try
+            {
+                this.id = row[ProjectDao.ID].ToString();
+                this.name = row[ProjectDao.NAME].ToString();
+                this.start = DateTime.ParseExact(row[ProjectDao.START].ToString(), "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
+                this.end = DateTime.ParseExact(row[ProjectDao.END].ToString(), "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
+                this.budget = int.Parse(row[ProjectDao.BUDGET].ToString());
+                this.status = row[ProjectDao.STATUS].ToString();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

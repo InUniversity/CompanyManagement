@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace CompanyManagement
 {
@@ -11,7 +13,7 @@ namespace CompanyManagement
         private string id;
         private string name;
         private string gender;
-        private string birthday;
+        private DateTime birthday;
         private string identifyCard;
         private string phone;
         private string managerID;
@@ -36,7 +38,7 @@ namespace CompanyManagement
             set { this.gender = value; }
         }
 
-        public string Birthday
+        public DateTime Birthday
         {
             get { return this.birthday; }
             set { this.birthday = value; }
@@ -74,7 +76,7 @@ namespace CompanyManagement
 
         public Employee() { }
 
-        public Employee(string id, string name, string gender, string birthday, string identifyCard, string phone, string managerID, int salary, string address)
+        public Employee(string id, string name, string gender, DateTime birthday, string identifyCard, string phone, string managerID, int salary, string address)
         {
             this.id = id;
             this.name = name;
@@ -86,5 +88,23 @@ namespace CompanyManagement
             this.salary = salary;
             this.address = address;
         }
+        public Employee(DataRow row)
+        {
+            try
+            {
+                this.id = row[EmployeeDao.ID].ToString();
+                this.name = row[EmployeeDao.NAME].ToString();
+                this.gender = row[EmployeeDao.GENDER].ToString();
+                this.birthday = DateTime.ParseExact(row[EmployeeDao.BIRTHDAY].ToString(), "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
+                this.identifyCard = row[EmployeeDao.IDENTIFY_CARD].ToString();
+                this.phone = row[EmployeeDao.PHONE_NUMBER].ToString();
+                this.managerID = row[EmployeeDao.MANAGER_ID].ToString();
+                this.salary = int.Parse(row[EmployeeDao.SALARY].ToString());
+                this.address = row[EmployeeDao.ADDRESS].ToString();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
     }
 }

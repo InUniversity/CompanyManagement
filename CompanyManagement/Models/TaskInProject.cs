@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace CompanyManagement.Models
 {
@@ -13,6 +15,7 @@ namespace CompanyManagement.Models
         private DateTime start;
         private DateTime end;
         private string employeeID;
+
 
         public string ID
         {
@@ -53,6 +56,22 @@ namespace CompanyManagement.Models
             this.start = start;
             this.end = end;
             this.employeeID = employeeID;
+        }
+
+        public TaskInProject(DataRow row)
+        {
+            try
+            {
+                this.id = row[TaskInProjectDao.ID].ToString();
+                this.name = row[TaskInProjectDao.NAME].ToString();
+                this.start = DateTime.ParseExact(row[TaskInProjectDao.START].ToString(), "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
+                this.end = DateTime.ParseExact(row[TaskInProjectDao.END].ToString(), "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
+                this.employeeID = row[TaskInProjectDao.EMPLOYEE_ID].ToString();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }
