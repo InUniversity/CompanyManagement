@@ -102,9 +102,10 @@ namespace CompanyManagement
                 this.salary = int.Parse(row[EmployeeDao.SALARY].ToString());
                 this.address = row[EmployeeDao.ADDRESS].ToString();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+        }
     }
 }
