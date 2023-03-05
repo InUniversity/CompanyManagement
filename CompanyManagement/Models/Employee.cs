@@ -12,9 +12,9 @@ namespace CompanyManagement
         private string name;
         private string gender;
         private string birthday;
-        private string ssn;
+        private string identifyCard;
         private string phone;
-        private string managerid;
+        private string managerID;
         private int salary;
         private string address;
 
@@ -42,10 +42,10 @@ namespace CompanyManagement
             set { this.birthday = value; }
         }
 
-        public string Ssn
+        public string IndentifyCard
         {
-            get { return this.ssn; }
-            set { this.ssn = value; }
+            get { return this.identifyCard; }
+            set { this.identifyCard = value; }
         }
 
         public string Phone
@@ -56,8 +56,8 @@ namespace CompanyManagement
 
         public string ManagerID
         {
-            get { return this.managerid; }
-            set { this.managerid = value; }
+            get { return this.managerID; }
+            set { this.managerID = value; }
         }
 
         public int Salary
@@ -74,15 +74,15 @@ namespace CompanyManagement
 
         public Employee() { }
 
-        public Employee(string id, string name, string gender, string birthday, string ssn, string phone, string mgrid, int salary, string address)
+        public Employee(string id, string name, string gender, string birthday, string identifyCard, string phone, string managerID, int salary, string address)
         {
             this.id = id;
             this.name = name;
             this.gender = gender;
             this.birthday = birthday;
-            this.ssn = ssn;
+            this.identifyCard = identifyCard;
             this.phone = phone;
-            this.managerid = mgrid;
+            this.managerID = managerID;
             this.salary = salary;
             this.address = address;
         }

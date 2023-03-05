@@ -11,12 +11,12 @@ namespace CompanyManagement
     public class ProjectDao
     {
         private const string TABLE_NAME = "Project";
-        private const string ID = "projectID";
-        private const string NAME = "projectName";
-        private const string START = "dateStart";
-        private const string END = "dateEnd";
+        private const string ID = "project_id";
+        private const string NAME = "project_name";
+        private const string START = "date_start";
+        private const string END = "date_end";
         private const string BUDGET = "budget";
-        private const string STATUS ="statusProject";
+        private const string STATUS ="project_status";
 
         DBConnection dbconnection = new DBConnection();
 
@@ -44,10 +44,20 @@ namespace CompanyManagement
             return dbconnection.GetDataTable(sqlStr);
         }
 
-        public DataTable SearchByID(Project project)
+        public Project SearchByID(string id)
         {
-            string sqlStr = $"SELECT * FROM {TABLE_NAME} WHERE {ID} = '{project.ID}'";
-            return dbconnection.GetDataTable(sqlStr);
+            DataTable dtproject = new DataTable();
+            string sqlStr = $"SELECT * FROM {TABLE_NAME} WHERE {ID} = '{id}'";
+            dtproject =  dbconnection.GetDataTable(sqlStr);
+            Project project = new Project(
+            dtproject.Columns[0].ToString(),
+            dtproject.Columns[1].ToString(),
+            DateTime.ParseExact(dtproject.Columns[2].ToString(), "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture),
+            DateTime.ParseExact(dtproject.Columns[3].ToString(), "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture),
+            int.Parse(dtproject.Columns[4].ToString()),
+            dtproject.Columns[5].ToString()
+                );
+            return project;
         }
     }
 }

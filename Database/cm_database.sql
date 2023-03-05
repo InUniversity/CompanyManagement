@@ -1,60 +1,60 @@
 ﻿CREATE TABLE Employee(
-	employeeID varchar (20),
-	employeeName nvarchar(100),
+	employee_id varchar (20),
+	employee_name nvarchar(100),
 	gender nvarchar(4),
-	birthDay date,
-	ssn varchar(12),
-	phoneNumber varchar (10),
-	managerID varchar (20),
+	birth_day date,
+	identify_card varchar(12),
+	phone_number varchar (10),
+	manager_id varchar (20),
 	salary int,
-	addressEmp nvarchar(255)
+	employee_address nvarchar(255)
 );
 
 CREATE TABLE StatusWork(
-	statusID varchar (20),
-	statusName nvarchar(100)
+	status_id varchar (20),
+	status_name nvarchar(100)
 );
 
 CREATE TABLE StatusEmployee(
-	employeeID varchar(20),
-	statusID varchar(20)
+	employee_id varchar(20),
+	status_id varchar(20)
 );
 
 CREATE TABLE Account(
-	username varchar(100),
-	pass_word varchar(100),
-	employeeID varchar (20)
+	username_ varchar(100),
+	password_ varchar(100),
+	employee_id varchar (20)
 );
 
 CREATE TABLE Department(
-	departmentID varchar(20),
-	departmentName nvarchar(100),
-	managerID varchar(20)
+	department_id varchar(20),
+	department_name nvarchar(100),
+	manager_id varchar(20)
 );
 
 CREATE TABLE Project(
-	projectID varchar(20),
-	projectName nvarchar(225),
-	dateStart date,
-	dateEnd date,
+	project_id varchar(20),
+	project_name nvarchar(225),
+	date_start date,
+	date_end date,
 	budget int,
-	statusProject varchar(50)
+	project_status varchar(50)
 );
 
 CREATE TABLE Task(
-	taskID varchar(20),
-	taskName nvarchar(20),
-	dateStart date,
-	dateEnd date,
-	projectId varchar(20)
+	task_id varchar(20),
+	task_name nvarchar(20),
+	date_start date,
+	date_end date,
+	project_id varchar(20)
 );
 
 CREATE TABLE LeaveApplication(
-	leaveapp_id varchar(20),
+	leave_application_id varchar(20),
 	employee_id varchar (20),
 	date_time datetime,
 	time_off datetime,
 	reason nvarchar (255),
-	leaveapp_status varchar (50)
+	leave_appication_status varchar (50)
 );
 
