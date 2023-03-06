@@ -3,19 +3,19 @@ using System.Windows.Input;
 
 namespace CompanyManagement.ViewModels
 {
-    public class ViewModelCommand<T> : ICommand
+    public class ReplayCommand<T> : ICommand
     {
 
         private readonly Action<T> exeAction;
         private readonly Predicate<T> canExeAction;
 
-        public ViewModelCommand(Action<T> exeAction)
+        public ReplayCommand(Action<T> exeAction)
         {
             this.exeAction = exeAction;
             canExeAction = null;
         }
 
-        public ViewModelCommand(Action<T> exeAction, Predicate<T> canExeAction)
+        public ReplayCommand(Action<T> exeAction, Predicate<T> canExeAction)
         {
             this.exeAction = exeAction;
             this.canExeAction = canExeAction;

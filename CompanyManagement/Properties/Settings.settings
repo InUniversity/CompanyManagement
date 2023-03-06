@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="connStr" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Data Source=(localdb)\mssqllocaldb;Initial Catalog=StudentManagement;Integrated Security=True</Value>
+      <Value Profile="(Default)">Data Source=(localdb)\mssqllocaldb;Initial Catalog=CompanyManagement;Integrated Security=True</Value>
     </Setting>
   </Settings>
 </SettingsFile>

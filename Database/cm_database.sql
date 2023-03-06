@@ -1,4 +1,9 @@
-﻿CREATE TABLE Employee(
+﻿CREATE DATABASE CompanyManagement
+GO
+USE CompanyManagement
+GO
+
+CREATE TABLE Employee(
 	employee_id varchar (20),
 	employee_name nvarchar(100),
 	gender nvarchar(4),

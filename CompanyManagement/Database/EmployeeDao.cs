@@ -23,26 +23,26 @@ namespace CompanyManagement.Database
 
         DBConnection dbconnection = new DBConnection();
 
-        public void Add(Employee employee)
+        public void Add(Employee empl)
         {
-            string sqlStr = $"INSERT INTO {TABLE_NAME} ({ID}, {NAME}, {GENDER}, {BIRTHDAY}, {IDENTIFY_CARD}, {PHONE_NUMBER}, {MANAGER_ID}, {SALARY}, {ADDRESS})" +
-                $"VALUES ('{employee.ID}', '{employee.Name}', '{employee.Gender}', {employee.Birthday}, '{employee.IndentifyCard}', '{employee.Phone}'," +
-                $"'{employee.ManagerID}', '{employee.Salary}', '{employee.Address}')";
+            string sqlStr = $"INSERT INTO {TABLE_NAME} ({ID}, {NAME}, {GENDER}, {BIRTHDAY}, {IDENTIFY_CARD}, {PHONE_NUMBER}, {MANAGER_ID}, {SALARY}, {ADDRESS}) " +
+                $"VALUES ('{empl.ID}', N'{empl.Name}', N'{empl.Gender}', {empl.Birthday.ToString()}, '{empl.IndentifyCard}', N'{empl.Phone}'," +
+                $"'{empl.ManagerID}', '{empl.Salary.ToString()}', '{empl.Address}')";
             dbconnection.ExecuteNonQuery(sqlStr);
         }
 
-        public void Delete(Employee employee)
+        public void Delete(string id)
         {
-            string sqlStr = $"DELETE FROM {TABLE_NAME} WHERE {ID} = {employee.ID}";
+            string sqlStr = $"DELETE FROM {TABLE_NAME} WHERE {ID} = {id}";
             dbconnection.ExecuteNonQuery(sqlStr);
         }
 
-        public void Save(Employee employee)
+        public void Save(Employee empl)
         {
             string sqlStr = $"UPDATE {TABLE_NAME}" +
-                $"SET {NAME} = '{employee.Name}', {GENDER} = '{employee.Gender}', {BIRTHDAY}= {employee.Birthday}, {IDENTIFY_CARD}= '{employee.IndentifyCard}'," +
-                $"{PHONE_NUMBER} = '{employee.Phone}', {MANAGER_ID}= '{employee.ManagerID}', {SALARY}= '{employee.Salary}', {ADDRESS} = '{employee.Address}'" +
-                $" WHERE {ID} = '{employee.ID}'";
+                $"SET {NAME} = N'{empl.Name}', {GENDER} = N'{empl.Gender}', {BIRTHDAY}= {empl.Birthday}, {IDENTIFY_CARD}= '{empl.IndentifyCard}'," +
+                $"{PHONE_NUMBER} = '{empl.Phone}', {MANAGER_ID}= '{empl.ManagerID}', {SALARY}= '{empl.Salary}', {ADDRESS} = N'{empl.Address}'" +
+                $" WHERE {ID} = '{empl.ID}'";
             dbconnection.ExecuteNonQuery(sqlStr);
         }
 
@@ -55,10 +55,10 @@ namespace CompanyManagement.Database
         public Employee SearchByID(string id)
         {
             string sqlStr = $"SELECT * FROM {TABLE_NAME} WHERE {ID} = '{id}'";
-            DataTable dtemployee = dbconnection.GetDataTable(sqlStr);
-            if (dtemployee.Rows.Count == 0)
+            DataTable dataTable = dbconnection.GetDataTable(sqlStr);
+            if (dataTable.Rows.Count == 0)
                 return null;
-            return new Employee(dtemployee.Rows[0]);
+            return new Employee(dataTable.Rows[0]);
         }
     }
 }

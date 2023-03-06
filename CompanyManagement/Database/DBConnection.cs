@@ -34,12 +34,12 @@ namespace CompanyManagement.Database
 
         public DataTable GetDataTable(string sqlStr)
         {
-            DataTable databasetable = new DataTable();
+            DataTable dataTable = new DataTable();
             try
             {
                 conn.Open();
                 SqlDataAdapter adapter = new SqlDataAdapter(sqlStr, conn);
-                adapter.Fill(databasetable);
+                adapter.Fill(dataTable);
             }
             catch (Exception ex)
             {
@@ -49,7 +49,7 @@ namespace CompanyManagement.Database
             {
                 conn.Close();
             }
-            return databasetable;
+            return dataTable;
         }
     }
 }
