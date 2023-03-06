@@ -1,0 +1,5 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:viewmodel="clr-namespace:CompanyManagement.ViewModels"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <viewmodel:EmployeeViewModel x:Key="EmplVM"></viewmodel:EmployeeViewModel>
+</ResourceDictionary>
