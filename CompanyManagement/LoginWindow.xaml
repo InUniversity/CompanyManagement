@@ -61,7 +61,7 @@
                         materialDesign:TextFieldAssist.CharacterCounterVisibility="{Binding Path=IsChecked, ElementName=MaterialDesignFilledTextBoxTextCountComboBox, Converter={StaticResource BooleanToVisibilityConverter}}"
                         MaxLength="40"
                         Style="{StaticResource MaterialDesignFilledTextBox}"
-                        TextWrapping="Wrap" TextChanged="TextBox_TextChanged" />
+                        TextWrapping="Wrap" />
                 </Grid>
                 <Grid Grid.Row="2">
                     <PasswordBox

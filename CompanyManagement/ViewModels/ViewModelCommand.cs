@@ -3,42 +3,45 @@ using System.Windows.Input;
 
 namespace CompanyManagement.ViewModels
 {
-    public class ViewModelCommand : ICommand
+    public class ViewModelCommand<T> : ICommand
     {
 
-        // Fields
-        private readonly Action<object> exeAction;
-        private readonly Predicate<object> canExeAction;
+        private readonly Action<T> exeAction;
+        private readonly Predicate<T> canExeAction;
 
-        // constructor
-        public ViewModelCommand(Action<object> exeAction)
+        public ViewModelCommand(Action<T> exeAction)
         {
             this.exeAction = exeAction;
             canExeAction = null;
         }
 
-        public ViewModelCommand(Action<object> exeAction, Predicate<object> canExeAction)
+        public ViewModelCommand(Action<T> exeAction, Predicate<T> canExeAction)
         {
             this.exeAction = exeAction;
             this.canExeAction = canExeAction;
         }
 
-        // Events
-        public event EventHandler? CanExecuteChanged
+        public event EventHandler CanExecuteChanged
         {
             add { CommandManager.RequerySuggested += value; }
             remove { CommandManager.RequerySuggested -= value; }
         }
 
-        // Methods
-        public bool CanExecute(object? parameter)
+        public bool CanExecute(object parameter)
         {
-            return canExeAction == null ? true : canExeAction(parameter);
+            try
+            {
+                return canExeAction == null ? true : canExeAction((T)parameter);
+            } 
+            catch
+            {
+                return true;
+            }
         }
 
-        public void Execute(object? parameter)
+        public void Execute(object parameter)
         {
-            exeAction(parameter);
+            exeAction((T)parameter);
         }
     }
 }
