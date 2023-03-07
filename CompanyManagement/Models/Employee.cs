@@ -89,19 +89,20 @@ namespace CompanyManagement
             this.salary = salary;
             this.address = address;
         }
+
         public Employee(DataRow row)
         {
             try
             {
-                this.id = row[EmployeeDao.ID].ToString();
-                this.name = row[EmployeeDao.NAME].ToString();
-                this.gender = row[EmployeeDao.GENDER].ToString();
-                this.birthday = DateTime.ParseExact(row[EmployeeDao.BIRTHDAY].ToString(), "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
-                this.identifyCard = row[EmployeeDao.IDENTIFY_CARD].ToString();
-                this.phone = row[EmployeeDao.PHONE_NUMBER].ToString();
-                this.managerID = row[EmployeeDao.MANAGER_ID].ToString();
-                this.salary = int.Parse(row[EmployeeDao.SALARY].ToString());
-                this.address = row[EmployeeDao.ADDRESS].ToString();
+                id = (string)row[EmployeeDao.ID];
+                name = (string)row[EmployeeDao.NAME];
+                gender = (string)row[EmployeeDao.GENDER];
+                birthday = (DateTime)row[EmployeeDao.BIRTHDAY];
+                identifyCard = (string)row[EmployeeDao.IDENTIFY_CARD];
+                phone = (string)row[EmployeeDao.PHONE_NUMBER];
+                managerID = (string)row[EmployeeDao.MANAGER_ID];
+                salary = (int)row[EmployeeDao.SALARY];
+                address = (string)row[EmployeeDao.ADDRESS];
             }
             catch (Exception ex)
             {

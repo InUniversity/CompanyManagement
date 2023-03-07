@@ -1,8 +1,13 @@
-﻿CREATE TABLE Employee(
+﻿CREATE DATABASE CompanyManagement
+GO
+USE CompanyManagement
+GO
+
+CREATE TABLE Employee(
 	employee_id varchar (20),
 	employee_name nvarchar(100),
-	gender nvarchar(4),
-	birth_day date,
+	gender nvarchar(10),
+	birthday date,
 	identify_card varchar(12),
 	phone_number varchar (10),
 	manager_id varchar (20),

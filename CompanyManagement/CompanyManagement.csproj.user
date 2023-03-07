@@ -15,13 +15,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="Resource\MainResource.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Update="LoginWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Resources\MainResource.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="UserControls\ControlBarUC.xaml">
