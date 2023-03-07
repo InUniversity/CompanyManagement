@@ -13,8 +13,8 @@ namespace CompanyManagement.Models
     {
         private string id;
         private string name;
-        private DateTime start;
-        private DateTime end;
+        private string start;
+        private string end;
         private string employeeID;
 
 
@@ -30,13 +30,13 @@ namespace CompanyManagement.Models
             set { this.name = value; }
         }
 
-        public DateTime Start
+        public string Start
         {
             get { return this.start; }
             set { this.start = value; }
         }
 
-        public DateTime End
+        public string End
         {
             get { return this.end; }
             set { this.end = value; }
@@ -50,7 +50,7 @@ namespace CompanyManagement.Models
 
         public TaskInProject() { }
 
-        public TaskInProject(string id, string name, DateTime start, DateTime end, string employeeID)
+        public TaskInProject(string id, string name, string start, string end, string employeeID)
         {
             this.id = id;
             this.name = name;
@@ -63,11 +63,11 @@ namespace CompanyManagement.Models
         {
             try
             {
-                this.id = row[TaskInProjectDao.ID].ToString();
-                this.name = row[TaskInProjectDao.NAME].ToString();
-                this.start = DateTime.ParseExact(row[TaskInProjectDao.START].ToString(), "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
-                this.end = DateTime.ParseExact(row[TaskInProjectDao.END].ToString(), "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
-                this.employeeID = row[TaskInProjectDao.EMPLOYEE_ID].ToString();
+                this.id = (string)row[TaskInProjectDao.ID];
+                this.name = (string)row[TaskInProjectDao.NAME];
+                this.start = (string)row[TaskInProjectDao.START];
+                this.end = (string)row[TaskInProjectDao.END];
+                this.employeeID = (string)row[TaskInProjectDao.EMPLOYEE_ID];
             }
             catch(Exception ex)
             {

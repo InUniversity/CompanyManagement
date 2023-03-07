@@ -26,7 +26,7 @@ namespace CompanyManagement.Database
         public void Add(Employee empl)
         {
             string sqlStr = $"INSERT INTO {TABLE_NAME} ({ID}, {NAME}, {GENDER}, {BIRTHDAY}, {IDENTIFY_CARD}, {PHONE_NUMBER}, {MANAGER_ID}, {SALARY}, {ADDRESS}) " +
-                $"VALUES ('{empl.ID}', N'{empl.Name}', N'{empl.Gender}', '{empl.Birthday.ToString()}', '{empl.IndentifyCard}', '{empl.Phone}' ," +
+                $"VALUES ('{empl.ID}', N'{empl.Name}', N'{empl.Gender}', '{empl.Birthday.ToString()}', '{empl.IndentifyCard}', '{empl.PhoneNumber}' ," +
                 $"'{empl.ManagerID}', {empl.Salary} , N'{empl.Address}')";
             dbconnection.ExecuteNonQuery(sqlStr);
         }
@@ -41,7 +41,7 @@ namespace CompanyManagement.Database
         {
             string sqlStr = $"UPDATE {TABLE_NAME}" +
                 $"SET {NAME} = N'{empl.Name}', {GENDER} = N'{empl.Gender}', {BIRTHDAY} = '{empl.Birthday.ToString()}', {IDENTIFY_CARD}= '{empl.IndentifyCard}'," +
-                $"{PHONE_NUMBER} = '{empl.Phone}', {MANAGER_ID}= '{empl.ManagerID}', {SALARY}= '{empl.Salary}', {ADDRESS} = N'{empl.Address}'" +
+                $"{PHONE_NUMBER} = '{empl.PhoneNumber}', {MANAGER_ID}= '{empl.ManagerID}', {SALARY}= '{empl.Salary}', {ADDRESS} = N'{empl.Address}'" +
                 $" WHERE {ID} = '{empl.ID}'";
             dbconnection.ExecuteNonQuery(sqlStr);
         }

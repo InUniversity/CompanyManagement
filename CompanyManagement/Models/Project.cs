@@ -13,8 +13,8 @@ namespace CompanyManagement
     {
         private string id;
         private string name;
-        private DateTime start;
-        private DateTime end;
+        private string start;
+        private string end;
         private int budget;
         private string status;
 
@@ -30,13 +30,13 @@ namespace CompanyManagement
             set { this.name = value; }
         }
 
-        public DateTime Start
+        public string Start
         {
             get { return this.start; }
             set { this.start = value; }
         }
 
-        public DateTime End
+        public string End
         {
             get { return this.end; }
             set { this.end = value; }
@@ -56,7 +56,7 @@ namespace CompanyManagement
 
         public Project() { }
 
-        public Project(string id, string name, DateTime start, DateTime end, int budget, string status)
+        public Project(string id, string name, string start, string end, int budget, string status)
         {
             this.id = id;
             this.name = name;
@@ -70,12 +70,12 @@ namespace CompanyManagement
         {
             try
             {
-                this.id = row[ProjectDao.ID].ToString();
-                this.name = row[ProjectDao.NAME].ToString();
-                this.start = DateTime.ParseExact(row[ProjectDao.START].ToString(), "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
-                this.end = DateTime.ParseExact(row[ProjectDao.END].ToString(), "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
-                this.budget = int.Parse(row[ProjectDao.BUDGET].ToString());
-                this.status = row[ProjectDao.STATUS].ToString();
+                this.id = (string)row[ProjectDao.ID];
+                this.name = (string)row[ProjectDao.NAME];
+                this.start = (string)row[ProjectDao.START];
+                this.end = (string)row[ProjectDao.END];
+                this.budget = (int)row[ProjectDao.BUDGET];
+                this.status = (string)row[ProjectDao.STATUS];
             }
             catch(Exception ex)
             {

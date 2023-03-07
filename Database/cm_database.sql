@@ -1,8 +1,8 @@
-﻿/*CREATE DATABASE CompanyManagement
+﻿CREATE DATABASE CompanyManagement
 GO
 USE CompanyManagement
 GO
-*/
+
 CREATE TABLE Employee(
 	employee_id varchar (20),
 	employee_name nvarchar(100),
@@ -62,8 +62,3 @@ CREATE TABLE LeaveApplication(
 	reason nvarchar (255),
 	leave_appication_status varchar (50)
 );
-
-INSERT INTO Employee ( employee_id , employee_name, gender , birthday, identify_card, phone_number, manager_id , salary, employee_address) VALUES ('21110171', N'Nguyễn Hà Quỳnh Giao', N'Nữ', '05-12-2003', '123456789', '0931488623', 
- '15454545', 50000 , N'Kiên Giang');
- Delete from Employee where employee_id = '21110171';
- Select * from Employee;
