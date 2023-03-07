@@ -23,7 +23,42 @@
                 HorizontalContentAlignment="Left"
                  materialDesign:ColorZoneAssist.Mode="PrimaryMid"
                  Style="{StaticResource MaterialDesignFilledTabControl}">
-                <TabItem Header="Giao Việc"></TabItem>
+                <TabItem Header="Giao Việc">
+                    <StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200"></ColumnDefinition>
+                                <ColumnDefinition Width="1300"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0" Width="200">
+                                <uc:AssignUC></uc:AssignUC>
+                            </Grid>
+                            <Grid  Grid.Column="1" Width="1300">
+                                <StackPanel>
+                                    <Grid Width="1300" Height=" 725">
+                                        <Button
+                                            HorizontalAlignment="Right" 
+                                            VerticalAlignment="Top"
+                                            Margin="20"
+                                            IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                            Style="{StaticResource MaterialDesignFloatingActionLightButton}"
+                                            ToolTip="MaterialDesignFloatingActionLightButton">
+                                            <materialDesign:PackIcon
+                                                Width="auto"
+                                                Height="auto"
+                                                Kind="Plus" />
+                                            
+                                                
+                                            
+                                        </Button>
+                                    </Grid>
+                                </StackPanel>
+                            </Grid>
+
+                        </Grid>
+                    </StackPanel>
+
+                </TabItem>
                 <TabItem Header="Nhân Sự">
                     <StackPanel>
                         <uc:EmployeeUC></uc:EmployeeUC>
