@@ -5,9 +5,9 @@ namespace CompanyManagement.UserControls;
 /// <summary>
 /// Interaction logic for UCEmployee.xaml
 /// </summary>
-public partial class UCEmployee : UserControl
+public partial class EmployeeUC : UserControl
 {
-    public UCEmployee()
+    public EmployeeUC()
     {
         InitializeComponent();
     }

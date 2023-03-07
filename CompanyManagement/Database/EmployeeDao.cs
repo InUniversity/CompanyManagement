@@ -15,7 +15,7 @@ namespace CompanyManagement.Database
         public static string NAME = "employee_name";
         public static string GENDER = "gender";
         public static string BIRTHDAY = "birthday";
-        public static string IDENTIFY_CARD = "indentify_card";
+        public static string IDENTIFY_CARD = "identify_card";
         public static string PHONE_NUMBER = "phone_number";
         public static string MANAGER_ID = "manager_id";
         public static string SALARY = "salary";
@@ -26,8 +26,8 @@ namespace CompanyManagement.Database
         public void Add(Employee empl)
         {
             string sqlStr = $"INSERT INTO {TABLE_NAME} ({ID}, {NAME}, {GENDER}, {BIRTHDAY}, {IDENTIFY_CARD}, {PHONE_NUMBER}, {MANAGER_ID}, {SALARY}, {ADDRESS}) " +
-                $"VALUES ('{empl.ID}', N'{empl.Name}', N'{empl.Gender}', {empl.Birthday.ToString()}, '{empl.IndentifyCard}', N'{empl.Phone}'," +
-                $"'{empl.ManagerID}', '{empl.Salary.ToString()}', '{empl.Address}')";
+                $"VALUES ('{empl.ID}', N'{empl.Name}', N'{empl.Gender}', {empl.Birthday}, '{empl.IndentifyCard}', N'{empl.Phone}'," +
+                $"'{empl.ManagerID}', '{empl.Salary}', '{empl.Address}')";
             dbconnection.ExecuteNonQuery(sqlStr);
         }
 

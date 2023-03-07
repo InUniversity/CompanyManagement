@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="CompanyManagement.UserControls.UCEmployee"
+﻿<UserControl x:Class="CompanyManagement.UserControls.EmployeeUC"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              TextElement.FontWeight="Regular"
@@ -339,7 +339,7 @@
             </materialDesign:Card>
 
             <Grid Grid.Row="2">
-                <DataGrid Name="dgEmployee" Background="White" />
+                <DataGrid Name="dgEmployee" Background="White" ItemsSource="{Binding Employees}"/>
             </Grid>
         </Grid>
     </Grid>

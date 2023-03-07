@@ -49,13 +49,19 @@ namespace CompanyManagement.ViewModels
 
         public EmployeeViewModel()
         {
+            LoadGVEmployees();
             SetCommands();
         }
 
         private void LoadGVEmployees()
         {
-            DataGrid dataGrid = new DataGrid();
+            employees = new ObservableCollection<Employee>();
             DataTable dataTable = employeeDao.GetDataTable();
+            foreach (DataRow row in dataTable.Rows)
+            {
+                Employee employee = new Employee(row);
+                employees.Add(employee);
+            }
         }
 
         private void SetCommands()

@@ -26,7 +26,7 @@
                 <TabItem Header="Giao Việc"></TabItem>
                 <TabItem Header="Nhân Sự">
                     <StackPanel>
-                        <uc:UCEmployee></uc:UCEmployee>
+                        <uc:EmployeeUC></uc:EmployeeUC>
                     </StackPanel>
                 </TabItem>
                 <TabItem Header="Chấm Công"></TabItem>
