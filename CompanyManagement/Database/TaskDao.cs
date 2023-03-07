@@ -22,7 +22,8 @@ namespace CompanyManagement.Database
         public void Add(TaskInProject task)
         {
 
-            string sqlStr = $"INSERT INTO {TABLE_NAME}({ID}, {NAME}, {START}, {END}, {EMPLOYEE_ID} VALUES ('{task.ID}', {task.Name}, {task.Start}, {task.End}, {task.EmployeeID})";
+            string sqlStr = $"INSERT INTO {TABLE_NAME}({ID}, {NAME}, {START}, {END}, {EMPLOYEE_ID} VALUES ('{task.ID}', N'{task.Name}', '{task.Start.ToString()}', " +
+                $"'{task.End.ToString()}', '{task.EmployeeID}')";
             dbconnection.ExecuteNonQuery(sqlStr);
         }
         public void Delete(TaskInProject task)
@@ -32,7 +33,8 @@ namespace CompanyManagement.Database
         }
         public void Save(TaskInProject task)
         {
-            string sqlStr = $"UPDATE {TABLE_NAME} SET {NAME} = '{task.Name}', {START} = '{task.Start}', {END}= '{task.End}', {EMPLOYEE_ID}= '{task.EmployeeID}' WHERE {ID} = '{task.ID}'";
+            string sqlStr = $"UPDATE {TABLE_NAME} SET {NAME} = '{task.Name}', {START} = '{task.Start.ToString()}', {END}= '{task.End.ToString()}', " +
+                $"{EMPLOYEE_ID}= '{task.EmployeeID}' WHERE {ID} = '{task.ID}'";
             dbconnection.ExecuteNonQuery(sqlStr);
         }
         public DataTable GetDataTable()
