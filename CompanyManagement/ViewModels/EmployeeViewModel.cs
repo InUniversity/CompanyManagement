@@ -55,12 +55,12 @@ namespace CompanyManagement.ViewModels
 
         private void LoadGVEmployees()
         {
-            employees = new ObservableCollection<Employee>();
+            Employees = new ObservableCollection<Employee>();
             DataTable dataTable = employeeDao.GetDataTable();
             foreach (DataRow row in dataTable.Rows)
             {
                 Employee employee = new Employee(row);
-                employees.Add(employee);
+                Employees.Add(employee);
             }
         }
 

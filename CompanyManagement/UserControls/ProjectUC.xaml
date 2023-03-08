@@ -1,10 +1,10 @@
-﻿<UserControl x:Class="CompanyManagement.UserControls.AddNewProjectUC"
+﻿<UserControl x:Class="CompanyManagement.UserControls.ProjectUC"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CompanyManagement.UserControls"
-              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"          
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"          
             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
             TextElement.FontWeight="Regular"
             TextElement.FontSize="13"
@@ -13,13 +13,12 @@
             Background="{DynamicResource MaterialDesignPaper}"
             FontFamily="{DynamicResource MaterialDesignFont}"
              mc:Ignorable="d" 
-             d:DesignHeight="750" d:DesignWidth="800">
+             d:DesignHeight="725" d:DesignWidth="800">
     <Grid>
-        <materialDesign:DialogHost
-                                                DialogContentUniformCornerRadius="20">
+        <materialDesign:DialogHost DialogContentUniformCornerRadius="20">
             <materialDesign:DialogHost.DialogContent >
                 <StackPanel Margin="10" Width="400"  Height="500">
-                    <TextBlock Margin="5" Text="Thêm dự án mới" FontSize="25"  HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                    <TextBlock Margin="5" Text="Thêm công việc mới" FontSize="25"  HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition></RowDefinition>
@@ -34,7 +33,7 @@
                         <Grid Grid.Row="0">
                             <TextBox
                                 Margin="5"
-                                materialDesign:HintAssist.Hint="Tên dự án"
+                                materialDesign:HintAssist.Hint="Tên công việc"
                                 materialDesign:TextFieldAssist.CharacterCounterVisibility="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedTextBoxTextCountComboBox, Converter={StaticResource BooleanToVisibilityConverter}}"
                                 MaxLength="200"
                                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
@@ -79,7 +78,7 @@
                             <DatePicker
                                 Margin="5" 
                               materialDesign:HintAssist.Hint="ngày"
-                              Style="{StaticResource MaterialDesignOutlinedDatePicker}" />                
+                              Style="{StaticResource MaterialDesignOutlinedDatePicker}" />
                         </Grid>
                         <Grid Grid.Row="6">
                             <materialDesign:TimePicker
@@ -132,43 +131,64 @@
                         <RowDefinition  Height="*" />
                         <RowDefinition  Height="Auto" />
                     </Grid.RowDefinitions>
-                    <DataGrid>
-                        <DataGrid.Columns>
-                            <DataGridCheckBoxColumn Binding="{Binding IsSelected, UpdateSourceTrigger=PropertyChanged}">
-                                <DataGridCheckBoxColumn.Header>
-                                    <Border Background="Transparent">
-                                        <CheckBox Content="Chọn" IsChecked="{Binding DataContext.IsAllItems1Selected}" />
-                                    </Border>
-                                </DataGridCheckBoxColumn.Header>
-                                <DataGridCheckBoxColumn.HeaderStyle>
-                                    <Style
-                                      TargetType="{x:Type DataGridColumnHeader}"
-                                      BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
-                                        <Setter
-                                        Property="HorizontalContentAlignment"
-                                        Value="Center" />
-                                    </Style>
-                                </DataGridCheckBoxColumn.HeaderStyle>
-                            </DataGridCheckBoxColumn>
-                            <DataGridTextColumn Header="Tên dự án" Width="*">
-                               
-                            </DataGridTextColumn>
-                            <DataGridTextColumn Header="Mã dự án" Width="*">
+                    <Grid Grid.Row="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0" Background="WhiteSmoke">
+                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Danh sách công viêc" FontSize="18" FontWeight="Bold" FontStyle="Oblique"></TextBlock>
+                        </Grid> 
+                        <Grid Grid.Row="1">
 
-                            </DataGridTextColumn>
-                            <DataGridTextColumn Header="Thời gian tạo" Width="*">
-
-                            </DataGridTextColumn>
-                        </DataGrid.Columns>
-                    </DataGrid>
+                        </Grid>
+                    </Grid>
                     <materialDesign:ColorZone Height="80" Grid.Row="1"  Effect="{DynamicResource MaterialDesignShadowDepth5}" Mode="PrimaryMid">
-                        <TextBlock
-                            FontSize="24"
-                            FontWeight="ExtraBold"
-                            Margin="16"
-                            Text="Dự án" />
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100"></ColumnDefinition>
+                                <ColumnDefinition Width="300"></ColumnDefinition>
+                                <ColumnDefinition Width="100"></ColumnDefinition>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0">
+                                <TextBlock
+                                    FontSize="18"
+                                    FontWeight="ExtraBold"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Text="Dự án:" />
+                            </Grid>
+                            <Grid Grid.Column="1">
+                                <TextBlock
+                                    FontSize="24"
+                                    FontWeight="ExtraBold"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    Text="Project 1" />
+                            </Grid>
+                            <Grid Grid.Column="2">
+                                <TextBlock
+                                    FontSize="18"
+                                    FontWeight="ExtraBold"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Text="Tiến độ:" />
+                            </Grid>
+                            <Grid Grid.Column="3">
+                                <TextBlock
+                                    FontSize="24"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    FontWeight="ExtraBold"
+                                    Text="0%" />
+                            </Grid>
+                        </Grid>
+                       
                     </materialDesign:ColorZone>
                     <Button
+                        Background="BlueViolet"
+                        ToolTip="Thêm công việc mới"
                         Grid.Row="0"
                         Width="60"
                         Height="60"
