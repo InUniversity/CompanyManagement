@@ -13,24 +13,15 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace CompanyManagement
-{
-    /// <summary>
-    /// Interaction logic for LoginWindow.xaml
-    /// </summary>
-    public partial class LoginWindow : Window
-    {
-        public LoginWindow()
-        {
-            InitializeComponent();
-        }
+namespace CompanyManagement;
 
-        private void btLogin_Click(object sender, RoutedEventArgs e)
-        {
-            MainWindow mainWindow= new MainWindow();
-            this.Hide();
-            mainWindow.ShowDialog();
-            this.Show();
-        }
+/// <summary>
+/// Interaction logic for LoginWindow.xaml
+/// </summary>
+public partial class LoginWindow : Window
+{
+    public LoginWindow()
+    {
+        InitializeComponent();
     }
 }

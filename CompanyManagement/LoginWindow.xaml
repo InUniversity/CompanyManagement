@@ -3,8 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:CompanyManagement"
-        xmlns:uc="clr-namespace:CompanyManagement.UserControlCompanyManagement"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         mc:Ignorable="d"
@@ -16,11 +14,12 @@
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
+        DataContext="{StaticResource LoginVM}"
         Height="800" Width="800">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="auto" />
+            <RowDefinition />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <Grid Width="auto">
@@ -34,29 +33,29 @@
                     Style="{StaticResource MaterialDesignRaisedButton}" />
             </Grid>
         </Grid>
-        <materialDesign:Card Grid.Row="1" Width="500" Height="600" HorizontalAlignment="Center" VerticalContentAlignment="Center">
+        <materialDesign:Card Grid.Row="1" Width="500" Height="600" HorizontalAlignment="Center"
+                             VerticalContentAlignment="Center">
             <Grid>
                 <Grid.Resources>
                     <Style TargetType="Grid">
-                        <Setter Property="Margin" Value="10 10 10 0"></Setter> 
+                        <Setter Property="Margin" Value="10 10 10 0" />
                     </Style>
                 </Grid.Resources>
                 <Grid.RowDefinitions>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top">
-                    <TextBlock Text="Đăng Nhập" FontSize="20" FontWeight="ExtraBold" Foreground="Gray">
-                        
-                    </TextBlock>
+                    <TextBlock Text="Đăng Nhập" FontSize="20" FontWeight="ExtraBold" Foreground="Gray" />
                 </Grid>
                 <Grid Grid.Row="1">
                     <TextBox
                         Height="50"
                         VerticalAlignment="Top"
+                        Text="{Binding Username}"
                         materialDesign:HintAssist.Hint="Tên Đăng Nhập"
                         materialDesign:TextFieldAssist.CharacterCounterVisibility="{Binding Path=IsChecked, ElementName=MaterialDesignFilledTextBoxTextCountComboBox, Converter={StaticResource BooleanToVisibilityConverter}}"
                         MaxLength="40"
@@ -75,32 +74,33 @@
                 <Grid Grid.Row="3">
                     <Grid Width="auto">
                         <Button
-                            Name="btLogin"
                             Height="50"
+                            Command="{Binding LoginCommand}"
                             materialDesign:ButtonAssist.CornerRadius="25"
                             IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-                            Style="{StaticResource MaterialDesignRaisedDarkButton}" Click="btLogin_Click">
+                            Style="{StaticResource MaterialDesignRaisedDarkButton}">
                             <TextBlock Text="Đăng nhập" />
                         </Button>
                     </Grid>
                 </Grid>
                 <Grid Grid.Row="4">
                     <Button
+                        Command="{Binding ForgotPasswordCommand}"
                         HorizontalAlignment="Left"
                         Width="225"
-                         materialDesign:ButtonAssist.CornerRadius="25"
-                         Content="Quên mật khẩu"
-                         IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-                         Style="{StaticResource MaterialDesignPaperDarkButton}"/>
+                        materialDesign:ButtonAssist.CornerRadius="25"
+                        Content="Quên mật khẩu"
+                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                        Style="{StaticResource MaterialDesignPaperDarkButton}" />
                     <Button
-                      Width="225"
+                        Width="225"
                         HorizontalAlignment="Right"
-                      Content="Thoát"
-                       materialDesign:ButtonAssist.CornerRadius="25"
-                        
-                      IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-                      Style="{StaticResource MaterialDesignPaperButton}"
-                      ToolTip="Resource name: MaterialDesignPaperButton" />
+                        Content="Thoát"
+                        materialDesign:ButtonAssist.CornerRadius="25"
+
+                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                        Style="{StaticResource MaterialDesignPaperButton}"
+                        ToolTip="Resource name: MaterialDesignPaperButton" />
                 </Grid>
             </Grid>
         </materialDesign:Card>
