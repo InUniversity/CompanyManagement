@@ -15,7 +15,7 @@
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        Name ="loginWindow"
+        Name="loginWindow"
         DataContext="{StaticResource LoginVM}"
         Height="800" Width="800">
     <Grid>
@@ -72,11 +72,11 @@
                         materialDesign:HintAssist.Hint="Mật Khẩu"
                         materialDesign:TextFieldAssist.HasClearButton="True"
                         IsEnabled="{Binding ElementName=RevealPasswordFilledEnabled, Path=IsChecked}"
-                        Style="{StaticResource MaterialDesignFilledRevealPasswordBox}" >
+                        Style="{StaticResource MaterialDesignFilledRevealPasswordBox}">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="PasswordChanged">
                                 <i:InvokeCommandAction Command="{Binding PasswordChangedCommand}"
-                                      CommandParameter="{Binding ElementName = FloatingPasswordBox}"/>
+                                                       CommandParameter="{Binding ElementName = FloatingPasswordBox}" />
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                     </PasswordBox>
