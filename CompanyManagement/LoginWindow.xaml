@@ -15,6 +15,7 @@
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
+        Name ="loginWindow"
         DataContext="{StaticResource LoginVM}"
         Height="800" Width="800">
     <Grid>
@@ -85,6 +86,7 @@
                         <Button
                             Height="50"
                             Command="{Binding LoginCommand}"
+                            CommandParameter="{Binding ElementName=loginWindow}"
                             materialDesign:ButtonAssist.CornerRadius="25"
                             IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                             Style="{StaticResource MaterialDesignRaisedDarkButton}">

@@ -45,7 +45,7 @@ public class LoginViewModel : BaseViewModel
             return;
         }
         IsLogin = true;
-       // p.Close();
+        p.Close();
     }
 
     private void OnClickForgotPassword(object p)
