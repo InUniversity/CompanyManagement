@@ -1,0 +1,92 @@
+﻿<UserControl x:Class="CompanyManagement.UserControls.DeleteOverdueWorkUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CompanyManagement.UserControls"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"          
+            TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+            TextElement.FontWeight="Regular"
+            TextElement.FontSize="13"
+            TextOptions.TextFormattingMode="Ideal"
+            TextOptions.TextRenderingMode="Auto"
+            Background="{DynamicResource MaterialDesignPaper}"
+            FontFamily="{DynamicResource MaterialDesignFont}"
+             mc:Ignorable="d" 
+             d:DesignHeight="750" d:DesignWidth="800">
+    <Grid>
+        <materialDesign:DialogHost
+                                              
+                VerticalAlignment="Center"
+                CloseOnClickAway="True"
+                DialogContent="{Binding Sample4Content}"
+                DialogTheme="Inherit"
+                IsOpen="{Binding IsSample4DialogOpen}"
+                OverlayBackground="{DynamicResource PrimaryHueDarkBrush}"
+                Placement="Mouse">
+            <Border
+                    Margin="0"
+                    Width="auto"
+                    Height="725"
+                    BorderBrush="{DynamicResource PrimaryHueMidBrush}"
+                    BorderThickness="2"
+                    ClipToBounds="True">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <DataGrid>
+                        <DataGrid.Columns>
+                            <DataGridCheckBoxColumn Binding="{Binding IsSelected, UpdateSourceTrigger=PropertyChanged}">
+                                <DataGridCheckBoxColumn.Header>
+                                    <Border Background="Transparent">
+                                        <CheckBox Content="Chọn" IsChecked="{Binding DataContext.IsAllItems1Selected}" />
+                                    </Border>
+                                </DataGridCheckBoxColumn.Header>
+                                <DataGridCheckBoxColumn.HeaderStyle>
+                                    <Style
+                                      TargetType="{x:Type DataGridColumnHeader}"
+                                      BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
+                                        <Setter
+                                        Property="HorizontalContentAlignment"
+                                        Value="Center" />
+                                    </Style>
+                                </DataGridCheckBoxColumn.HeaderStyle>
+                            </DataGridCheckBoxColumn>
+                            <DataGridTextColumn Header="Tên công việc" Width="*">
+
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="Mã công việc" Width="*">
+
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="Thời gian quá hạn" Width="*">
+
+                            </DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <materialDesign:ColorZone Height="80" Grid.Row="1"  Effect="{DynamicResource MaterialDesignShadowDepth5}" Mode="PrimaryMid">
+                        <TextBlock
+                            FontSize="24"
+                            FontWeight="ExtraBold"
+                            Margin="16"
+                            Text="Công việc quá hạn" />
+                    </materialDesign:ColorZone>
+                    <Button
+                        Background="Red"
+                        Grid.Row="0"
+                        Width="60"
+                        Height="60"
+                        Margin="0,581,28,0"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Top"
+                        Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
+                        Content="{materialDesign:PackIcon Kind=Delete ,  Size=30}"
+                        Style="{StaticResource MaterialDesignFloatingActionButton}" Grid.RowSpan="2" >
+                    </Button>
+                </Grid>
+
+            </Border>
+        </materialDesign:DialogHost>
+    </Grid>
+</UserControl>

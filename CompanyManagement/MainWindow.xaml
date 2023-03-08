@@ -36,21 +36,16 @@
                             <Grid  Grid.Column="1" Width="1300">
                                 <StackPanel>
                                     <Grid Width="1300" Height=" 725">
-                                        <Button
-                                            HorizontalAlignment="Right" 
-                                            VerticalAlignment="Top"
-                                            Margin="20"
-                                            IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-                                            Style="{StaticResource MaterialDesignFloatingActionLightButton}"
-                                            ToolTip="MaterialDesignFloatingActionLightButton">
-                                            <materialDesign:PackIcon
-                                                Width="auto"
-                                                Height="auto"
-                                                Kind="Plus" />
-                                            
-                                                
-                                            
-                                        </Button>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid Grid.Column="0">
+                                            <uc:AddNewProjectUC></uc:AddNewProjectUC>
+                                        </Grid>
+                                        <Grid Grid.Column="1" >
+                                            <uc:DeleteOverdueWorkUC></uc:DeleteOverdueWorkUC>
+                                        </Grid>
                                     </Grid>
                                 </StackPanel>
                             </Grid>
@@ -98,9 +93,9 @@
                             </TabControl>
                         </materialDesign:Card>
                     </StackPanel>
-                    
+
                 </TabItem>
-               
+
             </TabControl>
 
         </materialDesign:Card>

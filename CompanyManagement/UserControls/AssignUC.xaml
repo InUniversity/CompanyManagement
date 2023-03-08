@@ -3,9 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             mc:Ignorable="d"
-             d:DesignHeight="738" d:DesignWidth="804">
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"          
+            TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+            TextElement.FontWeight="Regular"
+            TextElement.FontSize="13"
+            TextOptions.TextFormattingMode="Ideal"
+            TextOptions.TextRenderingMode="Auto"
+            Background="{DynamicResource MaterialDesignPaper}"
+            FontFamily="{DynamicResource MaterialDesignFont}"
+             mc:Ignorable="d"       
+             d:DesignHeight="750" d:DesignWidth="200">
     <Grid>
         <StackPanel>
             <Grid>
@@ -15,14 +22,19 @@
                     <RowDefinition Height="375" />
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0">
-                    <materialDesign:Card HorizontalAlignment="Left" Width="800">
+                    <materialDesign:Card HorizontalAlignment="Left" Width="200">
                         <StackPanel
                             Margin="4"
                             Orientation="Vertical">
                             <RadioButton
                                 Margin="4"
-                                Content="Công việc của tôi"
+                                Content="Chính"
                                 IsChecked="True"
+                                Style="{StaticResource MaterialDesignTabRadioButtonRight}" />
+                            <RadioButton
+                                Margin="4"
+                                Content="Việc của tôi"
+                                IsChecked="False"
                                 Style="{StaticResource MaterialDesignTabRadioButtonRight}" />
                             <RadioButton
                                 Margin="4"
@@ -39,11 +51,12 @@
                 </Grid>
                 <Grid Grid.Row="1" Background="WhiteSmoke">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="50" />
+                        <ColumnDefinition Width="60" />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0">
                         <Button
+                            Margin="5"
                             Background="BlueViolet"
                             Content="{materialDesign:PackIcon FindReplace}"
                             IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
