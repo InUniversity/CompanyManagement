@@ -2,5 +2,6 @@
                     xmlns:viewmodel="clr-namespace:CompanyManagement.ViewModels"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <viewmodel:EmployeeViewModel x:Key="EmployeeVM"></viewmodel:EmployeeViewModel>
+    <viewmodel:MainViewModel x:Key="MainVM"></viewmodel:MainViewModel>
     <viewmodel:LoginViewModel x:Key="LoginVM"></viewmodel:LoginViewModel>
 </ResourceDictionary>

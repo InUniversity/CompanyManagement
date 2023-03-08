@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         mc:Ignorable="d"
@@ -64,12 +65,20 @@
                 </Grid>
                 <Grid Grid.Row="2">
                     <PasswordBox
+                        Name="FloatingPasswordBox"
                         Height="50"
                         materialDesign:HintAssist.HelperText="ít nhất 8 ký tự"
                         materialDesign:HintAssist.Hint="Mật Khẩu"
                         materialDesign:TextFieldAssist.HasClearButton="True"
                         IsEnabled="{Binding ElementName=RevealPasswordFilledEnabled, Path=IsChecked}"
-                        Style="{StaticResource MaterialDesignFilledRevealPasswordBox}" />
+                        Style="{StaticResource MaterialDesignFilledRevealPasswordBox}" >
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="PasswordChanged">
+                                <i:InvokeCommandAction Command="{Binding PasswordChangedCommand}"
+                                      CommandParameter="{Binding ElementName = FloatingPasswordBox}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </PasswordBox>
                 </Grid>
                 <Grid Grid.Row="3">
                     <Grid Width="auto">
