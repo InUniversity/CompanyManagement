@@ -11,20 +11,27 @@ namespace CompanyManagement.Database
 {
     public class DBConnection
     {
-        SqlConnection conn = new SqlConnection(Properties.Settings.Default.connStr);
+        private SqlConnection conn;
 
-        public void ExecuteNonQuery(string sqlstr)
+        public DBConnection()
+        {
+            conn = new SqlConnection(Properties.Settings.Default.connStr);
+        }
+
+        public void ExecuteNonQuery(string command)
         {
             try
             {
                 conn.Open();
-                SqlCommand cmd = new SqlCommand(sqlstr, conn);
+                SqlCommand cmd = new SqlCommand(command, conn);
                 if (cmd.ExecuteNonQuery() > 0)
-                    MessageBox.Show("Completed!");
+                {
+                    MessageBox.Show("Completed! ");
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error " + ex);
+                MessageBox.Show("Erorr! " + ex);
             }
             finally
             {
@@ -34,22 +41,24 @@ namespace CompanyManagement.Database
 
         public DataTable GetDataTable(string sqlStr)
         {
-            DataTable dataTable = new DataTable();
+            DataTable tableData = new DataTable();
             try
             {
                 conn.Open();
                 SqlDataAdapter adapter = new SqlDataAdapter(sqlStr, conn);
-                adapter.Fill(dataTable);
+                adapter.Fill(tableData);
+
+                conn.Close();
             }
-            catch (Exception ex)
+            catch (Exception exe)
             {
-                MessageBox.Show("Error " + ex);
+                throw exe;
             }
             finally
             {
                 conn.Close();
             }
-            return dataTable;
+            return tableData;
         }
     }
 }

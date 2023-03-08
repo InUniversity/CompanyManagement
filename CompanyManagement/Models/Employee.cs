@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using CompanyManagement.Database;
+using CompanyManagement.ViewModels;
 
 namespace CompanyManagement
 {
@@ -14,9 +15,9 @@ namespace CompanyManagement
         private string id;
         private string name;
         private string gender;
-        private DateTime birthday;
+        private string birthday;
         private string identifyCard;
-        private string phone;
+        private string phoneNumber;
         private string managerID;
         private int salary;
         private string address;
@@ -39,7 +40,7 @@ namespace CompanyManagement
             set { this.gender = value; }
         }
 
-        public DateTime Birthday
+        public string Birthday
         {
             get { return this.birthday; }
             set { this.birthday = value; }
@@ -51,10 +52,10 @@ namespace CompanyManagement
             set { this.identifyCard = value; }
         }
 
-        public string Phone
+        public string PhoneNumber
         {
-            get { return this.phone; }
-            set { this.phone = value; }
+            get { return this.phoneNumber; }
+            set { this.phoneNumber = value; }
         }
 
         public string ManagerID
@@ -77,14 +78,14 @@ namespace CompanyManagement
 
         public Employee() { }
 
-        public Employee(string id, string name, string gender, DateTime birthday, string identifyCard, string phone, string managerID, int salary, string address)
+        public Employee(string id, string name, string gender, string birthday, string identifyCard, string phone, string managerID, int salary, string address)
         {
             this.id = id;
             this.name = name;
             this.gender = gender;
             this.birthday = birthday;
             this.identifyCard = identifyCard;
-            this.phone = phone;
+            this.phoneNumber = phone;
             this.managerID = managerID;
             this.salary = salary;
             this.address = address;
@@ -94,15 +95,15 @@ namespace CompanyManagement
         {
             try
             {
-                id = (string)row[EmployeeDao.ID];
-                name = (string)row[EmployeeDao.NAME];
-                gender = (string)row[EmployeeDao.GENDER];
-                birthday = (DateTime)row[EmployeeDao.BIRTHDAY];
-                identifyCard = (string)row[EmployeeDao.IDENTIFY_CARD];
-                phone = (string)row[EmployeeDao.PHONE_NUMBER];
-                managerID = (string)row[EmployeeDao.MANAGER_ID];
-                salary = (int)row[EmployeeDao.SALARY];
-                address = (string)row[EmployeeDao.ADDRESS];
+                this.id = (string)row[EmployeeDao.ID];
+                this.name = (string)row[EmployeeDao.NAME];
+                this.gender = (string)row[EmployeeDao.GENDER];
+                this.birthday = (string)row[EmployeeDao.BIRTHDAY];
+                this.identifyCard = (string)row[EmployeeDao.IDENTIFY_CARD];
+                this.phoneNumber = (string)row[EmployeeDao.PHONE_NUMBER];
+                this.managerID = (string)row[EmployeeDao.MANAGER_ID];
+                this.salary = (int)row[EmployeeDao.SALARY];
+                this.address = (string)row[EmployeeDao.ADDRESS];
             }
             catch (Exception ex)
             {

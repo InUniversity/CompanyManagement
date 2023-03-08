@@ -73,19 +73,24 @@ namespace CompanyManagement.ViewModels
 
         private void Add(object p)
         {
-            Employee employee = new Employee();
+            Employee employee = new Employee(this.id, this.FullName, this.gender, this.birthday.ToString("dd-MM-yyyy"), 
+                this.identifyCard, this.phoneNumber, this.managerID,this.salary, this.address);
             employeeDao.Add(employee);
+            LoadGVEmployees();
         }
 
         private void Delete(object p)
         {
-            employeeDao.Delete(id); 
+            employeeDao.Delete(this.id);
+            LoadGVEmployees();
         }
 
         private void Update(object p)
         {
-            Employee employee = new Employee();
-            employeeDao.Save(employee); 
+            Employee employee = new Employee(this.id, this.FullName, this.gender, this.birthday.ToString("dd-MM-yyyy"),
+                this.identifyCard, this.phoneNumber, this.managerID, this.salary, this.address);
+            employeeDao.Save(employee);
+            LoadGVEmployees();
         }
 
         private bool CheckAllFields(object p)
