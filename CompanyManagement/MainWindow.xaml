@@ -3,9 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:CompanyManagement"
         xmlns:uc="clr-namespace:CompanyManagement.UserControls"
-     
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
@@ -16,35 +16,43 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
+        Name="mainWindow"
+        DataContext="{StaticResource MainVM}"
         Title="MainWindow" Height="800" Width="1500">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedWindowCommand}"
+                                   CommandParameter="{Binding ElementName=mainWindow}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid>
-        <materialDesign:Card   Height="auto" Width="auto" >
-            <TabControl   
+        <materialDesign:Card Height="auto" Width="auto">
+            <TabControl
                 HorizontalContentAlignment="Left"
-                 materialDesign:ColorZoneAssist.Mode="PrimaryMid"
-                 Style="{StaticResource MaterialDesignFilledTabControl}">
+                materialDesign:ColorZoneAssist.Mode="PrimaryMid"
+                Style="{StaticResource MaterialDesignFilledTabControl}">
                 <TabItem Header="Giao Việc">
                     <StackPanel>
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="200"></ColumnDefinition>
-                                <ColumnDefinition Width="1300"></ColumnDefinition>
+                                <ColumnDefinition Width="200" />
+                                <ColumnDefinition Width="1300" />
                             </Grid.ColumnDefinitions>
                             <Grid Grid.Column="0" Width="200">
-                                <uc:AssignUC></uc:AssignUC>
+                                <uc:AssignUC />
                             </Grid>
-                            <Grid  Grid.Column="1" Width="1300">
+                            <Grid Grid.Column="1" Width="1300">
                                 <StackPanel>
                                     <Grid Width="1300" Height=" 725">
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition></ColumnDefinition>
-                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
                                         </Grid.ColumnDefinitions>
                                         <Grid Grid.Column="0">
-                                            <uc:AddNewProjectUC></uc:AddNewProjectUC>
+                                            <uc:AddNewProjectUC />
                                         </Grid>
-                                        <Grid Grid.Column="1" >
-                                            <uc:ProjectUC></uc:ProjectUC>
+                                        <Grid Grid.Column="1">
+                                            <uc:ProjectUC />
                                         </Grid>
                                     </Grid>
                                 </StackPanel>
@@ -56,39 +64,33 @@
                 </TabItem>
                 <TabItem Header="Nhân Sự">
                     <StackPanel>
-                        <uc:EmployeeUC></uc:EmployeeUC>
+                        <uc:EmployeeUC />
                     </StackPanel>
                 </TabItem>
-                <TabItem Header="Chấm Công"></TabItem>
-                <TabItem Header="Lương"></TabItem>
-                <TabItem Header="Xin Nghỉ"></TabItem>
-                <TabItem Header="Nhiệm Vụ"></TabItem>
-                <TabItem Header="Thông báo" ></TabItem>
-                <TabItem  Margin="740 0" Width="100" >
+                <TabItem Header="Chấm Công" />
+                <TabItem Header="Lương" />
+                <TabItem Header="Xin Nghỉ" />
+                <TabItem Header="Nhiệm Vụ" />
+                <TabItem Header="Thông báo" />
+                <TabItem Margin="740 0" Width="100">
                     <TabItem.Header>
                         <StackPanel>
-                            <materialDesign:PackIcon Kind="Account" HorizontalAlignment="Right"/>
+                            <materialDesign:PackIcon Kind="Account" HorizontalAlignment="Right" />
                         </StackPanel>
                     </TabItem.Header>
                     <StackPanel>
                         <materialDesign:Card Height="750">
                             <TabControl
-                            Width="auto"
-                            Height="auto"
-                            materialDesign:ColorZoneAssist.Mode="PrimaryLight"
-                            Style="{StaticResource MaterialDesignFilledTabControl}"
-                            TabStripPlacement="Left">
+                                Width="auto"
+                                Height="auto"
+                                materialDesign:ColorZoneAssist.Mode="PrimaryLight"
+                                Style="{StaticResource MaterialDesignFilledTabControl}"
+                                TabStripPlacement="Left">
 
-                                <TabItem Header="Tài khoản">
-
-                                </TabItem>
-                                <TabItem Header="Thu nhập">
-
-                                </TabItem>
-                                <TabItem Header="Cài đặt">
-                                </TabItem>
-                                <TabItem Header="Trợ giúp">
-                                </TabItem>
+                                <TabItem Header="Tài khoản" />
+                                <TabItem Header="Thu nhập" />
+                                <TabItem Header="Cài đặt" />
+                                <TabItem Header="Trợ giúp" />
 
                             </TabControl>
                         </materialDesign:Card>
@@ -97,7 +99,6 @@
                 </TabItem>
 
             </TabControl>
-
         </materialDesign:Card>
     </Grid>
 </Window>
