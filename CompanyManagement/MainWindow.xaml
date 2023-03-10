@@ -31,7 +31,37 @@
                 HorizontalContentAlignment="Left"
                 materialDesign:ColorZoneAssist.Mode="PrimaryMid"
                 Style="{StaticResource MaterialDesignFilledTabControl}">
-                <TabItem Header="Giao Việc" />
+                <TabItem Header="Giao Việc">
+                    <StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200" />
+                                <ColumnDefinition Width="1300" />
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0" Width="200">
+                                <uc:AssignUC />
+                            </Grid>
+                            <Grid Grid.Column="1" Width="1300">
+                                <StackPanel>
+                                    <Grid Width="1300" Height=" 725">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid Grid.Column="0">
+                                            <uc:AddNewProjectUC />
+                                        </Grid>
+                                        <Grid Grid.Column="1">
+                                            <uc:ProjectUC />
+                                        </Grid>
+                                    </Grid>
+                                </StackPanel>
+                            </Grid>
+
+                        </Grid>
+                    </StackPanel>
+
+                </TabItem>
                 <TabItem Header="Nhân Sự">
                     <StackPanel>
                         <uc:EmployeeUC />
@@ -69,7 +99,6 @@
                 </TabItem>
 
             </TabControl>
-
         </materialDesign:Card>
     </Grid>
 </Window>

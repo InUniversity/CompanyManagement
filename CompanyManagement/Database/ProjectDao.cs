@@ -23,7 +23,7 @@ namespace CompanyManagement.Database
         public void Add(Project project)
         {
             string sqlStr = $"INSERT INTO {TABLE_NAME}({ID}, {NAME}, {START}, {END}, {BUDGET}, {STATUS})" +
-                $"VALUES ('{project.ID}', '{project.Name}', {project.Start}, {project.End}, {project.Budget}, '{project.Status}')";
+                $"VALUES ('{project.ID}', N'{project.Name}', '{project.Start.ToString()}', '{project.End.ToString()}', {project.Budget}, '{project.Status}')";
             dbconnection.ExecuteNonQuery(sqlStr);
         }
 
@@ -35,8 +35,8 @@ namespace CompanyManagement.Database
 
         public void Save(Project project)
         {
-            string sqlStr = $"UPDATE {TABLE_NAME} SET {NAME} = '{project.ID}', {START}= {project.Start}, {END}= {project.End}, {BUDGET}= {project.Budget}," +
-                $"{STATUS}= '{project.Status}' WHERE {ID} = '{project.ID}'";
+            string sqlStr = $"UPDATE {TABLE_NAME} SET {NAME} = '{project.ID}', {START} = '{project.Start.ToString()}', {END}= '{project.End.ToString()}'," + 
+                $"{BUDGET}= {project.Budget}, {STATUS}= '{project.Status}' WHERE {ID} = '{project.ID}'";
             dbconnection.ExecuteNonQuery(sqlStr);
         }
 
