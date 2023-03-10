@@ -10,16 +10,13 @@
     <Compile Update="LoginWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="UserControls\AddNewProjectUC.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="UserControls\AssignUC.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="UserControls\ControlBarUC.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="UserControls\DeleteOverdueWorkUC.xaml.cs">
+    <Compile Update="UserControls\ProjectUC.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -33,16 +30,13 @@
     <Page Update="Resources\MainResource.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="UserControls\AddNewProjectUC.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Update="UserControls\AssignUC.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="UserControls\ControlBarUC.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="UserControls\DeleteOverdueWorkUC.xaml">
+    <Page Update="UserControls\ProjectUC.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
