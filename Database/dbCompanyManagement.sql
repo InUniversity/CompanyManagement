@@ -12,7 +12,7 @@ CREATE TABLE Employee(
 	email varchar(50),
 	phone_number varchar (10),
 	employee_address nvarchar(255),
-	manager_id varchar(20),
+	department_id varchar(20),
 	position_id varchar(20),
 	salary int
 );
@@ -24,12 +24,12 @@ CREATE TABLE Position(
 
 CREATE TABLE StatusEmployee(
 	employee_id varchar(20),
-	status_work_id  varchar(20)
+	status_work_id varchar(20)
 );
 
 CREATE TABLE StatusWork(
 	status_work_id varchar(20),
-	status_work_name varchar(50)
+	status_work_name nvarchar(50)
 );
 
 CREATE TABLE Account(
@@ -78,28 +78,28 @@ VALUES ('2', N'Nhân Viên')
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
 INSERT INTO Employee(employee_id, employee_name, gender, birthday, identify_card, email, phone_number, employee_address, manager_id, position_id, salary)
-VALUES ('EM001', N'Nguyễn Văn An', N'Nam', '15-10-2000', '98654234568', 'nguyenvanan1510@gmail.com', '0976458234', N'Tiền Giang', 'CD001','2',15000)
+VALUES ('EM001', N'Nguyễn Văn An', N'Nam', '15-10-2000', '98654234568', 'nguyenvanan1510@gmail.com', '0976458234', N'Tiền Giang', 'DPM001','2',15000)
 
 INSERT INTO Employee(employee_id, employee_name, gender, birthday, identify_card, email, phone_number, employee_address, manager_id, position_id, salary)
-VALUES ('EM002', N'Nguyễn Thúy An', N'Nữ', '19-03-1998', '98654234758', 'nguyenthuyan1903@gmail.com', '0987965423', N'Hậu Giang', 'CD002','2',15000)
+VALUES ('EM002', N'Nguyễn Thúy An', N'Nữ', '19-03-1998', '98654234758', 'nguyenthuyan1903@gmail.com', '0987965423', N'Hậu Giang', 'DPM002','2',15000)
 
 INSERT INTO Employee(employee_id, employee_name, gender, birthday, identify_card, email, phone_number, employee_address, manager_id, position_id, salary)
-VALUES ('EM003', N'Lê Hoàng Bảo Phát', N'Nam', '07-11-1990', '9867584568', 'lehoangbaophat0711@gmail.com', '0786458234', N'Bến Tre', 'CD001','2',15000)
+VALUES ('EM003', N'Lê Hoàng Bảo Phát', N'Nam', '07-11-1990', '9867584568', 'lehoangbaophat0711@gmail.com', '0786458234', N'Bến Tre', 'DPM001','2',15000)
 
 INSERT INTO Employee(employee_id, employee_name, gender, birthday, identify_card, email, phone_number, employee_address, manager_id, position_id, salary)
-VALUES ('EM004', N'Trần Hoàng Lan', N'Nữ', '19-09-1998', '9789834568', 'tranhoanglan1909@gmail.com', '0879458234', N'Tp. HCM', 'CD002','2',15000)
+VALUES ('EM004', N'Trần Hoàng Lan', N'Nữ', '19-09-1998', '9789834568', 'tranhoanglan1909@gmail.com', '0879458234', N'Tp. HCM', 'DPM002','2',15000)
 
 INSERT INTO Employee(employee_id, employee_name, gender, birthday, identify_card, email, phone_number, employee_address, manager_id, position_id, salary)
-VALUES ('EM005', N'Hà Giang', N'Nữ', '25-12-2002', '9789812345', 'hagiang2512@gmail.com', '094567312', N'Kiên Giang', 'CD001','2',15000)
+VALUES ('EM005', N'Hà Giang', N'Nữ', '25-12-2002', '9789812345', 'hagiang2512@gmail.com', '094567312', N'Kiên Giang', 'DPM001','2',15000)
 
 INSERT INTO Employee(employee_id, employee_name, gender, birthday, identify_card, email, phone_number, employee_address, manager_id, position_id, salary)
-VALUES ('EM006', N'Phan Hoàng Giang', N'Nam', '05-04-1995', '9789812345', 'phanhoanggiang0504@gmail.com', '0765489123', N'Đồng Nai', 'CD001','2',15000)
+VALUES ('EM006', N'Phan Hoàng Giang', N'Nam', '05-04-1995', '9789812345', 'phanhoanggiang0504@gmail.com', '0765489123', N'Đồng Nai', 'DPM001','2',15000)
 
 INSERT INTO Employee(employee_id, employee_name, gender, birthday, identify_card, email, phone_number, employee_address, manager_id, position_id, salary)
-VALUES ('CD001', N'Trần Lâm Phát Linh', N'Nam', '18-08-1996', '9789834123', 'tranlamphatlinh1808@gmail.com', '0879458999', N'Tp. HCM', null ,'1',15000)
+VALUES ('CD001', N'Trần Lâm Phát Linh', N'Nam', '18-08-1996', '9789834123', 'tranlamphatlinh1808@gmail.com', '0879458999', N'Tp. HCM', 'DPM001','1',15000)
 
 INSERT INTO Employee(employee_id, employee_name, gender, birthday, identify_card, email, phone_number, employee_address, manager_id, position_id, salary)
-VALUES ('CD002', N'Lê Trần Thúy Lan', N'Nữ', '11-11-1993', '9789123123', 'letranthuylan1111@gmail.com', '0879777777', N'Tp. HCM', null ,'1',15000)
+VALUES ('CD002', N'Lê Trần Thúy Lan', N'Nữ', '11-11-1993', '9789123123', 'letranthuylan1111@gmail.com', '0879777777', N'Tp. HCM', 'DPM001','1',15000)
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
 INSERT INTO Department(department_id, department_name, manager_id)
@@ -173,3 +173,56 @@ VALUES('tranlamphatlinh1808','@123456', 'CD001')
 
 INSERT INTO Account(account_username, account_password, employee_id)
 VALUES('letranthuylan1111','@123456', 'CD002')
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-- Insert data into the Project table
+INSERT INTO Project (project_id, project_name, create_time, end_time, progress)
+VALUES 
+('PRJ001', 'Website Design', '01-04-2023', '30-06-2023', 'Not started'),
+('PRJ002', 'App Development', '15-05-2023', '31-08-2023', 'Not started'),
+('PRJ003', 'Network Upgrade', '01-06-2023', '30-09-2023', 'Not started');
+
+
+-- Insert data into the Task table
+INSERT INTO Task (task_id, title, task_description, assign_date, deadline, create_by, progress, employee_id, project_id)
+VALUES
+('TSK001', 'Design homepage', 'Design the layout and functionality of the homepage', '05-04-2023', '15-04-2023', 'CD001', 'Not started', 'EM001', 'PRJ001'),
+('TSK002', 'Develop homepage', 'Develop the homepage using HTML, CSS, and JavaScript', '16-04-2023', '30-04-2023', 'CD001', 'Not started', 'EM002', 'PRJ001'),
+('TSK003', 'Design product page', 'Design the layout and functionality of the product page', '06-04-2023', '16-04-2023', 'CD001', 'Not started', 'EM003', 'PRJ001'),
+('TSK004', 'Develop product page', 'Develop the product page using HTML, CSS, and JavaScript', '17-04-2023', '01-05-2023', 'CD001', 'Not started', 'EM004', 'PRJ001'),
+('TSK005', 'Design contact page', 'Design the layout and functionality of the contact page', '07-04-2023', '17-04-2023', 'CD001', 'Not started', 'EM005', 'PRJ001'),
+('TSK006', 'Develop contact page', 'Develop the contact page using HTML, CSS, and JavaScript', '18-04-2023', '02-05-2023', 'CD001', 'Not started', 'EM006', 'PRJ001'),
+('TSK007', 'Create database schema', 'Design the database schema for the website', '05-04-2023', '10-04-2023', 'CD001', 'Not started', 'EM001', 'PRJ002'),
+('TSK008', 'Implement database schema', 'Implement the database schema using MySQL', '11-04-2023', '20-04-2023', 'CD001', 'Not started', 'EM002', 'PRJ002'),
+('TSK009', 'Design user authentication', 'Design the user authentication system for the website', '12-04-2023', '20-04-2023', 'CD001', 'Not started', 'EM003', 'PRJ002'),
+('TSK010', 'Implement user authentication', 'Implement the user authentication system using PHP', '21-04-2023', '30-04-2023', 'CD001', 'Not started', 'EM004', 'PRJ002'),
+('TSK011', 'Design payment system', 'Design the payment system for the website', '13-04-2023', '23-04-2023', 'CD001', 'Not started', 'EM005', 'PRJ002'),
+('TSK012', 'Implement payment system', 'Implement the payment system using Stripe', '24-04-2023', '04-05-2023', 'CD001', 'Not started', 'EM006', 'PRJ002'),
+('TSK013', 'Upgrade network hardware', 'Upgrade network hardware to support increased traffic', '01-06-2023', '15-06-2023', 'CD001', 'Not started', 'EM001', 'PRJ003'),
+('TSK014', 'Configure new switches', 'Configure new switches to work with existing network infrastructure', '16-06-2023', '30-06-2023', 'CD001', 'Not started', 'EM002', 'PRJ003'),
+('TSK015', 'Upgrade network software', 'Upgrade network software to support new features', '01-07-2023', '15-07-2023', 'CD001', 'Not started', 'EM003', 'PRJ003'),
+('TSK016', 'Test network', 'Test the network to ensure it is functioning correctly', '16-07-2023', '31-07-2023', 'CD001', 'Not started', 'EM004', 'PRJ003'),
+('TSK017', 'Train employees', 'Train employees on new network features and procedures', '01-08-2023', '15-08-2023', 'CD001', 'Not started', 'EM005', 'PRJ003'),
+('TSK018', 'Rollout new network', 'Roll out the new network to all locations', '16-08-2023', '30-08-2023', 'CD001', 'Not started', 'EM006', 'PRJ003');
+
+
+INSERT INTO ProjectAssignment (project_id, role_name, employee_id)
+VALUES
+('PRJ001', 'Web Designer', 'EM001'),
+('PRJ001', 'Developer', 'EM002'),
+('PRJ001', 'Web Designer', 'EM003'),
+('PRJ001', 'Web Designer', 'EM004'),
+('PRJ001', 'Web Designer', 'EM005'),
+('PRJ001', 'Web Designer', 'EM006'),
+('PRJ002', 'Database Developer', 'EM001'),
+('PRJ002', 'Database Developer', 'EM002'),
+('PRJ002', 'Authentication Designer', 'EM003'),
+('PRJ002', 'Authentication Designer', 'EM004'),
+('PRJ002', 'Payment System Designer', 'EM005'),
+('PRJ002', 'Payment System Designer', 'EM006'),
+('PRJ003', 'Network Engineer', 'EM001'),
+('PRJ003', 'Network Engineer', 'EM002'),
+('PRJ003', 'Network Engineer', 'EM003'),
+('PRJ003', 'Network Tester', 'EM004'),
+('PRJ003', 'Leadership Trainer', 'EM005'),
+('PRJ003', 'Network Deployment Specialist', 'EM006');
