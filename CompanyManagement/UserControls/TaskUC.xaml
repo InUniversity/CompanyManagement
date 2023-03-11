@@ -1,10 +1,10 @@
-﻿<UserControl x:Class="CompanyManagement.UserControls.AddNewProjectUC"
+﻿<UserControl x:Class="CompanyManagement.UserControls.TaskUC"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CompanyManagement.UserControls"
-              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"          
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"          
             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
             TextElement.FontWeight="Regular"
             TextElement.FontSize="13"
@@ -13,14 +13,16 @@
             Background="{DynamicResource MaterialDesignPaper}"
             FontFamily="{DynamicResource MaterialDesignFont}"
              mc:Ignorable="d" 
-             d:DesignHeight="750" d:DesignWidth="800">
+             d:DesignHeight="725" d:DesignWidth="800">
     <Grid>
         <materialDesign:DialogHost DialogContentUniformCornerRadius="20">
             <materialDesign:DialogHost.DialogContent >
-                <StackPanel Margin="10" Width="400"  Height="400">
-                    <TextBlock Margin="5" Text="Thêm dự án mới" FontSize="25"  HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                <StackPanel Margin="10" Width="400"  Height="500">
+                    <TextBlock Margin="5" Text="Thêm công việc mới" FontSize="25"  HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
                     <Grid>
                         <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
                             <RowDefinition></RowDefinition>
                             <RowDefinition></RowDefinition>
                             <RowDefinition></RowDefinition>
@@ -30,8 +32,8 @@
                         </Grid.RowDefinitions>
                         <Grid Grid.Row="0">
                             <TextBox
-                                Margin="10"
-                                materialDesign:HintAssist.Hint="Tên dự án"
+                                Margin="5"
+                                materialDesign:HintAssist.Hint="Tên công việc"
                                 materialDesign:TextFieldAssist.CharacterCounterVisibility="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedTextBoxTextCountComboBox, Converter={StaticResource BooleanToVisibilityConverter}}"
                                 MaxLength="200"
                                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
@@ -39,32 +41,53 @@
                                 VerticalScrollBarVisibility="Auto" />
                         </Grid>
                         <Grid Grid.Row="1">
-                            <TextBox
-                                Margin="10"
-                                materialDesign:HintAssist.Hint="Mã dự án"
-                                materialDesign:TextFieldAssist.CharacterCounterVisibility="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedTextBoxTextCountComboBox, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                MaxLength="200"
-                                Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                TextWrapping="Wrap"
-                                VerticalScrollBarVisibility="Auto" />
+                            <ComboBox
+                                Margin="5"
+                                materialDesign:HintAssist.Hint="Phòng ban"
+                                Style="{StaticResource MaterialDesignOutlinedComboBox}">
+                                <ComboBoxItem Content="Kế toán" />
+                                <ComboBoxItem Content="Nhân sự" />
+                                <ComboBoxItem Content="Sales" />
+                                <ComboBoxItem Content="IT" />
+                            </ComboBox>
                         </Grid>
                         <Grid Grid.Row="2">
-                            <TextBlock Margin="5" Text="thời gian kết thúc" FontSize="20" Foreground="Gray" HorizontalAlignment="Center" VerticalAlignment="Center" FontStyle="Oblique"></TextBlock>
+                            <ComboBox
+                                Margin="5"
+                                materialDesign:HintAssist.Hint="Chức vụ"
+                                Style="{StaticResource MaterialDesignOutlinedComboBox}">
+                                <ComboBoxItem Content="Trưởng phòng" />
+                                <ComboBoxItem Content="Quản lý" />
+                                <ComboBoxItem Content="Nhân viên" />
+                            </ComboBox>
                         </Grid>
                         <Grid Grid.Row="3">
-                            <DatePicker
-                                Margin="10" 
-                              materialDesign:HintAssist.Hint="ngày"
-                              Style="{StaticResource MaterialDesignOutlinedDatePicker}" />                
+                            <ComboBox
+                                Margin="5"
+                                materialDesign:HintAssist.Hint="Nhân viên"
+                                Style="{StaticResource MaterialDesignOutlinedComboBox}">
+                                <ComboBoxItem Content="Nguyễn Trường An" />
+                                <ComboBoxItem Content="Trần Văn An" />
+                                <ComboBoxItem Content="Nguyễn Hà Quỳnh Giao" />
+                            </ComboBox>
                         </Grid>
                         <Grid Grid.Row="4">
+                            <TextBlock Margin="5" Text="Deadline" FontSize="20" Foreground="Gray" HorizontalAlignment="Center" VerticalAlignment="Center" FontStyle="Oblique"></TextBlock>
+                        </Grid>
+                        <Grid Grid.Row="5">
+                            <DatePicker
+                                Margin="5" 
+                              materialDesign:HintAssist.Hint="ngày"
+                              Style="{StaticResource MaterialDesignOutlinedDatePicker}" />
+                        </Grid>
+                        <Grid Grid.Row="6">
                             <materialDesign:TimePicker
-                              Margin="10"                                               
+                              Margin="5"                                               
                               materialDesign:HintAssist.Hint="giờ"
                               Is24Hours="True"
                               Style="{StaticResource MaterialDesignOutlinedTimePicker}" />
                         </Grid>
-                        <Grid Grid.Row="5">
+                        <Grid Grid.Row="7">
                             <StackPanel
                         HorizontalAlignment="Right"
                         Orientation="Horizontal">
@@ -108,42 +131,70 @@
                         <RowDefinition  Height="*" />
                         <RowDefinition  Height="Auto" />
                     </Grid.RowDefinitions>
-                    <ListView>
-                        
-                    </ListView>
+                    <Grid Grid.Row="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0" Background="WhiteSmoke">
+                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Danh sách công viêc" FontSize="18" FontWeight="Bold" FontStyle="Oblique"></TextBlock>
+                        </Grid> 
+                        <Grid Grid.Row="1">
+
+                        </Grid>
+                    </Grid>
                     <materialDesign:ColorZone Height="80" Grid.Row="1"  Effect="{DynamicResource MaterialDesignShadowDepth5}" Mode="PrimaryMid">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="150"></ColumnDefinition>
+                                <ColumnDefinition Width="100"></ColumnDefinition>
+                                <ColumnDefinition Width="300"></ColumnDefinition>
+                                <ColumnDefinition Width="100"></ColumnDefinition>
                                 <ColumnDefinition Width="auto"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-
                             <Grid Grid.Column="0">
                                 <TextBlock
                                     FontSize="18"
                                     FontWeight="ExtraBold"
-                                    HorizontalAlignment="Left"
+                                    HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
-                                    Text="Danh sách dự án" />
+                                    Text="Dự án:" />
                             </Grid>
                             <Grid Grid.Column="1">
+                                <TextBlock
+                                    FontSize="24"
+                                    FontWeight="ExtraBold"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    Text="Project 1" />
+                            </Grid>
+                            <Grid Grid.Column="2">
+                                <TextBlock
+                                    FontSize="18"
+                                    FontWeight="ExtraBold"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Text="Tiến độ:" />
+                            </Grid>
+                            <Grid Grid.Column="3">
                                 <TextBlock
                                     FontSize="24"
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Center"
                                     FontWeight="ExtraBold"
-                                    Text="(0)" />
+                                    Text="0%" />
                             </Grid>
                         </Grid>
+                       
                     </materialDesign:ColorZone>
                     <Button
+                        Background="BlueViolet"
+                        ToolTip="Thêm công việc mới"
                         Grid.Row="0"
                         Width="60"
                         Height="60"
                         Margin="0,0,28,-20"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Bottom"
-                        ToolTip="Thêm dự án mới"
                         Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
                         Content="{materialDesign:PackIcon Kind=Plus , Size=30}"
                         Style="{StaticResource MaterialDesignFloatingActionMiniSecondaryButton}" />

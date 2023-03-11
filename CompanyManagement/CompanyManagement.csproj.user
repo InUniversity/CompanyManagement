@@ -16,7 +16,7 @@
     <Compile Update="UserControls\ControlBarUC.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="UserControls\ProjectUC.xaml.cs">
+    <Compile Update="UserControls\TaskUC.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -36,7 +36,7 @@
     <Page Update="UserControls\ControlBarUC.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="UserControls\ProjectUC.xaml">
+    <Page Update="UserControls\TaskUC.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

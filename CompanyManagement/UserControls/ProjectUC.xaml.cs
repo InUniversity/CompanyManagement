@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MaterialDesignThemes.Wpf;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,7 +17,7 @@ using System.Windows.Shapes;
 namespace CompanyManagement.UserControls
 {
     /// <summary>
-    /// Interaction logic for ProjectUC.xaml
+    /// Interaction logic for _ProjectUC.xaml
     /// </summary>
     public partial class ProjectUC : UserControl
     {
@@ -24,5 +25,7 @@ namespace CompanyManagement.UserControls
         {
             InitializeComponent();
         }
+
+       
     }
 }

@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace CompanyManagement.UserControls
 {
     /// <summary>
-    /// Interaction logic for AddNewProjectUC.xaml
+    /// Interaction logic for _ProjectUC.xaml
     /// </summary>
-    public partial class AddNewProjectUC : UserControl
+    public partial class TaskUC : UserControl
     {
-        public AddNewProjectUC()
+        public TaskUC()
         {
             InitializeComponent();
         }
