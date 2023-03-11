@@ -71,10 +71,10 @@ CREATE TABLE Task(
 );
 
 INSERT INTO Position(position_id, position_name)
-VALUES ('1', 'Trưởng Phòng')
+VALUES ('1', N'Trưởng Phòng')
 
 INSERT INTO Position(position_id, position_name)
-VALUES ('2', 'Nhân Viên')
+VALUES ('2', N'Nhân Viên')
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
 INSERT INTO Employee(employee_id, employee_name, gender, birthday, identify_card, email, phone_number, employee_address, manager_id, position_id, salary)
