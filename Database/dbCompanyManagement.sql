@@ -78,51 +78,51 @@ VALUES ('2', 'Nhân Viên')
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
 INSERT INTO Employee(employee_id, employee_name, gender, birthday, identify_card, email, phone_number, employee_address, manager_id, position_id, salary)
-VALUES ('EM001','Nguyễn Văn An', 'Nam', '15-10-2000', '98654234568', 'nguyenvanan1510@gmail.com', '0976458234', 'Tiền Giang', 'CD001','2',15000)
+VALUES ('EM001', N'Nguyễn Văn An', N'Nam', '15-10-2000', '98654234568', 'nguyenvanan1510@gmail.com', '0976458234', N'Tiền Giang', 'CD001','2',15000)
 
 INSERT INTO Employee(employee_id, employee_name, gender, birthday, identify_card, email, phone_number, employee_address, manager_id, position_id, salary)
-VALUES ('EM002','Nguyễn Thúy An', 'Nữ', '19-03-1998', '98654234758', 'nguyenthuyan1903@gmail.com', '0987965423', 'Hậu Giang', 'CD002','2',15000)
+VALUES ('EM002', N'Nguyễn Thúy An', N'Nữ', '19-03-1998', '98654234758', 'nguyenthuyan1903@gmail.com', '0987965423', N'Hậu Giang', 'CD002','2',15000)
 
 INSERT INTO Employee(employee_id, employee_name, gender, birthday, identify_card, email, phone_number, employee_address, manager_id, position_id, salary)
-VALUES ('EM003','Lê Hoàng Bảo Phát', 'Nam', '07-11-1990', '9867584568', 'lehoangbaophat0711@gmail.com', '0786458234', 'Bến Tre', 'CD001','2',15000)
+VALUES ('EM003', N'Lê Hoàng Bảo Phát', N'Nam', '07-11-1990', '9867584568', 'lehoangbaophat0711@gmail.com', '0786458234', N'Bến Tre', 'CD001','2',15000)
 
 INSERT INTO Employee(employee_id, employee_name, gender, birthday, identify_card, email, phone_number, employee_address, manager_id, position_id, salary)
-VALUES ('EM004','Trần Hoàng Lan', 'Nữ', '19-09-1998', '9789834568', 'tranhoanglan1909@gmail.com', '0879458234', 'Tp. HCM', 'CD002','2',15000)
+VALUES ('EM004', N'Trần Hoàng Lan', N'Nữ', '19-09-1998', '9789834568', 'tranhoanglan1909@gmail.com', '0879458234', N'Tp. HCM', 'CD002','2',15000)
 
 INSERT INTO Employee(employee_id, employee_name, gender, birthday, identify_card, email, phone_number, employee_address, manager_id, position_id, salary)
-VALUES ('EM005','Hà Giang', 'Nữ', '25-12-2002', '9789812345', 'hagiang2512@gmail.com', '094567312', 'Kiên Giang', 'CD001','2',15000)
+VALUES ('EM005', N'Hà Giang', N'Nữ', '25-12-2002', '9789812345', 'hagiang2512@gmail.com', '094567312', N'Kiên Giang', 'CD001','2',15000)
 
 INSERT INTO Employee(employee_id, employee_name, gender, birthday, identify_card, email, phone_number, employee_address, manager_id, position_id, salary)
-VALUES ('EM006','Phan Hoàng Giang', 'Nam', '05-04-1995', '9789812345', 'phanhoanggiang0504@gmail.com', '0765489123', 'Đồng Nai', 'CD001','2',15000)
+VALUES ('EM006', N'Phan Hoàng Giang', N'Nam', '05-04-1995', '9789812345', 'phanhoanggiang0504@gmail.com', '0765489123', N'Đồng Nai', 'CD001','2',15000)
 
 INSERT INTO Employee(employee_id, employee_name, gender, birthday, identify_card, email, phone_number, employee_address, manager_id, position_id, salary)
-VALUES ('CD001','Trần Lâm Phát Linh', 'Nam', '18-08-1996', '9789834123', 'tranlamphatlinh1808@gmail.com', '0879458999', 'Tp. HCM', null ,'1',15000)
+VALUES ('CD001', N'Trần Lâm Phát Linh', N'Nam', '18-08-1996', '9789834123', 'tranlamphatlinh1808@gmail.com', '0879458999', N'Tp. HCM', null ,'1',15000)
 
 INSERT INTO Employee(employee_id, employee_name, gender, birthday, identify_card, email, phone_number, employee_address, manager_id, position_id, salary)
-VALUES ('CD002','Lê Trần Thúy Lan', 'Nữ', '11-11-1993', '9789123123', 'letranthuylan1111@gmail.com', '0879777777', 'Tp. HCM', null ,'1',15000)
+VALUES ('CD002', N'Lê Trần Thúy Lan', N'Nữ', '11-11-1993', '9789123123', 'letranthuylan1111@gmail.com', '0879777777', N'Tp. HCM', null ,'1',15000)
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
 INSERT INTO Department(department_id, department_name, manager_id)
-VALUES ('DPM001', 'IT', 'CD001')
+VALUES ('DPM001', N'IT', 'CD001')
 
 INSERT INTO Department(department_id, department_name, manager_id)
-VALUES ('DPM002', 'Kế Toán', 'CD002')
+VALUES ('DPM002', N'Kế Toán', 'CD002')
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
 INSERT INTO StatusWork(status_work_id, status_work_name)
-VALUES ('1', 'Đang làm việc')
+VALUES ('1', N'Đang làm việc')
 
 INSERT INTO StatusWork(status_work_id, status_work_name)
-VALUES ('2', 'Nghỉ có phép')
+VALUES ('2', N'Nghỉ có phép')
 
 INSERT INTO StatusWork(status_work_id, status_work_name)
-VALUES ('3', 'Nghỉ không phép')
+VALUES ('3', N'Nghỉ không phép')
 
 INSERT INTO StatusWork(status_work_id, status_work_name)
-VALUES ('4', 'Nghỉ theo biên chế')
+VALUES ('4', N'Nghỉ theo biên chế')
 
 INSERT INTO StatusWork(status_work_id, status_work_name)
-VALUES ('5', 'Đang công tác')
+VALUES ('5', N'Đang công tác')
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
 INSERT INTO StatusEmployee(employee_id, status_work_id)
@@ -151,25 +151,25 @@ VALUES('CD002','1')
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
 INSERT INTO Account(account_username, account_password, employee_id)
-VALUES('nguyenvanan1510@gmail.com','@123456', 'EM001')
+VALUES('nguyenvanan1510','@123456', 'EM001')
 
 INSERT INTO Account(account_username, account_password, employee_id)
-VALUES('nguyenthuyan1903@gmail.com','@123456', 'EM002')
+VALUES('nguyenthuyan1903','@123456', 'EM002')
 
 INSERT INTO Account(account_username, account_password, employee_id)
-VALUES('lehoangbaophat0711@gmail.com','@123456', 'EM003')
+VALUES('lehoangbaophat0711','@123456', 'EM003')
 
 INSERT INTO Account(account_username, account_password, employee_id)
-VALUES('tranhoanglan1909@gmail.com','@123456', 'EM004')
+VALUES('tranhoanglan1909','@123456', 'EM004')
 
 INSERT INTO Account(account_username, account_password, employee_id)
-VALUES('hagiang2512@gmail.com','@123456', 'EM005')
+VALUES('hagiang2512','@123456', 'EM005')
 
 INSERT INTO Account(account_username, account_password, employee_id)
-VALUES('phanhoanggiang0504@gmail.com','@123456', 'EM006')
+VALUES('phanhoanggiang0504','@123456', 'EM006')
 
 INSERT INTO Account(account_username, account_password, employee_id)
-VALUES('tranlamphatlinh1808@gmail.com','@123456', 'CD001')
+VALUES('tranlamphatlinh1808','@123456', 'CD001')
 
 INSERT INTO Account(account_username, account_password, employee_id)
-VALUES('letranthuylan1111@gmail.com','@123456', 'CD002')
+VALUES('letranthuylan1111','@123456', 'CD002')
