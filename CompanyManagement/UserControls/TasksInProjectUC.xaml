@@ -14,7 +14,7 @@
              Background="{DynamicResource MaterialDesignPaper}"
              FontFamily="{DynamicResource MaterialDesignFont}"
              mc:Ignorable="d" 
-             DataContext="{StaticResource TaskInProjectWM}"
+             DataContext="{StaticResource TasksInProjectWM}"
              d:DesignHeight="725" d:DesignWidth="800">
     <Grid>
         <materialDesign:DialogHost DialogContentUniformCornerRadius="20">
@@ -139,8 +139,11 @@
                             <RowDefinition Height="auto"></RowDefinition>
                         </Grid.RowDefinitions>
                         <Grid Grid.Row="0" Background="WhiteSmoke">
-                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Danh sách công viêc" FontSize="18" FontWeight="Bold" FontStyle="Oblique"></TextBlock>
-                        </Grid> 
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Danh sách công viêc" FontSize="18" FontWeight="Bold" FontStyle="Oblique"/>
+                        </Grid>
                         <Grid Grid.Row="1">
 
                         </Grid>
@@ -186,7 +189,7 @@
                                     Text="0%" />
                             </Grid>
                         </Grid>
-                       
+
                     </materialDesign:ColorZone>
                     <Button
                         Background="BlueViolet"
