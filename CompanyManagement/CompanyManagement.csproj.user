@@ -7,6 +7,9 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Dialogs\EmployeeInputWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="LoginWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -16,14 +19,14 @@
     <Compile Update="UserControls\AssignUC.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="UserControls\ControlBarUC.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="UserControls\DeleteOverdueWorkUC.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Dialogs\EmployeeInputWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="LoginWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -37,9 +40,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="UserControls\AssignUC.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="UserControls\ControlBarUC.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="UserControls\DeleteOverdueWorkUC.xaml">

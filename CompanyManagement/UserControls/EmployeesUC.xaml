@@ -1,0 +1,111 @@
+﻿<UserControl x:Class="CompanyManagement.UserControls.EmployeesUC"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.FontWeight="Regular"
+             TextElement.FontSize="13"
+             TextOptions.TextFormattingMode="Ideal"
+             TextOptions.TextRenderingMode="Auto"
+             Background="{DynamicResource MaterialDesignPaper}"
+             FontFamily="{DynamicResource MaterialDesignFont}"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             DataContext="{StaticResource EmployeesVM}"
+             mc:Ignorable="d"
+             d:DesignHeight="777" d:DesignWidth="1508">
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60" />
+                <RowDefinition Height="10*" />
+            </Grid.RowDefinitions>
+            <materialDesign:Card Grid.Row="0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100" />
+                        <ColumnDefinition Width="1000" />
+                        <ColumnDefinition Width="400" />
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <StackPanel Orientation="Horizontal">
+                            <Button
+                                Margin="20 0 0 0"
+                                Command="{Binding OpenEmployeeInputDialogCommand}"
+                                Background="ForestGreen"
+                                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                Style="{StaticResource MaterialDesignFlatMidBgButton}"
+                                ToolTip="Hiển thị màn hình thêm nhân viên mới" >
+                                <materialDesign:PackIcon Kind="AccountPlusOutline" />
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+                    <Grid Grid.Column="1" />
+                    <Grid Grid.Column="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0">
+                            <Button />
+                            <Button
+                                Width="50"
+                                Margin="0 2"
+                                HorizontalAlignment="Right"
+                                Background="DarkGreen"
+                                Content="{materialDesign:PackIcon FindReplace}"
+                                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                ToolTip="Tìm kiếm" />
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <TextBox
+                                Margin="20 3"
+                                FontSize="10"
+                                materialDesign:HintAssist.Hint="Tìm nhân viên bằng MSNV"
+                                materialDesign:TextFieldAssist.CharacterCounterVisibility="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedTextBoxTextCountComboBox, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                MaxLength="20"
+                                Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                TextWrapping="Wrap" />
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </materialDesign:Card>
+
+            <Grid Grid.Row="1">
+                <DataGrid CanUserAddRows="False" AutoGenerateColumns="False" Background="White"
+                          Clip="{Binding SayHelloCommand}"
+                          IsReadOnly="True"
+                          ItemsSource="{Binding Employees, UpdateSourceTrigger=PropertyChanged}" Width="auto"
+                          SelectedItem="{Binding SayHelloCommand}">
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn Header="Operations" IsReadOnly="True" Width="auto">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button Margin="5 0 0 0">
+                                            <materialDesign:PackIcon Kind="PencilOutline" />
+                                        </Button>
+                                        <Button Margin="5 0 0 0">
+                                            <materialDesign:PackIcon Kind="DeleteOutline" />
+                                        </Button>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Header="Mã nhân viên" Binding="{Binding ID}" />
+                        <DataGridTextColumn Header="Họ và tên" Binding="{Binding Name}" />
+                        <DataGridTextColumn Header="Giới tính" Binding="{Binding Gender}" />
+                        <DataGridTextColumn Header="Ngày sinh" Binding="{Binding Birthday}" />
+                        <DataGridTextColumn Header="Chứng minh nhân dân" Binding="{Binding IdentifyCard}" />
+                        <DataGridTextColumn Header="Email" Binding="{Binding Email}" />
+                        <DataGridTextColumn Header="Số điện thoại" Binding="{Binding PhoneNumber}" />
+                        <DataGridTextColumn Header="Địa chỉ" Binding="{Binding Address}" />
+                        <DataGridTextColumn Header="Mã quản lí" Binding="{Binding ManagerID}" />
+                        <DataGridTextColumn Header="Mã vị trí công việc" Binding="{Binding PositionID}" />
+                        <DataGridTextColumn Header="Lương" Binding="{Binding Salary}" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>
