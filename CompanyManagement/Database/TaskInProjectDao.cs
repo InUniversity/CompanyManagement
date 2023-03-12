@@ -17,38 +17,41 @@ namespace CompanyManagement.Database
         public static string END = "date_end";
         public static string EMPLOYEE_ID = "employee_id";
 
-        DBConnection dbconnection = new DBConnection();
+        DBConnection dbConnection = new DBConnection();
 
         public void Add(TaskInProject task)
         {
             string sqlStr = $"INSERT INTO {TABLE_NAME}({ID}, {NAME}, {START}, {END}, {EMPLOYEE_ID})" +
                 $"VALUES ('{task.ID}', '{task.Name}', {task.Start}, {task.End}, '{task.EmployeeID}')";
-            dbconnection.ExecuteNonQuery(sqlStr);
+            dbConnection.ExecuteNonQuery(sqlStr);
         }
+
         public void Delete(TaskInProject task)
         {
             string sqlStr = $"DELETE FROM {TABLE_NAME} WHERE {ID} = {task.ID}";
-            dbconnection.ExecuteNonQuery(sqlStr);
+            dbConnection.ExecuteNonQuery(sqlStr);
         }
+
         public void Save(TaskInProject task)
         {
             string sqlStr = $"UPDATE {TABLE_NAME} SET {NAME} = '{task.Name}', {START} = {task.Start}, {END}= {task.End}, {EMPLOYEE_ID}= '{task.EmployeeID}'" +
                 $"WHERE {ID} = '{task.ID}'";
-            dbconnection.ExecuteNonQuery(sqlStr);
+            dbConnection.ExecuteNonQuery(sqlStr);
         }
+
         public DataTable GetDataTable()
         {
             string sqlStr = $"SELECT * FROM {TABLE_NAME}";
-            return dbconnection.GetDataTable(sqlStr);
+            return dbConnection.GetDataTable(sqlStr);
         }
 
         public TaskInProject SearchByID(string id)
         {
             string sqlStr = $"SELECT * FROM {TABLE_NAME} WHERE {ID} = '{id}'";
-            DataTable dttask = dbconnection.GetDataTable(sqlStr);
-            if (dttask.Rows.Count == 0)
+            DataTable dtTask = dbConnection.GetDataTable(sqlStr);
+            if (dtTask.Rows.Count == 0)
                 return null;
-            return new TaskInProject(dttask.Rows[0]);
+            return new TaskInProject(dtTask.Rows[0]);
         }
     }
 }
