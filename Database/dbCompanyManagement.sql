@@ -54,7 +54,7 @@ CREATE TABLE Project(
 
 CREATE TABLE ProjectAssignment(
 	project_id varchar(20),
-	role_name varchar(20),
+	role_name nvarchar(30),
 	employee_id varchar(20)
 );
 
@@ -70,6 +70,8 @@ CREATE TABLE Task(
 	project_id varchar(20)
 );
 
+
+
 INSERT INTO Position(position_id, position_name)
 VALUES ('1', N'Trưởng Phòng')
 
@@ -77,7 +79,7 @@ INSERT INTO Position(position_id, position_name)
 VALUES ('2', N'Nhân Viên')
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
-INSERT INTO Employee(employee_id, employee_name, gender, birthday, identify_card, email, phone_number, employee_address, manager_id, position_id, salary)
+INSERT INTO Employee(employee_id, employee_name, gender, birthday, identify_card, email, phone_number, employee_address, department_id, position_id, salary)
 VALUES ('EM001', N'Nguyễn Văn An', N'Nam', '15-10-2000', '98654234568', 'nguyenvanan1510@gmail.com', '0976458234', N'Tiền Giang', 'DPM001','2',15000)
 
 INSERT INTO Employee(employee_id, employee_name, gender, birthday, identify_card, email, phone_number, employee_address, manager_id, position_id, salary)
@@ -175,54 +177,52 @@ INSERT INTO Account(account_username, account_password, employee_id)
 VALUES('letranthuylan1111','@123456', 'CD002')
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
--- Insert data into the Project table
 INSERT INTO Project (project_id, project_name, create_time, end_time, progress)
 VALUES 
-('PRJ001', 'Website Design', '01-04-2023', '30-06-2023', 'Not started'),
-('PRJ002', 'App Development', '15-05-2023', '31-08-2023', 'Not started'),
-('PRJ003', 'Network Upgrade', '01-06-2023', '30-09-2023', 'Not started');
+('PRJ001', N'Website Design', '01-04-2023', '30-06-2023', 'Not started'),
+('PRJ002', N'App Development', '15-05-2023', '31-08-2023', 'Not started'),
+('PRJ003', N'Network Upgrade', '01-06-2023', '30-09-2023', 'Not started');
+---------------------------------------------------------------------------------------------------------------------------------------------------------
 
-
--- Insert data into the Task table
 INSERT INTO Task (task_id, title, task_description, assign_date, deadline, create_by, progress, employee_id, project_id)
 VALUES
-('TSK001', 'Design homepage', 'Design the layout and functionality of the homepage', '05-04-2023', '15-04-2023', 'CD001', 'Not started', 'EM001', 'PRJ001'),
-('TSK002', 'Develop homepage', 'Develop the homepage using HTML, CSS, and JavaScript', '16-04-2023', '30-04-2023', 'CD001', 'Not started', 'EM002', 'PRJ001'),
-('TSK003', 'Design product page', 'Design the layout and functionality of the product page', '06-04-2023', '16-04-2023', 'CD001', 'Not started', 'EM003', 'PRJ001'),
-('TSK004', 'Develop product page', 'Develop the product page using HTML, CSS, and JavaScript', '17-04-2023', '01-05-2023', 'CD001', 'Not started', 'EM004', 'PRJ001'),
-('TSK005', 'Design contact page', 'Design the layout and functionality of the contact page', '07-04-2023', '17-04-2023', 'CD001', 'Not started', 'EM005', 'PRJ001'),
-('TSK006', 'Develop contact page', 'Develop the contact page using HTML, CSS, and JavaScript', '18-04-2023', '02-05-2023', 'CD001', 'Not started', 'EM006', 'PRJ001'),
-('TSK007', 'Create database schema', 'Design the database schema for the website', '05-04-2023', '10-04-2023', 'CD001', 'Not started', 'EM001', 'PRJ002'),
-('TSK008', 'Implement database schema', 'Implement the database schema using MySQL', '11-04-2023', '20-04-2023', 'CD001', 'Not started', 'EM002', 'PRJ002'),
-('TSK009', 'Design user authentication', 'Design the user authentication system for the website', '12-04-2023', '20-04-2023', 'CD001', 'Not started', 'EM003', 'PRJ002'),
-('TSK010', 'Implement user authentication', 'Implement the user authentication system using PHP', '21-04-2023', '30-04-2023', 'CD001', 'Not started', 'EM004', 'PRJ002'),
-('TSK011', 'Design payment system', 'Design the payment system for the website', '13-04-2023', '23-04-2023', 'CD001', 'Not started', 'EM005', 'PRJ002'),
-('TSK012', 'Implement payment system', 'Implement the payment system using Stripe', '24-04-2023', '04-05-2023', 'CD001', 'Not started', 'EM006', 'PRJ002'),
-('TSK013', 'Upgrade network hardware', 'Upgrade network hardware to support increased traffic', '01-06-2023', '15-06-2023', 'CD001', 'Not started', 'EM001', 'PRJ003'),
-('TSK014', 'Configure new switches', 'Configure new switches to work with existing network infrastructure', '16-06-2023', '30-06-2023', 'CD001', 'Not started', 'EM002', 'PRJ003'),
-('TSK015', 'Upgrade network software', 'Upgrade network software to support new features', '01-07-2023', '15-07-2023', 'CD001', 'Not started', 'EM003', 'PRJ003'),
-('TSK016', 'Test network', 'Test the network to ensure it is functioning correctly', '16-07-2023', '31-07-2023', 'CD001', 'Not started', 'EM004', 'PRJ003'),
-('TSK017', 'Train employees', 'Train employees on new network features and procedures', '01-08-2023', '15-08-2023', 'CD001', 'Not started', 'EM005', 'PRJ003'),
-('TSK018', 'Rollout new network', 'Roll out the new network to all locations', '16-08-2023', '30-08-2023', 'CD001', 'Not started', 'EM006', 'PRJ003');
-
+('TSK001', N'Design homepage', N'Design the layout and functionality of the homepage', '05-04-2023', '15-04-2023', 'CD001', 'Not started', 'EM001', 'PRJ001'),
+('TSK002', N'Develop homepage', N'Develop the homepage using HTML, CSS, and JavaScript', '16-04-2023', '30-04-2023', 'CD001', 'Not started', 'EM002', 'PRJ001'),
+('TSK003', N'Design product page', N'Design the layout and functionality of the product page', '06-04-2023', '16-04-2023', 'CD001', 'Not started', 'EM003', 'PRJ001'),
+('TSK004', N'Develop product page', N'Develop the product page using HTML, CSS, and JavaScript', '17-04-2023', '01-05-2023', 'CD001', 'Not started', 'EM004', 'PRJ001'),
+('TSK005', N'Design contact page', N'Design the layout and functionality of the contact page', '07-04-2023', '17-04-2023', 'CD001', 'Not started', 'EM005', 'PRJ001'),
+('TSK006', N'Develop contact page', N'Develop the contact page using HTML, CSS, and JavaScript', '18-04-2023', '02-05-2023', 'CD001', 'Not started', 'EM006', 'PRJ001'),
+('TSK007', N'Create database schema', N'Design the database schema for the website', '05-04-2023', '10-04-2023', 'CD001', 'Not started', 'EM001', 'PRJ002'),
+('TSK008', N'Implement database schema', N'Implement the database schema using MySQL', '11-04-2023', '20-04-2023', 'CD001', 'Not started', 'EM002', 'PRJ002'),
+('TSK009', N'Design user authentication', N'Design the user authentication system for the website', '12-04-2023', '20-04-2023', 'CD001', 'Not started', 'EM003', 'PRJ002'),
+('TSK010', N'Implement user authentication', N'Implement the user authentication system using PHP', '21-04-2023', '30-04-2023', 'CD001', 'Not started', 'EM004', 'PRJ002'),
+('TSK011', N'Design payment system', N'Design the payment system for the website', '13-04-2023', '23-04-2023', 'CD001', 'Not started', 'EM005', 'PRJ002'),
+('TSK012', N'Implement payment system', N'Implement the payment system using Stripe', '24-04-2023', '04-05-2023', 'CD001', 'Not started', 'EM006', 'PRJ002'),
+('TSK013', N'Upgrade network hardware', N'Upgrade network hardware to support increased traffic', '01-06-2023', '15-06-2023', 'CD001', 'Not started', 'EM001', 'PRJ003'),
+('TSK014', N'Configure new switches', N'Configure new switches to work with existing network infrastructure', '16-06-2023', '30-06-2023', 'CD001', 'Not started', 'EM002', 'PRJ003'),
+('TSK015', N'Upgrade network software', N'Upgrade network software to support new features', '01-07-2023', '15-07-2023', 'CD001', 'Not started', 'EM003', 'PRJ003'),
+('TSK016', N'Test network', N'Test the network to ensure it is functioning correctly', '16-07-2023', '31-07-2023', 'CD001', 'Not started', 'EM004', 'PRJ003'),
+('TSK017', N'Train employees', N'Train employees on new network features and procedures', '01-08-2023', '15-08-2023', 'CD001', 'Not started', 'EM005', 'PRJ003'),
+('TSK018', N'Rollout new network', N'Roll out the new network to all locations', '16-08-2023', '30-08-2023', 'CD001', 'Not started', 'EM006', 'PRJ003');
+---------------------------------------------------------------------------------------------------------------------------------------------------------
 
 INSERT INTO ProjectAssignment (project_id, role_name, employee_id)
 VALUES
-('PRJ001', 'Web Designer', 'EM001'),
-('PRJ001', 'Developer', 'EM002'),
-('PRJ001', 'Web Designer', 'EM003'),
-('PRJ001', 'Web Designer', 'EM004'),
-('PRJ001', 'Web Designer', 'EM005'),
-('PRJ001', 'Web Designer', 'EM006'),
-('PRJ002', 'Database Developer', 'EM001'),
-('PRJ002', 'Database Developer', 'EM002'),
-('PRJ002', 'Authentication Designer', 'EM003'),
-('PRJ002', 'Authentication Designer', 'EM004'),
-('PRJ002', 'Payment System Designer', 'EM005'),
-('PRJ002', 'Payment System Designer', 'EM006'),
-('PRJ003', 'Network Engineer', 'EM001'),
-('PRJ003', 'Network Engineer', 'EM002'),
-('PRJ003', 'Network Engineer', 'EM003'),
-('PRJ003', 'Network Tester', 'EM004'),
-('PRJ003', 'Leadership Trainer', 'EM005'),
-('PRJ003', 'Network Deployment Specialist', 'EM006');
+('PRJ001', N'Web Designer', 'EM001'),
+('PRJ001', N'Developer', 'EM002'),
+('PRJ001', N'Web Designer', 'EM003'),
+('PRJ001', N'Web Designer', 'EM004'),
+('PRJ001', N'Web Designer', 'EM005'),
+('PRJ001', N'Web Designer', 'EM006'),
+('PRJ002', N'Database Developer', 'EM001'),
+('PRJ002', N'Database Developer', 'EM002'),
+('PRJ002', N'Authentication Designer', 'EM003'),
+('PRJ002', N'Authentication Designer', 'EM004'),
+('PRJ002', N'Payment System Designer', 'EM005'),
+('PRJ002', N'Payment System Designer', 'EM006'),
+('PRJ003', N'Network Engineer', 'EM001'),
+('PRJ003', N'Network Engineer', 'EM002'),
+('PRJ003', N'Network Engineer', 'EM003'),
+('PRJ003', N'Network Tester', 'EM004'),
+('PRJ003', N'Leadership Trainer', 'EM005'),
+('PRJ003', N'Network Deployment Specialist', 'EM006');
