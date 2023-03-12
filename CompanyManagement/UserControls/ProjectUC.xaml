@@ -117,7 +117,7 @@
                         <ListView.View>
                             <GridView>
                                 <GridView.Columns >
-                                    <GridViewColumn Width="50">
+                                    <GridViewColumn Width="100">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
                                                 <StackPanel Orientation="Horizontal">
@@ -125,15 +125,6 @@
                                                         IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                                                         StaysOpen="True">
                                                         <Grid Width="200" Margin="8,8,8,8">
-                                                            <Grid.Resources>
-                                                                <Style TargetType="CheckBox" BasedOn="{StaticResource MaterialDesignCheckBox}">
-                                                                    <Setter Property="Margin" Value="8,8,10,8" />
-                                                                </Style>
-                                                                <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignTextBox}">
-                                                                    <Setter Property="Margin" Value="8,8,8,8" />
-                                                                    <Setter Property="materialDesign:HintAssist.IsFloating" Value="True" />
-                                                                </Style>
-                                                            </Grid.Resources>
                                                             <Grid.ColumnDefinitions>
                                                                 <ColumnDefinition Width="*" />
                                                                 <ColumnDefinition Width="Auto" />
@@ -142,10 +133,9 @@
                                                                 <RowDefinition Height="*" />
                                                                 <RowDefinition Height="*" />
                                                                 <RowDefinition Height="*" />
-                                                                
                                                             </Grid.RowDefinitions>
                                                             <Grid Grid.Row="0">
-                                                                <Button ClickMode="Press"  Style="{StaticResource MaterialDesignFlatSecondaryMidBgButton}" ToolTip="Cập nhật">
+                                                                <Button Style="{StaticResource MaterialDesignFlatSecondaryMidBgButton}" ToolTip="Cập nhật">
                                                                     <materialDesign:PackIcon Kind="Pencil"/>
                                                                 </Button>
                                                             </Grid>
@@ -165,10 +155,16 @@
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
-                                    <GridViewColumn Width="auto">
+                                    <GridViewColumn Width="100">
+                                        <GridViewColumn.Header>
+                                            <StackPanel>
+                                                <TextBlock Text="Chọn"></TextBlock>
+                                                <CheckBox ></CheckBox>
+                                            </StackPanel>
+                                        </GridViewColumn.Header>
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
-                                                <CheckBox></CheckBox>
+                                                <CheckBox Margin="21"></CheckBox>
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
