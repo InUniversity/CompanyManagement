@@ -13,17 +13,16 @@ namespace CompanyManagement.Database
         public static string TABLE_NAME = "Project";
         public static string ID = "project_id";
         public static string NAME = "project_name";
-        public static string START = "date_start";
-        public static string END = "date_end";
-        public static string BUDGET = "budget";
-        public static string STATUS = "project_status";
+        public static string START = "create_time";
+        public static string END = "end_time";
+        public static string PROPRESS = "progress";
 
         DBConnection dbconnection = new DBConnection();
 
         public void Add(Project project)
         {
-            string sqlStr = $"INSERT INTO {TABLE_NAME}({ID}, {NAME}, {START}, {END}, {BUDGET}, {STATUS})" +
-                $"VALUES ('{project.ID}', N'{project.Name}', '{project.Start.ToString()}', '{project.End.ToString()}', {project.Budget}, '{project.Status}')";
+            string sqlStr = $"INSERT INTO {TABLE_NAME}({ID}, {NAME}, {START}, {END}, {PROPRESS})" +
+                $"VALUES ('{project.ID}', N'{project.Name}', '{project.Start.ToString()}', '{project.End.ToString()}', '{project.Progress}')";
             dbconnection.ExecuteNonQuery(sqlStr);
         }
 
@@ -35,8 +34,7 @@ namespace CompanyManagement.Database
 
         public void Save(Project project)
         {
-            string sqlStr = $"UPDATE {TABLE_NAME} SET {NAME} = '{project.ID}', {START} = '{project.Start.ToString()}', {END}= '{project.End.ToString()}'," + 
-                $"{BUDGET}= {project.Budget}, {STATUS}= '{project.Status}' WHERE {ID} = '{project.ID}'";
+            string sqlStr = $"UPDATE {TABLE_NAME} SET {NAME} = '{project.ID}', {START} = '{project.Start.ToString()}', {END}= '{project.End.ToString()}',{PROPRESS}= '{project.Progress}' WHERE {ID} = '{project.ID}'";
             dbconnection.ExecuteNonQuery(sqlStr);
         }
 
