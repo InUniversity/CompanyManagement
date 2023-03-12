@@ -52,7 +52,7 @@
                                             <uc:ProjectUC />
                                         </Grid>
                                         <Grid Grid.Column="1">
-                                           
+                                            <uc:TasksInProjectUC/>
                                         </Grid>
                                     </Grid>
                                 </StackPanel>

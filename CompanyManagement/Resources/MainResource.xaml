@@ -5,4 +5,5 @@
     <viewmodel:MainViewModel x:Key="MainVM"></viewmodel:MainViewModel>
     <viewmodel:LoginViewModel x:Key="LoginVM"></viewmodel:LoginViewModel>
     <viewmodel:ProjectViewModel x:Key="ProjectVM"></viewmodel:ProjectViewModel>
+    <viewmodel:TasksInProjectViewModel x:Key="TasksInProjectVM"></viewmodel:TasksInProjectViewModel>
 </ResourceDictionary>
