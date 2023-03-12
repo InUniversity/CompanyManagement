@@ -17,16 +17,16 @@ namespace CompanyManagement.ViewModels
         public string ID { get => id; set { id = value; OnPropertyChanged(); } }
 
         private string name;
-        public string NAME { get => name; set { name = value; OnPropertyChanged(); } }
+        public string Name { get => name; set { name = value; OnPropertyChanged(); } }
 
         private string start;
-        public string START { get => start; set { start = value; OnPropertyChanged(); } }
+        public string Start { get => start; set { start = value; OnPropertyChanged(); } }
 
         private string end;
-        public string END { get => end; set { end = value; OnPropertyChanged(); } }
+        public string End { get => end; set { end = value; OnPropertyChanged(); } }
 
         private string employeeID;
-        public string EMPLOYEEID { get => employeeID; set { employeeID = value; OnPropertyChanged(); } }
+        public string EmployeeID { get => employeeID; set { employeeID = value; OnPropertyChanged(); } }
 
         private TaskInProjectDao taskinprojectdao = new TaskInProjectDao();
 
