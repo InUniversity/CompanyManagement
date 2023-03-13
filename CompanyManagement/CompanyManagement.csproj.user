@@ -7,9 +7,6 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Dialogs\EmployeeInputWindow.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="LoginWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -24,9 +21,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="Dialogs\EmployeeInputWindow.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Update="LoginWindow.xaml">
       <SubType>Designer</SubType>
     </Page>

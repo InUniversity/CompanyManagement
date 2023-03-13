@@ -1,15 +1,15 @@
 ﻿using System;
-using System.Buffers;
 using System.Collections.Generic;
 using System.Data;
 using System.Windows;
 using System.Windows.Input;
 using CompanyManagement.Database;
 using CompanyManagement.Models;
+using CompanyManagement.UserControls;
 
 namespace CompanyManagement.ViewModels
 {
-    public class EmployeeInputViewModel : BaseViewModel
+    public class EmployeeInputViewModel : BaseViewModel, IRetrieveEmployee
     {
 
         private string id = "";
@@ -21,7 +21,7 @@ namespace CompanyManagement.ViewModels
         private string gender = "";
         public string Gender { get => gender; set { gender = value; OnPropertyChanged(); } }
 
-        private DateTime birthday;
+        private DateTime birthday = DateTime.Now;
         public DateTime Birthday { get => birthday; set { birthday = value; OnPropertyChanged(); } }
 
         private string identifyCard = "";
@@ -42,6 +42,9 @@ namespace CompanyManagement.ViewModels
         private string positionID = "";
         public string PositionID { get => positionID; set { positionID = value; OnPropertyChanged(); } }
 
+        private string contentAddUpdateButton;
+        public string ContentAddUpdateButton { get => contentAddUpdateButton; set { contentAddUpdateButton = value; OnPropertyChanged(); } }
+
         private int salary = 0;
         public int Salary { get => salary; set { salary = value; OnPropertyChanged(); } }
         
@@ -50,12 +53,15 @@ namespace CompanyManagement.ViewModels
         public List<PositionInCompany> Positions { get; set; }
         public List<Department> Departments { get; set; }
 
+        public EmployeesViewModel ParentViewModel { get; set; }
+
         private PositionDao positionDao = new PositionDao();
         private DepartmentDao departmentDao = new DepartmentDao();
-
+        
         public EmployeeInputViewModel()
         {
-            AddEmployeeCommand = new ReplayCommand<object>(AddEmployee);
+            ContentAddUpdateButton = "Thêm";
+            AddEmployeeCommand = new ReplayCommand<Window>(AddUpdateCommand);
             SetAllComboBox();
         }
 
@@ -78,14 +84,14 @@ namespace CompanyManagement.ViewModels
             }
         }
 
-        private void AddEmployee(object p)
+        private void AddUpdateCommand(Window inputWindow)
         {
             TrimAllTexts();
             if (!CheckAllFields())
                 return;
             Employee empl = CreateEmployeeInstance();
-            SendEmployeeInstance(new EmployeesViewModel(), empl);
-            CloseWindow(null);
+            SendEmployeeInstance(ParentViewModel, empl);
+            inputWindow.Close();
         }
 
         private Employee CreateEmployeeInstance()
@@ -101,9 +107,10 @@ namespace CompanyManagement.ViewModels
 
         private bool CheckAllFields()
         {
-            if (string.Equals(ID, "") || string.Equals(Name, "") || string.Equals(Gender, "") ||
-                string.Equals(IdentifyCard, "") || string.Equals(Email, "") || string.Equals(PhoneNumber, "") ||
-                string.Equals(Address, "") || string.Equals(departmentID, "") || string.Equals(positionID, ""))
+            if (string.IsNullOrWhiteSpace(ID) || string.IsNullOrWhiteSpace(Name) || string.IsNullOrWhiteSpace(Gender) ||
+                string.IsNullOrWhiteSpace(IdentifyCard) || string.IsNullOrWhiteSpace(Email) || 
+                string.IsNullOrWhiteSpace(PhoneNumber) || string.IsNullOrWhiteSpace(Address) || 
+                string.IsNullOrWhiteSpace(departmentID) || string.IsNullOrWhiteSpace(positionID))
             {
                 MessageBox.Show("Các thông tin không được để trống!!!");
                 return false;
@@ -127,6 +134,21 @@ namespace CompanyManagement.ViewModels
             address = address.Trim();
             departmentID = departmentID.Trim();
             positionID = positionID.Trim();
+        }
+
+        public void Retrieve(Employee employee)
+        {
+            ContentAddUpdateButton = "Lưu";
+            ID = employee.ID;
+            Name = employee.Name;
+            Gender = employee.Gender;
+            IdentifyCard = employee.IdentifyCard;
+            Email = employee.Email;
+            PhoneNumber = employee.PhoneNumber;
+            Address = employee.Address;
+            DepartmentID = employee.DepartmentID;
+            PositionID = employee.PositionID;
+            Salary = employee.Salary;
         }
     }
 }

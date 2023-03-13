@@ -1,11 +1,8 @@
 ﻿using System.Collections.ObjectModel;
 using System.Data;
 using CompanyManagement.Database;
-using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using CompanyManagement.Dialogs;
-using MaterialDesignThemes.Wpf;
 
 namespace CompanyManagement.ViewModels
 {
@@ -40,23 +37,16 @@ namespace CompanyManagement.ViewModels
 
         private void SetCommands()
         {
-            OpenInputDialogCommand = new ReplayCommand<UserControl>(OpenEmployeeInputDialog);
+            OpenInputDialogCommand = new ReplayCommand<BaseViewModel>(OpenEmployeeInputDialog);
             DeleteEmployeeCommand = new ReplayCommand<string>(ExecuteDeleteCommand);
             UpdateEmployeeCommand = new ReplayCommand<Employee>(ExecuteUpdateCommand);
         }
 
-        private void OpenEmployeeInputDialog(UserControl p)
+        private void OpenEmployeeInputDialog(object p)
         {
-            EmployeeInputWindow employeeInputWindow = new EmployeeInputWindow();
-            employeeInputWindow.Owner = Application.Current.MainWindow;
-            employeeInputWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-            employeeInputWindow.ShowDialog();
-        }
-
-        public void Retrieve(Employee employee)
-        {
-            employeeDao.Add(employee);
-            LoadEmployees();
+            AddEmployeeDialog addEmployeeDialog = new AddEmployeeDialog();
+            ((EmployeeInputViewModel) addEmployeeDialog.DataContext).ParentViewModel = this;
+            addEmployeeDialog.ShowDialog();
         }
 
         private void ExecuteDeleteCommand(string id)
@@ -67,7 +57,17 @@ namespace CompanyManagement.ViewModels
 
         private void ExecuteUpdateCommand(Employee employee)
         {
-            employeeDao.Save(employee);
+            AddEmployeeDialog addEmployeeDialog = new AddEmployeeDialog();
+            ((EmployeeInputViewModel) addEmployeeDialog.DataContext).ParentViewModel = this;
+            addEmployeeDialog.ShowDialog();
+        }
+
+        public void Retrieve(Employee employee)
+        {
+            if (employeeDao.SearchByID(employee.ID) == null)
+                employeeDao.Add(employee);
+            else
+                employeeDao.Save(employee);
             LoadEmployees();
         }
     }

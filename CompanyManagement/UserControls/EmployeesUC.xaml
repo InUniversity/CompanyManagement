@@ -34,7 +34,7 @@
                             <Button
                                 Margin="20 0 0 0"
                                 Command="{Binding OpenInputDialogCommand}"
-                                CommandParameter="{Binding ElementName=employeesUC}"
+                                CommandParameter="{Binding}"
                                 Background="ForestGreen"
                                 IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                                 Style="{StaticResource MaterialDesignFlatMidBgButton}"

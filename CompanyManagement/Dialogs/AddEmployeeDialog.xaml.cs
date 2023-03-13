@@ -6,9 +6,9 @@ namespace CompanyManagement.Dialogs;
 /// <summary>
 ///     Interaction logic for EmployeeInputWindow.xaml
 /// </summary>
-public partial class EmployeeInputWindow : Window
+public partial class AddEmployeeDialog : Window
 {
-    public EmployeeInputWindow()
+    public AddEmployeeDialog()
     {
         InitializeComponent();
     }
