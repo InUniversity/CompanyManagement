@@ -13,7 +13,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              DataContext="{StaticResource EmployeesVM}"
              mc:Ignorable="d"
-             Padding="5"
+             Padding="10"
              x:Name="employeesUC"
              d:DesignHeight="777" d:DesignWidth="1508">
     <Grid>
@@ -34,11 +34,10 @@
                             <Button
                                 Margin="20 0 0 0"
                                 Command="{Binding OpenInputDialogCommand}"
-                                CommandParameter="{Binding}"
                                 Background="ForestGreen"
                                 IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                                 Style="{StaticResource MaterialDesignFlatMidBgButton}"
-                                ToolTip="Hiển thị màn hình thêm nhân viên mới" >
+                                ToolTip="Hiển thị màn hình thêm nhân viên mới">
                                 <materialDesign:PackIcon Kind="AccountPlusOutline" />
                             </Button>
                         </StackPanel>
@@ -75,39 +74,44 @@
             </materialDesign:Card>
 
             <Grid Grid.Row="1">
-                <DataGrid CanUserAddRows="False" 
-                          AutoGenerateColumns="False" 
-                          Background="White" 
-                          ItemsSource="{Binding Employees}" 
-                          Width="auto">
-                    <DataGrid.Columns>
-                        <DataGridTemplateColumn Header="Operations" CanUserResize="False" IsReadOnly="True" Width="auto">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
-                                        <Button Command="{Binding DataContext.UpdateEmployeeCommand, ElementName=employeesUC}" CommandParameter="{Binding}">
-                                            <materialDesign:PackIcon Kind="PencilOutline" />
-                                        </Button>
-                                        <Button Margin="5 0 0 0" Command="{Binding DataContext.DeleteEmployeeCommand, ElementName=employeesUC}" CommandParameter="{Binding ID}">
-                                            <materialDesign:PackIcon Kind="DeleteOutline" />
-                                        </Button>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        <DataGridTextColumn Header="Mã nhân viên" IsReadOnly="True" Binding="{Binding ID}" />
-                        <DataGridTextColumn Header="Họ và tên" IsReadOnly="True" Binding="{Binding Name}" />
-                        <DataGridTextColumn Header="Giới tính" IsReadOnly="True" Binding="{Binding Gender}" />
-                        <DataGridTextColumn Header="Ngày sinh" IsReadOnly="True" Binding="{Binding Birthday}" />
-                        <DataGridTextColumn Header="Chứng minh nhân dân" IsReadOnly="True" Binding="{Binding IdentifyCard}" />
-                        <DataGridTextColumn Header="Email" IsReadOnly="True" Binding="{Binding Email}" />
-                        <DataGridTextColumn Header="Số điện thoại" IsReadOnly="True" Binding="{Binding PhoneNumber}" />
-                        <DataGridTextColumn Header="Địa chỉ" IsReadOnly="True" Binding="{Binding Address}" />
-                        <DataGridTextColumn Header="Mã quản lí" IsReadOnly="True" Binding="{Binding ManagerID}" />
-                        <DataGridTextColumn Header="Mã vị trí công việc" IsReadOnly="True" Binding="{Binding PositionID}" />
-                        <DataGridTextColumn Header="Lương" IsReadOnly="True" Binding="{Binding Salary}" />
-                    </DataGrid.Columns>
-                </DataGrid>
+                    <DataGrid CanUserAddRows="False"
+                              AutoGenerateColumns="False"
+                              Background="White"
+                              Height="650"
+                              ItemsSource="{Binding Employees}">
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="Operations" CanUserResize="False" IsReadOnly="True"
+                                                    Width="auto">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Button
+                                                Command="{Binding DataContext.UpdateEmployeeCommand, ElementName=employeesUC}"
+                                                CommandParameter="{Binding}">
+                                                <materialDesign:PackIcon Kind="PencilOutline" />
+                                            </Button>
+                                            <Button Margin="5 0 0 0"
+                                                    Command="{Binding DataContext.DeleteEmployeeCommand, ElementName=employeesUC}"
+                                                    CommandParameter="{Binding ID}">
+                                                <materialDesign:PackIcon Kind="DeleteOutline" />
+                                            </Button>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Header="Mã nhân viên" IsReadOnly="True" Binding="{Binding ID}" />
+                            <DataGridTextColumn Header="Họ và tên" IsReadOnly="True" Binding="{Binding Name}" />
+                            <DataGridTextColumn Header="Giới tính" IsReadOnly="True" Binding="{Binding Gender}" />
+                            <DataGridTextColumn Header="Ngày sinh" IsReadOnly="True" Binding="{Binding Birthday}" />
+                            <DataGridTextColumn Header="Chứng minh nhân dân" IsReadOnly="True" Binding="{Binding IdentifyCard}" />
+                            <DataGridTextColumn Header="Email" IsReadOnly="True" Binding="{Binding Email}" />
+                            <DataGridTextColumn Header="Số điện thoại" IsReadOnly="True" Binding="{Binding PhoneNumber}" />
+                            <DataGridTextColumn Header="Địa chỉ" IsReadOnly="True" Binding="{Binding Address}" />
+                            <DataGridTextColumn Header="Mã Phòng Ban" IsReadOnly="True" Binding="{Binding DepartmentID}" />
+                            <DataGridTextColumn Header="Mã vị trí công việc" IsReadOnly="True" Binding="{Binding PositionID}" />
+                            <DataGridTextColumn Header="Lương" IsReadOnly="True" Binding="{Binding Salary}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
             </Grid>
         </Grid>
     </Grid>

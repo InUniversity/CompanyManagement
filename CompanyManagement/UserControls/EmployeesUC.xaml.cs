@@ -13,6 +13,5 @@ public partial class EmployeesUC : UserControl
     public EmployeesUC()
     {
         InitializeComponent();
-        EmployeeInputDialogService.RegisterDialog<AddEmployeeDialog, EmployeeInputViewModel>();
     }
 }
