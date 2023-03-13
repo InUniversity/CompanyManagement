@@ -34,7 +34,7 @@
                                 <ColumnDefinition Width="1300" />
                             </Grid.ColumnDefinitions>
                             <Grid Grid.Column="0" Width="200">
-                                <uc:AssignUC />
+                                <uc:GetJobUC/>
                             </Grid>
                         </Grid>
                     </StackPanel>
