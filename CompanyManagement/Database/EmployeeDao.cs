@@ -1,33 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data;
 
 namespace CompanyManagement.Database
 {
     public class EmployeeDao
     {
-        public static string TABLE_NAME = "Employee";
-        public static string ID = "employee_id";
-        public static string NAME = "employee_name";
-        public static string GENDER = "gender";
-        public static string BIRTHDAY = "birthday";
-        public static string IDENTIFY_CARD = "identify_card";
-        public static string PHONE_NUMBER = "phone_number";
-        public static string MANAGER_ID = "manager_id";
-        public static string SALARY = "salary";
-        public static string ADDRESS = "employee_address";
+        
+        private const string TABLE_NAME = "Employee";
+        public const string ID = "employee_id";
+        public const string NAME = "employee_name";
+        public const string GENDER = "gender";
+        public const string BIRTHDAY = "birthday";
+        public const string IDENTIFY_CARD = "identify_card";
+        public const string EMAIL = "email";
+        public const string PHONE_NUMBER = "phone_number";
+        public const string ADDRESS = "employee_address";
+        public const string DEPARTMENT_ID = "department_id";
+        public const string POSITION_ID = "position_id";
+        public const string SALARY = "salary";
 
-        DBConnection dbconnection = new DBConnection();
+        private DBConnection dbconnection = new DBConnection();
 
         public void Add(Employee empl)
         {
-            string sqlStr = $"INSERT INTO {TABLE_NAME} ({ID}, {NAME}, {GENDER}, {BIRTHDAY}, {IDENTIFY_CARD}, {PHONE_NUMBER}, {MANAGER_ID}, {SALARY}, {ADDRESS}) " +
-                $"VALUES ('{empl.ID}', N'{empl.Name}', N'{empl.Gender}', '{empl.Birthday.ToString()}', '{empl.IndentifyCard}', '{empl.PhoneNumber}' ," +
-                $"'{empl.ManagerID}', {empl.Salary} , N'{empl.Address}')";
+            string sqlStr =
+                $"INSERT INTO {TABLE_NAME} ({ID}, {NAME}, {GENDER}, {BIRTHDAY}, {IDENTIFY_CARD}, {EMAIL}, " +
+                $"{PHONE_NUMBER}, {ADDRESS}, {DEPARTMENT_ID},{POSITION_ID}, {SALARY}) " +
+                $"VALUES ('{empl.ID}', N'{empl.Name}', N'{empl.Gender}', '{empl.Birthday}', " +
+                $"'{empl.IdentifyCard}', '{empl.Email}', '{empl.PhoneNumber}', N'{empl.Address}', " +
+                $"'{empl.DepartmentID}', '{empl.PositionID}', '{empl.Salary}')";
             dbconnection.ExecuteNonQuery(sqlStr);
         }
 
@@ -40,9 +40,10 @@ namespace CompanyManagement.Database
         public void Save(Employee empl)
         {
             string sqlStr = $"UPDATE {TABLE_NAME}" +
-                $"SET {NAME} = N'{empl.Name}', {GENDER} = N'{empl.Gender}', {BIRTHDAY} = '{empl.Birthday.ToString()}', {IDENTIFY_CARD}= '{empl.IndentifyCard}'," +
-                $"{PHONE_NUMBER} = '{empl.PhoneNumber}', {MANAGER_ID}= '{empl.ManagerID}', {SALARY}= '{empl.Salary}', {ADDRESS} = N'{empl.Address}'" +
-                $" WHERE {ID} = '{empl.ID}'";
+                $"SET {NAME}=N'{empl.Name}', {GENDER}=N'{empl.Gender}', {BIRTHDAY}='{empl.Birthday}', " +
+                $"{IDENTIFY_CARD}='{empl.IdentifyCard}', {EMAIL}={empl.Email}, " +
+                $"{PHONE_NUMBER}='{empl.PhoneNumber}', {ADDRESS}={empl.Address}, {DEPARTMENT_ID}='{empl.DepartmentID}', " +
+                $"{POSITION_ID}='{empl.PositionID}', {SALARY}='{empl.Salary}' WHERE {ID}='{empl.ID}'";
             dbconnection.ExecuteNonQuery(sqlStr);
         }
 
