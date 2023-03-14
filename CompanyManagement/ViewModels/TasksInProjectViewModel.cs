@@ -40,9 +40,9 @@ namespace CompanyManagement.ViewModels
         }
         private void SetCommand()
         {
-            AddTaskInProjectCommand = new ReplayCommand<Window>(p => OnClickAdd(p)) ;
-            DeleteTaskInProjectCommand = new ReplayCommand<Window>(p => OnClickDelete(p));
-            SaveTaskInProjectCommand = new ReplayCommand<Window>(p => OnClickSave(p));
+            AddTaskInProjectCommand = new RelayCommand<Window>(p => OnClickAdd(p)) ;
+            DeleteTaskInProjectCommand = new RelayCommand<Window>(p => OnClickDelete(p));
+            SaveTaskInProjectCommand = new RelayCommand<Window>(p => OnClickSave(p));
         }
 
         private void OnClickAdd(Window p)
