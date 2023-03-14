@@ -6,7 +6,7 @@ using CompanyManagement.Dialogs;
 
 namespace CompanyManagement.ViewModels
 {
-    public class EmployeesViewModel : BaseViewModel, IRetrieveEmployee
+    public class EmployeesViewModel : BaseViewModel, IEmployees
     {
 
         private ObservableCollection<Employee> employees;
@@ -37,15 +37,16 @@ namespace CompanyManagement.ViewModels
 
         private void SetCommands()
         {
-            OpenInputDialogCommand = new ReplayCommand<BaseViewModel>(OpenEmployeeInputDialog);
-            DeleteEmployeeCommand = new ReplayCommand<string>(ExecuteDeleteCommand);
-            UpdateEmployeeCommand = new ReplayCommand<Employee>(ExecuteUpdateCommand);
+            OpenInputDialogCommand = new RelayCommand<object>(OpenEmployeeInputDialog);
+            DeleteEmployeeCommand = new RelayCommand<string>(ExecuteDeleteCommand);
+            UpdateEmployeeCommand = new RelayCommand<Employee>(ExecuteUpdateCommand);
         }
 
         private void OpenEmployeeInputDialog(object p)
         {
             AddEmployeeDialog addEmployeeDialog = new AddEmployeeDialog();
-            ((EmployeeInputViewModel) addEmployeeDialog.DataContext).ParentViewModel = this;
+            AddEmployeeViewModel addEmployeeVM = (AddEmployeeViewModel)addEmployeeDialog.DataContext;
+            addEmployeeVM.ParentDataContext = this;
             addEmployeeDialog.ShowDialog();
         }
 
@@ -57,23 +58,29 @@ namespace CompanyManagement.ViewModels
 
         private void ExecuteUpdateCommand(Employee employee)
         {
-            AddEmployeeDialog addEmployeeDialog = new AddEmployeeDialog();
-            ((EmployeeInputViewModel) addEmployeeDialog.DataContext).ParentViewModel = this;
-            addEmployeeDialog.ShowDialog();
+            UpdateEmployeeDialog updateEmployeeDialog = new UpdateEmployeeDialog();
+            UpdateEmployeeViewModel updateEmployeeVM = (UpdateEmployeeViewModel)updateEmployeeDialog.DataContext;
+            updateEmployeeVM.ParentDataContext = this;
+            updateEmployeeVM.EmployeeInputDataContext.Retrieve(employee);
+            updateEmployeeDialog.ShowDialog();
         }
 
-        public void Retrieve(Employee employee)
+        public void Add(Employee employee)
         {
-            if (employeeDao.SearchByID(employee.ID) == null)
-                employeeDao.Add(employee);
-            else
-                employeeDao.Save(employee);
+            employeeDao.Add(employee);
+            LoadEmployees();
+        }
+
+        public void Update(Employee employee)
+        {
+            employeeDao.Save(employee);
             LoadEmployees();
         }
     }
 
-    interface IRetrieveEmployee
+    public interface IEmployees
     {
-        void Retrieve(Employee employee);
+        void Add(Employee employee);
+        void Update(Employee employee);
     }
 }

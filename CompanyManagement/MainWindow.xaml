@@ -56,7 +56,7 @@
                 </TabItem>
                 <TabItem Header="Nhân Sự">
                     <StackPanel>
-                        <uc:EmployeesUC></uc:EmployeesUC>
+                        <uc:EmployeesUC/>
                     </StackPanel>
                 </TabItem>
                 <TabItem Header="Chấm Công"></TabItem>

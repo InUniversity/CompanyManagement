@@ -1,32 +1,32 @@
-﻿using System.Windows;
+﻿using CompanyManagement.Database;
 using System.Windows.Input;
-using CompanyManagement.Database;
+using System.Windows;
 
 namespace CompanyManagement.ViewModels
 {
-    public class AddEmployeeViewModel : BaseViewModel
+    class UpdateEmployeeViewModel : BaseViewModel
     {
 
-        public ICommand AddEmployeeCommand { get; set; }
+        public ICommand UpdateEmployeeCommand { get; set; }
 
         public EmployeesViewModel ParentDataContext { get; set; }
         public EmployeeInputViewModel EmployeeInputDataContext { get; set; }
 
         private PositionDao positionDao = new PositionDao();
         private DepartmentDao departmentDao = new DepartmentDao();
-        
-        public AddEmployeeViewModel()
+
+        public UpdateEmployeeViewModel()
         {
             EmployeeInputDataContext = new EmployeeInputViewModel();
-            AddEmployeeCommand = new RelayCommand<Window>(AddCommand, 
+            UpdateEmployeeCommand = new RelayCommand<Window>(UpdateCommand, 
                 p => EmployeeInputDataContext.CheckAllFields());
         }
 
-        private void AddCommand(Window inputWindow)
+        private void UpdateCommand(Window inputWindow)
         {
             EmployeeInputDataContext.TrimAllTexts();
             Employee empl = EmployeeInputDataContext.CreateEmployeeInstance();
-            ParentDataContext.Add(empl);
+            ParentDataContext.Update(empl);
             EmployeeInputDataContext.ClearAllTexts();
             inputWindow.Close();
         }

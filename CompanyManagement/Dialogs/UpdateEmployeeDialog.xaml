@@ -1,16 +1,15 @@
-﻿<Window x:Class="CompanyManagement.Dialogs.AddEmployeeDialog"
+﻿<Window x:Class="CompanyManagement.Dialogs.UpdateEmployeeDialog"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:viewModels="clr-namespace:CompanyManagement.ViewModels"
-        xmlns:uc="clr-namespace:CompanyManagement.UserControls"
+        xmlns:local="clr-namespace:CompanyManagement.Dialogs"
         mc:Ignorable="d"
-        DataContext="{StaticResource AddEmployeeVM}"
+        xmlns:uc="clr-namespace:CompanyManagement.UserControls"
+        DataContext="{StaticResource UpdateEmployeeVM}"
+        x:Name="updateEmployeeWindow"
         WindowStartupLocation="CenterScreen"
-        x:Name="addEmployeeWindow"
-        Title="EmployeeInputWindow" Height="600" Width="920">
+        Title="UpdateEmployeeDialog" Height="600" Width="920">
     <Grid Margin="0 10">
         <StackPanel Height="564" VerticalAlignment="Center" HorizontalAlignment="Right" Width="920">
             <Grid>
@@ -24,9 +23,9 @@
             </Grid>
             <Grid Grid.Row="1">
                 <Button
-                    Content="Thêm"
-                    Command="{Binding AddEmployeeCommand}"
-                    CommandParameter="{Binding ElementName=addEmployeeWindow}"
+                    Content="Lưu"
+                    Command="{Binding UpdateEmployeeCommand}"
+                    CommandParameter="{Binding ElementName=updateEmployeeWindow}"
                     Width="70"
                     Background="ForestGreen"
                     IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"

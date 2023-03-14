@@ -1,7 +1,4 @@
 ﻿using System.Windows.Controls;
-using CompanyManagement.Dialogs;
-using CompanyManagement.Services;
-using CompanyManagement.ViewModels;
 
 namespace CompanyManagement.UserControls;
 

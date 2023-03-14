@@ -3,4 +3,6 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <viewmodel:EmployeesViewModel x:Key="EmployeesVM"></viewmodel:EmployeesViewModel>
     <viewmodel:EmployeeInputViewModel x:Key="EmployeeInputVM"></viewmodel:EmployeeInputViewModel>
+    <viewmodel:AddEmployeeViewModel x:Key="AddEmployeeVM"></viewmodel:AddEmployeeViewModel>
+    <viewmodel:UpdateEmployeeViewModel x:Key="UpdateEmployeeVM"></viewmodel:UpdateEmployeeViewModel>
 </ResourceDictionary>
