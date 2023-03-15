@@ -14,12 +14,12 @@ namespace CompanyManagement.ViewModels
 
         private PositionDao positionDao = new PositionDao();
         private DepartmentDao departmentDao = new DepartmentDao();
+        private EmployeeDao employeeDao = new EmployeeDao();
         
         public AddEmployeeViewModel()
         {
             EmployeeInputDataContext = new EmployeeInputViewModel();
-            AddEmployeeCommand = new RelayCommand<Window>(AddCommand, 
-                p => EmployeeInputDataContext.CheckAllFields());
+            AddEmployeeCommand = new RelayCommand<Window>(AddCommand, p => CheckAllFields());
         }
 
         private void AddCommand(Window inputWindow)
@@ -29,6 +29,28 @@ namespace CompanyManagement.ViewModels
             ParentDataContext.Add(empl);
             EmployeeInputDataContext.ClearAllTexts();
             inputWindow.Close();
+        }
+
+        private bool CheckAllFields()
+        {
+            if (!EmployeeInputDataContext.CheckAllFields())
+                return false;
+            if(employeeDao.SearchByID(EmployeeInputDataContext.ID) != null)
+            {
+                EmployeeInputDataContext.ErrorMessage = Utils.EXIST_ID_MESSAGE;
+                return false;
+            }
+            if (employeeDao.SearchByIdentifyCard(EmployeeInputDataContext.IdentifyCard) != null)
+            {
+                EmployeeInputDataContext.ErrorMessage = Utils.EXIST_IDENTIFY_CARD_MESSAGE;
+                return false;
+            }
+            if (employeeDao.SearchByPhoneNumber(EmployeeInputDataContext.PhoneNumber) != null)
+            {
+                EmployeeInputDataContext.ErrorMessage = Utils.EXIST_PHONE_NUMBER_MESSAGE;
+                return false;
+            }
+            return true;
         }
     }
 }
