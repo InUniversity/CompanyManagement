@@ -30,9 +30,9 @@ public class LoginViewModel : BaseViewModel
     private void SetCommands()
     {
         IsLogin = 0;
-        LoginCommand = new ReplayCommand<Window>(p => OnClickLogin(p));
-        ForgotPasswordCommand = new ReplayCommand<object>(p => OnClickForgotPassword(p));
-        PasswordChangedCommand = new ReplayCommand<PasswordBox>((p) => { password = p.Password; });
+        LoginCommand = new RelayCommand<Window>(p => OnClickLogin(p));
+        ForgotPasswordCommand = new RelayCommand<object>(p => OnClickForgotPassword(p));
+        PasswordChangedCommand = new RelayCommand<PasswordBox>((p) => { password = p.Password; });
     }
 
     private void OnClickLogin(Window p)
