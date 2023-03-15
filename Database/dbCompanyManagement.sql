@@ -82,25 +82,25 @@ VALUES ('2', N'Nhân Viên')
 INSERT INTO Employee(employee_id, employee_name, gender, birthday, identify_card, email, phone_number, employee_address, department_id, position_id, salary)
 VALUES ('EM001', N'Nguyễn Văn An', N'Nam', '15-10-2000', '98654234568', 'nguyenvanan1510@gmail.com', '0976458234', N'Tiền Giang', 'DPM001','2',15000)
 
-INSERT INTO Employee(employee_id, employee_name, gender, birthday, identify_card, email, phone_number, employee_address, manager_id, position_id, salary)
+INSERT INTO Employee(employee_id, employee_name, gender, birthday, identify_card, email, phone_number, employee_address, department_id, position_id, salary)
 VALUES ('EM002', N'Nguyễn Thúy An', N'Nữ', '19-03-1998', '98654234758', 'nguyenthuyan1903@gmail.com', '0987965423', N'Hậu Giang', 'DPM002','2',15000)
 
-INSERT INTO Employee(employee_id, employee_name, gender, birthday, identify_card, email, phone_number, employee_address, manager_id, position_id, salary)
+INSERT INTO Employee(employee_id, employee_name, gender, birthday, identify_card, email, phone_number, employee_address, department_id, position_id, salary)
 VALUES ('EM003', N'Lê Hoàng Bảo Phát', N'Nam', '07-11-1990', '9867584568', 'lehoangbaophat0711@gmail.com', '0786458234', N'Bến Tre', 'DPM001','2',15000)
 
-INSERT INTO Employee(employee_id, employee_name, gender, birthday, identify_card, email, phone_number, employee_address, manager_id, position_id, salary)
+INSERT INTO Employee(employee_id, employee_name, gender, birthday, identify_card, email, phone_number, employee_address, department_id, position_id, salary)
 VALUES ('EM004', N'Trần Hoàng Lan', N'Nữ', '19-09-1998', '9789834568', 'tranhoanglan1909@gmail.com', '0879458234', N'Tp. HCM', 'DPM002','2',15000)
 
-INSERT INTO Employee(employee_id, employee_name, gender, birthday, identify_card, email, phone_number, employee_address, manager_id, position_id, salary)
+INSERT INTO Employee(employee_id, employee_name, gender, birthday, identify_card, email, phone_number, employee_address, department_id, position_id, salary)
 VALUES ('EM005', N'Hà Giang', N'Nữ', '25-12-2002', '9789812345', 'hagiang2512@gmail.com', '094567312', N'Kiên Giang', 'DPM001','2',15000)
 
-INSERT INTO Employee(employee_id, employee_name, gender, birthday, identify_card, email, phone_number, employee_address, manager_id, position_id, salary)
+INSERT INTO Employee(employee_id, employee_name, gender, birthday, identify_card, email, phone_number, employee_address, department_id, position_id, salary)
 VALUES ('EM006', N'Phan Hoàng Giang', N'Nam', '05-04-1995', '9789812345', 'phanhoanggiang0504@gmail.com', '0765489123', N'Đồng Nai', 'DPM001','2',15000)
 
-INSERT INTO Employee(employee_id, employee_name, gender, birthday, identify_card, email, phone_number, employee_address, manager_id, position_id, salary)
+INSERT INTO Employee(employee_id, employee_name, gender, birthday, identify_card, email, phone_number, employee_address, department_id, position_id, salary)
 VALUES ('CD001', N'Trần Lâm Phát Linh', N'Nam', '18-08-1996', '9789834123', 'tranlamphatlinh1808@gmail.com', '0879458999', N'Tp. HCM', 'DPM001','1',15000)
 
-INSERT INTO Employee(employee_id, employee_name, gender, birthday, identify_card, email, phone_number, employee_address, manager_id, position_id, salary)
+INSERT INTO Employee(employee_id, employee_name, gender, birthday, identify_card, email, phone_number, employee_address, department_id, position_id, salary)
 VALUES ('CD002', N'Lê Trần Thúy Lan', N'Nữ', '11-11-1993', '9789123123', 'letranthuylan1111@gmail.com', '0879777777', N'Tp. HCM', 'DPM001','1',15000)
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
