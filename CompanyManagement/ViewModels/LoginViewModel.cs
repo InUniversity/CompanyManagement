@@ -8,7 +8,7 @@ namespace CompanyManagement.ViewModels;
 
 public class LoginViewModel : BaseViewModel
 {
-    public bool IsLogin { get; set; }
+    public int IsLogin { get; set; }
 
     private string username;
     public string Username { get => username; set { username = value; OnPropertyChanged(); } }
@@ -29,10 +29,10 @@ public class LoginViewModel : BaseViewModel
 
     private void SetCommands()
     {
-        IsLogin = false;
-        LoginCommand = new RelayCommand<Window>(p => OnClickLogin(p));
-        ForgotPasswordCommand = new RelayCommand<object>(p => OnClickForgotPassword(p));
-        PasswordChangedCommand = new RelayCommand<PasswordBox>((p) => { password = p.Password; });
+        IsLogin = 0;
+        LoginCommand = new ReplayCommand<Window>(p => OnClickLogin(p));
+        ForgotPasswordCommand = new ReplayCommand<object>(p => OnClickForgotPassword(p));
+        PasswordChangedCommand = new ReplayCommand<PasswordBox>((p) => { password = p.Password; });
     }
 
     private void OnClickLogin(Window p)
@@ -41,10 +41,13 @@ public class LoginViewModel : BaseViewModel
         if (account == null || !string.Equals(Password, account.Password))
         {
             MessageBox.Show("Username or password not valid");
-            IsLogin = false;
+            IsLogin = 0;
             return;
         }
-        IsLogin = true;
+        if (account.EmployeeId.IndexOf("CD") >= 0)
+            IsLogin = 1;
+        else
+            IsLogin = 2;
         p.Close();
     }
 

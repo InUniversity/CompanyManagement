@@ -8,17 +8,18 @@ using System.Windows.Input;
 
 namespace CompanyManagement.ViewModels
 {
-    public class MainViewModel:BaseViewModel
+    public class MainViewModel: BaseViewModel
     {
         public bool IsLoaded = false;
+
         public ICommand LoadedWindowCommand { get; set; }
 
         public MainViewModel()
         {
-            SetCommand();
+            SetCommands();
         }
 
-        public void SetCommand()
+        public void SetCommands()
         {
             LoadedWindowCommand = new RelayCommand<Window>(p => {
                 IsLoaded = true;
@@ -31,10 +32,16 @@ namespace CompanyManagement.ViewModels
 
                 var loginWM = loginWindow.DataContext as LoginViewModel;
 
-                if (loginWM.IsLogin == true)
+                if (loginWM.IsLogin == 1)
                 {
                     p.Show();
                 }
+                else if(loginWM.IsLogin == 2)
+                {
+                    EmployeeWindow q = new EmployeeWindow();
+                    q.Show();
+                    p.Close();
+                }    
                 else
                 {
                     p.Close();
