@@ -10,7 +10,7 @@ using System.Windows.Input;
 
 namespace CompanyManagement.ViewModels
 {
-    public class ProjectViewModel:EmployeeViewModel
+    public class ProjectViewModel:EmployeesViewModel
     {
         private string id;
         public string ID { get => id; set { id = value; OnPropertyChanged(); } }
@@ -54,9 +54,9 @@ namespace CompanyManagement.ViewModels
 
         private void SetCommands()
         {
-            AddProjectCommand = new ReplayCommand<object>((p) => Add(p), (p) => CheckAllFields(p));
-            DeleteProjectCommand = new ReplayCommand<object>((p) => Delete(p), (p) => id != null && projectDao.SearchByID(id) == null);
-            UpdateProjectCommand = new ReplayCommand<object>((p) => Update(p));
+            AddProjectCommand = new RelayCommand<object>((p) => Add(p), (p) => CheckAllFields(p));
+            DeleteProjectCommand = new RelayCommand<object>((p) => Delete(p), (p) => id != null && projectDao.SearchByID(id) == null);
+            UpdateProjectCommand = new RelayCommand<object>((p) => Update(p));
         }
 
         private void Add(object p)

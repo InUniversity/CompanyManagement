@@ -3,11 +3,11 @@
 namespace CompanyManagement.UserControls;
 
 /// <summary>
-/// Interaction logic for UCEmployee.xaml
+///     Interaction logic for UCEmployee.xaml
 /// </summary>
-public partial class EmployeeUC : UserControl
+public partial class EmployeesUC : UserControl
 {
-    public EmployeeUC()
+    public EmployeesUC()
     {
         InitializeComponent();
     }

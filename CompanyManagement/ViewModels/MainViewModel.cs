@@ -21,7 +21,7 @@ namespace CompanyManagement.ViewModels
 
         public void SetCommands()
         {
-            LoadedWindowCommand = new ReplayCommand<Window>(p => {
+            LoadedWindowCommand = new RelayCommand<Window>(p => {
                 IsLoaded = true;
                 p.Hide();
                 LoginWindow loginWindow = new LoginWindow();
