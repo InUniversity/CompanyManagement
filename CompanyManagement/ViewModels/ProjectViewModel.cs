@@ -6,11 +6,13 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace CompanyManagement.ViewModels
 {
-    public class ProjectViewModel:EmployeeViewModel
+    public class ProjectViewModel:BaseViewModel
     {
         private string id;
         public string ID { get => id; set { id = value; OnPropertyChanged(); } }
@@ -23,18 +25,17 @@ namespace CompanyManagement.ViewModels
         private string progress;
         public string Progress { get => progress; set { progress = value; OnPropertyChanged(); } }
 
-        private bool selected;
-        public bool Selected { get => selected; set { selected = value; OnPropertyChanged(); } }
-
         private ObservableCollection<Project> projects;
         public ObservableCollection<Project> Projects { get => projects; set { projects = value; OnPropertyChanged(); }}
 
         public ICommand AddProjectCommand { get; set; }
         public ICommand DeleteProjectCommand { get; set; }
+        public ICommand DeleteAllProjectCommand { get; set; }
         public ICommand UpdateProjectCommand { get; set; }
+        public ICommand OpenWindowProjectDetailsDialogCommand { get; set; }
 
         private ProjectDao projectDao = new ProjectDao();
-
+        
         public ProjectViewModel()
         {
             LoadGVProjects();
@@ -54,9 +55,11 @@ namespace CompanyManagement.ViewModels
 
         private void SetCommands()
         {
-            AddProjectCommand = new ReplayCommand<object>((p) => Add(p), (p) => CheckAllFields(p));
-            DeleteProjectCommand = new ReplayCommand<object>((p) => Delete(p), (p) => id != null && projectDao.SearchByID(id) == null);
-            UpdateProjectCommand = new ReplayCommand<object>((p) => Update(p));
+            AddProjectCommand = new RelayCommand<object>((p) => Add(p), (p) => CheckAllFields(p));
+            DeleteProjectCommand = new RelayCommand<object>(ExecuteDeleteCommand);
+            UpdateProjectCommand = new RelayCommand<object>(ExecuteUpdateCommand);
+            DeleteAllProjectCommand = new RelayCommand<object>(ExecuteDeleteAllCommand);
+            OpenWindowProjectDetailsDialogCommand = new RelayCommand<object>(ExecuteOpenWindow);
         }
 
         private void Add(object p)
@@ -64,20 +67,35 @@ namespace CompanyManagement.ViewModels
             Project project = new Project(this.id,this.name, DateTime.Now.ToString("dd-MM-yyyy"), this.end.ToString("dd-MM-yyyy"), "0%");
             projectDao.Add(project);
             LoadGVProjects();
-        }
-
-        private void Delete(object p)
+        } 
+        private void ExecuteDeleteCommand(object b)
         {
-            Project project = new Project(this.id, this.name, this.start.ToString("dd-MM-yyyy"), this.end.ToString("dd-MM-yyyy"), this.progress);
-            projectDao.Delete(project);
+            //if (selectedProject != null)
+            //{
+            //    projectDao.Delete(this.id);
+            //    LoadGVProjects();
+            //}
             LoadGVProjects();
         }
-
-        private void Update(object p)
+        private void ExecuteDeleteAllCommand(object b)
+        {           
+            projectDao.DeleteAll();
+            LoadGVProjects();          
+        }
+        private void ExecuteUpdateCommand(object p)
         {
-            Project project = new Project(this.id, this.name, this.start.ToString("dd-MM-yyyy"), this.end.ToString("dd-MM-yyyy"), this.progress);
-            projectDao.Save(project);
+            //if(selectedProject!= null)
+            //{
+            //    Project project = new Project(this.id, this.name, selectedProject.Start, selectedProject.End, this.progress);
+            //    projectDao.Save(project);
+            //    LoadGVProjects();
+            //}
             LoadGVProjects();
+        }
+        private void ExecuteOpenWindow(object p)
+        {
+            ProjectDetailsDialog projectDetailsDialog = new ProjectDetailsDialog();
+            projectDetailsDialog.ShowDialog();
         }
         private bool CheckAllFields(object p)
         {

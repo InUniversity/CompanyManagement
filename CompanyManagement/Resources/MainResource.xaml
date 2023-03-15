@@ -6,4 +6,5 @@
     <viewmodel:LoginViewModel x:Key="LoginVM"></viewmodel:LoginViewModel>
     <viewmodel:ProjectViewModel x:Key="ProjectVM"></viewmodel:ProjectViewModel>
     <viewmodel:TasksInProjectViewModel x:Key="TasksInProjectVM"></viewmodel:TasksInProjectViewModel>
+    <viewmodel:ProjectDetailsDialogViewModel x:Key="ProjectDetailsDialogVM"></viewmodel:ProjectDetailsDialogViewModel>
 </ResourceDictionary>

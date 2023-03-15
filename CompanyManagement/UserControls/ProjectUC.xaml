@@ -14,6 +14,7 @@
             Background="{DynamicResource MaterialDesignPaper}"
             FontFamily="{DynamicResource MaterialDesignFont}"
              mc:Ignorable="d" 
+             x:Name="projectUC"
              d:DesignHeight="750" d:DesignWidth="800">
     <Grid>
         <materialDesign:DialogHost DialogContentUniformCornerRadius="20" Name="dialogAddProject">
@@ -75,15 +76,17 @@
                                 Orientation="Horizontal">
                                 <Button
                                     Margin="0,8,8,0"
-                                    Command="{Binding AddProjectCommand}"                                   
+                                    Command="{Binding AddProjectCommand}"
+                                    
                                     Content="Chấp nhận"
                                     IsDefault="True"
                                     Style="{StaticResource MaterialDesignFlatButton}">
-                                    <Button.CommandParameter>
+                                    <!--<Button.CommandParameter>
                                         <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
                                             True
                                         </system:Boolean>
-                                    </Button.CommandParameter>
+                                    
+                                    </Button.CommandParameter>-->                               
                                 </Button>
                                 <Button
                                 Margin="0,8,8,0"
@@ -91,11 +94,11 @@
                                 Content="Thoát"
                                 IsCancel="True"
                                 Style="{StaticResource MaterialDesignFlatButton}">
-                                    <Button.CommandParameter>
+                                    <!--<Button.CommandParameter>
                                         <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
                                             False
                                         </system:Boolean>
-                                    </Button.CommandParameter>
+                                    </Button.CommandParameter>-->
                                 </Button>
                             </StackPanel>
                         </Grid>
@@ -113,145 +116,42 @@
                         <RowDefinition  Height="*" />
                         <RowDefinition  Height="Auto" />
                     </Grid.RowDefinitions>
-                    <ListView Grid.Row="0" ItemsSource="{Binding Projects}" >
+                    <ListView Name="listviewProject"  Grid.Row="0" ItemsSource="{Binding Projects}" SelectedItem="{Binding SelectedProject}">
                         <ListView.View>
                             <GridView>
                                 <GridView.Columns >
-                                    <GridViewColumn Width="100">
+                                    <GridViewColumn Width="60">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
-                                                <StackPanel Orientation="Horizontal">
-                                                    <materialDesign:PopupBox
-                                                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-                                                        StaysOpen="True">
-                                                        <Grid Width="200" Margin="8,8,8,8">
-                                                            <Grid.ColumnDefinitions>
-                                                                <ColumnDefinition Width="*" />
-                                                                <ColumnDefinition Width="Auto" />
-                                                            </Grid.ColumnDefinitions>
-                                                            <Grid.RowDefinitions>
-                                                                <RowDefinition Height="*" />
-                                                                <RowDefinition Height="*" />
-                                                                <RowDefinition Height="*" />
-                                                            </Grid.RowDefinitions>
-                                                            <Grid Grid.Row="0">
-                                                                <Button Style="{StaticResource MaterialDesignFlatSecondaryMidBgButton}" ToolTip="Cập nhật">
-                                                                    <materialDesign:PackIcon Kind="Pencil"/>
-                                                                </Button>
-                                                            </Grid>
-                                                            <Grid Grid.Row="1">
-                                                                <Button Style="{StaticResource MaterialDesignRaisedLightButton}" ToolTip="Xóa">
-                                                                    <materialDesign:PackIcon Kind="Delete" />
-                                                                </Button>
-                                                            </Grid>
-                                                            <Grid Grid.Row="2">
-                                                                <Button Style="{StaticResource MaterialDesignPaperSecondaryDarkButton}" ToolTip="Thoát" Command="{x:Static materialDesign:PopupBox.ClosePopupCommand}">
-                                                                    <materialDesign:PackIcon Kind="ArrowLeftCircle" />
-                                                                </Button>
-                                                            </Grid>
-                                                        </Grid>
-                                                    </materialDesign:PopupBox>
-                                                </StackPanel>
+                                                <Button
+                                                    Command="{Binding ElementName=projectUC,Path=DataContext.OpenWindowProjectDetailsDialogCommand}"
+                                                  IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                                  Style="{StaticResource MaterialDesignIconForegroundButton}"
+                                                  ToolTip="MaterialDesignIconForegroundButton">
+                                                    <materialDesign:PackIcon
+                                                    Kind="ChevronDown" />
+                                                </Button>
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
-                                    <GridViewColumn Width="100">
-                                        <GridViewColumn.Header>
-                                            <StackPanel>
-                                                <TextBlock Text="Chọn"></TextBlock>
-                                                <CheckBox ></CheckBox>
-                                            </StackPanel>
-                                        </GridViewColumn.Header>
+                                    <GridViewColumn Width="54">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
-                                                <CheckBox Margin="21"></CheckBox>
+                                                <materialDesign:Chip
+                                                  Icon="P"/>
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
-                                    <GridViewColumn Header="Tên dự án" Width="250">
+                                    <GridViewColumn Width="650" >
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
-                                                <StackPanel>
-                                                    <TextBox
-                                                        Text="{Binding Name}"
-                                                        Width="400"
-                                                        VerticalAlignment="Top"
-                                                        AcceptsReturn="True"                                                 
-                                                        Style="{StaticResource MaterialDesignFilledTextBox}"
-                                                        TextWrapping="Wrap"
-                                                        />
-                                                </StackPanel>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn Header="Mã dự án"  Width="200">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <StackPanel>
-                                                    <TextBox
-                                                        Text="{Binding ID}"
-                                                        Width="400"
-                                                        VerticalAlignment="Top"
-                                                        AcceptsReturn="True"                                                 
-                                                        Style="{StaticResource MaterialDesignFilledTextBox}"
-                                                        TextWrapping="Wrap"
-                                                        />
-                                                </StackPanel>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn Header="Bắt đầu"  Width="200">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <StackPanel>
-                                                    <TextBox
-                                                        Text="{Binding Start}"
-                                                        Width="400"
-                                                        VerticalAlignment="Top"
-                                                        AcceptsReturn="True"                                                 
-                                                        Style="{StaticResource MaterialDesignFilledTextBox}"
-                                                        TextWrapping="Wrap"
-                                                        />
-                                                </StackPanel>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn Header="Két thúc"  Width="200">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <StackPanel>
-                                                    <TextBox
-                                                        Text="{Binding End}"
-                                                        Width="400"
-                                                        VerticalAlignment="Top"
-                                                        AcceptsReturn="True"                                                 
-                                                        Style="{StaticResource MaterialDesignFilledTextBox}"
-                                                        TextWrapping="Wrap"
-                                                        />
-                                                </StackPanel>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn Header="Tiến độ"  Width="200">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <StackPanel>
-                                                    <TextBox
-                                                        Text="{Binding Progress}"
-                                                        Width="400"
-                                                        VerticalAlignment="Top"
-                                                        AcceptsReturn="True"                                                 
-                                                        Style="{StaticResource MaterialDesignFilledTextBox}"
-                                                        TextWrapping="Wrap"
-                                                        />
-                                                </StackPanel>
+                                                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Name}" FontSize="24"></TextBlock>
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
                                 </GridView.Columns>
                             </GridView>
                         </ListView.View>
-                        
                     </ListView>
                     <materialDesign:ColorZone Height="80" Grid.Row="1"  Effect="{DynamicResource MaterialDesignShadowDepth5}" Mode="PrimaryMid">
                         <Grid>
