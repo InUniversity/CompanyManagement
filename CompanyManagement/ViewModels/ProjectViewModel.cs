@@ -16,12 +16,16 @@ namespace CompanyManagement.ViewModels
     {
         private string id;
         public string ID { get => id; set { id = value; OnPropertyChanged(); } }
+   
         private string name;
         public string Name { get => name; set { name = value; OnPropertyChanged(); } }
+        
         private DateTime start;
         public DateTime Start { get => start; set { start = value; OnPropertyChanged(); } }
+        
         private DateTime end;
         public DateTime End { get => end; set { end = value; OnPropertyChanged(); } }
+        
         private string progress;
         public string Progress { get => progress; set { progress = value; OnPropertyChanged(); } }
 
@@ -30,7 +34,6 @@ namespace CompanyManagement.ViewModels
 
         public ICommand AddProjectCommand { get; set; }
         public ICommand DeleteProjectCommand { get; set; }
-        public ICommand DeleteAllProjectCommand { get; set; }
         public ICommand UpdateProjectCommand { get; set; }
         public ICommand OpenWindowProjectDetailsDialogCommand { get; set; }
 
@@ -58,7 +61,6 @@ namespace CompanyManagement.ViewModels
             AddProjectCommand = new RelayCommand<object>((p) => Add(p), (p) => CheckAllFields(p));
             DeleteProjectCommand = new RelayCommand<object>(ExecuteDeleteCommand);
             UpdateProjectCommand = new RelayCommand<object>(ExecuteUpdateCommand);
-            DeleteAllProjectCommand = new RelayCommand<object>(ExecuteDeleteAllCommand);
             OpenWindowProjectDetailsDialogCommand = new RelayCommand<object>(ExecuteOpenWindow);
         }
 
@@ -68,35 +70,29 @@ namespace CompanyManagement.ViewModels
             projectDao.Add(project);
             LoadGVProjects();
         } 
+        
         private void ExecuteDeleteCommand(object b)
         {
-            //if (selectedProject != null)
-            //{
-            //    projectDao.Delete(this.id);
-            //    LoadGVProjects();
-            //}
             LoadGVProjects();
         }
+        
         private void ExecuteDeleteAllCommand(object b)
         {           
             projectDao.DeleteAll();
             LoadGVProjects();          
         }
+        
         private void ExecuteUpdateCommand(object p)
         {
-            //if(selectedProject!= null)
-            //{
-            //    Project project = new Project(this.id, this.name, selectedProject.Start, selectedProject.End, this.progress);
-            //    projectDao.Save(project);
-            //    LoadGVProjects();
-            //}
             LoadGVProjects();
         }
+        
         private void ExecuteOpenWindow(object p)
         {
             ProjectDetailsDialog projectDetailsDialog = new ProjectDetailsDialog();
             projectDetailsDialog.ShowDialog();
         }
+        
         private bool CheckAllFields(object p)
         {
             return true;
