@@ -26,15 +26,20 @@ namespace CompanyManagement.Database
             dbconnection.ExecuteNonQuery(sqlStr);
         }
 
-        public void Delete(Project project)
+        public void Delete(string id)
         {
-            string sqlStr = $"DELETE FROM {TABLE_NAME} WHERE {ID} = '{project.ID}'";
+            string sqlStr = $"DELETE FROM {TABLE_NAME} WHERE {ID} = '{id}'";
+            dbconnection.ExecuteNonQuery(sqlStr);
+        }
+        public void DeleteAll()
+        {
+            string sqlStr = $"DELETE FROM {TABLE_NAME}";
             dbconnection.ExecuteNonQuery(sqlStr);
         }
 
         public void Save(Project project)
         {
-            string sqlStr = $"UPDATE {TABLE_NAME} SET {NAME} = '{project.ID}', {START} = '{project.Start.ToString()}', {END}= '{project.End.ToString()}',{PROPRESS}= '{project.Progress}' WHERE {ID} = '{project.ID}'";
+            string sqlStr = $"UPDATE {TABLE_NAME} SET {NAME} = '{project.Name}', {START} = '{project.Start.ToString()}', {END}= '{project.End.ToString()}',{PROPRESS}= '{project.Progress}' WHERE {ID} = '{project.ID}'";
             dbconnection.ExecuteNonQuery(sqlStr);
         }
 

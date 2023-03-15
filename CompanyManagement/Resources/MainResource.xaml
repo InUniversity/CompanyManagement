@@ -5,6 +5,7 @@
     <viewmodel:LoginViewModel x:Key="LoginVM"></viewmodel:LoginViewModel>
     <viewmodel:ProjectViewModel x:Key="ProjectVM"></viewmodel:ProjectViewModel>
     <viewmodel:TasksInProjectViewModel x:Key="TasksInProjectVM"></viewmodel:TasksInProjectViewModel>
+    <viewmodel:ProjectDetailsDialogViewModel x:Key="ProjectDetailsDialogVM"></viewmodel:ProjectDetailsDialogViewModel>
     <viewmodel:EmployeesViewModel x:Key="EmployeesVM"></viewmodel:EmployeesViewModel>
     <viewmodel:EmployeeInputViewModel x:Key="EmployeeInputVM"></viewmodel:EmployeeInputViewModel>
     <viewmodel:AddEmployeeViewModel x:Key="AddEmployeeVM"></viewmodel:AddEmployeeViewModel>
