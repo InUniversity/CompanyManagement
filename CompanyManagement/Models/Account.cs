@@ -5,7 +5,7 @@ using CompanyManagement.Database;
 
 namespace CompanyManagement.Models
 {
-    class Account
+    public class Account
     {
 
         private string username;

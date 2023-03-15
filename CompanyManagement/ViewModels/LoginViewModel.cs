@@ -44,6 +44,7 @@ public class LoginViewModel : BaseViewModel
             IsLogin = 0;
             return;
         }
+        SingletonAccount.Instance.CurrentAccount = account;
         if (account.EmployeeId.IndexOf("CD") >= 0)
             IsLogin = 1;
         else
