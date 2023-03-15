@@ -61,5 +61,23 @@ namespace CompanyManagement.Database
                 return null;
             return new Employee(dataTable.Rows[0]);
         }
+
+        public Employee SearchByIdentifyCard(string identifyCard)
+        {
+            string sqlStr = $"SELECT * FROM {TABLE_NAME} WHERE {IDENTIFY_CARD} = '{identifyCard}'";
+            DataTable dataTable = dbconnection.GetDataTable(sqlStr);
+            if (dataTable.Rows.Count == 0)
+                return null;
+            return new Employee(dataTable.Rows[0]);
+        }
+
+        public Employee SearchByPhoneNumber(string phoneNumber)
+        {
+            string sqlStr = $"SELECT * FROM {TABLE_NAME} WHERE {PHONE_NUMBER} = '{phoneNumber}'";
+            DataTable dataTable = dbconnection.GetDataTable(sqlStr);
+            if (dataTable.Rows.Count == 0)
+                return null;
+            return new Employee(dataTable.Rows[0]);
+        }
     }
 }

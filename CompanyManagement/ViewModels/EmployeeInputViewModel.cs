@@ -6,6 +6,7 @@ using System.Windows.Input;
 using System.Windows;
 using System;
 using System.Windows.Controls;
+using System.Net.Mail;
 
 namespace CompanyManagement.ViewModels
 {
@@ -61,6 +62,7 @@ namespace CompanyManagement.ViewModels
 
         private PositionDao positionDao = new PositionDao();
         private DepartmentDao departmentDao = new DepartmentDao();
+        private EmployeeDao employeeDao = new EmployeeDao();
 
         public EmployeeInputViewModel()
         {
@@ -102,12 +104,37 @@ namespace CompanyManagement.ViewModels
                 string.IsNullOrWhiteSpace(PhoneNumber) || string.IsNullOrWhiteSpace(Address) ||
                 string.IsNullOrWhiteSpace(departmentID) || string.IsNullOrWhiteSpace(positionID))
             {
-                ErrorMessage = "Các thông tin không được để trống!!!";
+                ErrorMessage = Utils.INVALIDATE_EMPTY_MESSAGE;
                 return false;
             }
             if (Birthday >= DateTime.Now)
             {
-                ErrorMessage = "Ngày sinh không hợp lệ!!!";
+                ErrorMessage = Utils.INVALIDATE_BIRTHDAY_MESSAGE;
+                return false;
+            }
+            if(!CheckFormat.ValidateEmail(Email))
+            {
+                ErrorMessage = Utils.INVALIDATE_EMAIL_MESSAGE;
+                return false;
+            } 
+            if(!CheckFormat.ValidatePhoneNumber(PhoneNumber))
+            {
+                ErrorMessage = Utils.INVALIDATE_PHONE_NUMBER_MESSAGE;
+                return false;
+            }    
+            if (!CheckFormat.ValidateIdentifyCard(IdentifyCard))
+            {
+                ErrorMessage = Utils.INVALIDATE_IDENTIFY_CARD_MESSAGE;
+                return false;
+            }
+            if (employeeDao.SearchByIdentifyCard(IdentifyCard) != null)
+            {
+                ErrorMessage = Utils.EXIST_IDENTIFY_CARD_MESSAGE;
+                return false;
+            }
+            if (employeeDao.SearchByPhoneNumber(PhoneNumber) != null)
+            {
+                ErrorMessage = Utils.EXIST_PHONE_NUMBER_MESSAGE;
                 return false;
             }
             return true;
