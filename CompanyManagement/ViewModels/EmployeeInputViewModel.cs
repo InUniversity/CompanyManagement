@@ -3,10 +3,8 @@ using CompanyManagement.Models;
 using System.Collections.Generic;
 using System.Data;
 using System.Windows.Input;
-using System.Windows;
 using System;
 using System.Windows.Controls;
-using System.Net.Mail;
 
 namespace CompanyManagement.ViewModels
 {
@@ -62,7 +60,6 @@ namespace CompanyManagement.ViewModels
 
         private PositionDao positionDao = new PositionDao();
         private DepartmentDao departmentDao = new DepartmentDao();
-        private EmployeeDao employeeDao = new EmployeeDao();
 
         public EmployeeInputViewModel()
         {
@@ -127,6 +124,11 @@ namespace CompanyManagement.ViewModels
                 ErrorMessage = Utils.INVALIDATE_IDENTIFY_CARD_MESSAGE;
                 return false;
             }
+            if(!CheckFormat.ValidatePassword(Password))
+            {
+                ErrorMessage = Utils.INVALIDATE_PASSWORK_MESSAGE;
+                return false;
+            }    
             return true;
         }
 
@@ -152,27 +154,11 @@ namespace CompanyManagement.ViewModels
             Email = employee.Email;
             PhoneNumber = employee.PhoneNumber;
             Username = "";
-            Password = "";            
+            Password = "";           
             Address = employee.Address;
             DepartmentID = employee.DepartmentID;
             PositionID = employee.PositionID;
             Salary = employee.Salary;
-        }
-
-        public void ClearAllTexts()
-        {
-            ID = "";
-            Name = "";
-            Gender = "";
-            IdentifyCard = "";
-            Email = "";
-            PhoneNumber = "";
-            Username = "";
-            Password = "";
-            Address = "";
-            DepartmentID = "";
-            PositionID = "";
-            Salary = 0;
         }
     }
 

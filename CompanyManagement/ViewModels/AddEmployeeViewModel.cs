@@ -27,7 +27,6 @@ namespace CompanyManagement.ViewModels
             EmployeeInputDataContext.TrimAllTexts();
             Employee empl = EmployeeInputDataContext.CreateEmployeeInstance();
             ParentDataContext.Add(empl);
-            EmployeeInputDataContext.ClearAllTexts();
             inputWindow.Close();
         }
 
