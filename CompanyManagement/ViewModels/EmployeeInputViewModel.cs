@@ -127,16 +127,6 @@ namespace CompanyManagement.ViewModels
                 ErrorMessage = Utils.INVALIDATE_IDENTIFY_CARD_MESSAGE;
                 return false;
             }
-            if (employeeDao.SearchByIdentifyCard(IdentifyCard) != null)
-            {
-                ErrorMessage = Utils.EXIST_IDENTIFY_CARD_MESSAGE;
-                return false;
-            }
-            if (employeeDao.SearchByPhoneNumber(PhoneNumber) != null)
-            {
-                ErrorMessage = Utils.EXIST_PHONE_NUMBER_MESSAGE;
-                return false;
-            }
             return true;
         }
 
