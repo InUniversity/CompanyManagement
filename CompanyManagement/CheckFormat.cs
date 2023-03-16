@@ -10,6 +10,7 @@ namespace CompanyManagement
 {
     public static class CheckFormat
     {
+
         public static bool ValidateEmail(string email)
         {
             try
@@ -22,6 +23,7 @@ namespace CompanyManagement
             }
             return true;
         }
+
         public static bool ValidatePhoneNumber(string phoneNumber)
         {
             string pattern = @"^0[0-9]{9}$";
@@ -29,6 +31,7 @@ namespace CompanyManagement
                 return false;
             return true;
         }
+
         public static bool ValidateIdentifyCard(string identifyCard)
         {
             if (identifyCard.Length == 12)
