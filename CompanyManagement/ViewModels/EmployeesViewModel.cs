@@ -3,6 +3,7 @@ using System.Data;
 using CompanyManagement.Database;
 using System.Windows.Input;
 using CompanyManagement.Dialogs;
+using CompanyManagement.Models;
 
 namespace CompanyManagement.ViewModels
 {
@@ -12,15 +13,20 @@ namespace CompanyManagement.ViewModels
         private ObservableCollection<Employee> employees;
         public ObservableCollection<Employee> Employees { get => employees; set { employees = value; OnPropertyChanged(); } }
 
+        private ObservableCollection<Account> accounts;
+        public ObservableCollection<Account> Accounts { get => accounts; set { accounts = value; OnPropertyChanged(); } }
+
         public ICommand OpenInputDialogCommand { get; set; }
         public ICommand DeleteEmployeeCommand { get; set; }
         public ICommand UpdateEmployeeCommand { get; set; }
 
         private EmployeeDao employeeDao = new EmployeeDao();
+        private AccountDao accountDao = new AccountDao();
 
         public EmployeesViewModel()
         {
             LoadEmployees();
+            LoadAccounts();
             SetCommands();
         }
 
@@ -32,6 +38,17 @@ namespace CompanyManagement.ViewModels
             {
                 Employee employee = new Employee(row);
                 Employees.Add(employee);
+            }
+        }
+
+        private void LoadAccounts()
+        {
+            Accounts = new ObservableCollection<Account>();
+            DataTable dataTable = accountDao.GetDataTable();
+            foreach (DataRow row in dataTable.Rows)
+            {
+                Account account = new Account(row);
+                Accounts.Add(account);
             }
         }
 
@@ -74,6 +91,7 @@ namespace CompanyManagement.ViewModels
         public void Update(Employee employee)
         {
             employeeDao.Save(employee);
+            
             LoadEmployees();
         }
     }
@@ -81,6 +99,6 @@ namespace CompanyManagement.ViewModels
     public interface IEmployees
     {
         void Add(Employee employee);
-        void Update(Employee employee);
+        void Update(Employee employee);                                
     }
 }

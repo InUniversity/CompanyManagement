@@ -1,6 +1,5 @@
 ﻿using CompanyManagement.ViewModels;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace CompanyManagement.Dialogs
 {
@@ -14,7 +13,6 @@ namespace CompanyManagement.Dialogs
         {
             InitializeComponent();
             DataContext = new UpdateEmployeeViewModel();
-            ((UpdateEmployeeViewModel)DataContext).EmployeeInputDataContext = (EmployeeInputViewModel)employeeInputUC.DataContext;
         }
     }
 }

@@ -19,7 +19,7 @@
                 </Grid.RowDefinitions>
             </Grid>
             <Grid Grid.Row="0">
-                <uc:EmployeeInputUC x:Name="employeeInputUC"></uc:EmployeeInputUC>
+                <uc:EmployeeInputUC DataContext="{Binding EmployeeInputDataContext}"></uc:EmployeeInputUC>
             </Grid>
             <Grid Grid.Row="1">
                 <Button

@@ -38,5 +38,12 @@ namespace CompanyManagement
                 return true;
             return false;
         }
+
+        public static bool ValidatePassword(string password)
+        {
+            if (password.Length < 8)
+                return false;
+            return true;
+        }
     }
 }
