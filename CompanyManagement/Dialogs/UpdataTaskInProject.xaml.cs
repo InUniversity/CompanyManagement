@@ -12,14 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace CompanyManagement
+namespace CompanyManagement.Dialogs
 {
     /// <summary>
-    /// Interaction logic for ProjectDetailsDialog.xaml
+    /// Interaction logic for UpdataTaskInProject.xaml
     /// </summary>
-    public partial class ProjectDetailsDialog : Window
+    public partial class UpdataTaskInProject : Window
     {
-        public ProjectDetailsDialog()
+        public UpdataTaskInProject()
         {
             InitializeComponent();
         }

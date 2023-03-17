@@ -49,10 +49,10 @@
                                             <ColumnDefinition />
                                         </Grid.ColumnDefinitions>
                                         <Grid Grid.Column="0">
-                                            <uc:ProjectUC />
+                                            <uc:ProjectsUC x:Name="projectUC"/>
                                         </Grid>
                                         <Grid Grid.Column="1">
-                                            <uc:TasksInProjectUC/>
+                                            <uc:TasksInProjectUC x:Name="taskinprojectUC" />
                                         </Grid>
                                     </Grid>
                                 </StackPanel>

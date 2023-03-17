@@ -7,14 +7,35 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Dialogs\AddProjectDialog.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Dialogs\AddTaskInProject.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Dialogs\UpdataTaskInProject.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="LoginWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="UserControls\AssignUC.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="UserControls\ProjectInputUC.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Dialogs\AddProjectDialog.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Dialogs\AddTaskInProject.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Dialogs\UpdataTaskInProject.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="LoginWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -25,6 +46,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="UserControls\AssignUC.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControls\ProjectInputUC.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
