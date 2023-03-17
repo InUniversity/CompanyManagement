@@ -29,15 +29,47 @@
                     <RowDefinition Height="675"></RowDefinition>
                  </Grid.RowDefinitions>
                 <Grid Grid.Row="0" Background="WhiteSmoke">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
                     <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Danh sách công viêc" FontSize="18" FontWeight="Bold" FontStyle="Oblique"/>
                 </Grid>
+
                 <Grid Grid.Row="1">
                     <ListView ItemsSource="{Binding TasksInProject}">
-                       
-                            
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock 
+                                        HorizontalAlignment="Center" 
+                                        VerticalAlignment="Center" 
+                                        Margin="0 0 10 0"
+                                        Text="{Binding Title}" 
+                                        FontSize="22" />
+                                    <TextBlock 
+                                        HorizontalAlignment="Center" 
+                                        VerticalAlignment="Center" 
+                                        Margin="0 0 10 0"
+                                        Text="{Binding EmployeeID}" 
+                                        FontSize="22" />
+                                    <TextBlock 
+                                        HorizontalAlignment="Center" 
+                                        VerticalAlignment="Center" 
+                                        Margin="0 0 10 0"
+                                        Text="{Binding AssignDate}" 
+                                        FontSize="22" />
+                                    <TextBlock 
+                                        HorizontalAlignment="Center" 
+                                        VerticalAlignment="Center" 
+                                        Margin="0 0 10 0"
+                                        Text="{Binding Deadline}" 
+                                        FontSize="22" />
+                                    <TextBlock 
+                                        HorizontalAlignment="Center" 
+                                        VerticalAlignment="Center" 
+                                        Margin="0 0 10 0"
+                                        Text="{Binding Description}" 
+                                        FontSize="22" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
                     </ListView>
                     <Button                      
                         ToolTip="Thêm công việc mới"
@@ -51,7 +83,6 @@
                         Style="{StaticResource MaterialDesignFloatingActionButton}" />
                 </Grid>
 
-                
             </Grid>
         </Border>
     </Grid>

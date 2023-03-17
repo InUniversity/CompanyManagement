@@ -5,7 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:uc="clr-namespace:CompanyManagement.UserControls"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
@@ -49,10 +48,11 @@
                                             <ColumnDefinition />
                                         </Grid.ColumnDefinitions>
                                         <Grid Grid.Column="0">
-                                            <uc:ProjectsUC x:Name="projectUC"/>
+                                            <uc:ProjectsUC x:Name="projectsUC" DataContext="{StaticResource ProjectsVM}"/>
                                         </Grid>
                                         <Grid Grid.Column="1">
-                                            <uc:TasksInProjectUC x:Name="taskinprojectUC" />
+                                            <uc:TasksInProjectUC DataContext="{Binding DataContext.TasksDataContext, ElementName=projectsUC}"/>
+                                            <!-- <uc:TasksInProjectUC /> -->
                                         </Grid>
                                     </Grid>
                                 </StackPanel>
@@ -64,7 +64,7 @@
                 </TabItem>
                 <TabItem Header="Nhân Sự">
                     <StackPanel>
-                        <uc:EmployeesUC/>
+                        <uc:EmployeesUC />
                     </StackPanel>
                 </TabItem>
                 <TabItem Header="Chấm Công" />

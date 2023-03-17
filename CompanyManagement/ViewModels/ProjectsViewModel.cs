@@ -3,21 +3,24 @@ using System.Collections.ObjectModel;
 using System.Data;
 using System.Windows.Input;
 using CompanyManagement.Dialogs;
+using System.Windows;
 
 namespace CompanyManagement.ViewModels
 {
-    public class ProjectsViewModel : BaseViewModel,IProjects
-    {      
+    public class ProjectsViewModel : BaseViewModel, IProjects
+    {
 
         private ObservableCollection<Project> projects;
+        public ObservableCollection<Project> Projects { get => projects; set { projects = value; OnPropertyChanged(); } }
 
-        public ObservableCollection<Project> Projects { get => projects; set { projects = value; OnPropertyChanged(); }}
-
-        public ICommand UpdateProjectCommand { get; set; }
+        public Project SelectedProject { get; set; }
 
         public ICommand OpenProjectInputCommand { get; set; }
-
         public ICommand DeleteProjectCommand { get; set; }
+        public ICommand UpdateProjectCommand { get; set; }
+        public ICommand ItemClickCommand { get; set; }
+
+        public TasksInProjectViewModel TasksDataContext { get; set; }
 
         private ProjectDao projectDao = new ProjectDao();
 
@@ -40,9 +43,10 @@ namespace CompanyManagement.ViewModels
 
         private void SetCommands()
         {
-            UpdateProjectCommand = new RelayCommand<Project>(ExecuteUpdateProjectDialog) ;
             OpenProjectInputCommand = new RelayCommand<object>(OpenProjectInputDialog);
             DeleteProjectCommand = new RelayCommand<string>(ExecuteDeleteCommand);
+            UpdateProjectCommand = new RelayCommand<Project>(ExecuteUpdateProjectDialog) ;
+            ItemClickCommand = new RelayCommand<object>(ItemClicked);
         }
 
         public void Add(Project project)
@@ -59,17 +63,8 @@ namespace CompanyManagement.ViewModels
 
         public void Update(Project project)
         {
-            projectDao.Save(project);
+            projectDao.Update(project);
             LoadProjects();
-        }
-
-        private void ExecuteUpdateProjectDialog(Project project)
-        {
-            UpdateProjectDialog projectDetailsDialog = new UpdateProjectDialog();
-            UpdateProjectViewModel projectViewModel = (UpdateProjectViewModel)projectDetailsDialog.DataContext;
-            projectViewModel.ParentDataContext = this;
-            projectViewModel.ProjectInputDataContext.Retrieve(project);
-            projectDetailsDialog.ShowDialog();
         }
 
         private void OpenProjectInputDialog(object p)
@@ -85,12 +80,25 @@ namespace CompanyManagement.ViewModels
             projectDao.Delete(id);
             LoadProjects();
         }
+
+        private void ExecuteUpdateProjectDialog(Project project)
+        {
+            UpdateProjectDialog projectDetailsDialog = new UpdateProjectDialog();
+            UpdateProjectViewModel projectViewModel = (UpdateProjectViewModel)projectDetailsDialog.DataContext;
+            projectViewModel.ParentDataContext = this;
+            projectViewModel.ProjectInputDataContext.Retrieve(project);
+            projectDetailsDialog.ShowDialog();
+        }
+
+        private void ItemClicked(object p)
+        {
+            TasksDataContext.ShowWithID(SelectedProject.ID);
+        }
     }
 
     public interface IProjects
     {
         void Add(Project project);
-
         void Update(Project project);
     }
 }
