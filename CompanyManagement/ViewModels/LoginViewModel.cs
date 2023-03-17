@@ -20,7 +20,8 @@ public class LoginViewModel : BaseViewModel
     public ICommand ForgotPasswordCommand { get; set; }
     public ICommand PasswordChangedCommand { get; set; }
 
-    private AccountDao accDao = new AccountDao();
+    private AccountDao accountDao = new AccountDao();
+    private EmployeeDao employeeDao = new EmployeeDao();
     
     public LoginViewModel()
     {
@@ -37,15 +38,18 @@ public class LoginViewModel : BaseViewModel
 
     private void OnClickLogin(Window p)
     {
-        Account account = accDao.SearchByUsername(Username);
+        Account account = accountDao.SearchByUsername(Username);
         if (account == null || !string.Equals(Password, account.Password))
         {
             MessageBox.Show("Username or password not valid");
             IsLogin = 0;
             return;
         }
+
         SingletonAccount.Instance.CurrentAccount = account;
-        if (account.EmployeeId.IndexOf("CD") >= 0)
+        Employee employee = employeeDao.SearchByID(account.EmployeeId);
+
+        if (employee.PositionID.CompareTo("1") == 0)
             IsLogin = 1;
         else
             IsLogin = 2;
