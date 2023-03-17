@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using CompanyManagement.ViewModels;
+using System.Windows.Controls;
 
 namespace CompanyManagement.UserControls
 {
@@ -10,6 +11,7 @@ namespace CompanyManagement.UserControls
         public TasksInProjectUC()
         {
             InitializeComponent();
+            DataContext = new TasksInProjectViewModel();
         }
     }
 }

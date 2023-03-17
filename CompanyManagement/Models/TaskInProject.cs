@@ -8,7 +8,7 @@ namespace CompanyManagement.Models
     public class TaskInProject
     {
         private string id;
-        private string tile;
+        private string title;
         private string description;
         private string assignDate;
         private string deadline;
@@ -23,10 +23,10 @@ namespace CompanyManagement.Models
             set { this.id = value; }
         }
 
-        public string Tile
+        public string Title
         {
-            get { return this.tile; }
-            set { this.tile = value; }
+            get { return this.title; }
+            set { this.title = value; }
         }
 
         public string Description
@@ -34,6 +34,7 @@ namespace CompanyManagement.Models
             get { return this.description; }
             set { this.description = value; }
         }
+
         public string AssignDate
         {
             get { return this.assignDate; }
@@ -45,21 +46,25 @@ namespace CompanyManagement.Models
             get { return this.deadline; }
             set { this.deadline = value; }
         }
+
         public string Progress
         {
             get { return this.progress; }
             set { this.progress = value; }
         }
+
         public string CreateBy
         {
             get { return this.createBy; }
             set { this.createBy = value; }
         }
+
         public string EmployeeID
         {
             get { return this.employeeID; }
             set { this.employeeID = value; }
         }
+
         public string ProjectID
         {
             get { return this.projectID; }
@@ -68,10 +73,10 @@ namespace CompanyManagement.Models
 
         public TaskInProject() { }
 
-        public TaskInProject(string id, string tile, string description, string assignDate, string deadline, string progress, string createBy, string employeeID, string projectID)
+        public TaskInProject(string id, string title, string description, string assignDate, string deadline, string progress, string createBy, string employeeID, string projectID)
         {
             this.id = id;
-            this.tile = tile;
+            this.title = title;
             this.description = description;
             this.assignDate = assignDate;
             this.deadline = deadline;
@@ -85,15 +90,15 @@ namespace CompanyManagement.Models
         {
             try
             {
-                this.id = (string)row[TaskInProjectDao.ID];
-                this.tile = (string)row[TaskInProjectDao.TILE];
-                this.description = (string)row[TaskInProjectDao.DESCRIPTION];
-                this.assignDate = (string)row[TaskInProjectDao.ASSIGN_DATE];
-                this.deadline = (string)row[TaskInProjectDao.DEADLINE];
-                this.createBy = (string)row[TaskInProjectDao.CREATEBY];
-                this.progress = (string)row[TaskInProjectDao.PROGRESS];
-                this.employeeID = (string)row[TaskInProjectDao.EMPLOYEE_ID];
-                this.projectID = (string)row[TaskInProjectDao.PROJECT_ID];
+                id = (string)row[TaskInProjectDao.ID];
+                title = (string)row[TaskInProjectDao.TILE];
+                description = (string)row[TaskInProjectDao.DESCRIPTION];
+                assignDate = (string)row[TaskInProjectDao.ASSIGN_DATE];
+                deadline = (string)row[TaskInProjectDao.DEADLINE];
+                createBy = (string)row[TaskInProjectDao.CREATEBY];
+                progress = (string)row[TaskInProjectDao.PROGRESS];
+                employeeID = (string)row[TaskInProjectDao.EMPLOYEE_ID];
+                projectID = (string)row[TaskInProjectDao.PROJECT_ID];
             }
             catch(Exception ex)
             {

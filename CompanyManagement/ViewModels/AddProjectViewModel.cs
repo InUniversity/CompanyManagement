@@ -28,7 +28,6 @@ namespace CompanyManagement.ViewModels
             ProjectInputDataContext.TrimAllTexts();
             Project proj = ProjectInputDataContext.CreateProjectInstance();
             ParentDataContext.Add(proj);
-            ProjectInputDataContext.ClearAllTexts();
             inputWindow.Close();
         }
     }

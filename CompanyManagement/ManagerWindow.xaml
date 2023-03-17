@@ -1,11 +1,10 @@
-﻿<Window x:Class="CompanyManagement.MainWindow"
+﻿<Window x:Class="CompanyManagement.ManagerWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:uc="clr-namespace:CompanyManagement.UserControls"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
@@ -17,7 +16,7 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Name="mainWindow"
-        DataContext="{StaticResource MainVM}"
+        DataContext="{StaticResource ManagerVM}"
         Title="MainWindow" Height="800" Width="1500">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
@@ -49,10 +48,11 @@
                                             <ColumnDefinition />
                                         </Grid.ColumnDefinitions>
                                         <Grid Grid.Column="0">
-                                            <uc:ProjectsUC x:Name="projectUC"/>
+                                            <uc:ProjectsUC x:Name="projectsUC" DataContext="{StaticResource ProjectsVM}"/>
                                         </Grid>
                                         <Grid Grid.Column="1">
-                                            <uc:TasksInProjectUC x:Name="taskinprojectUC" />
+                                            <uc:TasksInProjectUC DataContext="{Binding DataContext.TasksDataContext, ElementName=projectsUC}"/>
+                                            <!-- <uc:TasksInProjectUC /> -->
                                         </Grid>
                                     </Grid>
                                 </StackPanel>
@@ -64,7 +64,7 @@
                 </TabItem>
                 <TabItem Header="Nhân Sự">
                     <StackPanel>
-                        <uc:EmployeesUC/>
+                        <uc:EmployeesUC />
                     </StackPanel>
                 </TabItem>
                 <TabItem Header="Chấm Công" />
@@ -95,9 +95,7 @@
                             </TabControl>
                         </materialDesign:Card>
                     </StackPanel>
-
                 </TabItem>
-
             </TabControl>
         </materialDesign:Card>
     </Grid>
