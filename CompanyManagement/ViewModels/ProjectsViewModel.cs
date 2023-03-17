@@ -55,12 +55,6 @@ namespace CompanyManagement.ViewModels
             LoadProjects();
         }
 
-        public void Delete(string id)
-        {
-            projectDao.Delete(id);
-            LoadProjects();
-        }
-
         public void Update(Project project)
         {
             projectDao.Update(project);

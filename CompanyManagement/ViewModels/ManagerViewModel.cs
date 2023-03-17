@@ -8,13 +8,13 @@ using System.Windows.Input;
 
 namespace CompanyManagement.ViewModels
 {
-    public class MainViewModel: BaseViewModel
+    public class ManagerViewModel: BaseViewModel
     {
         public bool IsLoaded = false;
 
         public ICommand LoadedWindowCommand { get; set; }
 
-        public MainViewModel()
+        public ManagerViewModel()
         {
             SetCommands();
         }

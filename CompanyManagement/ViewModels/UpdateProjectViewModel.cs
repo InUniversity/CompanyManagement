@@ -8,7 +8,6 @@ namespace CompanyManagement.ViewModels
         public ICommand UpdateProjectCommand { get; set; }
 
         public ProjectsViewModel ParentDataContext { get; set; }
-
         public ProjectInputViewModel ProjectInputDataContext { get; set; }
 
         public UpdateProjectViewModel()
@@ -19,7 +18,8 @@ namespace CompanyManagement.ViewModels
         private void SetCommands()
         {
             ProjectInputDataContext = new ProjectInputViewModel();
-            UpdateProjectCommand = new RelayCommand<Window>(ExecuteUpdateCommand,  p => ProjectInputDataContext.CheckAllFields());          
+            UpdateProjectCommand = new RelayCommand<Window>(ExecuteUpdateCommand,  
+                p => ProjectInputDataContext.CheckAllFields());          
         }
 
         private void ExecuteUpdateCommand(Window inputWindow)
@@ -27,7 +27,6 @@ namespace CompanyManagement.ViewModels
             ProjectInputDataContext.TrimAllTexts();
             Project proj = ProjectInputDataContext.CreateProjectInstance();
             ParentDataContext.Update(proj);
-            ProjectInputDataContext.ClearAllTexts();
             inputWindow.Close();
         }
     }

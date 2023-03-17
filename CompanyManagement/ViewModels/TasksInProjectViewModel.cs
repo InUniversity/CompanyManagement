@@ -1,6 +1,5 @@
 ﻿using CompanyManagement.Database;
 using CompanyManagement.Models;
-using CompanyManagement.UserControls;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Windows.Input;
@@ -24,12 +23,6 @@ namespace CompanyManagement.ViewModels
         
         public TasksInProjectViewModel()
         {
-            //TasksInProject = new ObservableCollection<TaskInProject>
-            //{
-            //    new TaskInProject("sdlkfj", "hihi", "..coming soon...", "01-01-2020", "01-01-2023", "...", "", "EM001", "Unknow"),
-            //    new TaskInProject("sdlkfj", "hihi2", "..coming soon...v2", "01-01-2021", "01-01-2024", "...", "", "EM002", "Unknow")
-            //};
-            LoadTasks("PRJ001");
             SetCommands();
         }
 
@@ -39,11 +32,6 @@ namespace CompanyManagement.ViewModels
         }
 
         public void ShowWithID(string projectID)
-        {
-            LoadTasks(projectID);
-        }
-
-        private void LoadTasks(string projectID)
         {
             TasksInProject = new ObservableCollection<TaskInProject>();
             DataTable dataTable = taskInProjectDao.GetDataTable(ProjectID);

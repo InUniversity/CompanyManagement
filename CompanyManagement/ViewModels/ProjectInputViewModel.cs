@@ -5,27 +5,21 @@ namespace CompanyManagement.ViewModels
     public class ProjectInputViewModel : BaseViewModel, IRetrieveProject
     {
         private string id="";
-
         public string ID { get => id; set { id = value; OnPropertyChanged(); } }
 
         private string name = "";
-
         public string Name { get => name; set { name = value; OnPropertyChanged(); } }
 
-        private DateTime start=DateTime.Now;
-
+        private DateTime start = DateTime.Now;
         public DateTime Start { get => start; set { start = value; OnPropertyChanged(); } }
 
         private DateTime end = DateTime.Now;
-
         public DateTime End { get => end; set { end = value; OnPropertyChanged(); } }
 
         private string progress = "";
-
         public string Progress { get => progress; set { progress = value; OnPropertyChanged(); } }
 
         private string errorMessage = "";
-
         public string ErrorMessage { get => errorMessage; set { errorMessage = value; OnPropertyChanged(); } }
         
         public Project CreateProjectInstance()
@@ -58,23 +52,11 @@ namespace CompanyManagement.ViewModels
 
         public void Retrieve(Project project)
         {
-            if(project!=null) 
-            { 
-                ID = project.ID;
-                Name = project.Name;
-                Progress = project.Progress;
-                start = Utils.StringToDate(project.Start);
-                end = Utils.StringToDate(project.End);
-            }
-        }
-
-        public void ClearAllTexts()
-        {
-            ID = "";
-            Name = "";
-            Progress = "";
-            start=DateTime.Now;
-            end = DateTime.Now;
+            ID = project.ID;
+            Name = project.Name;
+            Progress = project.Progress;
+            start = Utils.StringToDate(project.Start);
+            end = Utils.StringToDate(project.End);
         }
     }
    
