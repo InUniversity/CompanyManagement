@@ -3,7 +3,6 @@ using CompanyManagement.Models;
 using System.Collections.Generic;
 using System.Data;
 using System.Windows.Input;
-using System.Windows;
 using System;
 using System.Windows.Controls;
 
@@ -102,14 +101,34 @@ namespace CompanyManagement.ViewModels
                 string.IsNullOrWhiteSpace(PhoneNumber) || string.IsNullOrWhiteSpace(Address) ||
                 string.IsNullOrWhiteSpace(departmentID) || string.IsNullOrWhiteSpace(positionID))
             {
-                ErrorMessage = "Các thông tin không được để trống!!!";
+                ErrorMessage = Utils.INVALIDATE_EMPTY_MESSAGE;
                 return false;
             }
             if (Birthday >= DateTime.Now)
             {
-                ErrorMessage = "Ngày sinh không hợp lệ!!!";
+                ErrorMessage = Utils.INVALIDATE_BIRTHDAY_MESSAGE;
                 return false;
             }
+            if(!CheckFormat.ValidateEmail(Email))
+            {
+                ErrorMessage = Utils.INVALIDATE_EMAIL_MESSAGE;
+                return false;
+            } 
+            if(!CheckFormat.ValidatePhoneNumber(PhoneNumber))
+            {
+                ErrorMessage = Utils.INVALIDATE_PHONE_NUMBER_MESSAGE;
+                return false;
+            }    
+            if (!CheckFormat.ValidateIdentifyCard(IdentifyCard))
+            {
+                ErrorMessage = Utils.INVALIDATE_IDENTIFY_CARD_MESSAGE;
+                return false;
+            }
+            if(!CheckFormat.ValidatePassword(Password))
+            {
+                ErrorMessage = Utils.INVALIDATE_PASSWORK_MESSAGE;
+                return false;
+            }    
             return true;
         }
 
@@ -135,27 +154,11 @@ namespace CompanyManagement.ViewModels
             Email = employee.Email;
             PhoneNumber = employee.PhoneNumber;
             Username = "";
-            Password = "";            
+            Password = "";           
             Address = employee.Address;
             DepartmentID = employee.DepartmentID;
             PositionID = employee.PositionID;
             Salary = employee.Salary;
-        }
-
-        public void ClearAllTexts()
-        {
-            ID = "";
-            Name = "";
-            Gender = "";
-            IdentifyCard = "";
-            Email = "";
-            PhoneNumber = "";
-            Username = "";
-            Password = "";
-            Address = "";
-            DepartmentID = "";
-            PositionID = "";
-            Salary = 0;
         }
     }
 

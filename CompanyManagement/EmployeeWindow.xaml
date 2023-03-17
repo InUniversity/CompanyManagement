@@ -14,15 +14,15 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
-        Name="mployeeWindow"
-        DataContext="{StaticResource EmployeeVM}"
+        Name="EmployeesWindow"
+        DataContext="{StaticResource EmployeesVM}"
         WindowStartupLocation="CenterScreen"
         Title="EmployeeWindow" Height="800" Width="1500">
     <Grid>
         <materialDesign:Card Height="auto" Width="auto">
             <TabControl HorizontalContentAlignment="Left"
                 materialDesign:ColorZoneAssist.Mode="PrimaryMid"
-                Style="{StaticResource MaterialDesignFilledTabControl}">>
+                Style="{StaticResource MaterialDesignFilledTabControl}">
                 <TabItem Header="Điểm danh">
                     
                 </TabItem>
