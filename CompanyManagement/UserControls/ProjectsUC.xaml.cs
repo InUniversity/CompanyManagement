@@ -19,9 +19,9 @@ namespace CompanyManagement.UserControls
     /// <summary>
     /// Interaction logic for _ProjectUC.xaml
     /// </summary>
-    public partial class ProjectUC : UserControl
+    public partial class ProjectsUC : UserControl
     {
-        public ProjectUC()
+        public ProjectsUC()
         {
             InitializeComponent();
         }

@@ -1,66 +1,61 @@
 ﻿using CompanyManagement.Database;
 using CompanyManagement.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
+using System.Collections.ObjectModel;
+using System.Data;
 using System.Windows.Input;
 
 namespace CompanyManagement.ViewModels
 {
     public class TasksInProjectViewModel: BaseViewModel
     {
-        private string id;
-        public string ID { get => id; set { id = value; OnPropertyChanged(); } }
+        private ObservableCollection<TaskInProject> tasksInProject;
 
-        private string name;
-        public string Name { get => name; set { name = value; OnPropertyChanged(); } }
+        public ObservableCollection<TaskInProject> TasksInProject { get => tasksInProject; set { tasksInProject = value; OnPropertyChanged(); } }
 
-        private string start;
-        public string Start { get => start; set { start = value; OnPropertyChanged(); } }
+        private string projectID;
 
-        private string end;
-        public string End { get => end; set { end = value; OnPropertyChanged(); } }
+        public string ProjectID { get => projectID; set { projectID = value; OnPropertyChanged(); } }
+        ICommand OpenTaskInProjectInoutCommand { get; set; }
 
-        private string employeeID;
-        public string EmployeeID { get => employeeID; set { employeeID = value; OnPropertyChanged(); } }
-
-        private TaskInProjectDao taskinprojectdao = new TaskInProjectDao();
-
-        ICommand AddTaskInProjectCommand { get; set; }
         ICommand DeleteTaskInProjectCommand { get; set; }
-        ICommand SaveTaskInProjectCommand { get; set; }
+
+        ICommand UpdateTaskInProjectCommand { get; set; }
+
+        TaskInProjectDao taskInProjectDao  = new TaskInProjectDao();
         
         public TasksInProjectViewModel()
         {
             SetCommand();
+            LoadTask();
         }
         private void SetCommand()
         {
-            AddTaskInProjectCommand = new RelayCommand<Window>(p => OnClickAdd(p)) ;
-            DeleteTaskInProjectCommand = new RelayCommand<Window>(p => OnClickDelete(p));
-            SaveTaskInProjectCommand = new RelayCommand<Window>(p => OnClickSave(p));
+            
+        }
+        private void LoadTask()
+        {
+            TasksInProject = new ObservableCollection<TaskInProject>();
+            DataTable dataTable = taskInProjectDao.GetDataTable(ProjectID);
+            foreach (DataRow row in dataTable.Rows)
+            {
+                TaskInProject task = new TaskInProject(row);
+                TasksInProject.Add(task);
+            }
         }
 
-        private void OnClickAdd(Window p)
+        private void Add(TaskInProject task)
         {
-            TaskInProject taskinproject = new TaskInProject(/*Thêm id, name, start, end, empID*/);
-            taskinprojectdao.Add(taskinproject);
+            
         }
         
-        private void OnClickDelete(Window p)
+        private void Delete(string id)
         {
-            TaskInProject taskinproject = new TaskInProject(/*Thêm id, name, start, end, empID*/);
-            taskinprojectdao.Delete(taskinproject);
+            
         }
 
-        private void OnClickSave(Window p)
+        private void Update(TaskInProject task)
         {
-            TaskInProject taskinproject = new TaskInProject(/*Thêm id, name, start, end, empID*/);
-            taskinprojectdao.Save(taskinproject);
+           
         }
     }
 }

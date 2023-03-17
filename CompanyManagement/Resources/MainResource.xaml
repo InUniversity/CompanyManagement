@@ -3,11 +3,13 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <viewmodel:MainViewModel x:Key="MainVM"></viewmodel:MainViewModel>
     <viewmodel:LoginViewModel x:Key="LoginVM"></viewmodel:LoginViewModel>
-    <viewmodel:ProjectViewModel x:Key="ProjectVM"></viewmodel:ProjectViewModel>
+    <viewmodel:ProjectsViewModel x:Key="ProjectsVM"></viewmodel:ProjectsViewModel>
     <viewmodel:TasksInProjectViewModel x:Key="TasksInProjectVM"></viewmodel:TasksInProjectViewModel>
-    <viewmodel:ProjectDetailsDialogViewModel x:Key="ProjectDetailsDialogVM"></viewmodel:ProjectDetailsDialogViewModel>
+    <viewmodel:UpdateProjectViewModel x:Key="UpdateProjectVM"></viewmodel:UpdateProjectViewModel>
     <viewmodel:EmployeesViewModel x:Key="EmployeesVM"></viewmodel:EmployeesViewModel>
     <viewmodel:EmployeeInputViewModel x:Key="EmployeeInputVM"></viewmodel:EmployeeInputViewModel>
     <viewmodel:AddEmployeeViewModel x:Key="AddEmployeeVM"></viewmodel:AddEmployeeViewModel>
     <viewmodel:UpdateEmployeeViewModel x:Key="UpdateEmployeeVM"></viewmodel:UpdateEmployeeViewModel>
+    <viewmodel:AddProjectViewModel x:Key="AddProjectVM"></viewmodel:AddProjectViewModel>
+    <viewmodel:ProjectInputViewModel x:Key="ProjectInputVM"></viewmodel:ProjectInputViewModel>
 </ResourceDictionary>
