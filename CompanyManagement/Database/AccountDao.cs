@@ -18,18 +18,31 @@ namespace CompanyManagement.Database
 
         private DBConnection dbConnection = new DBConnection();
 
-        public void Add(Account acc)
+        public void Add(Account account)
         {
             string sqlStr = $"INSERT INTO {TABLE_NAME} ({USERNAME}, {PASSWORD}, {EMPLOYEE_ID}) " +
-                            $"VALUES ('{acc.Username}', '{acc.Password}', '{acc.EmployeeId}')";
+                            $"VALUES ('{account.Username}', '{account.Password}', '{account.EmployeeId}')";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
-        public void Save(Account acc)
+        public void Save(Account account)
         {
-            string sqlStr = $"UPDATE {TABLE_NAME} SET {PASSWORD} = '{acc.Password}' WHERE {USERNAME} = '{acc.Username}'";
+            string sqlStr = $"UPDATE {TABLE_NAME} SET {PASSWORD} = '{account.Password}' WHERE {USERNAME} = '{account.Username}'";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
+
+        public void Delete(Account account)
+        {
+            string sqlStr = $"DELETE FROM {TABLE_NAME} WHERE {USERNAME} = {account.Username}";
+            dbConnection.ExecuteNonQuery(sqlStr);
+        }
+
+        public DataTable GetDataTable()
+        {
+            string sqlStr = $"SELECT * FROM {TABLE_NAME}";
+            return dbConnection.GetDataTable(sqlStr);
+        }
+
 
         public Account SearchByID(string employeeId)
         {
