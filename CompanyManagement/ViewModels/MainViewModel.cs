@@ -39,7 +39,7 @@ namespace CompanyManagement.ViewModels
                 else if(loginWM.IsLogin == 2)
                 {
                     EmployeeWindow q = new EmployeeWindow();
-                    q.Show();
+                    q.ShowDialog();
                     p.Close();
                 }    
                 else
