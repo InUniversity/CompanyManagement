@@ -1,7 +1,7 @@
-﻿using CompanyManagement.Database;
+﻿using System;
 using System.Data;
 using System.Windows;
-using System;
+using CompanyManagement.Database;
 
 namespace CompanyManagement.Models
 {
@@ -12,19 +12,32 @@ namespace CompanyManagement.Models
         private string name;
         private string managerID;
 
-        public string ID { get { return id; } }
+        public string ID
+        {
+            get { return id; }
+            set { id = value; }
+        } 
+            
 
-        public string Name { get { return name; } }
+        public string Name
+        {
+            get { return name; }
+            set { name = value; }
+        }
 
-        public string ManagerID { get { return managerID;  } }
+        public string ManagerID
+        {
+            get { return managerID; }
+            set { managerID = value; }
+        }
 
         public Department() { }
 
-        public Department(string id, string name, string managerId)
+        public Department(string id, string name, string managerID)
         {
             this.id = id;
             this.name = name;
-            managerID = managerId;
+            this.managerID = managerID;
         }
 
         public Department(DataRow row)

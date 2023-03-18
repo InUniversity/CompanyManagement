@@ -60,9 +60,11 @@ namespace CompanyManagement.ViewModels
 
         private PositionDao positionDao = new PositionDao();
         private DepartmentDao departmentDao = new DepartmentDao();
+        private EmployeeDao employeeDao = new EmployeeDao();
 
         public EmployeeInputViewModel()
         {
+            ID = AutoGenerateID();
             PasswordChangedCommand = new RelayCommand<PasswordBox>(passwordBox => Password = passwordBox.Password);
             SetAllComboBox();
         }
@@ -109,12 +111,12 @@ namespace CompanyManagement.ViewModels
                 ErrorMessage = Utils.INVALIDATE_BIRTHDAY_MESSAGE;
                 return false;
             }
-            if(!CheckFormat.ValidateEmail(Email))
+            if (!CheckFormat.ValidateEmail(Email))
             {
                 ErrorMessage = Utils.INVALIDATE_EMAIL_MESSAGE;
                 return false;
             } 
-            if(!CheckFormat.ValidatePhoneNumber(PhoneNumber))
+            if (!CheckFormat.ValidatePhoneNumber(PhoneNumber))
             {
                 ErrorMessage = Utils.INVALIDATE_PHONE_NUMBER_MESSAGE;
                 return false;
@@ -124,7 +126,7 @@ namespace CompanyManagement.ViewModels
                 ErrorMessage = Utils.INVALIDATE_IDENTIFY_CARD_MESSAGE;
                 return false;
             }
-            if(!CheckFormat.ValidatePassword(Password))
+            if (!CheckFormat.ValidatePassword(Password))
             {
                 ErrorMessage = Utils.INVALIDATE_PASSWORK_MESSAGE;
                 return false;
@@ -159,6 +161,18 @@ namespace CompanyManagement.ViewModels
             DepartmentID = employee.DepartmentID;
             PositionID = employee.PositionID;
             Salary = employee.Salary;
+        }
+
+        private string AutoGenerateID()
+        {
+            string employeeID;
+            Random random = new Random();
+            do
+            {
+                int number = random.Next(10000);
+                employeeID = $"EM{number:0000}";
+            } while (employeeDao.SearchByID(employeeID) != null);
+            return employeeID;
         }
     }
 

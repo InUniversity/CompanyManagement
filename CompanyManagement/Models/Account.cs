@@ -25,7 +25,6 @@ namespace CompanyManagement.Models
             set { password = value; }
         }
 
-        
         public string EmployeeId
         {
             get { return employeeId; }

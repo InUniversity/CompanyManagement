@@ -1,6 +1,5 @@
 using System;
 using System.Data;
-using System.Windows;
 using CompanyManagement.Database;
 
 namespace CompanyManagement
@@ -22,68 +21,68 @@ namespace CompanyManagement
 
         public string ID
         {
-            get => id;
-            set => id = value;
+            get { return id; }
+            set { id = value; }
         }
 
         public string Name
         {
-            get => name;
-            set => name = value;
+            get { return name; }
+            set { name = value; }
         }
 
         public string Gender
         {
-            get => gender;
-            set => gender = value;
+            get { return gender; }
+            set { gender = value; }
         }
 
         public string Birthday
         {
-            get => birthday;
-            set => birthday = value;
+            get { return birthday; }
+            set { birthday = value; }
         }
 
         public string IdentifyCard
         {
-            get => identifyCard;
-            set => identifyCard = value;
+            get { return identifyCard; }
+            set { identifyCard = value; }
         }
 
         public string Email
         {
-            get => email;
-            set => email = value;
+            get { return email; }
+            set { email = value; }
         }
 
         public string PhoneNumber
         {
-            get => phoneNumber;
-            set => phoneNumber = value;
+            get { return phoneNumber; }
+            set { phoneNumber = value; }
         }
 
         public string Address
         {
-            get => address;
-            set => address = value;
+            get { return address; }
+            set { address = value; }
         }
 
         public string DepartmentID
         {
-            get => departmentID;
-            set => departmentID = value;
+            get { return departmentID; }
+            set { departmentID = value; }
         }
 
         public string PositionID
         {
-            get => positionID;
-            set => positionID = value;
+            get { return positionID; }
+            set { positionID = value; }
         }
 
         public int Salary
         {
-            get => salary;
-            set => salary = value;
+            get { return salary; }
+            set { salary = value; }
         }
 
         public Employee() { }

@@ -20,15 +20,15 @@ namespace CompanyManagement.Database
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
-        public void Save(Account account)
-        {
-            string sqlStr = $"UPDATE {TABLE_NAME} SET {PASSWORD} = '{account.Password}' WHERE {USERNAME} = '{account.Username}'";
-            dbConnection.ExecuteNonQuery(sqlStr);
-        }
-
         public void Delete(Account account)
         {
             string sqlStr = $"DELETE FROM {TABLE_NAME} WHERE {USERNAME} = {account.Username}";
+            dbConnection.ExecuteNonQuery(sqlStr);
+        }
+
+        public void Update(Account account)
+        {
+            string sqlStr = $"UPDATE {TABLE_NAME} SET {PASSWORD} = '{account.Password}' WHERE {USERNAME} = '{account.Username}'";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
