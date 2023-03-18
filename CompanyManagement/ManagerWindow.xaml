@@ -4,7 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:uc="clr-namespace:CompanyManagement.UserControls"
-        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
@@ -18,12 +17,6 @@
         Name="mainWindow"
         DataContext="{StaticResource ManagerVM}"
         Title="MainWindow" Height="800" Width="1500">
-    <i:Interaction.Triggers>
-        <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding LoadedWindowCommand}"
-                                   CommandParameter="{Binding ElementName=mainWindow}" />
-        </i:EventTrigger>
-    </i:Interaction.Triggers>
     <Grid>
         <materialDesign:Card Height="auto" Width="auto">
             <TabControl
