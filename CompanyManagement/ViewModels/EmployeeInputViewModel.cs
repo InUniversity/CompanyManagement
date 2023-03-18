@@ -12,7 +12,7 @@ namespace CompanyManagement.ViewModels
     {
 
         private string id = "";
-        public string ID { get => id; set { id = value;} }
+        public string ID { get => id; set { id = value; OnPropertyChanged(); } }
 
         private string name = "";
         public string Name { get => name; set { name = value; OnPropertyChanged(); } }
@@ -64,7 +64,7 @@ namespace CompanyManagement.ViewModels
 
         public EmployeeInputViewModel()
         {
-            if(string.IsNullOrWhiteSpace(ID)) ID = AutoGenerateID();
+            ID = AutoGenerateID();
             PasswordChangedCommand = new RelayCommand<PasswordBox>(passwordBox => Password = passwordBox.Password);
             SetAllComboBox();
         }
@@ -111,12 +111,12 @@ namespace CompanyManagement.ViewModels
                 ErrorMessage = Utils.INVALIDATE_BIRTHDAY_MESSAGE;
                 return false;
             }
-            if(!CheckFormat.ValidateEmail(Email))
+            if (!CheckFormat.ValidateEmail(Email))
             {
                 ErrorMessage = Utils.INVALIDATE_EMAIL_MESSAGE;
                 return false;
             } 
-            if(!CheckFormat.ValidatePhoneNumber(PhoneNumber))
+            if (!CheckFormat.ValidatePhoneNumber(PhoneNumber))
             {
                 ErrorMessage = Utils.INVALIDATE_PHONE_NUMBER_MESSAGE;
                 return false;
@@ -126,7 +126,7 @@ namespace CompanyManagement.ViewModels
                 ErrorMessage = Utils.INVALIDATE_IDENTIFY_CARD_MESSAGE;
                 return false;
             }
-            if(!CheckFormat.ValidatePassword(Password))
+            if (!CheckFormat.ValidatePassword(Password))
             {
                 ErrorMessage = Utils.INVALIDATE_PASSWORK_MESSAGE;
                 return false;
