@@ -8,6 +8,7 @@ namespace CompanyManagement.ViewModels;
 
 public class LoginViewModel : BaseViewModel
 {
+
     public int IsLogin { get; set; }
 
     private string username;
@@ -36,7 +37,7 @@ public class LoginViewModel : BaseViewModel
         PasswordChangedCommand = new RelayCommand<PasswordBox>((p) => { password = p.Password; });
     }
 
-    private void OnClickLogin(Window p)
+    private void OnClickLogin(Window loginWindow)
     {
         Account account = accountDao.SearchByUsername(Username);
         if (account == null || !string.Equals(Password, account.Password))
@@ -45,18 +46,22 @@ public class LoginViewModel : BaseViewModel
             IsLogin = 0;
             return;
         }
+
         SingletonAccount.Instance.CurrentAccount = account;
         Employee employee = employeeDao.SearchByID(account.EmployeeId);
 
         if (employee.PositionID.CompareTo("1") == 0)
         {
-            IsLogin = 1;
+            ManagerWindow managerWindow = new ManagerWindow();
+            managerWindow.ShowDialog();
         }
         else
         {
-            IsLogin = 2;
+            EmployeeWindow employeeWindow = new EmployeeWindow();
+            employeeWindow.ShowDialog();
         }
-        p.Close();
+
+        loginWindow.Close();
     }
 
     private void OnClickForgotPassword(object p)
