@@ -1,5 +1,4 @@
-﻿using CompanyManagement.Database;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using System.Windows;
 
 namespace CompanyManagement.ViewModels
@@ -11,9 +10,6 @@ namespace CompanyManagement.ViewModels
 
         public EmployeesViewModel ParentDataContext { get; set; }
         public EmployeeInputViewModel EmployeeInputDataContext { get; set; }
-
-        private PositionDao positionDao = new PositionDao();
-        private DepartmentDao departmentDao = new DepartmentDao();
 
         public UpdateEmployeeViewModel()
         {
@@ -31,9 +27,7 @@ namespace CompanyManagement.ViewModels
 
         private bool CheckAllFields()
         {
-            if (!EmployeeInputDataContext.CheckAllFields())
-                return false;
-            return true;
+           return EmployeeInputDataContext.CheckAllFields();
         }
     }
 }

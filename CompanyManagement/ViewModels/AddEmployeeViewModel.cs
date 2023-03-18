@@ -12,8 +12,6 @@ namespace CompanyManagement.ViewModels
         public EmployeesViewModel ParentDataContext { get; set; }
         public EmployeeInputViewModel EmployeeInputDataContext { get; set; }
 
-        private PositionDao positionDao = new PositionDao();
-        private DepartmentDao departmentDao = new DepartmentDao();
         private EmployeeDao employeeDao = new EmployeeDao();
         
         public AddEmployeeViewModel()

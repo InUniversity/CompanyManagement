@@ -90,8 +90,7 @@ namespace CompanyManagement.ViewModels
 
         public void Update(Employee employee)
         {
-            employeeDao.Save(employee);
-            
+            employeeDao.Update(employee);
             LoadEmployees();
         }
     }

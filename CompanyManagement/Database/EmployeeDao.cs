@@ -37,7 +37,7 @@ namespace CompanyManagement.Database
             dbconnection.ExecuteNonQuery(sqlStr);
         }
 
-        public void Save(Employee empl)
+        public void Update(Employee empl)
         {
             string sqlStr = $"UPDATE {TABLE_NAME}" +
                 $"SET {NAME}=N'{empl.Name}', {GENDER}=N'{empl.Gender}', {BIRTHDAY}='{empl.Birthday}', " +

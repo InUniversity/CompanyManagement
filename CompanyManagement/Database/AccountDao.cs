@@ -26,7 +26,7 @@ namespace CompanyManagement.Database
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
-        public void Save(Account account)
+        public void Update(Account account)
         {
             string sqlStr = $"UPDATE {TABLE_NAME} SET {PASSWORD} = '{account.Password}' WHERE {USERNAME} = '{account.Username}'";
             dbConnection.ExecuteNonQuery(sqlStr);

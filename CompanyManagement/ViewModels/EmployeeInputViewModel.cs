@@ -169,7 +169,6 @@ namespace CompanyManagement.ViewModels
             Random random = new Random();
             do
             {
-                employeeID = "";
                 int number = random.Next(10000);
                 employeeID = $"EM{number:0000}";
             } while (employeeDao.SearchByID(employeeID) != null);

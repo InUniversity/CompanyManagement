@@ -33,11 +33,11 @@ namespace CompanyManagement.Models
 
         public Department() { }
 
-        public Department(string id, string name, string managerId)
+        public Department(string id, string name, string managerID)
         {
             this.id = id;
             this.name = name;
-            this.managerID = managerId;
+            this.managerID = managerID;
         }
 
         public Department(DataRow row)

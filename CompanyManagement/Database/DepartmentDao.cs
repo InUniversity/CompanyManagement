@@ -26,7 +26,7 @@ namespace CompanyManagement.Database
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
-        public void Save(Department dep)
+        public void Update(Department dep)
         {
             string sqlStr = 
                 $"UPDATE {TABLE_NAME} SET {NAME}=N'{dep.Name}', {MANAGER_ID}='{dep.ManagerID}' WHERE {ID}='{dep.ID}'";
