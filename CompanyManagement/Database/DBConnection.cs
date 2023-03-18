@@ -63,34 +63,16 @@ namespace CompanyManagement.Database
             return tableData;
         }
 
-        public List<T> GetDataList<T>(string sqlStr) where T : class, new()
+        public SqlDataReader GetDataReader(string sqlStr)
         {
-            List<T> list = new List<T>();
+            SqlDataReader reader = null;
             try
             {
                 conn.Open();
-                using (SqlDataReader reader = (new SqlCommand(sqlStr, conn)).ExecuteReader())
+                using (reader = (new SqlCommand(sqlStr, conn)).ExecuteReader())
                 {
-                    T obj = new T();
-
-                    while (reader.Read())
-                    {
-                        var columnNames = Enumerable.Range(0, reader.FieldCount).Select(reader.GetName).ToList();
-
-                        foreach (var columnName in columnNames)
-                        {
-                            PropertyInfo property = typeof(T).GetProperty(columnName);
-
-                            if (property != null && !reader.IsDBNull(reader.GetOrdinal(columnName)))
-                            {
-                                var value = reader.GetValue(reader.GetOrdinal(columnName));
-                                property.SetValue(obj, value, null);
-                            }
-                        }
-
-                        list.Add(obj);
-                    }
-                }
+                    return reader;
+                }    
             }
             catch(Exception ex)
             {
@@ -100,7 +82,7 @@ namespace CompanyManagement.Database
             {
                 conn.Close();
             }
-            return list;
+            return reader;
         }
     }  
 }

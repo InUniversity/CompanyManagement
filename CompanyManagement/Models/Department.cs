@@ -18,7 +18,6 @@ namespace CompanyManagement.Models
             set { id = value; }
         } 
             
-
         public string Name
         {
             get { return name; }

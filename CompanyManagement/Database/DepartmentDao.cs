@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using CompanyManagement.Models;
 
 namespace CompanyManagement.Database
@@ -49,7 +50,23 @@ namespace CompanyManagement.Database
                             $"WHERE {ProjectDao.PROPRESS} <> '100'" +
                             $"AND {ProjectDao.START} <= '{endTime}'" +
                             $"AND {ProjectDao.END} >= '{startTime}'))";
-            return dbConnection.GetDataList<Department>(sqlStr);
+
+            List<Department> departments = new List<Department>();
+
+            using (SqlDataReader reader = dbConnection.GetDataReader(sqlStr))
+            {
+                while (reader.Read())
+                {
+                    Department department = new Department
+                    {
+                        ID = (string)reader[$"{DepartmentDao.ID}"],
+                        Name = (string)reader[$"{DepartmentDao.NAME}"],
+                        ManagerID = (string)reader[$"{DepartmentDao.MANAGER_ID}"]
+                    };
+                    departments.Add(department);
+                }
+            }
+            return departments;
         }
     }
 }
