@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using Dapper;
 using System.Linq;
 using System.Reflection;
+using Microsoft.VisualBasic;
 
 namespace CompanyManagement.Database
 {
@@ -68,26 +69,38 @@ namespace CompanyManagement.Database
             try
             {
                 conn.Open();
-               using(SqlDataReader reader = (new SqlCommand(sqlStr, conn)).ExecuteReader())
+                using (SqlDataReader reader = (new SqlCommand(sqlStr, conn)).ExecuteReader())
                 {
                     T obj = new T();
 
-                    while(reader.Read())
+                    while (reader.Read())
                     {
                         var columnNames = Enumerable.Range(0, reader.FieldCount).Select(reader.GetName).ToList();
 
-                        foreach(var columnName in columnNames)
+                        foreach (var columnName in columnNames)
                         {
-                            PropertyInfo property = typeof(T).GetProperty(columnName)
-                        }    
-                    }    
-                }    
+                            PropertyInfo property = typeof(T).GetProperty(columnName);
+
+                            if (property != null && !reader.IsDBNull(reader.GetOrdinal(columnName)))
+                            {
+                                var value = reader.GetValue(reader.GetOrdinal(columnName));
+                                property.SetValue(obj, value, null);
+                            }
+                        }
+
+                        list.Add(obj);
+                    }
+                }
             }
-
-              
-
-            List<T> objs = conn.Query<T>(sqlStr).ToList<T>();
-            return objs;
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return list;
         }
     }  
 }
