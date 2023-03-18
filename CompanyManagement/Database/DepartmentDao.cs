@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System.Collections.Generic;
+using System.Data;
 using CompanyManagement.Models;
 
 namespace CompanyManagement.Database
@@ -13,23 +14,23 @@ namespace CompanyManagement.Database
 
         private DBConnection dbConnection = new DBConnection();
 
-        public void Add(Department dep)
+        public void Add(Department department)
         {
             string sqlStr =
-                $"INSERT INTO {TABLE_NAME} ({ID}, {NAME}, {MANAGER_ID}) VALUES ('{dep.ID}', N'{dep.Name}', '{dep.ManagerID}')";
+                $"INSERT INTO {TABLE_NAME} ({ID}, {NAME}, {MANAGER_ID}) VALUES ('{department.ID}', N'{department.Name}', '{department.ManagerID}')";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
-        public void Delete(string id)
+        public void Delete(string departmentID)
         {
-            string sqlStr = $"DELETE FROM {TABLE_NAME} WHERE {ID} = '{id}'";
+            string sqlStr = $"DELETE FROM {TABLE_NAME} WHERE {ID} = '{departmentID}'";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
-        public void Update(Department dep)
+        public void Update(Department deparment)
         {
             string sqlStr = 
-                $"UPDATE {TABLE_NAME} SET {NAME}=N'{dep.Name}', {MANAGER_ID}='{dep.ManagerID}' WHERE {ID}='{dep.ID}'";
+                $"UPDATE {TABLE_NAME} SET {NAME}=N'{deparment.Name}', {MANAGER_ID}='{deparment.ManagerID}' WHERE {ID}='{deparment.ID}'";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
@@ -37,6 +38,18 @@ namespace CompanyManagement.Database
         {
             string sqlStr = $"SELECT * FROM {TABLE_NAME}";
             return dbConnection.GetDataTable(sqlStr);
+        }
+
+        public List<Department> GetDeparmentsCanAssignWork(string startTime, string endTime)
+        {
+            string sqlStr = $"SELECT * FROM {TABLE_NAME} WHERE {ID} NOT IN (" +
+                            $"Select {ProjectAssignmentDao.DEPARTMENT_ID} FROM {ProjectAssignmentDao.TABLE_NAME} " +
+                            $"WHERE {ProjectAssignmentDao.PROJECT_ID} IN (" +
+                            $"Select {ProjectDao.ID} FROM {ProjectDao.TABLE_NAME}" +
+                            $"WHERE {ProjectDao.PROPRESS} <> '100'" +
+                            $"AND {ProjectDao.START} <= '{endTime}'" +
+                            $"AND {ProjectDao.END} >= '{startTime}'))";
+            return dbConnection.GetDataList<Department>(sqlStr);
         }
     }
 }

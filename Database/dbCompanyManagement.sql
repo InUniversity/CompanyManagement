@@ -55,7 +55,7 @@ CREATE TABLE Project(
 CREATE TABLE ProjectAssignment(
 	project_id varchar(20),
 	role_name nvarchar(30),
-	employee_id varchar(20)
+	department_id varchar(20)
 );
 
 CREATE TABLE Task(
