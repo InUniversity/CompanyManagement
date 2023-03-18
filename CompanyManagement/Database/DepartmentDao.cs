@@ -41,6 +41,24 @@ namespace CompanyManagement.Database
             return dbConnection.GetDataTable(sqlStr);
         }
 
+        private List<Department> ToList(SqlDataReader reader)
+        {
+            List<Department> departments = new List<Department>();
+
+            while (reader.Read())
+            {
+                Department department = new Department
+                {
+                    ID = (string)reader[ID],
+                    Name = (string)reader[NAME],
+                    ManagerID = (string)reader[MANAGER_ID]
+                };
+                departments.Add(department);
+            }
+            reader.Close();
+            return departments;
+        }
+
         public List<Department> GetDeparmentsCanAssignWork(string startTime, string endTime)
         {
             string sqlStr = $"SELECT * FROM {TABLE_NAME} WHERE {ID} NOT IN (" +
@@ -51,22 +69,9 @@ namespace CompanyManagement.Database
                             $"AND {ProjectDao.START} <= '{endTime}'" +
                             $"AND {ProjectDao.END} >= '{startTime}'))";
 
-            List<Department> departments = new List<Department>();
+            SqlDataReader reader = dbConnection.GetDataReader(sqlStr);
 
-            using (SqlDataReader reader = dbConnection.GetDataReader(sqlStr))
-            {
-                while (reader.Read())
-                {
-                    Department department = new Department
-                    {
-                        ID = (string)reader[$"{DepartmentDao.ID}"],
-                        Name = (string)reader[$"{DepartmentDao.NAME}"],
-                        ManagerID = (string)reader[$"{DepartmentDao.MANAGER_ID}"]
-                    };
-                    departments.Add(department);
-                }
-            }
-            return departments;
+            return ToList(reader);
         }
     }
 }
