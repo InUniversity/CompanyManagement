@@ -9,6 +9,7 @@ namespace CompanyManagement.Models
 {
     public class SingletonAccount
     {
+
         private static SingletonAccount instance = null;
         private  Account account;
         

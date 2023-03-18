@@ -11,9 +11,17 @@ namespace CompanyManagement.Models
         private string id;
         private string name;
 
-        public string ID { get { return id; } }
+        public string ID
+        {
+            get { return id; }
+            set { id = value; }
+        }
 
-        public string Name { get { return name; } }
+        public string Name
+        {
+            get { return name; }
+            set { name = value; }
+        }
 
         public PositionInCompany() { }
 

@@ -5,6 +5,7 @@ namespace CompanyManagement.Database
 {
     public class TaskInProjectDao
     {
+
         private const string TABLE_NAME = "Task";
         public const string ID = "task_id";
         public const string TILE = "title";

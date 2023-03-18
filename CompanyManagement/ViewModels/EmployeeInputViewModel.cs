@@ -171,7 +171,7 @@ namespace CompanyManagement.ViewModels
             {
                 employeeID = "";
                 int number = random.Next(10000);
-                employeeID = string.Format("{0}{1:0000}", "EM", number);
+                employeeID = $"EM{number:0000}";
             } while (employeeDao.SearchByID(employeeID) != null);
             return employeeID;
         }

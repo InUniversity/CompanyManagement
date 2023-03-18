@@ -7,6 +7,7 @@ namespace CompanyManagement.Models
 {
     public class TaskInProject
     {
+
         private string id;
         private string title;
         private string description;
@@ -19,56 +20,56 @@ namespace CompanyManagement.Models
         
         public string ID
         {
-            get{ return this.id; }
-            set { this.id = value; }
+            get{ return id; }
+            set { id = value; }
         }
 
         public string Title
         {
-            get { return this.title; }
-            set { this.title = value; }
+            get { return title; }
+            set { title = value; }
         }
 
         public string Description
         {
-            get { return this.description; }
-            set { this.description = value; }
+            get { return description; }
+            set { description = value; }
         }
 
         public string AssignDate
         {
-            get { return this.assignDate; }
-            set { this.assignDate = value; }
+            get { return assignDate; }
+            set { assignDate = value; }
         }
 
         public string Deadline
         {
-            get { return this.deadline; }
-            set { this.deadline = value; }
+            get { return deadline; }
+            set { deadline = value; }
         }
 
         public string Progress
         {
-            get { return this.progress; }
-            set { this.progress = value; }
+            get { return progress; }
+            set { progress = value; }
         }
 
         public string CreateBy
         {
-            get { return this.createBy; }
-            set { this.createBy = value; }
+            get { return createBy; }
+            set { createBy = value; }
         }
 
         public string EmployeeID
         {
-            get { return this.employeeID; }
-            set { this.employeeID = value; }
+            get { return employeeID; }
+            set { employeeID = value; }
         }
 
         public string ProjectID
         {
-            get { return this.projectID; }
-            set { this.projectID = value; }
+            get { return projectID; }
+            set { projectID = value; }
         }
 
         public TaskInProject() { }

@@ -7,6 +7,7 @@ namespace CompanyManagement
 {
     public class Project
     {
+
         private string id;
         private string name;
         private string start;
@@ -15,32 +16,32 @@ namespace CompanyManagement
 
         public string ID
         {
-            get { return this.id; }
-            set { this.id = value; }
+            get { return id; }
+            set { id = value; }
         } 
             
         public string Name
         {
-            get { return this.name; }
-            set { this.name = value; }
+            get { return name; }
+            set { name = value; }
         }
 
         public string Start
         {
-            get { return this.start; }
-            set { this.start = value; }
+            get { return start; }
+            set { start = value; }
         }
 
         public string End
         {
-            get { return this.end; }
-            set { this.end = value; }
+            get { return end; }
+            set { end = value; }
         }
 
         public string Progress
         {
-            get { return this.progress; }
-            set { this.progress = value; }
+            get { return progress; }
+            set { progress = value; }
         }
 
         public Project() { }
@@ -58,11 +59,11 @@ namespace CompanyManagement
         {
             try
             {
-                this.id = (string)row[ProjectDao.ID];
-                this.name = (string)row[ProjectDao.NAME];
-                this.start = (string)row[ProjectDao.START];
-                this.end = (string)row[ProjectDao.END];
-                this.progress = (string)row[ProjectDao.PROPRESS];
+                id = (string)row[ProjectDao.ID];
+                name = (string)row[ProjectDao.NAME];
+                start = (string)row[ProjectDao.START];
+                end = (string)row[ProjectDao.END];
+                progress = (string)row[ProjectDao.PROPRESS];
             }
             catch(Exception ex)
             {
