@@ -12,7 +12,7 @@ namespace CompanyManagement.ViewModels
     {
 
         private string id = "";
-        public string ID { get => id; set { id = value; OnPropertyChanged(); } }
+        public string ID { get => id; set { id = value;} }
 
         private string name = "";
         public string Name { get => name; set { name = value; OnPropertyChanged(); } }
@@ -60,9 +60,11 @@ namespace CompanyManagement.ViewModels
 
         private PositionDao positionDao = new PositionDao();
         private DepartmentDao departmentDao = new DepartmentDao();
+        private EmployeeDao employeeDao = new EmployeeDao();
 
         public EmployeeInputViewModel()
         {
+            if(string.IsNullOrWhiteSpace(ID)) ID = AutoGenerateID();
             PasswordChangedCommand = new RelayCommand<PasswordBox>(passwordBox => Password = passwordBox.Password);
             SetAllComboBox();
         }
@@ -159,6 +161,19 @@ namespace CompanyManagement.ViewModels
             DepartmentID = employee.DepartmentID;
             PositionID = employee.PositionID;
             Salary = employee.Salary;
+        }
+
+        private string AutoGenerateID()
+        {
+            string employeeID;
+            Random random = new Random();
+            do
+            {
+                employeeID = "";
+                int number = random.Next(10000);
+                employeeID = string.Format("{0}{1:0000}", "EM", number);
+            } while (employeeDao.SearchByID(employeeID) != null);
+            return employeeID;
         }
     }
 

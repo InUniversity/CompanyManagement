@@ -50,14 +50,15 @@
                         <Grid Grid.Row="0">
                             <TextBox
                                 Margin="5 5 5 20"
-                                MaxLength="20"
                                 materialDesign:HintAssist.Hint="Mã số nhân viên"
                                 Text="{Binding ID}"
+                                Name ="txtID"
                                 AcceptsReturn="True"
                                 IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedTextBoxEnabledComboBox}"
                                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                 TextWrapping="Wrap"
-                                VerticalScrollBarVisibility="Auto" />
+                                VerticalScrollBarVisibility="Auto"
+                                IsReadOnly="True" />
                         </Grid>
                         <Grid Grid.Row="1">
                             <TextBox
