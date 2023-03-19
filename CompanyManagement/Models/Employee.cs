@@ -1,5 +1,6 @@
 using System;
 using System.Data;
+using System.Data.SqlClient;
 using CompanyManagement.Database;
 
 namespace CompanyManagement
@@ -102,22 +103,22 @@ namespace CompanyManagement
             this.positionID = positionID;
             this.salary = salary;
         }
-
-        public Employee(DataRow row)
+        
+        public Employee(SqlDataReader reader)
         {
             try
             {
-                id = (string)row[EmployeeDao.ID];
-                name = (string)row[EmployeeDao.NAME];
-                gender = (string)row[EmployeeDao.GENDER];
-                birthday = (string)row[EmployeeDao.BIRTHDAY];
-                identifyCard = (string)row[EmployeeDao.IDENTIFY_CARD];
-                email = (string)row[EmployeeDao.EMAIL];
-                phoneNumber = (string)row[EmployeeDao.PHONE_NUMBER];
-                address = (string)row[EmployeeDao.ADDRESS];
-                departmentID = (string)row[EmployeeDao.DEPARTMENT_ID];
-                positionID = (string)row[EmployeeDao.POSITION_ID];
-                salary = (int)row[EmployeeDao.SALARY];
+                id = (string)reader[EmployeeDao.ID];
+                name = (string)reader[EmployeeDao.NAME];
+                gender = (string)reader[EmployeeDao.GENDER];
+                birthday = (string)reader[EmployeeDao.BIRTHDAY];
+                identifyCard = (string)reader[EmployeeDao.IDENTIFY_CARD];
+                email = (string)reader[EmployeeDao.EMAIL];
+                phoneNumber = (string)reader[EmployeeDao.PHONE_NUMBER];
+                address = (string)reader[EmployeeDao.ADDRESS];
+                departmentID = (string)reader[EmployeeDao.DEPARTMENT_ID];
+                positionID = (string)reader[EmployeeDao.POSITION_ID];
+                salary = (int)reader[EmployeeDao.SALARY];
             }
             catch (Exception ex)
             {

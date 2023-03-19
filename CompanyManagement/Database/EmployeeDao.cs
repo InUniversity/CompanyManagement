@@ -1,4 +1,4 @@
-﻿using System.Data;
+﻿using System.Collections.Generic;
 
 namespace CompanyManagement.Database
 {
@@ -18,7 +18,7 @@ namespace CompanyManagement.Database
         public const string POSITION_ID = "position_id";
         public const string SALARY = "salary";
 
-        private DBConnection dbconnection = new DBConnection();
+        private DBConnection dbConnection = new DBConnection();
 
         public void Add(Employee empl)
         {
@@ -28,13 +28,13 @@ namespace CompanyManagement.Database
                 $"VALUES ('{empl.ID}', N'{empl.Name}', N'{empl.Gender}', '{empl.Birthday}', " +
                 $"'{empl.IdentifyCard}', '{empl.Email}', '{empl.PhoneNumber}', N'{empl.Address}', " +
                 $"'{empl.DepartmentID}', '{empl.PositionID}', '{empl.Salary}')";
-            dbconnection.ExecuteNonQuery(sqlStr);
+            dbConnection.ExecuteNonQuery(sqlStr);
         }
 
         public void Delete(string id)
         {
             string sqlStr = $"DELETE FROM {TABLE_NAME} WHERE {ID} = '{id}'";
-            dbconnection.ExecuteNonQuery(sqlStr);
+            dbConnection.ExecuteNonQuery(sqlStr);
         }
 
         public void Update(Employee empl)
@@ -44,40 +44,40 @@ namespace CompanyManagement.Database
                 $"{IDENTIFY_CARD}='{empl.IdentifyCard}', {EMAIL}={empl.Email}, " +
                 $"{PHONE_NUMBER}='{empl.PhoneNumber}', {ADDRESS}={empl.Address}, {DEPARTMENT_ID}='{empl.DepartmentID}', " +
                 $"{POSITION_ID}='{empl.PositionID}', {SALARY}='{empl.Salary}' WHERE {ID}='{empl.ID}'";
-            dbconnection.ExecuteNonQuery(sqlStr);
+            dbConnection.ExecuteNonQuery(sqlStr);
         }
 
-        public DataTable GetDataTable()
+        public List<Employee> GetAll()
         {
             string sqlStr = $"SELECT * FROM {TABLE_NAME}";
-            return dbconnection.GetDataTable(sqlStr);
+            return dbConnection.GetList(sqlStr, reader => new Employee(reader));
         }
 
         public Employee SearchByID(string id)
         {
             string sqlStr = $"SELECT * FROM {TABLE_NAME} WHERE {ID} = '{id}'";
-            DataTable dataTable = dbconnection.GetDataTable(sqlStr);
-            if (dataTable.Rows.Count == 0)
+            List<Employee> employees  = dbConnection.GetList(sqlStr, reader => new Employee(reader));
+            if (employees.Count == 0)
                 return null;
-            return new Employee(dataTable.Rows[0]);
+            return employees[0];
         }
 
         public Employee SearchByIdentifyCard(string identifyCard)
         {
             string sqlStr = $"SELECT * FROM {TABLE_NAME} WHERE {IDENTIFY_CARD} = '{identifyCard}'";
-            DataTable dataTable = dbconnection.GetDataTable(sqlStr);
-            if (dataTable.Rows.Count == 0)
+            List<Employee> employees  = dbConnection.GetList(sqlStr, reader => new Employee(reader));
+            if (employees.Count == 0)
                 return null;
-            return new Employee(dataTable.Rows[0]);
+            return employees[0];
         }
 
         public Employee SearchByPhoneNumber(string phoneNumber)
         {
             string sqlStr = $"SELECT * FROM {TABLE_NAME} WHERE {PHONE_NUMBER} = '{phoneNumber}'";
-            DataTable dataTable = dbconnection.GetDataTable(sqlStr);
-            if (dataTable.Rows.Count == 0)
+            List<Employee> employees  = dbConnection.GetList(sqlStr, reader => new Employee(reader));
+            if (employees.Count == 0)
                 return null;
-            return new Employee(dataTable.Rows[0]);
+            return employees[0];
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using CompanyManagement.Database;
 using CompanyManagement.Models;
 using System.Collections.Generic;
-using System.Data;
 using System.Windows.Input;
 using System;
 using System.Windows.Controls;
@@ -71,21 +70,8 @@ namespace CompanyManagement.ViewModels
 
         private void SetAllComboBox()
         {
-            DataTable positionTable = positionDao.GetDataTable();
-            Positions = new List<PositionInCompany>();
-            foreach (DataRow row in positionTable.Rows)
-            {
-                PositionInCompany pos = new PositionInCompany(row);
-                Positions.Add(pos);
-            }
-
-            DataTable departmentTable = departmentDao.GetDataTable();
-            Departments = new List<Department>();
-            foreach (DataRow row in departmentTable.Rows)
-            {
-                Department dep = new Department(row);
-                Departments.Add(dep);
-            }
+            Positions = positionDao.GetAll();
+            Departments = departmentDao.GetAll();
         }
 
         public Employee CreateEmployeeInstance()

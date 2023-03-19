@@ -1,4 +1,4 @@
-﻿using System.Data;
+﻿using System.Collections.Generic;
 
 namespace CompanyManagement.Database
 {
@@ -40,19 +40,19 @@ namespace CompanyManagement.Database
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
-        public DataTable GetDataTable()
+        public List<Project> GetAll()
         {
             string sqlStr = $"SELECT * FROM {TABLE_NAME}";
-            return dbConnection.GetDataTable(sqlStr);
+            return dbConnection.GetList(sqlStr, reader => new Project(reader));
         }
 
         public Project SearchByID(string id)
         {
             string sqlStr = $"SELECT * FROM {TABLE_NAME} WHERE {ID} = '{id}'";
-            DataTable dataTable = dbConnection.GetDataTable(sqlStr);
-            if (dataTable.Rows.Count == 0)
+            List<Project> projects  = dbConnection.GetList(sqlStr, reader => new Project(reader));
+            if (projects.Count == 0)
                 return null;
-            return new Project(dataTable.Rows[0]);
+            return projects[0];
         }
     }
 }

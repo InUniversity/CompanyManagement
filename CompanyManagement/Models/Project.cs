@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Data.SqlClient;
 using System.Windows;
 using CompanyManagement.Database;
 
@@ -55,15 +56,15 @@ namespace CompanyManagement
             this.progress = progress;
         }
 
-        public Project(DataRow row)
+        public Project(SqlDataReader reader)
         {
             try
             {
-                id = (string)row[ProjectDao.ID];
-                name = (string)row[ProjectDao.NAME];
-                start = (string)row[ProjectDao.START];
-                end = (string)row[ProjectDao.END];
-                progress = (string)row[ProjectDao.PROPRESS];
+                id = (string)reader[ProjectDao.ID];
+                name = (string)reader[ProjectDao.NAME];
+                start = (string)reader[ProjectDao.START];
+                end = (string)reader[ProjectDao.END];
+                progress = (string)reader[ProjectDao.PROPRESS];
             }
             catch(Exception ex)
             {

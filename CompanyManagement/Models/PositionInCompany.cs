@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Data.SqlClient;
 using System.Windows;
 using CompanyManagement.Database;
 
@@ -31,12 +32,12 @@ namespace CompanyManagement.Models
             this.name = name;
         }
         
-        public PositionInCompany(DataRow row)
+        public PositionInCompany(SqlDataReader reader)
         {
             try
             {
-                id = (string)row[PositionDao.ID];
-                name = (string)row[PositionDao.NAME];
+                id = (string)reader[PositionDao.ID];
+                name = (string)reader[PositionDao.NAME];
             }
             catch (Exception ex)
             {

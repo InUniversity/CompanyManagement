@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System.Collections.Generic;
+using System.Data;
 using CompanyManagement.Models;
 
 namespace CompanyManagement.Database
@@ -6,7 +7,7 @@ namespace CompanyManagement.Database
     class AccountDao
     {
 
-        public const string TABLE_NAME = "Account";
+        private const string TABLE_NAME = "Account";
         public const string USERNAME = "account_username";
         public const string PASSWORD = "account_password";
         public const string EMPLOYEE_ID = "employee_id";
@@ -32,28 +33,22 @@ namespace CompanyManagement.Database
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
-        public DataTable GetDataTable()
-        {
-            string sqlStr = $"SELECT * FROM {TABLE_NAME}";
-            return dbConnection.GetDataTable(sqlStr);
-        }
-
-        public Account SearchByID(string employeeId)
+        public Account SearchByEmployeeID(string employeeId)
         {
             string sqlStr = $"SELECT * FROM {TABLE_NAME} WHERE {EMPLOYEE_ID} = '{employeeId}'";
-            DataTable dataTable = dbConnection.GetDataTable(sqlStr);
-            if (dataTable.Rows.Count == 0)
+            List<Account> accounts  = dbConnection.GetList(sqlStr, reader => new Account(reader));
+            if (accounts.Count == 0)
                 return null;
-            return new Account(dataTable.Rows[0]);
+            return accounts[0];
         }
         
         public Account SearchByUsername(string username)
         {
             string sqlStr = $"SELECT * FROM {TABLE_NAME} WHERE {USERNAME} = '{username}'";
-            DataTable dataTable = dbConnection.GetDataTable(sqlStr);
-            if (dataTable.Rows.Count == 0)
+            List<Account> accounts  = dbConnection.GetList(sqlStr, reader => new Account(reader));
+            if (accounts.Count == 0)
                 return null;
-            return new Account(dataTable.Rows[0]);
+            return accounts[0];
         }
     }
 }

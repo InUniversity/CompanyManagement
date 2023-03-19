@@ -1,4 +1,5 @@
-﻿using CompanyManagement.Models;
+﻿using System.Collections.Generic;
+using CompanyManagement.Models;
 using System.Data;
 
 namespace CompanyManagement.Database
@@ -12,7 +13,7 @@ namespace CompanyManagement.Database
         public const string DESCRIPTION = "task_description";
         public const string ASSIGN_DATE = "assign_date";
         public const string DEADLINE = "deadline";
-        public const string CREATEBY = "create_by";
+        public const string CREATE_BY = "create_by";
         public const string PROGRESS = "progress";
         public const string EMPLOYEE_ID = "employee_id";
         public const string PROJECT_ID = "project_id";
@@ -22,7 +23,7 @@ namespace CompanyManagement.Database
         public void Add(TaskInProject task)
         {
             string sqlStr = $"INSERT INTO {TABLE_NAME}({ID}, {TILE}, {DESCRIPTION}, {ASSIGN_DATE}, {DEADLINE}, " +
-                            $"{CREATEBY}, {PROGRESS}, {EMPLOYEE_ID}, {PROJECT_ID}) VALUES ('{task.ID}', " +
+                            $"{CREATE_BY}, {PROGRESS}, {EMPLOYEE_ID}, {PROJECT_ID}) VALUES ('{task.ID}', " +
                             $"N'{task.Title}', N'{task.Description}', '{task.AssignDate}', '{task.Deadline}', " +
                             $"'{task.CreateBy}', '{task.Progress}', '{task.EmployeeID}', '{task.ProjectID}')";
             dbConnection.ExecuteNonQuery(sqlStr);
@@ -38,15 +39,15 @@ namespace CompanyManagement.Database
         {
             string sqlStr = $"UPDATE {TABLE_NAME} SET {TILE}=N'{task.Title}', {DESCRIPTION}=N'{task.Description}', " +
                             $"{ASSIGN_DATE}='{task.AssignDate}', {DEADLINE}='{task.Deadline}', " +
-                            $"{CREATEBY}='{task.CreateBy}', {PROGRESS}='{task.Progress}', {EMPLOYEE_ID}='{task.EmployeeID}', " +
+                            $"{CREATE_BY}='{task.CreateBy}', {PROGRESS}='{task.Progress}', {EMPLOYEE_ID}='{task.EmployeeID}', " +
                             $"{PROJECT_ID}='{task.ProjectID}' WHERE {ID}='{task.ID}'";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
-        public DataTable GetDataTable(string projectID)
+        public List<TaskInProject> SearchByProjectID(string projectID)
         {
             string sqlStr = $"SELECT * FROM {TABLE_NAME} WHERE {PROJECT_ID}='{projectID}'";
-            return dbConnection.GetDataTable(sqlStr);
+            return dbConnection.GetList(sqlStr, reader => new TaskInProject(reader)); 
         }
     }
 }

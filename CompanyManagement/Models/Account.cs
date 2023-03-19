@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Data;
+using System.Data.SqlClient;
 using System.Windows;
 using CompanyManagement.Database;
 
@@ -40,13 +40,13 @@ namespace CompanyManagement.Models
             this.employeeId = employeeId;
         }
         
-        public Account(DataRow row)
+        public Account(SqlDataReader reader)
         {
             try
             {
-                username = (string)row[AccountDao.USERNAME];
-                password = (string)row[AccountDao.PASSWORD];
-                employeeId = (string)row[AccountDao.EMPLOYEE_ID];
+                username = (string)reader[AccountDao.USERNAME];
+                password = (string)reader[AccountDao.PASSWORD];
+                employeeId = (string)reader[AccountDao.EMPLOYEE_ID];
             }
             catch (Exception ex)
             {

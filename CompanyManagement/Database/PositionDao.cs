@@ -1,4 +1,4 @@
-﻿using System.Data;
+﻿using System.Collections.Generic;
 using CompanyManagement.Models;
 
 namespace CompanyManagement.Database
@@ -32,10 +32,10 @@ namespace CompanyManagement.Database
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
-        public DataTable GetDataTable()
+        public List<PositionInCompany> GetAll()
         {
             string sqlStr = $"SELECT * FROM {TABLE_NAME}";
-            return dbConnection.GetDataTable(sqlStr);
+            return dbConnection.GetList(sqlStr, reader => new PositionInCompany(reader));
         }
     }
 }

@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
 using CompanyManagement.Models;
 
 namespace CompanyManagement.Database
@@ -15,30 +13,10 @@ namespace CompanyManagement.Database
 
         private DBConnection dbConnection = new DBConnection();
 
-        public void Add(Department department)
-        {
-            string sqlStr =
-                $"INSERT INTO {TABLE_NAME} ({ID}, {NAME}, {MANAGER_ID}) VALUES ('{department.ID}', N'{department.Name}', '{department.ManagerID}')";
-            dbConnection.ExecuteNonQuery(sqlStr);
-        }
-
-        public void Delete(string departmentID)
-        {
-            string sqlStr = $"DELETE FROM {TABLE_NAME} WHERE {ID} = '{departmentID}'";
-            dbConnection.ExecuteNonQuery(sqlStr);
-        }
-
-        public void Update(Department deparment)
-        {
-            string sqlStr = 
-                $"UPDATE {TABLE_NAME} SET {NAME}=N'{deparment.Name}', {MANAGER_ID}='{deparment.ManagerID}' WHERE {ID}='{deparment.ID}'";
-            dbConnection.ExecuteNonQuery(sqlStr);
-        }
-
-        public DataTable GetDataTable()
+        public List<Department> GetAll()
         {
             string sqlStr = $"SELECT * FROM {TABLE_NAME}";
-            return dbConnection.GetDataTable(sqlStr);
+            return dbConnection.GetList(sqlStr, reader => new Department(reader));
         }
 
         public List<Department> GetDepartmentsCanAssignWork(string startTime, string endTime)
