@@ -1,41 +1,36 @@
-﻿using System.Data;
+﻿using System.Collections.Generic;
 using CompanyManagement.Models;
 
 namespace CompanyManagement.Database
 {
-    public class PositionDao
+    public class PositionDao : IDao
     {
-        
-        private const string TABLE_NAME = "Position";
-        public const string ID = "position_id";
-        public const string NAME = "position_name";
-
         private DBConnection dbConnection = new DBConnection();
 
         public void Add(PositionInCompany pos)
         {
             string sqlStr =
-                $"INSERT INTO {TABLE_NAME} ({ID}, {NAME}) VALUES ('{pos.ID}', N'{pos.Name}')";
+                $"INSERT INTO {POSITION_TABLE} ({POSITION_ID}, {POSITION_NAME}) VALUES ('{pos.ID}', N'{pos.Name}')";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
         public void Delete(string id)
         {
-            string sqlStr = $"DELETE FROM {TABLE_NAME} WHERE {ID} = '{id}'";
+            string sqlStr = $"DELETE FROM {POSITION_TABLE} WHERE {POSITION_ID} = '{id}'";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
         public void Update(Department dep)
         {
             string sqlStr = 
-                $"UPDATE {TABLE_NAME} SET {NAME}=N'{dep.Name}' WHERE {ID}='{dep.ID}'";
+                $"UPDATE {POSITION_TABLE} SET {POSITION_NAME}=N'{dep.Name}' WHERE {POSITION_ID}='{dep.ID}'";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
-        public DataTable GetDataTable()
+        public List<PositionInCompany> GetAll()
         {
-            string sqlStr = $"SELECT * FROM {TABLE_NAME}";
-            return dbConnection.GetDataTable(sqlStr);
+            string sqlStr = $"SELECT * FROM {POSITION_TABLE}";
+            return dbConnection.GetList(sqlStr, reader => new PositionInCompany(reader));
         }
     }
 }

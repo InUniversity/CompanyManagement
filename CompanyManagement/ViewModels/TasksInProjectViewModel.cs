@@ -1,7 +1,6 @@
 ﻿using CompanyManagement.Database;
 using CompanyManagement.Models;
 using System.Collections.ObjectModel;
-using System.Data;
 using System.Windows.Input;
 
 namespace CompanyManagement.ViewModels
@@ -33,14 +32,7 @@ namespace CompanyManagement.ViewModels
 
         public void ShowWithID(string projectID)
         {
-            TasksInProject = new ObservableCollection<TaskInProject>();
-            DataTable dataTable = taskInProjectDao.GetDataTable(ProjectID);
-            dataTable = taskInProjectDao.GetDataTable(projectID);
-            foreach (DataRow row in dataTable.Rows)
-            {
-                TaskInProject task = new TaskInProject(row);
-                TasksInProject.Add(task);
-            }
+            TasksInProject = new ObservableCollection<TaskInProject>(taskInProjectDao.SearchByProjectID(projectID));
         }
 
         private void ExecuteAddCommand(TaskInProject task)

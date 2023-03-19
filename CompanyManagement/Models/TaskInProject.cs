@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Data.SqlClient;
 using System.Windows;
 using CompanyManagement.Database;
 
@@ -87,19 +88,19 @@ namespace CompanyManagement.Models
             this.projectID = projectID;          
         }
 
-        public TaskInProject(DataRow row)
+        public TaskInProject(SqlDataReader reader)
         {
             try
             {
-                id = (string)row[TaskInProjectDao.ID];
-                title = (string)row[TaskInProjectDao.TILE];
-                description = (string)row[TaskInProjectDao.DESCRIPTION];
-                assignDate = (string)row[TaskInProjectDao.ASSIGN_DATE];
-                deadline = (string)row[TaskInProjectDao.DEADLINE];
-                createBy = (string)row[TaskInProjectDao.CREATEBY];
-                progress = (string)row[TaskInProjectDao.PROGRESS];
-                employeeID = (string)row[TaskInProjectDao.EMPLOYEE_ID];
-                projectID = (string)row[TaskInProjectDao.PROJECT_ID];
+                id = (string)reader[TaskInProjectDao.TASK_ID];
+                title = (string)reader[TaskInProjectDao.TASK_TITLE];
+                description = (string)reader[TaskInProjectDao.TASK_DESCRIPTION];
+                assignDate = (string)reader[TaskInProjectDao.TASK_ASSIGN_DATE];
+                deadline = (string)reader[TaskInProjectDao.TASK_DEADLINE];
+                createBy = (string)reader[TaskInProjectDao.TASK_CREATE_BY];
+                progress = (string)reader[TaskInProjectDao.TASK_PROGRESS];
+                employeeID = (string)reader[TaskInProjectDao.TASK_EMPLOYEE_ID];
+                projectID = (string)reader[TaskInProjectDao.TASK_PROJECT_ID];
             }
             catch(Exception ex)
             {

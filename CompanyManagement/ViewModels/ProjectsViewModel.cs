@@ -32,13 +32,7 @@ namespace CompanyManagement.ViewModels
 
         private void LoadProjects()
         {
-            Projects = new ObservableCollection<Project>();
-            DataTable dataTable = projectDao.GetDataTable();
-            foreach (DataRow row in dataTable.Rows)
-            {
-                Project project = new Project(row);
-                Projects.Add(project);
-            }
+            Projects = new ObservableCollection<Project>(projectDao.GetAll());
         }
 
         private void SetCommands()

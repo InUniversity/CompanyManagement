@@ -1,9 +1,7 @@
 ﻿using System.Collections.ObjectModel;
-using System.Data;
 using CompanyManagement.Database;
 using System.Windows.Input;
 using CompanyManagement.Dialogs;
-using CompanyManagement.Models;
 
 namespace CompanyManagement.ViewModels
 {
@@ -13,43 +11,21 @@ namespace CompanyManagement.ViewModels
         private ObservableCollection<Employee> employees;
         public ObservableCollection<Employee> Employees { get => employees; set { employees = value; OnPropertyChanged(); } }
 
-        private ObservableCollection<Account> accounts;
-        public ObservableCollection<Account> Accounts { get => accounts; set { accounts = value; OnPropertyChanged(); } }
-
         public ICommand OpenInputDialogCommand { get; set; }
         public ICommand DeleteEmployeeCommand { get; set; }
         public ICommand UpdateEmployeeCommand { get; set; }
 
         private EmployeeDao employeeDao = new EmployeeDao();
-        private AccountDao accountDao = new AccountDao();
 
         public EmployeesViewModel()
         {
             LoadEmployees();
-            LoadAccounts();
             SetCommands();
         }
 
         private void LoadEmployees()
         {
-            Employees = new ObservableCollection<Employee>();
-            DataTable dataTable = employeeDao.GetDataTable();
-            foreach (DataRow row in dataTable.Rows)
-            {
-                Employee employee = new Employee(row);
-                Employees.Add(employee);
-            }
-        }
-
-        private void LoadAccounts()
-        {
-            Accounts = new ObservableCollection<Account>();
-            DataTable dataTable = accountDao.GetDataTable();
-            foreach (DataRow row in dataTable.Rows)
-            {
-                Account account = new Account(row);
-                Accounts.Add(account);
-            }
+            Employees = new ObservableCollection<Employee>(employeeDao.GetAll());
         }
 
         private void SetCommands()

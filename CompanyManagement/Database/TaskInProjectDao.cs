@@ -1,52 +1,42 @@
-﻿using CompanyManagement.Models;
-using System.Data;
+﻿using System.Collections.Generic;
+using CompanyManagement.Models;
 
 namespace CompanyManagement.Database
 {
-    public class TaskInProjectDao
+    public class TaskInProjectDao : IDao
     {
-
-        private const string TABLE_NAME = "Task";
-        public const string ID = "task_id";
-        public const string TILE = "title";
-        public const string DESCRIPTION = "task_description";
-        public const string ASSIGN_DATE = "assign_date";
-        public const string DEADLINE = "deadline";
-        public const string CREATEBY = "create_by";
-        public const string PROGRESS = "progress";
-        public const string EMPLOYEE_ID = "employee_id";
-        public const string PROJECT_ID = "project_id";
-
         DBConnection dbConnection = new DBConnection();
 
         public void Add(TaskInProject task)
         {
-            string sqlStr = $"INSERT INTO {TABLE_NAME}({ID}, {TILE}, {DESCRIPTION}, {ASSIGN_DATE}, {DEADLINE}, " +
-                            $"{CREATEBY}, {PROGRESS}, {EMPLOYEE_ID}, {PROJECT_ID}) VALUES ('{task.ID}', " +
-                            $"N'{task.Title}', N'{task.Description}', '{task.AssignDate}', '{task.Deadline}', " +
-                            $"'{task.CreateBy}', '{task.Progress}', '{task.EmployeeID}', '{task.ProjectID}')";
+            string sqlStr = $"INSERT INTO {TASK_TABLE}({TASK_ID}, {TASK_TITLE}, {TASK_DESCRIPTION}, " +
+                            $"{TASK_ASSIGN_DATE}, {TASK_DEADLINE}, {TASK_CREATE_BY}, {TASK_PROGRESS}, " +
+                            $"{TASK_EMPLOYEE_ID}, {TASK_PROJECT_ID}) VALUES ('{task.ID}', N'{task.Title}', " +
+                            $"N'{task.Description}', '{task.AssignDate}', '{task.Deadline}', '{task.CreateBy}', " +
+                            $"'{task.Progress}', '{task.EmployeeID}', '{task.ProjectID}')";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
         public void Delete(TaskInProject task)
         {
-            string sqlStr = $"DELETE FROM {TABLE_NAME} WHERE {ID} = '{task.ID}'";
+            string sqlStr = $"DELETE FROM {TASK_TABLE} WHERE {TASK_ID} = '{task.ID}'";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
         public void Update(TaskInProject task)
         {
-            string sqlStr = $"UPDATE {TABLE_NAME} SET {TILE}=N'{task.Title}', {DESCRIPTION}=N'{task.Description}', " +
-                            $"{ASSIGN_DATE}='{task.AssignDate}', {DEADLINE}='{task.Deadline}', " +
-                            $"{CREATEBY}='{task.CreateBy}', {PROGRESS}='{task.Progress}', {EMPLOYEE_ID}='{task.EmployeeID}', " +
-                            $"{PROJECT_ID}='{task.ProjectID}' WHERE {ID}='{task.ID}'";
+            string sqlStr = $"UPDATE {TASK_TABLE} SET {TASK_TITLE}=N'{task.Title}', " +
+                            $"{TASK_DESCRIPTION}=N'{task.Description}', {TASK_ASSIGN_DATE}='{task.AssignDate}', " +
+                            $"{TASK_DEADLINE}='{task.Deadline}', {TASK_CREATE_BY}='{task.CreateBy}', " +
+                            $"{TASK_PROGRESS}='{task.Progress}', {TASK_EMPLOYEE_ID}='{task.EmployeeID}', " +
+                            $"{TASK_PROJECT_ID}='{task.ProjectID}' WHERE {TASK_ID}='{task.ID}'";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
-        public DataTable GetDataTable(string projectID)
+        public List<TaskInProject> SearchByProjectID(string projectID)
         {
-            string sqlStr = $"SELECT * FROM {TABLE_NAME} WHERE {PROJECT_ID}='{projectID}'";
-            return dbConnection.GetDataTable(sqlStr);
+            string sqlStr = $"SELECT * FROM {TASK_TABLE} WHERE {TASK_PROJECT_ID}='{projectID}'";
+            return dbConnection.GetList(sqlStr, reader => new TaskInProject(reader)); 
         }
     }
 }
