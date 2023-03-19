@@ -32,13 +32,24 @@
                                                    CommandParameter="{Binding SelectedProject}"/>
                         </b:EventTrigger>
                     </b:Interaction.Triggers>
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListViewItem}">
+                            <Setter Property="Foreground" Value="Black" />
+                            <Setter Property="Background" Value="White" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="True">
+                                    <Setter Property="Background" Value="#FFE0F7FA" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ListView.ItemContainerStyle>
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
                                 <Button
                                     Height="50"
                                     Width="50"
-                                    Margin="0 0 10 0"
+                                    Margin="20 10"
                                     Background="LightCyan"
                                     Command="{Binding ElementName=projectsUC,Path=DataContext.UpdateProjectCommand}"
                                     CommandParameter="{Binding}"
@@ -51,7 +62,7 @@
                                 <Button
                                     Height="50"
                                     Width="50"
-                                    Margin="0 0 10 0"
+                                    Margin="20 10"
                                     Background="Orange"
                                     Command="{Binding ElementName=projectsUC,Path=DataContext.DeleteProjectCommand}"
                                     CommandParameter="{Binding ID}"
@@ -61,7 +72,7 @@
                                     <materialDesign:PackIcon Kind="DeleteForever" />
                                 </Button>
 
-                                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
+                                <TextBlock Margin="20 10" HorizontalAlignment="Center" VerticalAlignment="Center"
                                            Text="{Binding Name}" FontSize="22" />
                             </StackPanel>
                         </DataTemplate>
