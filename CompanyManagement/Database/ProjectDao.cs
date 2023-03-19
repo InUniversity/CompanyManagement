@@ -5,7 +5,7 @@ namespace CompanyManagement.Database
     public class ProjectDao
     {
 
-        private const string TABLE_NAME = "Project";
+        public const string TABLE_NAME = "Project";
         public const string ID = "project_id";
         public const string NAME = "project_name";
         public const string START = "create_time";

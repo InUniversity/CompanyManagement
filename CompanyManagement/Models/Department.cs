@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Data.SqlClient;
 using System.Windows;
 using CompanyManagement.Database;
 
@@ -18,7 +19,6 @@ namespace CompanyManagement.Models
             set { id = value; }
         } 
             
-
         public string Name
         {
             get { return name; }
@@ -47,6 +47,20 @@ namespace CompanyManagement.Models
                 id = (string)row[DepartmentDao.ID];
                 name = (string)row[DepartmentDao.NAME];
                 managerID = (string)row[DepartmentDao.MANAGER_ID];
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        
+        public Department(SqlDataReader reader)
+        {
+            try
+            {
+                id = (string)reader[DepartmentDao.ID];
+                name = (string)reader[DepartmentDao.NAME];
+                managerID = (string)reader[DepartmentDao.MANAGER_ID];
             }
             catch (Exception ex)
             {
