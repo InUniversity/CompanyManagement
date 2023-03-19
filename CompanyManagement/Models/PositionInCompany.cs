@@ -36,8 +36,8 @@ namespace CompanyManagement.Models
         {
             try
             {
-                id = (string)reader[PositionDao.ID];
-                name = (string)reader[PositionDao.NAME];
+                id = (string)reader[PositionDao.POSITION_ID];
+                name = (string)reader[PositionDao.POSITION_NAME];
             }
             catch (Exception ex)
             {

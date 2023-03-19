@@ -60,11 +60,11 @@ namespace CompanyManagement
         {
             try
             {
-                id = (string)reader[ProjectDao.ID];
-                name = (string)reader[ProjectDao.NAME];
-                start = (string)reader[ProjectDao.START];
-                end = (string)reader[ProjectDao.END];
-                progress = (string)reader[ProjectDao.PROPRESS];
+                id = (string)reader[ProjectDao.PROJECT_ID];
+                name = (string)reader[ProjectDao.PROJECT_NAME];
+                start = (string)reader[ProjectDao.PROJECT_START];
+                end = (string)reader[ProjectDao.PROJECT_END];
+                progress = (string)reader[ProjectDao.PROJECT_PROPRESS];
             }
             catch(Exception ex)
             {

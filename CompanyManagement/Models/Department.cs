@@ -44,9 +44,9 @@ namespace CompanyManagement.Models
         {
             try
             {
-                id = (string)row[DepartmentDao.ID];
-                name = (string)row[DepartmentDao.NAME];
-                managerID = (string)row[DepartmentDao.MANAGER_ID];
+                id = (string)row[DepartmentDao.DEPARTMENT_ID];
+                name = (string)row[DepartmentDao.DEPARTMENT_NAME];
+                managerID = (string)row[DepartmentDao.DEPARTMENT_MANAGER_ID];
             }
             catch (Exception ex)
             {
@@ -58,9 +58,9 @@ namespace CompanyManagement.Models
         {
             try
             {
-                id = (string)reader[DepartmentDao.ID];
-                name = (string)reader[DepartmentDao.NAME];
-                managerID = (string)reader[DepartmentDao.MANAGER_ID];
+                id = (string)reader[DepartmentDao.DEPARTMENT_ID];
+                name = (string)reader[DepartmentDao.DEPARTMENT_NAME];
+                managerID = (string)reader[DepartmentDao.DEPARTMENT_MANAGER_ID];
             }
             catch (Exception ex)
             {

@@ -7,7 +7,6 @@ namespace CompanyManagement.Database
 {
     public class DBConnection
     {
-
         private SqlConnection conn;
 
         public DBConnection()

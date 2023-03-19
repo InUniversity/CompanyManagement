@@ -3,31 +3,25 @@ using CompanyManagement.Models;
 
 namespace CompanyManagement.Database
 {
-    public class DepartmentDao
+    public class DepartmentDao : IDao
     {
-        
-        private const string TABLE_NAME = "Department";
-        public const string ID = "department_id";
-        public const string NAME = "department_name";
-        public const string MANAGER_ID = "manager_id";
-
         private DBConnection dbConnection = new DBConnection();
 
         public List<Department> GetAll()
         {
-            string sqlStr = $"SELECT * FROM {TABLE_NAME}";
+            string sqlStr = $"SELECT * FROM {DEPARTMENT_TABLE}";
             return dbConnection.GetList(sqlStr, reader => new Department(reader));
         }
 
         public List<Department> GetDepartmentsCanAssignWork(string startTime, string endTime)
         {
-            string sqlStr = $"SELECT * FROM {TABLE_NAME} WHERE {ID} NOT IN (" +
-                            $"Select {ProjectAssignmentDao.DEPARTMENT_ID} FROM {ProjectAssignmentDao.TABLE_NAME} " +
-                            $"WHERE {ProjectAssignmentDao.PROJECT_ID} IN (" +
-                            $"Select {ProjectDao.ID} FROM {ProjectDao.TABLE_NAME}" +
-                            $"WHERE {ProjectDao.PROPRESS} <> '100'" +
-                            $"AND {ProjectDao.START} <= '{endTime}'" +
-                            $"AND {ProjectDao.END} >= '{startTime}'))";
+            string sqlStr = $"SELECT * FROM {DEPARTMENT_TABLE} WHERE {DEPARTMENT_ID} NOT IN (" +
+                            $"Select {PROJECT_ASSIGNMENT_DEPARTMENT_ID} FROM {PROJECT_ASSIGNMENT_TABLE} " +
+                            $"WHERE {PROJECT_ASSIGNMENT_PROJECT_ID} IN (" +
+                            $"Select {PROJECT_ID} FROM {PROJECT_TABLE}" +
+                            $"WHERE {PROJECT_PROPRESS} <> '100'" +
+                            $"AND {PROJECT_START} <= '{endTime}'" +
+                            $"AND {PROJECT_END} >= '{startTime}'))";
             return dbConnection.GetList(sqlStr, reader => new Department(reader));
         }
     }

@@ -44,9 +44,9 @@ namespace CompanyManagement.Models
         {
             try
             {
-                username = (string)reader[AccountDao.USERNAME];
-                password = (string)reader[AccountDao.PASSWORD];
-                employeeId = (string)reader[AccountDao.EMPLOYEE_ID];
+                username = (string)reader[AccountDao.ACCOUNT_USERNAME];
+                password = (string)reader[AccountDao.ACCOUNT_PASSWORD];
+                employeeId = (string)reader[AccountDao.ACCOUNT_EMPLOYEE_ID];
             }
             catch (Exception ex)
             {

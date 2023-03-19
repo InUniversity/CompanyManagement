@@ -108,17 +108,17 @@ namespace CompanyManagement
         {
             try
             {
-                id = (string)reader[EmployeeDao.ID];
-                name = (string)reader[EmployeeDao.NAME];
-                gender = (string)reader[EmployeeDao.GENDER];
-                birthday = (string)reader[EmployeeDao.BIRTHDAY];
-                identifyCard = (string)reader[EmployeeDao.IDENTIFY_CARD];
-                email = (string)reader[EmployeeDao.EMAIL];
-                phoneNumber = (string)reader[EmployeeDao.PHONE_NUMBER];
-                address = (string)reader[EmployeeDao.ADDRESS];
-                departmentID = (string)reader[EmployeeDao.DEPARTMENT_ID];
-                positionID = (string)reader[EmployeeDao.POSITION_ID];
-                salary = (int)reader[EmployeeDao.SALARY];
+                id = (string)reader[EmployeeDao.EMPLOYEE_ID];
+                name = (string)reader[EmployeeDao.EMPLOYEE_NAME];
+                gender = (string)reader[EmployeeDao.EMPLOYEE_GENDER];
+                birthday = (string)reader[EmployeeDao.EMPLOYEE_BIRTHDAY];
+                identifyCard = (string)reader[EmployeeDao.EMPLOYEE_IDENTIFY_CARD];
+                email = (string)reader[EmployeeDao.EMPLOYEE_EMAIL];
+                phoneNumber = (string)reader[EmployeeDao.EMPLOYEE_PHONE_NUMBER];
+                address = (string)reader[EmployeeDao.EMPLOYEE_ADDRESS];
+                departmentID = (string)reader[EmployeeDao.EMPLOYEE_DEPARTMENT_ID];
+                positionID = (string)reader[EmployeeDao.EMPLOYEE_POSITION_ID];
+                salary = (int)reader[EmployeeDao.EMPLOYEE_SALARY];
             }
             catch (Exception ex)
             {

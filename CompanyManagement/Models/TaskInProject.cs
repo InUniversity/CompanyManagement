@@ -92,15 +92,15 @@ namespace CompanyManagement.Models
         {
             try
             {
-                id = (string)reader[TaskInProjectDao.ID];
-                title = (string)reader[TaskInProjectDao.TILE];
-                description = (string)reader[TaskInProjectDao.DESCRIPTION];
-                assignDate = (string)reader[TaskInProjectDao.ASSIGN_DATE];
-                deadline = (string)reader[TaskInProjectDao.DEADLINE];
-                createBy = (string)reader[TaskInProjectDao.CREATE_BY];
-                progress = (string)reader[TaskInProjectDao.PROGRESS];
-                employeeID = (string)reader[TaskInProjectDao.EMPLOYEE_ID];
-                projectID = (string)reader[TaskInProjectDao.PROJECT_ID];
+                id = (string)reader[TaskInProjectDao.TASK_ID];
+                title = (string)reader[TaskInProjectDao.TASK_TITLE];
+                description = (string)reader[TaskInProjectDao.TASK_DESCRIPTION];
+                assignDate = (string)reader[TaskInProjectDao.TASK_ASSIGN_DATE];
+                deadline = (string)reader[TaskInProjectDao.TASK_DEADLINE];
+                createBy = (string)reader[TaskInProjectDao.TASK_CREATE_BY];
+                progress = (string)reader[TaskInProjectDao.TASK_PROGRESS];
+                employeeID = (string)reader[TaskInProjectDao.TASK_EMPLOYEE_ID];
+                projectID = (string)reader[TaskInProjectDao.TASK_PROJECT_ID];
             }
             catch(Exception ex)
             {
