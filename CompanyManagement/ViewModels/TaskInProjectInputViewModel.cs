@@ -1,4 +1,5 @@
 ﻿using CompanyManagement.Models;
+using CompanyManagement.Utilities;
 using System;
 
 namespace CompanyManagement.ViewModels
@@ -37,7 +38,7 @@ namespace CompanyManagement.ViewModels
 
         public TaskInProject CreateTaskInProjectInstance()
         {
-            return new TaskInProject(ID, Title, Description, Utils.DateToString(AssignDate), Utils.DateToString(Deadline), Progress, CreateBy, EmployeeID, ProjectID);
+            return new TaskInProject(ID, Title, Description, Utils.DateTimeToString(AssignDate), Utils.DateTimeToString(Deadline), Progress, CreateBy, EmployeeID, ProjectID);
         }
 
         public bool CheckAllFields()

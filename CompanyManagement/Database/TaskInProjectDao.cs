@@ -17,9 +17,15 @@ namespace CompanyManagement.Database
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
-        public void Delete(TaskInProject task)
+        public void Delete(string id)
         {
-            string sqlStr = $"DELETE FROM {TASK_TABLE} WHERE {TASK_ID} = '{task.ID}'";
+            string sqlStr = $"DELETE FROM {TASK_TABLE} WHERE {TASK_ID} = '{id}'";
+            dbConnection.ExecuteNonQuery(sqlStr);
+        }
+        
+        public void DeleteAll()
+        {
+            string sqlStr = $"DELETE FROM {TASK_TABLE}";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 

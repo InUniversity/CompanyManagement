@@ -15,9 +15,9 @@ namespace CompanyManagement.ViewModels
         private string projectID;
         public string ProjectID { get => projectID; set { projectID = value; OnPropertyChanged(); } }
 
-        ICommand OpenTaskInProjectInputCommand { get; set; }
-        ICommand DeleteTaskInProjectCommand { get; set; }
-        ICommand UpdateTaskInProjectCommand { get; set; }
+        public ICommand OpenTaskInProjectInputCommand { get; set; }
+        public ICommand DeleteTaskInProjectCommand { get; set; }
+        public ICommand UpdateTaskInProjectCommand { get; set; }
 
         TaskInProjectDao taskInProjectDao  = new TaskInProjectDao();
         
@@ -28,7 +28,7 @@ namespace CompanyManagement.ViewModels
 
         private void LoadTaskInProjects()
         {
-            TasksInProject = new ObservableCollection<TaskInProject>()
+            TasksInProject = new ObservableCollection<TaskInProject>(taskInProjectDao.GetAll());
         }    
 
         private void SetCommands()
@@ -41,6 +41,13 @@ namespace CompanyManagement.ViewModels
         public void Add(TaskInProject taskInProject)
         {
             taskInProjectDao.Add(taskInProject);
+            LoadTaskInProjects();
+        }
+
+        public void Update(TaskInProject taskInProject)
+        {
+            taskInProjectDao.Update(taskInProject);
+            LoadTaskInProjects();
         }
 
         public void ShowWithID(string projectID)
@@ -50,23 +57,33 @@ namespace CompanyManagement.ViewModels
 
         private void ExecuteAddCommand(TaskInProject task)
         {
-            AddTaskInProject addTaskInProjectDialog = new AddTaskInProject();
+            AddTaskInProjectDialog addTaskInProjectDialog = new AddTaskInProjectDialog();
+            AddTaskInProjectViewModel addTaskInProjectVM = (AddTaskInProjectViewModel)addTaskInProjectDialog.DataContext;
+            addTaskInProjectVM.ParentDataContext = this;
+            addTaskInProjectDialog.ShowDialog();
             
         }
         
         private void ExecuteDeleteCommand(string id)
         {
-
+            taskInProjectDao.Delete(id);
+            LoadTaskInProjects();
         }
 
         private void ExecuteUpdateCommand(TaskInProject task)
         {
-           
+            UpdateTaskInProjectDialog updateTaskInProjectDialog = new UpdateTaskInProjectDialog();
+            UpdateTaskInProjectViewModel taskInProjectViewModel = (UpdateTaskInProjectViewModel)updateTaskInProjectDialog.DataContext;
+            taskInProjectViewModel.ParentDataContext = this;
+            taskInProjectViewModel.TaskInProjectInputDataContext.Retrieve(task);
+            updateTaskInProjectDialog.ShowDialog();
         }
     }
 
     public interface IShowTasksInProject
     {
+        void Add(TaskInProject taskInProject);
+        void Update(TaskInProject taskInProject);   
         void ShowWithID(string projectID);
     }
 }
