@@ -1,7 +1,7 @@
 ﻿using System.Net.Mail;
 using System.Text.RegularExpressions;
 
-namespace CompanyManagement
+namespace CompanyManagement.Utilities
 {
     public static class CheckFormat
     {
