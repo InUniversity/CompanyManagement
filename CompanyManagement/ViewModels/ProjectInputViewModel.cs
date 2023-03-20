@@ -1,4 +1,5 @@
 ﻿using System;
+using CompanyManagement.Utilities;
 
 namespace CompanyManagement.ViewModels
 {
@@ -24,7 +25,7 @@ namespace CompanyManagement.ViewModels
         
         public Project CreateProjectInstance()
         {
-            return new Project(ID, Name,  Utils.DateToString(Start), Utils.DateToString(End),Progress);
+            return new Project(ID, Name,  Utils.DateToString(Start), Utils.DateToString(End), Progress);
         }
 
         public bool CheckAllFields()

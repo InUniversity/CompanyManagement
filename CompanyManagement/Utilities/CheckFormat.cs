@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Mail;
-using System.Text;
+﻿using System.Net.Mail;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace CompanyManagement
 {
     public static class CheckFormat
     {
+        private const int IDENTIFY_CARD_LENGTH = 12;
+        private const int PASSWORD_MINIMUM_LENGTH = 8;
 
         public static bool ValidateEmail(string email)
         {
@@ -27,23 +24,17 @@ namespace CompanyManagement
         public static bool ValidatePhoneNumber(string phoneNumber)
         {
             string pattern = @"^0[0-9]{9}$";
-            if (!Regex.IsMatch(phoneNumber, pattern))
-                return false;
-            return true;
+            return Regex.IsMatch(phoneNumber, pattern);
         }
 
         public static bool ValidateIdentifyCard(string identifyCard)
         {
-            if (identifyCard.Length == 12)
-                return true;
-            return false;
+            return identifyCard.Length == IDENTIFY_CARD_LENGTH;
         }
 
         public static bool ValidatePassword(string password)
         {
-            if (password.Length < 8)
-                return false;
-            return true;
+            return password.Length >= PASSWORD_MINIMUM_LENGTH;
         }
     }
 }

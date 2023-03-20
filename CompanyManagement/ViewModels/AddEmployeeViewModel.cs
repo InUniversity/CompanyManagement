@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Input;
 using CompanyManagement.Database;
+using CompanyManagement.Utilities;
 
 namespace CompanyManagement.ViewModels
 {
