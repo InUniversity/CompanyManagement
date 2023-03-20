@@ -108,7 +108,6 @@
                         HorizontalAlignment="Right"
                         Content="Thoát"
                         materialDesign:ButtonAssist.CornerRadius="25"
-
                         IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                         Style="{StaticResource MaterialDesignPaperButton}"
                         ToolTip="Resource name: MaterialDesignPaperButton" />

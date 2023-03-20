@@ -5,6 +5,7 @@ namespace CompanyManagement;
 
 public class Utils
 {
+    public const string INVALIDATE_USERNAME_PASSWORD_MESSAGE = "Username or password not valid";
     public const string INVALIDATE_EMAIL_MESSAGE = "Email không hợp lệ!!!";
     public const string INVALIDATE_PHONE_NUMBER_MESSAGE = "Số điện thoại không hợp lệ!!!";
     public const string INVALIDATE_BIRTHDAY_MESSAGE = "Ngày sinh không hợp lệ!!!";

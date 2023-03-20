@@ -8,14 +8,11 @@ namespace CompanyManagement.ViewModels;
 
 public class LoginViewModel : BaseViewModel
 {
-
-    public int IsLogin { get; set; }
-
+    
     private string username;
     public string Username { get => username; set { username = value; OnPropertyChanged(); } }
         
     private string password;
-    public string Password { get => password; set { password = value; OnPropertyChanged(); } }
     
     public ICommand LoginCommand { get; set; }
     public ICommand ForgotPasswordCommand { get; set; }
@@ -31,40 +28,28 @@ public class LoginViewModel : BaseViewModel
 
     private void SetCommands()
     {
-        IsLogin = 0;
-        LoginCommand = new RelayCommand<Window>(p => OnClickLogin(p));
-        ForgotPasswordCommand = new RelayCommand<object>(p => OnClickForgotPassword(p));
+        LoginCommand = new RelayCommand<Window>(ExecuteLoginCommand);
+        ForgotPasswordCommand = new RelayCommand<object>(ExecuteForgotPasswordCommand);
         PasswordChangedCommand = new RelayCommand<PasswordBox>((p) => { password = p.Password; });
     }
 
-    private void OnClickLogin(Window loginWindow)
+    private void ExecuteLoginCommand(Window loginWindow)
     {
         Account account = accountDao.SearchByUsername(Username);
-        if (account == null || !string.Equals(Password, account.Password))
+        if (account == null || !string.Equals(password, account.Password))
         {
-            MessageBox.Show("Username or password not valid");
-            IsLogin = 0;
+            MessageBox.Show(Utils.INVALIDATE_USERNAME_PASSWORD_MESSAGE);
             return;
         }
-
         SingletonAccount.Instance.CurrentAccount = account;
         Employee employee = employeeDao.SearchByID(account.EmployeeId);
-
-        if (employee.PositionID.CompareTo("1") == 0)
-        {
-            ManagerWindow managerWindow = new ManagerWindow();
-            managerWindow.ShowDialog();
-        }
-        else
-        {
-            EmployeeWindow employeeWindow = new EmployeeWindow();
-            employeeWindow.ShowDialog();
-        }
-
+        Window nextWindow = string.Equals(employee.PositionID, IDao.MANAGERIAL_POSITION_ID) 
+            ? new ManagerWindow() : new EmployeeWindow();
+        nextWindow.ShowDialog();
         loginWindow.Close();
     }
 
-    private void OnClickForgotPassword(object p)
+    private void ExecuteForgotPasswordCommand(object p)
     {
         MessageBox.Show("Coming soon....");
     }

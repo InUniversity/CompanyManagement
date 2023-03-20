@@ -2,6 +2,8 @@ namespace CompanyManagement.Database
 {
     public class IDao
     {
+        public const string MANAGERIAL_POSITION_ID = "1";
+        
         protected const string ACCOUNT_TABLE = "Account";
         public const string ACCOUNT_USERNAME = "account_username";
         public const string ACCOUNT_PASSWORD = "account_password";

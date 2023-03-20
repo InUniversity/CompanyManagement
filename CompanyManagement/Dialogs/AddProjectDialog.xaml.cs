@@ -24,8 +24,6 @@ namespace CompanyManagement.Dialogs
         {
             InitializeComponent();
             DataContext = new AddProjectViewModel();
-            projectInputUC.DataContext = new ProjectInputViewModel();
-            ((AddProjectViewModel)DataContext).ProjectInputDataContext=(ProjectInputViewModel)projectInputUC.DataContext;
         }
     }
 }
