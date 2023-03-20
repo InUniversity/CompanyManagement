@@ -15,7 +15,6 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Name="mainWindow"
-        DataContext="{StaticResource ManagerVM}"
         Title="MainWindow" Height="800" Width="1500">
     <Grid>
         <materialDesign:Card Height="auto" Width="auto">
@@ -45,7 +44,6 @@
                                         </Grid>
                                         <Grid Grid.Column="1">
                                             <uc:TasksInProjectUC DataContext="{Binding DataContext.TasksDataContext, ElementName=projectsUC}"/>
-                                            <!-- <uc:TasksInProjectUC /> -->
                                         </Grid>
                                     </Grid>
                                 </StackPanel>
