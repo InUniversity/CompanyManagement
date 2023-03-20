@@ -1,4 +1,5 @@
 ﻿using CompanyManagement.Database;
+using CompanyManagement.Dialogs;
 using CompanyManagement.Models;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
@@ -14,7 +15,7 @@ namespace CompanyManagement.ViewModels
         private string projectID;
         public string ProjectID { get => projectID; set { projectID = value; OnPropertyChanged(); } }
 
-        ICommand OpenTaskInProjectInoutCommand { get; set; }
+        ICommand OpenTaskInProjectInputCommand { get; set; }
         ICommand DeleteTaskInProjectCommand { get; set; }
         ICommand UpdateTaskInProjectCommand { get; set; }
 
@@ -25,9 +26,21 @@ namespace CompanyManagement.ViewModels
             SetCommands();
         }
 
+        private void LoadTaskInProjects()
+        {
+            TasksInProject = new ObservableCollection<TaskInProject>()
+        }    
+
         private void SetCommands()
         {
-            
+            OpenTaskInProjectInputCommand = new RelayCommand<TaskInProject>(ExecuteAddCommand);
+            DeleteTaskInProjectCommand = new RelayCommand<string>(ExecuteDeleteCommand);
+            UpdateTaskInProjectCommand = new RelayCommand<TaskInProject>(ExecuteUpdateCommand);
+        }
+
+        public void Add(TaskInProject taskInProject)
+        {
+            taskInProjectDao.Add(taskInProject);
         }
 
         public void ShowWithID(string projectID)
@@ -37,6 +50,7 @@ namespace CompanyManagement.ViewModels
 
         private void ExecuteAddCommand(TaskInProject task)
         {
+            AddTaskInProject addTaskInProjectDialog = new AddTaskInProject();
             
         }
         

@@ -33,6 +33,12 @@ namespace CompanyManagement.Database
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
+        public List<TaskInProject> GetAll()
+        {
+            string sqlStr = $"SELECT * FROM {TASK_TABLE}";
+            return dbConnection.GetList(sqlStr, reader => new TaskInProject(reader));
+        }
+
         public List<TaskInProject> SearchByProjectID(string projectID)
         {
             string sqlStr = $"SELECT * FROM {TASK_TABLE} WHERE {TASK_PROJECT_ID}='{projectID}'";
