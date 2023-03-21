@@ -44,7 +44,7 @@ namespace CompanyManagement.ViewModels
             }
             SingletonAccount.Instance.CurrentAccount = account;
             Employee employee = employeeDao.SearchByID(account.EmployeeId);
-            Window nextWindow = string.Equals(employee.PositionID, IDao.MANAGERIAL_POSITION_ID) 
+            Window nextWindow = string.Equals(employee.PositionID, BaseDao.MANAGERIAL_POSITION_ID) 
                 ? new ManagerWindow() : new EmployeeWindow();
             nextWindow.ShowDialog();
             loginWindow.Close();

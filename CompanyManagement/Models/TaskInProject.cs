@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Data;
 using System.Data.SqlClient;
 using System.Windows;
 using CompanyManagement.Database;
@@ -92,15 +91,15 @@ namespace CompanyManagement.Models
         {
             try
             {
-                id = (string)reader[TaskInProjectDao.TASK_ID];
-                title = (string)reader[TaskInProjectDao.TASK_TITLE];
-                description = (string)reader[TaskInProjectDao.TASK_DESCRIPTION];
-                assignDate = (string)reader[TaskInProjectDao.TASK_ASSIGN_DATE];
-                deadline = (string)reader[TaskInProjectDao.TASK_DEADLINE];
-                createBy = (string)reader[TaskInProjectDao.TASK_CREATE_BY];
-                progress = (string)reader[TaskInProjectDao.TASK_PROGRESS];
-                employeeID = (string)reader[TaskInProjectDao.TASK_EMPLOYEE_ID];
-                projectID = (string)reader[TaskInProjectDao.TASK_PROJECT_ID];
+                id = (string)reader[BaseDao.TASK_ID];
+                title = (string)reader[BaseDao.TASK_TITLE];
+                description = (string)reader[BaseDao.TASK_DESCRIPTION];
+                assignDate = (string)reader[BaseDao.TASK_ASSIGN_DATE];
+                deadline = (string)reader[BaseDao.TASK_DEADLINE];
+                createBy = (string)reader[BaseDao.TASK_CREATE_BY];
+                progress = (string)reader[BaseDao.TASK_PROGRESS];
+                employeeID = (string)reader[BaseDao.TASK_EMPLOYEE_ID];
+                projectID = (string)reader[BaseDao.TASK_PROJECT_ID];
             }
             catch(Exception ex)
             {

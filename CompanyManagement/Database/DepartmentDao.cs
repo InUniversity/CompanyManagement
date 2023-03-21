@@ -3,10 +3,8 @@ using CompanyManagement.Models;
 
 namespace CompanyManagement.Database
 {
-    public class DepartmentDao : IDao
+    public class DepartmentDao : BaseDao
     {
-        private DBConnection dbConnection = new DBConnection();
-
         public List<Department> GetAll()
         {
             string sqlStr = $"SELECT * FROM {DEPARTMENT_TABLE}";

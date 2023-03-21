@@ -2,10 +2,8 @@
 
 namespace CompanyManagement.Database
 {
-    public class ProjectDao : IDao
+    public class ProjectDao : BaseDao
     {
-        DBConnection dbConnection = new DBConnection();
-
         public void Add(Project project)
         {
             string sqlStr = $"INSERT INTO {PROJECT_TABLE}({PROJECT_ID}, {PROJECT_NAME}, {PROJECT_START}, " +

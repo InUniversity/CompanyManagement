@@ -3,10 +3,8 @@ using CompanyManagement.Models;
 
 namespace CompanyManagement.Database
 {
-    public class TaskInProjectDao : IDao
+    public class TaskInProjectDao : BaseDao
     {
-        DBConnection dbConnection = new DBConnection();
-
         public void Add(TaskInProject task)
         {
             string sqlStr = $"INSERT INTO {TASK_TABLE}({TASK_ID}, {TASK_TITLE}, {TASK_DESCRIPTION}, " +

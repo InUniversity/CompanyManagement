@@ -1,6 +1,6 @@
 namespace CompanyManagement.Database
 {
-    public class IDao
+    public abstract class BaseDao
     {
         public const string MANAGERIAL_POSITION_ID = "1";
         
@@ -53,5 +53,7 @@ namespace CompanyManagement.Database
         public const string TASK_PROGRESS = "progress";
         public const string TASK_EMPLOYEE_ID = "employee_id";
         public const string TASK_PROJECT_ID = "project_id";
+        
+        protected DBConnection dbConnection = new DBConnection();
     }
 }

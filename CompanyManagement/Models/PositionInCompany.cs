@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Data;
 using System.Data.SqlClient;
 using System.Windows;
 using CompanyManagement.Database;
@@ -36,8 +35,8 @@ namespace CompanyManagement.Models
         {
             try
             {
-                id = (string)reader[PositionDao.POSITION_ID];
-                name = (string)reader[PositionDao.POSITION_NAME];
+                id = (string)reader[BaseDao.POSITION_ID];
+                name = (string)reader[BaseDao.POSITION_NAME];
             }
             catch (Exception ex)
             {

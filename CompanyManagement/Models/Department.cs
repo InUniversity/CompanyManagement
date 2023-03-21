@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Data;
 using System.Data.SqlClient;
 using System.Windows;
 using CompanyManagement.Database;
@@ -39,28 +38,14 @@ namespace CompanyManagement.Models
             this.name = name;
             this.managerID = managerID;
         }
-
-        public Department(DataRow row)
-        {
-            try
-            {
-                id = (string)row[DepartmentDao.DEPARTMENT_ID];
-                name = (string)row[DepartmentDao.DEPARTMENT_NAME];
-                managerID = (string)row[DepartmentDao.DEPARTMENT_MANAGER_ID];
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
         
         public Department(SqlDataReader reader)
         {
             try
             {
-                id = (string)reader[DepartmentDao.DEPARTMENT_ID];
-                name = (string)reader[DepartmentDao.DEPARTMENT_NAME];
-                managerID = (string)reader[DepartmentDao.DEPARTMENT_MANAGER_ID];
+                id = (string)reader[BaseDao.DEPARTMENT_ID];
+                name = (string)reader[BaseDao.DEPARTMENT_NAME];
+                managerID = (string)reader[BaseDao.DEPARTMENT_MANAGER_ID];
             }
             catch (Exception ex)
             {
