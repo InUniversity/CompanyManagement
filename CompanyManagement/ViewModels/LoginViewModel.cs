@@ -48,7 +48,7 @@ namespace CompanyManagement.ViewModels
             Employee employee = employeeDao.SearchByID(account.EmployeeId);
             Window nextWindow = string.Equals(employee.PositionID, BaseDao.MANAGERIAL_POSITION_ID) 
                 ? new ManagerWindow() : new EmployeeWindow();
-            nextWindow.ShowDialog();
+            nextWindow.Show();
             loginWindow.Close();
         }
 
