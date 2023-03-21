@@ -1,5 +1,4 @@
 using System;
-using System.Data;
 using System.Data.SqlClient;
 using CompanyManagement.Database;
 
@@ -108,17 +107,17 @@ namespace CompanyManagement
         {
             try
             {
-                id = (string)reader[EmployeeDao.EMPLOYEE_ID];
-                name = (string)reader[EmployeeDao.EMPLOYEE_NAME];
-                gender = (string)reader[EmployeeDao.EMPLOYEE_GENDER];
-                birthday = (string)reader[EmployeeDao.EMPLOYEE_BIRTHDAY];
-                identifyCard = (string)reader[EmployeeDao.EMPLOYEE_IDENTIFY_CARD];
-                email = (string)reader[EmployeeDao.EMPLOYEE_EMAIL];
-                phoneNumber = (string)reader[EmployeeDao.EMPLOYEE_PHONE_NUMBER];
-                address = (string)reader[EmployeeDao.EMPLOYEE_ADDRESS];
-                departmentID = (string)reader[EmployeeDao.EMPLOYEE_DEPARTMENT_ID];
-                positionID = (string)reader[EmployeeDao.EMPLOYEE_POSITION_ID];
-                salary = (int)reader[EmployeeDao.EMPLOYEE_SALARY];
+                id = (string)reader[BaseDao.EMPLOYEE_ID];
+                name = (string)reader[BaseDao.EMPLOYEE_NAME];
+                gender = (string)reader[BaseDao.EMPLOYEE_GENDER];
+                birthday = (string)reader[BaseDao.EMPLOYEE_BIRTHDAY];
+                identifyCard = (string)reader[BaseDao.EMPLOYEE_IDENTIFY_CARD];
+                email = (string)reader[BaseDao.EMPLOYEE_EMAIL];
+                phoneNumber = (string)reader[BaseDao.EMPLOYEE_PHONE_NUMBER];
+                address = (string)reader[BaseDao.EMPLOYEE_ADDRESS];
+                departmentID = (string)reader[BaseDao.EMPLOYEE_DEPARTMENT_ID];
+                positionID = (string)reader[BaseDao.EMPLOYEE_POSITION_ID];
+                salary = (int)reader[BaseDao.EMPLOYEE_SALARY];
             }
             catch (Exception ex)
             {

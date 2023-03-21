@@ -3,10 +3,8 @@ using CompanyManagement.Models;
 
 namespace CompanyManagement.Database
 {
-    class AccountDao : IDao
+    class AccountDao : BaseDao
     {
-        private DBConnection dbConnection = new DBConnection();
-
         public void Add(Account account)
         {
             string sqlStr = $"INSERT INTO {ACCOUNT_TABLE} ({ACCOUNT_USERNAME}, {ACCOUNT_PASSWORD}, {ACCOUNT_EMPLOYEE_ID}) " +

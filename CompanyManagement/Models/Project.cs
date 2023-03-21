@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Data;
 using System.Data.SqlClient;
 using System.Windows;
 using CompanyManagement.Database;
@@ -60,11 +59,11 @@ namespace CompanyManagement
         {
             try
             {
-                id = (string)reader[ProjectDao.PROJECT_ID];
-                name = (string)reader[ProjectDao.PROJECT_NAME];
-                start = (string)reader[ProjectDao.PROJECT_START];
-                end = (string)reader[ProjectDao.PROJECT_END];
-                progress = (string)reader[ProjectDao.PROJECT_PROPRESS];
+                id = (string)reader[BaseDao.PROJECT_ID];
+                name = (string)reader[BaseDao.PROJECT_NAME];
+                start = (string)reader[BaseDao.PROJECT_START];
+                end = (string)reader[BaseDao.PROJECT_END];
+                progress = (string)reader[BaseDao.PROJECT_PROPRESS];
             }
             catch(Exception ex)
             {

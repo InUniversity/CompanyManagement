@@ -3,10 +3,8 @@ using CompanyManagement.Models;
 
 namespace CompanyManagement.Database
 {
-    public class PositionDao : IDao
+    public class PositionDao : BaseDao
     {
-        private DBConnection dbConnection = new DBConnection();
-
         public void Add(PositionInCompany pos)
         {
             string sqlStr =

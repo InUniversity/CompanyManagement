@@ -2,10 +2,8 @@
 
 namespace CompanyManagement.Database
 {
-    public class EmployeeDao : IDao
+    public class EmployeeDao : BaseDao
     {
-        private DBConnection dbConnection = new DBConnection();
-
         public void Add(Employee empl)
         {
             string sqlStr =
