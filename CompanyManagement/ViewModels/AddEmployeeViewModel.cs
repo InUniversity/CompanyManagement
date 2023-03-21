@@ -10,7 +10,7 @@ namespace CompanyManagement.ViewModels
 
         public ICommand AddEmployeeCommand { get; set; }
 
-        public EmployeesViewModel ParentDataContext { get; set; }
+        public IEmployees ParentDataContext { get; set; }
         public EmployeeInputViewModel EmployeeInputDataContext { get; set; }
 
         private EmployeeDao employeeDao = new EmployeeDao();

@@ -8,7 +8,7 @@ namespace CompanyManagement.ViewModels
 
         public ICommand UpdateEmployeeCommand { get; set; }
 
-        public EmployeesViewModel ParentDataContext { get; set; }
+        public IEmployees ParentDataContext { get; set; }
         public EmployeeInputViewModel EmployeeInputDataContext { get; set; }
 
         public UpdateEmployeeViewModel()
