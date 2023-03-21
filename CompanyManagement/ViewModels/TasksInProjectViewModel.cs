@@ -7,7 +7,7 @@ using System.Windows.Input;
 
 namespace CompanyManagement.ViewModels
 {
-    public class TasksInProjectViewModel : BaseViewModel, IShowTasksInProject
+    public class TasksInProjectViewModel : BaseViewModel, ITasksInProject, IRetrieveProjectID
     {
 
         private ObservableCollection<TaskInProject> tasksInProject;
@@ -15,12 +15,6 @@ namespace CompanyManagement.ViewModels
 
         private string projectID = "";
         public string ProjectID { get => projectID; set { projectID = value; OnPropertyChanged(); } }
-
-        private string createBy = SingletonAccount.Instance.CurrentAccount.EmployeeId;
-        public string CreateBy { get => createBy; set { createBy = value; OnPropertyChanged(); } }
-
-        private string id = "";
-        public string ID { get => id; set { id = value; OnPropertyChanged(); } }
 
         public ICommand OpenTaskInProjectInputCommand { get; set; }
         public ICommand DeleteTaskInProjectCommand { get; set; }
@@ -30,14 +24,13 @@ namespace CompanyManagement.ViewModels
         
         public TasksInProjectViewModel()
         {
-            id = AutoGenerateID();
             LoadTaskInProjects();
             SetCommands();
         }
 
         public TaskInProject CreateTaskInProjectInstance()
         {
-            return new TaskInProject(ID, CreateBy, ProjectID);
+            return new TaskInProject(AutoGenerateID(), SingletonAccount.Instance.CurrentAccount.EmployeeId, ProjectID);
         }
 
         private void LoadTaskInProjects()
@@ -108,10 +101,14 @@ namespace CompanyManagement.ViewModels
         }
     }
 
-    public interface IShowTasksInProject
+    public interface ITasksInProject
     {
         void Add(TaskInProject task);
         void Update(TaskInProject task);   
+    }
+    
+    public interface IRetrieveProjectID
+    {
         void ShowWithID(string projectID);
     }
 }

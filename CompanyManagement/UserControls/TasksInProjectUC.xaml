@@ -85,5 +85,39 @@
 
             </Grid>
         </Border>
+        <DataGrid CanUserAddRows="False"
+                              AutoGenerateColumns="False"
+                              Background="White"
+                              Height="625"
+                              ItemsSource="{Binding TasksInProject}">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="Operations" CanUserResize="False" IsReadOnly="True"
+                                                    Width="auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Button
+                                                Command="{Binding DataContext.UpdateTaskInProjectCommand, ElementName=tasksInProjectUC}"
+                                                CommandParameter="{Binding}">
+                                    <materialDesign:PackIcon Kind="PencilOutline" />
+                                </Button>
+                                <Button Margin="5 0 0 0"
+                                                    Command="{Binding DataContext.DeleteTaskInProjectCommand, ElementName=tasksInProjectUC}"
+                                                    CommandParameter="{Binding ID}">
+                                    <materialDesign:PackIcon Kind="DeleteOutline" />
+                                </Button>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                
+                <DataGridTextColumn Header="Tên nhiệm vụ" IsReadOnly="True" Binding="{Binding ID}"/>
+                <DataGridTextColumn Header="Tiêu đề" IsReadOnly="True" Binding="{Binding Title}" />
+                <DataGridTextColumn Header="Mô tả" IsReadOnly="True" Binding="{Binding Description}" Width="200"/>
+                <DataGridTextColumn Header="Ngày bắt đầu" IsReadOnly="True" Binding="{Binding AssignDate}" />
+                <DataGridTextColumn Header="Ngày kết thúc" IsReadOnly="True" Binding="{Binding Deadline}" />
+                <DataGridTextColumn Header="Nhân viên" IsReadOnly="True" Binding="{Binding EmployeeID}" />
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>
