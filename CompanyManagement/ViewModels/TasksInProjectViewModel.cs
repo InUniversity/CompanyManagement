@@ -66,6 +66,7 @@ namespace CompanyManagement.ViewModels
 
         public void ShowWithID(string projectID)
         {
+            this.projectID = projectID;
             TasksInProject = new ObservableCollection<TaskInProject>(taskInProjectDao.SearchByProjectID(projectID));
         }
 
