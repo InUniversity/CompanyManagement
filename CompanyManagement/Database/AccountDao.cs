@@ -12,15 +12,16 @@ namespace CompanyManagement.Database
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
-        public void Delete(Account account)
+        public void Delete(string employeeID)
         {
-            string sqlStr = $"DELETE FROM {ACCOUNT_TABLE} WHERE {ACCOUNT_USERNAME}='{account.Username}'";
+            string sqlStr = $"DELETE FROM {ACCOUNT_TABLE} WHERE {ACCOUNT_EMPLOYEE_ID}='{employeeID}'";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
         public void Update(Account account)
         {
-            string sqlStr = $"UPDATE {ACCOUNT_TABLE} SET {ACCOUNT_PASSWORD}='{account.Password}' WHERE {ACCOUNT_USERNAME}='{account.Username}'";
+            string sqlStr = $"UPDATE {ACCOUNT_TABLE} SET {ACCOUNT_USERNAME}='{account.Username}' " +
+                            $"{ACCOUNT_PASSWORD}='{account.Password}' WHERE {ACCOUNT_USERNAME}='{account.Username}'";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 

@@ -18,7 +18,7 @@ namespace CompanyManagement.ViewModels
         public AddEmployeeViewModel()
         {
             EmployeeInputDataContext = new EmployeeInputViewModel();
-            AddEmployeeCommand = new RelayCommand<Window>(AddCommand, p => CheckAllFields());
+            AddEmployeeCommand = new RelayCommand<Window>(AddCommand, CheckAllFields);
         }
 
         private void AddCommand(Window inputWindow)
@@ -29,7 +29,7 @@ namespace CompanyManagement.ViewModels
             inputWindow.Close();
         }
 
-        private bool CheckAllFields()
+        private bool CheckAllFields(object p)
         {
             if (!EmployeeInputDataContext.CheckAllFields())
                 return false;

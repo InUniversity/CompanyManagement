@@ -26,8 +26,8 @@ namespace CompanyManagement.Database
             string sqlStr = $"UPDATE {EMPLOYEE_TABLE} " +
                 $"SET {EMPLOYEE_NAME}=N'{empl.Name}', {EMPLOYEE_GENDER}=N'{empl.Gender}', " +
                 $"{EMPLOYEE_BIRTHDAY}='{empl.Birthday}', {EMPLOYEE_IDENTIFY_CARD}='{empl.IdentifyCard}', " +
-                $"{EMPLOYEE_EMAIL}={empl.Email}, {EMPLOYEE_PHONE_NUMBER}='{empl.PhoneNumber}', " +
-                $"{EMPLOYEE_ADDRESS}={empl.Address}, {EMPLOYEE_DEPARTMENT_ID}='{empl.DepartmentID}', " +
+                $"{EMPLOYEE_EMAIL}='{empl.Email}', {EMPLOYEE_PHONE_NUMBER}='{empl.PhoneNumber}', " +
+                $"{EMPLOYEE_ADDRESS}='{empl.Address}', {EMPLOYEE_DEPARTMENT_ID}='{empl.DepartmentID}', " +
                 $"{EMPLOYEE_POSITION_ID}='{empl.PositionID}', {EMPLOYEE_SALARY}='{empl.Salary}' " +
                 $"WHERE {EMPLOYEE_ID}='{empl.ID}'";
             dbConnection.ExecuteNonQuery(sqlStr);
