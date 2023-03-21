@@ -1,5 +1,6 @@
 ﻿using CompanyManagement.ViewModels;
 using System.Windows;
+using CompanyManagement.Database.Implementations;
 
 namespace CompanyManagement.Dialogs;
 
@@ -12,6 +13,6 @@ public partial class AddEmployeeDialog : Window
     public AddEmployeeDialog()
     {
         InitializeComponent();
-        DataContext = new AddEmployeeViewModel();
+        DataContext = new AddEmployeeViewModel(new EmployeeDao());
     }
 }

@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
+using CompanyManagement.Database.Interfaces;
 using CompanyManagement.Models;
 
-namespace CompanyManagement.Database
+namespace CompanyManagement.Database.Implementations
 {
-    class AccountDao : BaseDao
+    public class AccountDao : BaseDao, IAccountDao
     {
         public void Add(Account account)
         {
@@ -28,16 +29,16 @@ namespace CompanyManagement.Database
         public Account SearchByEmployeeID(string employeeId)
         {
             string sqlStr = $"SELECT * FROM {ACCOUNT_TABLE} WHERE {ACCOUNT_EMPLOYEE_ID}='{employeeId}'";
-            List<Account> accounts  = dbConnection.GetList(sqlStr, reader => new Account(reader));
+            List<Account> accounts = dbConnection.GetList(sqlStr, reader => new Account(reader));
             if (accounts.Count == 0)
                 return null;
             return accounts[0];
         }
-        
+
         public Account SearchByUsername(string username)
         {
             string sqlStr = $"SELECT * FROM {ACCOUNT_TABLE} WHERE {ACCOUNT_USERNAME}='{username}'";
-            List<Account> accounts  = dbConnection.GetList(sqlStr, reader => new Account(reader));
+            List<Account> accounts = dbConnection.GetList(sqlStr, reader => new Account(reader));
             if (accounts.Count == 0)
                 return null;
             return accounts[0];

@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using CompanyManagement.Database.Interfaces;
+using System.Collections.Generic;
 
-namespace CompanyManagement.Database
+namespace CompanyManagement.Database.Implementations
 {
-    public class EmployeeDao : BaseDao
+    public class EmployeeDao : BaseDao, IEmployeeDao
     {
         public void Add(Employee empl)
         {
@@ -42,7 +43,7 @@ namespace CompanyManagement.Database
         public Employee SearchByID(string id)
         {
             string sqlStr = $"SELECT * FROM {EMPLOYEE_TABLE} WHERE {EMPLOYEE_ID} = '{id}'";
-            List<Employee> employees  = dbConnection.GetList(sqlStr, reader => new Employee(reader));
+            List<Employee> employees = dbConnection.GetList(sqlStr, reader => new Employee(reader));
             if (employees.Count == 0)
                 return null;
             return employees[0];
@@ -51,7 +52,7 @@ namespace CompanyManagement.Database
         public Employee SearchByIdentifyCard(string identifyCard)
         {
             string sqlStr = $"SELECT * FROM {EMPLOYEE_TABLE} WHERE {EMPLOYEE_IDENTIFY_CARD} = '{identifyCard}'";
-            List<Employee> employees  = dbConnection.GetList(sqlStr, reader => new Employee(reader));
+            List<Employee> employees = dbConnection.GetList(sqlStr, reader => new Employee(reader));
             if (employees.Count == 0)
                 return null;
             return employees[0];
@@ -60,7 +61,7 @@ namespace CompanyManagement.Database
         public Employee SearchByPhoneNumber(string phoneNumber)
         {
             string sqlStr = $"SELECT * FROM {EMPLOYEE_TABLE} WHERE {EMPLOYEE_PHONE_NUMBER} = '{phoneNumber}'";
-            List<Employee> employees  = dbConnection.GetList(sqlStr, reader => new Employee(reader));
+            List<Employee> employees = dbConnection.GetList(sqlStr, reader => new Employee(reader));
             if (employees.Count == 0)
                 return null;
             return employees[0];

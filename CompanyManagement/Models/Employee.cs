@@ -102,6 +102,11 @@ namespace CompanyManagement
             this.positionID = positionID;
             this.salary = salary;
         }
+
+        public Employee(string id)
+        {
+            this.id = id;
+        }
         
         public Employee(SqlDataReader reader)
         {

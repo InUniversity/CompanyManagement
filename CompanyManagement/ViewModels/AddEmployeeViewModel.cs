@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Input;
-using CompanyManagement.Database;
+using CompanyManagement.Database.Implementations;
+using CompanyManagement.Database.Interfaces;
 using CompanyManagement.Utilities;
 
 namespace CompanyManagement.ViewModels
@@ -13,11 +14,12 @@ namespace CompanyManagement.ViewModels
         public IEmployees ParentDataContext { get; set; }
         public EmployeeInputViewModel EmployeeInputDataContext { get; set; }
 
-        private EmployeeDao employeeDao = new EmployeeDao();
+        private IEmployeeDao employeeDao;
         
-        public AddEmployeeViewModel()
+        public AddEmployeeViewModel(IEmployeeDao employeeDao)
         {
-            EmployeeInputDataContext = new EmployeeInputViewModel();
+            this.employeeDao = employeeDao;
+            EmployeeInputDataContext = new EmployeeInputViewModel(new PositionDao(), new DepartmentDao());
             AddEmployeeCommand = new RelayCommand<Window>(AddCommand, CheckAllFields);
         }
 

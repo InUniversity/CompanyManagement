@@ -3,11 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:viewModels="clr-namespace:CompanyManagement.ViewModels"
         xmlns:uc="clr-namespace:CompanyManagement.UserControls"
         mc:Ignorable="d"
-        DataContext="{StaticResource AddEmployeeVM}"
         WindowStartupLocation="CenterScreen"
         x:Name="addEmployeeWindow"
         Title="EmployeeInputWindow" Height="600" Width="920">

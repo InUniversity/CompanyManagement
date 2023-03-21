@@ -6,7 +6,6 @@
         xmlns:local="clr-namespace:CompanyManagement.Dialogs"
         mc:Ignorable="d"
         xmlns:uc="clr-namespace:CompanyManagement.UserControls"
-        DataContext="{StaticResource UpdateEmployeeVM}"
         x:Name="updateEmployeeWindow"
         WindowStartupLocation="CenterScreen"
         Title="UpdateEmployeeDialog" Height="600" Width="920">

@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
+using CompanyManagement.Database.Interfaces;
 using CompanyManagement.Models;
 
-namespace CompanyManagement.Database
+namespace CompanyManagement.Database.Implementations
 {
-    public class PositionDao : BaseDao
+    public class PositionDao : BaseDao, IPositionDao
     {
         public void Add(PositionInCompany pos)
         {
@@ -20,7 +21,7 @@ namespace CompanyManagement.Database
 
         public void Update(Department dep)
         {
-            string sqlStr = 
+            string sqlStr =
                 $"UPDATE {POSITION_TABLE} SET {POSITION_NAME}=N'{dep.Name}' WHERE {POSITION_ID}='{dep.ID}'";
             dbConnection.ExecuteNonQuery(sqlStr);
         }

@@ -1,7 +1,8 @@
-﻿using System.Collections.ObjectModel;
-using CompanyManagement.Database;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 using CompanyManagement.Dialogs;
+using CompanyManagement.Database.Interfaces;
 
 namespace CompanyManagement.ViewModels
 {
@@ -15,10 +16,11 @@ namespace CompanyManagement.ViewModels
         public ICommand DeleteEmployeeCommand { get; set; }
         public ICommand UpdateEmployeeCommand { get; set; }
 
-        private EmployeeDao employeeDao = new EmployeeDao();
+        private IEmployeeDao employeeDao;
 
-        public EmployeesViewModel()
+        public EmployeesViewModel(IEmployeeDao employeeDao)
         {
+            this.employeeDao = employeeDao;
             LoadEmployees();
             SetCommands();
         }
@@ -30,17 +32,30 @@ namespace CompanyManagement.ViewModels
 
         private void SetCommands()
         {
-            OpenInputDialogCommand = new RelayCommand<object>(OpenEmployeeInputDialog);
+            OpenInputDialogCommand = new RelayCommand<object>(OpenAddEmployeeDialog);
             DeleteEmployeeCommand = new RelayCommand<string>(ExecuteDeleteCommand);
-            UpdateEmployeeCommand = new RelayCommand<Employee>(ExecuteUpdateCommand);
+            UpdateEmployeeCommand = new RelayCommand<Employee>(OpenUpdateEmployeeDialog);
         }
 
-        private void OpenEmployeeInputDialog(object p)
+        private void OpenAddEmployeeDialog(object p)
         {
             AddEmployeeDialog addEmployeeDialog = new AddEmployeeDialog();
             AddEmployeeViewModel addEmployeeVM = (AddEmployeeViewModel)addEmployeeDialog.DataContext;
             addEmployeeVM.ParentDataContext = this;
+            addEmployeeVM.EmployeeInputDataContext.Retrieve(new Employee(AutoGenerateID()));
             addEmployeeDialog.ShowDialog();
+        }
+        
+        private string AutoGenerateID()
+        {
+            string employeeID;
+            Random random = new Random();
+            do
+            {
+                int number = random.Next(10000);
+                employeeID = $"EM{number:0000}";
+            } while (employeeDao.SearchByID(employeeID) != null);
+            return employeeID;
         }
 
         private void ExecuteDeleteCommand(string id)
@@ -49,7 +64,7 @@ namespace CompanyManagement.ViewModels
             LoadEmployees();
         }
 
-        private void ExecuteUpdateCommand(Employee employee)
+        private void OpenUpdateEmployeeDialog(Employee employee)
         {
             UpdateEmployeeDialog updateEmployeeDialog = new UpdateEmployeeDialog();
             UpdateEmployeeViewModel updateEmployeeVM = (UpdateEmployeeViewModel)updateEmployeeDialog.DataContext;
@@ -74,6 +89,6 @@ namespace CompanyManagement.ViewModels
     public interface IEmployees
     {
         void Add(Employee employee);
-        void Update(Employee employee);                                
+        void Update(Employee employee);
     }
 }

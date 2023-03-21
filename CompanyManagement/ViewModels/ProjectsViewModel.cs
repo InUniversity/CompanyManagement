@@ -1,9 +1,9 @@
-﻿using CompanyManagement.Database;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Data;
 using System.Windows.Input;
 using CompanyManagement.Dialogs;
 using System.Windows;
+using CompanyManagement.Database.Implementations;
 
 namespace CompanyManagement.ViewModels
 {

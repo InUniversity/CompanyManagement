@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace CompanyManagement.Database
+namespace CompanyManagement.Database.Implementations
 {
     public class ProjectDao : BaseDao
     {
@@ -17,7 +17,7 @@ namespace CompanyManagement.Database
             string sqlStr = $"DELETE FROM {PROJECT_TABLE} WHERE {PROJECT_ID} = '{id}'";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
-        
+
         public void DeleteAll()
         {
             string sqlStr = $"DELETE FROM {PROJECT_TABLE}";
@@ -40,7 +40,7 @@ namespace CompanyManagement.Database
         public Project SearchByID(string id)
         {
             string sqlStr = $"SELECT * FROM {PROJECT_TABLE} WHERE {PROJECT_ID} = '{id}'";
-            List<Project> projects  = dbConnection.GetList(sqlStr, reader => new Project(reader));
+            List<Project> projects = dbConnection.GetList(sqlStr, reader => new Project(reader));
             if (projects.Count == 0)
                 return null;
             return projects[0];

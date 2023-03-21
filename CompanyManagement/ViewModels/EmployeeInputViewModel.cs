@@ -1,10 +1,11 @@
-﻿using CompanyManagement.Database;
-using CompanyManagement.Models;
+﻿using CompanyManagement.Models;
 using System.Collections.Generic;
 using System.Windows.Input;
 using System;
 using System.Windows.Controls;
 using CompanyManagement.Utilities;
+using CompanyManagement.Database.Implementations;
+using CompanyManagement.Database.Interfaces;
 
 namespace CompanyManagement.ViewModels
 {
@@ -58,13 +59,13 @@ namespace CompanyManagement.ViewModels
         public List<PositionInCompany> Positions { get; set; }
         public List<Department> Departments { get; set; }
 
-        private PositionDao positionDao = new PositionDao();
-        private DepartmentDao departmentDao = new DepartmentDao();
-        private EmployeeDao employeeDao = new EmployeeDao();
+        private IPositionDao positionDao;
+        private IDepartmentDao departmentDao;
 
-        public EmployeeInputViewModel()
+        public EmployeeInputViewModel(IPositionDao positionDao, IDepartmentDao departmentDao)
         {
-            ID = AutoGenerateID();
+            this.positionDao = positionDao;
+            this.departmentDao = departmentDao;
             PasswordChangedCommand = new RelayCommand<PasswordBox>(passwordBox => Password = passwordBox.Password);
             SetAllComboBox();
         }
@@ -148,18 +149,6 @@ namespace CompanyManagement.ViewModels
             DepartmentID = employee.DepartmentID;
             PositionID = employee.PositionID;
             Salary = employee.Salary;
-        }
-
-        private string AutoGenerateID()
-        {
-            string employeeID;
-            Random random = new Random();
-            do
-            {
-                int number = random.Next(10000);
-                employeeID = $"EM{number:0000}";
-            } while (employeeDao.SearchByID(employeeID) != null);
-            return employeeID;
         }
     }
 

@@ -1,4 +1,6 @@
-﻿using System.Windows.Controls;
+﻿using CompanyManagement.Database.Implementations;
+using CompanyManagement.ViewModels;
+using System.Windows.Controls;
 
 namespace CompanyManagement.UserControls;
 
@@ -10,5 +12,6 @@ public partial class EmployeesUC : UserControl
     public EmployeesUC()
     {
         InitializeComponent();
+        DataContext = new EmployeesViewModel(new EmployeeDao());
     }
 }

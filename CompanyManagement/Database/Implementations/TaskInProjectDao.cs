@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
+using CompanyManagement.Database.Interfaces;
 using CompanyManagement.Models;
 
-namespace CompanyManagement.Database
+namespace CompanyManagement.Database.Implementations
 {
-    public class TaskInProjectDao : BaseDao
+    public class TaskInProjectDao : BaseDao, ITaskInProject
     {
         public void Add(TaskInProject task)
         {
@@ -34,7 +35,7 @@ namespace CompanyManagement.Database
         public List<TaskInProject> SearchByProjectID(string projectID)
         {
             string sqlStr = $"SELECT * FROM {TASK_TABLE} WHERE {TASK_PROJECT_ID}='{projectID}'";
-            return dbConnection.GetList(sqlStr, reader => new TaskInProject(reader)); 
+            return dbConnection.GetList(sqlStr, reader => new TaskInProject(reader));
         }
     }
 }

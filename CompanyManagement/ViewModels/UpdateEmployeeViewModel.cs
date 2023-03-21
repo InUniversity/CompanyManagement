@@ -1,5 +1,6 @@
 ﻿using System.Windows.Input;
 using System.Windows;
+using CompanyManagement.Database.Implementations;
 
 namespace CompanyManagement.ViewModels
 {
@@ -13,7 +14,7 @@ namespace CompanyManagement.ViewModels
 
         public UpdateEmployeeViewModel()
         {
-            EmployeeInputDataContext = new EmployeeInputViewModel();
+            EmployeeInputDataContext = new EmployeeInputViewModel(new PositionDao(), new DepartmentDao());
             UpdateEmployeeCommand = new RelayCommand<Window>(UpdateCommand, CheckAllFields);
         }
 

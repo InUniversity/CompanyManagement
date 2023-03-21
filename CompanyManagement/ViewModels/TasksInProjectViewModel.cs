@@ -1,4 +1,4 @@
-﻿using CompanyManagement.Database;
+﻿using CompanyManagement.Database.Implementations;
 using CompanyManagement.Models;
 using System.Collections.ObjectModel;
 using System.Windows.Input;

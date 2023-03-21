@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
+using CompanyManagement.Database.Interfaces;
 using CompanyManagement.Models;
 
-namespace CompanyManagement.Database
+namespace CompanyManagement.Database.Implementations
 {
-    public class DepartmentDao : BaseDao
+    public class DepartmentDao : BaseDao, IDepartmentDao
     {
         public List<Department> GetAll()
         {
