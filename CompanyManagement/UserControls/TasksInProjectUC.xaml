@@ -3,18 +3,17 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:CompanyManagement.UserControls"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"          
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"    
+             DataContext="{StaticResource TasksInProjectVM}"      
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              TextElement.FontWeight="Regular"
              TextElement.FontSize="13"
              TextOptions.TextFormattingMode="Ideal"
              TextOptions.TextRenderingMode="Auto"
-             Name="tasksInProjectUC"
+             x:Name="tasksInProjectUC"
              Background="{DynamicResource MaterialDesignPaper}"
              FontFamily="{DynamicResource MaterialDesignFont}"
              mc:Ignorable="d" 
-             DataContext="{StaticResource TasksInProjectVM}"
              d:DesignHeight="725" d:DesignWidth="800">
     <Grid>
         <Border
@@ -71,15 +70,16 @@
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
-                    <Button                      
-                        ToolTip="Thêm công việc mới"
+                    <Button
                         Grid.Row="1"
                         Width="60"
                         Height="60"
                         Margin="30"
                         HorizontalAlignment="Right"
-                        VerticalAlignment="Bottom"                      
-                        Content="{materialDesign:PackIcon Kind=Plus , Size=30}"
+                        VerticalAlignment="Bottom"                       
+                        ToolTip="Thêm công việc mới"      
+                        Command="{Binding ElementName=tasksInProjectUC, Path=DataContext.OpenTaskInProjectInputCommand}"
+                        Content="{materialDesign:PackIcon Kind = Plus , Size=30}"
                         Style="{StaticResource MaterialDesignFloatingActionButton}" />
                 </Grid>
 

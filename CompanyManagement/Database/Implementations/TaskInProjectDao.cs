@@ -16,9 +16,15 @@ namespace CompanyManagement.Database.Implementations
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
-        public void Delete(TaskInProject task)
+        public void Delete(string id)
         {
-            string sqlStr = $"DELETE FROM {TASK_TABLE} WHERE {TASK_ID} = '{task.ID}'";
+            string sqlStr = $"DELETE FROM {TASK_TABLE} WHERE {TASK_ID} = '{id}'";
+            dbConnection.ExecuteNonQuery(sqlStr);
+        }
+        
+        public void DeleteAll()
+        {
+            string sqlStr = $"DELETE FROM {TASK_TABLE}";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
@@ -30,6 +36,21 @@ namespace CompanyManagement.Database.Implementations
                             $"{TASK_PROGRESS}='{task.Progress}', {TASK_EMPLOYEE_ID}='{task.EmployeeID}', " +
                             $"{TASK_PROJECT_ID}='{task.ProjectID}' WHERE {TASK_ID}='{task.ID}'";
             dbConnection.ExecuteNonQuery(sqlStr);
+        }
+
+        public List<TaskInProject> GetAll()
+        {
+            string sqlStr = $"SELECT * FROM {TASK_TABLE}";
+            return dbConnection.GetList(sqlStr, reader => new TaskInProject(reader));
+        }
+
+        public TaskInProject SearchByID(string taskInProjectID)
+        {
+            string sqlStr = $"SELECT * FROM {TASK_TABLE} WHERE {TASK_ID}='{taskInProjectID}'";
+            List<TaskInProject> tasks = dbConnection.GetList(sqlStr, reader => new TaskInProject(reader));
+            if (tasks.Count == 0)
+                return null;
+            return tasks[0];
         }
 
         public List<TaskInProject> SearchByProjectID(string projectID)
