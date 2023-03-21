@@ -6,12 +6,12 @@ namespace CompanyManagement.Dialogs
     /// <summary>
     /// Interaction logic for AddTaskInProject.xaml
     /// </summary>
-    public partial class AddTaskInProjectDialog : Window
+    public partial class AddTaskDialog : Window
     {
-        public AddTaskInProjectDialog()
+        public AddTaskDialog()
         {
             InitializeComponent();
-            DataContext = new AddTaskInProjectViewModel();
+            DataContext = new AddTaskViewModel();
         }
     }
 }

@@ -1,10 +1,11 @@
-﻿using CompanyManagement.Models;
+﻿using CompanyManagement.Database;
+using CompanyManagement.Models;
 using CompanyManagement.Utilities;
 using System;
 
 namespace CompanyManagement.ViewModels
 {
-    public class TaskInProjectInputViewModel: BaseViewModel, IRetrieveTaskInProject
+    public class TaskInputViewModel: BaseViewModel, IRetrieveTaskInProject
     {
         private string id = "";
         public string ID { get => id; set { id = value; OnPropertyChanged(); } }
@@ -21,7 +22,7 @@ namespace CompanyManagement.ViewModels
         private DateTime deadline = DateTime.Now;
         public DateTime Deadline { get => deadline; set { deadline = value; OnPropertyChanged(); } }
 
-        private string createBy = "";
+        private string createBy = SingletonAccount.Instance.CurrentAccount.EmployeeId;
         public string CreateBy { get => createBy; set { createBy = value; OnPropertyChanged(); } }
 
         private string progress = "";
@@ -34,7 +35,17 @@ namespace CompanyManagement.ViewModels
         public string ProjectID { get => projectID; set { projectID = value; OnPropertyChanged(); } }
 
         private string errorMessage = "";
-        public string ErrorMessage { get => errorMessage; set { errorMessage = value; OnPropertyChanged(); } }  
+        public string ErrorMessage { get => errorMessage; set { errorMessage = value; OnPropertyChanged(); } }
+
+        public TaskInputViewModel()
+        {
+            SetAllComboBox();
+        }
+
+        private void SetAllComboBox()
+        {
+
+        }
 
         public TaskInProject CreateTaskInProjectInstance()
         {
@@ -72,7 +83,7 @@ namespace CompanyManagement.ViewModels
 
         public void Retrieve(TaskInProject taskinproject)
         {
-            ID = taskinproject.ID;
+            id = taskinproject.ID;
             title = taskinproject.Title;
             description = taskinproject.Description;
             createBy = taskinproject.CreateBy;

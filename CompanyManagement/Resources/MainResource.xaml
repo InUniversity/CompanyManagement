@@ -11,4 +11,7 @@
     <viewmodel:UpdateEmployeeViewModel x:Key="UpdateEmployeeVM"></viewmodel:UpdateEmployeeViewModel>
     <viewmodel:AddProjectViewModel x:Key="AddProjectVM"></viewmodel:AddProjectViewModel>
     <viewmodel:ProjectInputViewModel x:Key="ProjectInputVM"></viewmodel:ProjectInputViewModel>
+    <viewmodel:UpdateTaskViewModel x:Key="UpdateTaskVM"></viewmodel:UpdateTaskViewModel>
+    <viewmodel:AddTaskViewModel x:Key="AddTaskVM"></viewmodel:AddTaskViewModel>
+    <viewmodel:TaskInputViewModel x:Key="TaskInputVM"></viewmodel:TaskInputViewModel>
 </ResourceDictionary>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.Design;
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows;
@@ -106,6 +107,23 @@ namespace CompanyManagement.Models
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        public TaskInProject(string id, string createBy, string projectID)
+        {
+            this.id = id;
+            this.createBy = createBy;
+            this.projectID = projectID;
+        }
+
+        public TaskInProject(string title, string description, string assignDate, string deadline, string progress, string employeeID)
+        {
+            this.title = title;
+            this.description = description;
+            this.assignDate = assignDate;
+            this.deadline = deadline;
+            this.progress = progress;
+            this.employeeID = employeeID;
         }
     }
 }

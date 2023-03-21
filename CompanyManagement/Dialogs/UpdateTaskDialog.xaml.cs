@@ -6,12 +6,12 @@ namespace CompanyManagement.Dialogs
     /// <summary>
     /// Interaction logic for UpdateTaskInProject.xaml
     /// </summary>
-    public partial class UpdateTaskInProjectDialog : Window
+    public partial class UpdateTaskDialog : Window
     {
-        public UpdateTaskInProjectDialog()
+        public UpdateTaskDialog()
         {
             InitializeComponent();
-            DataContext = new UpdateTaskInProjectViewModel();
+            DataContext = new UpdateTaskViewModel();
         }
     }
 }
