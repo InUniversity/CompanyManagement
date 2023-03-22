@@ -22,7 +22,7 @@
     <Compile Update="UserControls\AssignUC.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="UserControls\ProjectInputUC.xaml.cs">
+    <Compile Update="UserControls\SearchBoxUC.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -45,7 +45,7 @@
     <Page Update="UserControls\AssignUC.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="UserControls\ProjectInputUC.xaml">
+    <Page Update="UserControls\SearchBoxUC.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
