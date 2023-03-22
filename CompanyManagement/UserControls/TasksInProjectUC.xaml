@@ -123,7 +123,8 @@
                         Style="{StaticResource MaterialDesignFloatingActionButton}" />
             </Grid>
         </Border>
-        <!--<DataGrid CanUserAddRows="False"
+    <Grid Width="auto" Height="auto" MinHeight="650" MinWidth="700" MaxWidth="700" >
+        <DataGrid CanUserAddRows="False"
                               AutoGenerateColumns="False"
                               Background="White"
                               Height="625"
@@ -155,6 +156,19 @@
                 <DataGridTextColumn Header="Ngày kết thúc" IsReadOnly="True" Binding="{Binding Deadline}" />
                 <DataGridTextColumn Header="Nhân viên" IsReadOnly="True" Binding="{Binding EmployeeID}" />
             </DataGrid.Columns>
-        </DataGrid>-->
+        </DataGrid>
+        <Grid>
+            <Button                      
+                ToolTip="Thêm công việc mới"
+                Grid.Row="1"
+                Width="60"
+                Height="60"
+                Margin="40"
+                Command="{Binding OpenTaskInProjectInputCommand}"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"                      
+                Content="{materialDesign:PackIcon Kind=Plus , Size=30}"
+                Style="{StaticResource MaterialDesignFloatingActionButton}" />
+        </Grid>
     </Grid>
 </UserControl>

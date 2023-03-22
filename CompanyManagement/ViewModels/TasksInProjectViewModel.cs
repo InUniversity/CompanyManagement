@@ -16,8 +16,7 @@ namespace CompanyManagement.ViewModels
         private ObservableCollection<Employee> employeesInProject;
         public ObservableCollection<Employee> EmployeesInProject { get => employeesInProject; set { employeesInProject = value; OnPropertyChanged(); } }
 
-        private string projectID;
-        public string ProjectID { get => projectID; set { projectID = value; OnPropertyChanged(); } }
+        private static string projectID = "";
 
         public ICommand OpenTaskInProjectInputCommand { get; set; }
         public ICommand DeleteTaskInProjectCommand { get; set; }
@@ -30,17 +29,16 @@ namespace CompanyManagement.ViewModels
         {
             LoadTaskInProjects();
             SetCommands();
-            
         }
 
         public TaskInProject CreateTaskInProjectInstance()
         {
-            return new TaskInProject(AutoGenerateID(), SingletonAccount.Instance.CurrentAccount.EmployeeId, ProjectID);
+            return new TaskInProject(AutoGenerateID(), "", "", "","","", SingletonAccount.Instance.CurrentAccount.EmployeeId,"", projectID);
         }
 
         private void LoadTaskInProjects()
         {
-            TasksInProject = new ObservableCollection<TaskInProject>(taskInProjectDao.GetAll());
+            TasksInProject = new ObservableCollection<TaskInProject>(taskInProjectDao.SearchByProjectID(projectID));
         }    
 
         private void SetCommands()
@@ -61,13 +59,15 @@ namespace CompanyManagement.ViewModels
             taskInProjectDao.Update(task);
             LoadTaskInProjects();
         }
+        
         public void ShowEmployeeInProject(string  projectID)
         {
-            EmployeesInProject= new ObservableCollection<Employee>(projectAssignmentDao.GetEmployeesInProject(projectID));       
+            LoadTaskInProjects();       
         }
+
         public void ShowWithID(string projectID)
         {
-            this.projectID = projectID;
+            TasksInProjectViewModel.projectID = projectID;
             TasksInProject = new ObservableCollection<TaskInProject>(taskInProjectDao.SearchByProjectID(projectID));
         }
 
