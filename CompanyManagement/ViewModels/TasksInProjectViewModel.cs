@@ -1,9 +1,10 @@
+using System;
 using CompanyManagement.Database.Implementations;
 using CompanyManagement.Dialogs;
 using CompanyManagement.Models;
-using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using CompanyManagement.Database;
 
 namespace CompanyManagement.ViewModels
 {
@@ -13,7 +14,10 @@ namespace CompanyManagement.ViewModels
         private ObservableCollection<TaskInProject> tasksInProject;
         public ObservableCollection<TaskInProject> TasksInProject { get => tasksInProject; set { tasksInProject = value; OnPropertyChanged(); } }
 
-        private string projectID = "";
+        private ObservableCollection<Employee> employeesInProject;
+        public ObservableCollection<Employee> EmployeesInProject { get => employeesInProject; set { employeesInProject = value; OnPropertyChanged(); } }
+
+        private string projectID;
         public string ProjectID { get => projectID; set { projectID = value; OnPropertyChanged(); } }
 
         public ICommand OpenTaskInProjectInputCommand { get; set; }
@@ -21,11 +25,13 @@ namespace CompanyManagement.ViewModels
         public ICommand UpdateTaskInProjectCommand { get; set; }
 
         TaskInProjectDao taskInProjectDao  = new TaskInProjectDao();
+        ProjectAssignmentDao projectAssignmentDao = new ProjectAssignmentDao();
         
         public TasksInProjectViewModel()
         {
             LoadTaskInProjects();
             SetCommands();
+            
         }
 
         public TaskInProject CreateTaskInProjectInstance()
@@ -56,7 +62,10 @@ namespace CompanyManagement.ViewModels
             taskInProjectDao.Update(task);
             LoadTaskInProjects();
         }
-
+        public void ShowEmployeeInProject(string  projectID)
+        {
+            EmployeesInProject= new ObservableCollection<Employee>(projectAssignmentDao.GetEmployeesInProject(projectID));       
+        }
         public void ShowWithID(string projectID)
         {
             this.projectID = projectID;
@@ -99,7 +108,7 @@ namespace CompanyManagement.ViewModels
             } while (taskInProjectDao.SearchByID(taskInProjectID) != null);
             return taskInProjectID;
         }
-    }
+        }    
 
     public interface ITasksInProject
     {
@@ -110,5 +119,6 @@ namespace CompanyManagement.ViewModels
     public interface IRetrieveProjectID
     {
         void ShowWithID(string projectID);
+        void ShowEmployeeInProject(string projectID);
     }
 }

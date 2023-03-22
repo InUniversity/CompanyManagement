@@ -14,13 +14,11 @@
              Background="{DynamicResource MaterialDesignPaper}"
              FontFamily="{DynamicResource MaterialDesignFont}"
              mc:Ignorable="d"
-             x:Name="projectsUC"
-             d:DesignHeight="750" d:DesignWidth="800">
-    <Grid>
+             x:Name="projectsUC">
+    <Grid Width="auto" Height="auto" MinWidth="600" MinHeight="700">
         <Border
             Margin="0"
-            Height="auto"
-            BorderBrush="{DynamicResource PrimaryHueMidBrush}"
+            Height="auto"            
             BorderThickness="2"
             ClipToBounds="True">
             <Grid>
@@ -32,13 +30,24 @@
                                                    CommandParameter="{Binding SelectedProject}"/>
                         </b:EventTrigger>
                     </b:Interaction.Triggers>
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListViewItem}">
+                            <Setter Property="Foreground" Value="Black" />
+                            <Setter Property="Background" Value="White" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="True">
+                                    <Setter Property="Background" Value="#FFE0F7FA" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ListView.ItemContainerStyle>
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
                                 <Button
                                     Height="50"
                                     Width="50"
-                                    Margin="0 0 10 0"
+                                    Margin="10 10"
                                     Background="LightCyan"
                                     Command="{Binding ElementName=projectsUC,Path=DataContext.UpdateProjectCommand}"
                                     CommandParameter="{Binding}"
@@ -51,7 +60,7 @@
                                 <Button
                                     Height="50"
                                     Width="50"
-                                    Margin="0 0 10 0"
+                                    Margin="10 10"
                                     Background="Orange"
                                     Command="{Binding ElementName=projectsUC,Path=DataContext.DeleteProjectCommand}"
                                     CommandParameter="{Binding ID}"
@@ -61,7 +70,7 @@
                                     <materialDesign:PackIcon Kind="DeleteForever" />
                                 </Button>
 
-                                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
+                                <TextBlock Margin="30 10" HorizontalAlignment="Center" VerticalAlignment="Center"
                                            Text="{Binding Name}" FontSize="22" />
                             </StackPanel>
                         </DataTemplate>
@@ -70,7 +79,7 @@
                 <Button
                     Width="60"
                     Height="60"
-                    Margin="30"
+                    Margin="40"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Bottom"
                     ToolTip="Thêm dự án mới"

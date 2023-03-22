@@ -81,6 +81,7 @@ namespace CompanyManagement.ViewModels
         private void ItemClicked(object p)
         {
             TasksDataContext.ShowWithID(SelectedProject.ID);
+            TasksDataContext.ShowEmployeeInProject(SelectedProject.ID);
         }
     }
 
