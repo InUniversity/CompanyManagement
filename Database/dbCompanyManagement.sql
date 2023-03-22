@@ -47,8 +47,8 @@ CREATE TABLE Department(
 CREATE TABLE Project(
 	project_id varchar(20),
 	project_name nvarchar(225),
-	create_time varchar(10),
-	end_time varchar(10),
+	create_time varchar(20),
+	end_time varchar(20),
 	progress varchar(30)
 );
 
@@ -63,7 +63,7 @@ CREATE TABLE Task(
 	title nvarchar(50),
 	task_description nvarchar(255),
 	assign_date varchar(20),
-	deadline varchar(10),
+	deadline varchar(20),
 	create_by varchar(20),
 	progress varchar(30),
 	employee_id varchar(20),
@@ -206,23 +206,8 @@ VALUES
 ('TSK018', N'Rollout new network', N'Roll out the new network to all locations', '16-08-2023', '30-08-2023', 'CD001', 'Not started', 'EM006', 'PRJ003');
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
-INSERT INTO ProjectAssignment (project_id, role_name, employee_id)
+INSERT INTO ProjectAssignment (project_id, role_name, department_id)
 VALUES
-('PRJ001', N'Web Designer', 'EM001'),
-('PRJ001', N'Developer', 'EM002'),
-('PRJ001', N'Web Designer', 'EM003'),
-('PRJ001', N'Web Designer', 'EM004'),
-('PRJ001', N'Web Designer', 'EM005'),
-('PRJ001', N'Web Designer', 'EM006'),
-('PRJ002', N'Database Developer', 'EM001'),
-('PRJ002', N'Database Developer', 'EM002'),
-('PRJ002', N'Authentication Designer', 'EM003'),
-('PRJ002', N'Authentication Designer', 'EM004'),
-('PRJ002', N'Payment System Designer', 'EM005'),
-('PRJ002', N'Payment System Designer', 'EM006'),
-('PRJ003', N'Network Engineer', 'EM001'),
-('PRJ003', N'Network Engineer', 'EM002'),
-('PRJ003', N'Network Engineer', 'EM003'),
-('PRJ003', N'Network Tester', 'EM004'),
-('PRJ003', N'Leadership Trainer', 'EM005'),
-('PRJ003', N'Network Deployment Specialist', 'EM006');
+('PRJ001', N'Web Designer', 'PRJ001'),
+('PRJ002', N'App Developmenent', 'PRJ002'),
+('PRJ003', N'Network Engineer', 'PRJ003');
