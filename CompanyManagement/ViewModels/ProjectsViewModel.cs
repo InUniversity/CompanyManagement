@@ -4,6 +4,7 @@ using System.Windows.Input;
 using CompanyManagement.Dialogs;
 using System.Windows;
 using CompanyManagement.Database.Implementations;
+using CompanyManagement.Database.Interfaces;
 
 namespace CompanyManagement.ViewModels
 {
@@ -22,10 +23,11 @@ namespace CompanyManagement.ViewModels
 
         public TasksInProjectViewModel TasksDataContext { get; set; }
 
-        private ProjectDao projectDao = new ProjectDao();
+        private IProjectDao projectDao;
 
-        public ProjectsViewModel()
+        public ProjectsViewModel(IProjectDao projectDao)
         {
+            this.projectDao = projectDao;
             LoadProjects();
             SetCommands();
         }
@@ -81,7 +83,6 @@ namespace CompanyManagement.ViewModels
         private void ItemClicked(object p)
         {
             TasksDataContext.ShowWithID(SelectedProject.ID);
-            TasksDataContext.ShowEmployeeInProject(SelectedProject.ID);
         }
     }
 
