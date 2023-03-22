@@ -55,9 +55,8 @@ namespace CompanyManagement.ViewModels
         public bool CheckAllFields()
         {
             ErrorMessage = "";
-            if(string.IsNullOrWhiteSpace(ID) || string.IsNullOrWhiteSpace(Title)
-                || string.IsNullOrWhiteSpace(CreateBy) || string.IsNullOrWhiteSpace(Progress)
-                || string.IsNullOrWhiteSpace(EmployeeID) || string.IsNullOrWhiteSpace(ProjectID))
+            if( string.IsNullOrWhiteSpace(Title) || string.IsNullOrWhiteSpace(Progress)
+                || string.IsNullOrWhiteSpace(EmployeeID))
             {
                 ErrorMessage = "Các thông tin không được để trống!!!";
                 return false;
