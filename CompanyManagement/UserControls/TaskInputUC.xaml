@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"    
-             DataContext="{StaticResource TasksInProjectVM}"
+             DataContext="{StaticResource TaskInputVM}"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              TextElement.FontWeight="Regular"
              TextElement.FontSize="13"
@@ -104,13 +104,25 @@
             </Grid>
         </Grid>
         <Grid Grid.Row="5">
-            <TextBox
-                Text="{Binding EmployeeID}"
-                Background="White"
-                Margin="20 5"
-                IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedTextBoxEnabledComboBox}"
-                Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                materialDesign:HintAssist.Hint="Mã nhân viên" />
+            <StackPanel Orientation="Horizontal" Margin="20 5">
+                <ComboBox
+                                    Width="557"
+                                    ItemsSource="{Binding Employees}"
+                                    SelectedValue="{Binding EmployeeID}"
+                                    SelectedValuePath = "ID"
+                                    Margin="0 0 10 0"
+                                    materialDesign:HintAssist.Hint="Nhân viên"
+                                    Style="{StaticResource MaterialDesignOutlinedComboBox}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Name}" />
+                                <TextBlock Text="{Binding ID}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
         </Grid>
         <Grid Grid.Row="6">
             <TextBlock Text="{Binding ErrorMessage}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Red"></TextBlock>

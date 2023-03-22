@@ -1,7 +1,10 @@
 ﻿using CompanyManagement.Database;
+using CompanyManagement.Database.Implementations;
 using CompanyManagement.Models;
 using CompanyManagement.Utilities;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace CompanyManagement.ViewModels
 {
@@ -37,6 +40,11 @@ namespace CompanyManagement.ViewModels
         private string errorMessage = "";
         public string ErrorMessage { get => errorMessage; set { errorMessage = value; OnPropertyChanged(); } }
 
+        private ObservableCollection<Employee> employees;
+        public ObservableCollection<Employee> Employees { get => employees; set { employees = value; OnPropertyChanged(); } }
+
+        private ProjectAssignmentDao assignmentDao = new ProjectAssignmentDao();
+
         public TaskInputViewModel()
         {
             SetAllComboBox();
@@ -44,7 +52,7 @@ namespace CompanyManagement.ViewModels
 
         private void SetAllComboBox()
         {
-
+            //Employees = assignmentDao.GetEmployeesInProject("PRJ001");
         }
 
         public TaskInProject CreateTaskInProjectInstance()
@@ -89,6 +97,7 @@ namespace CompanyManagement.ViewModels
             progress = taskinproject.Progress;
             employeeID = taskinproject.EmployeeID;
             projectID = taskinproject.ProjectID;
+            Employees = new ObservableCollection<Employee>(assignmentDao.GetEmployeesInProject(taskinproject.ProjectID));
         }
     }
     
