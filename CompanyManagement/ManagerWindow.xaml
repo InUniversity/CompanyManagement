@@ -15,7 +15,6 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Name="mainWindow"
-        DataContext="{StaticResource ManagerVM}"
         Title="MainWindow" Height="800" Width="1500">
     <Grid>
         <materialDesign:Card Height="auto" Width="auto">
@@ -32,15 +31,15 @@
                             </Grid.ColumnDefinitions>
 
                             <materialDesign:DrawerHost
-                                      Grid.Column="0"
-                                      x:Name="DrawerHost"                        
-                                      BorderThickness="2"
-                                      BottomDrawerBackground="{DynamicResource SecondaryHueLightBrush}"
-                                      BottomDrawerCornerRadius="20 20 0 0">
+                                Grid.Column="0"
+                                x:Name="DrawerHost"
+                                BorderThickness="2"
+                                BottomDrawerBackground="{DynamicResource SecondaryHueLightBrush}"
+                                BottomDrawerCornerRadius="20 20 0 0">
                                 <materialDesign:DrawerHost.Style>
                                     <Style
-                                              TargetType="materialDesign:DrawerHost"
-                                              BasedOn="{StaticResource {x:Type materialDesign:DrawerHost}}">
+                                        TargetType="materialDesign:DrawerHost"
+                                        BasedOn="{StaticResource {x:Type materialDesign:DrawerHost}}">
                                         <Style.Triggers>
                                             <DataTrigger
                                                 Binding="{Binding IsChecked, ElementName=BackgroundToggle}"
@@ -54,8 +53,7 @@
                                 </materialDesign:DrawerHost.Style>
                                 <materialDesign:DrawerHost.LeftDrawerContent>
                                     <StackPanel Width="200">
-                                        <Button 
-                                            Grid.Column="1"
+                                        <Button
                                             Width="50"
                                             Margin="4"
                                             HorizontalAlignment="Right"
@@ -68,32 +66,32 @@
                                     </StackPanel>
                                 </materialDesign:DrawerHost.LeftDrawerContent>
                                 <Grid
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Top">
-                                    <ToggleButton                   
-                                            Command="{x:Static materialDesign:DrawerHost.OpenDrawerCommand}"
-                                            CommandParameter="{x:Static Dock.Left}"
-                                            Style="{StaticResource MaterialDesignHamburgerToggleButton}" />
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top">
+                                    <ToggleButton
+                                        Command="{x:Static materialDesign:DrawerHost.OpenDrawerCommand}"
+                                        CommandParameter="{x:Static Dock.Left}"
+                                        Style="{StaticResource MaterialDesignHamburgerToggleButton}" />
                                 </Grid>
                             </materialDesign:DrawerHost>
                             <Grid Grid.Column="1">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition></ColumnDefinition>
-                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
-                                <uc:ProjectsUC 
-                                    x:Name="projectsUC" 
+                                <uc:ProjectsUC
+                                    x:Name="projectsUC"
                                     Margin="5"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
                                     Grid.Column="0"
-                                    DataContext="{StaticResource ProjectsVM}"/>
-                                <uc:TasksInProjectUC  
-                                    Margin="10" 
+                                    DataContext="{StaticResource ProjectsVM}" />
+                                <uc:TasksInProjectUC
+                                    Margin="10"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
                                     Grid.Column="1"
-                                    DataContext="{Binding DataContext.TasksDataContext, ElementName=projectsUC}"/>
+                                    DataContext="{Binding DataContext.TasksDataContext, ElementName=projectsUC}" />
                             </Grid>
 
                         </Grid>
@@ -106,10 +104,10 @@
                     </StackPanel>
                 </TabItem>
                 <TabItem Header="Chấm Công" Margin="30 0" />
-                <TabItem Header="Lương" Margin="30 0"/>
-                <TabItem Header="Xin Nghỉ" Margin="30 0"/>
-                <TabItem Header="Nhiệm Vụ" Margin="30 0"/>
-                <TabItem Header="Thông báo" Margin="30 0"/>
+                <TabItem Header="Lương" Margin="30 0" />
+                <TabItem Header="Xin Nghỉ" Margin="30 0" />
+                <TabItem Header="Nhiệm Vụ" Margin="30 0" />
+                <TabItem Header="Thông báo" Margin="30 0" />
                 <TabItem Margin="380 0" Width="100">
                     <TabItem.Header>
                         <StackPanel>

@@ -4,7 +4,6 @@ using CompanyManagement.Dialogs;
 using CompanyManagement.Models;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
-using CompanyManagement.Database;
 
 namespace CompanyManagement.ViewModels
 {

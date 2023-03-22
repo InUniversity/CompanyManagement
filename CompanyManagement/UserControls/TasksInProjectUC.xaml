@@ -16,7 +16,7 @@
              mc:Ignorable="d" 
              DataContext="{StaticResource TasksInProjectVM}">
     <Grid Width="auto" Height="auto" MinHeight="650" MinWidth="700" MaxWidth="700" >
-        <Border
+        <!--<Border
                 Margin="0"
                 Height="auto"
                 Width="auto"                
@@ -157,7 +157,7 @@
                 </Grid>
 
             </Grid>
-        </Border>
+        </Border>-->
         <DataGrid CanUserAddRows="False"
                               AutoGenerateColumns="False"
                               Background="White"
