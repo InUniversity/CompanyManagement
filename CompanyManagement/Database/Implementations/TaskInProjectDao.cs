@@ -58,5 +58,10 @@ namespace CompanyManagement.Database.Implementations
             string sqlStr = $"SELECT * FROM {TASK_TABLE} WHERE {TASK_PROJECT_ID}='{projectID}'";
             return dbConnection.GetList(sqlStr, reader => new TaskInProject(reader));
         }
+
+        public void Delete(TaskInProject task)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

@@ -110,10 +110,9 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                
                 <DataGridTextColumn Header="Tên nhiệm vụ" IsReadOnly="True" Binding="{Binding ID}"/>
                 <DataGridTextColumn Header="Tiêu đề" IsReadOnly="True" Binding="{Binding Title}" />
-                <DataGridTextColumn Header="Mô tả" IsReadOnly="True" Binding="{Binding Description}" Width="200"/>
+                <DataGridTextColumn Header="Mô tả" IsReadOnly="True" Binding="{Binding Description}"/>
                 <DataGridTextColumn Header="Ngày bắt đầu" IsReadOnly="True" Binding="{Binding AssignDate}" />
                 <DataGridTextColumn Header="Ngày kết thúc" IsReadOnly="True" Binding="{Binding Deadline}" />
                 <DataGridTextColumn Header="Nhân viên" IsReadOnly="True" Binding="{Binding EmployeeID}" />

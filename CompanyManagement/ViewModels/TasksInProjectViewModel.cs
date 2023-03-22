@@ -104,7 +104,7 @@ namespace CompanyManagement.ViewModels
     public interface ITasksInProject
     {
         void Add(TaskInProject task);
-        void Update(TaskInProject task);   
+        void Update(TaskInProject task); 
     }
     
     public interface IRetrieveProjectID
