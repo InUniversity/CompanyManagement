@@ -10,12 +10,6 @@
     <Compile Update="Dialogs\AddProjectDialog.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Dialogs\AddTaskInProject.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Dialogs\UpdateTaskInProject.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="LoginWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -28,12 +22,6 @@
   </ItemGroup>
   <ItemGroup>
     <Page Update="Dialogs\AddProjectDialog.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Dialogs\AddTaskInProject.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Dialogs\UpdateTaskInProject.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="LoginWindow.xaml">
