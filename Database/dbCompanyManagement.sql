@@ -215,7 +215,7 @@ SELECT CONCAT(REPLACE(LOWER(
 TRANSLATE(employee_name, N'áàảãạăắằẳẵặâấầẩẫậéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵđ'
 					   , N'aaaaaaaaaaaaaaaaaeeeeeeeeeeeiiiiiooooooooooooooooouuuuuuuuuuuyyyyyd')),' ', ''), 
 					   SUBSTRING(birthday, 1, 2), SUBSTRING(birthday, 4, 2)), 
-					   '@123456', employee_id
+					   '@1234567', employee_id
 FROM Employee;
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
