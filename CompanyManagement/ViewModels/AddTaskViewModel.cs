@@ -1,4 +1,5 @@
 ﻿using CompanyManagement.Models;
+using System;
 using System.Windows;
 using System.Windows.Input;
 
@@ -21,7 +22,7 @@ namespace CompanyManagement.ViewModels
         public void SetCommands()
         { 
             TaskInputDataContext = new TaskInputViewModel();
-            AddTaskCommand = new RelayCommand<Window>(AddCommand, p => TaskInputDataContext.CheckAllFields());
+            AddTaskCommand = new RelayCommand<Window>(AddCommand);
         }
 
         private void AddCommand(Window inputwindow)

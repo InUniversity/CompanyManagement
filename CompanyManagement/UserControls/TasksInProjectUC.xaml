@@ -16,148 +16,6 @@
              mc:Ignorable="d" 
              DataContext="{StaticResource TasksInProjectVM}">
     <Grid Width="auto" Height="auto" MinHeight="650" MinWidth="700" MaxWidth="700" >
-        <!--<Border
-                Margin="0"
-                Height="auto"
-                Width="auto"                
-                BorderThickness="3"
-                ClipToBounds="True">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="50"></RowDefinition>
-                    <RowDefinition MinHeight="650"></RowDefinition>
-                 </Grid.RowDefinitions>
-                <Grid Grid.Row="0" Background="WhiteSmoke">
-                    <Button HorizontalAlignment="Left" Margin="15 0" Width="50" 
-                            ToolTip="Xóa đã chọn"
-                            Style="{StaticResource MaterialDesignIconButton}" >
-                        <materialDesign:PackIcon Kind="DeleteEmptyOutline" />
-                    </Button>
-                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Danh sách công viêc" FontSize="18" FontWeight="Bold" FontStyle="Oblique"/>
-                </Grid>
-
-                <Grid Grid.Row="1" >
-                    <ListView ItemsSource="{Binding TasksInProject}">
-                        <ListView.ItemContainerStyle>
-                            <Style TargetType="{x:Type ListViewItem}">
-                                <Setter Property="Foreground" Value="Black" />
-                                <Setter Property="Background" Value="White" />
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="True">
-                                        <Setter Property="Background" Value="#FFE0F7FA" />
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </ListView.ItemContainerStyle>
-                        <ListView.View>
-                            <GridView >
-                                <GridView.Columns >
-                                    <GridViewColumn Width="100" >
-                                        <GridViewColumn.Header >
-                                            <CheckBox Name="selectAll" ToolTip="Chọn tất cả"></CheckBox>
-                                        </GridViewColumn.Header>
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <CheckBox Margin="25 0">
-                                                    <CheckBox.Style>
-                                                        <Style TargetType="{x:Type CheckBox}">
-                                                            <Style.Triggers>
-                                                                <DataTrigger Binding="{Binding ElementName= selectAll, Path= IsChecked}" Value="True">
-                                                                    <Setter Property="IsChecked" Value="True"></Setter>
-                                                                </DataTrigger>
-                                                            </Style.Triggers>
-                                                        </Style>
-                                                    </CheckBox.Style>
-                                                </CheckBox>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn Width="auto">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <StackPanel>
-                                                    <TextBlock                                                                                                                        
-                                                            HorizontalAlignment="Center" 
-                                                            VerticalAlignment="Center" 
-                                                            Margin="20 10"
-                                                            Text="{Binding Title}" 
-                                                            FontSize="20">
-                                                    </TextBlock>
-
-                                                </StackPanel>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn Width="150">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <TextBlock Text="{Binding EmployeeID}" 
-                                                           HorizontalAlignment="Center" 
-                                                            VerticalAlignment="Center" 
-                                                           FontSize="20">
-                                                    <Button Style="{StaticResource MaterialDesignIconButton}"
-                                                             HorizontalAlignment="Center" 
-                                                            VerticalAlignment="Center" >
-                                                        <materialDesign:PackIcon Kind="ChevronDown" />                                                       
-                                                    </Button>
-                                                </TextBlock>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn>
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <TextBlock 
-                                                HorizontalAlignment="Center" 
-                                                VerticalAlignment="Center" 
-                                                Margin="20 10"
-                                                Text="{Binding AssignDate}" 
-                                                FontSize="20" />
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn>
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <TextBlock 
-                                                HorizontalAlignment="Center" 
-                                                VerticalAlignment="Center" 
-                                                Margin="20 10"
-                                                Text="{Binding Deadline}" 
-                                                FontSize="20" />
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn>
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <TextBlock 
-                                                HorizontalAlignment="Center" 
-                                                VerticalAlignment="Center" 
-                                                Margin="20 10"
-                                                Text="{Binding Progress}" 
-                                                FontSize="20" />
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                </GridView.Columns>
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
-                    <Button                      
-                        ToolTip="Thêm công việc mới"
-                        Grid.Row="1"
-                        Width="60"
-                        Height="60"
-                        Margin="40"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Bottom"                      
-                        Content="{materialDesign:PackIcon Kind=Plus , Size=30}"
-                        Style="{StaticResource MaterialDesignFloatingActionButton}" />
-                </Grid>
-
-            </Grid>
-        </Border>-->
         <DataGrid CanUserAddRows="False"
                               AutoGenerateColumns="False"
                               Background="White"
@@ -191,5 +49,18 @@
                 <DataGridTextColumn Header="Nhân viên" IsReadOnly="True" Binding="{Binding EmployeeID}" />
             </DataGrid.Columns>
         </DataGrid>
+        <Grid>
+            <Button                      
+                ToolTip="Thêm công việc mới"
+                Grid.Row="1"
+                Width="60"
+                Height="60"
+                Margin="40"
+                Command="{Binding OpenTaskInProjectInputCommand}"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"                      
+                Content="{materialDesign:PackIcon Kind=Plus , Size=30}"
+                Style="{StaticResource MaterialDesignFloatingActionButton}" />
+        </Grid>
     </Grid>
 </UserControl>
