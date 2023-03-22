@@ -13,8 +13,7 @@
              Name="tasksInProjectUC"
              Background="{DynamicResource MaterialDesignPaper}"
              FontFamily="{DynamicResource MaterialDesignFont}"
-             mc:Ignorable="d" 
-             DataContext="{StaticResource TasksInProjectVM}">
+             mc:Ignorable="d">
     <Grid Width="auto" Height="auto" MinHeight="650" MinWidth="700" MaxWidth="700" >
         <DataGrid CanUserAddRows="False"
                               AutoGenerateColumns="False"

@@ -4,6 +4,7 @@ using CompanyManagement.Dialogs;
 using CompanyManagement.Models;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using CompanyManagement.Database.Interfaces;
 
 namespace CompanyManagement.ViewModels
 {
@@ -16,14 +17,14 @@ namespace CompanyManagement.ViewModels
         private ObservableCollection<Employee> employeesInProject;
         public ObservableCollection<Employee> EmployeesInProject { get => employeesInProject; set { employeesInProject = value; OnPropertyChanged(); } }
 
-        private static string projectID = "";
+        private string projectID = "";
 
         public ICommand OpenTaskInProjectInputCommand { get; set; }
         public ICommand DeleteTaskInProjectCommand { get; set; }
         public ICommand UpdateTaskInProjectCommand { get; set; }
 
-        TaskInProjectDao taskInProjectDao  = new TaskInProjectDao();
-        ProjectAssignmentDao projectAssignmentDao = new ProjectAssignmentDao();
+        private ITaskInProjectDao taskInProjectDao  = new TaskInProjectDao();
+        private IProjectAssignmentDao projectAssignmentDao = new ProjectAssignmentDao();
         
         public TasksInProjectViewModel()
         {
@@ -31,7 +32,7 @@ namespace CompanyManagement.ViewModels
             SetCommands();
         }
 
-        public TaskInProject CreateTaskInProjectInstance()
+        private TaskInProject CreateTaskInProjectInstance()
         {
             return new TaskInProject(AutoGenerateID(), "", "", "","","", SingletonAccount.Instance.CurrentAccount.EmployeeId,"", projectID);
         }
@@ -67,7 +68,7 @@ namespace CompanyManagement.ViewModels
 
         public void ShowWithID(string projectID)
         {
-            TasksInProjectViewModel.projectID = projectID;
+            this.projectID = projectID;
             TasksInProject = new ObservableCollection<TaskInProject>(taskInProjectDao.SearchByProjectID(projectID));
         }
 
