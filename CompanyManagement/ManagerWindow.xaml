@@ -27,45 +27,90 @@
                     <StackPanel>
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="200" />
-                                <ColumnDefinition Width="1300" />
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="auto" />
                             </Grid.ColumnDefinitions>
-                            <Grid Grid.Column="0" Width="200">
-                                <uc:AssignUC />
-                            </Grid>
-                            <Grid Grid.Column="1" Width="1300">
-                                <StackPanel>
-                                    <Grid Width="1300" Height=" 725">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition />
-                                            <ColumnDefinition />
-                                        </Grid.ColumnDefinitions>
-                                        <Grid Grid.Column="0">
-                                            <uc:ProjectsUC x:Name="projectsUC" DataContext="{StaticResource ProjectsVM}"/>
-                                        </Grid>
-                                        <Grid Grid.Column="1">
-                                            <uc:TasksInProjectUC DataContext="{Binding DataContext.TasksDataContext, ElementName=projectsUC}"/>
-                                            <!-- <uc:TasksInProjectUC /> -->
-                                        </Grid>
-                                    </Grid>
-                                </StackPanel>
+
+                            <materialDesign:DrawerHost
+                                      Grid.Column="0"
+                                      x:Name="DrawerHost"                        
+                                      BorderThickness="2"
+                                      BottomDrawerBackground="{DynamicResource SecondaryHueLightBrush}"
+                                      BottomDrawerCornerRadius="20 20 0 0">
+                                <materialDesign:DrawerHost.Style>
+                                    <Style
+                                              TargetType="materialDesign:DrawerHost"
+                                              BasedOn="{StaticResource {x:Type materialDesign:DrawerHost}}">
+                                        <Style.Triggers>
+                                            <DataTrigger
+                                                Binding="{Binding IsChecked, ElementName=BackgroundToggle}"
+                                                Value="True">
+                                                <Setter
+                                                    Property="OverlayBackground"
+                                                    Value="{DynamicResource PrimaryHueMidBrush}" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </materialDesign:DrawerHost.Style>
+                                <materialDesign:DrawerHost.LeftDrawerContent>
+                                    <StackPanel Width="200">
+                                        <Button 
+                                            Grid.Column="1"
+                                            Width="50"
+                                            Margin="4"
+                                            HorizontalAlignment="Right"
+                                            Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}"
+                                            CommandParameter="{x:Static Dock.Left}"
+                                            Style="{StaticResource MaterialDesignFlatButton}">
+                                            <materialDesign:PackIcon Kind="ArrowRightThin" />
+                                        </Button>
+                                        <uc:AssignUC />
+                                    </StackPanel>
+                                </materialDesign:DrawerHost.LeftDrawerContent>
+                                <Grid
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Top">
+                                    <ToggleButton                   
+                                            Command="{x:Static materialDesign:DrawerHost.OpenDrawerCommand}"
+                                            CommandParameter="{x:Static Dock.Left}"
+                                            Style="{StaticResource MaterialDesignHamburgerToggleButton}" />
+                                </Grid>
+                            </materialDesign:DrawerHost>
+                            <Grid Grid.Column="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <uc:ProjectsUC 
+                                    x:Name="projectsUC" 
+                                    Margin="5"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Grid.Column="0"
+                                    DataContext="{StaticResource ProjectsVM}"/>
+                                <uc:TasksInProjectUC  
+                                    Margin="10" 
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Grid.Column="1"
+                                    DataContext="{Binding DataContext.TasksDataContext, ElementName=projectsUC}"/>
                             </Grid>
 
                         </Grid>
                     </StackPanel>
 
                 </TabItem>
-                <TabItem Header="Nhân Sự">
+                <TabItem Header="Nhân Sự" Margin="30 0">
                     <StackPanel>
                         <uc:EmployeesUC />
                     </StackPanel>
                 </TabItem>
-                <TabItem Header="Chấm Công" />
-                <TabItem Header="Lương" />
-                <TabItem Header="Xin Nghỉ" />
-                <TabItem Header="Nhiệm Vụ" />
-                <TabItem Header="Thông báo" />
-                <TabItem Margin="740 0" Width="100">
+                <TabItem Header="Chấm Công" Margin="30 0" />
+                <TabItem Header="Lương" Margin="30 0"/>
+                <TabItem Header="Xin Nghỉ" Margin="30 0"/>
+                <TabItem Header="Nhiệm Vụ" Margin="30 0"/>
+                <TabItem Header="Thông báo" Margin="30 0"/>
+                <TabItem Margin="380 0" Width="100">
                     <TabItem.Header>
                         <StackPanel>
                             <materialDesign:PackIcon Kind="Account" HorizontalAlignment="Right" />
