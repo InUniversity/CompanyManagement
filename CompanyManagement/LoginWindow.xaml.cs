@@ -1,6 +1,4 @@
 ﻿using System.Windows;
-using CompanyManagement.Database.Implementations;
-using CompanyManagement.ViewModels;
 
 namespace CompanyManagement;
 
@@ -12,6 +10,5 @@ public partial class LoginWindow : Window
     public LoginWindow()
     {
         InitializeComponent();
-        DataContext = new LoginViewModel(new AccountDao(), new EmployeeDao());
     }
 }

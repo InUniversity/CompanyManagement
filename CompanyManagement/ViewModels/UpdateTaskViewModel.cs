@@ -1,7 +1,6 @@
 ﻿using CompanyManagement.Models;
 using System.Windows;
 using System.Windows.Input;
-using CompanyManagement.Database.Implementations;
 
 namespace CompanyManagement.ViewModels
 {
@@ -21,7 +20,7 @@ namespace CompanyManagement.ViewModels
 
         private void SetCommands()
         {
-            TaskInputDataContext = new TaskInputViewModel(new ProjectAssignmentDao());
+            TaskInputDataContext = new TaskInputViewModel();
             UpdateTaskCommand = new RelayCommand<Window>(UpdateCommand, p => TaskInputDataContext.CheckAllFields());
         }
 

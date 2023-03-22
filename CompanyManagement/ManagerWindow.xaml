@@ -84,7 +84,8 @@
                                     Margin="5"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
-                                    Grid.Column="0"/>
+                                    Grid.Column="0"
+                                    DataContext="{StaticResource ProjectsVM}" />
                                 <uc:TasksInProjectUC
                                     Margin="10"
                                     HorizontalAlignment="Center"

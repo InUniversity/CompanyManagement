@@ -21,13 +21,11 @@ namespace CompanyManagement.ViewModels
         public ICommand ForgotPasswordCommand { get; set; }
         public ICommand PasswordChangedCommand { get; set; }
 
-        private IAccountDao accountDao;
-        private IEmployeeDao employeeDao;
+        private IAccountDao accountDao = new AccountDao();
+        private IEmployeeDao employeeDao = new EmployeeDao();
         
-        public LoginViewModel(IAccountDao accountDao, IEmployeeDao employeeDao)
+        public LoginViewModel()
         {
-            this.accountDao = accountDao;
-            this.employeeDao = employeeDao;
             SetCommands();
         }
 
