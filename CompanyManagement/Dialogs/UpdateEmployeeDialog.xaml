@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:CompanyManagement.Dialogs"
         mc:Ignorable="d"
         xmlns:uc="clr-namespace:CompanyManagement.UserControls"
         x:Name="updateEmployeeWindow"
@@ -13,14 +12,14 @@
         <StackPanel Height="564" VerticalAlignment="Center" HorizontalAlignment="Right" Width="920">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
+                    <RowDefinition />
+                    <RowDefinition />
                 </Grid.RowDefinitions>
             </Grid>
-            <Grid Grid.Row="0">
-                <uc:EmployeeInputUC DataContext="{Binding EmployeeInputDataContext}"></uc:EmployeeInputUC>
+            <Grid>
+                <uc:EmployeeInputUC DataContext="{Binding EmployeeInputDataContext}" />
             </Grid>
-            <Grid Grid.Row="1">
+            <Grid>
                 <Button
                     Content="Lưu"
                     Command="{Binding UpdateEmployeeCommand}"
@@ -29,8 +28,7 @@
                     Background="ForestGreen"
                     IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                     Style="{StaticResource MaterialDesignFlatMidBgButton}"
-                    ToolTip="Thêm nhân viên mới">
-                </Button>
+                    ToolTip="Thêm nhân viên mới" />
             </Grid>
         </StackPanel>
     </Grid>

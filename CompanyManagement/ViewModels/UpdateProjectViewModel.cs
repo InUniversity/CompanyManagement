@@ -3,7 +3,7 @@ using System.Windows.Input;
 
 namespace CompanyManagement.ViewModels
 {
-    public class UpdateProjectViewModel:BaseViewModel
+    public class UpdateProjectViewModel : BaseViewModel
     {
         public ICommand UpdateProjectCommand { get; set; }
 
@@ -18,8 +18,7 @@ namespace CompanyManagement.ViewModels
         private void SetCommands()
         {
             ProjectInputDataContext = new ProjectInputViewModel();
-            UpdateProjectCommand = new RelayCommand<Window>(ExecuteUpdateCommand,  
-                p => ProjectInputDataContext.CheckAllFields());          
+            UpdateProjectCommand = new RelayCommand<Window>(ExecuteUpdateCommand);          
         }
 
         private void ExecuteUpdateCommand(Window inputWindow)

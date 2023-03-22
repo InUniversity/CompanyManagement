@@ -1,6 +1,6 @@
-﻿using CompanyManagement.ViewModels;
-using System.Windows;
+﻿using System.Windows;
 using CompanyManagement.Database.Implementations;
+using CompanyManagement.ViewModels;
 
 namespace CompanyManagement.Dialogs;
 
@@ -9,7 +9,6 @@ namespace CompanyManagement.Dialogs;
 /// </summary>
 public partial class AddEmployeeDialog : Window
 {
-
     public AddEmployeeDialog()
     {
         InitializeComponent();

@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using CompanyManagement.Database.Interfaces;
 
 namespace CompanyManagement.Database.Implementations
 {
-    public class ProjectDao : BaseDao
+    public class ProjectDao : BaseDao, IProjectDao
     {
         public void Add(Project project)
         {
@@ -15,12 +16,6 @@ namespace CompanyManagement.Database.Implementations
         public void Delete(string id)
         {
             string sqlStr = $"DELETE FROM {PROJECT_TABLE} WHERE {PROJECT_ID} = '{id}'";
-            dbConnection.ExecuteNonQuery(sqlStr);
-        }
-
-        public void DeleteAll()
-        {
-            string sqlStr = $"DELETE FROM {PROJECT_TABLE}";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 

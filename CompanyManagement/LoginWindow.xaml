@@ -16,7 +16,6 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         Name="loginWindow"
-        DataContext="{StaticResource LoginVM}"
         Height="800" Width="800">
     <Grid>
         <Grid.RowDefinitions>

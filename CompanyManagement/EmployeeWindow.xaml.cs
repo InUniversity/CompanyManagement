@@ -1,15 +1,14 @@
 ﻿using System.Windows;
 
-namespace CompanyManagement
+namespace CompanyManagement;
+
+/// <summary>
+///     Interaction logic for EmployeeWindow.xaml
+/// </summary>
+public partial class EmployeeWindow : Window
 {
-    /// <summary>
-    /// Interaction logic for EmployeeWindow.xaml
-    /// </summary>
-    public partial class EmployeeWindow : Window
+    public EmployeeWindow()
     {
-        public EmployeeWindow()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

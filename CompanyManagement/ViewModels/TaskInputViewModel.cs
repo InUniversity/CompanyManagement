@@ -1,14 +1,13 @@
-﻿using CompanyManagement.Database;
-using CompanyManagement.Database.Implementations;
+﻿using CompanyManagement.Database.Implementations;
 using CompanyManagement.Models;
 using CompanyManagement.Utilities;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using CompanyManagement.Database.Interfaces;
 
 namespace CompanyManagement.ViewModels
 {
-    public class TaskInputViewModel: BaseViewModel, IRetrieveTaskInProject
+    public class TaskInputViewModel : BaseViewModel, IRetrieveTaskInProject
     {
         private string id = "";
         public string ID { get => id; set { id = value; OnPropertyChanged(); } }
@@ -43,10 +42,11 @@ namespace CompanyManagement.ViewModels
         private ObservableCollection<Employee> employees;
         public ObservableCollection<Employee> Employees { get => employees; set { employees = value; OnPropertyChanged(); } }
 
-        private ProjectAssignmentDao assignmentDao = new ProjectAssignmentDao();
+        private IProjectAssignmentDao assignmentDao;
 
-        public TaskInputViewModel()
+        public TaskInputViewModel(IProjectAssignmentDao assignmentDao)
         {
+            this.assignmentDao = assignmentDao;
             SetAllComboBox();
         }
 

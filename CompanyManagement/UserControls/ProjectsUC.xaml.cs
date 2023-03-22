@@ -1,5 +1,6 @@
-﻿using CompanyManagement.ViewModels;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
+using CompanyManagement.Database.Implementations;
+using CompanyManagement.ViewModels;
 
 namespace CompanyManagement.UserControls;
 
@@ -11,6 +12,8 @@ public partial class ProjectsUC : UserControl
     public ProjectsUC()
     {
         InitializeComponent();
-        ((ProjectsViewModel)DataContext).TasksDataContext = new TasksInProjectViewModel();
+        DataContext = new ProjectsViewModel(new ProjectDao());
+        ((ProjectsViewModel)DataContext).TasksDataContext = 
+            new TasksInProjectViewModel(new TaskInProjectDao(), new ProjectAssignmentDao());
     }
 }

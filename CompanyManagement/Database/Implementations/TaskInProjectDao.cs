@@ -4,7 +4,7 @@ using CompanyManagement.Models;
 
 namespace CompanyManagement.Database.Implementations
 {
-    public class TaskInProjectDao : BaseDao, ITaskInProject
+    public class TaskInProjectDao : BaseDao, ITaskInProjectDao
     {
         public void Add(TaskInProject task)
         {

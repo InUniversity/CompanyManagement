@@ -1,18 +1,16 @@
-﻿using CompanyManagement.ViewModels;
-using System.Windows;
+﻿using System.Windows;
+using CompanyManagement.ViewModels;
 
-namespace CompanyManagement.Dialogs
+namespace CompanyManagement.Dialogs;
+
+/// <summary>
+///     Interaction logic for UpdateEmployeeDialog.xaml
+/// </summary>
+public partial class UpdateEmployeeDialog : Window
 {
-    /// <summary>
-    /// Interaction logic for UpdateEmployeeDialog.xaml
-    /// </summary>
-    public partial class UpdateEmployeeDialog : Window
+    public UpdateEmployeeDialog()
     {
-
-        public UpdateEmployeeDialog()
-        {
-            InitializeComponent();
-            DataContext = new UpdateEmployeeViewModel();
-        }
+        InitializeComponent();
+        DataContext = new UpdateEmployeeViewModel();
     }
 }

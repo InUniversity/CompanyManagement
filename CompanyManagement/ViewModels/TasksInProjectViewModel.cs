@@ -1,9 +1,9 @@
 using System;
-using CompanyManagement.Database.Implementations;
 using CompanyManagement.Dialogs;
 using CompanyManagement.Models;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using CompanyManagement.Database.Interfaces;
 
 namespace CompanyManagement.ViewModels
 {
@@ -22,18 +22,21 @@ namespace CompanyManagement.ViewModels
         public ICommand DeleteTaskInProjectCommand { get; set; }
         public ICommand UpdateTaskInProjectCommand { get; set; }
 
-        TaskInProjectDao taskInProjectDao  = new TaskInProjectDao();
-        ProjectAssignmentDao projectAssignmentDao = new ProjectAssignmentDao();
+        private ITaskInProjectDao taskInProjectDao;
+        private IProjectAssignmentDao projectAssignmentDao;
         
-        public TasksInProjectViewModel()
+        public TasksInProjectViewModel(ITaskInProjectDao taskInProjectDao, IProjectAssignmentDao projectAssignmentDao)
         {
+            this.taskInProjectDao = taskInProjectDao;
+            this.projectAssignmentDao = projectAssignmentDao;
             LoadTaskInProjects();
             SetCommands();
         }
 
-        public TaskInProject CreateTaskInProjectInstance()
+        private TaskInProject CreateTaskInProjectInstance()
         {
-            return new TaskInProject(AutoGenerateID(), "", "", "","","", SingletonAccount.Instance.CurrentAccount.EmployeeId,"", projectID);
+            return new TaskInProject(AutoGenerateID(), "", "", "","","", 
+                SingletonAccount.Instance.CurrentAccount.EmployeeId,"", projectID);
         }
 
         private void LoadTaskInProjects()
@@ -107,7 +110,7 @@ namespace CompanyManagement.ViewModels
             } while (taskInProjectDao.SearchByID(taskInProjectID) != null);
             return taskInProjectID;
         }
-        }    
+    }    
 
     public interface ITasksInProject
     {

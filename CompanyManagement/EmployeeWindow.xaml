@@ -19,23 +19,10 @@
     <Grid>
         <materialDesign:Card Height="auto" Width="auto">
             <TabControl HorizontalContentAlignment="Left"
-                materialDesign:ColorZoneAssist.Mode="PrimaryMid"
-                Style="{StaticResource MaterialDesignFilledTabControl}">
-                <TabItem Header="Điểm danh">
-                    
-                </TabItem>
+                        materialDesign:ColorZoneAssist.Mode="PrimaryMid"
+                        Style="{StaticResource MaterialDesignFilledTabControl}">
+                <TabItem Header="Điểm danh" />
                 <TabItem Header="Nhiệm vụ">
-                    <StackPanel>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="200" />
-                                <ColumnDefinition Width="1300" />
-                            </Grid.ColumnDefinitions>
-                            <Grid Grid.Column="0" Width="200">
-                                <uc:GetJobUC/>
-                            </Grid>
-                        </Grid>
-                    </StackPanel>
                 </TabItem>
             </TabControl>
         </materialDesign:Card>

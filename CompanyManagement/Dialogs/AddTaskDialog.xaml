@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:uc="clr-namespace:CompanyManagement.UserControls"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"    
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         WindowStartupLocation="CenterScreen"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
@@ -18,27 +18,28 @@
         mc:Ignorable="d"
         Title="AddTaskDialog" Height="700" Width="600">
     <Grid>
-        
+
         <Grid.RowDefinitions>
-            <RowDefinition Height="60"></RowDefinition>
-            <RowDefinition Height="513"></RowDefinition>
-            <RowDefinition Height="80"></RowDefinition>
+            <RowDefinition Height="60" />
+            <RowDefinition Height="513" />
+            <RowDefinition Height="80" />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" Height="60">
-            <TextBlock Text="Thêm nhiệm vụ mới" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="ExtraBold"></TextBlock>
+            <TextBlock Text="Thêm nhiệm vụ mới" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center"
+                       FontWeight="ExtraBold" />
         </Grid>
         <Grid Grid.Row="1" Height="513">
-            <uc:TaskInputUC DataContext="{Binding TaskInputDataContext}"></uc:TaskInputUC>
+            <uc:TaskInputUC DataContext="{Binding TaskInputDataContext}" />
         </Grid>
         <Grid Grid.Row="2" Height="80">
-            <Button Style="{StaticResource MaterialDesignFlatSecondaryMidBgButton}" 
+            <Button Style="{StaticResource MaterialDesignFlatSecondaryMidBgButton}"
                     Height="50"
                     Command="{Binding AddTaskCommand}"
                     CommandParameter="{Binding ElementName = addTaskDialog}"
-                    ToolTip="Thêm" 
+                    ToolTip="Thêm"
                     IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType = Window}}"
                     Margin="100 5">
-                <materialDesign:PackIcon Kind="Plus"/>
+                <materialDesign:PackIcon Kind="Plus" />
             </Button>
         </Grid>
     </Grid>

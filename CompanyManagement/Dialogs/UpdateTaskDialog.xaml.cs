@@ -1,17 +1,16 @@
-﻿using CompanyManagement.ViewModels;
-using System.Windows;
+﻿using System.Windows;
+using CompanyManagement.ViewModels;
 
-namespace CompanyManagement.Dialogs
+namespace CompanyManagement.Dialogs;
+
+/// <summary>
+///     Interaction logic for UpdateTaskInProject.xaml
+/// </summary>
+public partial class UpdateTaskDialog : Window
 {
-    /// <summary>
-    /// Interaction logic for UpdateTaskInProject.xaml
-    /// </summary>
-    public partial class UpdateTaskDialog : Window
+    public UpdateTaskDialog()
     {
-        public UpdateTaskDialog()
-        {
-            InitializeComponent();
-            DataContext = new UpdateTaskViewModel();
-        }
+        InitializeComponent();
+        DataContext = new UpdateTaskViewModel();
     }
 }

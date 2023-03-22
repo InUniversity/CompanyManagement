@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using CompanyManagement.Database.Interfaces;
 
 namespace CompanyManagement.Database.Implementations
 {
-    public class ProjectAssignmentDao : BaseDao
+    public class ProjectAssignmentDao : BaseDao, IProjectAssignmentDao
     {
         public List<Employee> GetEmployeesInProject(string projectID)
         {

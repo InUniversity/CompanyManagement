@@ -5,7 +5,8 @@ namespace CompanyManagement.ViewModels
 {
     public class ProjectInputViewModel : BaseViewModel, IRetrieveProject
     {
-        private string id="";
+        
+        private string id = "";
         public string ID { get => id; set { id = value; OnPropertyChanged(); } }
 
         private string name = "";

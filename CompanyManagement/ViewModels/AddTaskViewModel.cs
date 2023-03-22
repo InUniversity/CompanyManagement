@@ -2,6 +2,7 @@
 using System;
 using System.Windows;
 using System.Windows.Input;
+using CompanyManagement.Database.Implementations;
 
 namespace CompanyManagement.ViewModels
 {
@@ -21,7 +22,7 @@ namespace CompanyManagement.ViewModels
 
         public void SetCommands()
         { 
-            TaskInputDataContext = new TaskInputViewModel();
+            TaskInputDataContext = new TaskInputViewModel(new ProjectAssignmentDao());
             AddTaskCommand = new RelayCommand<Window>(AddCommand);
         }
 
