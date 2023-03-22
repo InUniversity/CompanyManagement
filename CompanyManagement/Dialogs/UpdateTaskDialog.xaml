@@ -12,7 +12,6 @@
         xmlns:uc="clr-namespace:CompanyManagement.UserControls"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        DataContext="{StaticResource UpdateTaskVM}"
         WindowStartupLocation="CenterScreen"
         x:Name="updateTaskDialog"
         mc:Ignorable="d"

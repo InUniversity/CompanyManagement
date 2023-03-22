@@ -13,7 +13,6 @@
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        DataContext="{StaticResource AddProjectVM}"
         x:Name="addProjectDialog"
         mc:Ignorable="d"
         Title="AddProjectDialog" Height="600" Width="600">

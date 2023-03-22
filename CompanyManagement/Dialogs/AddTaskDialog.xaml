@@ -13,7 +13,6 @@
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        DataContext="{StaticResource AddTaskVM}"
         x:Name="addTaskDialog"
         mc:Ignorable="d"
         Title="AddTaskDialog" Height="700" Width="600">
