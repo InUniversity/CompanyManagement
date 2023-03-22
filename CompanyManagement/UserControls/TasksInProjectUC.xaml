@@ -15,6 +15,114 @@
              FontFamily="{DynamicResource MaterialDesignFont}"
              mc:Ignorable="d" 
              DataContext="{StaticResource TasksInProjectVM}">
+    <Grid MinHeight="700" MinWidth="600" >
+        <Border
+                Margin="0"
+                Height="auto"
+                Width="auto"                
+                BorderThickness="3"
+                ClipToBounds="True">
+            <Grid>
+                <ListView ItemsSource="{Binding TasksInProject}" MinHeight="650">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListViewItem}">
+                            <Setter Property="Foreground" Value="Black" />
+                            <Setter Property="Background" Value="White" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="True">
+                                    <Setter Property="Background" Value="#FFE0F7FA" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.View>
+                        <GridView >
+                            <GridView.Columns >
+                                <GridViewColumn Width="auto">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel>
+                                                <TextBlock                                                                                                                        
+                                                            HorizontalAlignment="Center" 
+                                                            VerticalAlignment="Center" 
+                                                            Margin="20 10"
+                                                            Text="{Binding Title}" 
+                                                            FontSize="20">
+                                                </TextBlock>
+
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Width="150">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding EmployeeID}" 
+                                                            Grid.Row="0"
+                                                        HorizontalAlignment="Center" 
+                                                        VerticalAlignment="Center" 
+                                                        FontSize="20">
+                                                <Button Style="{StaticResource MaterialDesignIconButton}"
+                                                            HorizontalAlignment="Center" 
+                                                        VerticalAlignment="Center" >
+                                                    <materialDesign:PackIcon Kind="ChevronDown" />                                                       
+                                                </Button>
+                                            </TextBlock>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn>
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock 
+                                                HorizontalAlignment="Center" 
+                                                VerticalAlignment="Center" 
+                                                Margin="20 10"
+                                                Text="{Binding AssignDate}" 
+                                                FontSize="20" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn>
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock 
+                                                HorizontalAlignment="Center" 
+                                                VerticalAlignment="Center" 
+                                                Margin="20 10"
+                                                Text="{Binding Deadline}" 
+                                                FontSize="20" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn>
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock 
+                                                HorizontalAlignment="Center" 
+                                                VerticalAlignment="Center" 
+                                                Margin="20 10"
+                                                Text="{Binding Progress}" 
+                                                FontSize="20" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView.Columns>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <Button                      
+                        ToolTip="Thêm công việc mới"
+                        Grid.Row="1"
+                        Width="60"
+                        Height="60"
+                        Margin="40"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom"                      
+                        Content="{materialDesign:PackIcon Kind=Plus , Size=30}"
+                        Style="{StaticResource MaterialDesignFloatingActionButton}" />
+            </Grid>
+        </Border>
     <Grid Width="auto" Height="auto" MinHeight="650" MinWidth="700" MaxWidth="700" >
         <DataGrid CanUserAddRows="False"
                               AutoGenerateColumns="False"

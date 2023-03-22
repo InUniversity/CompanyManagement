@@ -23,80 +23,28 @@
                 materialDesign:ColorZoneAssist.Mode="PrimaryMid"
                 Style="{StaticResource MaterialDesignFilledTabControl}">
                 <TabItem Header="Giao Việc">
-                    <StackPanel>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="auto" />
-                                <ColumnDefinition Width="auto" />
-                            </Grid.ColumnDefinitions>
+                    <materialDesign:Card  >
+                        <TabControl 
+                           materialDesign:ColorZoneAssist.Background="#965fa0"
+                            Style="{StaticResource MaterialDesignFilledTabControl}"
+                            TabStripPlacement="Left">
+                            <TabItem Header="Chính" Margin="10 10">
+                                <Border BorderThickness="2">
+                                    <uc:AssignUC />
+                                </Border>
+                            </TabItem>
+                            <TabItem Header="Công việc của tôi" Margin="10 10">
+                                
+                            </TabItem>
+                            <TabItem Header="Thống kê" Margin="10 10">
+                                
+                            </TabItem>
 
-                            <materialDesign:DrawerHost
-                                Grid.Column="0"
-                                x:Name="DrawerHost"
-                                BorderThickness="2"
-                                BottomDrawerBackground="{DynamicResource SecondaryHueLightBrush}"
-                                BottomDrawerCornerRadius="20 20 0 0">
-                                <materialDesign:DrawerHost.Style>
-                                    <Style
-                                        TargetType="materialDesign:DrawerHost"
-                                        BasedOn="{StaticResource {x:Type materialDesign:DrawerHost}}">
-                                        <Style.Triggers>
-                                            <DataTrigger
-                                                Binding="{Binding IsChecked, ElementName=BackgroundToggle}"
-                                                Value="True">
-                                                <Setter
-                                                    Property="OverlayBackground"
-                                                    Value="{DynamicResource PrimaryHueMidBrush}" />
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </materialDesign:DrawerHost.Style>
-                                <materialDesign:DrawerHost.LeftDrawerContent>
-                                    <StackPanel Width="200">
-                                        <Button
-                                            Width="50"
-                                            Margin="4"
-                                            HorizontalAlignment="Right"
-                                            Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}"
-                                            CommandParameter="{x:Static Dock.Left}"
-                                            Style="{StaticResource MaterialDesignFlatButton}">
-                                            <materialDesign:PackIcon Kind="ArrowRightThin" />
-                                        </Button>
-                                        <uc:AssignUC />
-                                    </StackPanel>
-                                </materialDesign:DrawerHost.LeftDrawerContent>
-                                <Grid
-                                    HorizontalAlignment="Left"
-                                    VerticalAlignment="Top">
-                                    <ToggleButton
-                                        Command="{x:Static materialDesign:DrawerHost.OpenDrawerCommand}"
-                                        CommandParameter="{x:Static Dock.Left}"
-                                        Style="{StaticResource MaterialDesignHamburgerToggleButton}" />
-                                </Grid>
-                            </materialDesign:DrawerHost>
-                            <Grid Grid.Column="1">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <uc:ProjectsUC
-                                    x:Name="projectsUC"
-                                    Margin="5"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    Grid.Column="0"
-                                    DataContext="{StaticResource ProjectsVM}" />
-                                <uc:TasksInProjectUC
-                                    Margin="10"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    Grid.Column="1"
-                                    DataContext="{Binding DataContext.TasksDataContext, ElementName=projectsUC}" />
-                            </Grid>
+                            <TabItem Header="Thông báo" Margin="10 10">
 
-                        </Grid>
-                    </StackPanel>
-
+                            </TabItem>
+                        </TabControl>
+                    </materialDesign:Card>
                 </TabItem>
                 <TabItem Header="Nhân Sự" Margin="30 0">
                     <StackPanel>
