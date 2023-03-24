@@ -14,8 +14,7 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Name="mainWindow"
-        Title="MainWindow" Height="800" Width="1500">
+        Title="ManagerWindow" Height="700" Width="1200" MinHeight="600" MinWidth="600">
     <Grid>
         <materialDesign:Card Height="auto" Width="auto">
             <TabControl
@@ -31,7 +30,7 @@
                 </TabItem>
                 <TabItem Header="Nhân Sự" Margin="30 0">
                     <StackPanel>
-                        <uc:EmployeesUC />
+                        <uc:EmployeesUC Height="Auto" Width="Auto"/>
                     </StackPanel>
                 </TabItem>
                 <TabItem Header="Chấm Công" Margin="30 0" />
