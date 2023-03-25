@@ -1,4 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Windows;
+using CompanyManagement.Database.Implementations;
+using CompanyManagement.Database.Interfaces;
+using CompanyManagement.Models;
 using CompanyManagement.Utilities;
 
 namespace CompanyManagement.ViewModels
@@ -23,7 +29,29 @@ namespace CompanyManagement.ViewModels
 
         private string errorMessage = "";
         public string ErrorMessage { get => errorMessage; set { errorMessage = value; OnPropertyChanged(); } }
-        
+
+        private ObservableCollection<Department> departmentsInProject;
+
+        public ObservableCollection<Department> DepartmentsInProject { get => departmentsInProject; set { departmentsInProject = value; OnPropertyChanged(); } }
+
+        public List<Department> Departments { get; set; }
+
+        private ProjectAssignmentDao projectAssignmentDao;
+
+        private DepartmentDao departmentDao = new DepartmentDao();
+
+
+        public ProjectInputViewModel()
+        {        
+            Departments = new List<Department>(departmentDao.GetAll());         
+        }
+      
+        public void loadDepartmentsInProject(string projectID) 
+        {
+            projectAssignmentDao= new ProjectAssignmentDao();        
+            DepartmentsInProject = new ObservableCollection<Department>(projectAssignmentDao.GetAllDepartmentInProject(projectID));
+        }
+
         public Project CreateProjectInstance()
         {
             return new Project(ID, Name,  Utils.DateToString(Start), Utils.DateToString(End), Progress);

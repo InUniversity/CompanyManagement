@@ -15,30 +15,28 @@
         WindowStartupLocation="CenterScreen"
         x:Name="updateProjectDialog"
         mc:Ignorable="d"
-        Height="600" Width="600">
+        Height="720" Width="700">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
-            <RowDefinition Height="440" />
-            <RowDefinition Height="80" />
+            <RowDefinition Height="550" />
+            <RowDefinition Height="70" />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" Height="50">
             <TextBlock Text="Thông tin chi tiết" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center"
                        FontWeight="ExtraBold" />
         </Grid>
-        <Grid Grid.Row="1" Height="440">
+        <Grid Grid.Row="1" Height="550">
             <uc:ProjectInputUC DataContext="{Binding ProjectInputDataContext}" />
         </Grid>
-        <Grid Grid.Row="2" Height="80">
+        <Grid Grid.Row="2" Height="70">
             <Grid>
                 <Button Style="{StaticResource MaterialDesignFlatSecondaryMidBgButton}"
                         Command="{Binding UpdateProjectCommand}"
                         CommandParameter="{Binding ElementName=updateProjectDialog}"
                         Height="50"
-                        Width="100"
-                        ToolTip="Cập nhật"
-                        VerticalAlignment="Center"
-                        HorizontalAlignment="Center">
+                        Margin="100 0"
+                        ToolTip="Cập nhật">
                     <materialDesign:PackIcon Kind="Pencil" />
                 </Button>
             </Grid>

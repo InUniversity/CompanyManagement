@@ -77,6 +77,7 @@ namespace CompanyManagement.ViewModels
             UpdateProjectViewModel projectViewModel = (UpdateProjectViewModel)projectDetailsDialog.DataContext;
             projectViewModel.ParentDataContext = this;
             projectViewModel.ProjectInputDataContext.Retrieve(project);
+            projectViewModel.ProjectInputDataContext.loadDepartmentsInProject(project.ID);
             projectDetailsDialog.ShowDialog();
         }
 

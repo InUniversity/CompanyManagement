@@ -17,14 +17,14 @@ namespace CompanyManagement.ViewModels
 
         private void SetCommands()
         {
-            ProjectInputDataContext = new ProjectInputViewModel();
-            UpdateProjectCommand = new RelayCommand<Window>(ExecuteUpdateCommand);          
+            ProjectInputDataContext = new ProjectInputViewModel();          
+            UpdateProjectCommand = new RelayCommand<Window>(ExecuteUpdateCommand);
         }
 
         private void ExecuteUpdateCommand(Window inputWindow)
         {
             ProjectInputDataContext.TrimAllTexts();
-            Project proj = ProjectInputDataContext.CreateProjectInstance();
+            Project proj = ProjectInputDataContext.CreateProjectInstance();          
             ParentDataContext.Update(proj);
             inputWindow.Close();
         }
