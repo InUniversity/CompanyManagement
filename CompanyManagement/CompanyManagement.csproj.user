@@ -7,24 +7,24 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Dialogs\AddProjectDialog.xaml.cs">
+    <Compile Update="Views\Dialogs\AddProjectDialog.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="LoginWindow.xaml.cs">
+    <Compile Update="Views\Windows\LoginWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="UserControls\AssignUC.xaml.cs">
+    <Compile Update="Views\UserControls\AssignUC.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="Dialogs\AddProjectDialog.xaml">
+    <Page Update="Views\Dialogs\AddProjectDialog.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="LoginWindow.xaml">
+    <Page Update="Views\Windows\LoginWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="UserControls\AssignUC.xaml">
+    <Page Update="Views\UserControls\AssignUC.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
