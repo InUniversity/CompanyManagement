@@ -105,22 +105,16 @@
                                 VerticalScrollBarVisibility="Auto" />
                         </Grid>
                         <Grid Grid.Row="5">
-                            <PasswordBox
-                                Name="pbInput"
+                            <TextBox
                                 Margin="5 5 5 20"
-                                Height="50"
-                                materialDesign:HintAssist.HelperText="ít nhất 8 ký tự"
-                                materialDesign:HintAssist.Hint="Mật Khẩu"
-                                materialDesign:TextFieldAssist.HasClearButton="True"
-                                IsEnabled="{Binding ElementName=RevealPasswordFilledEnabled, Path=IsChecked}"
-                                Style="{StaticResource MaterialDesignOutlinedRevealPasswordBox}">
-                                <b:Interaction.Triggers>
-                                    <b:EventTrigger EventName="PasswordChanged">
-                                        <b:InvokeCommandAction Command="{Binding PasswordChangedCommand}"
-                                                               CommandParameter="{Binding ElementName=pbInput}" />
-                                    </b:EventTrigger>
-                                </b:Interaction.Triggers>
-                            </PasswordBox>
+                                materialDesign:HintAssist.Hint="Mật khẩu"
+                                Text="{Binding Password}"
+                                MinHeight="8"
+                                AcceptsReturn="True"
+                                IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedTextBoxEnabledComboBox}"
+                                Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                TextWrapping="Wrap"
+                                VerticalScrollBarVisibility="Auto" />
                         </Grid>
                     </Grid>
                     <Grid Grid.Column="1">

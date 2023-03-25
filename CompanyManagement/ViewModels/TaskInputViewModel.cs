@@ -24,7 +24,7 @@ namespace CompanyManagement.ViewModels
         private DateTime deadline = DateTime.Now;
         public DateTime Deadline { get => deadline; set { deadline = value; OnPropertyChanged(); } }
 
-        private string createBy = SingletonAccount.Instance.CurrentAccount.EmployeeId;
+        private string createBy = SingletonEmployee.Instance.CurrentEmployee.ID;
         public string CreateBy { get => createBy; set { createBy = value; OnPropertyChanged(); } }
 
         private string progress = "";

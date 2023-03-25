@@ -35,6 +35,14 @@ namespace CompanyManagement.Database
             }
         }
 
+        public object? GetSingleObject<T>(string sqlStr, Func<SqlDataReader, T> converter)
+        {
+            List<T> list = GetList(sqlStr, converter);
+            if (list.Count == 0)
+                return null;
+            return list[0];
+        }
+
         public List<T> GetList<T>(string sqlStr, Func<SqlDataReader, T> converter)
         {
             List<T> list = new List<T>();

@@ -36,7 +36,7 @@ namespace CompanyManagement.ViewModels
         private TaskInProject CreateTaskInProjectInstance()
         {
             return new TaskInProject(AutoGenerateID(), "", "", "","","", 
-                SingletonAccount.Instance.CurrentAccount.EmployeeId,"", projectID);
+                SingletonEmployee.Instance.CurrentEmployee.ID,"", projectID);
         }
 
         private void LoadTaskInProjects()

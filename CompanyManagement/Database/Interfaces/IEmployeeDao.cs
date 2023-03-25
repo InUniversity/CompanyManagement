@@ -11,5 +11,7 @@ namespace CompanyManagement.Database.Interfaces
         Employee SearchByID(string id);
         Employee SearchByIdentifyCard(string identifyCard);
         Employee SearchByPhoneNumber(string phoneNumber);
+        Employee SearchByUsername(string username);
+        Employee SearchByName(string fullName);
     }
 }
