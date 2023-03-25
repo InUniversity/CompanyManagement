@@ -1,11 +1,18 @@
 ﻿using CompanyManagement.Database.Interfaces;
 using System.Collections.Generic;
+using CompanyManagement.Models;
 
 namespace CompanyManagement.Database.Implementations
 {
     public class EmployeeDao : BaseDao, IEmployeeDao
     {
         public void Add(Employee empl)
+        {
+            AddEmployee(empl);
+            AddAccount(empl.ID, empl.EmplAccount);
+        }
+
+        private void AddEmployee(Employee empl)
         {
             string sqlStr =
                 $"INSERT INTO {EMPLOYEE_TABLE} ({EMPLOYEE_ID}, {EMPLOYEE_NAME}, {EMPLOYEE_GENDER}, {EMPLOYEE_BIRTHDAY}, " +
@@ -16,13 +23,38 @@ namespace CompanyManagement.Database.Implementations
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
+        private void AddAccount(string employeeID, Account account)
+        {
+            string sqlStr = $"INSERT INTO {ACCOUNT_TABLE} ({ACCOUNT_USERNAME}, {ACCOUNT_USERNAME}, {ACCOUNT_EMPLOYEE_ID})" +
+                            $"VALUES ({account.Username}, {account.Password}, {employeeID})";
+            dbConnection.ExecuteNonQuery(sqlStr);
+        }
+
         public void Delete(string id)
         {
-            string sqlStr = $"DELETE FROM {EMPLOYEE_TABLE} WHERE {EMPLOYEE_ID} = '{id}'";
+            DeleteEmployee(id);
+            DeleteAccount(id);
+        }
+
+        private void DeleteEmployee(string id)
+        {
+            string sqlStr = $"DELETE FROM {EMPLOYEE_TABLE} WHERE {EMPLOYEE_ID}='{id}'";
+            dbConnection.ExecuteNonQuery(sqlStr);
+        }
+
+        private void DeleteAccount(string employeeID)
+        {
+            string sqlStr = $"DELETE FROM {ACCOUNT_TABLE} WHERE {ACCOUNT_EMPLOYEE_ID}='{employeeID}'";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
         public void Update(Employee empl)
+        {
+            UpdateEmployee(empl);
+            UpdateAccount(empl.ID, empl.EmplAccount);
+        }
+
+        private void UpdateEmployee(Employee empl)
         {
             string sqlStr = $"UPDATE {EMPLOYEE_TABLE} " +
                 $"SET {EMPLOYEE_NAME}=N'{empl.Name}', {EMPLOYEE_GENDER}=N'{empl.Gender}', " +
@@ -34,37 +66,58 @@ namespace CompanyManagement.Database.Implementations
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
+        private void UpdateAccount(string employeeID, Account account)
+        {
+            string sqlStr = $"UPDATE {ACCOUNT_TABLE} SET {ACCOUNT_USERNAME}='{account.Username}', " +
+                            $"{ACCOUNT_PASSWORD}='{account.Password}' WHERE {ACCOUNT_EMPLOYEE_ID}='{employeeID}'";
+            dbConnection.ExecuteNonQuery(sqlStr);
+        }
+
         public List<Employee> GetAll()
         {
-            string sqlStr = $"SELECT * FROM {EMPLOYEE_TABLE}";
+            string sqlStr = $"SELECT E.*, A.{ACCOUNT_USERNAME}, A.{ACCOUNT_PASSWORD} FROM {EMPLOYEE_TABLE} " +
+                            $"E INNER JOIN {ACCOUNT_TABLE} A ON E.{EMPLOYEE_ID}=A.{ACCOUNT_EMPLOYEE_ID}";
             return dbConnection.GetList(sqlStr, reader => new Employee(reader));
         }
 
         public Employee SearchByID(string id)
         {
-            string sqlStr = $"SELECT * FROM {EMPLOYEE_TABLE} WHERE {EMPLOYEE_ID} = '{id}'";
-            List<Employee> employees = dbConnection.GetList(sqlStr, reader => new Employee(reader));
-            if (employees.Count == 0)
-                return null;
-            return employees[0];
+            string sqlStr = $"SELECT E.*, A.{ACCOUNT_USERNAME}, A.{ACCOUNT_PASSWORD} " +
+                            $"FROM {EMPLOYEE_TABLE} E INNER JOIN {ACCOUNT_TABLE} A ON " +
+                            $"E.{EMPLOYEE_ID}=A.{ACCOUNT_EMPLOYEE_ID} WHERE {EMPLOYEE_ID}='{id}'";
+            return (Employee)dbConnection.GetSingleObject(sqlStr, reader => new Employee(reader));
         }
 
         public Employee SearchByIdentifyCard(string identifyCard)
         {
-            string sqlStr = $"SELECT * FROM {EMPLOYEE_TABLE} WHERE {EMPLOYEE_IDENTIFY_CARD} = '{identifyCard}'";
-            List<Employee> employees = dbConnection.GetList(sqlStr, reader => new Employee(reader));
-            if (employees.Count == 0)
-                return null;
-            return employees[0];
+            string sqlStr = $"SELECT E.*, A.{ACCOUNT_USERNAME}, A.{ACCOUNT_PASSWORD} " +
+                            $"FROM {EMPLOYEE_TABLE} E INNER JOIN {ACCOUNT_TABLE} A ON " +
+                            $"E.{EMPLOYEE_ID}=A.{ACCOUNT_EMPLOYEE_ID} WHERE {EMPLOYEE_IDENTIFY_CARD}='{identifyCard}'";
+            return (Employee)dbConnection.GetSingleObject(sqlStr, reader => new Employee(reader));
         }
 
         public Employee SearchByPhoneNumber(string phoneNumber)
         {
-            string sqlStr = $"SELECT * FROM {EMPLOYEE_TABLE} WHERE {EMPLOYEE_PHONE_NUMBER} = '{phoneNumber}'";
-            List<Employee> employees = dbConnection.GetList(sqlStr, reader => new Employee(reader));
-            if (employees.Count == 0)
-                return null;
-            return employees[0];
+            string sqlStr = $"SELECT E.*, A.{ACCOUNT_USERNAME}, A.{ACCOUNT_PASSWORD} " +
+                            $"FROM {EMPLOYEE_TABLE} E INNER JOIN {ACCOUNT_TABLE} A ON " +
+                            $"E.{EMPLOYEE_ID}=A.{ACCOUNT_EMPLOYEE_ID} WHERE {EMPLOYEE_PHONE_NUMBER}='{phoneNumber}'";
+            return (Employee)dbConnection.GetSingleObject(sqlStr, reader => new Employee(reader));
+        }
+
+        public Employee SearchByUsername(string username)
+        {
+            string sqlStr = $"SELECT E.*, A.{ACCOUNT_USERNAME}, A.{ACCOUNT_PASSWORD} " +
+                            $"FROM {EMPLOYEE_TABLE} E INNER JOIN {ACCOUNT_TABLE} A ON " +
+                            $"E.{EMPLOYEE_ID}=A.{ACCOUNT_EMPLOYEE_ID} WHERE {ACCOUNT_USERNAME}='{username}'";
+            return (Employee)dbConnection.GetSingleObject(sqlStr, reader => new Employee(reader));
+        }
+
+        public Employee SearchByName(string fullName)
+        {
+            string sqlStr = $"SELECT E.*, A.{ACCOUNT_USERNAME}, A.{ACCOUNT_PASSWORD} " +
+                            $"FROM {EMPLOYEE_TABLE} E INNER JOIN {ACCOUNT_TABLE} A ON " +
+                            $"E.{EMPLOYEE_ID}=A.{ACCOUNT_EMPLOYEE_ID} WHERE {EMPLOYEE_NAME}='{fullName}'";
+            return (Employee)dbConnection.GetSingleObject(sqlStr, reader => new Employee(reader));
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using System.Windows.Input;
-using CompanyManagement.Database.Implementations;
 using CompanyManagement.Database.Interfaces;
 using CompanyManagement.Utilities;
 
@@ -8,30 +7,30 @@ namespace CompanyManagement.ViewModels
 {
     public class AddEmployeeViewModel : BaseViewModel
     {
-
         public ICommand AddEmployeeCommand { get; set; }
 
         public IEmployees ParentDataContext { get; set; }
-        public EmployeeInputViewModel EmployeeInputDataContext { get; set; }
+        public IEmployeeInput EmployeeInputDataContext { get; set; }
 
         private IEmployeeDao employeeDao;
         
-        public AddEmployeeViewModel(IEmployeeDao employeeDao)
+        public AddEmployeeViewModel(IEmployeeInput employeeInputDataContext, IEmployeeDao employeeDao)
         {
+            EmployeeInputDataContext = employeeInputDataContext;
             this.employeeDao = employeeDao;
-            EmployeeInputDataContext = new EmployeeInputViewModel(new PositionDao(), new DepartmentDao());
-            AddEmployeeCommand = new RelayCommand<Window>(AddCommand, CheckAllFields);
+            AddEmployeeCommand = new RelayCommand<Window>(AddCommand);
         }
 
         private void AddCommand(Window inputWindow)
         {
+            if (!CheckAllFields()) return;
             EmployeeInputDataContext.TrimAllTexts();
             Employee empl = EmployeeInputDataContext.CreateEmployeeInstance();
             ParentDataContext.Add(empl);
             inputWindow.Close();
         }
 
-        private bool CheckAllFields(object p)
+        private bool CheckAllFields()
         {
             if (!EmployeeInputDataContext.CheckAllFields())
                 return false;

@@ -6,6 +6,12 @@ using CompanyManagement.Database.Interfaces;
 
 namespace CompanyManagement.ViewModels
 {
+    public interface IEmployees
+    {
+        void Add(Employee employee);
+        void Update(Employee employee);
+    }
+    
     public class EmployeesViewModel : BaseViewModel, IEmployees
     {
 
@@ -84,11 +90,5 @@ namespace CompanyManagement.ViewModels
             employeeDao.Update(employee);
             LoadEmployees();
         }
-    }
-
-    public interface IEmployees
-    {
-        void Add(Employee employee);
-        void Update(Employee employee);
     }
 }

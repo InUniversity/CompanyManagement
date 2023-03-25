@@ -1,94 +1,53 @@
 using System;
 using System.Data.SqlClient;
 using CompanyManagement.Database;
+using CompanyManagement.Models;
 
 namespace CompanyManagement
 {
     public class Employee
     {
-        
-        private string id;
-        private string name;
-        private string gender;
-        private string birthday;
-        private string identifyCard;
-        private string email;
-        private string phoneNumber;
-        private string address;
-        private string departmentID;
-        private string positionID;
+        private string id = "";
+        private string name = "";
+        private string gender = "";
+        private string birthday = "";
+        private string identifyCard = "";
+        private string email = "";
+        private string phoneNumber = "";
+        private string address = "";
+        private string departmentID = "";
+        private string positionID = "";
         private int salary;
+        private Account account = new Account();
 
-        public string ID
-        {
-            get { return id; }
-            set { id = value; }
-        }
+        public string ID => id;
 
-        public string Name
-        {
-            get { return name; }
-            set { name = value; }
-        }
+        public string Name => name;
 
-        public string Gender
-        {
-            get { return gender; }
-            set { gender = value; }
-        }
+        public string Gender => gender;
 
-        public string Birthday
-        {
-            get { return birthday; }
-            set { birthday = value; }
-        }
+        public string Birthday => birthday;
 
-        public string IdentifyCard
-        {
-            get { return identifyCard; }
-            set { identifyCard = value; }
-        }
+        public string IdentifyCard => identifyCard;
 
-        public string Email
-        {
-            get { return email; }
-            set { email = value; }
-        }
+        public string Email => email;
 
-        public string PhoneNumber
-        {
-            get { return phoneNumber; }
-            set { phoneNumber = value; }
-        }
+        public string PhoneNumber => phoneNumber;
 
-        public string Address
-        {
-            get { return address; }
-            set { address = value; }
-        }
+        public string Address => address;
 
-        public string DepartmentID
-        {
-            get { return departmentID; }
-            set { departmentID = value; }
-        }
+        public string DepartmentID => departmentID;
 
-        public string PositionID
-        {
-            get { return positionID; }
-            set { positionID = value; }
-        }
+        public string PositionID => positionID;
 
-        public int Salary
-        {
-            get { return salary; }
-            set { salary = value; }
-        }
+        public int Salary => salary;
+
+        public Account EmplAccount => account;
 
         public Employee() { }
 
         public Employee(string id, string name, string gender, string birthday, string identifyCard, string email, 
-            string phoneNumber, string address, string departmentID, string positionID, int salary)
+            string phoneNumber, string address, string departmentID, string positionID, int salary, Account account)
         {
             this.id = id;
             this.name = name;
@@ -101,6 +60,7 @@ namespace CompanyManagement
             this.departmentID = departmentID;
             this.positionID = positionID;
             this.salary = salary;
+            this.account = account;
         }
 
         public Employee(string id)
@@ -123,6 +83,8 @@ namespace CompanyManagement
                 departmentID = (string)reader[BaseDao.EMPLOYEE_DEPARTMENT_ID];
                 positionID = (string)reader[BaseDao.EMPLOYEE_POSITION_ID];
                 salary = (int)reader[BaseDao.EMPLOYEE_SALARY];
+                account = new Account((string)reader[BaseDao.ACCOUNT_USERNAME], 
+                                    (string)reader[BaseDao.ACCOUNT_PASSWORD]);
             }
             catch (Exception ex)
             {

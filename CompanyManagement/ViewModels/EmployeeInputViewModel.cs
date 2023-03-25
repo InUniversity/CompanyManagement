@@ -4,14 +4,24 @@ using System.Windows.Input;
 using System;
 using System.Windows.Controls;
 using CompanyManagement.Utilities;
-using CompanyManagement.Database.Implementations;
 using CompanyManagement.Database.Interfaces;
 
 namespace CompanyManagement.ViewModels
 {
-    public class EmployeeInputViewModel : BaseViewModel, IRetrieveEmployee
+    public interface IEmployeeInput
     {
-
+         string ID { get; }
+         string IdentifyCard { get; }
+         string PhoneNumber { get; }
+         string ErrorMessage { set; }
+         Employee CreateEmployeeInstance();
+         bool CheckAllFields();
+         void TrimAllTexts();
+         void Retrieve(Employee employee); 
+    }
+    
+    public class EmployeeInputViewModel : BaseViewModel, IEmployeeInput
+    {
         private string id = "";
         public string ID { get => id; set { id = value; OnPropertyChanged(); } }
 
@@ -79,7 +89,7 @@ namespace CompanyManagement.ViewModels
         public Employee CreateEmployeeInstance()
         {
             return new Employee(ID, Name, Gender, Utils.DateToString(Birthday), IdentifyCard,
-                Email, PhoneNumber, Address, DepartmentID, PositionID, Salary);
+                Email, PhoneNumber, Address, DepartmentID, PositionID, Salary, new Account(Username, Password));
         }
 
         public bool CheckAllFields()
@@ -133,6 +143,8 @@ namespace CompanyManagement.ViewModels
             address = address.Trim();
             departmentID = departmentID.Trim();
             positionID = positionID.Trim();
+            username = username.Trim();
+            password = password.Trim();
         }
 
         public void Retrieve(Employee employee)
@@ -143,17 +155,12 @@ namespace CompanyManagement.ViewModels
             IdentifyCard = employee.IdentifyCard;
             Email = employee.Email;
             PhoneNumber = employee.PhoneNumber;
-            Username = "";
-            Password = "";           
             Address = employee.Address;
             DepartmentID = employee.DepartmentID;
             PositionID = employee.PositionID;
             Salary = employee.Salary;
+            Username = employee.EmplAccount.Username;
+            Password = employee.EmplAccount.Password;           
         }
-    }
-
-    public interface IRetrieveEmployee
-    {
-        void Retrieve(Employee employee);
     }
 }

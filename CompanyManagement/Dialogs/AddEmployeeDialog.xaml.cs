@@ -12,6 +12,7 @@ public partial class AddEmployeeDialog : Window
     public AddEmployeeDialog()
     {
         InitializeComponent();
-        DataContext = new AddEmployeeViewModel(new EmployeeDao());
+        IEmployeeInput employeeInput = new EmployeeInputViewModel(new PositionDao(), new DepartmentDao());
+        DataContext = new AddEmployeeViewModel(employeeInput, new EmployeeDao());
     }
 }
