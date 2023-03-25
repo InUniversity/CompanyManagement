@@ -14,7 +14,7 @@
              FontFamily="{DynamicResource MaterialDesignFont}"
              mc:Ignorable="d"
              x:Name="projectsUC">
-    <Grid MinWidth="600" MinHeight="700">
+    <Grid MinWidth="700" MinHeight="700">
         <Border
             Margin="0"
             Height="auto"

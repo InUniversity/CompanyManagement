@@ -1,4 +1,5 @@
 ﻿using System.Windows.Controls;
+using CompanyManagement.Database.Implementations;
 using CompanyManagement.ViewModels;
 
 namespace CompanyManagement.UserControls;
@@ -10,7 +11,7 @@ public partial class ProjectInputUC : UserControl
 {
     public ProjectInputUC()
     {
-        InitializeComponent();
+        InitializeComponent();       
         DataContext = new ProjectInputViewModel();
     }
 }

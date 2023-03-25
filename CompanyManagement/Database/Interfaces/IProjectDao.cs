@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using CompanyManagement.Models;
+using System.Collections.Generic;
 
 namespace CompanyManagement.Database.Interfaces
 {
