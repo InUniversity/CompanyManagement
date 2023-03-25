@@ -12,12 +12,12 @@ namespace CompanyManagement.ViewModels
         public IEmployees ParentDataContext { get; set; }
         public IEmployeeInput EmployeeInputDataContext { get; set; }
 
-        private IEmployeeDao employeeDao;
+        private IEmployeeAccountDao employeeAccountDao;
         
-        public AddEmployeeViewModel(IEmployeeInput employeeInputDataContext, IEmployeeDao employeeDao)
+        public AddEmployeeViewModel(IEmployeeInput employeeInputDataContext, IEmployeeAccountDao employeeAccountDao)
         {
             EmployeeInputDataContext = employeeInputDataContext;
-            this.employeeDao = employeeDao;
+            this.employeeAccountDao = employeeAccountDao;
             AddEmployeeCommand = new RelayCommand<Window>(AddCommand);
         }
 
@@ -25,7 +25,7 @@ namespace CompanyManagement.ViewModels
         {
             if (!CheckAllFields()) return;
             EmployeeInputDataContext.TrimAllTexts();
-            Employee empl = EmployeeInputDataContext.CreateEmployeeInstance();
+            EmployeeAccount empl = EmployeeInputDataContext.CreateEmployeeInstance();
             ParentDataContext.Add(empl);
             inputWindow.Close();
         }
@@ -34,17 +34,17 @@ namespace CompanyManagement.ViewModels
         {
             if (!EmployeeInputDataContext.CheckAllFields())
                 return false;
-            if(employeeDao.SearchByID(EmployeeInputDataContext.ID) != null)
+            if(employeeAccountDao.SearchByID(EmployeeInputDataContext.ID) != null)
             {
                 EmployeeInputDataContext.ErrorMessage = Utils.EXIST_ID_MESSAGE;
                 return false;
             }
-            if (employeeDao.SearchByIdentifyCard(EmployeeInputDataContext.IdentifyCard) != null)
+            if (employeeAccountDao.SearchByIdentifyCard(EmployeeInputDataContext.IdentifyCard) != null)
             {
                 EmployeeInputDataContext.ErrorMessage = Utils.EXIST_IDENTIFY_CARD_MESSAGE;
                 return false;
             }
-            if (employeeDao.SearchByPhoneNumber(EmployeeInputDataContext.PhoneNumber) != null)
+            if (employeeAccountDao.SearchByPhoneNumber(EmployeeInputDataContext.PhoneNumber) != null)
             {
                 EmployeeInputDataContext.ErrorMessage = Utils.EXIST_PHONE_NUMBER_MESSAGE;
                 return false;

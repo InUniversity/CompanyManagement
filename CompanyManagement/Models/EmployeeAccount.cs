@@ -5,7 +5,7 @@ using CompanyManagement.Models;
 
 namespace CompanyManagement
 {
-    public class Employee
+    public class EmployeeAccount
     {
         private string id = "";
         private string name = "";
@@ -44,9 +44,9 @@ namespace CompanyManagement
 
         public Account EmplAccount => account;
 
-        public Employee() { }
+        public EmployeeAccount() { }
 
-        public Employee(string id, string name, string gender, string birthday, string identifyCard, string email, 
+        public EmployeeAccount(string id, string name, string gender, string birthday, string identifyCard, string email, 
             string phoneNumber, string address, string departmentID, string positionID, int salary, Account account)
         {
             this.id = id;
@@ -63,12 +63,12 @@ namespace CompanyManagement
             this.account = account;
         }
 
-        public Employee(string id)
+        public EmployeeAccount(string id)
         {
             this.id = id;
         }
         
-        public Employee(SqlDataReader reader)
+        public EmployeeAccount(SqlDataReader reader)
         {
             try
             {

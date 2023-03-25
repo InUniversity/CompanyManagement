@@ -4,6 +4,6 @@ namespace CompanyManagement.Database.Interfaces
 {
     public interface IProjectAssignmentDao
     {
-        List<Employee> GetEmployeesInProject(string projectID);
+        List<EmployeeAccount> GetEmployeesInProject(string projectID);
     }
 }

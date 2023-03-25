@@ -20,7 +20,7 @@ namespace CompanyManagement.ViewModels
         {
             if (!CheckAllFields()) return;
             EmployeeInputDataContext.TrimAllTexts();
-            Employee empl = EmployeeInputDataContext.CreateEmployeeInstance();
+            EmployeeAccount empl = EmployeeInputDataContext.CreateEmployeeInstance();
             ParentDataContext.Update(empl);
             inputWindow.Close();
         }

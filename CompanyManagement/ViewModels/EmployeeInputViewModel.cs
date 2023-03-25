@@ -14,10 +14,10 @@ namespace CompanyManagement.ViewModels
          string IdentifyCard { get; }
          string PhoneNumber { get; }
          string ErrorMessage { set; }
-         Employee CreateEmployeeInstance();
+         EmployeeAccount CreateEmployeeInstance();
          bool CheckAllFields();
          void TrimAllTexts();
-         void Retrieve(Employee employee); 
+         void Retrieve(EmployeeAccount employeeAccount); 
     }
     
     public class EmployeeInputViewModel : BaseViewModel, IEmployeeInput
@@ -86,9 +86,9 @@ namespace CompanyManagement.ViewModels
             Departments = departmentDao.GetAll();
         }
 
-        public Employee CreateEmployeeInstance()
+        public EmployeeAccount CreateEmployeeInstance()
         {
-            return new Employee(ID, Name, Gender, Utils.DateToString(Birthday), IdentifyCard,
+            return new EmployeeAccount(ID, Name, Gender, Utils.DateToString(Birthday), IdentifyCard,
                 Email, PhoneNumber, Address, DepartmentID, PositionID, Salary, new Account(Username, Password));
         }
 
@@ -147,20 +147,20 @@ namespace CompanyManagement.ViewModels
             password = password.Trim();
         }
 
-        public void Retrieve(Employee employee)
+        public void Retrieve(EmployeeAccount employeeAccount)
         {
-            ID = employee.ID;
-            Name = employee.Name;
-            Gender = employee.Gender;
-            IdentifyCard = employee.IdentifyCard;
-            Email = employee.Email;
-            PhoneNumber = employee.PhoneNumber;
-            Address = employee.Address;
-            DepartmentID = employee.DepartmentID;
-            PositionID = employee.PositionID;
-            Salary = employee.Salary;
-            Username = employee.EmplAccount.Username;
-            Password = employee.EmplAccount.Password;           
+            ID = employeeAccount.ID;
+            Name = employeeAccount.Name;
+            Gender = employeeAccount.Gender;
+            IdentifyCard = employeeAccount.IdentifyCard;
+            Email = employeeAccount.Email;
+            PhoneNumber = employeeAccount.PhoneNumber;
+            Address = employeeAccount.Address;
+            DepartmentID = employeeAccount.DepartmentID;
+            PositionID = employeeAccount.PositionID;
+            Salary = employeeAccount.Salary;
+            Username = employeeAccount.EmplAccount.Username;
+            Password = employeeAccount.EmplAccount.Password;           
         }
     }
 }
