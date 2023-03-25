@@ -1,0 +1,63 @@
+﻿<UserControl x:Class="CompanyManagement.Views.UserControls.TasksInProjectUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.FontWeight="Regular"
+             TextElement.FontSize="13"
+             TextOptions.TextFormattingMode="Ideal"
+             TextOptions.TextRenderingMode="Auto"
+             Name="tasksInProjectUC"
+             Background="{DynamicResource MaterialDesignPaper}"
+             FontFamily="{DynamicResource MaterialDesignFont}"
+             mc:Ignorable="d">
+    <Grid MinHeight="700" MinWidth="700">
+        <DataGrid CanUserAddRows="False"
+                  AutoGenerateColumns="False"
+                  Background="White"
+                  ItemsSource="{Binding TasksInProject}" Height="700" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="700">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="Operations"
+                                        CanUserResize="False"
+                                        IsReadOnly="True"
+                                        Width="auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Button
+                                    Command="{Binding DataContext.UpdateTaskInProjectCommand, ElementName=tasksInProjectUC}"
+                                    CommandParameter="{Binding}">
+                                    <materialDesign:PackIcon Kind="PencilOutline" />
+                                </Button>
+                                <Button Margin="5 0 0 0"
+                                        Command="{Binding DataContext.DeleteTaskInProjectCommand, ElementName=tasksInProjectUC}"
+                                        CommandParameter="{Binding ID}">
+                                    <materialDesign:PackIcon Kind="DeleteOutline" />
+                                </Button>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Tên nhiệm vụ" IsReadOnly="True" Binding="{Binding ID}" />
+                <DataGridTextColumn Header="Tiêu đề" IsReadOnly="True" Binding="{Binding Title}" />
+                <DataGridTextColumn Header="Mô tả" IsReadOnly="True" Binding="{Binding Description}" />
+                <DataGridTextColumn Header="Ngày bắt đầu" IsReadOnly="True" Binding="{Binding AssignDate}" />
+                <DataGridTextColumn Header="Ngày kết thúc" IsReadOnly="True" Binding="{Binding Deadline}" />
+                <DataGridTextColumn Header="Nhân viên" IsReadOnly="True" Binding="{Binding EmployeeID}" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button
+            ToolTip="Thêm công việc mới"
+            Grid.Row="1"
+            Width="60"
+            Height="60"
+            Margin="40"
+            Command="{Binding OpenTaskInProjectInputCommand}"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            Content="{materialDesign:PackIcon Kind=Plus , Size=30}"
+            Style="{StaticResource MaterialDesignFloatingActionButton}" />
+    </Grid>
+</UserControl>
