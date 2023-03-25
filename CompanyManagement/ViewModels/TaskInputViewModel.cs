@@ -4,6 +4,8 @@ using CompanyManagement.Utilities;
 using System;
 using System.Collections.ObjectModel;
 using CompanyManagement.Database.Interfaces;
+using System.Diagnostics;
+using System.Collections.Generic;
 
 namespace CompanyManagement.ViewModels
 {
@@ -27,7 +29,7 @@ namespace CompanyManagement.ViewModels
         private string createBy = SingletonEmployee.Instance.CurrentEmployee.ID;
         public string CreateBy { get => createBy; set { createBy = value; OnPropertyChanged(); } }
 
-        private string progress = "";
+        private string progress = "50";
         public string Progress { get => progress; set { progress = value; OnPropertyChanged(); } }
 
         private string employeeID = "";
@@ -52,7 +54,7 @@ namespace CompanyManagement.ViewModels
 
         private void SetAllComboBox()
         {
-            //Employees = assignmentDao.GetEmployeesInProject("PRJ001");
+
         }
 
         public TaskInProject CreateTaskInProjectInstance()
@@ -63,8 +65,7 @@ namespace CompanyManagement.ViewModels
         public bool CheckAllFields()
         {
             ErrorMessage = "";
-            if( string.IsNullOrWhiteSpace(Title) || string.IsNullOrWhiteSpace(Progress)
-                || string.IsNullOrWhiteSpace(EmployeeID))
+            if(string.IsNullOrWhiteSpace(Title) || string.IsNullOrWhiteSpace(EmployeeID))
             {
                 ErrorMessage = "Các thông tin không được để trống!!!";
                 return false;
@@ -83,7 +84,7 @@ namespace CompanyManagement.ViewModels
             title = title.Trim();
             description = description.Trim();
             createBy = createBy.Trim();
-            progress = progress.Trim();
+            progress = progress.Trim(); 
             employeeID = employeeID.Trim();
             projectID = projectID.Trim();
         }

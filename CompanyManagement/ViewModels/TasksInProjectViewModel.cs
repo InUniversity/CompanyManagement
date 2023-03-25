@@ -4,6 +4,7 @@ using CompanyManagement.Models;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using CompanyManagement.Database.Interfaces;
+using System.Windows;
 
 namespace CompanyManagement.ViewModels
 {
@@ -35,7 +36,7 @@ namespace CompanyManagement.ViewModels
 
         private TaskInProject CreateTaskInProjectInstance()
         {
-            return new TaskInProject(AutoGenerateID(), "", "", "","","", 
+            return new TaskInProject(AutoGenerateID(), "", "", "","", "", 
                 SingletonEmployee.Instance.CurrentEmployee.ID,"", projectID);
         }
 
