@@ -21,11 +21,11 @@ namespace CompanyManagement.ViewModels
         public ICommand ForgotPasswordCommand { get; set; }
         public ICommand PasswordChangedCommand { get; set; }
 
-        private IEmployeeDao employeeDao;
+        private IEmployeeAccountDao employeeAccountDao;
         
-        public LoginViewModel(IEmployeeDao employeeDao)
+        public LoginViewModel(IEmployeeAccountDao employeeAccountDao)
         {
-            this.employeeDao = employeeDao;
+            this.employeeAccountDao = employeeAccountDao;
             SetCommands();
         }
 
@@ -38,14 +38,14 @@ namespace CompanyManagement.ViewModels
 
         private void ExecuteLoginCommand(Window loginWindow)
         {
-            Employee employee = employeeDao.SearchByUsername(Username);
-            if (employee == null || !string.Equals(password, employee.EmplAccount.Password))
+            EmployeeAccount employeeAccount = employeeAccountDao.SearchByUsername(Username);
+            if (employeeAccount == null || !string.Equals(password, employeeAccount.EmplAccount.Password))
             {
                 MessageBox.Show(Utils.INVALIDATE_USERNAME_PASSWORD_MESSAGE);
                 return;
             }
-            SingletonEmployee.Instance.CurrentEmployee = employee;
-            Window nextWindow = string.Equals(employee.PositionID, BaseDao.MANAGERIAL_POSITION_ID) 
+            SingletonEmployee.Instance.CurrentEmployeeAccount = employeeAccount;
+            Window nextWindow = string.Equals(employeeAccount.PositionID, BaseDao.MANAGERIAL_POSITION_ID) 
                 ? new ManagerWindow() : new EmployeeWindow();
             nextWindow.Show();
             loginWindow.Close();

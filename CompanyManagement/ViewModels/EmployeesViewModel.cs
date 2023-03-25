@@ -8,39 +8,39 @@ namespace CompanyManagement.ViewModels
 {
     public interface IEmployees
     {
-        void Add(Employee employee);
-        void Update(Employee employee);
+        void Add(EmployeeAccount employeeAccount);
+        void Update(EmployeeAccount employeeAccount);
     }
     
     public class EmployeesViewModel : BaseViewModel, IEmployees
     {
 
-        private ObservableCollection<Employee> employees;
-        public ObservableCollection<Employee> Employees { get => employees; set { employees = value; OnPropertyChanged(); } }
+        private ObservableCollection<EmployeeAccount> employees;
+        public ObservableCollection<EmployeeAccount> Employees { get => employees; set { employees = value; OnPropertyChanged(); } }
 
         public ICommand OpenInputDialogCommand { get; set; }
         public ICommand DeleteEmployeeCommand { get; set; }
         public ICommand UpdateEmployeeCommand { get; set; }
 
-        private IEmployeeDao employeeDao;
+        private IEmployeeAccountDao employeeAccountDao;
 
-        public EmployeesViewModel(IEmployeeDao employeeDao)
+        public EmployeesViewModel(IEmployeeAccountDao employeeAccountDao)
         {
-            this.employeeDao = employeeDao;
+            this.employeeAccountDao = employeeAccountDao;
             LoadEmployees();
             SetCommands();
         }
 
         private void LoadEmployees()
         {
-            Employees = new ObservableCollection<Employee>(employeeDao.GetAll());
+            Employees = new ObservableCollection<EmployeeAccount>(employeeAccountDao.GetAll());
         }
 
         private void SetCommands()
         {
             OpenInputDialogCommand = new RelayCommand<object>(OpenAddEmployeeDialog);
             DeleteEmployeeCommand = new RelayCommand<string>(ExecuteDeleteCommand);
-            UpdateEmployeeCommand = new RelayCommand<Employee>(OpenUpdateEmployeeDialog);
+            UpdateEmployeeCommand = new RelayCommand<EmployeeAccount>(OpenUpdateEmployeeDialog);
         }
 
         private void OpenAddEmployeeDialog(object p)
@@ -48,7 +48,7 @@ namespace CompanyManagement.ViewModels
             AddEmployeeDialog addEmployeeDialog = new AddEmployeeDialog();
             AddEmployeeViewModel addEmployeeVM = (AddEmployeeViewModel)addEmployeeDialog.DataContext;
             addEmployeeVM.ParentDataContext = this;
-            addEmployeeVM.EmployeeInputDataContext.Retrieve(new Employee(AutoGenerateID()));
+            addEmployeeVM.EmployeeInputDataContext.Retrieve(new EmployeeAccount(AutoGenerateID()));
             addEmployeeDialog.ShowDialog();
         }
         
@@ -60,34 +60,34 @@ namespace CompanyManagement.ViewModels
             {
                 int number = random.Next(10000);
                 employeeID = $"EM{number:0000}";
-            } while (employeeDao.SearchByID(employeeID) != null);
+            } while (employeeAccountDao.SearchByID(employeeID) != null);
             return employeeID;
         }
 
         private void ExecuteDeleteCommand(string id)
         {
-            employeeDao.Delete(id);
+            employeeAccountDao.Delete(id);
             LoadEmployees();
         }
 
-        private void OpenUpdateEmployeeDialog(Employee employee)
+        private void OpenUpdateEmployeeDialog(EmployeeAccount employeeAccount)
         {
             UpdateEmployeeDialog updateEmployeeDialog = new UpdateEmployeeDialog();
             UpdateEmployeeViewModel updateEmployeeVM = (UpdateEmployeeViewModel)updateEmployeeDialog.DataContext;
             updateEmployeeVM.ParentDataContext = this;
-            updateEmployeeVM.EmployeeInputDataContext.Retrieve(employee);
+            updateEmployeeVM.EmployeeInputDataContext.Retrieve(employeeAccount);
             updateEmployeeDialog.ShowDialog();
         }
 
-        public void Add(Employee employee)
+        public void Add(EmployeeAccount employeeAccount)
         {
-            employeeDao.Add(employee);
+            employeeAccountDao.Add(employeeAccount);
             LoadEmployees();
         }
 
-        public void Update(Employee employee)
+        public void Update(EmployeeAccount employeeAccount)
         {
-            employeeDao.Update(employee);
+            employeeAccountDao.Update(employeeAccount);
             LoadEmployees();
         }
     }

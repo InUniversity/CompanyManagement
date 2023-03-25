@@ -14,11 +14,11 @@ namespace CompanyManagement.Database.Implementations
             return departmentList;
         }
 
-        public List<Employee> GetEmployeesInProject(string projectID)
+        public List<EmployeeAccount> GetEmployeesInProject(string projectID)
         {
             string sqlStr = $"SELECT * FROM {EMPLOYEE_TABLE} WHERE {EMPLOYEE_DEPARTMENT_ID} IN(" +
                 $"SELECT {PROJECT_ASSIGNMENT_DEPARTMENT_ID} FROM {PROJECT_ASSIGNMENT_TABLE} WHERE {PROJECT_ASSIGNMENT_PROJECT_ID} = '{projectID}')";
-            List<Employee> employees = dbConnection.GetList(sqlStr, reader => new Employee(reader));
+            List<EmployeeAccount> employees = dbConnection.GetList(sqlStr, reader => new EmployeeAccount(reader));
             return employees;
         }
     }

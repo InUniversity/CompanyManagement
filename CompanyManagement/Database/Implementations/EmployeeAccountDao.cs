@@ -4,15 +4,15 @@ using CompanyManagement.Models;
 
 namespace CompanyManagement.Database.Implementations
 {
-    public class EmployeeDao : BaseDao, IEmployeeDao
+    public class EmployeeAccountDao : BaseDao, IEmployeeAccountDao
     {
-        public void Add(Employee empl)
+        public void Add(EmployeeAccount empl)
         {
             AddEmployee(empl);
             AddAccount(empl.ID, empl.EmplAccount);
         }
 
-        private void AddEmployee(Employee empl)
+        private void AddEmployee(EmployeeAccount empl)
         {
             string sqlStr =
                 $"INSERT INTO {EMPLOYEE_TABLE} ({EMPLOYEE_ID}, {EMPLOYEE_NAME}, {EMPLOYEE_GENDER}, {EMPLOYEE_BIRTHDAY}, " +
@@ -48,13 +48,13 @@ namespace CompanyManagement.Database.Implementations
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
-        public void Update(Employee empl)
+        public void Update(EmployeeAccount empl)
         {
             UpdateEmployee(empl);
             UpdateAccount(empl.ID, empl.EmplAccount);
         }
 
-        private void UpdateEmployee(Employee empl)
+        private void UpdateEmployee(EmployeeAccount empl)
         {
             string sqlStr = $"UPDATE {EMPLOYEE_TABLE} " +
                 $"SET {EMPLOYEE_NAME}=N'{empl.Name}', {EMPLOYEE_GENDER}=N'{empl.Gender}', " +
@@ -73,51 +73,51 @@ namespace CompanyManagement.Database.Implementations
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
-        public List<Employee> GetAll()
+        public List<EmployeeAccount> GetAll()
         {
             string sqlStr = $"SELECT E.*, A.{ACCOUNT_USERNAME}, A.{ACCOUNT_PASSWORD} FROM {EMPLOYEE_TABLE} " +
                             $"E INNER JOIN {ACCOUNT_TABLE} A ON E.{EMPLOYEE_ID}=A.{ACCOUNT_EMPLOYEE_ID}";
-            return dbConnection.GetList(sqlStr, reader => new Employee(reader));
+            return dbConnection.GetList(sqlStr, reader => new EmployeeAccount(reader));
         }
 
-        public Employee SearchByID(string id)
+        public EmployeeAccount SearchByID(string id)
         {
             string sqlStr = $"SELECT E.*, A.{ACCOUNT_USERNAME}, A.{ACCOUNT_PASSWORD} " +
                             $"FROM {EMPLOYEE_TABLE} E INNER JOIN {ACCOUNT_TABLE} A ON " +
                             $"E.{EMPLOYEE_ID}=A.{ACCOUNT_EMPLOYEE_ID} WHERE {EMPLOYEE_ID}='{id}'";
-            return (Employee)dbConnection.GetSingleObject(sqlStr, reader => new Employee(reader));
+            return (EmployeeAccount)dbConnection.GetSingleObject(sqlStr, reader => new EmployeeAccount(reader));
         }
 
-        public Employee SearchByIdentifyCard(string identifyCard)
+        public EmployeeAccount SearchByIdentifyCard(string identifyCard)
         {
             string sqlStr = $"SELECT E.*, A.{ACCOUNT_USERNAME}, A.{ACCOUNT_PASSWORD} " +
                             $"FROM {EMPLOYEE_TABLE} E INNER JOIN {ACCOUNT_TABLE} A ON " +
                             $"E.{EMPLOYEE_ID}=A.{ACCOUNT_EMPLOYEE_ID} WHERE {EMPLOYEE_IDENTIFY_CARD}='{identifyCard}'";
-            return (Employee)dbConnection.GetSingleObject(sqlStr, reader => new Employee(reader));
+            return (EmployeeAccount)dbConnection.GetSingleObject(sqlStr, reader => new EmployeeAccount(reader));
         }
 
-        public Employee SearchByPhoneNumber(string phoneNumber)
+        public EmployeeAccount SearchByPhoneNumber(string phoneNumber)
         {
             string sqlStr = $"SELECT E.*, A.{ACCOUNT_USERNAME}, A.{ACCOUNT_PASSWORD} " +
                             $"FROM {EMPLOYEE_TABLE} E INNER JOIN {ACCOUNT_TABLE} A ON " +
                             $"E.{EMPLOYEE_ID}=A.{ACCOUNT_EMPLOYEE_ID} WHERE {EMPLOYEE_PHONE_NUMBER}='{phoneNumber}'";
-            return (Employee)dbConnection.GetSingleObject(sqlStr, reader => new Employee(reader));
+            return (EmployeeAccount)dbConnection.GetSingleObject(sqlStr, reader => new EmployeeAccount(reader));
         }
 
-        public Employee SearchByUsername(string username)
+        public EmployeeAccount SearchByUsername(string username)
         {
             string sqlStr = $"SELECT E.*, A.{ACCOUNT_USERNAME}, A.{ACCOUNT_PASSWORD} " +
                             $"FROM {EMPLOYEE_TABLE} E INNER JOIN {ACCOUNT_TABLE} A ON " +
                             $"E.{EMPLOYEE_ID}=A.{ACCOUNT_EMPLOYEE_ID} WHERE {ACCOUNT_USERNAME}='{username}'";
-            return (Employee)dbConnection.GetSingleObject(sqlStr, reader => new Employee(reader));
+            return (EmployeeAccount)dbConnection.GetSingleObject(sqlStr, reader => new EmployeeAccount(reader));
         }
 
-        public Employee SearchByName(string fullName)
+        public EmployeeAccount SearchByName(string fullName)
         {
             string sqlStr = $"SELECT E.*, A.{ACCOUNT_USERNAME}, A.{ACCOUNT_PASSWORD} " +
                             $"FROM {EMPLOYEE_TABLE} E INNER JOIN {ACCOUNT_TABLE} A ON " +
                             $"E.{EMPLOYEE_ID}=A.{ACCOUNT_EMPLOYEE_ID} WHERE {EMPLOYEE_NAME}='{fullName}'";
-            return (Employee)dbConnection.GetSingleObject(sqlStr, reader => new Employee(reader));
+            return (EmployeeAccount)dbConnection.GetSingleObject(sqlStr, reader => new EmployeeAccount(reader));
         }
     }
 }

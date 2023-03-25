@@ -4,12 +4,12 @@
     {
 
         private static SingletonEmployee instance = null;
-        private  Employee employee;
+        private  EmployeeAccount employeeAccount;
         
-        public Employee CurrentEmployee
+        public EmployeeAccount CurrentEmployeeAccount
         {
-            get { return employee; }
-            set { employee = value; }
+            get { return employeeAccount; }
+            set { employeeAccount = value; }
         }
         
         public static SingletonEmployee Instance
@@ -26,7 +26,7 @@
         
         private SingletonEmployee()
         {
-            employee = new Employee();
+            employeeAccount = new EmployeeAccount();
         }
     }
 }
