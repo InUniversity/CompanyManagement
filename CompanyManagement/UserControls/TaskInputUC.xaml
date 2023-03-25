@@ -12,25 +12,26 @@
              Background="White"
              FontFamily="{DynamicResource MaterialDesignFont}"
              mc:Ignorable="d"
-             d:DesignHeight="513" d:DesignWidth="600">
+             d:DesignHeight="601" d:DesignWidth="600">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
+            <RowDefinition Height="73*" />
+            <RowDefinition Height="73*" />
+            <RowDefinition Height="73*" />
+            <RowDefinition Height="80*" />
+            <RowDefinition Height="80*" />
+            <RowDefinition Height="73*" />
+            <RowDefinition Height="66*" />
+            <RowDefinition Height="73*" />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <TextBox
-                Text="{Binding Name}"
+                Text="{Binding ID}"
                 Background="White"
                 Margin="20 5"
                 IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedTextBoxEnabledComboBox}"
                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                materialDesign:HintAssist.Hint="Tên nhiệm vụ" />
+                materialDesign:HintAssist.Hint="Mã nhiệm vụ" />
         </Grid>
         <Grid Grid.Row="1">
             <TextBox
@@ -102,21 +103,22 @@
                     Style="{StaticResource MaterialDesignOutlinedTimePicker}" />
             </Grid>
         </Grid>
-        <Grid Grid.Row="5">
-            <StackPanel Orientation="Horizontal" Margin="20 5">
+        <Grid Grid.Row="4" Margin="0 73 0 37" Grid.RowSpan="3">
+            <StackPanel Orientation="Horizontal">
                 <ComboBox
                     Width="557"
                     ItemsSource="{Binding Employees}"
                     SelectedValue="{Binding EmployeeID}"
                     SelectedValuePath="ID"
-                    Margin="0 0 10 0"
+                    Margin="20 0 20 0"
                     materialDesign:HintAssist.Hint="Nhân viên"
                     Style="{StaticResource MaterialDesignOutlinedComboBox}">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{Binding Name}" />
                                 <TextBlock Text="{Binding ID}" />
+                                <TextBlock Text=" "/>
+                                <TextBlock Text="{Binding Name}" />
                             </StackPanel>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
@@ -124,6 +126,23 @@
             </StackPanel>
         </Grid>
         <Grid Grid.Row="6">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="20 5 20 0" VerticalAlignment="Bottom">
+                    <TextBlock Text="Tiến trình: "/>
+                    <TextBlock Text="{Binding ElementName=ProgressSlider, Path=Value}"/>
+                    <TextBlock Text="%"/>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Slider x:Name="ProgressSlider" Value="{Binding Progress}" Maximum="100" Minimum="0" IsSnapToTickEnabled="True" TickFrequency="10" Margin="20 5 20 0"/>
+                
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="7">
             <TextBlock Text="{Binding ErrorMessage}" HorizontalAlignment="Center" VerticalAlignment="Center"
                        Foreground="Red" />
         </Grid>
