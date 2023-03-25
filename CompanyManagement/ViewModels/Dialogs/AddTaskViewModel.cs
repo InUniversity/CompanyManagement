@@ -29,7 +29,7 @@ namespace CompanyManagement.ViewModels.Dialogs
 
         private void AddCommand(Window inputwindow)
         {
-            TaskInputDataContext.TrimmAllTexts();
+            TaskInputDataContext.TrimAllTexts();
             TaskInProject task = TaskInputDataContext.CreateTaskInProjectInstance();
             ParentDataContext.Add(task);
             inputwindow.Close();

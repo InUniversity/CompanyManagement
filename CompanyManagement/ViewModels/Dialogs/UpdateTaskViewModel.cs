@@ -28,7 +28,7 @@ namespace CompanyManagement.ViewModels.Dialogs
 
         private void UpdateCommand(Window inputwindow)
         {
-            TaskInputDataContext.TrimmAllTexts();
+            TaskInputDataContext.TrimAllTexts();
             TaskInProject task = TaskInputDataContext.CreateTaskInProjectInstance();
             ParentDataContext.Update(task);
             inputwindow.Close();
