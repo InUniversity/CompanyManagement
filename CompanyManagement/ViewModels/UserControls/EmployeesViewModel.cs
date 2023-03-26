@@ -1,5 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Linq;
+using System.Windows;
+using System.Windows.Data;
 using System.Windows.Input;
 using CompanyManagement.Views.Dialogs;
 using CompanyManagement.Database.Interfaces;
@@ -15,9 +20,13 @@ namespace CompanyManagement.ViewModels.UserControls
 
     public class EmployeesViewModel : BaseViewModel, IEmployees
     {
+        private List<EmployeeAccount> employees;
 
-        private ObservableCollection<EmployeeAccount> employees;
-        public ObservableCollection<EmployeeAccount> Employees { get => employees; set { employees = value; OnPropertyChanged(); } }
+        private ObservableCollection<EmployeeAccount> searchedEmployees;
+        public ObservableCollection<EmployeeAccount> SearchedEmployees { get => searchedEmployees; set { searchedEmployees = value; OnPropertyChanged(); } }
+
+        private string textToSearch;
+        public string TextToSearch { get => textToSearch; set { textToSearch = value; OnPropertyChanged(); SearchByName();} }
 
         public ICommand OpenInputDialogCommand { get; set; }
         public ICommand DeleteEmployeeCommand { get; set; }
@@ -34,7 +43,8 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void LoadEmployees()
         {
-            Employees = new ObservableCollection<EmployeeAccount>(employeeAccountDao.GetAll());
+            employees = employeeAccountDao.GetAll();
+            SearchedEmployees = new ObservableCollection<EmployeeAccount>(employees);
         }
 
         private void SetCommands()
@@ -42,6 +52,18 @@ namespace CompanyManagement.ViewModels.UserControls
             OpenInputDialogCommand = new RelayCommand<object>(OpenAddEmployeeDialog);
             DeleteEmployeeCommand = new RelayCommand<string>(ExecuteDeleteCommand);
             UpdateEmployeeCommand = new RelayCommand<EmployeeAccount>(OpenUpdateEmployeeDialog);
+        }
+
+        private void SearchByName()
+        {
+            var searchedItems = employees;
+            if (!string.IsNullOrEmpty(textToSearch))
+            {
+                searchedItems = employees
+                    .Where(item => item.Name.Contains(textToSearch, StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+            }
+            SearchedEmployees = new ObservableCollection<EmployeeAccount>(searchedItems);
         }
 
         private void OpenAddEmployeeDialog(object p)
