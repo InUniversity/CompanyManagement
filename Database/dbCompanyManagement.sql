@@ -67,7 +67,19 @@ CREATE TABLE Task(
 	create_by varchar(25),
 	progress varchar(30),
 	employee_id varchar(20),
-	project_id varchar(20)
+	project_id varchar(20),
+	importance int
+);
+
+CREATE TABLE TimeKeeping(
+	task_id varchar(20),
+	title varchar(50),
+	daily_log varchar(25),
+	time_period varchar(25),
+	employee_id varchar(20),
+	billing_type int,
+	notes varchar(255),
+	create_by varchar(20)
 );
 
 INSERT INTO Position(position_id, position_name)
@@ -237,31 +249,61 @@ VALUES
 ('PRJ005', 'Cloud Computing Migration', 'DPM005');
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
-INSERT INTO Task (task_id, title, task_description, assign_date, deadline, create_by, progress, employee_id, project_id)
+INSERT INTO Task (task_id, title, task_description, assign_date, deadline, create_by, progress, employee_id, project_id, importance)
 VALUES
-('T000001', N'Website Development - Design', N'Thiết kế giao diện website cho khách hàng ABC', '01-03-2023 09:00 AM', '15-03-2023 05:00 PM', 'EM002', '50', 'EM001', 'PRJ001'),
-('T000002', N'Website Development - Front-end', N'Lập trình phần front-end cho website khách hàng ABC', '16-03-2023 08:00 AM', '31-03-2023 05:00 PM', 'EM002', '30', 'EM007', 'PRJ001'),
-('T000003', N'Website Development - Back-end', N'Lập trình phần back-end cho website khách hàng ABC', '01-04-2023 08:00 AM', '15-04-2023 05:00 PM', 'EM002', '10', 'EM009', 'PRJ001'),
-('T000004', N'Website Development - Testing', N'Kiểm thử và sửa lỗi cho website khách hàng ABC', '16-04-2023 08:00 AM', '30-04-2023 05:00 PM', 'EM002', '10', 'EM013', 'PRJ001'),
-('T000005', N'Website Development - Deployment', N'Triển khai website khách hàng ABC trên server', '01-05-2023 08:00 AM', '15-05-2023 05:00 PM', 'EM002', '0', 'EM017', 'PRJ001'),
-('T000006', N'Develop mobile app UI design', N'Phát triển thiết kế giao diện người dùng cho ứng dụng di động', '20-04-2023 02:30 PM', '20-05-2023 05:00 PM', 'EM001', '0', 'EM027', 'PRJ002'),
-('T000007', N'Develop mobile app backend', N'Tạo backend cho ứng dụng di động', '15-05-2023 10:00 AM', '30-06-2023 01:30 PM', 'EM001', '0', 'EM026', 'PRJ002'),
-('T000008', N'Develop mobile app frontend', N'Tạo frontend cho ứng dụng di động', '01-06-2023 09:15 AM', '15-07-2023 11:45 AM', 'EM001', '0', 'EM028', 'PRJ002'),
-('T000009', N'Test mobile app', N'Kiểm thử ứng dụng di động và báo cáo lỗi', '20-07-2023 02:00 PM', '15-08-2023 04:30 PM', 'EM001', '0 ', 'EM031', 'PRJ002'),
-('T000010', N'Deploy mobile app', N'Triển khai ứng dụng di động lên cửa hàng ứng dụng', '01-09-2023 10:30 AM', '30-09-2023 03:00 PM', 'EM001', '0 ', 'EM030', 'PRJ002'),
-('T000011', N'Create new database', N'Tạo cơ sở dữ liệu cho hệ thống quản lý nhân viên', '01-03-2023 10:15 AM', '15-03-2023 04:30 PM', 'EM003', '0 ', 'EM035', 'PRJ003'),
-('T000012', N'Optimize database', N'Tối ưu hóa cơ sở dữ liệu cho hệ thống quản lý nhân viên', '05-03-2023 10:15 AM', '20-03-2023 04:30 PM', 'EM003', '0 ', 'EM036', 'PRJ003'),
-('T000013', N'Collect information', N'Thu thập thông tin về các nhân viên trong công ty', '10-03-2023 10:15 AM', '25-03-2023 04:30 PM', 'EM003', '0 ', 'EM037', 'PRJ003'),
-('T000014', N'Analyze data', N'Phân tích dữ liệu về các nhân viên trong công ty', '15-03-2023 10:15 AM', '30-03-2023 04:30 PM', 'EM003', '0 ', 'EM038', 'PRJ003'),
-('T000015', N'Perform data check', N'Thực hiện kiểm tra dữ liệu đã thu thập và phân tích', '20-03-2023 10:15 AM', '31-10-2023 04:30 PM', 'EM003', '0 ', 'EM039', 'PRJ003'),
-('T000016', N'Cloud Computing Migration', N'Migrate các ứng dụng và dữ liệu hiện có đến nền tảng Cloud Computing', '01-05-2023 02:45 PM', '30-11-2023 10:30 AM', 'EM004', '0 ', 'EM045', 'PRJ004'),
-('T000017', N'Assess current infrastructure', N'Đánh giá cơ sở hạ tầng công nghệ thông tin hiện tại và xác định các khu vực cần được di chuyển đến đám mây.', '05-05-2023 02:45 PM', '15-05-2023 04:30 PM', 'EM004', '0 ', 'EM046', 'PRJ004'),
-('T000018', N'Select cloud provider', N'Nghiên cứu và lựa chọn nhà cung cấp đám mây phù hợp cho công ty', '10-05-2023 02:45 PM', '25-05-2023 04:30 PM', 'EM004', '0 ', 'EM047', 'PRJ004'),
-('T000019', N'Migrate applications', N'Migrate các ứng dụng hiện có đến nền tảng đám mây', '15-05-2023 02:45 PM', '30-11-2023 10:30 AM', 'EM004', '0 ', 'EM048', 'PRJ004'),
-('T000020', N'Migrate data', N'Transfer dữ liệu của công ty đến nền tảng đám mây', '20-05-2023 02:45 PM', '30-11-2023 10:30 AM', 'EM004', '0 ', 'EM049', 'PRJ004'),
-('T000021', N'Infrastructure Department', N'Triển khai và quản lý cơ sở hạ tầng công nghệ thông tin cho công ty', '01-05-2023 02:45 PM', '30-11-2023 10:30 AM', 'EM050', '0 ', 'EM050', 'PRJ005'),
-('T000022', N'Set up network infrastructure', N'Cài đặt và cấu hình cơ sở hạ tầng mạng cho công ty', '05-05-2023 02:45 PM', '15-05-2023 04:30 PM', 'EM050', '0 ', 'EM051', 'PRJ005'),
-('T000023', N'Implement server infrastructure', N'Cài đặt và cấu hình cơ sở hạ tầng máy chủ cho công ty', '10-05-2023 02:45 PM', '25-05-2023 04:30 PM', 'EM050', '0 ', 'EM052', 'PRJ005'),
-('T000024', N'Set up security infrastructure', N'Cài đặt và cấu hình cơ sở hạ tầng bảo mật cho công ty', '15-05-2023 02:45 PM', '30-11-2023 10:30 AM', 'EM050', '0 ', 'EM053', 'PRJ005'),
-('T000025', N'Implement backup infrastructure', N'Cài đặt và cấu hình cơ sở hạ tầng sao lưu cho công ty', '20-05-2023 02:45 PM', '30-11-2023 10:30 AM', 'EM050', '0 ', 'EM054', 'PRJ005'),
-('T000026', N'Manage IT infrastructure', N'Quản lý và duy trì cơ sở hạ tầng công nghệ thông tin cho công ty', '25-05-2023 02:45 PM', '30-11-2023 10:30 AM', 'EM050', '0 ', 'EM055', 'PRJ005');
+('T000001', N'Website Development - Design', N'Thiết kế giao diện website cho khách hàng ABC', '01-03-2023 09:00 AM', '15-03-2023 05:00 PM', 'EM002', '50', 'EM001', 'PRJ001', 1),
+('T000002', N'Website Development - Front-end', N'Lập trình phần front-end cho website khách hàng ABC', '16-03-2023 08:00 AM', '31-03-2023 05:00 PM', 'EM002', '30', 'EM007', 'PRJ001',1),
+('T000003', N'Website Development - Back-end', N'Lập trình phần back-end cho website khách hàng ABC', '01-04-2023 08:00 AM', '15-04-2023 05:00 PM', 'EM002', '10', 'EM009', 'PRJ001', 1),
+('T000004', N'Website Development - Testing', N'Kiểm thử và sửa lỗi cho website khách hàng ABC', '16-04-2023 08:00 AM', '30-04-2023 05:00 PM', 'EM002', '10', 'EM013', 'PRJ001', 2),
+('T000005', N'Website Development - Deployment', N'Triển khai website khách hàng ABC trên server', '01-05-2023 08:00 AM', '15-05-2023 05:00 PM', 'EM002', '0', 'EM017', 'PRJ001', 1),
+('T000006', N'Develop mobile app UI design', N'Phát triển thiết kế giao diện người dùng cho ứng dụng di động', '20-04-2023 02:30 PM', '20-05-2023 05:00 PM', 'EM001', '0', 'EM027', 'PRJ002', 1),
+('T000007', N'Develop mobile app backend', N'Tạo backend cho ứng dụng di động', '15-05-2023 10:00 AM', '30-06-2023 01:30 PM', 'EM001', '0', 'EM026', 'PRJ002', 1),
+('T000008', N'Develop mobile app frontend', N'Tạo frontend cho ứng dụng di động', '01-06-2023 09:15 AM', '15-07-2023 11:45 AM', 'EM001', '0', 'EM028', 'PRJ002',1),
+('T000009', N'Test mobile app', N'Kiểm thử ứng dụng di động và báo cáo lỗi', '20-07-2023 02:00 PM', '15-08-2023 04:30 PM', 'EM001', '0 ', 'EM031', 'PRJ002',2),
+('T000010', N'Deploy mobile app', N'Triển khai ứng dụng di động lên cửa hàng ứng dụng', '01-09-2023 10:30 AM', '30-09-2023 03:00 PM', 'EM001', '0 ', 'EM030', 'PRJ002',2),
+('T000011', N'Create new database', N'Tạo cơ sở dữ liệu cho hệ thống quản lý nhân viên', '01-03-2023 10:15 AM', '15-03-2023 04:30 PM', 'EM003', '0 ', 'EM035', 'PRJ003',2),
+('T000012', N'Optimize database', N'Tối ưu hóa cơ sở dữ liệu cho hệ thống quản lý nhân viên', '05-03-2023 10:15 AM', '20-03-2023 04:30 PM', 'EM003', '0 ', 'EM036', 'PRJ003',3),
+('T000013', N'Collect information', N'Thu thập thông tin về các nhân viên trong công ty', '10-03-2023 10:15 AM', '25-03-2023 04:30 PM', 'EM003', '0 ', 'EM037', 'PRJ003',1),
+('T000014', N'Analyze data', N'Phân tích dữ liệu về các nhân viên trong công ty', '15-03-2023 10:15 AM', '30-03-2023 04:30 PM', 'EM003', '0 ', 'EM038', 'PRJ003',1),
+('T000015', N'Perform data check', N'Thực hiện kiểm tra dữ liệu đã thu thập và phân tích', '20-03-2023 10:15 AM', '31-10-2023 04:30 PM', 'EM003', '0 ', 'EM039', 'PRJ003',1),
+('T000016', N'Cloud Computing Migration', N'Migrate các ứng dụng và dữ liệu hiện có đến nền tảng Cloud Computing', '01-05-2023 02:45 PM', '30-11-2023 10:30 AM', 'EM004', '0 ', 'EM045', 'PRJ004',1),
+('T000017', N'Assess current infrastructure', N'Đánh giá cơ sở hạ tầng công nghệ thông tin hiện tại và xác định các khu vực cần được di chuyển đến đám mây.', '05-05-2023 02:45 PM', '15-05-2023 04:30 PM', 'EM004', '0 ', 'EM046', 'PRJ004',1),
+('T000018', N'Select cloud provider', N'Nghiên cứu và lựa chọn nhà cung cấp đám mây phù hợp cho công ty', '10-05-2023 02:45 PM', '25-05-2023 04:30 PM', 'EM004', '0 ', 'EM047', 'PRJ004',1),
+('T000019', N'Migrate applications', N'Migrate các ứng dụng hiện có đến nền tảng đám mây', '15-05-2023 02:45 PM', '30-11-2023 10:30 AM', 'EM004', '0 ', 'EM048', 'PRJ004',1),
+('T000020', N'Migrate data', N'Transfer dữ liệu của công ty đến nền tảng đám mây', '20-05-2023 02:45 PM', '30-11-2023 10:30 AM', 'EM004', '0 ', 'EM049', 'PRJ004',1),
+('T000021', N'Infrastructure Department', N'Triển khai và quản lý cơ sở hạ tầng công nghệ thông tin cho công ty', '01-05-2023 02:45 PM', '30-11-2023 10:30 AM', 'EM050', '0 ', 'EM050', 'PRJ005',1),
+('T000022', N'Set up network infrastructure', N'Cài đặt và cấu hình cơ sở hạ tầng mạng cho công ty', '05-05-2023 02:45 PM', '15-05-2023 04:30 PM', 'EM050', '0 ', 'EM051', 'PRJ005',1),
+('T000023', N'Implement server infrastructure', N'Cài đặt và cấu hình cơ sở hạ tầng máy chủ cho công ty', '10-05-2023 02:45 PM', '25-05-2023 04:30 PM', 'EM050', '0 ', 'EM052', 'PRJ005',1),
+('T000024', N'Set up security infrastructure', N'Cài đặt và cấu hình cơ sở hạ tầng bảo mật cho công ty', '15-05-2023 02:45 PM', '30-11-2023 10:30 AM', 'EM050', '0 ', 'EM053', 'PRJ005',1),
+('T000025', N'Implement backup infrastructure', N'Cài đặt và cấu hình cơ sở hạ tầng sao lưu cho công ty', '20-05-2023 02:45 PM', '30-11-2023 10:30 AM', 'EM050', '0 ', 'EM054', 'PRJ005',1),
+('T000026', N'Manage IT infrastructure', N'Quản lý và duy trì cơ sở hạ tầng công nghệ thông tin cho công ty', '25-05-2023 02:45 PM', '30-11-2023 10:30 AM', 'EM050', '0 ', 'EM055', 'PRJ005',1);
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+
+INSERT INTO TimeKeeping (task_id, title, daily_log, time_period, employee_id, billing_type, notes, create_by)
+VALUES
+('T000001', N'Website Development - Design', NULL, NULL, 'EM001', NULL, NULL, 'EM002'),
+('T000002', N'Website Development - Front-end', NULL, NULL, 'EM007', NULL, NULL, 'EM002'),
+('T000003', N'Website Development - Back-end', NULL, NULL, 'EM009', NULL, NULL, 'EM002'),
+('T000004', N'Website Development - Testing', NULL, NULL, 'EM013', NULL, NULL, 'EM002'),
+('T000005', N'Website Development - Deployment', NULL, NULL, 'EM017', NULL, NULL, 'EM002'),
+('T000006', N'Develop mobile app UI design', NULL, NULL, 'EM027', NULL, NULL, 'EM001'),
+('T000007', N'Develop mobile app backend', NULL, NULL, 'EM026', NULL, NULL, 'EM001'),
+('T000008', N'Develop mobile app frontend', NULL, NULL, 'EM028', NULL, NULL, 'EM001'),
+('T000009', N'Test mobile app', NULL, NULL, 'EM031', NULL, NULL, 'EM001'),
+('T000010', N'Deploy mobile app', NULL, NULL, 'EM030', NULL, NULL, 'EM001'),
+('T000011', N'Create new database', NULL, NULL, 'EM035', NULL, NULL, 'EM003'),
+('T000012', N'Optimize database', NULL, NULL, 'EM036', NULL, NULL, 'EM003'),
+('T000013', N'Collect information', NULL, NULL, 'EM037', NULL, NULL, 'EM003'),
+('T000014', N'Analyze data', NULL, NULL, 'EM038', NULL, NULL, 'EM003'),
+('T000015', N'Perform data check', NULL, NULL, 'EM039', NULL, NULL, 'EM003'),
+('T000016', N'Cloud Computing Migration', NULL, NULL, 'EM045', NULL, NULL, 'EM004'),
+('T000017', N'Assess current infrastructure', NULL, NULL, 'EM046', NULL, NULL, 'EM004'),
+('T000018', N'Select cloud provider', NULL, NULL, 'EM047', NULL, NULL, 'EM004'),
+('T000019', N'Migrate applications', NULL, NULL, 'EM048', NULL, NULL, 'EM004'),
+('T000020', N'Migrate data', NULL, NULL, 'EM049', NULL, NULL, 'EM004'),
+('T000021', N'Infrastructure Department', NULL, NULL, 'EM050', NULL, NULL, 'EM050'),
+('T000022', N'Set up network infrastructure', NULL, NULL, 'EM051', NULL, NULL, 'EM050'),
+('T000023', N'Implement server infrastructure', NULL, NULL, 'EM052', NULL, NULL, 'EM050'),
+('T000024', N'Set up security infrastructure', NULL, NULL, 'EM053', NULL, NULL, 'EM050'),
+('T000025', N'Implement backup infrastructure', NULL, NULL, 'EM054', NULL, NULL, 'EM050'),
+('T000026', N'Manage IT infrastructure', NULL, NULL, 'EM055', NULL, NULL, 'EM050');
