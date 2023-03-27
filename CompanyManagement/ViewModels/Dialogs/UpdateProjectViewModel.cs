@@ -8,25 +8,25 @@ namespace CompanyManagement.ViewModels.Dialogs
     {
         public ICommand UpdateProjectCommand { get; set; }
 
-        public ProjectsViewModel ParentDataContext { get; set; }
-        public ProjectInputViewModel ProjectInputDataContext { get; set; }
+        public IProjects ParentDataContext { get; set; }
+        public IProjectInput ProjectInputInputDataContext { get; set; }
 
-        public UpdateProjectViewModel()
+        public UpdateProjectViewModel(IProjectInput projectInput)
         {
+            ProjectInputInputDataContext = projectInput;
             SetCommands();
         }
 
         private void SetCommands()
         {
-            ProjectInputDataContext = new ProjectInputViewModel();
             UpdateProjectCommand = new RelayCommand<Window>(ExecuteUpdateCommand);
         }
 
         private void ExecuteUpdateCommand(Window inputWindow)
         {
-            ProjectInputDataContext.TrimAllTexts();
-            Project proj = ProjectInputDataContext.CreateProjectInstance();
-            ParentDataContext.Update(proj);
+            ProjectInputInputDataContext.TrimAllTexts();
+            Project project = ProjectInputInputDataContext.CreateProjectInstance();
+            ParentDataContext.Update(project);
             inputWindow.Close();
         }
     }

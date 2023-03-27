@@ -1,14 +1,17 @@
 ﻿using System.Collections.ObjectModel;
-using System.Data;
 using System.Windows.Input;
 using CompanyManagement.Views.Dialogs;
-using System.Windows;
-using CompanyManagement.Database.Implementations;
 using CompanyManagement.Database.Interfaces;
 using CompanyManagement.ViewModels.Dialogs;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
+    public interface IProjects
+    {
+        void Add(Project project);
+        void Update(Project project);
+    }
+    
     public class ProjectsViewModel : BaseViewModel, IProjects
     {
 
@@ -77,21 +80,13 @@ namespace CompanyManagement.ViewModels.UserControls
             UpdateProjectDialog projectDetailsDialog = new UpdateProjectDialog();
             UpdateProjectViewModel projectViewModel = (UpdateProjectViewModel)projectDetailsDialog.DataContext;
             projectViewModel.ParentDataContext = this;
-            projectViewModel.ProjectInputDataContext.Retrieve(project);
-            projectViewModel.ProjectInputDataContext.loadDepartmentsInProject(project.ID);
+            projectViewModel.ProjectInputInputDataContext.RetrieveProject(project);
             projectDetailsDialog.ShowDialog();
         }
 
         private void ItemClicked(object p)
         {
-            TasksDataContext.ShowWithID(SelectedProject.ID);
-            TasksDataContext.ShowEmployeeInProject(SelectedProject.ID);
+            TasksDataContext.ShowTasksWithID(SelectedProject.ID);
         }
-    }
-
-    public interface IProjects
-    {
-        void Add(Project project);
-        void Update(Project project);
     }
 }
