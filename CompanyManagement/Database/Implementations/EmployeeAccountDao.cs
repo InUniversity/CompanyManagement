@@ -84,7 +84,7 @@ namespace CompanyManagement.Database.Implementations
         {
             string sqlStr = $"SELECT E.*, A.{ACCOUNT_USERNAME}, A.{ACCOUNT_PASSWORD} " +
                             $"FROM {EMPLOYEE_TABLE} E INNER JOIN {ACCOUNT_TABLE} A ON " +
-                            $"E.{EMPLOYEE_ID}=A.{ACCOUNT_EMPLOYEE_ID} WHERE {EMPLOYEE_ID}='{id}'";
+                            $"E.{EMPLOYEE_ID}=A.{ACCOUNT_EMPLOYEE_ID} WHERE E.{EMPLOYEE_ID}='{id}'";
             return (EmployeeAccount)dbConnection.GetSingleObject(sqlStr, reader => new EmployeeAccount(reader));
         }
 
