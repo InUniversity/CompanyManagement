@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:shell="clr-namespace:System.Windows.Shell;assembly=PresentationFramework"
         xmlns:uc="clr-namespace:CompanyManagement.Views.UserControls"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -10,58 +11,184 @@
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
-        Background="{DynamicResource MaterialDesignPaper}"
-        FontFamily="{DynamicResource MaterialDesignFont}"
+        Background="White"
+        FontFamily="{DynamicResource MaterialDesignFont}"        
+        Name="managerWindow"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="ManagerWindow" Height="700" Width="1200" MinHeight="600" MinWidth="600">
+        Height="700" Width="1200" MinHeight="600" MinWidth="600">
     <Grid>
-        <materialDesign:Card Height="auto" Width="auto">
-            <TabControl
-                HorizontalContentAlignment="Left"
-                materialDesign:ColorZoneAssist.Mode="PrimaryMid"
-                Style="{StaticResource MaterialDesignFilledTabControl}">
-                <TabItem Header="Giao Việc">
-                    <materialDesign:Card>
-                        <Border BorderThickness="2">
-                            <uc:AssignUC />
+        <materialDesign:DrawerHost>
+            <materialDesign:DrawerHost.LeftDrawerContent >
+                <Border CornerRadius="30" BorderThickness="1">
+                    <StackPanel Width="200">
+                        <Border Height="60" >
+                            <StackPanel Orientation="Horizontal">
+                                <Button HorizontalAlignment="Center" 
+                                    VerticalAlignment="Top"
+                                    Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}"
+                                    CommandParameter="{x:Static Dock.Left}"
+                                    Style="{StaticResource MaterialDesignIconButton}"
+                                    Margin="5">
+                                    <materialDesign:PackIcon Kind="Home" />
+                                </Button>
+                                <TextBlock Text="My Company" 
+                                           Style="{StaticResource MaterialDesignButtonTextBlock}" 
+                                           FontSize="20" 
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           Foreground="DarkOliveGreen"></TextBlock>
+                            </StackPanel>
                         </Border>
-                    </materialDesign:Card>
-                </TabItem>
-                <TabItem Header="Nhân Sự" Margin="30 0">
-                    <StackPanel>
-                        <uc:EmployeesUC Height="Auto" Width="Auto"/>
+                        <RadioButton
+                            Height="50"
+                            Margin="4"
+                            Command="{Binding ElementName=managerWindow, Path=DataContext.ShowAssignView}" 
+                            BorderBrush="{DynamicResource PrimaryHueMidBrush}"
+                            IsChecked="True"
+                            Style="{StaticResource MaterialDesignTabRadioButtonRight}" >
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="Briefcase" />
+                                <TextBlock Text="Công việc" Margin="25 0"></TextBlock>
+                            </StackPanel>
+                        </RadioButton>
+                        <RadioButton
+                            Height="50"
+                            Margin="4"         
+                            IsChecked="False"
+                            Command="{Binding ElementName=managerWindow, Path=DataContext.ShowEmployeesView}"
+                            BorderBrush="{DynamicResource PrimaryHueMidBrush}"
+                            Style="{StaticResource MaterialDesignTabRadioButtonRight}" >
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="AccountGroup" />
+                                <TextBlock Text="Nhân sự" Margin="30 0"></TextBlock>
+                            </StackPanel>
+                        </RadioButton>
+                        <RadioButton
+                            Height="50"
+                            Margin="4"                
+                            Command="{Binding ElementName=managerWindow, Path=DataContext.ShowWorkSheduleView}"
+                            BorderBrush="{DynamicResource PrimaryHueMidBrush}"
+                            IsChecked="False"
+                            Style="{StaticResource MaterialDesignTabRadioButtonRight}" >
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="CalendarText" />
+                                <TextBlock Text="Lịch làm" Margin="30 0"></TextBlock>
+                            </StackPanel>
+                        </RadioButton>
+                        <RadioButton
+                            Height="50"
+                            Margin="4"     
+                            BorderBrush="{DynamicResource PrimaryHueMidBrush}"
+                            IsChecked="False"
+                            Style="{StaticResource MaterialDesignTabRadioButtonRight}" >
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="AccountCircle" />
+                                <TextBlock Text="Tài khoản" Margin="25 0"></TextBlock>
+                            </StackPanel>
+                        </RadioButton>
+                        <RadioButton
+                            Height="50"
+                            Margin="4"                           
+                            Command="{Binding ElementName=managerWindow, Path=DataContext.ShowNotifytView}"
+                            IsChecked="False"
+                            BorderBrush="{DynamicResource PrimaryHueMidBrush}"
+                            Style="{StaticResource MaterialDesignTabRadioButtonRight}" >
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="BellRing" />
+                                <TextBlock Text="Thông báo" Margin="22 0"></TextBlock>
+                            </StackPanel>
+                        </RadioButton>
+                        <RadioButton
+                            Height="50"
+                            Margin="4"                           
+                            IsChecked="False"
+                            Command="{Binding ElementName=managerWindow, Path=DataContext.ShowSettingsView}"
+                            BorderBrush="{DynamicResource PrimaryHueMidBrush}"
+                            Style="{StaticResource MaterialDesignTabRadioButtonRight}" >
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="Cog" />
+                                <TextBlock Text="Cài đặt" Margin="33 0"></TextBlock>
+                            </StackPanel>
+                        </RadioButton>
+                        <Border Margin="0 10">
+                            <StackPanel Orientation="Horizontal">
+                                <Button Margin="5 0"  Style="{StaticResource MaterialDesignIconButton}">
+                                    <materialDesign:PackIcon Kind="Magnify" />
+                                </Button>
+                                <TextBox Width="130"
+                                         Background="White"                                        
+                                         Style="{StaticResource MaterialDesignOutlinedTextBox}">
+                                </TextBox>
+                            </StackPanel>
+                        </Border>
+                        <Border Height="auto" Margin="5" Background="White">
+                            <ListView MinHeight="120" >
+                                
+                            </ListView>
+                        </Border>
+                        <Border Margin="0 10">
+                            <Button Height="50" Style="{StaticResource MaterialDesignIconButton}">
+                                <materialDesign:PackIcon Kind="Logout" />
+                            </Button>
+                        </Border>
                     </StackPanel>
-                </TabItem>
-                <TabItem Header="Chấm Công" Margin="30 0" />
-                <TabItem Header="Lương" Margin="30 0" />
-                <TabItem Header="Xin Nghỉ" Margin="30 0" />
-                <TabItem Header="Nhiệm Vụ" Margin="30 0" />
-                <TabItem Header="Thông báo" Margin="30 0" />
-                <TabItem Margin="380 0" Width="100">
-                    <TabItem.Header>
-                        <StackPanel>
-                            <materialDesign:PackIcon Kind="Account" HorizontalAlignment="Right" />
-                        </StackPanel>
-                    </TabItem.Header>
+                </Border>
+                
+            </materialDesign:DrawerHost.LeftDrawerContent>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Border Grid.Column="0"  Background="#006064" Width="50">
                     <StackPanel>
-                        <materialDesign:Card Height="750">
-                            <TabControl
-                                Width="auto"
-                                Height="auto"
-                                materialDesign:ColorZoneAssist.Mode="PrimaryLight"
-                                Style="{StaticResource MaterialDesignFilledTabControl}"
-                                TabStripPlacement="Left">
-
-                                <TabItem Header="Tài khoản" />
-                                <TabItem Header="Thu nhập" />
-                                <TabItem Header="Cài đặt" />
-                                <TabItem Header="Trợ giúp" />
-                            </TabControl>
-                        </materialDesign:Card>
+                        <Button HorizontalAlignment="Right"                          
+                            Height="80"
+                            Width="50"
+                            Margin="0 0 0 50"
+                            Style="{StaticResource MaterialDesignIconButton}"
+                            Command="{x:Static materialDesign:DrawerHost.OpenDrawerCommand}"
+                            CommandParameter="{x:Static Dock.Left}"                          
+                            BorderThickness="0">
+                            <materialDesign:PackIcon Kind="Home" Foreground="White" />
+                        </Button>
+                        <Button HorizontalAlignment="Right"  
+                            Height="80"
+                            Width="50"
+                            Style="{StaticResource MaterialDesignIconButton}"
+                            Command="{Binding ElementName=managerWindow, Path=DataContext.ShowAssignView}"                                       
+                            BorderThickness="0"
+                          >
+                            <materialDesign:PackIcon Kind="Briefcase" Foreground="White" />
+                        </Button>
+                        <Button HorizontalAlignment="Right"          
+                            Height="80"
+                            Width="50"
+                            Margin="0 50"
+                            Style="{StaticResource MaterialDesignIconButton}"
+                            Command="{Binding ElementName=managerWindow, Path=DataContext.ShowEmployeesView}"                                                               
+                            BorderThickness="0">
+                            <materialDesign:PackIcon Kind="AccountGroup" Foreground="White" />
+                        </Button>
+                        <Button HorizontalAlignment="Right"          
+                            Height="80"
+                            Width="50"
+                            Style="{StaticResource MaterialDesignIconButton}"
+                            Command="{Binding ElementName=managerWindow, Path=DataContext.ShowWorkSheduleView}"                                                          
+                            BorderThickness="0">
+                            <materialDesign:PackIcon Kind="CalendarText" Foreground="White" />
+                        </Button>
                     </StackPanel>
-                </TabItem>
-            </TabControl>
-        </materialDesign:Card>
+                </Border>
+                <Grid Grid.Column="1">
+                    <Border  Margin="10" BorderThickness="1">
+                        <ContentControl Content="{Binding ElementName=managerWindow, Path=DataContext.CurrentChildView}" >
+                        </ContentControl>
+                    </Border>
+                </Grid>
+                
+            </Grid>
+        </materialDesign:DrawerHost>
     </Grid>
 </Window>

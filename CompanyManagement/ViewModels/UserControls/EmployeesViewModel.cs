@@ -41,6 +41,10 @@ namespace CompanyManagement.ViewModels.UserControls
             SetCommands();
         }
 
+        public EmployeesViewModel()
+        {
+        }
+
         private void LoadEmployees()
         {
             employees = employeeAccountDao.GetAll();

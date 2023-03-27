@@ -12,8 +12,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d"
-             x:Name="employeesUC"
-             d:DesignHeight="680" d:DesignWidth="600">
+             x:Name="employeesUC">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -22,13 +21,13 @@
         <materialDesign:Card Grid.Row="0">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="7*" />
+                    <ColumnDefinition Width="200" />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Grid Grid.Column="0">
                     <Button
                         Height="30"
-                        Width="50"
+                        Width="100"
                         Margin="10 0 0 0"
                         Command="{Binding OpenInputDialogCommand}"
                         Background="ForestGreen"
@@ -47,15 +46,13 @@
                             materialDesign:HintAssist.Hint="Tìm Theo Tên"
                             materialDesign:TextFieldAssist.CharacterCounterVisibility="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedTextBoxTextCountComboBox, Converter={StaticResource BooleanToVisibilityConverter}}"
                             Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                            TextWrapping="Wrap" HorizontalAlignment="Center" Width="160" Height="54" VerticalAlignment="Bottom" />
+                            TextWrapping="Wrap" HorizontalAlignment="Center" Width="500" Height="50" VerticalAlignment="Bottom" />
                     </StackPanel>
                 </Grid>
             </Grid>
         </materialDesign:Card>
-
         <Grid Grid.Row="1">
-            <DataGrid 
-                MaxHeight="550"
+            <DataGrid                 
                 CanUserAddRows="False"
                 AutoGenerateColumns="False"
                 Background="White"

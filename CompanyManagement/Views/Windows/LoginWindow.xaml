@@ -3,8 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-        ResizeMode="NoResize"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"    
         WindowStartupLocation="CenterScreen"
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -13,44 +12,30 @@
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
-        Background="{DynamicResource MaterialDesignPaper}"
+        Background="White"
         FontFamily="{DynamicResource MaterialDesignFont}"
         Name="loginWindow"
         Height="800" Width="800">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition />
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
-            <Grid Width="auto">
-                <Button
-                    Margin="2,0"
-                    materialDesign:ButtonProgressAssist.IsIndeterminate="True"
-                    materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
-                    materialDesign:ButtonProgressAssist.Value="-1"
-                    Content="Company Management"
-                    IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-                    Style="{StaticResource MaterialDesignRaisedButton}" />
-            </Grid>
-        </Grid>
-        <materialDesign:Card Grid.Row="1" Width="500" Height="600" HorizontalAlignment="Center"
+       
+        <materialDesign:Card Width="500" Height="600"                             
+                             HorizontalAlignment="Center"
                              VerticalContentAlignment="Center">
             <Grid>
                 <Grid.Resources>
                     <Style TargetType="Grid">
-                        <Setter Property="Margin" Value="10 10 10 0" />
+                        <Setter Property="Margin" Value="10 20 10 0" />
                     </Style>
                 </Grid.Resources>
                 <Grid.RowDefinitions>
-                    <RowDefinition />
+                    <RowDefinition Height="100" />
                     <RowDefinition />
                     <RowDefinition />
                     <RowDefinition />
                     <RowDefinition />
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top">
-                    <TextBlock Text="Đăng Nhập" FontSize="20" FontWeight="ExtraBold" Foreground="Gray" />
+                    <TextBlock Text="Đăng Nhập" FontSize="24" Style="{StaticResource MaterialDesignButtonTextBlock}" FontWeight="ExtraBold" Foreground="Gray" />
                 </Grid>
                 <Grid Grid.Row="1">
                     <TextBox
