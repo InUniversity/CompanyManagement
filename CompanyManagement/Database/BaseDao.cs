@@ -32,9 +32,8 @@ namespace CompanyManagement.Database
         public const string POSITION_NAME = "position_name";
         
         protected const string PROJECT_ASSIGNMENT_TABLE = "ProjectAssignment";
-        protected const string PROJECT_ASSIGNMENT_PROJECT_ID = "project_id";
-        protected const string PROJECT_ASSIGNMENT_ROLE = "role";
-        protected const string PROJECT_ASSIGNMENT_DEPARTMENT_ID = "department_id";
+        public const string PROJECT_ASSIGNMENT_PROJECT_ID = "project_id";
+        public const string PROJECT_ASSIGNMENT_DEPARTMENT_ID = "department_id";
         
         protected const string PROJECT_TABLE = "Project";
         public const string PROJECT_ID = "project_id";

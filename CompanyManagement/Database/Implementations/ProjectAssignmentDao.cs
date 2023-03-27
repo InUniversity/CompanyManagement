@@ -6,6 +6,21 @@ namespace CompanyManagement.Database.Implementations
 {
     public class ProjectAssignmentDao : BaseDao, IProjectAssignmentDao
     {
+        public void Add(ProjectAssignment projectAssignment)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void Delete(ProjectAssignment projectAssignment)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void Update(ProjectAssignment projectAssignment)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public List<Department> GetAllDepartmentInProject(string projectID)
         {
             string sqlStr = $"SELECT * FROM {DEPARTMENT_TABLE} WHERE {DEPARTMENT_ID} IN(" +
