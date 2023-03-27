@@ -1,17 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Windows;
-using CompanyManagement.Database.Implementations;
 using CompanyManagement.Database.Interfaces;
 using CompanyManagement.Models;
 using CompanyManagement.Utilities;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
-    public class ProjectInputViewModel : BaseViewModel, IRetrieveProject
+    public interface IProjectInput
     {
-
+        Project CreateProjectInstance();
+        bool CheckAllFields();
+        void TrimAllTexts();
+        void RetrieveProject(Project project);
+    }
+    
+    public class ProjectInputViewModel : BaseViewModel, IProjectInput
+    {
+        
         private string id = "";
         public string ID { get => id; set { id = value; OnPropertyChanged(); } }
 
@@ -36,20 +42,18 @@ namespace CompanyManagement.ViewModels.UserControls
 
         public List<Department> Departments { get; set; }
 
-        private ProjectAssignmentDao projectAssignmentDao;
+        private IProjectAssignmentDao projectAssignmentDao;
 
-        private DepartmentDao departmentDao = new DepartmentDao();
-
-
-        public ProjectInputViewModel()
+        public ProjectInputViewModel(IProjectAssignmentDao projectAssignmentDao)
         {
-            Departments = new List<Department>(departmentDao.GetAll());
+            this.projectAssignmentDao = projectAssignmentDao;
+            Departments = new List<Department>();
         }
 
-        public void loadDepartmentsInProject(string projectID)
+        public void LoadDepartmentsInProject(string projectID)
         {
-            projectAssignmentDao = new ProjectAssignmentDao();
-            DepartmentsInProject = new ObservableCollection<Department>(projectAssignmentDao.GetAllDepartmentInProject(projectID));
+            var departments = projectAssignmentDao.GetAllDepartmentInProject(projectID);
+            DepartmentsInProject = new ObservableCollection<Department>(departments);
         }
 
         public Project CreateProjectInstance()
@@ -80,18 +84,13 @@ namespace CompanyManagement.ViewModels.UserControls
             progress = progress.Trim();
         }
 
-        public void Retrieve(Project project)
+        public void RetrieveProject(Project project)
         {
             ID = project.ID;
             Name = project.Name;
             Progress = project.Progress;
-            start = Utils.StringToDate(project.Start);
-            end = Utils.StringToDate(project.End);
+            Start = Utils.StringToDate(project.Start);
+            End = Utils.StringToDate(project.End);
         }
-    }
-
-    public interface IRetrieveProject
-    {
-        void Retrieve(Project project);
     }
 }

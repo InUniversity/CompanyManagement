@@ -7,5 +7,6 @@ namespace CompanyManagement.Database.Interfaces
     {
         List<Department> GetAllDepartmentInProject(string projectID);
         List<EmployeeAccount> GetEmployeesInProject(string projectID);
+        List<Department> GetDepartmentsCanAssignWork(string startTime, string endTime);
     }
 }
