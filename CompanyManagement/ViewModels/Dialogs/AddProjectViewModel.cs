@@ -15,11 +15,6 @@ namespace CompanyManagement.ViewModels.Dialogs
         public AddProjectViewModel(IProjectInput projectInput)
         {
             ProjectInputDataContext = projectInput;
-            SetCommands();
-        }
-
-        private void SetCommands()
-        {
             AddProjectCommand = new RelayCommand<Window>(AddCommand, CheckAllFields);
         }
 

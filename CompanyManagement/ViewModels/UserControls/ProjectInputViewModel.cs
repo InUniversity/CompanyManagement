@@ -30,29 +30,36 @@ namespace CompanyManagement.ViewModels.UserControls
         private DateTime end = DateTime.Now;
         public DateTime End { get => end; set { end = value; OnPropertyChanged(); } }
 
-        private string progress = "";
+        private string progress = "0";
         public string Progress { get => progress; set { progress = value; OnPropertyChanged(); } }
 
         private string errorMessage = "";
         public string ErrorMessage { get => errorMessage; set { errorMessage = value; OnPropertyChanged(); } }
 
         private ObservableCollection<Department> departmentsInProject;
-
         public ObservableCollection<Department> DepartmentsInProject { get => departmentsInProject; set { departmentsInProject = value; OnPropertyChanged(); } }
 
-        public List<Department> Departments { get; set; }
+        private ObservableCollection<Department> departmentsCanAssign;
+        public ObservableCollection<Department> Departments { get => departmentsInProject; set { departmentsCanAssign = value; OnPropertyChanged(); } }
 
         private IProjectAssignmentDao projectAssignmentDao;
 
         public ProjectInputViewModel(IProjectAssignmentDao projectAssignmentDao)
         {
             this.projectAssignmentDao = projectAssignmentDao;
-            Departments = new List<Department>();
+            LoadDepartmentsInProject();
+            LoadDepartmentsCanAssign();
         }
 
-        public void LoadDepartmentsInProject(string projectID)
+        private void LoadDepartmentsInProject()
         {
-            var departments = projectAssignmentDao.GetAllDepartmentInProject(projectID);
+            var departments = projectAssignmentDao.GetAllDepartmentInProject(ID);
+            DepartmentsInProject = new ObservableCollection<Department>(departments);
+        }
+
+        private void LoadDepartmentsCanAssign()
+        {
+            var departments = projectAssignmentDao.GetDepartmentsCanAssignWork(null, null);
             DepartmentsInProject = new ObservableCollection<Department>(departments);
         }
 
@@ -64,14 +71,14 @@ namespace CompanyManagement.ViewModels.UserControls
         public bool CheckAllFields()
         {
             ErrorMessage = "";
-            if (string.IsNullOrWhiteSpace(ID) || string.IsNullOrWhiteSpace(Name) || string.IsNullOrWhiteSpace(Progress))
+            if (string.IsNullOrWhiteSpace(Name))
             {
-                ErrorMessage = "Các thông tin không được để trống!!!";
+                ErrorMessage = "Tên không được để trống!!!";
                 return false;
             }
             if (End < start)
             {
-                ErrorMessage = "Thời gian kết thúc không hợp lệ!!!";
+                ErrorMessage = "Thời gian kết thúc phải lớn hơn ngày bắt đầu!!!";
                 return false;
             }
             return true;

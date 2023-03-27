@@ -16,7 +16,6 @@
              x:Name="projectsUC">
     <Grid MinWidth="500" MinHeight="600">
         <Border
-            Margin="0"
             Height="auto"
             BorderThickness="2"
             ClipToBounds="True">
@@ -84,7 +83,7 @@
                     VerticalAlignment="Bottom"
                     ToolTip="Thêm dự án mới"
                     Command="{Binding ElementName=projectsUC,Path=DataContext.OpenProjectInputCommand}"
-                    Content="{materialDesign:PackIcon Kind=Plus , Size=30}"
+                    Content="{materialDesign:PackIcon Kind=Plus, Size=30}"
                     Style="{StaticResource MaterialDesignFloatingActionMiniSecondaryButton}" />
             </Grid>
         </Border>

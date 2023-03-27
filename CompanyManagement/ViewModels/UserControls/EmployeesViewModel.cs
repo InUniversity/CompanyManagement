@@ -26,11 +26,11 @@ namespace CompanyManagement.ViewModels.UserControls
         public ObservableCollection<EmployeeAccount> SearchedEmployees { get => searchedEmployees; set { searchedEmployees = value; OnPropertyChanged(); } }
 
         private string textToSearch;
-        public string TextToSearch { get => textToSearch; set { textToSearch = value; OnPropertyChanged(); SearchByName();} }
+        public string TextToSearch { get => textToSearch; set { textToSearch = value; OnPropertyChanged(); SearchByName(); } }
 
-        public ICommand OpenInputDialogCommand { get; set; }
+        public ICommand OpenAddDialogCommand { get; set; }
         public ICommand DeleteEmployeeCommand { get; set; }
-        public ICommand UpdateEmployeeCommand { get; set; }
+        public ICommand OpenUpdateDialogCommand { get; set; }
 
         private IEmployeeAccountDao employeeAccountDao;
 
@@ -41,10 +41,6 @@ namespace CompanyManagement.ViewModels.UserControls
             SetCommands();
         }
 
-        public EmployeesViewModel()
-        {
-        }
-
         private void LoadEmployees()
         {
             employees = employeeAccountDao.GetAll();
@@ -53,9 +49,9 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void SetCommands()
         {
-            OpenInputDialogCommand = new RelayCommand<object>(OpenAddEmployeeDialog);
+            OpenAddDialogCommand = new RelayCommand<object>(OpenAddEmployeeDialog);
             DeleteEmployeeCommand = new RelayCommand<string>(ExecuteDeleteCommand);
-            UpdateEmployeeCommand = new RelayCommand<EmployeeAccount>(OpenUpdateEmployeeDialog);
+            OpenUpdateDialogCommand = new RelayCommand<EmployeeAccount>(OpenUpdateEmployeeDialog);
         }
 
         private void SearchByName()
