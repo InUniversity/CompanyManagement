@@ -14,8 +14,8 @@
              mc:Ignorable="d">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="750" />
-            <ColumnDefinition Width="750" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Border Grid.Column="0" BorderThickness="5">
             <uc:ProjectsUC           

@@ -1,0 +1,63 @@
+﻿<UserControl x:Class="CompanyManagement.Views.UserControls.SettingsUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"           
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:uc="clr-namespace:CompanyManagement.Views.UserControls"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.FontWeight="Regular"
+             TextElement.FontSize="13"
+             TextOptions.TextFormattingMode="Ideal"
+             TextOptions.TextRenderingMode="Auto"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="1000">
+    <Border BorderBrush="Teal" BorderThickness="3">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Border   Grid.Column="0" BorderThickness="3" Margin="10" Background="White">
+                <StackPanel>
+                    <RadioButton 
+                            IsChecked="True"
+                            Height="50"
+                            BorderBrush="{DynamicResource PrimaryHueMidBrush}"
+                            Style="{StaticResource MaterialDesignTabRadioButtonRight}">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="AccountCog" />
+                            <TextBlock Text="Account" Margin="25 0"></TextBlock>
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton 
+                            IsChecked="False"
+                            Height="50"
+                            BorderBrush="{DynamicResource PrimaryHueMidBrush}"
+                            Style="{StaticResource MaterialDesignTabRadioButtonRight}">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="InvertColors" />
+                            <TextBlock Text="Color Tool" Margin="20 0"></TextBlock>
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton     
+                            IsChecked="False"
+                            Height="50"
+                            BorderBrush="{DynamicResource PrimaryHueMidBrush}"
+                            Style="{StaticResource MaterialDesignTabRadioButtonRight}">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="WrenchCogOutline" />
+                            <TextBlock Text="Others" Margin="30 0"></TextBlock>
+                        </StackPanel>
+                    </RadioButton>
+                </StackPanel>
+            </Border>
+            <Border Grid.Column="1" >
+                <ContentControl>
+                    
+                </ContentControl>
+            </Border>
+        </Grid>
+    </Border>
+    
+</UserControl>

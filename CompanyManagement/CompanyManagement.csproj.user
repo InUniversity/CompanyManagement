@@ -10,6 +10,15 @@
     <Compile Update="Views\Dialogs\AddProjectDialog.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\UserControls\NotifyUC.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\UserControls\SettingsUC.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\UserControls\WorkSheduleUC.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\Windows\LoginWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -19,6 +28,15 @@
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\Dialogs\AddProjectDialog.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\UserControls\NotifyUC.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\UserControls\SettingsUC.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\UserControls\WorkSheduleUC.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Windows\LoginWindow.xaml">

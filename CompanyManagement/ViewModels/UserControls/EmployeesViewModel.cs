@@ -32,6 +32,10 @@ namespace CompanyManagement.ViewModels.UserControls
             SetCommands();
         }
 
+        public EmployeesViewModel()
+        {
+        }
+
         private void LoadEmployees()
         {
             Employees = new ObservableCollection<EmployeeAccount>(employeeAccountDao.GetAll());

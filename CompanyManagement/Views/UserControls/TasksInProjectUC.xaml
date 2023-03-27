@@ -13,11 +13,11 @@
              Background="{DynamicResource MaterialDesignPaper}"
              FontFamily="{DynamicResource MaterialDesignFont}"
              mc:Ignorable="d">
-    <Grid MinHeight="700" MinWidth="700">
+    <Grid MinHeight="600" MinWidth="600">
         <DataGrid CanUserAddRows="False"
                   AutoGenerateColumns="False"
                   Background="White"
-                  ItemsSource="{Binding TasksInProject}" Height="700" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="700">
+                  ItemsSource="{Binding TasksInProject}">
             <DataGrid.Columns>
                 <DataGridTemplateColumn Header="Operations"
                                         CanUserResize="False"
