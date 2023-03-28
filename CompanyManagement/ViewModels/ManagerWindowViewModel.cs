@@ -33,6 +33,7 @@ namespace CompanyManagement.ViewModels
             ShowWorkSheduleView = new RelayCommand<object>(ExecuteShowWorkSheduleView);
             ShowNotifytView = new RelayCommand<object>(ExecuteShowNotifyView);
             ShowSettingsView = new RelayCommand<object>(ExecuteShowSettingsView);
+
         }
 
         private void ExecuteShowSettingsView(object obj)

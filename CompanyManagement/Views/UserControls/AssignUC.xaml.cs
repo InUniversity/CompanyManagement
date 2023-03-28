@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using CompanyManagement.ViewModels.UserControls;
+using System.Windows.Controls;
 
 namespace CompanyManagement.Views.UserControls;
 
@@ -10,5 +11,6 @@ public partial class AssignUC : UserControl
     public AssignUC()
     {
         InitializeComponent();
+        DataContext = new AssignViewModel();
     }
 }
