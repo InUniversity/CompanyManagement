@@ -10,13 +10,13 @@ namespace CompanyManagement.Database.Implementations
         public void Add(TaskStatus taskStatus)
         {
             string sqlStr = $"INSERT INTO {TASK_STATUS_TABLE} ({TASK_STATUS_ID}, {TASK_STATUS_NAME})" +
-                            $"VALUE({taskStatus.ID}, {taskStatus.Name})";
+                            $"VALUE('{taskStatus.ID}', '{taskStatus.Name}')";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
         public void Delete(string taskStatusID)
         {
-            string sqlStr = $"DELETE FROM {TASK_STATUS_TABLE} WHERE {TASK_STATUS_ID} = {taskStatusID}";
+            string sqlStr = $"DELETE FROM {TASK_STATUS_TABLE} WHERE {TASK_STATUS_ID} = '{taskStatusID}'";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
@@ -31,8 +31,8 @@ namespace CompanyManagement.Database.Implementations
 
         public void Update(TaskStatus taskStatus)
         {
-            string sqlStr = $"UPDATE {TASK_STATUS_TABLE} SET {TASK_STATUS_NAME} = {taskStatus.Name}, " +
-                            $"WHERE {TASK_STATUS_ID} = {taskStatus.ID};";
+            string sqlStr = $"UPDATE {TASK_STATUS_TABLE} SET {TASK_STATUS_NAME} = '{taskStatus.Name}', " +
+                            $"WHERE {TASK_STATUS_ID} = '{taskStatus.ID}';";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
