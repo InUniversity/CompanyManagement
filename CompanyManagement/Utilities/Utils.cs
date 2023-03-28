@@ -17,17 +17,18 @@ namespace CompanyManagement.Utilities
         public const string EXIST_PHONE_NUMBER_MESSAGE = "Số điện thoại đã tồn tại!!!";
 
         private const string FORMAT_DATEONLY = "dd-MM-yyyy";
-        private const string FORMAT_DATETIME = "dd-MM-yyyy hh:mm TT";
+        private const string FORMAT_DATETIME = "dd-MM-yyyy hh:mm tt";
         
         public static string DateToString(DateTime dateOnly)
         {
             return dateOnly.ToString(FORMAT_DATEONLY);
         }
 
-        public static DateTime StringToDate(string dateOnly)
+        public static DateTime StringToDate(string dateOnlyStr)
         {
-            if (string.IsNullOrWhiteSpace(dateOnly)) return DateTime.Now;
-            return DateTime.ParseExact(dateOnly, FORMAT_DATEONLY, CultureInfo.InvariantCulture); 
+            DateTime result;
+            bool canParse = DateTime.TryParseExact(dateOnlyStr, FORMAT_DATEONLY, CultureInfo.CurrentCulture, DateTimeStyles.None, out result);
+            return canParse ? result : DateTime.Now;
         }
         
         public static string DateTimeToString(DateTime dateTime)
@@ -35,10 +36,11 @@ namespace CompanyManagement.Utilities
             return dateTime.ToString(FORMAT_DATETIME);
         }
 
-        public static DateTime StringToDateTime(string dateTime)
+        public static DateTime StringToDateTime(string dateTimeStr)
         {
-            if (string.IsNullOrWhiteSpace(dateTime)) return DateTime.Now;
-            return DateTime.ParseExact(dateTime, FORMAT_DATETIME, CultureInfo.InvariantCulture);
+            DateTime result;
+            bool canParse = DateTime.TryParseExact(dateTimeStr, FORMAT_DATETIME, CultureInfo.CurrentCulture, DateTimeStyles.None, out result);
+            return canParse ? result : DateTime.Now;
         }
     }
 }
