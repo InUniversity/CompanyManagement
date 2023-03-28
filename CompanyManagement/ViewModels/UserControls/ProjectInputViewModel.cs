@@ -40,7 +40,7 @@ namespace CompanyManagement.ViewModels.UserControls
         public ObservableCollection<Department> DepartmentsInProject { get => departmentsInProject; set { departmentsInProject = value; OnPropertyChanged(); } }
 
         private ObservableCollection<Department> departmentsCanAssign;
-        public ObservableCollection<Department> Departments { get => departmentsInProject; set { departmentsCanAssign = value; OnPropertyChanged(); } }
+        public ObservableCollection<Department> DepartmentsCanAssign { get => departmentsCanAssign; set { departmentsCanAssign = value; OnPropertyChanged(); } }
 
         private IProjectAssignmentDao projectAssignmentDao;
 
@@ -59,7 +59,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void LoadDepartmentsCanAssign()
         {
-            var departments = projectAssignmentDao.GetDepartmentsCanAssignWork(null, null);
+            var departments = projectAssignmentDao.GetDepartmentsCanAssignWork("03/12/2000 12:00 AM", "03/12/2022 12:00 AM");
             DepartmentsInProject = new ObservableCollection<Department>(departments);
         }
 

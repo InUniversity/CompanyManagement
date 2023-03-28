@@ -17,7 +17,7 @@ namespace CompanyManagement.Utilities
         public const string EXIST_PHONE_NUMBER_MESSAGE = "Số điện thoại đã tồn tại!!!";
 
         private const string FORMAT_DATEONLY = "dd-MM-yyyy";
-        private const string FORMAT_DATETIME = "dd-MM-yy hh:mm tt";
+        private const string FORMAT_DATETIME = "dd-MM-yy hh:mm TT";
         
         public static string DateToString(DateTime dateOnly)
         {
