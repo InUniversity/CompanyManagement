@@ -10,6 +10,9 @@
     <Compile Update="Views\Dialogs\AddProjectDialog.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\UserControls\MenuInProjectUC.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\UserControls\NotifyUC.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -28,6 +31,9 @@
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\Dialogs\AddProjectDialog.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\UserControls\MenuInProjectUC.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\UserControls\NotifyUC.xaml">

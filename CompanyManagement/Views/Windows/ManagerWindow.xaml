@@ -18,7 +18,7 @@
         WindowStartupLocation="CenterScreen"
         Height="700" Width="1200" MinHeight="600" MinWidth="600">
     <Grid>
-        <materialDesign:DrawerHost>
+        <materialDesign:DrawerHost >
             <materialDesign:DrawerHost.LeftDrawerContent >
                 <Border CornerRadius="30" BorderThickness="1">
                     <StackPanel Width="200">
@@ -49,7 +49,7 @@
                             Style="{StaticResource MaterialDesignTabRadioButtonRight}" >
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="Briefcase" />
-                                <TextBlock Text="Công việc" Margin="25 0"></TextBlock>
+                                <TextBlock Text="Dự án" Margin="38 0"></TextBlock>
                             </StackPanel>
                         </RadioButton>
                         <RadioButton
