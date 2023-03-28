@@ -15,19 +15,19 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         x:Name="addTaskDialog"
         mc:Ignorable="d"
-        Title="AddTaskDialog" Height="700" Width="600">
+        Title="AddTaskDialog" Height="821" Width="600">
     <Grid>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />
-            <RowDefinition Height="513" />
+            <RowDefinition Height="634" />
             <RowDefinition Height="80" />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" Height="60">
             <TextBlock Text="Thêm nhiệm vụ mới" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center"
                        FontWeight="ExtraBold" />
         </Grid>
-        <Grid Grid.Row="1" Height="513">
+        <Grid Grid.Row="1" Height="634">
             <uc:TaskInputUC DataContext="{Binding TaskInputDataContext}" />
         </Grid>
         <Grid Grid.Row="2" Height="80">

@@ -3,6 +3,9 @@ using CompanyManagement.Utilities;
 using System;
 using System.Collections.ObjectModel;
 using CompanyManagement.Database.Interfaces;
+using System.Collections.Generic;
+using System.Runtime.InteropServices;
+using CompanyManagement.Database.Implementations;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
@@ -35,22 +38,35 @@ namespace CompanyManagement.ViewModels.UserControls
         private string projectID = "";
         public string ProjectID { get => projectID; set { projectID = value; OnPropertyChanged(); } }
 
+        private int statusID = 1;
+        public int StatusID { get => statusID; set { statusID = value; OnPropertyChanged(); } }
+
         private string errorMessage = "";
         public string ErrorMessage { get => errorMessage; set { errorMessage = value; OnPropertyChanged(); } }
 
         private ObservableCollection<EmployeeAccount> employees;
         public ObservableCollection<EmployeeAccount> Employees { get => employees; set { employees = value; OnPropertyChanged(); } }
 
+        public List<TaskStatus> TaskStatuses { get; set; }
+
+        private ITaskStatusDao taskStatusDao;
         private IProjectAssignmentDao assignmentDao;
 
-        public TaskInputViewModel(IProjectAssignmentDao assignmentDao)
+        public TaskInputViewModel(IProjectAssignmentDao assignmentDao, ITaskStatusDao taskStatusDao)
         {
+            this.taskStatusDao = taskStatusDao;
             this.assignmentDao = assignmentDao;
+            SetAllComboBox();
         }
+
+        private void SetAllComboBox()
+        {
+            TaskStatuses = taskStatusDao.GetAll();
+        }    
 
         public TaskInProject CreateTaskInProjectInstance()
         {
-            return new TaskInProject(ID, Title, Description, Utils.DateTimeToString(AssignDate), Utils.DateTimeToString(Deadline), Progress, CreateBy, EmployeeID, ProjectID);
+            return new TaskInProject(id, title, description, Utils.DateTimeToString(assignDate), Utils.DateTimeToString(deadline), progress, createBy, employeeID, projectID, statusID);
         }
 
         public bool CheckAllFields()
@@ -89,6 +105,7 @@ namespace CompanyManagement.ViewModels.UserControls
             progress = taskinproject.Progress;
             employeeID = taskinproject.EmployeeID;
             projectID = taskinproject.ProjectID;
+            statusID = taskinproject.Status;
             Employees = new ObservableCollection<EmployeeAccount>(assignmentDao.GetEmployeesInProject(taskinproject.ProjectID));
         }
     }

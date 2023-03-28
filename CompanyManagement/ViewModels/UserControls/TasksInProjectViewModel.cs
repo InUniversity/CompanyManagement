@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using CompanyManagement.Database.Interfaces;
 using CompanyManagement.ViewModels.Dialogs;
+using System.Windows;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
@@ -25,11 +26,13 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private ITaskInProjectDao taskInProjectDao;
         private IProjectAssignmentDao projectAssignmentDao;
+        private ITaskStatusDao taskStatusDao;
 
-        public TasksInProjectViewModel(ITaskInProjectDao taskInProjectDao, IProjectAssignmentDao projectAssignmentDao)
+        public TasksInProjectViewModel(ITaskInProjectDao taskInProjectDao, IProjectAssignmentDao projectAssignmentDao, ITaskStatusDao taskStatusDao)
         {
             this.taskInProjectDao = taskInProjectDao;
             this.projectAssignmentDao = projectAssignmentDao;
+            this.taskStatusDao = taskStatusDao;
             LoadTaskInProjects();
             SetCommands();
         }
@@ -37,7 +40,7 @@ namespace CompanyManagement.ViewModels.UserControls
         private TaskInProject CreateTaskInProjectInstance()
         {
             return new TaskInProject(AutoGenerateID(), "", "", "", "", "",
-                SingletonEmployee.Instance.CurrentEmployeeAccount.ID, "", projectID);
+                SingletonEmployee.Instance.CurrentEmployeeAccount.ID, "", projectID, 1);
         }
 
         private void LoadTaskInProjects()
@@ -77,12 +80,19 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void ExecuteAddCommand(TaskInProject task)
         {
-            AddTaskDialog addTaskDialog = new AddTaskDialog();
-            AddTaskViewModel addTaskViewModel = (AddTaskViewModel)addTaskDialog.DataContext;
-            addTaskViewModel.ParentDataContext = this;
-            task = CreateTaskInProjectInstance();
-            addTaskViewModel.TaskInputDataContext.Retrieve(task);
-            addTaskDialog.ShowDialog();
+            try
+            {
+                AddTaskDialog addTaskDialog = new AddTaskDialog();
+                AddTaskViewModel addTaskViewModel = (AddTaskViewModel)addTaskDialog.DataContext;
+                addTaskViewModel.ParentDataContext = this;
+                task = CreateTaskInProjectInstance();
+                addTaskViewModel.TaskInputDataContext.Retrieve(task);
+                addTaskDialog.ShowDialog();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void ExecuteDeleteCommand(string id)
