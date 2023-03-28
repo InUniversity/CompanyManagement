@@ -41,6 +41,7 @@ namespace CompanyManagement.Database
         public const string PROJECT_START = "create_time";
         public const string PROJECT_END = "end_time";
         public const string PROJECT_PROPRESS = "progress";
+        public const string PROJECT_STATUS_ID = "project_status_id";
         
         protected const string TASK_TABLE = "Task";
         public const string TASK_ID = "task_id";
@@ -52,6 +53,21 @@ namespace CompanyManagement.Database
         public const string TASK_PROGRESS = "progress";
         public const string TASK_EMPLOYEE_ID = "employee_id";
         public const string TASK_PROJECT_ID = "project_id";
+        public const string TASK_STATUS_ID = "task_status_id";
+
+        protected const string TIME_KEEPING_TABLE = "TimeKeeping";
+        public const string TIME_KEEPING_TASK_ID = "task_id";
+        public const string TIME_KEEPING_START_TIME = "start_time";
+        public const string TIME_KEEPING_END_TIME = "end_time";
+        public const string TIME_KEEPING_EMPLOYEE_ID = "employee_id";
+        public const string TIME_KEEPING_NOTES = "Notes";
+        public const string TIME_KEEPING_CREATE_BY = "create_by";
+
+        protected const string PROJECT_STATUS_TABLE = "ProjectStatus";
+        public const string PROJECT_STATUS_NAME = "project_status_id";
+
+        protected const string TASK_STATUS_TABLE = "TaskStatus";
+        public const string TASK_STATUS_NAME = "task_status_id";
         
         protected DBConnection dbConnection = new DBConnection();
     }

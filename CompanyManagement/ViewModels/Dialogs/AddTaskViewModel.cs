@@ -23,7 +23,7 @@ namespace CompanyManagement.ViewModels.Dialogs
 
         public void SetCommands()
         {
-            TaskInputDataContext = new TaskInputViewModel(new ProjectAssignmentDao());
+            TaskInputDataContext = new TaskInputViewModel(new ProjectAssignmentDao(), new TaskStatusDao());
             AddTaskCommand = new RelayCommand<Window>(AddCommand);
         }
 

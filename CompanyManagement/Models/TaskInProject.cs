@@ -17,6 +17,7 @@ namespace CompanyManagement.Models
         private string createBy;
         private string employeeID;
         private string projectID;
+        private int status;
         
         public string ID
         {
@@ -72,9 +73,15 @@ namespace CompanyManagement.Models
             set { projectID = value; }
         }
 
+        public int Status
+        {
+            get { return status; }
+            set { status = value; }
+        }
+
         public TaskInProject() { }
 
-        public TaskInProject(string id, string title, string description, string assignDate, string deadline, string progress, string createBy, string employeeID, string projectID)
+        public TaskInProject(string id, string title, string description, string assignDate, string deadline, string progress, string createBy, string employeeID, string projectID, int status)
         {
             this.id = id;
             this.title = title;
@@ -84,7 +91,8 @@ namespace CompanyManagement.Models
             this.progress = progress;
             this.createBy = createBy;
             this.employeeID = employeeID;
-            this.projectID = projectID;          
+            this.projectID = projectID;
+            this.status = status;
         }
 
         public TaskInProject(SqlDataReader reader)
@@ -100,6 +108,7 @@ namespace CompanyManagement.Models
                 progress = (string)reader[BaseDao.TASK_PROGRESS];
                 employeeID = (string)reader[BaseDao.TASK_EMPLOYEE_ID];
                 projectID = (string)reader[BaseDao.TASK_PROJECT_ID];
+                status = (int)reader[BaseDao.TASK_STATUS_ID];
             }
             catch(Exception ex)
             {
