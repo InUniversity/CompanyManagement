@@ -33,6 +33,9 @@ namespace CompanyManagement.ViewModels.UserControls
         private string progress = "0";
         public string Progress { get => progress; set { progress = value; OnPropertyChanged(); } }
 
+        private int projectStatus = 1;
+        public int ProjectStatus { get => projectStatus; set { projectStatus = value; OnPropertyChanged(); } }  
+
         private string errorMessage = "";
         public string ErrorMessage { get => errorMessage; set { errorMessage = value; OnPropertyChanged(); } }
 
@@ -42,13 +45,22 @@ namespace CompanyManagement.ViewModels.UserControls
         private ObservableCollection<Department> departmentsCanAssign;
         public ObservableCollection<Department> DepartmentsCanAssign { get => departmentsCanAssign; set { departmentsCanAssign = value; OnPropertyChanged(); } }
 
-        private IProjectAssignmentDao projectAssignmentDao;
+        public List<ProjectStatus> ProjectStatuses { get; set; }
 
-        public ProjectInputViewModel(IProjectAssignmentDao projectAssignmentDao)
+        private IProjectAssignmentDao projectAssignmentDao;
+        private IProjectStatusDao projectStatusDao;
+
+        public ProjectInputViewModel(IProjectAssignmentDao projectAssignmentDao, IProjectStatusDao projectStatusDao)
         {
+            this.projectStatusDao = projectStatusDao;
             this.projectAssignmentDao = projectAssignmentDao;
             LoadDepartmentsInProject();
             LoadDepartmentsCanAssign();
+        }
+
+        public void SetAllComboBox()
+        {
+            ProjectStatuses = projectStatusDao.GetAll();
         }
 
         private void LoadDepartmentsInProject()
@@ -65,7 +77,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         public Project CreateProjectInstance()
         {
-            return new Project(ID, Name, Utils.DateToString(Start), Utils.DateToString(End), Progress);
+            return new Project(id, name, Utils.DateToString(start), Utils.DateToString(end), progress, projectStatus);
         }
 
         public bool CheckAllFields()

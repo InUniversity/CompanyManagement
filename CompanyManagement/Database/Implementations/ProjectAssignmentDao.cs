@@ -41,7 +41,7 @@ namespace CompanyManagement.Database.Implementations
                             $"Select {PROJECT_ASSIGNMENT_DEPARTMENT_ID} FROM {PROJECT_ASSIGNMENT_TABLE} " +
                             $"WHERE {PROJECT_ASSIGNMENT_PROJECT_ID} IN (" +
                             $"Select {PROJECT_ID} FROM {PROJECT_TABLE}" +
-                            $"WHERE {PROJECT_PROPRESS} <> '100'" +
+                            $"WHERE {PROJECT_PROPRESS} != '100'" +
                             $"AND {PROJECT_START} <= '{endTime}'" +
                             $"AND {PROJECT_END} >= '{startTime}'))";
             return dbConnection.GetList(sqlStr, reader => new Department(reader));

@@ -81,13 +81,13 @@
             </Grid>
         </Grid>
         <Canvas Height="40">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Tiến độ: " Margin="0 0 0 10" />
+            <StackPanel Orientation="Horizontal" Margin="20 5" VerticalAlignment="Bottom">
+                <TextBlock Text="Tiến độ: "/>
                 <TextBlock Text="{Binding Progress}"></TextBlock>
                 <TextBlock Text="%"></TextBlock>
             </StackPanel>
         </Canvas>
-        <materialDesign:DialogHost CornerRadius="20" CloseOnClickAway="True">
+        <materialDesign:DialogHost CornerRadius="20" CloseOnClickAway="True" Margin="10">
             <materialDesign:DialogHost.DialogContent>
                 <StackPanel Width="300" Height="300">
                     <Grid Height="60" Margin="5">
@@ -170,8 +170,25 @@
                     </StackPanel>
                 </ScrollViewer>
             </StackPanel>
-
         </Border>
+        <Grid>
+            <StackPanel Orientation="Horizontal">
+                <ComboBox
+                    Width="645"
+                    ItemsSource="{Binding ProjectStatuses}"
+                    SelectedValue="{Binding ProjectStatus}"
+                    SelectedValuePath="ID"
+                    Margin="20 5"
+                    materialDesign:HintAssist.Hint="Trạng thái"
+                    Style="{StaticResource MaterialDesignOutlinedComboBox}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
+        </Grid>
         <Grid Margin="10" Height="30">
             <TextBlock Text="{Binding ErrorMessage}"
                        HorizontalAlignment="Center"
