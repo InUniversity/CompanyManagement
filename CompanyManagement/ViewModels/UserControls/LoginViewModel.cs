@@ -38,16 +38,17 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void ExecuteLoginCommand(Window loginWindow)
         {
-            EmployeeAccount employeeAccount = employeeAccountDao.SearchByUsername(Username);
-            if (employeeAccount == null || !string.Equals(password, employeeAccount.EmplAccount.Password))
-            {
-                MessageBox.Show(Utils.INVALIDATE_USERNAME_PASSWORD_MESSAGE);
-                return;
-            }
-            SingletonEmployee.Instance.CurrentEmployeeAccount = employeeAccount;
-            Window nextWindow = string.Equals(employeeAccount.PositionID, BaseDao.MANAGERIAL_POSITION_ID)
-                ? new ManagerWindow() : new EmployeeWindow();
-            nextWindow.Show();
+            // EmployeeAccount employeeAccount = employeeAccountDao.SearchByUsername(Username);
+            // if (employeeAccount == null || !string.Equals(password, employeeAccount.EmplAccount.Password))
+            // {
+            //     MessageBox.Show(Utils.INVALIDATE_USERNAME_PASSWORD_MESSAGE);
+            //     return;
+            // }
+            // SingletonEmployee.Instance.CurrentEmployeeAccount = employeeAccount;
+            // Window nextWindow = string.Equals(employeeAccount.PositionID, BaseDao.MANAGERIAL_POSITION_ID)
+            //     ? new ManagerWindow() : new EmployeeWindow();
+            // nextWindow.Show();
+            new ManagerWindow().Show();
             loginWindow.Close();
         }
 

@@ -1,18 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Windows;
 using CompanyManagement.Database;
+using CompanyManagement.Models;
+using CompanyManagement.Utilities;
 
 namespace CompanyManagement
 {
     public class Project
     {
-
-        private string id;
-        private string name;
-        private string start;
-        private string end;
-        private string progress;
+        private string id = "";
+        private string name = "";
+        private string start = "";
+        private string end = "";
+        private string progress = "0";
 
         public string ID
         {
@@ -53,6 +55,11 @@ namespace CompanyManagement
             this.start = start;
             this.end = end;
             this.progress = progress;
+        }
+
+        public Project(string id)
+        {
+            this.id = id;
         }
 
         public Project(SqlDataReader reader)

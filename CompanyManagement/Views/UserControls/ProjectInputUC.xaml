@@ -4,7 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:uc="clr-namespace:CompanyManagement.Views.UserControls"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              TextElement.FontWeight="Regular"
              TextElement.FontSize="13"
@@ -14,39 +13,41 @@
              Background="White"
              FontFamily="{DynamicResource MaterialDesignFont}"
              mc:Ignorable="d">
-    <StackPanel >
+    <StackPanel>
         <TextBox
-            Text="{Binding Name}"
+            Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
             Background="White"
             Margin="20 5"
             IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedTextBoxEnabledComboBox}"
             Style="{StaticResource MaterialDesignOutlinedTextBox}"
             materialDesign:HintAssist.Hint="Tên dự án" />
         <TextBox
+            IsReadOnly="True"
             Text="{Binding ID}"
             Background="White"
             IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedTextBoxEnabledComboBox}"
             Margin="20 5"
             Style="{StaticResource MaterialDesignOutlinedTextBox}"
             materialDesign:HintAssist.Hint="Mã dự án" />
-        <Grid >
+        <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
                 <DatePicker
-                    SelectedDate="{Binding Start}"               
+                    SelectedDate="{Binding Start}"
                     Margin="10"
-                     Width="310"
+                    Width="310"
                     HorizontalAlignment="Center"
                     materialDesign:HintAssist.Hint="Ngày bắt đầu"
                     Style="{StaticResource MaterialDesignOutlinedDatePicker}" />
             </Grid>
             <Grid Grid.Column="1">
                 <materialDesign:TimePicker
+                    SelectedTime="{Binding Start}"
                     Margin="10"
-                     Width="310"
+                    Width="310"
                     HorizontalAlignment="Center"
                     materialDesign:HintAssist.Hint="Giờ bắt đầu"
                     Is24Hours="True"
@@ -54,7 +55,7 @@
             </Grid>
 
         </Grid>
-        <Grid >
+        <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
@@ -69,22 +70,23 @@
                     Style="{StaticResource MaterialDesignOutlinedDatePicker}" />
             </Grid>
             <Grid Grid.Column="1">
-                <materialDesign:TimePicker                
-                    Margin="10"       
-                     Width="310"
+                <materialDesign:TimePicker
+                    SelectedTime="{Binding End}"
+                    Margin="10"
+                    Width="310"
                     HorizontalAlignment="Center"
                     materialDesign:HintAssist.Hint="Giờ kết thúc"
                     Is24Hours="True"
                     Style="{StaticResource MaterialDesignOutlinedTimePicker}" />
             </Grid>
         </Grid>
-
-        <TextBox
-            Text="{Binding Progress}"
-            Margin="20 5"
-            IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedTextBoxEnabledComboBox}"
-            Style="{StaticResource MaterialDesignOutlinedTextBox}"
-            materialDesign:HintAssist.Hint="Trạng thái" />
+        <Canvas Height="40">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Tiến độ: " Margin="0 0 0 10" />
+                <TextBlock Text="{Binding Progress}"></TextBlock>
+                <TextBlock Text="%"></TextBlock>
+            </StackPanel>
+        </Canvas>
         <materialDesign:DialogHost CornerRadius="20" CloseOnClickAway="True">
             <materialDesign:DialogHost.DialogContent>
                 <StackPanel Width="300" Height="300">
@@ -94,59 +96,64 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <Button Grid.Column="0"
-                            Margin="10 5"
-                            Style="{StaticResource MaterialDesignIconButton}">
+                                Margin="10 5"
+                                Style="{StaticResource MaterialDesignIconButton}">
                             <materialDesign:PackIcon Kind="Magnify" />
                         </Button>
                         <TextBox Grid.Column="1"
-                             Margin="20 5"
-                             Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+                                 Margin="20 5"
+                                 Style="{StaticResource MaterialDesignOutlinedTextBox}" />
                     </Grid>
-                    <ListView Height="150" Margin="5" ItemsSource="{Binding ElementName=projectInputUC,Path=DataContext.Departments}">
-                        <ListView.ItemTemplate >
+                    <ListView Height="150" Margin="5"
+                              ItemsSource="{Binding ElementName=projectInputUC,Path=DataContext.DepartmentsCanAssign}">
+                        <ListView.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Name }"></TextBlock>
+                                <TextBlock Text="{Binding Name}" />
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
                     <Grid Margin="5">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
                         </Grid.ColumnDefinitions>
-                        <Button Width="100"                        
-                        Content="Add"
-                        Grid.Column="0"
-                        Style="{StaticResource MaterialDesignIconButton}" />
                         <Button Width="100"
-                        Content="Finish"
-                        Grid.Column="1"
-                        Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
-                        Style="{StaticResource MaterialDesignIconButton}" />
+                                Content="Add"
+                                Grid.Column="0"
+                                Style="{StaticResource MaterialDesignIconButton}" />
+                        <Button Width="100"
+                                Content="Finish"
+                                Grid.Column="1"
+                                Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                                Style="{StaticResource MaterialDesignIconButton}" />
                     </Grid>
-                    
+
                 </StackPanel>
             </materialDesign:DialogHost.DialogContent>
             <Canvas Height="40">
-                <TextBlock Text="Phòng ban:" Margin="10"></TextBlock>
-                <Button  Style="{StaticResource MaterialDesignIconButton}"  Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" Canvas.Right="5">
+                <TextBlock Text="Phòng ban:" Margin="10" />
+                <Button Style="{StaticResource MaterialDesignIconButton}"
+                        Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" Canvas.Right="5">
                     <materialDesign:PackIcon Kind="PlaylistPlus" />
                 </Button>
             </Canvas>
         </materialDesign:DialogHost>
-        
+
         <Border BorderBrush="Black" BorderThickness="0.5" Margin="20 25" Height="100">
             <StackPanel>
                 <ScrollViewer Height="auto">
                     <StackPanel>
-                        <Border Margin="5"  BorderThickness="1">
-                            <ItemsControl ItemsSource="{Binding ElementName=projectInputUC,Path=DataContext.DepartmentsInProject}" >
+                        <Border Margin="5" BorderThickness="1">
+                            <ItemsControl
+                                ItemsSource="{Binding ElementName=projectInputUC,Path=DataContext.DepartmentsInProject}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
-                                        <Border Width="180" Height="50" CornerRadius="5"  BorderBrush="Black" BorderThickness="0.5" Margin="10" HorizontalAlignment="Center" >
+                                        <Border Width="180" Height="50" CornerRadius="5" BorderBrush="Black"
+                                                BorderThickness="0.5" Margin="10" HorizontalAlignment="Center">
                                             <Canvas>
-                                                <TextBlock  Margin="15" Text="{Binding Name}" ></TextBlock>
-                                                <Button Style="{StaticResource MaterialDesignIconButton}" Canvas.Right="0">
+                                                <TextBlock Margin="15" Text="{Binding Name}" />
+                                                <Button Style="{StaticResource MaterialDesignIconButton}"
+                                                        Canvas.Right="0">
                                                     <materialDesign:PackIcon Kind="Close" Foreground="Black" />
                                                 </Button>
                                             </Canvas>
@@ -155,7 +162,7 @@
                                 </ItemsControl.ItemTemplate>
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
-                                        <WrapPanel></WrapPanel>
+                                        <WrapPanel />
                                     </ItemsPanelTemplate>
                                 </ItemsControl.ItemsPanel>
                             </ItemsControl>
@@ -163,11 +170,11 @@
                     </StackPanel>
                 </ScrollViewer>
             </StackPanel>
-           
+
         </Border>
         <Grid Margin="10" Height="30">
-            <TextBlock Text="{Binding ErrorMessage}" 
-                       HorizontalAlignment="Center" 
+            <TextBlock Text="{Binding ErrorMessage}"
+                       HorizontalAlignment="Center"
                        VerticalAlignment="Center"
                        Foreground="Red" />
         </Grid>

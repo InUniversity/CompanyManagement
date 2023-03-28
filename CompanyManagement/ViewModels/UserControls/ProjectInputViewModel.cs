@@ -1,17 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Windows;
-using CompanyManagement.Database.Implementations;
 using CompanyManagement.Database.Interfaces;
 using CompanyManagement.Models;
 using CompanyManagement.Utilities;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
-    public class ProjectInputViewModel : BaseViewModel, IRetrieveProject
+    public interface IProjectInput
     {
-
+        Project CreateProjectInstance();
+        bool CheckAllFields();
+        void TrimAllTexts();
+        void RetrieveProject(Project project);
+    }
+    
+    public class ProjectInputViewModel : BaseViewModel, IProjectInput
+    {
+        
         private string id = "";
         public string ID { get => id; set { id = value; OnPropertyChanged(); } }
 
@@ -24,32 +30,37 @@ namespace CompanyManagement.ViewModels.UserControls
         private DateTime end = DateTime.Now;
         public DateTime End { get => end; set { end = value; OnPropertyChanged(); } }
 
-        private string progress = "";
+        private string progress = "0";
         public string Progress { get => progress; set { progress = value; OnPropertyChanged(); } }
 
         private string errorMessage = "";
         public string ErrorMessage { get => errorMessage; set { errorMessage = value; OnPropertyChanged(); } }
 
         private ObservableCollection<Department> departmentsInProject;
-
         public ObservableCollection<Department> DepartmentsInProject { get => departmentsInProject; set { departmentsInProject = value; OnPropertyChanged(); } }
 
-        public List<Department> Departments { get; set; }
+        private ObservableCollection<Department> departmentsCanAssign;
+        public ObservableCollection<Department> DepartmentsCanAssign { get => departmentsCanAssign; set { departmentsCanAssign = value; OnPropertyChanged(); } }
 
-        private ProjectAssignmentDao projectAssignmentDao;
+        private IProjectAssignmentDao projectAssignmentDao;
 
-        private DepartmentDao departmentDao = new DepartmentDao();
-
-
-        public ProjectInputViewModel()
+        public ProjectInputViewModel(IProjectAssignmentDao projectAssignmentDao)
         {
-            Departments = new List<Department>(departmentDao.GetAll());
+            this.projectAssignmentDao = projectAssignmentDao;
+            LoadDepartmentsInProject();
+            LoadDepartmentsCanAssign();
         }
 
-        public void loadDepartmentsInProject(string projectID)
+        private void LoadDepartmentsInProject()
         {
-            projectAssignmentDao = new ProjectAssignmentDao();
-            DepartmentsInProject = new ObservableCollection<Department>(projectAssignmentDao.GetAllDepartmentInProject(projectID));
+            var departments = projectAssignmentDao.GetAllDepartmentInProject(ID);
+            DepartmentsInProject = new ObservableCollection<Department>(departments);
+        }
+
+        private void LoadDepartmentsCanAssign()
+        {
+            var departments = projectAssignmentDao.GetDepartmentsCanAssignWork("03/12/2000 12:00 AM", "03/12/2022 12:00 AM");
+            DepartmentsInProject = new ObservableCollection<Department>(departments);
         }
 
         public Project CreateProjectInstance()
@@ -60,14 +71,14 @@ namespace CompanyManagement.ViewModels.UserControls
         public bool CheckAllFields()
         {
             ErrorMessage = "";
-            if (string.IsNullOrWhiteSpace(ID) || string.IsNullOrWhiteSpace(Name) || string.IsNullOrWhiteSpace(Progress))
+            if (string.IsNullOrWhiteSpace(Name))
             {
-                ErrorMessage = "Các thông tin không được để trống!!!";
+                ErrorMessage = "Tên không được để trống!!!";
                 return false;
             }
             if (End < start)
             {
-                ErrorMessage = "Thời gian kết thúc không hợp lệ!!!";
+                ErrorMessage = "Thời gian kết thúc phải lớn hơn ngày bắt đầu!!!";
                 return false;
             }
             return true;
@@ -80,18 +91,13 @@ namespace CompanyManagement.ViewModels.UserControls
             progress = progress.Trim();
         }
 
-        public void Retrieve(Project project)
+        public void RetrieveProject(Project project)
         {
             ID = project.ID;
             Name = project.Name;
             Progress = project.Progress;
-            start = Utils.StringToDate(project.Start);
-            end = Utils.StringToDate(project.End);
+            Start = Utils.StringToDate(project.Start);
+            End = Utils.StringToDate(project.End);
         }
-    }
-
-    public interface IRetrieveProject
-    {
-        void Retrieve(Project project);
     }
 }

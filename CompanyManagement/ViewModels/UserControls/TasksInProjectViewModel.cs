@@ -69,7 +69,7 @@ namespace CompanyManagement.ViewModels.UserControls
             LoadTaskInProjects();
         }
 
-        public void ShowWithID(string projectID)
+        public void ShowTasksWithID(string projectID)
         {
             TasksInProjectViewModel.projectID = projectID;
             TasksInProject = new ObservableCollection<TaskInProject>(taskInProjectDao.SearchByProjectID(projectID));
@@ -121,7 +121,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
     public interface IRetrieveProjectID
     {
-        void ShowWithID(string projectID);
+        void ShowTasksWithID(string projectID);
         void ShowEmployeeInProject(string projectID);
     }
 }

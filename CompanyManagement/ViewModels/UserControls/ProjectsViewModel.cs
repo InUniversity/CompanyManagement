@@ -1,14 +1,19 @@
-﻿using System.Collections.ObjectModel;
-using System.Data;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Input;
 using CompanyManagement.Views.Dialogs;
-using System.Windows;
-using CompanyManagement.Database.Implementations;
 using CompanyManagement.Database.Interfaces;
 using CompanyManagement.ViewModels.Dialogs;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
+    public interface IProjects
+    {
+        void Add(Project project);
+        void Update(Project project);
+    }
+    
     public class ProjectsViewModel : BaseViewModel, IProjects
     {
 
@@ -40,9 +45,9 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void SetCommands()
         {
-            OpenProjectInputCommand = new RelayCommand<object>(OpenProjectInputDialog);
+            OpenProjectInputCommand = new RelayCommand<object>(OpenAddProjectDialog);
             DeleteProjectCommand = new RelayCommand<string>(ExecuteDeleteCommand);
-            UpdateProjectCommand = new RelayCommand<Project>(ExecuteUpdateProjectDialog);
+            UpdateProjectCommand = new RelayCommand<Project>(OpenUpdateProjectDialog);
             ItemClickCommand = new RelayCommand<object>(ItemClicked);
         }
 
@@ -58,12 +63,25 @@ namespace CompanyManagement.ViewModels.UserControls
             LoadProjects();
         }
 
-        private void OpenProjectInputDialog(object p)
+        private void OpenAddProjectDialog(object p)
         {
             AddProjectDialog addProjectDialog = new AddProjectDialog();
             AddProjectViewModel addProjectVM = (AddProjectViewModel)addProjectDialog.DataContext;
             addProjectVM.ParentDataContext = this;
+            addProjectVM.ProjectInputDataContext.RetrieveProject(new Project(AutoGenerateID()));
             addProjectDialog.ShowDialog();
+        }
+
+        private string AutoGenerateID()
+        {
+            string projectID;
+            Random random = new Random();
+            do
+            {
+                int number = random.Next(10000);
+                projectID = $"PRJ{number:0000}";
+            } while (projectDao.SearchByID(projectID) != null);
+            return projectID;
         }
 
         private void ExecuteDeleteCommand(string id)
@@ -72,26 +90,18 @@ namespace CompanyManagement.ViewModels.UserControls
             LoadProjects();
         }
 
-        private void ExecuteUpdateProjectDialog(Project project)
+        private void OpenUpdateProjectDialog(Project project)
         {
             UpdateProjectDialog projectDetailsDialog = new UpdateProjectDialog();
             UpdateProjectViewModel projectViewModel = (UpdateProjectViewModel)projectDetailsDialog.DataContext;
             projectViewModel.ParentDataContext = this;
-            projectViewModel.ProjectInputDataContext.Retrieve(project);
-            projectViewModel.ProjectInputDataContext.loadDepartmentsInProject(project.ID);
+            projectViewModel.ProjectInputDataContext.RetrieveProject(project);
             projectDetailsDialog.ShowDialog();
         }
 
         private void ItemClicked(object p)
         {
-            TasksDataContext.ShowWithID(SelectedProject.ID);
-            TasksDataContext.ShowEmployeeInProject(SelectedProject.ID);
+            TasksDataContext.ShowTasksWithID(SelectedProject.ID);
         }
-    }
-
-    public interface IProjects
-    {
-        void Add(Project project);
-        void Update(Project project);
     }
 }
