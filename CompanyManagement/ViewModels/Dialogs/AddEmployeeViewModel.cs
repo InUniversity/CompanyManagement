@@ -2,6 +2,7 @@
 using System.Windows.Input;
 using CompanyManagement.Database.Interfaces;
 using CompanyManagement.Utilities;
+using CompanyManagement.ViewModels.Base;
 using CompanyManagement.ViewModels.UserControls;
 
 namespace CompanyManagement.ViewModels.Dialogs

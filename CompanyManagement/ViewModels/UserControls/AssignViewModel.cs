@@ -1,12 +1,7 @@
-﻿using CompanyManagement.Views.UserControls;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CompanyManagement.ViewModels.Base;
+using CompanyManagement.Views.UserControls;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 
 namespace CompanyManagement.ViewModels.UserControls
 {

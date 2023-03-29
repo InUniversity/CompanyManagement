@@ -1,8 +1,5 @@
-﻿using CompanyManagement.ViewModels;
-using System.Windows;
-using System.Windows.Interop;
-using System.Runtime.InteropServices;
-using System;
+﻿using System.Windows;
+using CompanyManagement.ViewModels.Windows;
 
 namespace CompanyManagement.Views.Windows;
 
@@ -14,6 +11,6 @@ public partial class ManagerWindow : Window
     public ManagerWindow()
     {
         InitializeComponent();
-        DataContext = new ManagerWindowViewModel();
+        DataContext = new ManagerViewModel();
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 using CompanyManagement.Database.Implementations;
-using CompanyManagement.ViewModels.UserControls;
+using CompanyManagement.ViewModels.Windows;
 
 namespace CompanyManagement.Views.Windows;
 

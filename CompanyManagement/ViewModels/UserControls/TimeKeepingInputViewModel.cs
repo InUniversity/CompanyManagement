@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
-using CompanyManagement.Database.Interfaces;
 using CompanyManagement.Models;
 using CompanyManagement.Utilities;
-using CompanyManagement.Views.UserControls;
+using CompanyManagement.ViewModels.Base;
 
 
 namespace CompanyManagement.ViewModels.UserControls

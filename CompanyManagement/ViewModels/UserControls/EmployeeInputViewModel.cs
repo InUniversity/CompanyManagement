@@ -5,6 +5,7 @@ using System;
 using System.Windows.Controls;
 using CompanyManagement.Utilities;
 using CompanyManagement.Database.Interfaces;
+using CompanyManagement.ViewModels.Base;
 
 namespace CompanyManagement.ViewModels.UserControls
 {

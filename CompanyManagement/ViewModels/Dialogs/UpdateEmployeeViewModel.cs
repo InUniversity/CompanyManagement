@@ -1,6 +1,7 @@
 ﻿using System.Windows.Input;
 using System.Windows;
 using CompanyManagement.ViewModels.UserControls;
+using CompanyManagement.ViewModels.Base;
 
 namespace CompanyManagement.ViewModels.Dialogs
 {

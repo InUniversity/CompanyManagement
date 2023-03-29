@@ -1,11 +1,7 @@
-﻿using CompanyManagement.Database.Implementations;
-using CompanyManagement.Database.Interfaces;
+﻿using CompanyManagement.Database.Interfaces;
 using CompanyManagement.Models;
-using CompanyManagement.ViewModels.Dialogs;
-using CompanyManagement.Views.Dialogs;
-using System;
+using CompanyManagement.ViewModels.Base;
 using System.Collections.ObjectModel;
-using System.Windows;
 using System.Windows.Input;
 
 namespace CompanyManagement.ViewModels.UserControls

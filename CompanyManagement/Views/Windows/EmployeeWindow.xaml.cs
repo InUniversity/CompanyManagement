@@ -1,5 +1,5 @@
-﻿using CompanyManagement.ViewModels;
-using System.Windows;
+﻿using System.Windows;
+using CompanyManagement.ViewModels.Windows;
 
 namespace CompanyManagement.Views.Windows;
 
@@ -11,6 +11,6 @@ public partial class EmployeeWindow : Window
     public EmployeeWindow()
     {
         InitializeComponent();
-        DataContext = new EmployeeWindowViewModel();
+        DataContext = new EmployeeViewModel();
     }
 }

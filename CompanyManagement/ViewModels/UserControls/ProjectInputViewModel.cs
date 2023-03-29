@@ -7,6 +7,7 @@ using CompanyManagement.Database.Implementations;
 using CompanyManagement.Database.Interfaces;
 using CompanyManagement.Models;
 using CompanyManagement.Utilities;
+using CompanyManagement.ViewModels.Base;
 
 namespace CompanyManagement.ViewModels.UserControls
 {

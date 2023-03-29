@@ -1,13 +1,11 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using CompanyManagement.Database;
 using CompanyManagement.Database.Interfaces;
-using CompanyManagement.Models;
-using CompanyManagement.Utilities;
+using CompanyManagement.ViewModels.Base;
 using CompanyManagement.Views.Windows;
 
-namespace CompanyManagement.ViewModels.UserControls
+namespace CompanyManagement.ViewModels.Windows
 {
     public class LoginViewModel : BaseViewModel
     {

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Windows;
 using System.Windows.Input;
 using CompanyManagement.Views.Dialogs;
 using CompanyManagement.Database.Interfaces;
 using CompanyManagement.ViewModels.Dialogs;
+using CompanyManagement.ViewModels.Base;
 
 namespace CompanyManagement.ViewModels.UserControls
 {

@@ -4,8 +4,7 @@ using System;
 using System.Collections.ObjectModel;
 using CompanyManagement.Database.Interfaces;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using CompanyManagement.Database.Implementations;
+using CompanyManagement.ViewModels.Base;
 
 namespace CompanyManagement.ViewModels.UserControls
 {

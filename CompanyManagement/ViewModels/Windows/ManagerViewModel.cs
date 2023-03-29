@@ -1,36 +1,25 @@
-﻿using CompanyManagement.ViewModels.UserControls;
+﻿using CompanyManagement.ViewModels.Base;
 using CompanyManagement.Views.UserControls;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace CompanyManagement.ViewModels
+namespace CompanyManagement.ViewModels.Windows
 {
-    class ManagerWindowViewModel : BaseViewModel
+    class ManagerViewModel : BaseViewModel
     {
-        private ContentControl currentChildView= new AssignUC();
+        private ContentControl currentChildView = new AssignUC();
 
-        public ContentControl CurrentChildView { get => currentChildView; set { currentChildView = value; OnPropertyChanged(nameof (CurrentChildView)); } }
+        public ContentControl CurrentChildView { get => currentChildView; set { currentChildView = value; OnPropertyChanged(nameof(CurrentChildView)); } }
 
-        public ICommand ShowAssignView { get;}
-
-        public ICommand ShowEmployeesView { get;}
-
+        public ICommand ShowAssignView { get; }
+        public ICommand ShowEmployeesView { get; }
         public ICommand ShowWorkSheduleView { get; }
-
-        public ICommand ShowNotifytView { get; }    
-
+        public ICommand ShowNotifytView { get; }
         public ICommand ShowSettingsView { get; }
-
         public ICommand ShowTasksView { get; }
-
         public ICommand ShowTimeKeepingView { get; }
 
-        public ManagerWindowViewModel()
+        public ManagerViewModel()
         {
             ShowAssignView = new RelayCommand<object>(ExecuteShowAssignView);
             ShowEmployeesView = new RelayCommand<object>(ExecuteShowEmployeesView);
@@ -67,14 +56,13 @@ namespace CompanyManagement.ViewModels
         }
 
         private void ExecuteShowEmployeesView(object obj)
-        {            
+        {
             currentChildView.Content = new EmployeesUC();
         }
 
         private void ExecuteShowAssignView(object obj)
         {
             currentChildView.Content = new AssignUC();
-
         }
     }
 }

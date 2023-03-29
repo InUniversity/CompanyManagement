@@ -1,9 +1,8 @@
-﻿using CompanyManagement.Database.Implementations;
-using CompanyManagement.Models;
+﻿using CompanyManagement.Models;
 using CompanyManagement.ViewModels.UserControls;
-using System;
 using System.Windows.Input;
 using System.Windows;
+using CompanyManagement.ViewModels.Base;
 
 namespace CompanyManagement.ViewModels.Dialogs
 {

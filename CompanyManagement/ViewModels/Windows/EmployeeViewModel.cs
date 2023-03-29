@@ -1,15 +1,11 @@
-﻿using CompanyManagement.Views.UserControls;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CompanyManagement.ViewModels.Base;
+using CompanyManagement.Views.UserControls;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace CompanyManagement.ViewModels
+namespace CompanyManagement.ViewModels.Windows
 {
-    class EmployeeWindowViewModel : BaseViewModel
+    class EmployeeViewModel : BaseViewModel
     {
         private ContentControl currentChildView = new AssignUC();
 
@@ -18,9 +14,9 @@ namespace CompanyManagement.ViewModels
         public ICommand ShowAssignView { get; }
 
 
-        public EmployeeWindowViewModel()
+        public EmployeeViewModel()
         {
-            ShowAssignView = new RelayCommand<object>(ExecuteShowAssignView);          
+            ShowAssignView = new RelayCommand<object>(ExecuteShowAssignView);
         }
 
         private void ExecuteShowAssignView(object obj)

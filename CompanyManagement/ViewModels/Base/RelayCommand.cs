@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace CompanyManagement.ViewModels
+namespace CompanyManagement.ViewModels.Base
 {
     public class RelayCommand<T> : ICommand
     {
@@ -32,7 +32,7 @@ namespace CompanyManagement.ViewModels
             try
             {
                 return canExeAction == null ? true : canExeAction((T)parameter);
-            } 
+            }
             catch
             {
                 return true;
