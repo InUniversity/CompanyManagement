@@ -18,7 +18,7 @@
         WindowStartupLocation="CenterScreen"
         Height="700" Width="1200" MinHeight="600" MinWidth="600">
     <Grid>
-        <materialDesign:DrawerHost >
+        <materialDesign:DrawerHost  >
             <materialDesign:DrawerHost.LeftDrawerContent >
                 <Border CornerRadius="30" BorderThickness="1">
                     <StackPanel Width="200">
@@ -78,17 +78,6 @@
                         </RadioButton>
                         <RadioButton
                             Height="50"
-                            Margin="4"     
-                            BorderBrush="{DynamicResource PrimaryHueMidBrush}"
-                            IsChecked="False"
-                            Style="{StaticResource MaterialDesignTabRadioButtonRight}" >
-                            <StackPanel Orientation="Horizontal">
-                                <materialDesign:PackIcon Kind="AccountCircle" />
-                                <TextBlock Text="Tài khoản" Margin="25 0"></TextBlock>
-                            </StackPanel>
-                        </RadioButton>
-                        <RadioButton
-                            Height="50"
                             Margin="4"                           
                             Command="{Binding ElementName=managerWindow, Path=DataContext.ShowNotifytView}"
                             IsChecked="False"
@@ -111,27 +100,33 @@
                                 <TextBlock Text="Cài đặt" Margin="33 0"></TextBlock>
                             </StackPanel>
                         </RadioButton>
-                        <Border Margin="0 10">
-                            <StackPanel Orientation="Horizontal">
-                                <Button Margin="5 0"  Style="{StaticResource MaterialDesignIconButton}">
-                                    <materialDesign:PackIcon Kind="Magnify" />
-                                </Button>
-                                <TextBox Width="130"
-                                         Background="White"                                        
-                                         Style="{StaticResource MaterialDesignOutlinedTextBox}">
-                                </TextBox>
-                            </StackPanel>
+                        <Border Margin="0 10" >
+                            <Expander HorizontalAlignment="Stretch" Header="Word Overview" Background="WhiteSmoke">
+                                <StackPanel>
+                                    <Button Background="Transparent"
+                                            Height="50"
+                                            Command="{Binding ElementName=managerWindow, Path=DataContext.ShowTasksView}" BorderThickness="0">
+                                        <Button.Content>
+                                            <StackPanel Orientation="Horizontal">
+                                                <materialDesign:PackIcon Kind="Firework" Foreground="Black" />
+                                                <TextBlock Text="Nhiệm vụ" Margin="25 0"  Foreground="Black"></TextBlock>
+                                            </StackPanel>
+                                        </Button.Content>
+                                    </Button>
+                                    <Button Background="Transparent" 
+                                            Height="50"
+                                            Command="{Binding ElementName=managerWindow, Path=DataContext.ShowTimeKeepingView}" BorderThickness="0">
+                                        <Button.Content>
+                                            <StackPanel Orientation="Horizontal">
+                                                <materialDesign:PackIcon Kind="Cash100" Foreground="Black" />
+                                                <TextBlock Text="Chấm công" Margin="20 0" Foreground="Black"></TextBlock>
+                                            </StackPanel>
+                                        </Button.Content>
+                                    </Button>
+                                </StackPanel>
+                            </Expander>
                         </Border>
-                        <Border Height="auto" Margin="5" Background="White">
-                            <ListView MinHeight="120" >
-                                
-                            </ListView>
-                        </Border>
-                        <Border Margin="0 10">
-                            <Button Height="50" Style="{StaticResource MaterialDesignIconButton}">
-                                <materialDesign:PackIcon Kind="Logout" />
-                            </Button>
-                        </Border>
+                        
                     </StackPanel>
                 </Border>
                 
