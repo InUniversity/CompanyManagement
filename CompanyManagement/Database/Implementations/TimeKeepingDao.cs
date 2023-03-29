@@ -16,10 +16,17 @@ namespace CompanyManagement.Database.Implementations
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
-        public void Delete(TimeKeeping timeKeeping)
+        public void Delete(string taskID)
         {
-            string sqlStr = $"DELETE FROM {TIME_KEEPING_TABLE} WHERE {TIME_KEEPING_TASK_ID} = '{timeKeeping.TaskID}'";
+            string sqlStr = $"DELETE FROM {TIME_KEEPING_TABLE} WHERE {TIME_KEEPING_TASK_ID} = '{taskID}'";
             dbConnection.ExecuteNonQuery(sqlStr);
+        }
+
+        public List<TimeKeeping> GetAll()
+        {
+
+            string sqlStr = $"SELECT * FROM {TIME_KEEPING_TABLE}";
+            return dbConnection.GetList(sqlStr, reader => new TimeKeeping(reader));
         }
 
         public TimeKeeping SearchByID(string timeKeepingID)
