@@ -1,33 +1,33 @@
-﻿using CompanyManagement.ViewModels.Base;
+﻿using System.Collections.Generic;
+using CompanyManagement.ViewModels.Base;
 using CompanyManagement.Views.UserControls;
 using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace CompanyManagement.ViewModels.Windows
 {
-    class ManagerViewModel : BaseViewModel
+    public class ManagerViewModel : BaseViewModel
     {
         private ContentControl currentChildView = new AssignUC();
+        public ContentControl CurrentChildView { get => currentChildView; set { currentChildView = value; OnPropertyChanged(); } }
 
-        public ContentControl CurrentChildView { get => currentChildView; set { currentChildView = value; OnPropertyChanged(nameof(CurrentChildView)); } }
-
-        public ICommand ShowAssignView { get; }
-        public ICommand ShowEmployeesView { get; }
-        public ICommand ShowWorkSheduleView { get; }
-        public ICommand ShowNotifytView { get; }
-        public ICommand ShowSettingsView { get; }
-        public ICommand ShowTasksView { get; }
-        public ICommand ShowTimeKeepingView { get; }
+        public ICommand ShowAssignViewCommand { get; }
+        public ICommand ShowEmployeesViewCommand { get; }
+        public ICommand ShowWorkScheduleViewCommand { get; }
+        public ICommand ShowNotifyViewCommand { get; }
+        public ICommand ShowSettingsViewCommand { get; }
+        public ICommand ShowTasksViewCommand { get; }
+        public ICommand ShowTimeKeepingViewCommand { get; }
 
         public ManagerViewModel()
         {
-            ShowAssignView = new RelayCommand<object>(ExecuteShowAssignView);
-            ShowEmployeesView = new RelayCommand<object>(ExecuteShowEmployeesView);
-            ShowWorkSheduleView = new RelayCommand<object>(ExecuteShowWorkSheduleView);
-            ShowNotifytView = new RelayCommand<object>(ExecuteShowNotifyView);
-            ShowSettingsView = new RelayCommand<object>(ExecuteShowSettingsView);
-            ShowTasksView = new RelayCommand<object>(ExecuteShowTasksView);
-            ShowTimeKeepingView = new RelayCommand<object>(ExecuteShowTimeKeepingView);
+            ShowAssignViewCommand = new RelayCommand<object>(ExecuteShowAssignView);
+            ShowEmployeesViewCommand = new RelayCommand<object>(ExecuteShowEmployeesView);
+            ShowWorkScheduleViewCommand = new RelayCommand<object>(ExecuteShowWorkScheduleView);
+            ShowNotifyViewCommand = new RelayCommand<object>(ExecuteShowNotifyView);
+            ShowSettingsViewCommand = new RelayCommand<object>(ExecuteShowSettingsView);
+            ShowTasksViewCommand = new RelayCommand<object>(ExecuteShowTasksView);
+            ShowTimeKeepingViewCommand = new RelayCommand<object>(ExecuteShowTimeKeepingView);
         }
 
         private void ExecuteShowTimeKeepingView(object obj)
@@ -50,9 +50,9 @@ namespace CompanyManagement.ViewModels.Windows
             currentChildView.Content = new NotifyUC();
         }
 
-        private void ExecuteShowWorkSheduleView(object obj)
+        private void ExecuteShowWorkScheduleView(object obj)
         {
-            currentChildView.Content = new WorkSheduleUC();
+            currentChildView.Content = new WorkScheduleUC();
         }
 
         private void ExecuteShowEmployeesView(object obj)

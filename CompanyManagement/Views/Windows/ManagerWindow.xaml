@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:shell="clr-namespace:System.Windows.Shell;assembly=PresentationFramework"
-        xmlns:uc="clr-namespace:CompanyManagement.Views.UserControls"
+        xmlns:vm="clr-namespace:CompanyManagement.ViewModels.Windows"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
@@ -13,10 +13,12 @@
         TextOptions.TextRenderingMode="Auto"
         Background="White"
         FontFamily="{DynamicResource MaterialDesignFont}"        
-        Name="managerWindow"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Height="700" Width="1200" MinHeight="600" MinWidth="600">
+    <Window.DataContext>
+        <vm:ManagerViewModel/>
+    </Window.DataContext>
     <Grid>
         <materialDesign:DrawerHost  >
             <materialDesign:DrawerHost.LeftDrawerContent >
@@ -43,7 +45,7 @@
                         <RadioButton
                             Height="50"
                             Margin="4"
-                            Command="{Binding ElementName=managerWindow, Path=DataContext.ShowAssignView}" 
+                            Command="{Binding ShowAssignViewCommand}" 
                             BorderBrush="{DynamicResource PrimaryHueMidBrush}"
                             IsChecked="True"
                             Style="{StaticResource MaterialDesignTabRadioButtonRight}" >
@@ -56,7 +58,7 @@
                             Height="50"
                             Margin="4"         
                             IsChecked="False"
-                            Command="{Binding ElementName=managerWindow, Path=DataContext.ShowEmployeesView}"
+                            Command="{Binding ShowEmployeesViewCommand}"
                             BorderBrush="{DynamicResource PrimaryHueMidBrush}"
                             Style="{StaticResource MaterialDesignTabRadioButtonRight}" >
                             <StackPanel Orientation="Horizontal">
@@ -67,7 +69,7 @@
                         <RadioButton
                             Height="50"
                             Margin="4"                
-                            Command="{Binding ElementName=managerWindow, Path=DataContext.ShowWorkSheduleView}"
+                            Command="{Binding ShowWorkScheduleViewCommand}"
                             BorderBrush="{DynamicResource PrimaryHueMidBrush}"
                             IsChecked="False"
                             Style="{StaticResource MaterialDesignTabRadioButtonRight}" >
@@ -79,7 +81,7 @@
                         <RadioButton
                             Height="50"
                             Margin="4"                           
-                            Command="{Binding ElementName=managerWindow, Path=DataContext.ShowNotifytView}"
+                            Command="{Binding ShowNotifyViewCommand}"
                             IsChecked="False"
                             BorderBrush="{DynamicResource PrimaryHueMidBrush}"
                             Style="{StaticResource MaterialDesignTabRadioButtonRight}" >
@@ -92,7 +94,7 @@
                             Height="50"
                             Margin="4"                           
                             IsChecked="False"
-                            Command="{Binding ElementName=managerWindow, Path=DataContext.ShowSettingsView}"
+                            Command="{Binding ShowSettingsViewCommand}"
                             BorderBrush="{DynamicResource PrimaryHueMidBrush}"
                             Style="{StaticResource MaterialDesignTabRadioButtonRight}" >
                             <StackPanel Orientation="Horizontal">
@@ -105,7 +107,7 @@
                                 <StackPanel>
                                     <Button Background="Transparent"
                                             Height="50"
-                                            Command="{Binding ElementName=managerWindow, Path=DataContext.ShowTasksView}" BorderThickness="0">
+                                            Command="{Binding ShowTasksViewCommand}" BorderThickness="0">
                                         <Button.Content>
                                             <StackPanel Orientation="Horizontal">
                                                 <materialDesign:PackIcon Kind="Firework" Foreground="Black" />
@@ -115,7 +117,7 @@
                                     </Button>
                                     <Button Background="Transparent" 
                                             Height="50"
-                                            Command="{Binding ElementName=managerWindow, Path=DataContext.ShowTimeKeepingView}" BorderThickness="0">
+                                            Command="{Binding ShowTimeKeepingViewCommand}" BorderThickness="0">
                                         <Button.Content>
                                             <StackPanel Orientation="Horizontal">
                                                 <materialDesign:PackIcon Kind="Cash100" Foreground="Black" />
@@ -152,9 +154,8 @@
                             Height="80"
                             Width="50"
                             Style="{StaticResource MaterialDesignIconButton}"
-                            Command="{Binding ElementName=managerWindow, Path=DataContext.ShowAssignView}"                                       
-                            BorderThickness="0"
-                          >
+                            Command="{Binding ShowAssignViewCommand}"                                       
+                            BorderThickness="0">
                             <materialDesign:PackIcon Kind="Briefcase" Foreground="White" />
                         </Button>
                         <Button HorizontalAlignment="Right"          
@@ -162,7 +163,7 @@
                             Width="50"
                             Margin="0 50"
                             Style="{StaticResource MaterialDesignIconButton}"
-                            Command="{Binding ElementName=managerWindow, Path=DataContext.ShowEmployeesView}"                                                               
+                            Command="{Binding ShowEmployeesViewCommand}"                                                               
                             BorderThickness="0">
                             <materialDesign:PackIcon Kind="AccountGroup" Foreground="White" />
                         </Button>
@@ -170,7 +171,7 @@
                             Height="80"
                             Width="50"
                             Style="{StaticResource MaterialDesignIconButton}"
-                            Command="{Binding ElementName=managerWindow, Path=DataContext.ShowWorkSheduleView}"                                                          
+                            Command="{Binding ShowWorkScheduleViewCommand}"                                                          
                             BorderThickness="0">
                             <materialDesign:PackIcon Kind="CalendarText" Foreground="White" />
                         </Button>
@@ -178,11 +179,11 @@
                 </Border>
                 <Grid Grid.Column="1">
                     <Border  Margin="10" BorderThickness="1">
-                        <ContentControl Content="{Binding ElementName=managerWindow, Path=DataContext.CurrentChildView}" >
+                        <ContentControl 
+                            Content="{Binding CurrentChildView}" >
                         </ContentControl>
                     </Border>
                 </Grid>
-                
             </Grid>
         </materialDesign:DrawerHost>
     </Grid>
