@@ -45,7 +45,7 @@
                         <RadioButton
                             Height="50"
                             Margin="4"
-                            Command="{Binding ShowAssignViewCommand}" 
+                            Command="{Binding ShowProjectsViewCommand}" 
                             BorderBrush="{DynamicResource PrimaryHueMidBrush}"
                             IsChecked="True"
                             Style="{StaticResource MaterialDesignTabRadioButtonRight}" >
@@ -154,7 +154,7 @@
                             Height="80"
                             Width="50"
                             Style="{StaticResource MaterialDesignIconButton}"
-                            Command="{Binding ShowAssignViewCommand}"                                       
+                            Command="{Binding ShowProjectsViewCommand}"                                       
                             BorderThickness="0">
                             <materialDesign:PackIcon Kind="Briefcase" Foreground="White" />
                         </Button>

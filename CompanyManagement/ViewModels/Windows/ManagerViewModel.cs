@@ -8,10 +8,10 @@ namespace CompanyManagement.ViewModels.Windows
 {
     public class ManagerViewModel : BaseViewModel
     {
-        private ContentControl currentChildView = new AssignUC();
+        private ContentControl currentChildView = new ProjectsUC();
         public ContentControl CurrentChildView { get => currentChildView; set { currentChildView = value; OnPropertyChanged(); } }
 
-        public ICommand ShowAssignViewCommand { get; }
+        public ICommand ShowProjectsViewCommand { get; }
         public ICommand ShowEmployeesViewCommand { get; }
         public ICommand ShowWorkScheduleViewCommand { get; }
         public ICommand ShowNotifyViewCommand { get; }
@@ -21,7 +21,7 @@ namespace CompanyManagement.ViewModels.Windows
 
         public ManagerViewModel()
         {
-            ShowAssignViewCommand = new RelayCommand<object>(ExecuteShowAssignView);
+            ShowProjectsViewCommand = new RelayCommand<object>(ExecuteShowProjectsView);
             ShowEmployeesViewCommand = new RelayCommand<object>(ExecuteShowEmployeesView);
             ShowWorkScheduleViewCommand = new RelayCommand<object>(ExecuteShowWorkScheduleView);
             ShowNotifyViewCommand = new RelayCommand<object>(ExecuteShowNotifyView);
@@ -60,9 +60,9 @@ namespace CompanyManagement.ViewModels.Windows
             currentChildView.Content = new EmployeesUC();
         }
 
-        private void ExecuteShowAssignView(object obj)
+        private void ExecuteShowProjectsView(object obj)
         {
-            currentChildView.Content = new AssignUC();
+            currentChildView.Content = new ProjectsUC();
         }
     }
 }
