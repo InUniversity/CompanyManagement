@@ -29,7 +29,7 @@
                         Height="30"
                         Width="100"
                         Margin="10 0 0 0"
-                        Command="{Binding OpenInputDialogCommand}"
+                        Command="{Binding OpenAddDialogCommand}"
                         Background="ForestGreen"
                         IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                         Style="{StaticResource MaterialDesignFlatMidBgButton}"
@@ -68,7 +68,7 @@
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
                                     <Button
-                                        Command="{Binding DataContext.UpdateEmployeeCommand, ElementName=employeesUC}"
+                                        Command="{Binding DataContext.OpenUpdateDialogCommand, ElementName=employeesUC}"
                                         CommandParameter="{Binding}">
                                         <materialDesign:PackIcon Kind="PencilOutline" />
                                     </Button>

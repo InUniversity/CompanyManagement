@@ -48,7 +48,7 @@ namespace CompanyManagement.ViewModels.UserControls
         private void SetCommands()
         {
             OpenAddDialogCommand = new RelayCommand<object>(OpenAddEmployeeDialog);
-            DeleteEmployeeCommand = new RelayCommand<string>(ExecuteDeleteCommand);
+            DeleteEmployeeCommand = new RelayCommand<string>(DeleteEmployee);
             OpenUpdateDialogCommand = new RelayCommand<EmployeeAccount>(OpenUpdateEmployeeDialog);
         }
 
@@ -85,7 +85,7 @@ namespace CompanyManagement.ViewModels.UserControls
             return employeeID;
         }
 
-        private void ExecuteDeleteCommand(string id)
+        private void DeleteEmployee(string id)
         {
             employeeAccountDao.Delete(id);
             LoadEmployees();
