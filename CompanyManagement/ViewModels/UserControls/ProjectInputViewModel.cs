@@ -82,7 +82,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void LoadDepartmentsCanAssign()
         {
-            var departments = projectAssignmentDao.GetDepartmentsCanAssignWork("03/12/2000 12:00 AM", "03/12/2022 12:00 AM");
+            var departments = projectAssignmentDao.GetDepartmentsCanAssignWork(new Project());
             // DepartmentsInProject = new ObservableCollection<Department>(departments);
             DepartmentsInProject = new ObservableCollection<Department>(new DepartmentDao().GetAll());
         }

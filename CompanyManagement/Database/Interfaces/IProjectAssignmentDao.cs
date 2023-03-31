@@ -8,9 +8,8 @@ namespace CompanyManagement.Database.Interfaces
     {
         void Add(ProjectAssignment projectAssignment);
         void Delete(ProjectAssignment projectAssignment);
-        void Update(ProjectAssignment projectAssignment);
         List<Department> GetAllDepartmentInProject(string projectID);
         List<EmployeeAccount> GetEmployeesInProject(string projectID);
-        List<Department> GetDepartmentsCanAssignWork(string startTime, string endTime);
+        List<Department> GetDepartmentsCanAssignWork(Project project);
     }
 }

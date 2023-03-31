@@ -8,24 +8,26 @@ namespace CompanyManagement.Database.Implementations
     {
         public void Add(ProjectAssignment projectAssignment)
         {
-            throw new System.NotImplementedException();
+            string sqlStr = $"INSERT INTO {PROJECT_ASSIGNMENT_TABLE} ({PROJECT_ASSIGNMENT_PROJECT_ID}, " +
+                            $"{PROJECT_ASSIGNMENT_DEPARTMENT_ID}) VALUES ('{projectAssignment.ProjectID}', " +
+                            $"'{projectAssignment.DeparmentID}')";
+            dbConnection.ExecuteNonQuery(sqlStr);
         }
 
         public void Delete(ProjectAssignment projectAssignment)
         {
-            throw new System.NotImplementedException();
-        }
-
-        public void Update(ProjectAssignment projectAssignment)
-        {
-            throw new System.NotImplementedException();
+            string sqlStr = $"DELETE FROM {PROJECT_ASSIGNMENT_TABLE} " +
+                            $"WHERE {PROJECT_ASSIGNMENT_PROJECT_ID}='{projectAssignment.ProjectID}' AND " +
+                            $"{PROJECT_ASSIGNMENT_DEPARTMENT_ID}='{projectAssignment.DeparmentID}'";
+            dbConnection.ExecuteNonQuery(sqlStr);
         }
 
         public List<Department> GetAllDepartmentInProject(string projectID)
         {
-            string sqlStr = $"SELECT * FROM {DEPARTMENT_TABLE} WHERE {DEPARTMENT_ID} IN(" +
-               $"SELECT {PROJECT_ASSIGNMENT_DEPARTMENT_ID} FROM {PROJECT_ASSIGNMENT_TABLE} WHERE {PROJECT_ASSIGNMENT_PROJECT_ID} = '{projectID}')";
-            return dbConnection.GetList(sqlStr, reader => new Department(reader));          
+            string sqlStr = $"SELECT D.* FROM {DEPARTMENT_TABLE} D INNER JOIN {PROJECT_ASSIGNMENT_TABLE} PA ON " +
+                            $"D.{DEPARTMENT_ID} = PA.{PROJECT_ASSIGNMENT_DEPARTMENT_ID} " +
+                            $"WHERE PA.{PROJECT_ASSIGNMENT_PROJECT_ID}='{projectID}'";
+            return dbConnection.GetList(sqlStr, reader => new Department(reader));   
         }
 
         public List<EmployeeAccount> GetEmployeesInProject(string projectID)
@@ -35,15 +37,15 @@ namespace CompanyManagement.Database.Implementations
             return dbConnection.GetList(sqlStr, reader => new EmployeeAccount(reader));
         }
         
-        public List<Department> GetDepartmentsCanAssignWork(string startTime, string endTime)
+        public List<Department> GetDepartmentsCanAssignWork(Project project)
         {
             string sqlStr = $"SELECT * FROM {DEPARTMENT_TABLE} WHERE {DEPARTMENT_ID} NOT IN (" +
                             $"Select {PROJECT_ASSIGNMENT_DEPARTMENT_ID} FROM {PROJECT_ASSIGNMENT_TABLE} " +
                             $"WHERE {PROJECT_ASSIGNMENT_PROJECT_ID} IN (" +
                             $"Select {PROJECT_ID} FROM {PROJECT_TABLE} " +
                             $"WHERE {PROJECT_PROPRESS} NOT LIKE '100'" +
-                            $"AND {PROJECT_START} <= '{endTime}'" +
-                            $"AND {PROJECT_END} >= '{startTime}'))";
+                            $"AND {PROJECT_START} <= '{project.End}'" +
+                            $"AND {PROJECT_END} >= '{project.Start}'))";
             return dbConnection.GetList(sqlStr, reader => new Department(reader));
         }
     }
