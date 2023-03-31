@@ -88,7 +88,7 @@ CREATE TABLE TimeKeeping(
 	start_time varchar(10),
 	end_time varchar(10),
 	employee_id varchar(20),
-	notes varchar(255),
+	notes nvarchar(255),
 	create_by varchar(20)
 );
 GO
@@ -299,32 +299,32 @@ GO
 
 INSERT INTO TimeKeeping (task_id, start_time, end_time, employee_id, notes, create_by)
 VALUES
-('T000001', NULL, NULL, 'EM001', NULL, 'EM002'),
-('T000002', NULL, NULL, 'EM007', NULL, 'EM002'),
-('T000003', NULL, NULL, 'EM009', NULL, 'EM002'),
-('T000004', NULL, NULL, 'EM013', NULL, 'EM002'),
-('T000005', NULL, NULL, 'EM017', NULL, 'EM002'),
-('T000006', NULL, NULL, 'EM027', NULL, 'EM001'),
-('T000007', NULL, NULL, 'EM026', NULL, 'EM001'),
-('T000008', NULL, NULL, 'EM028', NULL, 'EM001'),
-('T000009', NULL, NULL, 'EM031', NULL, 'EM001'),
-('T000010', NULL, NULL, 'EM030', NULL, 'EM001'),
-('T000011', NULL, NULL, 'EM035', NULL, 'EM003'),
-('T000012', NULL, NULL, 'EM036', NULL, 'EM003'),
-('T000013', NULL, NULL, 'EM037', NULL, 'EM003'),
-('T000014', NULL, NULL, 'EM038', NULL, 'EM003'),
-('T000015', NULL, NULL, 'EM039', NULL, 'EM003'),
-('T000016', NULL, NULL, 'EM045', NULL, 'EM004'),
-('T000017', NULL, NULL, 'EM046', NULL, 'EM004'),
-('T000018', NULL, NULL, 'EM047', NULL, 'EM004'),
-('T000019', NULL, NULL, 'EM048', NULL, 'EM004'),
-('T000020', NULL, NULL, 'EM049', NULL, 'EM004'),
-('T000021', NULL, NULL, 'EM050', NULL, 'EM050'),
-('T000022', NULL, NULL, 'EM051', NULL, 'EM050'),
-('T000023', NULL, NULL, 'EM052', NULL, 'EM050'),
-('T000024', NULL, NULL, 'EM053', NULL, 'EM050'),
-('T000025', NULL, NULL, 'EM054', NULL, 'EM050'),
-('T000026', NULL, NULL, 'EM055', NULL, 'EM050');
+('T000001', '', '', 'EM001', '', 'EM002'),
+('T000002', '', '', 'EM007', '', 'EM002'),
+('T000003', '', '', 'EM009', '', 'EM002'),
+('T000004', '', '', 'EM013', '', 'EM002'),
+('T000005', '', '', 'EM017', '', 'EM002'),
+('T000006', '', '', 'EM027', '', 'EM001'),
+('T000007', '', '', 'EM026', '', 'EM001'),
+('T000008', '', '', 'EM028', '', 'EM001'),
+('T000009', '', '', 'EM031', '', 'EM001'),
+('T000010', '', '', 'EM030', '', 'EM001'),
+('T000011', '', '', 'EM035', '', 'EM003'),
+('T000012', '', '', 'EM036', '', 'EM003'),
+('T000013', '', '', 'EM037', '', 'EM003'),
+('T000014', '', '', 'EM038', '', 'EM003'),
+('T000015', '', '', 'EM039', '', 'EM003'),
+('T000016', '', '', 'EM045', '', 'EM004'),
+('T000017', '', '', 'EM046', '', 'EM004'),
+('T000018', '', '', 'EM047', '', 'EM004'),
+('T000019', '', '', 'EM048', '', 'EM004'),
+('T000020', '', '', 'EM049', '', 'EM004'),
+('T000021', '', '', 'EM050', '', 'EM050'),
+('T000022', '', '', 'EM051', '', 'EM050'),
+('T000023', '', '', 'EM052', '', 'EM050'),
+('T000024', '', '', 'EM053', '', 'EM050'),
+('T000025', '', '', 'EM054', '', 'EM050'),
+('T000026', '', '', 'EM055', '', 'EM050');
 GO
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
 INSERT INTO ProjectStatus(project_status_id, project_status_name)
