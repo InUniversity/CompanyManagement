@@ -104,7 +104,7 @@
                                  Margin="20 5"
                                  Style="{StaticResource MaterialDesignOutlinedTextBox}" />
                     </Grid>
-                    <ListView Name="lvDepartmentsCanAssign" Height="150" Margin="5"
+                    <ListView Height="150" Margin="5"
                               ItemsSource="{Binding ElementName=projectInputUC, Path=DataContext.DepartmentsCanAssign}">
                         <ListView.ItemTemplate>
                             <DataTemplate>
@@ -119,13 +119,13 @@
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
                         <Button Width="100"
-                                Content="Add"
+                                Content="Thêm"
                                 Grid.Column="0"
                                 Style="{StaticResource MaterialDesignIconButton}" />
                         <Button Width="100"
-                                Content="Finish"
+                                Content="Hoàn tất"
                                 Grid.Column="1"
-                                Command="{Binding ElementName=projectInputUC, Path=DataContext.CloseAddDepartmentDialog}"
+                                Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
                                 Style="{StaticResource MaterialDesignIconButton}" />
                     </Grid>
 
@@ -134,7 +134,7 @@
             <Canvas Height="40">
                 <TextBlock Text="Phòng ban:" Margin="10" />
                 <Button Style="{StaticResource MaterialDesignIconButton}"
-                        Command="{Binding OpenAddDepartmentsDialog}" Canvas.Right="5">
+                        Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" Canvas.Right="5">
                     <materialDesign:PackIcon Kind="PlaylistPlus" />
                 </Button>
             </Canvas>
@@ -142,7 +142,7 @@
 
         <Border BorderBrush="Black" BorderThickness="0.5" Margin="20 25" Height="100">
             <StackPanel>
-                <ScrollViewer Height="auto">
+                <ScrollViewer Height="100">
                     <StackPanel>
                         <Border Margin="5" BorderThickness="1">
                             
@@ -183,6 +183,8 @@
                     SelectedValuePath="ID"
                     Margin="20 5"
                     materialDesign:HintAssist.Hint="Trạng thái"
+                    Background="White"
+                    Foreground="Black"
                     Style="{StaticResource MaterialDesignOutlinedComboBox}">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>

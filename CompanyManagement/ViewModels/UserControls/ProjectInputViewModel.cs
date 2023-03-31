@@ -46,16 +46,11 @@ namespace CompanyManagement.ViewModels.UserControls
         private ObservableCollection<Department> departmentsInProject;
         public ObservableCollection<Department> DepartmentsInProject { get => departmentsInProject; set { departmentsInProject = value; OnPropertyChanged(); } }
 
-        private bool isOpenAddDeparmentDialog = false;
-        public bool IsOpenAddDeparmentDialog { get => isOpenAddDeparmentDialog; set { isOpenAddDeparmentDialog = value; OnPropertyChanged(); } }
-
-        private List<Department> departmentsCanAssign;
-        public List<Department> DepartmentsCanAssign { get => departmentsCanAssign; set { departmentsCanAssign = value; OnPropertyChanged(); } }
-
-        public ICommand OpenAddDepartmentsDialog { get; set; }
-        public ICommand CloseAddDepartmentDialog { get; set; }
+        private ObservableCollection<Department> departmentsCanAssign;
+        public ObservableCollection<Department> DepartmentsCanAssign { get => departmentsCanAssign; set { departmentsCanAssign = value; OnPropertyChanged(); } }
+        
         public ICommand AddDepartmentCommand { get; set; }
-        public ICommand DeleteDeparmentCommand { get; set; }
+        public ICommand DeleteDepartmentCommand { get; set; }
 
         public List<ProjectStatus> ProjectStatuses { get; set; }
 
@@ -69,9 +64,10 @@ namespace CompanyManagement.ViewModels.UserControls
             LoadDepartmentsInProject();
             LoadDepartmentsCanAssign();
             SetCommands();
+            SetAllComboBox();
         }
 
-        public void SetAllComboBox()
+        private void SetAllComboBox()
         {
             ProjectStatuses = projectStatusDao.GetAll();
         }
@@ -80,31 +76,21 @@ namespace CompanyManagement.ViewModels.UserControls
         {
             var departments = projectAssignmentDao.GetAllDepartmentInProject(ID);
             // DepartmentsInProject = new ObservableCollection<Department>(new DepartmentDao().GetAll());
-            var depart = new List<Department>()
-            {
-                new Department("hihi", "IT 1", "EM001"),
-                new Department("hihi", "IT 2", "EM001"),
-                new Department("hihi", "IT 3", "EM001"),
-                new Department("hihi", "IT 4", "EM001"),
-                new Department("hihi", "IT 5", "EM001"),
-                new Department("hihi", "IT 6", "EM001")
-            };
-            DepartmentsInProject = new ObservableCollection<Department>(depart);
+            // DepartmentsInProject = new ObservableCollection<Department>(departments);
+            DepartmentsInProject = new ObservableCollection<Department>(new DepartmentDao().GetAll());
         }
 
         private void LoadDepartmentsCanAssign()
         {
             var departments = projectAssignmentDao.GetDepartmentsCanAssignWork("03/12/2000 12:00 AM", "03/12/2022 12:00 AM");
-            //DepartmentsInProject = new ObservableCollection<Department>(departments);
-            DepartmentsCanAssign = new DepartmentDao().GetAll();
+            // DepartmentsInProject = new ObservableCollection<Department>(departments);
+            DepartmentsInProject = new ObservableCollection<Department>(new DepartmentDao().GetAll());
         }
 
         private void SetCommands()
         {
-            OpenAddDepartmentsDialog = new RelayCommand<object>(p => IsOpenAddDeparmentDialog = true);
-            CloseAddDepartmentDialog = new RelayCommand<object>(p => IsOpenAddDeparmentDialog = false);
             AddDepartmentCommand = new RelayCommand<Department>(ExecuteAddDepartmentCommand);
-            DeleteDeparmentCommand = new RelayCommand<string>(ExecuteDeleteDepartmentCommand);
+            DeleteDepartmentCommand = new RelayCommand<string>(ExecuteDeleteDepartmentCommand);
         }
 
         private void ExecuteAddDepartmentCommand(Department department)
