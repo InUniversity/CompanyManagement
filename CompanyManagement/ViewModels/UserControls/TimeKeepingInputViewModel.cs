@@ -6,16 +6,33 @@ using CompanyManagement.ViewModels.Base;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
-    public class TimeKeepingInputViewModel: BaseViewModel
+
+    public interface ITimeKeepingInput
+    {
+        string TaskID { get; }
+        string Start { get; }
+        string End { get; }
+        string EmployeeID { get; }
+        string Notes { get; }
+        string CreateBy { get; }
+        string ErrorMessage { set; }
+        TimeKeeping CreateTimeKeepingInstance();
+        void TrimAllTexts();
+        void Retrieve(TimeKeeping timeKeeping);
+    }
+
+    public class TimeKeepingInputViewModel: BaseViewModel, ITimeKeepingInput
     {
         private string taskID = "";
         public string TaskID { get => taskID; set { taskID = value; OnPropertyChanged(); } }
 
         private DateTime start = DateTime.Now;
         public DateTime Start { get => start; set { start = value; OnPropertyChanged(); } }
+        string ITimeKeepingInput.Start => throw new NotImplementedException();
 
         private DateTime end = DateTime.Now;
         public DateTime End { get => end; set { end = value; OnPropertyChanged(); } }
+        string ITimeKeepingInput.End => throw new NotImplementedException();
 
         private string employeeID = "";
         public string EmployeeID { get => employeeID; set { employeeID = value; OnPropertyChanged(); } }
