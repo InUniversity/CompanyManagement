@@ -150,6 +150,8 @@ namespace CompanyManagement.ViewModels.UserControls
 
         public void Retrieve(EmployeeAccount employeeAccount)
         {
+            if (employeeAccount == null) 
+                return;
             ID = employeeAccount.ID;
             Name = employeeAccount.Name;
             Gender = employeeAccount.Gender;

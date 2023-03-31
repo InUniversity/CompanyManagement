@@ -23,7 +23,10 @@ namespace CompanyManagement.ViewModels.UserControls
         private ObservableCollection<EmployeeAccount> searchedEmployees;
         public ObservableCollection<EmployeeAccount> SearchedEmployees { get => searchedEmployees; set { searchedEmployees = value; OnPropertyChanged(); } }
 
-        private string textToSearch;
+        private EmployeeAccount selectedEmployee;
+        public EmployeeAccount SelectedEmployee { get => selectedEmployee; set { selectedEmployee = value; OnPropertyChanged(); } }
+
+        private string textToSearch = "";
         public string TextToSearch { get => textToSearch; set { textToSearch = value; OnPropertyChanged(); SearchByName(); } }
 
         public ICommand OpenAddDialogCommand { get; set; }
