@@ -5,22 +5,24 @@ using System.Windows.Input;
 
 namespace CompanyManagement.ViewModels.Windows
 {
-    public class EmployeeViewModel : BaseViewModel
+    class EmployeeViewModel : BaseViewModel
     {
-        
-        private ContentControl currentChildView = new ProjectsUC();
+        private ContentControl currentChildView = new AssignUC();
+
         public ContentControl CurrentChildView { get => currentChildView; set { currentChildView = value; OnPropertyChanged(nameof(CurrentChildView)); } }
 
-        public ICommand ShowProjectsView { get; }
+        public ICommand ShowAssignView { get; }
+
 
         public EmployeeViewModel()
         {
-            ShowProjectsView = new RelayCommand<object>(ExecuteShowProjectsView);
+            ShowAssignView = new RelayCommand<object>(ExecuteShowAssignView);
         }
 
-        private void ExecuteShowProjectsView(object obj)
+        private void ExecuteShowAssignView(object obj)
         {
-            currentChildView.Content = new ProjectsUC();
+            currentChildView.Content = new AssignUC();
+
         }
     }
 }

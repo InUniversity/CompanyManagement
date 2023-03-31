@@ -7,7 +7,7 @@ namespace CompanyManagement.ViewModels.Windows
 {
     public class ManagerViewModel : BaseViewModel
     {
-        private ContentControl currentChildView = new ProjectsUC();
+        private ContentControl currentChildView = new AssignUC();
         public ContentControl CurrentChildView { get => currentChildView; set { currentChildView = value; OnPropertyChanged(); } }
 
         private TimeKeepingUC timeKeepingUC = new TimeKeepingUC();
@@ -16,9 +16,9 @@ namespace CompanyManagement.ViewModels.Windows
         private NotifyUC notifyUC = new NotifyUC();
         private WorkScheduleUC workScheduleUC = new WorkScheduleUC();
         private EmployeesUC employeesUC = new EmployeesUC();
-        private ProjectsUC projectsUC = new ProjectsUC();
+        private AssignUC assignUC = new AssignUC();
 
-        public ICommand ShowProjectsViewCommand { get; }
+        public ICommand ShowAssignViewCommand { get; }
         public ICommand ShowEmployeesViewCommand { get; }
         public ICommand ShowWorkScheduleViewCommand { get; }
         public ICommand ShowNotifyViewCommand { get; }
@@ -28,7 +28,7 @@ namespace CompanyManagement.ViewModels.Windows
 
         public ManagerViewModel()
         {
-            ShowProjectsViewCommand = new RelayCommand<object>(ExecuteShowProjectsView);
+            ShowAssignViewCommand = new RelayCommand<object>(ExecuteShowAssignView);
             ShowEmployeesViewCommand = new RelayCommand<object>(ExecuteShowEmployeesView);
             ShowWorkScheduleViewCommand = new RelayCommand<object>(ExecuteShowWorkScheduleView);
             ShowNotifyViewCommand = new RelayCommand<object>(ExecuteShowNotifyView);
@@ -67,9 +67,9 @@ namespace CompanyManagement.ViewModels.Windows
             currentChildView.Content = employeesUC;
         }
 
-        private void ExecuteShowProjectsView(object obj)
+        private void ExecuteShowAssignView(object obj)
         {
-            currentChildView.Content = projectsUC;
+            currentChildView.Content = assignUC;
         }
     }
 }
