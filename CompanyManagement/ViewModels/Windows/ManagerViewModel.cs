@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using CompanyManagement.ViewModels.Base;
+﻿using CompanyManagement.ViewModels.Base;
 using CompanyManagement.Views.UserControls;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -10,6 +9,14 @@ namespace CompanyManagement.ViewModels.Windows
     {
         private ContentControl currentChildView = new ProjectsUC();
         public ContentControl CurrentChildView { get => currentChildView; set { currentChildView = value; OnPropertyChanged(); } }
+
+        private TimeKeepingUC timeKeepingUC = new TimeKeepingUC();
+        private TasksInProjectUC tasksInProjectUC = new TasksInProjectUC();
+        private SettingsUC settingsUC = new SettingsUC();
+        private NotifyUC notifyUC = new NotifyUC();
+        private WorkScheduleUC workScheduleUC = new WorkScheduleUC();
+        private EmployeesUC employeesUC = new EmployeesUC();
+        private ProjectsUC projectsUC = new ProjectsUC();
 
         public ICommand ShowProjectsViewCommand { get; }
         public ICommand ShowEmployeesViewCommand { get; }
@@ -32,37 +39,37 @@ namespace CompanyManagement.ViewModels.Windows
 
         private void ExecuteShowTimeKeepingView(object obj)
         {
-            currentChildView.Content = new TimeKeepingUC();
+            currentChildView.Content = timeKeepingUC;
         }
 
         private void ExecuteShowTasksView(object obj)
         {
-            currentChildView.Content = new TasksInProjectUC();
+            currentChildView.Content = tasksInProjectUC;
         }
 
         private void ExecuteShowSettingsView(object obj)
         {
-            currentChildView.Content = new SettingsUC();
+            currentChildView.Content = settingsUC;
         }
 
         private void ExecuteShowNotifyView(object obj)
         {
-            currentChildView.Content = new NotifyUC();
+            currentChildView.Content = notifyUC;
         }
 
         private void ExecuteShowWorkScheduleView(object obj)
         {
-            currentChildView.Content = new WorkScheduleUC();
+            currentChildView.Content = workScheduleUC;
         }
 
         private void ExecuteShowEmployeesView(object obj)
         {
-            currentChildView.Content = new EmployeesUC();
+            currentChildView.Content = employeesUC;
         }
 
         private void ExecuteShowProjectsView(object obj)
         {
-            currentChildView.Content = new ProjectsUC();
+            currentChildView.Content = projectsUC;
         }
     }
 }

@@ -180,7 +180,7 @@
                 <Grid Grid.Column="1">
                     <Border  Margin="10" BorderThickness="1">
                         <ContentControl 
-                            Content="{Binding CurrentChildView}" >
+                            Content="{Binding CurrentChildView, UpdateSourceTrigger=PropertyChanged}" >
                         </ContentControl>
                     </Border>
                 </Grid>
