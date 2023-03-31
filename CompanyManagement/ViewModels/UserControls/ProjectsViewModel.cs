@@ -19,8 +19,9 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private ObservableCollection<Project> projects;
         public ObservableCollection<Project> Projects { get => projects; set { projects = value; OnPropertyChanged(); } }
-
         public Project SelectedProject { get; set; }
+
+        public IAsignments parentDataContext { get; set; }
 
         public ICommand OpenProjectInputCommand { get; set; }
         public ICommand DeleteProjectCommand { get; set; }
@@ -101,6 +102,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void ItemClicked(object p)
         {
+            parentDataContext.ShowTasksView();
             TasksDataContext.ShowTasksWithID(SelectedProject.ID);
         }
     }
