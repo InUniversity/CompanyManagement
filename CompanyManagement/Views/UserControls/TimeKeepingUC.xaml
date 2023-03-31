@@ -1,18 +1,18 @@
 ﻿<UserControl x:Class="CompanyManagement.Views.UserControls.TimeKeepingUC"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:CompanyManagement.Views.UserControls"
-              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+            xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+            xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
             TextElement.FontWeight="Regular"
             TextElement.FontSize="13"
             TextOptions.TextFormattingMode="Ideal"
-            TextOptions.TextRenderingMode="Auto"          
-            FontFamily="{DynamicResource MaterialDesignFont}"        
-             mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="1000">
+            TextOptions.TextRenderingMode="Auto"  
+            Name="timeKeepingUC"
+            FontFamily="{DynamicResource MaterialDesignFont}" 
+            mc:Ignorable="d" 
+            d:DesignHeight="600" d:DesignWidth="1000">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
@@ -33,75 +33,55 @@
             </StackPanel>
         </materialDesign:ColorZone>
         <ListView Grid.Row="1">
-            <ListView.View>
-                <GridView>
-                    <GridView.Columns>
-                        <GridViewColumn Width="400">
-                            <GridViewColumn.Header >
-                                <TextBlock Text="Nhiệm vụ"></TextBlock>
-                            </GridViewColumn.Header> 
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Border>
-                                        <StackPanel Orientation="Horizontal">
-                                            <Button Style="{StaticResource MaterialDesignIconButton}">
-                                                <materialDesign:PackIcon Kind="StarCheck" />
-                                            </Button>
-                                            <TextBlock></TextBlock>
-                                        </StackPanel>
-                                    </Border>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <GridViewColumn Width="150">
-                            <GridViewColumn.Header>
-                                <TextBlock Text="Giờ"></TextBlock>
-                            </GridViewColumn.Header>
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBlock></TextBlock>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <GridViewColumn Width="150">
-                            <GridViewColumn.Header>
-                                <TextBlock Text="Chủ"></TextBlock>
-                            </GridViewColumn.Header>
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBlock></TextBlock>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <GridViewColumn Width="150">
-                            <GridViewColumn.Header>
-                                <TextBlock Text="Thanh toán"></TextBlock>
-                            </GridViewColumn.Header>
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBlock></TextBlock>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <GridViewColumn Width="150">
-                            <GridViewColumn.Header>
-                                <TextBlock Text="Trạng thái"></TextBlock>
-                            </GridViewColumn.Header>
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Border CornerRadius="5" Background="AliceBlue">
-                                        <ComboBox>
-                                            <ComboBoxItem Content="Chấp nhận"></ComboBoxItem>
-                                            <ComboBoxItem Content="Hủy"></ComboBoxItem>
-                                            <ComboBoxItem Content="Đợi"></ComboBoxItem>
-                                        </ComboBox>
-                                    </Border>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                    </GridView.Columns>
-                </GridView>
-            </ListView.View>
+            <DataGrid   
+                Width="985"
+                CanUserAddRows="False"
+                AutoGenerateColumns="False"
+                Background="White"
+                ItemsSource="{Binding SearchedEmployees}"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Header="Operations" 
+                                            CanUserResize="False" 
+                                            IsReadOnly="True"
+                                            Width="auto">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button
+                                        Command="{Binding DataContext.UpdateTimeKeepingCommand, ElementName=timeKeepingUC}"
+                                        CommandParameter="{Binding}">
+                                        <materialDesign:PackIcon Kind="PencilOutline" />
+                                    </Button>
+                                    <Button Margin="5 0 0 0"
+                                            Command="{Binding DataContext.DeleteTimeKeepingCommand, ElementName=timeKeepingUC}"
+                                            CommandParameter="{Binding ID}">
+                                        <materialDesign:PackIcon Kind="DeleteOutline" />
+                                    </Button>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Width="125" Header="Mã nhiệm vụ" IsReadOnly="True" Binding="{Binding TaskID}" />
+                    <DataGridTextColumn Width="150" Header="Ngày bắt đầu" IsReadOnly="True" Binding="{Binding Start}" />
+                    <DataGridTextColumn Width="150" Header="Ngày kết thúc" IsReadOnly="True" Binding="{Binding End}" />
+                    <DataGridTextColumn Width="120" Header="Mã nhân viên" IsReadOnly="True" Binding="{Binding EmployeeID}" />
+                    <DataGridTextColumn Width="250" Header="Ghi chú" IsReadOnly="True" Binding="{Binding Notes}" />
+                    <DataGridTextColumn Width="125" Header="Người tạo" IsReadOnly="True" Binding="{Binding CreateBy}" />
+                </DataGrid.Columns>
+            </DataGrid>
         </ListView>
+        <Button
+            ToolTip="Thêm bảng chấm công mới"
+            Grid.Row="1"
+            Width="60"
+            Height="60"
+            Margin="40"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            Command="{Binding ElementName=timeKeepingUC,Path=DataContext.OpenTimeKeepingInputCommand}"
+            Content="{materialDesign:PackIcon Kind=Plus , Size=30}"
+            Style="{StaticResource MaterialDesignFloatingActionButton}" />
     </Grid>
 </UserControl>

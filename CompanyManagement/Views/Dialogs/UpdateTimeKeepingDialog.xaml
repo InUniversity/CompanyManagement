@@ -1,0 +1,44 @@
+﻿<Window x:Class="CompanyManagement.Views.Dialogs.UpdateTimeKeepingDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:userControls="clr-namespace:CompanyManagement.Views.UserControls"
+        mc:Ignorable="d"
+        x:Name="updataTimeKeepingWindow"
+        Title="TimeKeepingInputWindow" Height="673" Width="920">
+    <Grid>
+        <StackPanel Height="673" VerticalAlignment="Center" HorizontalAlignment="Right" Width="920">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+            </Grid>
+            <Grid Height="73">
+                <Label 
+                    FontWeight="ExtraBold"
+                    FontSize="30"
+                    VerticalAlignment="Bottom"
+                    HorizontalAlignment="Center"
+                    Content="Cập nhật Bảng Chấm Công"/>
+            </Grid>
+            <Grid Height="511">
+                <userControls:TimeKeepingInputUC DataContext="{Binding TimeKeepingInputDataContext}"/>
+            </Grid>
+            <Grid Height="73">
+                <Button
+                    Content="Lưu"
+                    Command="{Binding UpdateTimeKeepingCommand}"
+                    CommandParameter="{Binding ElementName=updataTimeKeepingWindow}"
+                    Width="70"
+                    Background="ForestGreen"
+                    VerticalAlignment="Center"
+                    IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                    Style="{StaticResource MaterialDesignFlatMidBgButton}"
+                    ToolTip="Lưu bảng chấm công" />
+            </Grid>
+        </StackPanel>
+    </Grid>
+</Window>

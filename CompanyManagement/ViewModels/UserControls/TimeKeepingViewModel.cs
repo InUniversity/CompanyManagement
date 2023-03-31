@@ -1,7 +1,13 @@
-﻿using CompanyManagement.Database.Interfaces;
+﻿using CompanyManagement.Database.Implementations;
+using CompanyManagement.Database.Interfaces;
 using CompanyManagement.Models;
 using CompanyManagement.ViewModels.Base;
+using CompanyManagement.ViewModels.Dialogs;
+using CompanyManagement.Views.Dialogs;
+using MaterialDesignThemes.Wpf;
+using System;
 using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Input;
 
 namespace CompanyManagement.ViewModels.UserControls
@@ -9,7 +15,7 @@ namespace CompanyManagement.ViewModels.UserControls
     public class TimeKeepingViewModel : BaseViewModel, ITimeKeeping
     {
 
-        private ObservableCollection<TimeKeeping> timeKeepingSet; //Set of TimeKeeping
+        private ObservableCollection<TimeKeeping> timeKeepingSet; 
         public ObservableCollection<TimeKeeping> TimeKeepingSet { get => timeKeepingSet; set { timeKeepingSet = value; OnPropertyChanged(); } }
 
         public ICommand OpenTimeKeepingInputCommand { get; set; }
@@ -20,6 +26,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         public TimeKeepingViewModel(ITimeKeepingDao timeKeepingDao)
         {
+            MessageBox.Show("Open");
             this.timeKeepingDao = timeKeepingDao;
             LoadTimeKeeping();
             SetCommands();
@@ -32,36 +39,34 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void SetCommands()
         {
-            OpenTimeKeepingInputCommand = new RelayCommand<TaskInProject>(ExecuteAddCommand);
+            OpenTimeKeepingInputCommand = new RelayCommand<TimeKeeping>(ExecuteAddCommand);
             DeleteTimeKeepingCommand = new RelayCommand<string>(ExecuteDeleteCommand);
-            UpdateTimeKeepingCommand = new RelayCommand<TaskInProject>(ExecuteUpdateCommand);
+            UpdateTimeKeepingCommand = new RelayCommand<TimeKeeping>(ExecuteUpdateCommand);
         }
 
 
-        private void ExecuteAddCommand(TaskInProject task)
+        private void ExecuteAddCommand(TimeKeeping timeKeeping)
         {
-            /*
-            try
-            {
-                AddTaskDialog addTaskDialog = new AddTaskDialog();
-                AddTaskViewModel addTaskViewModel = (AddTaskViewModel)addTaskDialog.DataContext;
-                addTaskViewModel.ParentDataContext = this;
-                task = CreateTaskInProjectInstance();
-                addTaskViewModel.TaskInputDataContext.Retrieve(task);
-                addTaskDialog.ShowDialog();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }*/
+            AddTimeKeepingDialog addTimeKeepingDialog = new AddTimeKeepingDialog();
+            AddTimeKeepingViewModel addTimeKeepingViewModel = (AddTimeKeepingViewModel)addTimeKeepingDialog.DataContext;
+            addTimeKeepingViewModel.ParentDataContext = this;
+            addTimeKeepingViewModel.TimeKeepingInputDataContext.Retrieve(timeKeeping);
+            addTimeKeepingDialog.ShowDialog();
         }
 
         private void ExecuteDeleteCommand(string id)
         {
+            timeKeepingDao.Delete(id);
+            LoadTimeKeeping();
         }
 
-        private void ExecuteUpdateCommand(TaskInProject task)
+        private void ExecuteUpdateCommand(TimeKeeping timeKeeping)
         {
+            UpdateTimeKeepingDialog updateTimeKeepingDialog = new UpdateTimeKeepingDialog();
+            UpdateTimeKeepingViewModel updateTaskViewModel = (UpdateTimeKeepingViewModel)updateTimeKeepingDialog.DataContext;
+            updateTaskViewModel.ParentDataContext = this;
+            updateTaskViewModel.TimeKeepingInputDataContext.Retrieve(timeKeeping);
+            updateTimeKeepingDialog.ShowDialog();
         }
 
         public void Add(TimeKeeping timeKeeping)
