@@ -23,8 +23,6 @@ namespace CompanyManagement.ViewModels.Windows
         public ICommand ShowWorkScheduleViewCommand { get; }
         public ICommand ShowNotifyViewCommand { get; }
         public ICommand ShowSettingsViewCommand { get; }
-        public ICommand ShowTasksViewCommand { get; }
-        public ICommand ShowTimeKeepingViewCommand { get; }
 
         public ManagerViewModel()
         {
@@ -32,21 +30,8 @@ namespace CompanyManagement.ViewModels.Windows
             ShowEmployeesViewCommand = new RelayCommand<object>(ExecuteShowEmployeesView);
             ShowWorkScheduleViewCommand = new RelayCommand<object>(ExecuteShowWorkScheduleView);
             ShowNotifyViewCommand = new RelayCommand<object>(ExecuteShowNotifyView);
-            ShowSettingsViewCommand = new RelayCommand<object>(ExecuteShowSettingsView);
-            ShowTasksViewCommand = new RelayCommand<object>(ExecuteShowTasksView);
-            ShowTimeKeepingViewCommand = new RelayCommand<object>(ExecuteShowTimeKeepingView);
+            ShowSettingsViewCommand = new RelayCommand<object>(ExecuteShowSettingsView);         
         }
-
-        private void ExecuteShowTimeKeepingView(object obj)
-        {
-            currentChildView.Content = timeKeepingUC;
-        }
-
-        private void ExecuteShowTasksView(object obj)
-        {
-            currentChildView.Content = tasksInProjectUC;
-        }
-
         private void ExecuteShowSettingsView(object obj)
         {
             currentChildView.Content = settingsUC;

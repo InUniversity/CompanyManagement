@@ -22,9 +22,6 @@
     <Compile Update="Views\UserControls\TimeKeepingUC.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\UserControls\WorkSheduleUC.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="Views\Windows\LoginWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -46,9 +43,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\UserControls\TimeKeepingUC.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Views\UserControls\WorkSheduleUC.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Windows\LoginWindow.xaml">

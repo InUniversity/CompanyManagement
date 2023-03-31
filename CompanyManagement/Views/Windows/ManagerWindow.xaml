@@ -102,33 +102,6 @@
                                 <TextBlock Text="Cài đặt" Margin="33 0"></TextBlock>
                             </StackPanel>
                         </RadioButton>
-                        <Border Margin="0 10" >
-                            <Expander HorizontalAlignment="Stretch" Header="Word Overview" Background="WhiteSmoke">
-                                <StackPanel>
-                                    <Button Background="Transparent"
-                                            Height="50"
-                                            Command="{Binding ShowTasksViewCommand}" BorderThickness="0">
-                                        <Button.Content>
-                                            <StackPanel Orientation="Horizontal">
-                                                <materialDesign:PackIcon Kind="Firework" Foreground="Black" />
-                                                <TextBlock Text="Nhiệm vụ" Margin="25 0"  Foreground="Black"></TextBlock>
-                                            </StackPanel>
-                                        </Button.Content>
-                                    </Button>
-                                    <Button Background="Transparent" 
-                                            Height="50"
-                                            Command="{Binding ShowTimeKeepingViewCommand}" BorderThickness="0">
-                                        <Button.Content>
-                                            <StackPanel Orientation="Horizontal">
-                                                <materialDesign:PackIcon Kind="Cash100" Foreground="Black" />
-                                                <TextBlock Text="Chấm công" Margin="20 0" Foreground="Black"></TextBlock>
-                                            </StackPanel>
-                                        </Button.Content>
-                                    </Button>
-                                </StackPanel>
-                            </Expander>
-                        </Border>
-                        
                     </StackPanel>
                 </Border>
                 
