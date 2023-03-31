@@ -37,8 +37,8 @@ namespace CompanyManagement.ViewModels.UserControls
         private string progress = "0";
         public string Progress { get => progress; set { progress = value; OnPropertyChanged(); } }
 
-        private int projectStatus = 1;
-        public int ProjectStatus { get => projectStatus; set { projectStatus = value; OnPropertyChanged(); } }  
+        private string projectStatus = "1";
+        public string ProjectStatus { get => projectStatus; set { projectStatus = value; OnPropertyChanged(); } }  
 
         private string errorMessage = "";
         public string ErrorMessage { get => errorMessage; set { errorMessage = value; OnPropertyChanged(); } }

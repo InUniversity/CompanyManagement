@@ -15,7 +15,7 @@ namespace CompanyManagement
         private string start = "";
         private string end = "";
         private string progress = "0";
-        private int status;
+        private string status;
 
         public string ID
         {
@@ -47,7 +47,7 @@ namespace CompanyManagement
             set { progress = value; }
         }
 
-        public int Status
+        public string Status
         {
             get { return status; }
             set { status = value; }
@@ -55,7 +55,7 @@ namespace CompanyManagement
 
         public Project() { }
 
-        public Project(string id, string name, string start, string end, string progress, int status)
+        public Project(string id, string name, string start, string end, string progress, string status)
         {
             this.id = id;
             this.name = name;
@@ -79,7 +79,7 @@ namespace CompanyManagement
                 start = (string)reader[BaseDao.PROJECT_START];
                 end = (string)reader[BaseDao.PROJECT_END];
                 progress = (string)reader[BaseDao.PROJECT_PROPRESS];
-                status = (int)reader[BaseDao.PROJECT_STATUS_ID];
+                status = (string)reader[BaseDao.PROJECT_STATUS_ID];
             }
             catch(Exception ex)
             {

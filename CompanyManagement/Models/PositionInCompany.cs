@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.SqlClient;
 using System.Windows;
 using CompanyManagement.Database;
@@ -7,7 +8,7 @@ namespace CompanyManagement.Models
 {
     public class PositionInCompany
     {
-
+        
         private string id;
         private string name;
 
