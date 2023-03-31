@@ -41,7 +41,7 @@ namespace CompanyManagement.ViewModels.UserControls
         private TaskInProject CreateTaskInProjectInstance()
         {
             return new TaskInProject(AutoGenerateID(), "", "", "", "", "",
-                SingletonEmployee.Instance.CurrentEmployeeAccount.ID, "", projectID, 1);
+                SingletonEmployee.Instance.CurrentEmployeeAccount.ID, "", projectID, "1");
         }
 
         private void LoadTaskInProjects()
@@ -81,19 +81,12 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void ExecuteAddCommand(TaskInProject task)
         {
-            try
-            {
-                AddTaskDialog addTaskDialog = new AddTaskDialog();
-                AddTaskViewModel addTaskViewModel = (AddTaskViewModel)addTaskDialog.DataContext;
-                addTaskViewModel.ParentDataContext = this;
-                task = CreateTaskInProjectInstance();
-                addTaskViewModel.TaskInputDataContext.Retrieve(task);
-                addTaskDialog.ShowDialog();
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            AddTaskDialog addTaskDialog = new AddTaskDialog();
+            AddTaskViewModel addTaskViewModel = (AddTaskViewModel)addTaskDialog.DataContext;
+            addTaskViewModel.ParentDataContext = this;
+            task = CreateTaskInProjectInstance();
+            addTaskViewModel.TaskInputDataContext.Retrieve(task);
+            addTaskDialog.ShowDialog();
         }
 
         private void ExecuteDeleteCommand(string id)
