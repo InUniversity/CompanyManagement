@@ -12,6 +12,7 @@ namespace CompanyManagement.Models
 {
     public class ProjectStatus
     {
+        
         private string id;
         private string name;
 
