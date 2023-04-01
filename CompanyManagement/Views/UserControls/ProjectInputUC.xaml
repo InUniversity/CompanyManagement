@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              TextElement.FontWeight="Regular"
              TextElement.FontSize="13"
@@ -87,9 +88,9 @@
                 <TextBlock Text="%"></TextBlock>
             </StackPanel>
         </Canvas>
-        <materialDesign:DialogHost CornerRadius="20" CloseOnClickAway="True" IsOpen="{Binding IsOpenAddDeparmentDialog}">
+        <materialDesign:DialogHost CornerRadius="20" CloseOnClickAway="True" >
             <materialDesign:DialogHost.DialogContent>
-                <StackPanel Width="300" Height="300">
+                <StackPanel Width="500" Height="500">
                     <Grid Height="60" Margin="5">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="80" />
@@ -102,17 +103,66 @@
                         </Button>
                         <TextBox Grid.Column="1"
                                  Margin="20 5"
+                                 Text="{Binding ElementName=projectInputUC, Path=DataContext.TextToSearch, UpdateSourceTrigger=PropertyChanged}"
                                  Style="{StaticResource MaterialDesignOutlinedTextBox}" />
                     </Grid>
-                    <ListView Height="150" Margin="5"
-                              ItemsSource="{Binding ElementName=projectInputUC, Path=DataContext.DepartmentsCanAssign}">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Name}" />
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
+                    <ListView Height="350" Margin="5" 
+                              Name="listDepartment" 
+                              SelectionMode="Multiple"                             
+                              ItemsSource="{Binding ElementName=projectInputUC, Path=DataContext.SearchedDepartmentsCanAssign , UpdateSourceTrigger=PropertyChanged}">
+                        <b:Interaction.Triggers>
+                            <b:EventTrigger EventName="SelectionChanged">
+                                <b:InvokeCommandAction Command="{Binding GetAllSelectedDepartmentComman}"
+                                                   CommandParameter="{Binding ElementName= listDepartment}" />
+                            </b:EventTrigger>
+                        </b:Interaction.Triggers>
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="{x:Type ListViewItem}">
+                                <Setter Property="Foreground" Value="Black" />
+                                <Setter Property="Background" Value="White" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}"
+                                             Value="True">
+                                        <Setter Property="Background" Value="#e1f5fe" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding ElementName=checkALL, Path= IsChecked}" Value="True">
+                                        <Setter Property="IsSelected" Value="True"></Setter>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.View>
+                            <GridView>
+                                <GridView.Columns>
+                                    <GridViewColumn Width="380">
+                                        <GridViewColumn.Header>
+                                            <TextBlock Text="Tên phòng ban" FontWeight="ExtraBold"></TextBlock>
+                                        </GridViewColumn.Header>
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock  Height="40" Text="{Binding Name}" />
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn Width="100">
+                                        <GridViewColumn.Header>
+                                            <CheckBox Name="checkALL"></CheckBox>
+                                        </GridViewColumn.Header>
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <ToggleButton
+                                                  Margin="20 0" 
+                                                  IsEnabled="False"   
+                                                  Background="Transparent"
+                                                  IsChecked="{Binding IsSelected, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}}"
+                                                  Style="{StaticResource MaterialDesignActionLightToggleButton}"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                </GridView.Columns>
+                            </GridView>
+                        </ListView.View>
                     </ListView>
-
                     <Grid Margin="5">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
@@ -121,6 +171,7 @@
                         <Button Width="100"
                                 Content="Thêm"
                                 Grid.Column="0"
+                                Command="{Binding ElementName=projectInputUC, Path=DataContext.AddDepartmentCommand}"
                                 Style="{StaticResource MaterialDesignIconButton}" />
                         <Button Width="100"
                                 Content="Hoàn tất"
@@ -149,13 +200,13 @@
                             <ItemsControl ItemsSource="{Binding ElementName=projectInputUC, Path=DataContext.DepartmentsInProject}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
-                                        <Border Width="180" Height="50" CornerRadius="5" BorderBrush="Black"
+                                        <Border Width="280" Height="50" CornerRadius="5" BorderBrush="Black"
                                                 BorderThickness="0.5" Margin="10" HorizontalAlignment="Center">
                                             <Canvas>
                                                 <TextBlock Margin="15" Text="{Binding Name}" />
                                                 <Button Style="{StaticResource MaterialDesignIconButton}"
                                                         Canvas.Right="0"
-                                                        Command="{Binding ElementName=projectInputUC, Path=DataContext.DeleteDeparmentCommand}"
+                                                        Command="{Binding ElementName=projectInputUC, Path=DataContext.DeleteDepartmentCommand}"
                                                         CommandParameter="{Binding ID}">
                                                     <materialDesign:PackIcon Kind="Close" Foreground="Black" />
                                                 </Button>

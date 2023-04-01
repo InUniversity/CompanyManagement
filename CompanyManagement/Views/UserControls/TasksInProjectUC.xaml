@@ -13,42 +13,47 @@
              Background="{DynamicResource MaterialDesignPaper}"
              FontFamily="{DynamicResource MaterialDesignFont}"
              mc:Ignorable="d">
-    <Grid MinHeight="550" MinWidth="550">
-        <DataGrid CanUserAddRows="False"
-                  AutoGenerateColumns="False"
+    <Grid MinHeight="550" MinWidth="1100">
+        <Border MinHeight="550"
+                 Width="1100"               
+                BorderThickness="2"
+                ClipToBounds="True">
+            <Grid>
+                <DataGrid CanUserAddRows="False"
+                  AutoGenerateColumns="False"                 
                   Background="White"
                   ItemsSource="{Binding TasksInProject}">
-            <DataGrid.Columns>
-                <DataGridTemplateColumn Header="Operations"
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn Header="Operations"
                                         CanUserResize="False"
                                         IsReadOnly="True"
                                         Width="auto">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                <Button
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button
                                     Command="{Binding DataContext.UpdateTaskInProjectCommand, ElementName=tasksInProjectUC}"
                                     CommandParameter="{Binding}">
-                                    <materialDesign:PackIcon Kind="PencilOutline" />
-                                </Button>
-                                <Button Margin="5 0 0 0"
+                                            <materialDesign:PackIcon Kind="PencilOutline" />
+                                        </Button>
+                                        <Button Margin="5 0 0 0"
                                         Command="{Binding DataContext.DeleteTaskInProjectCommand, ElementName=tasksInProjectUC}"
                                         CommandParameter="{Binding ID}">
-                                    <materialDesign:PackIcon Kind="DeleteOutline" />
-                                </Button>
-                            </StackPanel>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTextColumn Header="Tên nhiệm vụ" IsReadOnly="True" Binding="{Binding ID}" />
-                <DataGridTextColumn Header="Tiêu đề" IsReadOnly="True" Binding="{Binding Title}" />
-                <DataGridTextColumn Header="Mô tả" IsReadOnly="True" Binding="{Binding Description}" />
-                <DataGridTextColumn Header="Ngày bắt đầu" IsReadOnly="True" Binding="{Binding AssignDate}" />
-                <DataGridTextColumn Header="Ngày kết thúc" IsReadOnly="True" Binding="{Binding Deadline}" />
-                <DataGridTextColumn Header="Nhân viên" IsReadOnly="True" Binding="{Binding EmployeeID}" />
-            </DataGrid.Columns>
-        </DataGrid>
-        <Button
+                                            <materialDesign:PackIcon Kind="DeleteOutline" />
+                                        </Button>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Header="Tên nhiệm vụ" IsReadOnly="True" Binding="{Binding ID}" />
+                        <DataGridTextColumn Header="Tiêu đề" IsReadOnly="True" Binding="{Binding Title}" />
+                        <DataGridTextColumn Header="Mô tả" IsReadOnly="True" Binding="{Binding Description}" />
+                        <DataGridTextColumn Header="Ngày bắt đầu" IsReadOnly="True" Binding="{Binding AssignDate}" />
+                        <DataGridTextColumn Header="Ngày kết thúc" IsReadOnly="True" Binding="{Binding Deadline}" />
+                        <DataGridTextColumn Header="Nhân viên" IsReadOnly="True" Binding="{Binding EmployeeID}" />
+                    </DataGrid.Columns>
+                </DataGrid>
+                <Button
             ToolTip="Thêm công việc mới"
             Grid.Row="1"
             Width="60"
@@ -59,5 +64,7 @@
             VerticalAlignment="Bottom"
             Content="{materialDesign:PackIcon Kind=Plus , Size=30}"
             Style="{StaticResource MaterialDesignFloatingActionButton}" />
+            </Grid>
+        </Border>
     </Grid>
 </UserControl>
