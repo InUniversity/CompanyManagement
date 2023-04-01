@@ -2,17 +2,18 @@
 using System;
 using System.Data.SqlClient;
 using System.Windows;
+using CompanyManagement.Utilities;
 
 namespace CompanyManagement.Models
 {
     public class TimeKeeping
     {
-        private string taskID;
-        private string startTime;
-        private string endTime;
-        private string employeeeID;
-        private string notes;
-        private string createBy;
+        private string taskID = "";
+        private string startTime = "";
+        private string endTime = "";
+        private string employeeeID = "";
+        private string notes = "";
+        private string createBy = "";
 
         public string TaskID
         {

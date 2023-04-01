@@ -1,13 +1,10 @@
-﻿using CompanyManagement.Database.Implementations;
-using CompanyManagement.Database.Interfaces;
+﻿using CompanyManagement.Database.Interfaces;
 using CompanyManagement.Models;
 using CompanyManagement.ViewModels.Base;
 using CompanyManagement.ViewModels.Dialogs;
 using CompanyManagement.Views.Dialogs;
-using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.ObjectModel;
-using System.Windows;
 using System.Windows.Input;
 
 namespace CompanyManagement.ViewModels.UserControls
@@ -50,19 +47,20 @@ namespace CompanyManagement.ViewModels.UserControls
             UpdateTimeKeepingCommand = new RelayCommand<TimeKeeping>(ExecuteUpdateCommand);
         }
 
-
         private void ExecuteAddCommand(object p)
         {
-            try
-            {
-                AddTimeKeepingDialog addTimeKeepingDialog = new AddTimeKeepingDialog();
-                AddTimeKeepingViewModel addTimeKeepingViewModel = (AddTimeKeepingViewModel)addTimeKeepingDialog.DataContext;
-                addTimeKeepingViewModel.ParentDataContext = this;
-                addTimeKeepingViewModel.TimeKeepingInputDataContext.Retrieve(new TimeKeeping());
-                addTimeKeepingDialog.ShowDialog();
-            }
-            catch(Exception ex)
-            { MessageBox.Show(ex.Message); }
+            AddTimeKeepingDialog addTimeKeepingDialog = new AddTimeKeepingDialog();
+            AddTimeKeepingViewModel addTimeKeepingViewModel = (AddTimeKeepingViewModel)addTimeKeepingDialog.DataContext;
+            addTimeKeepingViewModel.ParentDataContext = this;
+            TimeKeeping timeKeeping = CreateTimeKeeping();
+            addTimeKeepingViewModel.TimeKeepingInputDataContext.Retrieve(timeKeeping);
+            addTimeKeepingDialog.ShowDialog();
+        }
+
+        private TimeKeeping CreateTimeKeeping()
+        {
+            // TODO
+            return new TimeKeeping();
         }
 
         private void ExecuteDeleteCommand(string id)
@@ -89,12 +87,6 @@ namespace CompanyManagement.ViewModels.UserControls
         public void Update(TimeKeeping timeKeeping)
         {
             timeKeepingDao.Update(timeKeeping);
-            LoadTimeKeeping();
-        }
-
-        public void Delete(string taskID)
-        {
-            timeKeepingDao.Delete(taskID);
             LoadTimeKeeping();
         }
     }

@@ -34,16 +34,18 @@
         </Grid>
         <Grid Grid.Row="1">
             <materialDesign:TimePicker
-                    Height="50"
-                    Margin="20 5"
-                    Width="360"
-                    HorizontalAlignment="Left"
-                    materialDesign:HintAssist.Hint="Giờ bắt đầu nhiệm vụ"
-                    Is24Hours="True"
-                    Style="{StaticResource MaterialDesignOutlinedTimePicker}" />
+                SelectedTime="{Binding Start}"
+                Height="50"
+                Margin="20 5"
+                Width="360"
+                HorizontalAlignment="Left"
+                materialDesign:HintAssist.Hint="Giờ bắt đầu nhiệm vụ"
+                Is24Hours="True"
+                Style="{StaticResource MaterialDesignOutlinedTimePicker}" />
         </Grid>
         <Grid Grid.Row="2">
             <materialDesign:TimePicker
+                SelectedTime="{Binding End}"
                 Height="50"
                 Margin="20 5"
                 Width="360"

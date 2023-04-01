@@ -3,16 +3,11 @@ using CompanyManagement.Models;
 using CompanyManagement.Utilities;
 using CompanyManagement.ViewModels.Base;
 
-
 namespace CompanyManagement.ViewModels.UserControls
 {
 
     public interface ITimeKeepingInput
     {
-        string TaskID { get; }
-        string EmployeeID { get; }
-        string CreateBy { get; }
-        string ErrorMessage { set; }
         TimeKeeping CreateTimeKeepingInstance();
         void TrimAllTexts();
         void Retrieve(TimeKeeping timeKeeping);
@@ -25,7 +20,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private DateTime start = DateTime.Now;
         public DateTime Start { get => start; set { start = value; OnPropertyChanged(); } }
-
+        
         private DateTime end = DateTime.Now;
         public DateTime End { get => end; set { end = value; OnPropertyChanged(); } }
 
@@ -41,11 +36,10 @@ namespace CompanyManagement.ViewModels.UserControls
         private string errorMessage = "";
         public string ErrorMessage { get => errorMessage; set { errorMessage = value; OnPropertyChanged(); } }
 
-        public TimeKeepingInputViewModel() { }
-
         public TimeKeeping CreateTimeKeepingInstance()
         {
-            return new TimeKeeping(taskID, Utils.TimeToString(start), Utils.TimeToString(end), employeeID, notes, createBy);
+            return new TimeKeeping(taskID, Utils.TimeToString(start), 
+                Utils.TimeToString(end), employeeID, notes, createBy);
         }
 
         public void TrimAllTexts()
@@ -58,10 +52,12 @@ namespace CompanyManagement.ViewModels.UserControls
 
         public void Retrieve(TimeKeeping timeKeeping)
         {
-            taskID = timeKeeping.TaskID;
-            employeeID = timeKeeping.EmployeeID;
-            notes = timeKeeping.Notes;
-            createBy = timeKeeping.CreateBy;
+            TaskID = timeKeeping.TaskID;
+            Start = Utils.StringToTime(timeKeeping.StartTime);
+            End = Utils.StringToTime(timeKeeping.EndTime);
+            EmployeeID = timeKeeping.EmployeeID;
+            Notes = timeKeeping.Notes;
+            CreateBy = timeKeeping.CreateBy;
         }
     }
 }

@@ -38,7 +38,7 @@
                 CanUserAddRows="False"
                 AutoGenerateColumns="False"
                 Background="White"
-                ItemsSource="{Binding SearchedEmployees}"
+                ItemsSource="{Binding TimeKeepingSet}"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top">
                 <DataGrid.Columns>
