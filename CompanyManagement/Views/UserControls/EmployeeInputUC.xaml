@@ -6,10 +6,10 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d"
-             d:DesignHeight="510.48" d:DesignWidth="904.033">
+             d:DesignHeight="400" d:DesignWidth="904.033">
     <Grid>
-        <StackPanel Height="491">
-            <Grid Margin="20" Width="952" Height="456">
+        <StackPanel Height="Auto">
+            <Grid Width="860" Height="380">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="250" />
                     <ColumnDefinition Width="600" />
@@ -44,14 +44,12 @@
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
                         <Grid Grid.Row="0">
                             <TextBox
                                 Margin="5 5 5 20"
                                 materialDesign:HintAssist.Hint="Mã số nhân viên"
                                 Text="{Binding ID}"
-                                Name="txtID"
                                 AcceptsReturn="True"
                                 IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedTextBoxEnabledComboBox}"
                                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
@@ -96,20 +94,9 @@
                         <Grid Grid.Row="4">
                             <TextBox
                                 Margin="5 5 5 20"
-                                materialDesign:HintAssist.Hint="Tên đăng nhập"
-                                Text="{Binding Username}"
-                                AcceptsReturn="True"
-                                IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedTextBoxEnabledComboBox}"
-                                Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                TextWrapping="Wrap"
-                                VerticalScrollBarVisibility="Auto" />
-                        </Grid>
-                        <Grid Grid.Row="5">
-                            <TextBox
-                                Margin="5 5 5 20"
-                                materialDesign:HintAssist.Hint="Mật khẩu"
-                                Text="{Binding Password}"
-                                MinHeight="8"
+                                MaxLength="255"
+                                materialDesign:HintAssist.Hint="Địa chỉ"
+                                Text="{Binding Address}"
                                 AcceptsReturn="True"
                                 IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedTextBoxEnabledComboBox}"
                                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
@@ -124,21 +111,8 @@
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
                         <Grid Grid.Row="0">
-                            <TextBox
-                                Margin="5 5 5 20"
-                                MaxLength="255"
-                                materialDesign:HintAssist.Hint="Địa chỉ"
-                                Text="{Binding Address}"
-                                AcceptsReturn="True"
-                                IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedTextBoxEnabledComboBox}"
-                                Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                TextWrapping="Wrap"
-                                VerticalScrollBarVisibility="Auto" />
-                        </Grid>
-                        <Grid Grid.Row="1">
                             <TextBox
                                 MaxLength="10"
                                 Margin="5 5 5 20"
@@ -150,7 +124,7 @@
                                 TextWrapping="Wrap"
                                 VerticalScrollBarVisibility="Auto" />
                         </Grid>
-                        <Grid Grid.Row="2">
+                        <Grid Grid.Row="1">
                             <TextBox
                                 MaxLength="254"
                                 Margin="5 5 5 20"
@@ -162,7 +136,7 @@
                                 TextWrapping="Wrap"
                                 VerticalScrollBarVisibility="Auto" />
                         </Grid>
-                        <Grid Grid.Row="3">
+                        <Grid Grid.Row="2">
                             <ComboBox
                                 Margin="5 5 5 20"
                                 SelectedValue="{Binding Gender}"
@@ -175,7 +149,7 @@
                                 <ComboBoxItem Content="Khác" />
                             </ComboBox>
                         </Grid>
-                        <Grid Grid.Row="4">
+                        <Grid Grid.Row="3">
                             <StackPanel Orientation="Horizontal" Margin="5 5 5 20">
                                 <ComboBox
                                     Width="140"
@@ -207,7 +181,7 @@
                                 </ComboBox>
                             </StackPanel>
                         </Grid>
-                        <Grid Grid.Row="5">
+                        <Grid Grid.Row="4">
                             <TextBox
                                 Margin="5 5 5 20"
                                 materialDesign:HintAssist.Hint="Lương cơ bản"

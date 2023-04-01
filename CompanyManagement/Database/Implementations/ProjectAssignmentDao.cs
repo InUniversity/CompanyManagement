@@ -30,11 +30,11 @@ namespace CompanyManagement.Database.Implementations
             return dbConnection.GetList(sqlStr, reader => new Department(reader));   
         }
 
-        public List<EmployeeAccount> GetEmployeesInProject(string projectID)
+        public List<Employee> GetEmployeesInProject(string projectID)
         {
             string sqlStr = $"SELECT * FROM {EMPLOYEE_TABLE} WHERE {EMPLOYEE_DEPARTMENT_ID} IN(" +
                 $"SELECT {PROJECT_ASSIGNMENT_DEPARTMENT_ID} FROM {PROJECT_ASSIGNMENT_TABLE} WHERE {PROJECT_ASSIGNMENT_PROJECT_ID} = '{projectID}')";
-            return dbConnection.GetList(sqlStr, reader => new EmployeeAccount(reader));
+            return dbConnection.GetList(sqlStr, reader => new Employee(reader));
         }
         
         public List<Department> GetDepartmentsCanAssignWork(Project project)

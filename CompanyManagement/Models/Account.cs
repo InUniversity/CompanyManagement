@@ -1,9 +1,14 @@
-﻿namespace CompanyManagement.Models
+﻿using System;
+using System.Data.SqlClient;
+using CompanyManagement.Database;
+
+namespace CompanyManagement.Models
 {
     public class Account
     {
-        private string username;
-        private string password;
+        private string username = "";
+        private string password = "";
+        private string employeeID = "";
 
         public string Username
         {
@@ -17,12 +22,33 @@
             set => password = value;
         }
 
+        public string EmployeeID
+        {
+            get => employeeID;
+            set => employeeID = value;
+        }
+
         public Account() { }
 
-        public Account(string username, string password)
+        public Account(string username, string password, string employeeID)
         {
             this.username = username;
             this.password = password;
+            this.employeeID = employeeID;
+        }
+
+        public Account(SqlDataReader reader)
+        {
+            try
+            {
+                Username = (string)reader[BaseDao.ACCOUNT_USERNAME];
+                Password = (string)reader[BaseDao.ACCOUNT_PASSWORD];
+                employeeID = (string)reader[BaseDao.ACCOUNT_EMPLOYEE_ID];
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
     }
 }

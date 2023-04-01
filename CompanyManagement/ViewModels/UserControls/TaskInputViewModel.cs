@@ -25,7 +25,7 @@ namespace CompanyManagement.ViewModels.UserControls
         private DateTime deadline = DateTime.Now;
         public DateTime Deadline { get => deadline; set { deadline = value; OnPropertyChanged(); } }
 
-        private string createBy = SingletonEmployee.Instance.CurrentEmployeeAccount.ID;
+        private string createBy = SingletonEmployee.Instance.CurrentAccount.EmployeeID;
         public string CreateBy { get => createBy; set { createBy = value; OnPropertyChanged(); } }
 
         private string progress = "50";
@@ -43,8 +43,8 @@ namespace CompanyManagement.ViewModels.UserControls
         private string errorMessage = "";
         public string ErrorMessage { get => errorMessage; set { errorMessage = value; OnPropertyChanged(); } }
 
-        private ObservableCollection<EmployeeAccount> employees;
-        public ObservableCollection<EmployeeAccount> Employees { get => employees; set { employees = value; OnPropertyChanged(); } }
+        private ObservableCollection<Employee> employees;
+        public ObservableCollection<Employee> Employees { get => employees; set { employees = value; OnPropertyChanged(); } }
 
         public List<TaskStatus> TaskStatuses { get; set; }
 
@@ -105,7 +105,7 @@ namespace CompanyManagement.ViewModels.UserControls
             employeeID = taskinproject.EmployeeID;
             projectID = taskinproject.ProjectID;
             statusID = taskinproject.Status;
-            Employees = new ObservableCollection<EmployeeAccount>(assignmentDao.GetEmployeesInProject(taskinproject.ProjectID));
+            Employees = new ObservableCollection<Employee>(assignmentDao.GetEmployeesInProject(taskinproject.ProjectID));
         }
     }
 

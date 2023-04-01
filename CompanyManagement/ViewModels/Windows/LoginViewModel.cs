@@ -19,9 +19,9 @@ namespace CompanyManagement.ViewModels.Windows
         public ICommand ForgotPasswordCommand { get; set; }
         public ICommand PasswordChangedCommand { get; set; }
 
-        private IEmployeeAccountDao employeeAccountDao;
+        private IEmployeeDao employeeAccountDao;
 
-        public LoginViewModel(IEmployeeAccountDao employeeAccountDao)
+        public LoginViewModel(IEmployeeDao employeeAccountDao)
         {
             this.employeeAccountDao = employeeAccountDao;
             SetCommands();

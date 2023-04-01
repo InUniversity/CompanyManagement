@@ -5,7 +5,7 @@ using CompanyManagement.Models;
 
 namespace CompanyManagement
 {
-    public class EmployeeAccount
+    public class Employee
     {
         private string id = "";
         private string name = "";
@@ -18,8 +18,7 @@ namespace CompanyManagement
         private string departmentID = "";
         private string positionID = "";
         private int salary;
-        private Account account = new Account();
-
+        
         public string ID => id;
 
         public string Name => name;
@@ -42,12 +41,10 @@ namespace CompanyManagement
 
         public int Salary => salary;
 
-        public Account EmplAccount => account;
+        public Employee() { }
 
-        public EmployeeAccount() { }
-
-        public EmployeeAccount(string id, string name, string gender, string birthday, string identifyCard, string email, 
-            string phoneNumber, string address, string departmentID, string positionID, int salary, Account account)
+        public Employee(string id, string name, string gender, string birthday, string identifyCard, string email, 
+            string phoneNumber, string address, string departmentID, string positionID, int salary)
         {
             this.id = id;
             this.name = name;
@@ -60,15 +57,14 @@ namespace CompanyManagement
             this.departmentID = departmentID;
             this.positionID = positionID;
             this.salary = salary;
-            this.account = account;
         }
 
-        public EmployeeAccount(string id)
+        public Employee(string id)
         {
             this.id = id;
         }
         
-        public EmployeeAccount(SqlDataReader reader)
+        public Employee(SqlDataReader reader)
         {
             try
             {
@@ -83,8 +79,6 @@ namespace CompanyManagement
                 departmentID = (string)reader[BaseDao.EMPLOYEE_DEPARTMENT_ID];
                 positionID = (string)reader[BaseDao.EMPLOYEE_POSITION_ID];
                 salary = (int)reader[BaseDao.EMPLOYEE_SALARY];
-                account = new Account((string)reader[BaseDao.ACCOUNT_USERNAME], 
-                                    (string)reader[BaseDao.ACCOUNT_PASSWORD]);
             }
             catch (Exception ex)
             {
