@@ -10,10 +10,7 @@ namespace CompanyManagement.ViewModels.UserControls
     public interface ITimeKeepingInput
     {
         string TaskID { get; }
-        string Start { get; }
-        string End { get; }
         string EmployeeID { get; }
-        string Notes { get; }
         string CreateBy { get; }
         string ErrorMessage { set; }
         TimeKeeping CreateTimeKeepingInstance();
@@ -28,11 +25,9 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private DateTime start = DateTime.Now;
         public DateTime Start { get => start; set { start = value; OnPropertyChanged(); } }
-        string ITimeKeepingInput.Start => throw new NotImplementedException();
 
         private DateTime end = DateTime.Now;
         public DateTime End { get => end; set { end = value; OnPropertyChanged(); } }
-        string ITimeKeepingInput.End => throw new NotImplementedException();
 
         private string employeeID = "";
         public string EmployeeID { get => employeeID; set { employeeID = value; OnPropertyChanged(); } }
@@ -69,10 +64,5 @@ namespace CompanyManagement.ViewModels.UserControls
             notes = timeKeeping.Notes;
             createBy = timeKeeping.CreateBy;
         }
-    }
-
-    public interface IRetrieveTimeKeeping
-    {
-        void Retrieve(TimeKeeping timeKeeping);
     }
 }

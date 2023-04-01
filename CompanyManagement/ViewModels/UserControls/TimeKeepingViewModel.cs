@@ -12,6 +12,13 @@ using System.Windows.Input;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
+
+    public interface ITimeKeeping
+    {
+        void Add(TimeKeeping timeKeeping);
+        void Update(TimeKeeping timeKeeping);
+    }
+
     public class TimeKeepingViewModel : BaseViewModel, ITimeKeeping
     {
 
@@ -86,11 +93,5 @@ namespace CompanyManagement.ViewModels.UserControls
             timeKeepingDao.Delete(taskID);
             LoadTimeKeeping();
         }
-    }
-
-    public interface ITimeKeeping
-    {
-        void Add(TimeKeeping timeKeeping);
-        void Update(TimeKeeping timeKeeping);
     }
 }
