@@ -10,7 +10,7 @@ namespace CompanyManagement.Database.Implementations
         {
             string sqlStr = $"INSERT INTO {TIME_KEEPING_TABLE} ({TIME_KEEPING_TASK_ID}, {TIME_KEEPING_START_TIME}, " +
                             $"{TIME_KEEPING_END_TIME}, {TIME_KEEPING_EMPLOYEE_ID}, {TIME_KEEPING_NOTES}, " +
-                            $"{TIME_KEEPING_CREATE_BY}) VALUE('{timeKeeping.TaskID}', '{timeKeeping.StartTime}', " +
+                            $"{TIME_KEEPING_CREATE_BY}) VALUES('{timeKeeping.TaskID}', '{timeKeeping.StartTime}', " +
                             $"'{timeKeeping.EndTime}', '{timeKeeping.EmployeeID}', '{timeKeeping.Notes}', '{timeKeeping.CreateBy}')";
 
             dbConnection.ExecuteNonQuery(sqlStr);

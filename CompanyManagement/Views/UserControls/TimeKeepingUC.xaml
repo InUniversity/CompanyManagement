@@ -80,7 +80,7 @@
             Margin="40"
             HorizontalAlignment="Right"
             VerticalAlignment="Bottom"
-            Command="{Binding ElementName=timeKeepingUC,Path=DataContext.OpenTimeKeepingInputCommand}"
+            Command="{Binding OpenTimeKeepingInputCommand}"
             Content="{materialDesign:PackIcon Kind=Plus , Size=30}"
             Style="{StaticResource MaterialDesignFloatingActionButton}" />
     </Grid>

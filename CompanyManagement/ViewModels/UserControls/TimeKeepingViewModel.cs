@@ -33,7 +33,6 @@ namespace CompanyManagement.ViewModels.UserControls
 
         public TimeKeepingViewModel(ITimeKeepingDao timeKeepingDao)
         {
-            MessageBox.Show("Open");
             this.timeKeepingDao = timeKeepingDao;
             LoadTimeKeeping();
             SetCommands();
@@ -46,19 +45,24 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void SetCommands()
         {
-            OpenTimeKeepingInputCommand = new RelayCommand<TimeKeeping>(ExecuteAddCommand);
+            OpenTimeKeepingInputCommand = new RelayCommand<object>(ExecuteAddCommand);
             DeleteTimeKeepingCommand = new RelayCommand<string>(ExecuteDeleteCommand);
             UpdateTimeKeepingCommand = new RelayCommand<TimeKeeping>(ExecuteUpdateCommand);
         }
 
 
-        private void ExecuteAddCommand(TimeKeeping timeKeeping)
+        private void ExecuteAddCommand(object p)
         {
-            AddTimeKeepingDialog addTimeKeepingDialog = new AddTimeKeepingDialog();
-            AddTimeKeepingViewModel addTimeKeepingViewModel = (AddTimeKeepingViewModel)addTimeKeepingDialog.DataContext;
-            addTimeKeepingViewModel.ParentDataContext = this;
-            addTimeKeepingViewModel.TimeKeepingInputDataContext.Retrieve(timeKeeping);
-            addTimeKeepingDialog.ShowDialog();
+            try
+            {
+                AddTimeKeepingDialog addTimeKeepingDialog = new AddTimeKeepingDialog();
+                AddTimeKeepingViewModel addTimeKeepingViewModel = (AddTimeKeepingViewModel)addTimeKeepingDialog.DataContext;
+                addTimeKeepingViewModel.ParentDataContext = this;
+                addTimeKeepingViewModel.TimeKeepingInputDataContext.Retrieve(new TimeKeeping());
+                addTimeKeepingDialog.ShowDialog();
+            }
+            catch(Exception ex)
+            { MessageBox.Show(ex.Message); }
         }
 
         private void ExecuteDeleteCommand(string id)

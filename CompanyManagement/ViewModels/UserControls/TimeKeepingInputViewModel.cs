@@ -43,10 +43,9 @@ namespace CompanyManagement.ViewModels.UserControls
 
         public TimeKeepingInputViewModel() { }
 
-
         public TimeKeeping CreateTimeKeepingInstance()
         {
-            return new TimeKeeping(taskID, Utils.DateTimeToString(start), Utils.DateTimeToString(end), employeeID, notes, createBy);
+            return new TimeKeeping(taskID, Utils.TimeToString(start), Utils.TimeToString(end), employeeID, notes, createBy);
         }
 
         public void TrimAllTexts()

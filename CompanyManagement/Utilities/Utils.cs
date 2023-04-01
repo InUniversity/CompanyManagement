@@ -17,6 +17,7 @@ namespace CompanyManagement.Utilities
         public const string EXIST_PHONE_NUMBER_MESSAGE = "Số điện thoại đã tồn tại!!!";
 
         private const string FORMAT_DATEONLY = "dd-MM-yyyy";
+        private const string FORMAT_TIMEONLY = "hh:mm tt";
         private const string FORMAT_DATETIME = "dd-MM-yyyy hh:mm tt";
         
         public static string DateToString(DateTime dateOnly)
@@ -34,6 +35,11 @@ namespace CompanyManagement.Utilities
         public static string DateTimeToString(DateTime dateTime)
         {
             return dateTime.ToString(FORMAT_DATETIME);
+        }
+
+        public static string TimeToString(DateTime dateTime)
+        {
+            return dateTime.ToString(FORMAT_TIMEONLY, CultureInfo.CurrentCulture);
         }
 
         public static DateTime StringToDateTime(string dateTimeStr)
