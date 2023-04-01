@@ -95,22 +95,24 @@ namespace CompanyManagement.ViewModels.UserControls
             projectID = projectID.Trim();
         }
 
-        public void Retrieve(TaskInProject taskinproject)
+        public void Retrieve(TaskInProject taskInProject)
         {
-            id = taskinproject.ID;
-            title = taskinproject.Title;
-            description = taskinproject.Description;
-            createBy = taskinproject.CreateBy;
-            progress = taskinproject.Progress;
-            employeeID = taskinproject.EmployeeID;
-            projectID = taskinproject.ProjectID;
-            statusID = taskinproject.Status;
-            Employees = new ObservableCollection<Employee>(assignmentDao.GetEmployeesInProject(taskinproject.ProjectID));
+            id = taskInProject.ID;
+            title = taskInProject.Title;
+            description = taskInProject.Description;
+            assignDate = Utils.StringToDateTime(taskInProject.AssignDate);
+            deadline = Utils.StringToDateTime(taskInProject.Deadline);
+            createBy = taskInProject.CreateBy;
+            progress = taskInProject.Progress;
+            employeeID = taskInProject.EmployeeID;
+            projectID = taskInProject.ProjectID;
+            statusID = taskInProject.Status;
+            Employees = new ObservableCollection<Employee>(assignmentDao.GetEmployeesInProject(taskInProject.ProjectID));
         }
     }
 
     public interface IRetrieveTaskInProject
     {
-        void Retrieve(TaskInProject taskinproject);
+        void Retrieve(TaskInProject taskInProject);
     }
 }

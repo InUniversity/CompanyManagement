@@ -5,11 +5,22 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using CompanyManagement.Database.Interfaces;
 using CompanyManagement.ViewModels.Dialogs;
-using System.Windows;
 using CompanyManagement.ViewModels.Base;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
+    
+    public interface ITasksInProject
+    {
+        void Add(TaskInProject task);
+        void Update(TaskInProject task);
+    }
+
+    public interface IRetrieveProjectID
+    {
+        void ShowTasksWithID(string projectID);
+    }
+    
     public class TasksInProjectViewModel : BaseViewModel, ITasksInProject, IRetrieveProjectID
     {
 
@@ -68,11 +79,6 @@ namespace CompanyManagement.ViewModels.UserControls
             LoadTaskInProjects();
         }
 
-        public void ShowEmployeeInProject(string projectID)
-        {
-            LoadTaskInProjects();
-        }
-
         public void ShowTasksWithID(string projectID)
         {
             TasksInProjectViewModel.projectID = projectID;
@@ -115,17 +121,5 @@ namespace CompanyManagement.ViewModels.UserControls
             } while (taskInProjectDao.SearchByID(taskInProjectID) != null);
             return taskInProjectID;
         }
-    }
-
-    public interface ITasksInProject
-    {
-        void Add(TaskInProject task);
-        void Update(TaskInProject task);
-    }
-
-    public interface IRetrieveProjectID
-    {
-        void ShowTasksWithID(string projectID);
-        void ShowEmployeeInProject(string projectID);
     }
 }

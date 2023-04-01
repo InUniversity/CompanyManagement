@@ -13,7 +13,6 @@ namespace CompanyManagement.ViewModels.Dialogs
         public ICommand AddTaskCommand { get; set; }
 
         public TasksInProjectViewModel ParentDataContext { get; set; }
-
         public TaskInputViewModel TaskInputDataContext { get; set; }
 
         public AddTaskViewModel()
@@ -21,18 +20,18 @@ namespace CompanyManagement.ViewModels.Dialogs
             SetCommands();
         }
 
-        public void SetCommands()
+        private void SetCommands()
         {
             TaskInputDataContext = new TaskInputViewModel(new ProjectAssignmentDao(), new TaskStatusDao());
             AddTaskCommand = new RelayCommand<Window>(AddCommand);
         }
 
-        private void AddCommand(Window inputwindow)
+        private void AddCommand(Window inputWindow)
         {
             TaskInputDataContext.TrimAllTexts();
             TaskInProject task = TaskInputDataContext.CreateTaskInProjectInstance();
             ParentDataContext.Add(task);
-            inputwindow.Close();
+            inputWindow.Close();
         }
     }
 }

@@ -69,6 +69,7 @@
             </Grid>
             <Grid Grid.Column="1">
                 <materialDesign:TimePicker
+                    SelectedTime="{Binding AssignDate}"
                     Height="50"
                     Margin="10"
                     Width="265"
@@ -95,6 +96,7 @@
             </Grid>
             <Grid Grid.Column="1">
                 <materialDesign:TimePicker
+                    SelectedTime="{Binding Deadline}"
                     Height="50"
                     Margin="10"
                     Width="265"
