@@ -14,11 +14,11 @@ namespace CompanyManagement.Database.Implementations
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
-        public void Delete(ProjectAssignment projectAssignment)
+        public void Delete(string projectID, string departmentID)
         {
             string sqlStr = $"DELETE FROM {PROJECT_ASSIGNMENT_TABLE} " +
-                            $"WHERE {PROJECT_ASSIGNMENT_PROJECT_ID}='{projectAssignment.ProjectID}' AND " +
-                            $"{PROJECT_ASSIGNMENT_DEPARTMENT_ID}='{projectAssignment.DeparmentID}'";
+                            $"WHERE {PROJECT_ASSIGNMENT_PROJECT_ID}='{projectID}' AND " +
+                            $"{PROJECT_ASSIGNMENT_DEPARTMENT_ID}='{departmentID}'";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 

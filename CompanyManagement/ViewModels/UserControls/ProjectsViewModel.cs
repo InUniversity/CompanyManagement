@@ -70,6 +70,7 @@ namespace CompanyManagement.ViewModels.UserControls
             AddProjectViewModel addProjectVM = (AddProjectViewModel)addProjectDialog.DataContext;
             addProjectVM.ParentDataContext = this;
             addProjectVM.ProjectInputDataContext.RetrieveProject(new Project(AutoGenerateID()));
+            addProjectVM.ProjectInputDataContext.LoadDepartmentsCanAssign(new Project());
             addProjectDialog.ShowDialog();
         }
 
@@ -97,6 +98,8 @@ namespace CompanyManagement.ViewModels.UserControls
             UpdateProjectViewModel projectViewModel = (UpdateProjectViewModel)projectDetailsDialog.DataContext;
             projectViewModel.ParentDataContext = this;
             projectViewModel.ProjectInputDataContext.RetrieveProject(project);
+            projectViewModel.ProjectInputDataContext.LoadDepartmentsInProject(project.ID);
+            projectViewModel.ProjectInputDataContext.LoadDepartmentsCanAssign(project);
             projectDetailsDialog.ShowDialog();
         }
 

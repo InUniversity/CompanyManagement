@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
-using CompanyManagement.Database.Implementations;
 using CompanyManagement.Database.Interfaces;
 using CompanyManagement.Models;
 using CompanyManagement.Utilities;
 using CompanyManagement.ViewModels.Base;
+using System.Linq;
+using System.Windows.Controls;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
@@ -17,6 +18,8 @@ namespace CompanyManagement.ViewModels.UserControls
         bool CheckAllFields();
         void TrimAllTexts();
         void RetrieveProject(Project project);
+        void LoadDepartmentsInProject(string projectID);
+        void LoadDepartmentsCanAssign(Project project);
     }
 
     public class ProjectInputViewModel : BaseViewModel, IProjectInput
@@ -46,66 +49,108 @@ namespace CompanyManagement.ViewModels.UserControls
         private ObservableCollection<Department> departmentsInProject;
         public ObservableCollection<Department> DepartmentsInProject { get => departmentsInProject; set { departmentsInProject = value; OnPropertyChanged(); } }
 
-        private ObservableCollection<Department> departmentsCanAssign;
-        public ObservableCollection<Department> DepartmentsCanAssign { get => departmentsCanAssign; set { departmentsCanAssign = value; OnPropertyChanged(); } }
-        
+        private List<Department> departmentsCanAssign;
+
+        private ObservableCollection<Department> searchedDepartmentsCanAssign;
+
+        public ObservableCollection<Department> SearchedDepartmentsCanAssign { get => searchedDepartmentsCanAssign; set { searchedDepartmentsCanAssign = value; OnPropertyChanged(); } }
+
+        private ObservableCollection<Department> departmentsIsSelected;
+
+        public ObservableCollection<Department> DepartmentsIsSelected { get => departmentsIsSelected; set { departmentsIsSelected = value; OnPropertyChanged(); } }
+
+        private string textToSearch = "";
+
+        public string TextToSearch { get => textToSearch; set { textToSearch = value; OnPropertyChanged(); SearchByName(); } }
+
         public ICommand AddDepartmentCommand { get; set; }
+
         public ICommand DeleteDepartmentCommand { get; set; }
+
+        public ICommand GetAllSelectedDepartmentComman { get; set; }
 
         public List<ProjectStatus> ProjectStatuses { get; set; }
 
         private IProjectAssignmentDao projectAssignmentDao;
+
         private IProjectStatusDao projectStatusDao;
+        
 
         public ProjectInputViewModel(IProjectAssignmentDao projectAssignmentDao, IProjectStatusDao projectStatusDao)
         {
             this.projectStatusDao = projectStatusDao;
             this.projectAssignmentDao = projectAssignmentDao;
-            LoadDepartmentsInProject();
-            LoadDepartmentsCanAssign();
+            LoadDepartmentsCanAssign(new Project());
             SetCommands();
-            SetAllComboBox();
         }
 
-        private void SetAllComboBox()
+        void IProjectInput.LoadDepartmentsInProject(string projectID)
         {
-            ProjectStatuses = projectStatusDao.GetAll();
+            LoadDepartmentsInProject(projectID);
+        }       
+        private void LoadDepartmentsInProject(string projectID)
+        {
+            DepartmentsInProject = new ObservableCollection<Department>(projectAssignmentDao.GetAllDepartmentInProject(projectID));
         }
 
-        private void LoadDepartmentsInProject()
+        public void LoadDepartmentsCanAssign(Project project)
         {
-            var departments = projectAssignmentDao.GetAllDepartmentInProject(ID);
-            // DepartmentsInProject = new ObservableCollection<Department>(new DepartmentDao().GetAll());
-            // DepartmentsInProject = new ObservableCollection<Department>(departments);
-            DepartmentsInProject = new ObservableCollection<Department>(new DepartmentDao().GetAll());
-        }
-
-        private void LoadDepartmentsCanAssign()
-        {
-            var departments = projectAssignmentDao.GetDepartmentsCanAssignWork(new Project());
-            // DepartmentsInProject = new ObservableCollection<Department>(departments);
-            DepartmentsInProject = new ObservableCollection<Department>(new DepartmentDao().GetAll());
+            departmentsCanAssign = projectAssignmentDao.GetDepartmentsCanAssignWork(project);
+            SearchedDepartmentsCanAssign = new ObservableCollection<Department>(departmentsCanAssign);
         }
 
         private void SetCommands()
         {
-            AddDepartmentCommand = new RelayCommand<Department>(ExecuteAddDepartmentCommand);
+            GetAllSelectedDepartmentComman = new RelayCommand<object>(ExecuteGetAllSelectedDepartmentCommnan);
+            AddDepartmentCommand = new RelayCommand<object>(ExecuteAddDepartmentCommand);
             DeleteDepartmentCommand = new RelayCommand<string>(ExecuteDeleteDepartmentCommand);
         }
+        private void ExecuteGetAllSelectedDepartmentCommnan(object b)
+        {     
+            if(b != null)
+            {
+                ListView listView = b as ListView;
+                List<Department> selectedItems = new List<Department>();
+                foreach (object selectedItem in listView.SelectedItems)
+                {
+                    selectedItems.Add((Department)selectedItem);
+                }
+                DepartmentsIsSelected = new ObservableCollection<Department>(selectedItems);
+            }
+        }    
+            
 
-        private void ExecuteAddDepartmentCommand(Department department)
+        private void ExecuteAddDepartmentCommand(object b)
         {
-            projectAssignmentDao.Add(new ProjectAssignment(ID, department.ID));
-            LoadDepartmentsInProject();
-            LoadDepartmentsCanAssign();
+            if(DepartmentsIsSelected!=null)
+            {
+                foreach (Department department in DepartmentsIsSelected)
+                {
+                    projectAssignmentDao.Add(new ProjectAssignment(ID, department.ID));
+                }
+                LoadDepartmentsInProject(ID);
+                LoadDepartmentsCanAssign(CreateProjectInstance());
+            }                
+            DepartmentsIsSelected = new ObservableCollection<Department>();
         }
 
         private void ExecuteDeleteDepartmentCommand(string departmentID)
         {
-            MessageBox.Show("hihi");
-            //projectAssignmentDao.Delete(new ProjectAssignment(ID, departmentID));
-            //LoadDepartmentsInProject();
-            //LoadDepartmentsCanAssign();
+            projectAssignmentDao.Delete(ID, departmentID);
+            LoadDepartmentsInProject(ID);
+            LoadDepartmentsCanAssign(CreateProjectInstance());           
+        }
+
+        private void SearchByName()
+        {
+            var searchedItems = departmentsCanAssign;
+            if (!string.IsNullOrEmpty(textToSearch))
+            {
+                searchedItems = departmentsCanAssign
+                    .Where(item => item.Name.Contains(textToSearch, StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+            }
+            SearchedDepartmentsCanAssign = new ObservableCollection<Department>(searchedItems);
         }
 
         public Project CreateProjectInstance()
@@ -144,5 +189,6 @@ namespace CompanyManagement.ViewModels.UserControls
             Start = Utils.StringToDate(project.Start);
             End = Utils.StringToDate(project.End);
         }
+
     }
 }

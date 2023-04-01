@@ -15,8 +15,7 @@
              mc:Ignorable="d"
              x:Name="projectsUC">
     <Grid MinHeight="550" MinWidth="1100" >
-        <Border
-            Height="auto"
+        <Border          
             BorderThickness="2"
             ClipToBounds="True">
             <Grid>
