@@ -15,10 +15,10 @@ namespace CompanyManagement.ViewModels.UserControls
         string IdentifyCard { get; }
         string PhoneNumber { get; }
         string ErrorMessage { set; }
-        EmployeeAccount CreateEmployeeInstance();
+        Employee CreateEmployeeInstance();
         bool CheckAllFields();
         void TrimAllTexts();
-        void Retrieve(EmployeeAccount employeeAccount);
+        void Retrieve(Employee employee);
     }
 
     public class EmployeeInputViewModel : BaseViewModel, IEmployeeInput
@@ -37,12 +37,6 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private string identifyCard = "";
         public string IdentifyCard { get => identifyCard; set { identifyCard = value; OnPropertyChanged(); } }
-
-        private string username = "";
-        public string Username { get => username; set { username = value; OnPropertyChanged(); } }
-
-        private string password = "";
-        public string Password { get => password; set { password = value; OnPropertyChanged(); } }
 
         private string email = "";
         public string Email { get => email; set { email = value; OnPropertyChanged(); } }
@@ -65,8 +59,6 @@ namespace CompanyManagement.ViewModels.UserControls
         private string errorMessage = "";
         public string ErrorMessage { get => errorMessage; set { errorMessage = value; OnPropertyChanged(); } }
 
-        public ICommand PasswordChangedCommand { get; set; }
-
         public List<PositionInCompany> Positions { get; set; }
         public List<Department> Departments { get; set; }
 
@@ -77,7 +69,6 @@ namespace CompanyManagement.ViewModels.UserControls
         {
             this.positionDao = positionDao;
             this.departmentDao = departmentDao;
-            PasswordChangedCommand = new RelayCommand<PasswordBox>(passwordBox => Password = passwordBox.Password);
             SetAllComboBox();
         }
 
@@ -87,18 +78,17 @@ namespace CompanyManagement.ViewModels.UserControls
             Departments = departmentDao.GetAll();
         }
 
-        public EmployeeAccount CreateEmployeeInstance()
+        public Employee CreateEmployeeInstance()
         {
-            return new EmployeeAccount(ID, Name, Gender, Utils.DateToString(Birthday), IdentifyCard,
-                Email, PhoneNumber, Address, DepartmentID, PositionID, Salary, new Account(Username, Password));
+            return new Employee(ID, Name, Gender, Utils.DateToString(Birthday), IdentifyCard,
+                Email, PhoneNumber, Address, DepartmentID, PositionID, Salary);
         }
 
         public bool CheckAllFields()
         {
             ErrorMessage = "";
-            if (string.IsNullOrWhiteSpace(ID) || string.IsNullOrWhiteSpace(Name) || string.IsNullOrWhiteSpace(Gender) ||
-                string.IsNullOrWhiteSpace(IdentifyCard) || string.IsNullOrWhiteSpace(Username) ||
-                string.IsNullOrWhiteSpace(Password) || string.IsNullOrWhiteSpace(Email) ||
+            if (string.IsNullOrWhiteSpace(Name) || string.IsNullOrWhiteSpace(Gender) ||
+                string.IsNullOrWhiteSpace(IdentifyCard) || string.IsNullOrWhiteSpace(Email) ||
                 string.IsNullOrWhiteSpace(PhoneNumber) || string.IsNullOrWhiteSpace(Address) ||
                 string.IsNullOrWhiteSpace(departmentID) || string.IsNullOrWhiteSpace(positionID))
             {
@@ -125,11 +115,6 @@ namespace CompanyManagement.ViewModels.UserControls
                 ErrorMessage = Utils.INVALIDATE_IDENTIFY_CARD_MESSAGE;
                 return false;
             }
-            if (!CheckFormat.ValidatePassword(Password))
-            {
-                ErrorMessage = Utils.INVALIDATE_PASSWORK_MESSAGE;
-                return false;
-            }
             return true;
         }
 
@@ -144,26 +129,22 @@ namespace CompanyManagement.ViewModels.UserControls
             address = address.Trim();
             departmentID = departmentID.Trim();
             positionID = positionID.Trim();
-            username = username.Trim();
-            password = password.Trim();
         }
 
-        public void Retrieve(EmployeeAccount employeeAccount)
+        public void Retrieve(Employee employee)
         {
-            if (employeeAccount == null) 
+            if (employee == null) 
                 return;
-            ID = employeeAccount.ID;
-            Name = employeeAccount.Name;
-            Gender = employeeAccount.Gender;
-            IdentifyCard = employeeAccount.IdentifyCard;
-            Email = employeeAccount.Email;
-            PhoneNumber = employeeAccount.PhoneNumber;
-            Address = employeeAccount.Address;
-            DepartmentID = employeeAccount.DepartmentID;
-            PositionID = employeeAccount.PositionID;
-            Salary = employeeAccount.Salary;
-            Username = employeeAccount.EmplAccount.Username;
-            Password = employeeAccount.EmplAccount.Password;
+            ID = employee.ID;
+            Name = employee.Name;
+            Gender = employee.Gender;
+            IdentifyCard = employee.IdentifyCard;
+            Email = employee.Email;
+            PhoneNumber = employee.PhoneNumber;
+            Address = employee.Address;
+            DepartmentID = employee.DepartmentID;
+            PositionID = employee.PositionID;
+            Salary = employee.Salary;
         }
     }
 }

@@ -14,9 +14,9 @@ namespace CompanyManagement.ViewModels.Dialogs
         public IEmployees ParentDataContext { get; set; }
         public IEmployeeInput EmployeeInputDataContext { get; set; }
 
-        private IEmployeeAccountDao employeeAccountDao;
+        private IEmployeeDao employeeAccountDao;
 
-        public AddEmployeeViewModel(IEmployeeInput employeeInputDataContext, IEmployeeAccountDao employeeAccountDao)
+        public AddEmployeeViewModel(IEmployeeInput employeeInputDataContext, IEmployeeDao employeeAccountDao)
         {
             EmployeeInputDataContext = employeeInputDataContext;
             this.employeeAccountDao = employeeAccountDao;
@@ -27,7 +27,7 @@ namespace CompanyManagement.ViewModels.Dialogs
         {
             if (!CheckAllFields()) return;
             EmployeeInputDataContext.TrimAllTexts();
-            EmployeeAccount empl = EmployeeInputDataContext.CreateEmployeeInstance();
+            Employee empl = EmployeeInputDataContext.CreateEmployeeInstance();
             ParentDataContext.Add(empl);
             inputWindow.Close();
         }

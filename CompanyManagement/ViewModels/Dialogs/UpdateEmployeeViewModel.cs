@@ -22,7 +22,7 @@ namespace CompanyManagement.ViewModels.Dialogs
         {
             if (!CheckAllFields()) return;
             EmployeeInputDataContext.TrimAllTexts();
-            EmployeeAccount empl = EmployeeInputDataContext.CreateEmployeeInstance();
+            Employee empl = EmployeeInputDataContext.CreateEmployeeInstance();
             ParentDataContext.Update(empl);
             inputWindow.Close();
         }

@@ -16,8 +16,8 @@ namespace CompanyManagement.ViewModels.UserControls
         private ObservableCollection<TaskInProject> tasksInProject;
         public ObservableCollection<TaskInProject> TasksInProject { get => tasksInProject; set { tasksInProject = value; OnPropertyChanged(); } }
 
-        private ObservableCollection<EmployeeAccount> employeesInProject;
-        public ObservableCollection<EmployeeAccount> EmployeesInProject { get => employeesInProject; set { employeesInProject = value; OnPropertyChanged(); } }
+        private ObservableCollection<Employee> employeesInProject;
+        public ObservableCollection<Employee> EmployeesInProject { get => employeesInProject; set { employeesInProject = value; OnPropertyChanged(); } }
 
         private static string projectID = "";
 
@@ -41,7 +41,7 @@ namespace CompanyManagement.ViewModels.UserControls
         private TaskInProject CreateTaskInProjectInstance()
         {
             return new TaskInProject(AutoGenerateID(), "", "", "", "", "",
-                SingletonEmployee.Instance.CurrentEmployeeAccount.ID, "", projectID, "1");
+                SingletonEmployee.Instance.CurrentAccount.EmployeeID, "", projectID, "1");
         }
 
         private void LoadTaskInProjects()

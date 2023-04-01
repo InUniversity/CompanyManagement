@@ -1,10 +1,8 @@
-﻿using CompanyManagement.Database.Implementations;
-
-namespace CompanyManagement.Models
+﻿namespace CompanyManagement.Models
 {
     public class SingletonEmployee
     {
-        private static SingletonEmployee instance = null;
+        private static SingletonEmployee instance;
         private Employee employee;
         private Account account;
 
