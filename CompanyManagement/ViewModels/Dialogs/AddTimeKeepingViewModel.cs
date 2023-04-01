@@ -3,6 +3,7 @@ using CompanyManagement.ViewModels.UserControls;
 using System.Windows.Input;
 using System.Windows;
 using CompanyManagement.ViewModels.Base;
+using CompanyManagement.Database.Interfaces;
 
 namespace CompanyManagement.ViewModels.Dialogs
 {
@@ -14,14 +15,9 @@ namespace CompanyManagement.ViewModels.Dialogs
 
         public ITimeKeepingInput TimeKeepingInputDataContext { get; set; }
 
-        public AddTimeKeepingViewModel()
+        public AddTimeKeepingViewModel(ITimeKeepingInput timeKeepingInputDataContext)
         {
-            SetCommands();
-        }
-
-        public void SetCommands()
-        {
-            TimeKeepingInputDataContext = new TimeKeepingInputViewModel();
+            TimeKeepingInputDataContext = timeKeepingInputDataContext;
             AddTimeKeepingCommand = new RelayCommand<Window>(AddCommand);
         }
 

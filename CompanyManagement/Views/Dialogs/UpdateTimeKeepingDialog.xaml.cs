@@ -13,7 +13,7 @@ namespace CompanyManagement.Views.Dialogs
         {
             InitializeComponent();
             ITimeKeepingInput timeKeepingInput = new TimeKeepingInputViewModel();
-            DataContext = new UpdateTimeKeepingViewModel();
+            DataContext = new UpdateTimeKeepingViewModel(timeKeepingInput);
         }
     }
 }
