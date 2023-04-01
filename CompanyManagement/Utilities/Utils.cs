@@ -37,15 +37,22 @@ namespace CompanyManagement.Utilities
             return dateTime.ToString(FORMAT_DATETIME);
         }
 
-        public static string TimeToString(DateTime dateTime)
-        {
-            return dateTime.ToString(FORMAT_TIMEONLY, CultureInfo.CurrentCulture);
-        }
-
         public static DateTime StringToDateTime(string dateTimeStr)
         {
             DateTime result;
             bool canParse = DateTime.TryParseExact(dateTimeStr, FORMAT_DATETIME, CultureInfo.CurrentCulture, DateTimeStyles.None, out result);
+            return canParse ? result : DateTime.Now;
+        }
+
+        public static string TimeToString(DateTime dateTime)
+        {
+            return dateTime.ToString(FORMAT_TIMEONLY, CultureInfo.CurrentCulture);
+        }
+        
+        public static DateTime StringToTime(string timeStr)
+        {
+            DateTime result;
+            bool canParse = DateTime.TryParseExact(timeStr, FORMAT_TIMEONLY, CultureInfo.CurrentCulture, DateTimeStyles.None, out result);
             return canParse ? result : DateTime.Now;
         }
     }
