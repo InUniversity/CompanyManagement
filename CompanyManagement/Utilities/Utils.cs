@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Globalization;
 
 namespace CompanyManagement.Utilities
@@ -25,11 +26,11 @@ namespace CompanyManagement.Utilities
             return dateOnly.ToString(FORMAT_DATEONLY);
         }
 
-        public static DateTime StringToDate(string dateOnlyStr)
+        public static DateOnly StringToDate(string dateOnlyStr)
         {
-            DateTime result;
-            bool canParse = DateTime.TryParseExact(dateOnlyStr, FORMAT_DATEONLY, CultureInfo.CurrentCulture, DateTimeStyles.None, out result);
-            return canParse ? result : DateTime.Now;
+            DateOnly result;
+            bool canParse = DateOnly.TryParseExact(dateOnlyStr, FORMAT_DATEONLY, CultureInfo.CurrentCulture, DateTimeStyles.None, out result);
+            return canParse ? result : DateOnly.MinValue;
         }
         
         public static string DateTimeToString(DateTime dateTime)
@@ -44,16 +45,32 @@ namespace CompanyManagement.Utilities
             return canParse ? result : DateTime.Now;
         }
 
-        public static string TimeToString(TimeOnly time)
+        public static string TimeOnlyToString(TimeOnly timeOnly)
         {
-            return time.ToString(FORMAT_TIMEONLY, CultureInfo.CurrentCulture);
+            return timeOnly.ToString(FORMAT_TIMEONLY, CultureInfo.CurrentCulture);
         }
-        
-        public static TimeOnly StringToTime(string timeStr)
+
+        public static string DateOnlyToString(DateOnly dateOnly)
+        {
+            return dateOnly.ToString(FORMAT_DATEONLY, CultureInfo.CurrentCulture);
+        }
+
+        public static TimeOnly StringToTimeOnly(string timeStr)
         {
             TimeOnly result;
             bool canParse = TimeOnly.TryParseExact(timeStr, FORMAT_TIMEONLY, CultureInfo.CurrentCulture, DateTimeStyles.None, out result);
             return canParse ? result : TimeOnly.MinValue;
+        }
+
+        public static DateOnly DateTimeToDateOnly(DateTime dateTime)
+        {
+            return new DateOnly(dateTime.Year, dateTime.Month, dateTime.Day);
+        }
+
+        public static TimeOnly TimeSpanToTimeOnly(TimeSpan timeSpan)
+        {
+            DateTime time = DateTime.Now.Add(timeSpan);
+            return StringToTimeOnly(DateTimeToString(time));
         }
     }
 }

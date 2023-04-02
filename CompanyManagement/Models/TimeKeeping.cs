@@ -9,8 +9,8 @@ namespace CompanyManagement.Models
     public class TimeKeeping
     {
         private string taskID = "";
-        private string startTime = "";
-        private string endTime = "";
+        private TimeOnly startTime = TimeOnly.MinValue;
+        private TimeOnly endTime = TimeOnly.MinValue;
         private string employeeeID = "";
         private string notes = "";
         private string createBy = "";
@@ -21,13 +21,13 @@ namespace CompanyManagement.Models
             set => taskID = value;
         }
 
-        public string StartTime
+        public TimeOnly StartTime
         {
             get => startTime;
             set => startTime = value;
         }
 
-        public string EndTime
+        public TimeOnly EndTime
         {
             get => endTime;
             set => endTime = value;
@@ -53,7 +53,7 @@ namespace CompanyManagement.Models
 
         public TimeKeeping() { }
 
-        public TimeKeeping(string taskID, string startTime, string endTime, string employeeeID, string notes, string createBy)
+        public TimeKeeping(string taskID, TimeOnly startTime, TimeOnly endTime, string employeeeID, string notes, string createBy)
         {
             this.taskID = taskID;
             this.startTime = startTime;
@@ -68,8 +68,8 @@ namespace CompanyManagement.Models
             try
             {
                 taskID = (string)reader[BaseDao.TIME_KEEPING_TASK_ID];
-                startTime = (string)reader[BaseDao.TIME_KEEPING_START_TIME];
-                endTime = (string)reader[BaseDao.TIME_KEEPING_END_TIME];
+                startTime = Utils.TimeSpanToTimeOnly(reader.GetTimeSpan(reader.GetOrdinal(BaseDao.TIME_KEEPING_START_TIME)));
+                endTime = Utils.TimeSpanToTimeOnly(reader.GetTimeSpan(reader.GetOrdinal(BaseDao.TIME_KEEPING_END_TIME)));
                 employeeeID = (string)reader[BaseDao.TIME_KEEPING_EMPLOYEE_ID];
                 notes = (string)reader[BaseDao.TIME_KEEPING_NOTES];
                 createBy = (string)reader[BaseDao.TIME_KEEPING_CREATE_BY];

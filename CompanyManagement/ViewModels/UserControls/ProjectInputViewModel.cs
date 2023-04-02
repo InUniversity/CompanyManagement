@@ -155,7 +155,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         public Project CreateProjectInstance()
         {
-            return new Project(ID, Name, Utils.DateTimeToString(Start), Utils.DateTimeToString(End), Progress, projectStatus);
+            return new Project(ID, Name, Start, End, Progress, projectStatus);
         }
 
         public bool CheckAllFields()
@@ -186,8 +186,8 @@ namespace CompanyManagement.ViewModels.UserControls
             ID = project.ID;
             Name = project.Name;
             Progress = project.Progress;
-            Start = Utils.StringToDate(project.Start);
-            End = Utils.StringToDate(project.End);
+            Start = project.Start;
+            End = project.End;
         }
 
     }

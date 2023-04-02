@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Windows;
 using CompanyManagement.Database;
-using CompanyManagement.Models;
 using CompanyManagement.Utilities;
 
 namespace CompanyManagement
@@ -12,8 +10,8 @@ namespace CompanyManagement
     {
         private string id = "";
         private string name = "";
-        private string start = "";
-        private string end = "";
+        private DateTime start = DateTime.Now;
+        private DateTime end = DateTime.Now;
         private string progress = "0";
         private string status;
 
@@ -29,13 +27,13 @@ namespace CompanyManagement
             set { name = value; }
         }
 
-        public string Start
+        public DateTime Start
         {
             get { return start; }
             set { start = value; }
         }
 
-        public string End
+        public DateTime End
         {
             get { return end; }
             set { end = value; }
@@ -55,7 +53,7 @@ namespace CompanyManagement
 
         public Project() { }
 
-        public Project(string id, string name, string start, string end, string progress, string status)
+        public Project(string id, string name, DateTime start, DateTime end, string progress, string status)
         {
             this.id = id;
             this.name = name;
@@ -76,8 +74,8 @@ namespace CompanyManagement
             {
                 id = (string)reader[BaseDao.PROJECT_ID];
                 name = (string)reader[BaseDao.PROJECT_NAME];
-                start = (string)reader[BaseDao.PROJECT_START];
-                end = (string)reader[BaseDao.PROJECT_END];
+                start = reader.GetDateTime(reader.GetOrdinal(BaseDao.PROJECT_START));
+                end = reader.GetDateTime(reader.GetOrdinal(BaseDao.PROJECT_END));
                 progress = (string)reader[BaseDao.PROJECT_PROPRESS];
                 status = (string)reader[BaseDao.PROJECT_STATUS_ID];
             }

@@ -65,7 +65,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         public TaskInProject CreateTaskInProjectInstance()
         {
-            return new TaskInProject(id, title, description, Utils.DateTimeToString(assignDate), Utils.DateTimeToString(deadline), progress, createBy, employeeID, projectID, statusID);
+            return new TaskInProject(id, title, description, assignDate, deadline, progress, createBy, employeeID, projectID, statusID);
         }
 
         public bool CheckAllFields()
@@ -100,8 +100,8 @@ namespace CompanyManagement.ViewModels.UserControls
             id = taskInProject.ID;
             title = taskInProject.Title;
             description = taskInProject.Description;
-            assignDate = Utils.StringToDateTime(taskInProject.AssignDate);
-            deadline = Utils.StringToDateTime(taskInProject.Deadline);
+            assignDate = taskInProject.AssignDate;
+            deadline = taskInProject.Deadline;
             createBy = taskInProject.CreateBy;
             progress = taskInProject.Progress;
             employeeID = taskInProject.EmployeeID;
