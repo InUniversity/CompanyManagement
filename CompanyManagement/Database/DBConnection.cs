@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Windows;
 using CompanyManagement.Utilities;
 
 namespace CompanyManagement.Database
@@ -23,11 +24,12 @@ namespace CompanyManagement.Database
                 if (cmd.ExecuteNonQuery() > 0)
                 {
                     Log.Instance.Information(nameof(DBConnection), "Completed");
+                    MessageBox.Show("Completed");
                 }
             }
             catch (Exception ex)
             {
-                Log.Instance.Error(nameof(DBConnection), "CAST ERROR: " + ex.Message);
+                Log.Instance.Error(nameof(DBConnection), ex.Message);
             }
             finally
             {
@@ -56,7 +58,7 @@ namespace CompanyManagement.Database
             }
             catch (Exception ex)
             {
-                Log.Instance.Error(nameof(DBConnection), "CAST ERROR: " + ex.Message);
+                Log.Instance.Error(nameof(DBConnection), ex.Message);
             }
             finally
             {
