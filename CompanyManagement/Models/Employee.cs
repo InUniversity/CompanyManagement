@@ -82,7 +82,7 @@ namespace CompanyManagement
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Log.Instance.Error(nameof(Employee), "CAST ERROR: " + ex.Message);
             }
         }
     }

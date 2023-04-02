@@ -1,12 +1,7 @@
 ﻿using CompanyManagement.Database;
+using CompanyManagement.Utilities;
 using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Security.RightsManagement;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 
 namespace CompanyManagement.Models
 {
@@ -45,7 +40,7 @@ namespace CompanyManagement.Models
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                Log.Instance.Error(nameof(ProjectStatus), "CAST ERROR: " + ex.Message);
             }
         }
     }
