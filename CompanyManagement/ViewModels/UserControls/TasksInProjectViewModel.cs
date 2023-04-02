@@ -76,7 +76,6 @@ namespace CompanyManagement.ViewModels.UserControls
         public void RetrieveProjectID(string projectID)
         {
             TasksInProjectViewModel.projectID = projectID;
-           // TimeKeepingViewModel.projectID = projectID;
             TasksInProject = new ObservableCollection<TaskInProject>(taskInProjectDao.SearchByProjectID(projectID));
         }
 
