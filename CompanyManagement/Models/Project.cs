@@ -14,7 +14,7 @@ namespace CompanyManagement
         private DateTime end = DateTime.Now;
         private DateTime completed = DateTime.Now;
         private string progress = "0";
-        private string status;
+        private string statusID;
 
         public string ID
         {
@@ -52,15 +52,15 @@ namespace CompanyManagement
             set { progress = value; }
         }
 
-        public string Status
+        public string StatusID
         {
-            get { return status; }
-            set { status = value; }
+            get { return statusID; }
+            set { statusID = value; }
         }
 
         public Project() { }
 
-        public Project(string id, string name, DateTime start, DateTime end, DateTime completed, string progress, string status)
+        public Project(string id, string name, DateTime start, DateTime end, DateTime completed, string progress, string statusID)
         {
             this.id = id;
             this.name = name;
@@ -68,7 +68,7 @@ namespace CompanyManagement
             this.end = end;
             this.completed = completed;
             this.progress = progress;
-            this.status = status;
+            this.statusID = statusID;
         }
 
         public Project(string id)
@@ -86,7 +86,7 @@ namespace CompanyManagement
                 end = reader.GetDateTime(reader.GetOrdinal(BaseDao.PROJECT_END));
                 completed = reader.GetDateTime(reader.GetOrdinal(BaseDao.PROJECT_COMPLETED));
                 progress = (string)reader[BaseDao.PROJECT_PROPRESS];
-                status = (string)reader[BaseDao.PROJECT_STATUS_ID];
+                statusID = (string)reader[BaseDao.PROJECT_STATUS_ID];
             }
             catch(Exception ex)
             {

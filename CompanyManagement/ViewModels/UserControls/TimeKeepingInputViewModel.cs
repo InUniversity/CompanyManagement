@@ -1,6 +1,5 @@
 ﻿using System;
 using CompanyManagement.Models;
-using CompanyManagement.Utilities;
 using CompanyManagement.ViewModels.Base;
 
 namespace CompanyManagement.ViewModels.UserControls

@@ -230,7 +230,7 @@
                 <ComboBox
                     Width="645"
                     ItemsSource="{Binding ProjectStatuses}"
-                    SelectedValue="{Binding ProjectStatus}"
+                    SelectedValue="{Binding ProjectStatusID}"
                     SelectedValuePath="ID"
                     Margin="20 5"
                     materialDesign:HintAssist.Hint="Trạng thái"
