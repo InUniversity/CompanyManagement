@@ -103,7 +103,7 @@ namespace CompanyManagement.ViewModels.UserControls
         private void ItemClicked(object p)
         {
             parentDataContext.ShowTasksView();
-            TasksDataContext.ShowTasksWithID(SelectedProject.ID);
+            TasksDataContext.RetrieveProjectID(SelectedProject.ID);
         }
     }
 }
