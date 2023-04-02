@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Windows;
 using CompanyManagement.Utilities;
 
 namespace CompanyManagement.Database
@@ -24,7 +23,6 @@ namespace CompanyManagement.Database
                 if (cmd.ExecuteNonQuery() > 0)
                 {
                     Log.Instance.Information(nameof(DBConnection), "Completed");
-                    MessageBox.Show("Completed");
                 }
             }
             catch (Exception ex)
