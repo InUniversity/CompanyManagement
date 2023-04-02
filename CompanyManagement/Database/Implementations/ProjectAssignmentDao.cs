@@ -40,12 +40,12 @@ namespace CompanyManagement.Database.Implementations
         public List<Department> GetDepartmentsCanAssignWork(Project project)
         {
             string sqlStr = $"SELECT * FROM {DEPARTMENT_TABLE} WHERE {DEPARTMENT_ID} NOT IN (" +
-                            $"Select {PROJECT_ASSIGNMENT_DEPARTMENT_ID} FROM {PROJECT_ASSIGNMENT_TABLE} " +
+                            $"SELECT {PROJECT_ASSIGNMENT_DEPARTMENT_ID} FROM {PROJECT_ASSIGNMENT_TABLE} " +
                             $"WHERE {PROJECT_ASSIGNMENT_PROJECT_ID} IN (" +
-                            $"Select {PROJECT_ID} FROM {PROJECT_TABLE} " +
-                            $"WHERE {PROJECT_PROPRESS} NOT LIKE '100'" +
-                            $"AND {PROJECT_START} <= '{project.End}'" +
-                            $"AND {PROJECT_END} >= '{project.Start}'))";
+                            $"SELECT {PROJECT_ID} FROM {PROJECT_TABLE} " +
+                            $"WHERE {PROJECT_ID} NOT LIKE '{project.ID}' AND {PROJECT_PROPRESS} NOT LIKE '100'" +
+                            $"AND {PROJECT_START} <= Convert(Datetime, '{project.End}', 105) " +
+                            $"AND {PROJECT_END} >= Convert(Datetime, '{project.Start}', 105))))";
             return dbConnection.GetList(sqlStr, reader => new Department(reader));
         }
     }
