@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Windows;
 using CompanyManagement.Database;
-using CompanyManagement.Models;
 using CompanyManagement.Utilities;
 
 namespace CompanyManagement
@@ -12,10 +10,11 @@ namespace CompanyManagement
     {
         private string id = "";
         private string name = "";
-        private string start = "";
-        private string end = "";
+        private DateTime start = DateTime.Now;
+        private DateTime end = DateTime.Now;
+        private DateTime completed = DateTime.Now;
         private string progress = "0";
-        private string status;
+        private string statusID;
 
         public string ID
         {
@@ -29,16 +28,22 @@ namespace CompanyManagement
             set { name = value; }
         }
 
-        public string Start
+        public DateTime Start
         {
             get { return start; }
             set { start = value; }
         }
 
-        public string End
+        public DateTime End
         {
             get { return end; }
             set { end = value; }
+        }
+
+        public DateTime Completed
+        {
+            get { return completed; }
+            set { completed = value; }
         }
 
         public string Progress
@@ -47,22 +52,23 @@ namespace CompanyManagement
             set { progress = value; }
         }
 
-        public string Status
+        public string StatusID
         {
-            get { return status; }
-            set { status = value; }
+            get { return statusID; }
+            set { statusID = value; }
         }
 
         public Project() { }
 
-        public Project(string id, string name, string start, string end, string progress, string status)
+        public Project(string id, string name, DateTime start, DateTime end, DateTime completed, string progress, string statusID)
         {
             this.id = id;
             this.name = name;
             this.start = start;
             this.end = end;
+            this.completed = completed;
             this.progress = progress;
-            this.status = status;
+            this.statusID = statusID;
         }
 
         public Project(string id)
@@ -76,10 +82,11 @@ namespace CompanyManagement
             {
                 id = (string)reader[BaseDao.PROJECT_ID];
                 name = (string)reader[BaseDao.PROJECT_NAME];
-                start = (string)reader[BaseDao.PROJECT_START];
-                end = (string)reader[BaseDao.PROJECT_END];
+                start = reader.GetDateTime(reader.GetOrdinal(BaseDao.PROJECT_START));
+                end = reader.GetDateTime(reader.GetOrdinal(BaseDao.PROJECT_END));
+                completed = reader.GetDateTime(reader.GetOrdinal(BaseDao.PROJECT_COMPLETED));
                 progress = (string)reader[BaseDao.PROJECT_PROPRESS];
-                status = (string)reader[BaseDao.PROJECT_STATUS_ID];
+                statusID = (string)reader[BaseDao.PROJECT_STATUS_ID];
             }
             catch(Exception ex)
             {

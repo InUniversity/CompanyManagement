@@ -32,8 +32,8 @@ namespace CompanyManagement.ViewModels.UserControls
         private string gender = "";
         public string Gender { get => gender; set { gender = value; OnPropertyChanged(); } }
 
-        private DateTime birthday = DateTime.Now;
-        public DateTime Birthday { get => birthday; set { birthday = value; OnPropertyChanged(); } }
+        private DateOnly birthday = DateOnly.FromDateTime(DateTime.Now);
+        public DateOnly Birthday { get => birthday; set { birthday = value; OnPropertyChanged(); } }
 
         private string identifyCard = "";
         public string IdentifyCard { get => identifyCard; set { identifyCard = value; OnPropertyChanged(); } }
@@ -80,7 +80,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         public Employee CreateEmployeeInstance()
         {
-            return new Employee(ID, Name, Gender, Utils.DateToString(Birthday), IdentifyCard,
+            return new Employee(ID, Name, Gender, Birthday, IdentifyCard,
                 Email, PhoneNumber, Address, DepartmentID, PositionID, Salary);
         }
 
@@ -95,7 +95,8 @@ namespace CompanyManagement.ViewModels.UserControls
                 ErrorMessage = Utils.INVALIDATE_EMPTY_MESSAGE;
                 return false;
             }
-            if (Birthday >= DateTime.Now)
+            int age = Birthday.Year - DateOnly.FromDateTime(DateTime.Now).Year;
+            if (age < 18 || (age == 18 && (Birthday.Month)<(DateOnly.FromDateTime(DateTime.Now).Month)))
             {
                 ErrorMessage = Utils.INVALIDATE_BIRTHDAY_MESSAGE;
                 return false;

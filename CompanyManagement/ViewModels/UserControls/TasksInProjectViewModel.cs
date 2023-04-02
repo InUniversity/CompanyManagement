@@ -51,7 +51,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private TaskInProject CreateTaskInProjectInstance()
         {
-            return new TaskInProject(AutoGenerateID(), "", "", "", "", "",
+            return new TaskInProject(AutoGenerateID(), "", "", DateTime.Now , DateTime.Now , "",
                 SingletonEmployee.Instance.CurrentAccount.EmployeeID, "", projectID, "1");
         }
 

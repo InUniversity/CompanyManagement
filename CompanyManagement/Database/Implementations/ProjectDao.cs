@@ -8,8 +8,9 @@ namespace CompanyManagement.Database.Implementations
         public void Add(Project project)
         {
             string sqlStr = $"INSERT INTO {PROJECT_TABLE}({PROJECT_ID}, {PROJECT_NAME}, {PROJECT_START}, " +
-                            $"{PROJECT_END}, {PROJECT_PROPRESS}, {PROJECT_STATUS_ID}) VALUES ('{project.ID}', N'{project.Name}', " +
-                            $"'{project.Start}', '{project.End}', '{project.Progress}', {project.Status})";
+                            $"{PROJECT_END}, {PROJECT_COMPLETED}, {PROJECT_PROPRESS}, {PROJECT_STATUS_ID}) " +
+                            $"VALUES ('{project.ID}', N'{project.Name}', '{project.Start}', '{project.End}', " +
+                            $"'{project.Completed}','{project.Progress}', {project.Status})";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
@@ -22,8 +23,8 @@ namespace CompanyManagement.Database.Implementations
         public void Update(Project project)
         {
             string sqlStr = $"UPDATE {PROJECT_TABLE} SET {PROJECT_NAME}=N'{project.Name}', {PROJECT_START} ='{project.Start}', " +
-                            $"{PROJECT_END}='{project.End}', {PROJECT_PROPRESS}='{project.Progress}', {PROJECT_STATUS_ID} = {project.Status} " +
-                            $"WHERE {PROJECT_ID}='{project.ID}'";
+                            $"{PROJECT_END}='{project.End}', {PROJECT_COMPLETED} = '{project.Completed}',{PROJECT_PROPRESS}='{project.Progress}', " +
+                            $"{PROJECT_STATUS_ID} = {project.Status} WHERE {PROJECT_ID}='{project.ID}'";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 

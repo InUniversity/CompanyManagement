@@ -38,8 +38,9 @@ namespace CompanyManagement.Database
         protected const string PROJECT_TABLE = "Project";
         public const string PROJECT_ID = "project_id";
         public const string PROJECT_NAME = "project_name";
-        public const string PROJECT_START = "create_time";
-        public const string PROJECT_END = "end_time";
+        public const string PROJECT_START = "create_date";
+        public const string PROJECT_END = "end_date";
+        public const string PROJECT_COMPLETED = "completed";
         public const string PROJECT_PROPRESS = "progress";
         public const string PROJECT_STATUS_ID = "project_status_id";
         

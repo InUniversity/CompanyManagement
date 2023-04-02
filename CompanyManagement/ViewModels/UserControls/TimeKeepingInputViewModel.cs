@@ -1,6 +1,5 @@
 ﻿using System;
 using CompanyManagement.Models;
-using CompanyManagement.Utilities;
 using CompanyManagement.ViewModels.Base;
 
 namespace CompanyManagement.ViewModels.UserControls
@@ -38,8 +37,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         public TimeKeeping CreateTimeKeepingInstance()
         {
-            return new TimeKeeping(taskID, Utils.TimeToString(start), 
-                Utils.TimeToString(end), employeeID, notes, createBy);
+            return new TimeKeeping(taskID, start, end, employeeID, notes, createBy);
         }
 
         public void TrimAllTexts()
@@ -53,8 +51,8 @@ namespace CompanyManagement.ViewModels.UserControls
         public void Retrieve(TimeKeeping timeKeeping)
         {
             TaskID = timeKeeping.TaskID;
-            Start = Utils.StringToTime(timeKeeping.StartTime);
-            End = Utils.StringToTime(timeKeeping.EndTime);
+            Start = timeKeeping.StartTime;
+            End = timeKeeping.EndTime;
             EmployeeID = timeKeeping.EmployeeID;
             Notes = timeKeeping.Notes;
             CreateBy = timeKeeping.CreateBy;

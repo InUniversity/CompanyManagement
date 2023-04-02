@@ -2,6 +2,7 @@
 using System.Data.SqlClient;
 using System.Windows;
 using CompanyManagement.Database;
+using CompanyManagement.Utilities;
 
 namespace CompanyManagement.Models
 {
@@ -11,8 +12,8 @@ namespace CompanyManagement.Models
         private string id;
         private string title;
         private string description;
-        private string assignDate;
-        private string deadline;
+        private DateTime assignDate;
+        private DateTime deadline;
         private string progress;
         private string createBy;
         private string employeeID;
@@ -37,13 +38,13 @@ namespace CompanyManagement.Models
             set { description = value; }
         }
 
-        public string AssignDate
+        public DateTime AssignDate
         {
             get { return assignDate; }
             set { assignDate = value; }
         }
 
-        public string Deadline
+        public DateTime Deadline
         {
             get { return deadline; }
             set { deadline = value; }
@@ -81,7 +82,7 @@ namespace CompanyManagement.Models
 
         public TaskInProject() { }
 
-        public TaskInProject(string id, string title, string description, string assignDate, string deadline, 
+        public TaskInProject(string id, string title, string description, DateTime assignDate, DateTime deadline, 
             string progress, string createBy, string employeeID, string projectID, string status)
         {
             this.id = id;
@@ -103,8 +104,8 @@ namespace CompanyManagement.Models
                 id = (string)reader[BaseDao.TASK_ID];
                 title = (string)reader[BaseDao.TASK_TITLE];
                 description = (string)reader[BaseDao.TASK_DESCRIPTION];
-                assignDate = (string)reader[BaseDao.TASK_ASSIGN_DATE];
-                deadline = (string)reader[BaseDao.TASK_DEADLINE];
+                assignDate = reader.GetDateTime(reader.GetOrdinal(BaseDao.TASK_ASSIGN_DATE));
+                deadline = reader.GetDateTime(reader.GetOrdinal(BaseDao.TASK_DEADLINE));
                 createBy = (string)reader[BaseDao.TASK_CREATE_BY];
                 progress = (string)reader[BaseDao.TASK_PROGRESS];
                 employeeID = (string)reader[BaseDao.TASK_EMPLOYEE_ID];

@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Windows;
 using System.Windows.Input;
 using CompanyManagement.Database.Interfaces;
 using CompanyManagement.Models;
-using CompanyManagement.Utilities;
 using CompanyManagement.ViewModels.Base;
 using System.Linq;
 using System.Windows.Controls;
@@ -37,11 +35,14 @@ namespace CompanyManagement.ViewModels.UserControls
         private DateTime end = DateTime.Now;
         public DateTime End { get => end; set { end = value; OnPropertyChanged(); } }
 
+        private DateTime completed = DateTime.Now;
+        public DateTime Completed { get => completed; set { completed = value; OnPropertyChanged(); } }
+
         private string progress = "0";
         public string Progress { get => progress; set { progress = value; OnPropertyChanged(); } }
 
-        private string projectStatus = "1";
-        public string ProjectStatus { get => projectStatus; set { projectStatus = value; OnPropertyChanged(); } }  
+        private string projectStatusID = "1";
+        public string ProjectStatusID { get => projectStatusID; set { projectStatusID = value; OnPropertyChanged(); } }  
 
         private string errorMessage = "";
         public string ErrorMessage { get => errorMessage; set { errorMessage = value; OnPropertyChanged(); } }
@@ -155,7 +156,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         public Project CreateProjectInstance()
         {
-            return new Project(ID, Name, Utils.DateTimeToString(Start), Utils.DateTimeToString(End), Progress, projectStatus);
+            return new Project(ID, Name, Start, End, Completed, Progress, projectStatusID);
         }
 
         public bool CheckAllFields()
@@ -185,10 +186,11 @@ namespace CompanyManagement.ViewModels.UserControls
         {
             ID = project.ID;
             Name = project.Name;
+            Start = project.Start;
+            End = project.End;
+            Completed = project.Completed;
             Progress = project.Progress;
-            Start = Utils.StringToDate(project.Start);
-            End = Utils.StringToDate(project.End);
+            ProjectStatusID = project.StatusID;
         }
-
     }
 }
