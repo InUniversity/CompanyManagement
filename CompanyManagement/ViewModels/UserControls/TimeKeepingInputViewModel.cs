@@ -3,19 +3,11 @@ using CompanyManagement.Models;
 using CompanyManagement.Utilities;
 using CompanyManagement.ViewModels.Base;
 
-
 namespace CompanyManagement.ViewModels.UserControls
 {
 
     public interface ITimeKeepingInput
     {
-        string TaskID { get; }
-        string Start { get; }
-        string End { get; }
-        string EmployeeID { get; }
-        string Notes { get; }
-        string CreateBy { get; }
-        string ErrorMessage { set; }
         TimeKeeping CreateTimeKeepingInstance();
         void TrimAllTexts();
         void Retrieve(TimeKeeping timeKeeping);
@@ -26,13 +18,11 @@ namespace CompanyManagement.ViewModels.UserControls
         private string taskID = "";
         public string TaskID { get => taskID; set { taskID = value; OnPropertyChanged(); } }
 
-        private DateTime start = DateTime.Now;
-        public DateTime Start { get => start; set { start = value; OnPropertyChanged(); } }
-        string ITimeKeepingInput.Start => throw new NotImplementedException();
-
-        private DateTime end = DateTime.Now;
-        public DateTime End { get => end; set { end = value; OnPropertyChanged(); } }
-        string ITimeKeepingInput.End => throw new NotImplementedException();
+        private TimeOnly start = TimeOnly.MinValue;
+        public TimeOnly Start { get => start; set { start = value; OnPropertyChanged(); } }
+        
+        private TimeOnly end = TimeOnly.MaxValue;
+        public TimeOnly End { get => end; set { end = value; OnPropertyChanged(); } }
 
         private string employeeID = "";
         public string EmployeeID { get => employeeID; set { employeeID = value; OnPropertyChanged(); } }
@@ -46,12 +36,10 @@ namespace CompanyManagement.ViewModels.UserControls
         private string errorMessage = "";
         public string ErrorMessage { get => errorMessage; set { errorMessage = value; OnPropertyChanged(); } }
 
-        public TimeKeepingInputViewModel() { }
-
-
         public TimeKeeping CreateTimeKeepingInstance()
         {
-            return new TimeKeeping(taskID, Utils.DateTimeToString(start), Utils.DateTimeToString(end), employeeID, notes, createBy);
+            return new TimeKeeping(taskID, Utils.TimeToString(start), 
+                Utils.TimeToString(end), employeeID, notes, createBy);
         }
 
         public void TrimAllTexts()
@@ -64,15 +52,12 @@ namespace CompanyManagement.ViewModels.UserControls
 
         public void Retrieve(TimeKeeping timeKeeping)
         {
-            taskID = timeKeeping.TaskID;
-            employeeID = timeKeeping.EmployeeID;
-            notes = timeKeeping.Notes;
-            createBy = timeKeeping.CreateBy;
+            TaskID = timeKeeping.TaskID;
+            Start = Utils.StringToTime(timeKeeping.StartTime);
+            End = Utils.StringToTime(timeKeeping.EndTime);
+            EmployeeID = timeKeeping.EmployeeID;
+            Notes = timeKeeping.Notes;
+            CreateBy = timeKeeping.CreateBy;
         }
-    }
-
-    public interface IRetrieveTimeKeeping
-    {
-        void Retrieve(TimeKeeping timeKeeping);
     }
 }

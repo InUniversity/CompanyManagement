@@ -17,6 +17,7 @@ namespace CompanyManagement.Utilities
         public const string EXIST_PHONE_NUMBER_MESSAGE = "Số điện thoại đã tồn tại!!!";
 
         private const string FORMAT_DATEONLY = "dd-MM-yyyy";
+        private const string FORMAT_TIMEONLY = "hh:mm tt";
         private const string FORMAT_DATETIME = "dd-MM-yyyy hh:mm tt";
         
         public static string DateToString(DateTime dateOnly)
@@ -41,6 +42,18 @@ namespace CompanyManagement.Utilities
             DateTime result;
             bool canParse = DateTime.TryParseExact(dateTimeStr, FORMAT_DATETIME, CultureInfo.CurrentCulture, DateTimeStyles.None, out result);
             return canParse ? result : DateTime.Now;
+        }
+
+        public static string TimeToString(TimeOnly time)
+        {
+            return time.ToString(FORMAT_TIMEONLY, CultureInfo.CurrentCulture);
+        }
+        
+        public static TimeOnly StringToTime(string timeStr)
+        {
+            TimeOnly result;
+            bool canParse = TimeOnly.TryParseExact(timeStr, FORMAT_TIMEONLY, CultureInfo.CurrentCulture, DateTimeStyles.None, out result);
+            return canParse ? result : TimeOnly.MinValue;
         }
     }
 }

@@ -10,5 +10,6 @@ namespace CompanyManagement.Database.Interfaces
         void Update(TimeKeeping timeKeeping);
         TimeKeeping SearchByID(string timeKeepingID);
         List<TimeKeeping> GetAll();
+        List<TimeKeeping> SearchByProjectID(string projectID);
     }
 }

@@ -6,32 +6,26 @@ using CompanyManagement.ViewModels.Base;
 
 namespace CompanyManagement.ViewModels.Dialogs
 {
-    public class UpdateTimeKeepingViewModel: BaseViewModel
+    public class UpdateTimeKeepingViewModel : BaseViewModel
     {
 
         public ICommand UpdateTimeKeepingCommand { get; set; }
 
-        public TimeKeepingViewModel ParentDataContext { get; set; }
+        public ITimeKeeping ParentDataContext { get; set; }
+        public ITimeKeepingInput TimeKeepingInputDataContext { get; set; }
 
-        public TimeKeepingInputViewModel TimeKeepingInputDataContext { get; set; }
-
-        public UpdateTimeKeepingViewModel()
+        public UpdateTimeKeepingViewModel(ITimeKeepingInput timeKeepingInputDataContext)
         {
-            SetCommands();
-        }
-
-        private void SetCommands()
-        {
-            TimeKeepingInputDataContext = new TimeKeepingInputViewModel();
+            TimeKeepingInputDataContext = timeKeepingInputDataContext;
             UpdateTimeKeepingCommand = new RelayCommand<Window>(UpdateCommand);
         }
 
-        private void UpdateCommand(Window inputwindow)
+        private void UpdateCommand(Window inputWindow)
         {
             TimeKeepingInputDataContext.TrimAllTexts();
             TimeKeeping timeKeeping = TimeKeepingInputDataContext.CreateTimeKeepingInstance(); 
             ParentDataContext.Update(timeKeeping);
-            inputwindow.Close();
+            inputWindow.Close();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using CompanyManagement.Database.Implementations;
 using CompanyManagement.ViewModels.Dialogs;
 using CompanyManagement.ViewModels.UserControls;
 
@@ -13,6 +14,6 @@ public partial class AddTimeKeepingDialog : Window
     {
         InitializeComponent();
         ITimeKeepingInput timeKeepingInput = new TimeKeepingInputViewModel();
-        DataContext = new AddTimeKeepingViewModel();
+        DataContext = new AddTimeKeepingViewModel(timeKeepingInput);
     }
 }

@@ -10,7 +10,7 @@ namespace CompanyManagement.Database.Implementations
         {
             string sqlStr = $"INSERT INTO {TIME_KEEPING_TABLE} ({TIME_KEEPING_TASK_ID}, {TIME_KEEPING_START_TIME}, " +
                             $"{TIME_KEEPING_END_TIME}, {TIME_KEEPING_EMPLOYEE_ID}, {TIME_KEEPING_NOTES}, " +
-                            $"{TIME_KEEPING_CREATE_BY}) VALUE('{timeKeeping.TaskID}', '{timeKeeping.StartTime}', " +
+                            $"{TIME_KEEPING_CREATE_BY}) VALUES('{timeKeeping.TaskID}', '{timeKeeping.StartTime}', " +
                             $"'{timeKeeping.EndTime}', '{timeKeeping.EmployeeID}', '{timeKeeping.Notes}', '{timeKeeping.CreateBy}')";
 
             dbConnection.ExecuteNonQuery(sqlStr);
@@ -36,6 +36,13 @@ namespace CompanyManagement.Database.Implementations
             if (tasks.Count == 0)
                 return null;
             return tasks[0];
+        }
+
+        public List<TimeKeeping> SearchByProjectID(string projectID)
+        {
+            string sqlStr = $"SELECT * FROM {TIME_KEEPING_TABLE} WHERE {TIME_KEEPING_TASK_ID} IN" +
+                            $"(SELECT {TASK_ID} FROM {TASK_TABLE} WHERE {TASK_PROJECT_ID}='{projectID}')";
+            return dbConnection.GetList(sqlStr, reader => new TimeKeeping(reader));
         }
 
         public void Update(TimeKeeping timeKeeping)
