@@ -9,37 +9,29 @@
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
-        Background="White"
+        Background="White"       
         xmlns:uc="clr-namespace:CompanyManagement.Views.UserControls"
         FontFamily="{DynamicResource MaterialDesignFont}"
         WindowStartupLocation="CenterScreen"
         x:Name="updateProjectDialog"
-        mc:Ignorable="d"
-        Height="793" Width="700">
+        mc:Ignorable="d" Width="700" Height="650">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="50" />
-            <RowDefinition Height="623" />
-            <RowDefinition Height="70" />
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Height="50">
-            <TextBlock Text="Thông tin chi tiết" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center"
+        <StackPanel>
+            <TextBlock Text="Thông tin chi tiết" 
+                       FontSize="25" 
+                       Margin="10"
+                       HorizontalAlignment="Center" 
+                       VerticalAlignment="Center"
                        FontWeight="ExtraBold" />
-        </Grid>
-        <Grid Grid.Row="1" Height="623">
             <uc:ProjectInputUC DataContext="{Binding ProjectInputDataContext}" />
-        </Grid>
-        <Grid Grid.Row="2" Height="70">
-            <Grid>
-                <Button Style="{StaticResource MaterialDesignFlatSecondaryMidBgButton}"
+            <Button Style="{StaticResource MaterialDesignFlatSecondaryMidBgButton}"
                         Command="{Binding UpdateProjectCommand}"
                         CommandParameter="{Binding ElementName=updateProjectDialog}"
                         Height="50"
-                        Margin="100 0"
+                        Margin="100 10"
                         ToolTip="Cập nhật">
-                    <materialDesign:PackIcon Kind="Pencil" />
-                </Button>
-            </Grid>
-        </Grid>
+                <materialDesign:PackIcon Kind="Pencil" />
+            </Button>
+        </StackPanel>
     </Grid>
 </Window>
