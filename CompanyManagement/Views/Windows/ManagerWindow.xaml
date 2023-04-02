@@ -32,7 +32,7 @@
                                     CommandParameter="{x:Static Dock.Left}"
                                     Style="{StaticResource MaterialDesignIconButton}"
                                     Margin="5">
-                                    <materialDesign:PackIcon Kind="Home" />
+                                    <materialDesign:PackIcon Kind="FormatIndentIncrease" />
                                 </Button>
                                 <TextBlock Text="My Company" 
                                            Style="{StaticResource MaterialDesignButtonTextBlock}" 
@@ -113,16 +113,19 @@
                 </Grid.ColumnDefinitions>
                 <Border Grid.Column="0"  Background="#006064" Width="50">
                     <StackPanel>
-                        <Button HorizontalAlignment="Right"                          
+                        <ToggleButton  HorizontalAlignment="Right"     
+                            materialDesign:ToggleButtonAssist.OnContent="{materialDesign:PackIcon Kind=FormatIndentDecrease ,Size=30}"
+                            Style="{StaticResource MaterialDesignActionToggleButton}"
                             Height="80"
                             Width="50"
                             Margin="0 0 0 50"
-                            Style="{StaticResource MaterialDesignIconButton}"
+                            Background="Transparent"
+                            Content="{materialDesign:PackIcon Kind=FormatListBulleted, Size=30}"         
+                            Foreground="White"                                                   
                             Command="{x:Static materialDesign:DrawerHost.OpenDrawerCommand}"
                             CommandParameter="{x:Static Dock.Left}"                          
                             BorderThickness="0">
-                            <materialDesign:PackIcon Kind="Home" Foreground="White" />
-                        </Button>
+                        </ToggleButton>
                         <Button HorizontalAlignment="Right"  
                             Height="80"
                             Width="50"

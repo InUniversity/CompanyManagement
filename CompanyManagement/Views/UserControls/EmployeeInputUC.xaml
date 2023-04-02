@@ -19,14 +19,14 @@
                         <RowDefinition Height="2*" />
                         <RowDefinition Height="1*" />
                     </Grid.RowDefinitions>
-                    <materialDesign:Card Grid.Row="0" VerticalAlignment="Top" Margin="0,30,0,0">
-                        <Button Width="180" Height="240" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Border BorderThickness="1" BorderBrush="Black" Grid.Row="0" VerticalAlignment="Top" Margin="0,30,0,0">
+                        <Button Width="180" Height="220" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource MaterialDesignIconButton}">
                             <materialDesign:PackIcon
                                 Width="120"
                                 Height="120"
                                 Kind="AccountCircle" />
                         </Button>
-                    </materialDesign:Card>
+                    </Border>
                     <StackPanel Grid.Row="2" Margin="0,10,0,0">
                         <Label Content="{Binding ErrorMessage}" Foreground="#FF0000" HorizontalAlignment="Center" />
                     </StackPanel>

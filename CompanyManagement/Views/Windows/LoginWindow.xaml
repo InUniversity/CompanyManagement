@@ -15,10 +15,10 @@
         Background="White"
         FontFamily="{DynamicResource MaterialDesignFont}"
         Name="loginWindow"
-        Height="800" Width="800">
+        Height="700" Width="800">
     <Grid>
        
-        <materialDesign:Card Width="500" Height="600"                             
+        <materialDesign:Card Height="550" Width="500"                             
                              HorizontalAlignment="Center"
                              VerticalContentAlignment="Center">
             <Grid>
