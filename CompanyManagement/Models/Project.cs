@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Data.SqlClient;
-using System.Windows;
 using CompanyManagement.Database;
 using CompanyManagement.Utilities;
 
@@ -90,7 +89,7 @@ namespace CompanyManagement
             }
             catch(Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                Log.Instance.Error(nameof(Project), "CAST ERROR: " + ex.Message);
             }
         }
     }

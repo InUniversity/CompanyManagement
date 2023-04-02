@@ -2,6 +2,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using CompanyManagement.Database.Interfaces;
+using CompanyManagement.Utilities;
 using CompanyManagement.ViewModels.Base;
 using CompanyManagement.Views.Windows;
 
@@ -39,20 +40,22 @@ namespace CompanyManagement.ViewModels.Windows
             // EmployeeAccount employeeAccount = employeeAccountDao.SearchByUsername(Username);
             // if (employeeAccount == null || !string.Equals(password, employeeAccount.EmplAccount.Password))
             // {
-            //     MessageBox.Show(Utils.INVALIDATE_USERNAME_PASSWORD_MESSAGE);
+            //     Log.Instance.Information(nameof(LoginViewModel), Utils.INVALIDATE_USERNAME_PASSWORD_MESSAGE );
             //     return;
             // }
             // SingletonEmployee.Instance.CurrentEmployeeAccount = employeeAccount;
             // Window nextWindow = string.Equals(employeeAccount.PositionID, BaseDao.MANAGERIAL_POSITION_ID)
             //     ? new ManagerWindow() : new EmployeeWindow();
             // nextWindow.Show();
+
+            Log.Instance.Information(nameof(LoginViewModel), "Logging.........");
             new ManagerWindow().Show();
             loginWindow.Close();
         }
 
         private void ExecuteForgotPasswordCommand(object p)
         {
-            MessageBox.Show("Coming soon....");
+            Log.Instance.Information(nameof(LoginViewModel), "Coming soon....");
         }
     }
 }

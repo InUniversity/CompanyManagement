@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data.SqlClient;
-using System.Windows;
 using CompanyManagement.Database;
+using CompanyManagement.Utilities;
 
 namespace CompanyManagement.Models
 {
@@ -37,7 +37,7 @@ namespace CompanyManagement.Models
             }
             catch(Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                Log.Instance.Error(nameof(ProjectAssignment), "CAST ERROR: " + ex.Message);
             }
         }
     }

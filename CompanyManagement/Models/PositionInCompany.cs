@@ -1,8 +1,7 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.SqlClient;
-using System.Windows;
 using CompanyManagement.Database;
+using CompanyManagement.Utilities;
 
 namespace CompanyManagement.Models
 {
@@ -41,7 +40,7 @@ namespace CompanyManagement.Models
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                Log.Instance.Error(nameof(PositionInCompany), "CAST ERROR: " + ex.Message);
             }
         }
     }
