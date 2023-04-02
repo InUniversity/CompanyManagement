@@ -10,7 +10,7 @@ namespace CompanyManagement.Database.Implementations
             string sqlStr = $"INSERT INTO {PROJECT_TABLE}({PROJECT_ID}, {PROJECT_NAME}, {PROJECT_START}, " +
                             $"{PROJECT_END}, {PROJECT_COMPLETED}, {PROJECT_PROPRESS}, {PROJECT_STATUS_ID}) " +
                             $"VALUES ('{project.ID}', N'{project.Name}', '{project.Start}', '{project.End}', " +
-                            $"'{project.Completed}','{project.Progress}', {project.Status})";
+                            $"'{project.Completed}','{project.Progress}', '{project.StatusID}')";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
@@ -24,7 +24,7 @@ namespace CompanyManagement.Database.Implementations
         {
             string sqlStr = $"UPDATE {PROJECT_TABLE} SET {PROJECT_NAME}=N'{project.Name}', {PROJECT_START} ='{project.Start}', " +
                             $"{PROJECT_END}='{project.End}', {PROJECT_COMPLETED} = '{project.Completed}',{PROJECT_PROPRESS}='{project.Progress}', " +
-                            $"{PROJECT_STATUS_ID} = {project.Status} WHERE {PROJECT_ID}='{project.ID}'";
+                            $"{PROJECT_STATUS_ID} = '{project.StatusID}' WHERE {PROJECT_ID}='{project.ID}'";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
@@ -37,10 +37,7 @@ namespace CompanyManagement.Database.Implementations
         public Project SearchByID(string id)
         {
             string sqlStr = $"SELECT * FROM {PROJECT_TABLE} WHERE {PROJECT_ID} = '{id}'";
-            List<Project> projects = dbConnection.GetList(sqlStr, reader => new Project(reader));
-            if (projects.Count == 0)
-                return null;
-            return projects[0];
+            return (Project)dbConnection.GetSingleObject(sqlStr, reader => new Project(reader));
         }
     }
 }
