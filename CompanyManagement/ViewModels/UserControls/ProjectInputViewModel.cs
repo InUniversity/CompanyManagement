@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Windows;
 using System.Windows.Input;
 using CompanyManagement.Database.Interfaces;
 using CompanyManagement.Models;
-using CompanyManagement.Utilities;
 using CompanyManagement.ViewModels.Base;
 using System.Linq;
 using System.Windows.Controls;
@@ -36,6 +34,9 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private DateTime end = DateTime.Now;
         public DateTime End { get => end; set { end = value; OnPropertyChanged(); } }
+
+        private DateTime completed = DateTime.Now;
+        public DateTime Completed { get => completed; set { completed = value; OnPropertyChanged(); } }
 
         private string progress = "0";
         public string Progress { get => progress; set { progress = value; OnPropertyChanged(); } }
@@ -155,7 +156,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         public Project CreateProjectInstance()
         {
-            return new Project(ID, Name, Start, End, Progress, projectStatus);
+            return new Project(ID, Name, Start, End, Completed, Progress, projectStatus);
         }
 
         public bool CheckAllFields()
@@ -187,6 +188,9 @@ namespace CompanyManagement.ViewModels.UserControls
             Name = project.Name;
             Progress = project.Progress;
             Start = project.Start;
+            End = project.End;
+            Completed = project.Completed;
+            Completed = project.Completed;
             End = project.End;
         }
 
