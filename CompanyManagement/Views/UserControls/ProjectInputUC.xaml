@@ -15,21 +15,30 @@
              FontFamily="{DynamicResource MaterialDesignFont}"
              mc:Ignorable="d">
     <StackPanel>
-        <TextBox
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBox
+                Grid.Column="0"
             Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
             Background="White"
-            Margin="20 5"
+            Margin="10"
             IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedTextBoxEnabledComboBox}"
             Style="{StaticResource MaterialDesignOutlinedTextBox}"
             materialDesign:HintAssist.Hint="Tên dự án" />
-        <TextBox
+            <TextBox
+                 Grid.Column="1"
             IsReadOnly="True"
             Text="{Binding ID}"
             Background="White"
             IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedTextBoxEnabledComboBox}"
-            Margin="20 5"
+            Margin="10"
             Style="{StaticResource MaterialDesignOutlinedTextBox}"
             materialDesign:HintAssist.Hint="Mã dự án" />
+        </Grid>
+
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
@@ -39,7 +48,7 @@
                 <DatePicker
                     SelectedDate="{Binding Start}"
                     Margin="10"
-                    Width="310"
+                    Width="320"
                     HorizontalAlignment="Center"
                     materialDesign:HintAssist.Hint="Ngày bắt đầu"
                     Style="{StaticResource MaterialDesignOutlinedDatePicker}" />
@@ -48,7 +57,7 @@
                 <materialDesign:TimePicker
                     SelectedTime="{Binding Start}"
                     Margin="10"
-                    Width="310"
+                    Width="320"
                     HorizontalAlignment="Center"
                     materialDesign:HintAssist.Hint="Giờ bắt đầu"
                     Is24Hours="True"
@@ -65,7 +74,7 @@
                 <DatePicker
                     SelectedDate="{Binding End}"
                     Margin="10"
-                    Width="310"
+                    Width="320"
                     HorizontalAlignment="Center"
                     materialDesign:HintAssist.Hint="Ngày kết thúc"
                     Style="{StaticResource MaterialDesignOutlinedDatePicker}" />
@@ -74,7 +83,7 @@
                 <materialDesign:TimePicker
                     SelectedTime="{Binding End}"
                     Margin="10"
-                    Width="310"
+                    Width="320"
                     HorizontalAlignment="Center"
                     materialDesign:HintAssist.Hint="Giờ kết thúc"
                     Is24Hours="True"
@@ -191,16 +200,16 @@
             </Canvas>
         </materialDesign:DialogHost>
 
-        <Border BorderBrush="Black" BorderThickness="0.5" Margin="20 25" Height="100">
+        <Border BorderBrush="Black" BorderThickness="0.5" Margin="20 10" Height="100">
             <StackPanel>
                 <ScrollViewer Height="100">
                     <StackPanel>
                         <Border Margin="5" BorderThickness="1">
-                            
+
                             <ItemsControl ItemsSource="{Binding ElementName=projectInputUC, Path=DataContext.DepartmentsInProject}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
-                                        <Border Width="280" Height="50" CornerRadius="5" BorderBrush="Black"
+                                        <Border Width="270" Height="50" CornerRadius="5" BorderBrush="Black"
                                                 BorderThickness="0.5" Margin="10" HorizontalAlignment="Center">
                                             <Canvas>
                                                 <TextBlock Margin="15" Text="{Binding Name}" />
@@ -226,27 +235,29 @@
             </StackPanel>
         </Border>
         <Grid>
-            <StackPanel Orientation="Horizontal">
-                <ComboBox
-                    Width="645"
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <ComboBox
+                    Grid.Column="0"                 
                     ItemsSource="{Binding ProjectStatuses}"
-                    SelectedValue="{Binding ProjectStatusID}"
+                    SelectedValue="{Binding ProjectStatus}"
                     SelectedValuePath="ID"
-                    Margin="20 5"
+                    Margin="10 10"
                     materialDesign:HintAssist.Hint="Trạng thái"
                     Background="White"
                     Foreground="Black"
                     Style="{StaticResource MaterialDesignOutlinedComboBox}">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Name}" />
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
-            </StackPanel>
-        </Grid>
-        <Grid Margin="10" Height="30">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
             <TextBlock Text="{Binding ErrorMessage}"
+                        Grid.Column="1" 
+                       Height="40"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
                        Foreground="Red" />

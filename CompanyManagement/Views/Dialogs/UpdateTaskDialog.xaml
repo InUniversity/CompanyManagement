@@ -15,30 +15,21 @@
         WindowStartupLocation="CenterScreen"
         x:Name="updateTaskDialog"
         mc:Ignorable="d"
-        Height="821" Width="600">
+        Height="650" Width="700">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="60" />
-            <RowDefinition Height="634" />
-            <RowDefinition Height="80" />
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Height="60">
-            <TextBlock Text="Thông tin chi tiết" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center"
+        <StackPanel>
+            <TextBlock Margin="10" Text="Thông tin chi tiết" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center"
                        FontWeight="ExtraBold" />
-        </Grid>
-        <Grid Grid.Row="1" Height="634">
-            <uc:TaskInputUC DataContext="{Binding TaskInputDataContext}" />
-        </Grid>
-        <Grid Grid.Row="2" Height="80">
+            <uc:TaskInputUC Margin="10" DataContext="{Binding TaskInputDataContext}" />
             <Button Style="{StaticResource MaterialDesignFlatSecondaryMidBgButton}"
                     Height="50"
                     Command="{Binding UpdateTaskCommand}"
                     CommandParameter="{Binding ElementName = updateProjectDialog}"
                     ToolTip="Thêm"
                     IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType = Window}}"
-                    Margin="100 5">
+                    Margin="100 10">
                 <materialDesign:PackIcon Kind="Plus" />
             </Button>
-        </Grid>
+        </StackPanel>
     </Grid>
 </Window>
