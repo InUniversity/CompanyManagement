@@ -44,16 +44,16 @@ namespace CompanyManagement.Utilities
             return canParse ? result : DateTime.Now;
         }
 
-        public static string TimeToString(TimeOnly dateTime)
+        public static string TimeToString(DateTime dateTime)
         {
             return dateTime.ToString(FORMAT_TIMEONLY, CultureInfo.CurrentCulture);
         }
         
-        public static TimeOnly StringToTime(string timeStr)
+        public static DateTime StringToTime(string timeStr)
         {
-            TimeOnly result;
-            bool canParse = TimeOnly.TryParseExact(timeStr, FORMAT_TIMEONLY, CultureInfo.CurrentCulture, DateTimeStyles.None, out result);
-            return canParse ? result : TimeOnly.MinValue;
+            DateTime result;
+            bool canParse = DateTime.TryParseExact(timeStr, FORMAT_TIMEONLY, CultureInfo.CurrentCulture, DateTimeStyles.None, out result);
+            return canParse ? result : DateTime.Now;
         }
     }
 }
