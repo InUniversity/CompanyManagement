@@ -38,6 +38,13 @@ namespace CompanyManagement.Database.Implementations
             return tasks[0];
         }
 
+        public List<TimeKeeping> SearchByProjectID(string projectID)
+        {
+            string sqlStr = $"SELECT * FROM {TIME_KEEPING_TABLE} WHERE {TIME_KEEPING_TASK_ID} IN" +
+                            $"(SELECT {TASK_ID} FROM {TASK_TABLE} WHERE {TASK_PROJECT_ID}='{projectID}')";
+            return dbConnection.GetList(sqlStr, reader => new TimeKeeping(reader));
+        }
+
         public void Update(TimeKeeping timeKeeping)
         {
             string sqlStr = $"UPDATE {TIME_KEEPING_TABLE} SET {TIME_KEEPING_START_TIME} = '{timeKeeping.StartTime}', " +

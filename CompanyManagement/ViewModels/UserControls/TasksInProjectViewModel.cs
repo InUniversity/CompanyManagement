@@ -19,7 +19,7 @@ namespace CompanyManagement.ViewModels.UserControls
         private ObservableCollection<EmployeeAccount> employeesInProject;
         public ObservableCollection<EmployeeAccount> EmployeesInProject { get => employeesInProject; set { employeesInProject = value; OnPropertyChanged(); } }
 
-        private static string projectID = "";
+        public static string projectID = "";
 
         public ICommand OpenTaskInProjectInputCommand { get; set; }
         public ICommand DeleteTaskInProjectCommand { get; set; }
@@ -73,13 +73,14 @@ namespace CompanyManagement.ViewModels.UserControls
             LoadTaskInProjects();
         }
 
-        public void ShowTasksWithID(string projectID)
+        public void RetrieveProjectID(string projectID)
         {
             TasksInProjectViewModel.projectID = projectID;
+           // TimeKeepingViewModel.projectID = projectID;
             TasksInProject = new ObservableCollection<TaskInProject>(taskInProjectDao.SearchByProjectID(projectID));
         }
 
-        private void ExecuteAddCommand(TaskInProject task)
+        private void ExecuteAddCommand(TaskInProject task)   
         {
             AddTaskDialog addTaskDialog = new AddTaskDialog();
             AddTaskViewModel addTaskViewModel = (AddTaskViewModel)addTaskDialog.DataContext;
@@ -125,7 +126,6 @@ namespace CompanyManagement.ViewModels.UserControls
 
     public interface IRetrieveProjectID
     {
-        void ShowTasksWithID(string projectID);
-        void ShowEmployeeInProject(string projectID);
+        void RetrieveProjectID(string projectID);
     }
 }
