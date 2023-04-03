@@ -86,7 +86,7 @@ namespace CompanyManagement.ViewModels.UserControls
         private Project CreateProject()
         {
             return new Project(AutoGenerateID(), "", DateTime.Now, DateTime.Now, 
-                Utils.EMPTY_DATETIME, "0", "");
+                Utils.EMPTY_DATETIME, "0", "", SingletonEmployee.Instance.CurrentAccount.EmployeeID);
         }
 
         private string AutoGenerateID()

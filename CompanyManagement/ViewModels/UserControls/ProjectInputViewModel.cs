@@ -40,7 +40,10 @@ namespace CompanyManagement.ViewModels.UserControls
         public string Progress { get => progress; set { progress = value; OnPropertyChanged(); } }
 
         private string projectStatusID = "1";
-        public string ProjectStatusID { get => projectStatusID; set { projectStatusID = value; OnPropertyChanged(); } }  
+        public string ProjectStatusID { get => projectStatusID; set { projectStatusID = value; OnPropertyChanged(); } }
+
+        private string createBy = SingletonEmployee.Instance.CurrentAccount.EmployeeID;
+        public string CreateBy { get => createBy; set { createBy = value; OnPropertyChanged(); } }
 
         private string errorMessage = "";
         public string ErrorMessage { get => errorMessage; set { errorMessage = value; OnPropertyChanged(); } }
@@ -142,7 +145,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         public Project CreateProjectInstance()
         {
-            return new Project(ID, Name, Start, End, Completed, Progress, projectStatusID);
+            return new Project(id, name, start, end, completed, progress, projectStatusID, createBy);
         }
 
         public bool CheckAllFields()
