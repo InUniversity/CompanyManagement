@@ -21,12 +21,8 @@ namespace CompanyManagement.ViewModels.UserControls
         private ProjectsUC projectsUC = new ProjectsUC();
         private ProjectDetailsUC projectDetailsUC = new ProjectDetailsUC();
 
-        private static int createdTimes = 0;
-
         public AssignmentViewModel()
         {
-            Log.Instance.Information(nameof(AssignmentViewModel), createdTimes.ToString());
-            createdTimes++;
             CurrentChildView = projectsUC;
             ((IProjects)projectsUC.DataContext).ParentDataContext = this;
             ((IProjects)projectsUC.DataContext).ProjectDetailsDataContext = (IRetrieveProjectID)projectDetailsUC.DataContext;

@@ -28,9 +28,6 @@
     <Compile Update="Views\Windows\LoginWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\UserControls\AssignUC.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\Dialogs\AddProjectDialog.xaml">
@@ -52,9 +49,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Windows\LoginWindow.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Views\UserControls\AssignUC.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

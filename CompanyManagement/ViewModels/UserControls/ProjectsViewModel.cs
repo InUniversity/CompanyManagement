@@ -23,7 +23,7 @@ namespace CompanyManagement.ViewModels.UserControls
         private ObservableCollection<Project> projects;
         public ObservableCollection<Project> Projects { get => projects; set { projects = value; OnPropertyChanged(); } }
 
-        private Project selectedProject;
+        private Project selectedProject = new Project();
         public Project SelectedProject { get => selectedProject; set { selectedProject = value; OnPropertyChanged(); } }
         
         public ICommand OpenProjectInputCommand { get; set; }
