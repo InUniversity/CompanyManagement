@@ -43,6 +43,7 @@ namespace CompanyManagement.Database
         public const string PROJECT_COMPLETED = "completed_date";
         public const string PROJECT_PROPRESS = "progress";
         public const string PROJECT_STATUS_ID = "project_status_id";
+        public const string PROJECT_CREATE_BY = "create_by";
         
         protected const string TASK_TABLE = "Task";
         public const string TASK_ID = "task_id";

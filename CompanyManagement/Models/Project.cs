@@ -14,6 +14,7 @@ namespace CompanyManagement
         private DateTime completed;
         private string progress;
         private string statusID;
+        private string createBy;
 
         public string ID => id;
 
@@ -29,10 +30,12 @@ namespace CompanyManagement
 
         public string StatusID => statusID;
 
+        public string CreateBy => createBy;
+
         public Project() { }
 
         public Project(string id, string name, DateTime start, DateTime end, 
-            DateTime completed, string progress, string statusID)
+            DateTime completed, string progress, string statusID, string createBy)
         {
             this.id = id;
             this.name = name;
@@ -41,6 +44,7 @@ namespace CompanyManagement
             this.completed = completed;
             this.progress = progress;
             this.statusID = statusID;
+            this.createBy = createBy;
         }
 
         public Project(IDataRecord reader)
@@ -54,6 +58,7 @@ namespace CompanyManagement
                 completed = reader.GetDateTime(reader.GetOrdinal(BaseDao.PROJECT_COMPLETED));
                 progress = (string)reader[BaseDao.PROJECT_PROPRESS];
                 statusID = (string)reader[BaseDao.PROJECT_STATUS_ID];
+                createBy = (string)reader[BaseDao.PROJECT_CREATE_BY];
             }
             catch (Exception ex)
             {
