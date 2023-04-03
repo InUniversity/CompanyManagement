@@ -14,10 +14,10 @@ namespace CompanyManagement.ViewModels.Dialogs
     public class UpdateProjectViewModel : BaseViewModel, IUpdateProject
     {
         
-        public ICommand UpdateProjectCommand { get; set; }
+        public ICommand UpdateProjectCommand { get; }
 
         public IProjects ParentDataContext { get; set; }
-        public IProjectInput ProjectInputDataContext { get; set; }
+        public IProjectInput ProjectInputDataContext { get; }
 
         public UpdateProjectViewModel(IProjectInput projectInput)
         {
@@ -28,6 +28,8 @@ namespace CompanyManagement.ViewModels.Dialogs
         private void ExecuteUpdateCommand(Window inputWindow)
         {
             ProjectInputDataContext.TrimAllTexts();
+            if (!ProjectInputDataContext.CheckAllFields())
+                return;
             Project project = ProjectInputDataContext.CreateProjectInstance();
             ParentDataContext.Update(project);
             inputWindow.Close();

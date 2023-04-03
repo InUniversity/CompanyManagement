@@ -11,5 +11,6 @@ namespace CompanyManagement.Database.Interfaces
         List<Department> GetAllDepartmentInProject(string projectID);
         List<Employee> GetEmployeesInProject(string projectID);
         List<Department> GetDepartmentsCanAssignWork(Project project);
+        List<Project> SearchProjectByEmployeeID(string employeeID);
     }
 }

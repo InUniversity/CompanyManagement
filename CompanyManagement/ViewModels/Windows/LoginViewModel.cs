@@ -1,7 +1,9 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using CompanyManagement.Database;
 using CompanyManagement.Database.Interfaces;
+using CompanyManagement.Models;
 using CompanyManagement.Utilities;
 using CompanyManagement.ViewModels.Base;
 using CompanyManagement.Views.Windows;
@@ -20,11 +22,13 @@ namespace CompanyManagement.ViewModels.Windows
         public ICommand ForgotPasswordCommand { get; set; }
         public ICommand PasswordChangedCommand { get; set; }
 
-        private IEmployeeDao employeeAccountDao;
+        private IAccountDao accountDao;
+        private IEmployeeDao employeeDao;
 
-        public LoginViewModel(IEmployeeDao employeeAccountDao)
+        public LoginViewModel(IAccountDao accountDao, IEmployeeDao employeeDao)
         {
-            this.employeeAccountDao = employeeAccountDao;
+            this.accountDao = accountDao;
+            this.employeeDao = employeeDao;
             SetCommands();
         }
 
@@ -37,25 +41,24 @@ namespace CompanyManagement.ViewModels.Windows
 
         private void ExecuteLoginCommand(Window loginWindow)
         {
-            // EmployeeAccount employeeAccount = employeeAccountDao.SearchByUsername(Username);
-            // if (employeeAccount == null || !string.Equals(password, employeeAccount.EmplAccount.Password))
-            // {
-            //     Log.Instance.Information(nameof(LoginViewModel), Utils.INVALIDATE_USERNAME_PASSWORD_MESSAGE );
-            //     return;
-            // }
-            // SingletonEmployee.Instance.CurrentEmployeeAccount = employeeAccount;
-            // Window nextWindow = string.Equals(employeeAccount.PositionID, BaseDao.MANAGERIAL_POSITION_ID)
-            //     ? new ManagerWindow() : new EmployeeWindow();
-            // nextWindow.Show();
-
-            Log.Instance.Information(nameof(LoginViewModel), "Logging.........");
-            new ManagerWindow().Show();
+            Account account = accountDao.SearchByUsername(Username);
+            if (account == null || !string.Equals(password, account.Password))
+            {
+                MessageBox.Show(Utils.INVALIDATE_USERNAME_PASSWORD_MESSAGE);
+                return;
+            }
+            SingletonEmployee.Instance.CurrentAccount = account;
+            Employee employee = employeeDao.SearchByID(account.EmployeeID);
+            SingletonEmployee.Instance.CurrentEmployee = employee;
+            Window nextWindow = string.Equals(employee.PositionID, BaseDao.MANAGERIAL_POSITION_ID)
+                ? new ManagerWindow() : new EmployeeWindow();
+            nextWindow.Show();
             loginWindow.Close();
         }
 
         private void ExecuteForgotPasswordCommand(object p)
         {
-            Log.Instance.Information(nameof(LoginViewModel), "Coming soon....");
+            Log.Instance.Information(nameof(LoginViewModel), "click ForgotPassword: Coming soon....");
         }
     }
 }

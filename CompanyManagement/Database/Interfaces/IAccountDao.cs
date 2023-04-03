@@ -7,6 +7,6 @@ namespace CompanyManagement.Database.Interfaces
         void Add(Account account);
         void Delete(string employeeID);
         void Update(Account account);
-        Account SearchByUserName(string userName);
+        Account SearchByUsername(string userName);
     }
 }

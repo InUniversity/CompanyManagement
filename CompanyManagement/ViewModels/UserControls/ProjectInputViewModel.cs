@@ -49,24 +49,19 @@ namespace CompanyManagement.ViewModels.UserControls
         public ObservableCollection<Department> DepartmentsInProject { get => departmentsInProject; set { departmentsInProject = value; OnPropertyChanged(); } }
 
         private List<Department> departmentsCanAssign;
-
+        
         private ObservableCollection<Department> searchedDepartmentsCanAssign;
-
         public ObservableCollection<Department> SearchedDepartmentsCanAssign { get => searchedDepartmentsCanAssign; set { searchedDepartmentsCanAssign = value; OnPropertyChanged(); } }
 
         private ObservableCollection<Department> departmentsIsSelected;
-
         public ObservableCollection<Department> DepartmentsIsSelected { get => departmentsIsSelected; set { departmentsIsSelected = value; OnPropertyChanged(); } }
 
         private string textToSearch = "";
-
         public string TextToSearch { get => textToSearch; set { textToSearch = value; OnPropertyChanged(); SearchByName(); } }
 
         public ICommand AddDepartmentCommand { get; set; }
-
         public ICommand DeleteDepartmentCommand { get; set; }
-
-        public ICommand GetAllSelectedDepartmentComman { get; set; }
+        public ICommand GetAllSelectedDepartmentCommand { get; set; }
 
         public List<ProjectStatus> ProjectStatuses { get; set; }
 
@@ -84,7 +79,7 @@ namespace CompanyManagement.ViewModels.UserControls
             DepartmentsInProject = new ObservableCollection<Department>(departments);
         }
 
-        public void LoadDepartmentsCanAssign(Project project)
+        private void LoadDepartmentsCanAssign(Project project)
         {
             departmentsCanAssign = projectAssignmentDao.GetDepartmentsCanAssignWork(project);
             SearchedDepartmentsCanAssign = new ObservableCollection<Department>(departmentsCanAssign);
@@ -92,20 +87,20 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void SetCommands()
         {
-            GetAllSelectedDepartmentComman = new RelayCommand<ListView>(ExecuteGetAllSelectedDepartment);
+            GetAllSelectedDepartmentCommand = new RelayCommand<ListView>(ExecuteGetAllSelectedDepartment);
             AddDepartmentCommand = new RelayCommand<object>(ExecuteAddDepartmentCommand);
             DeleteDepartmentCommand = new RelayCommand<string>(ExecuteDeleteDepartmentCommand);
         }
         
         private void ExecuteGetAllSelectedDepartment(ListView listView)
-        {     
+        {
             var selectedItems = listView.SelectedItems.Cast<Department>().ToList();
             DepartmentsIsSelected = new ObservableCollection<Department>(selectedItems);
-        }    
+        }
 
         private void ExecuteAddDepartmentCommand(object b)
         {
-            if(DepartmentsIsSelected!=null)
+            if(DepartmentsIsSelected != null)
             {
                 foreach (Department department in DepartmentsIsSelected)
                 {
@@ -121,7 +116,7 @@ namespace CompanyManagement.ViewModels.UserControls
         {
             projectAssignmentDao.Delete(ID, departmentID);
             LoadDepartmentsInProject(ID);
-            LoadDepartmentsCanAssign(CreateProjectInstance());           
+            LoadDepartmentsCanAssign(CreateProjectInstance());
         }
 
         private void SearchByName()

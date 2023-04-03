@@ -25,7 +25,7 @@ namespace CompanyManagement.Database.Implementations
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
-        public Account SearchByUserName(string userName)
+        public Account SearchByUsername(string userName)
         {
             string sqlStr = $"SELECT * FROM {ACCOUNT_TABLE} WHERE {ACCOUNT_USERNAME}='{userName}'";
             return (Account)dbConnection.GetSingleObject(sqlStr, reader => new Account(reader));
