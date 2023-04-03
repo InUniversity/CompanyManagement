@@ -2,6 +2,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using CompanyManagement.Database;
+using CompanyManagement.Database.Implementations;
 using CompanyManagement.Database.Interfaces;
 using CompanyManagement.Models;
 using CompanyManagement.Utilities;
@@ -38,7 +39,7 @@ namespace CompanyManagement.ViewModels.Windows
             ForgotPasswordCommand = new RelayCommand<object>(ExecuteForgotPasswordCommand);
             PasswordChangedCommand = new RelayCommand<PasswordBox>(p => { password = p.Password; });
         }
-
+        
         private void ExecuteLoginCommand(Window loginWindow)
         {
             Account account = accountDao.SearchByUsername(Username);

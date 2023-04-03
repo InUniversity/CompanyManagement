@@ -44,7 +44,7 @@
                             Margin="4"
                             Command="{Binding ShowAssignmentViewCommand}" 
                             BorderBrush="{DynamicResource PrimaryHueMidBrush}"
-                            IsChecked="True"
+                            IsChecked="{Binding StatusAssignmentView}"
                             Style="{StaticResource MaterialDesignTabRadioButtonRight}" >
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="Briefcase" />
@@ -54,7 +54,7 @@
                         <RadioButton
                             Height="50"
                             Margin="4"         
-                            IsChecked="False"
+                            IsChecked="{Binding StatusEmployeesView}"
                             Command="{Binding ShowEmployeesViewCommand}"
                             BorderBrush="{DynamicResource PrimaryHueMidBrush}"
                             Style="{StaticResource MaterialDesignTabRadioButtonRight}" >
@@ -68,7 +68,7 @@
                             Margin="4"                
                             Command="{Binding ShowWorkScheduleViewCommand}"
                             BorderBrush="{DynamicResource PrimaryHueMidBrush}"
-                            IsChecked="False"
+                            IsChecked="{Binding StatusWorkScheduleView}"
                             Style="{StaticResource MaterialDesignTabRadioButtonRight}" >
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="CalendarText" />
@@ -79,7 +79,7 @@
                             Height="50"
                             Margin="4"                           
                             Command="{Binding ShowNotifyViewCommand}"
-                            IsChecked="False"
+                            IsChecked="{Binding StatusNotifyView}"
                             BorderBrush="{DynamicResource PrimaryHueMidBrush}"
                             Style="{StaticResource MaterialDesignTabRadioButtonRight}" >
                             <StackPanel Orientation="Horizontal">
@@ -90,7 +90,7 @@
                         <RadioButton
                             Height="50"
                             Margin="4"                           
-                            IsChecked="False"
+                            IsChecked="{Binding StatusSettingsView}"
                             Command="{Binding ShowSettingsViewCommand}"
                             BorderBrush="{DynamicResource PrimaryHueMidBrush}"
                             Style="{StaticResource MaterialDesignTabRadioButtonRight}" >

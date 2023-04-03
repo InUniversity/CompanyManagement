@@ -1,5 +1,7 @@
 ﻿using CompanyManagement.ViewModels.Base;
 using CompanyManagement.Views.UserControls;
+using System;
+using System.CodeDom.Compiler;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -16,12 +18,32 @@ namespace CompanyManagement.ViewModels.Windows
         private WorkScheduleUC workScheduleUC = new WorkScheduleUC();
         private NotifyUC notifyUC = new NotifyUC();
         private SettingsUC settingsUC = new SettingsUC();
+        private UserInformationUC userInformationUC = new UserInformationUC();
+        
+        private bool statusSettingsView = false;
+        public bool StatusSettingsView { get => statusSettingsView; set { statusSettingsView = value; OnPropertyChanged(); } }
+
+        private bool statusNotifyView = false;
+        public bool StatusNotifyView { get => statusNotifyView; set { statusNotifyView = value; OnPropertyChanged(); } }
+
+        private bool statusWorkScheduleView = false;
+        public bool StatusWorkScheduleView { get => statusWorkScheduleView; set { statusWorkScheduleView = value; OnPropertyChanged(); } }
+
+        private bool statusEmployeesView = false;
+        public bool StatusEmployeesView { get => statusEmployeesView; set { statusEmployeesView = value; OnPropertyChanged(); } }
+
+        private bool statusAssignmentView = false;
+        public bool StatusAssignmentView { get => statusAssignmentView; set { statusAssignmentView = value; OnPropertyChanged(); } }
+
+        private bool statusUserInformationView = false;
+        public bool StatusUserInformationView { get => statusUserInformationView; set { statusUserInformationView = value; OnPropertyChanged(); } }
 
         public ICommand ShowAssignmentViewCommand { get; set; }
         public ICommand ShowEmployeesViewCommand { get; set; }
         public ICommand ShowWorkScheduleViewCommand { get; set; }
         public ICommand ShowNotifyViewCommand { get; set; }
         public ICommand ShowSettingsViewCommand { get; set; }
+        public ICommand ShowUserInformationViewCommand { get; set; }
 
         public ManagerViewModel()
         {
@@ -35,32 +57,44 @@ namespace CompanyManagement.ViewModels.Windows
             ShowEmployeesViewCommand = new RelayCommand<object>(ExecuteShowEmployeesView);
             ShowWorkScheduleViewCommand = new RelayCommand<object>(ExecuteShowWorkScheduleView);
             ShowNotifyViewCommand = new RelayCommand<object>(ExecuteShowNotifyView);
-            ShowSettingsViewCommand = new RelayCommand<object>(ExecuteShowSettingsView);         
+            ShowSettingsViewCommand = new RelayCommand<object>(ExecuteShowSettingsView);
+            ShowUserInformationViewCommand = new RelayCommand<object>(ExecuteShowUserInformationViewCommand);
+        }
+
+        private void ExecuteShowUserInformationViewCommand(object obj)
+        {
+            currentChildView = userInformationUC;
+            StatusUserInformationView = true;
         }
 
         private void ExecuteShowAssignmentView(object obj)
         {
             CurrentChildView = assignmentUC;
+            StatusAssignmentView = true;
         }
 
         private void ExecuteShowEmployeesView(object obj)
         {
-            CurrentChildView = employeesUC;
+            currentChildView = employeesUC;
+            StatusEmployeesView = true; 
         }
 
         private void ExecuteShowWorkScheduleView(object obj)
         {
             CurrentChildView = workScheduleUC;
+            StatusWorkScheduleView = true;
         }
 
         private void ExecuteShowNotifyView(object obj)
         {
             CurrentChildView = notifyUC;
+            StatusNotifyView = true;
         }
         
         private void ExecuteShowSettingsView(object obj)
         {
             CurrentChildView = settingsUC;
+            StatusSettingsView = true;
         }
     }
 }

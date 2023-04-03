@@ -7,9 +7,9 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         x:Name="addEmployeeWindow"
-        Title="EmployeeInputWindow" Height="550" Width="920" MinHeight="550" MinWidth="920">
-    <Grid Margin="0 10">
-        <StackPanel Height="500" Width="900">
+        Title="EmployeeInputWindow" Height="550" Width="1100" MinHeight="550" MinWidth="1100">
+    <Grid Margin="10">
+        <StackPanel>
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
@@ -24,7 +24,8 @@
                     Content="Thêm"
                     Command="{Binding AddEmployeeCommand}"
                     CommandParameter="{Binding ElementName=addEmployeeWindow}"
-                    Width="70"
+                    Width="500"
+                    Height="50"
                     Background="ForestGreen"
                     IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                     Style="{StaticResource MaterialDesignFlatMidBgButton}"

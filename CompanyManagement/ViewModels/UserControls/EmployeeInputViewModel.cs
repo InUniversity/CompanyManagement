@@ -139,6 +139,7 @@ namespace CompanyManagement.ViewModels.UserControls
             ID = employee.ID;
             Name = employee.Name;
             Gender = employee.Gender;
+            Birthday = employee.Birthday;
             IdentifyCard = employee.IdentifyCard;
             Email = employee.Email;
             PhoneNumber = employee.PhoneNumber;

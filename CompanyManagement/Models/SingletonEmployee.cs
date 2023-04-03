@@ -33,6 +33,7 @@
         private SingletonEmployee()
         {
             account = new Account();
+            employee = new Employee();
         }
     }
 }
