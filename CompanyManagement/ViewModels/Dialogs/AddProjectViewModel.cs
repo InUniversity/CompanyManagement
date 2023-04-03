@@ -14,28 +14,25 @@ namespace CompanyManagement.ViewModels.Dialogs
     public class AddProjectViewModel : BaseViewModel, IAddProject
     {
 
-        public ICommand AddProjectCommand { get; set; }
+        public ICommand AddProjectCommand { get; }
 
         public IProjects ParentDataContext { get; set; }
-        public IProjectInput ProjectInputDataContext { get; set; }
+        public IProjectInput ProjectInputDataContext { get; }
 
         public AddProjectViewModel(IProjectInput projectInput)
         {
             ProjectInputDataContext = projectInput;
-            AddProjectCommand = new RelayCommand<Window>(AddCommand, CheckAllFields);
+            AddProjectCommand = new RelayCommand<Window>(AddCommand);
         }
 
         private void AddCommand(Window inputWindow)
         {
             ProjectInputDataContext.TrimAllTexts();
+            if (!ProjectInputDataContext.CheckAllFields())
+                return;
             Project project = ProjectInputDataContext.CreateProjectInstance();
             ParentDataContext.Add(project);
             inputWindow.Close();
-        }
-
-        private bool CheckAllFields(object p)
-        {
-            return ProjectInputDataContext.CheckAllFields();
         }
     }
 }

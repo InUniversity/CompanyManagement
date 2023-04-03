@@ -22,7 +22,7 @@
             </Grid.ColumnDefinitions>
             <TextBox
                 Grid.Column="0"
-            Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
+            Text="{Binding Name}"
             Background="White"
             Margin="10"
             IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedTextBoxEnabledComboBox}"
@@ -121,7 +121,7 @@
                               ItemsSource="{Binding ElementName=projectInputUC, Path=DataContext.SearchedDepartmentsCanAssign , UpdateSourceTrigger=PropertyChanged}">
                         <b:Interaction.Triggers>
                             <b:EventTrigger EventName="SelectionChanged">
-                                <b:InvokeCommandAction Command="{Binding GetAllSelectedDepartmentComman}"
+                                <b:InvokeCommandAction Command="{Binding GetAllSelectedDepartmentCommand}"
                                                    CommandParameter="{Binding ElementName= listDepartment}" />
                             </b:EventTrigger>
                         </b:Interaction.Triggers>

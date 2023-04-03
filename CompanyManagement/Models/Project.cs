@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Data.SqlClient;
+using System.Data;
 using CompanyManagement.Database;
 using CompanyManagement.Utilities;
 
@@ -7,55 +7,27 @@ namespace CompanyManagement
 {
     public class Project
     {
-        private string id = "";
-        private string name = "";
-        private DateTime start = DateTime.Now;
-        private DateTime end = DateTime.Now;
-        private DateTime completed = DateTime.Now;
-        private string progress = "0";
+        private string id;
+        private string name;
+        private DateTime start;
+        private DateTime end;
+        private DateTime completed;
+        private string progress;
         private string statusID;
 
-        public string ID
-        {
-            get { return id; }
-            set { id = value; }
-        } 
-            
-        public string Name
-        {
-            get { return name; }
-            set { name = value; }
-        }
+        public string ID => id;
 
-        public DateTime Start
-        {
-            get { return start; }
-            set { start = value; }
-        }
+        public string Name => name;
 
-        public DateTime End
-        {
-            get { return end; }
-            set { end = value; }
-        }
+        public DateTime Start => start;
 
-        public DateTime Completed
-        {
-            get { return completed; }
-            set { completed = value; }
-        }
+        public DateTime End => end;
 
-        public string Progress
-        {
-            get { return progress; }
-            set { progress = value; }
-        }
+        public DateTime Completed => completed;
 
-        public string StatusID
-        {
-            get { return statusID; }
-            set { statusID = value; }
-        }
+        public string Progress => progress;
+
+        public string StatusID => statusID;
 
         public Project() { }
 
@@ -71,12 +43,7 @@ namespace CompanyManagement
             this.statusID = statusID;
         }
 
-        public Project(string id)
-        {
-            this.id = id;
-        }
-
-        public Project(SqlDataReader reader)
+        public Project(IDataRecord reader)
         {
             try
             {
@@ -88,7 +55,7 @@ namespace CompanyManagement
                 progress = (string)reader[BaseDao.PROJECT_PROPRESS];
                 statusID = (string)reader[BaseDao.PROJECT_STATUS_ID];
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Log.Instance.Error(nameof(Project), "CAST ERROR: " + ex.Message);
             }

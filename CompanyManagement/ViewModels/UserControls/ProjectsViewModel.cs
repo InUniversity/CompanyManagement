@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using CompanyManagement.Views.Dialogs;
 using CompanyManagement.Database.Interfaces;
+using CompanyManagement.Models;
 using CompanyManagement.ViewModels.Dialogs;
 using CompanyManagement.ViewModels.Base;
 using CompanyManagement.Utilities;
@@ -35,17 +36,21 @@ namespace CompanyManagement.ViewModels.UserControls
         public IRetrieveProjectID ProjectDetailsDataContext { get; set; }
 
         private IProjectDao projectDao;
+        private IProjectAssignmentDao projectAssignmentDao;
 
-        public ProjectsViewModel(IProjectDao projectDao)
+        public ProjectsViewModel(IProjectDao projectDao, IProjectAssignmentDao projectAssignmentDao)
         {
             this.projectDao = projectDao;
+            this.projectAssignmentDao = projectAssignmentDao;
             LoadProjects();
             SetCommands();
         }
 
         private void LoadProjects()
         {
-            Projects = new ObservableCollection<Project>(projectDao.GetAll());
+            var employeeID = SingletonEmployee.Instance.CurrentAccount.EmployeeID;
+            var projects = projectAssignmentDao.SearchProjectByEmployeeID(employeeID);
+            Projects = new ObservableCollection<Project>(projects);
         }
 
         private void SetCommands()
@@ -80,7 +85,8 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private Project CreateProject()
         {
-            return new Project(AutoGenerateID());
+            return new Project(AutoGenerateID(), "", DateTime.Now, DateTime.Now, 
+                Utils.EMPTY_DATETIME, "0", "");
         }
 
         private string AutoGenerateID()
@@ -114,8 +120,6 @@ namespace CompanyManagement.ViewModels.UserControls
         {
             ProjectDetailsDataContext.RetrieveProjectID(SelectedProject.ID);
             ParentDataContext.MoveToProjectDetailsView();
-
-            Log.Instance.Information(nameof(ProjectsViewModel), "ItemClicked");
         }
     }
 }

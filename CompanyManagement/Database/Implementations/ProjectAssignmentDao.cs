@@ -48,5 +48,11 @@ namespace CompanyManagement.Database.Implementations
                             $"AND {PROJECT_END} >= Convert(Datetime, '{project.Start}', 105))))";
             return dbConnection.GetList(sqlStr, reader => new Department(reader));
         }
+
+        public List<Project> SearchProjectByEmployeeID(string employeeID)
+        {
+            // TODO
+            throw new System.NotImplementedException();
+        }
     }
 }

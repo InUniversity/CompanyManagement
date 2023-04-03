@@ -12,6 +12,6 @@ public partial class LoginWindow : Window
     public LoginWindow()
     {
         InitializeComponent();
-        DataContext = new LoginViewModel(new EmployeeDao());
+        DataContext = new LoginViewModel(new AccountDao(), new EmployeeDao());
     }
 }
