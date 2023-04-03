@@ -53,6 +53,7 @@ namespace CompanyManagement.ViewModels.UserControls
         private void ExecuteShowProjectsView(object obj)
         {
             ParentDataContext.MoveToProjectsView();
+            Log.Instance.Information(nameof(ProjectsViewModel), "Back to project view");
         }
 
         private void ShowTasksView()
