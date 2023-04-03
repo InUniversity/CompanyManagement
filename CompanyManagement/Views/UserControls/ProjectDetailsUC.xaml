@@ -22,7 +22,7 @@
         <Border Grid.Row="0" BorderBrush="Gray" BorderThickness="0.1"  Margin="3 0" Name="Menu">
             <StackPanel Orientation="Horizontal">
                 <Button Margin="20 0"  
-                        Command="{Binding ElementName=assignUC, Path=DataContext.BackProjectsViewCommand}"
+                        Command="{Binding ElementName=projectDetailsUC, Path=DataContext.BackProjectsViewCommand}"
                         Style="{StaticResource MaterialDesignIconButton}">
                     <materialDesign:PackIcon Kind="KeyboardBackspace" />
                 </Button>

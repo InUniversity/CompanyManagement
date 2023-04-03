@@ -8,7 +8,7 @@ namespace CompanyManagement.ViewModels.Windows
     public class ManagerViewModel : BaseViewModel
     {
         
-        private ContentControl currentChildView = new AssignmentUC();
+        private ContentControl currentChildView;
         public ContentControl CurrentChildView { get => currentChildView; set { currentChildView = value; OnPropertyChanged(); } }
 
         private AssignmentUC assignmentUC = new AssignmentUC();
@@ -17,13 +17,19 @@ namespace CompanyManagement.ViewModels.Windows
         private NotifyUC notifyUC = new NotifyUC();
         private SettingsUC settingsUC = new SettingsUC();
 
-        public ICommand ShowAssignmentViewCommand { get; }
-        public ICommand ShowEmployeesViewCommand { get; }
-        public ICommand ShowWorkScheduleViewCommand { get; }
-        public ICommand ShowNotifyViewCommand { get; }
-        public ICommand ShowSettingsViewCommand { get; }
+        public ICommand ShowAssignmentViewCommand { get; set; }
+        public ICommand ShowEmployeesViewCommand { get; set; }
+        public ICommand ShowWorkScheduleViewCommand { get; set; }
+        public ICommand ShowNotifyViewCommand { get; set; }
+        public ICommand ShowSettingsViewCommand { get; set; }
 
         public ManagerViewModel()
+        {
+            CurrentChildView = assignmentUC;
+            SetCommands();
+        }
+
+        private void SetCommands()
         {
             ShowAssignmentViewCommand = new RelayCommand<object>(ExecuteShowAssignmentView);
             ShowEmployeesViewCommand = new RelayCommand<object>(ExecuteShowEmployeesView);
@@ -34,27 +40,27 @@ namespace CompanyManagement.ViewModels.Windows
 
         private void ExecuteShowAssignmentView(object obj)
         {
-            CurrentChildView.Content = assignmentUC;
+            CurrentChildView = assignmentUC;
         }
 
         private void ExecuteShowEmployeesView(object obj)
         {
-            CurrentChildView.Content = employeesUC;
+            CurrentChildView = employeesUC;
         }
 
         private void ExecuteShowWorkScheduleView(object obj)
         {
-            CurrentChildView.Content = workScheduleUC;
+            CurrentChildView = workScheduleUC;
         }
 
         private void ExecuteShowNotifyView(object obj)
         {
-            CurrentChildView.Content = notifyUC;
+            CurrentChildView = notifyUC;
         }
         
         private void ExecuteShowSettingsView(object obj)
         {
-            CurrentChildView.Content = settingsUC;
+            CurrentChildView = settingsUC;
         }
     }
 }

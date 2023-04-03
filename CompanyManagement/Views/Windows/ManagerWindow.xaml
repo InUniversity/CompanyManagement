@@ -42,7 +42,7 @@
                         <RadioButton
                             Height="50"
                             Margin="4"
-                            Command="{Binding ShowAssignViewCommand}" 
+                            Command="{Binding ShowAssignmentViewCommand}" 
                             BorderBrush="{DynamicResource PrimaryHueMidBrush}"
                             IsChecked="True"
                             Style="{StaticResource MaterialDesignTabRadioButtonRight}" >

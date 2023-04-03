@@ -25,8 +25,8 @@ namespace CompanyManagement.ViewModels.UserControls
         public ICommand ShowTasksViewCommand { get; set; }
         public ICommand ShowTimeKeepingCommand { get; set; }
 
-        private TasksInProjectUC taskView = new TasksInProjectUC();
-        private TimeKeepingUC timeKeepingView = new TimeKeepingUC();
+        private TasksInProjectUC tasksInProjectUC = new TasksInProjectUC();
+        private TimeKeepingUC timeKeepingUC = new TimeKeepingUC();
 
         private bool statusTasksView = false;
         public bool StatusTasksView { get => statusTasksView; set { statusTasksView = value; OnPropertyChanged(); } }
@@ -57,32 +57,32 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void ShowTasksView()
         {
-            CurrentChildView = taskView;
+            CurrentChildView = tasksInProjectUC;
             StatusTasksView = true;
         }
 
         private void ExecuteShowTimeKeepingView(object obj)
         {
-            CurrentChildView = timeKeepingView;
+            CurrentChildView = timeKeepingUC;
             StatusTimeKeepingView = true;
         }
 
         public void RetrieveProjectID(string projectID)
         {
+            ShowTasksView();
             if (string.Equals(projectID, this.projectID))
                 return;
             this.projectID = projectID;
             try
             {
-                ((IRetrieveProjectID)taskView.DataContext).RetrieveProjectID(projectID);
-                ((IRetrieveProjectID)timeKeepingView.DataContext).RetrieveProjectID(projectID);
+                ((IRetrieveProjectID)tasksInProjectUC.DataContext).RetrieveProjectID(projectID);
+                ((IRetrieveProjectID)timeKeepingUC.DataContext).RetrieveProjectID(projectID);
             }
             catch 
             {
                 Log.Instance.Error(nameof(ProjectDetailsViewModel), 
                     "The data context must have implement interface IRetrieveProjectID");
             }
-            ShowTasksView();
         }
     }
 }

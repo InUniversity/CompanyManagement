@@ -2,6 +2,7 @@
 using CompanyManagement.Views.UserControls;
 using System.Windows.Controls;
 using System.Windows.Input;
+using CompanyManagement.Utilities;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
@@ -20,8 +21,12 @@ namespace CompanyManagement.ViewModels.UserControls
         private ProjectsUC projectsUC = new ProjectsUC();
         private ProjectDetailsUC projectDetailsUC = new ProjectDetailsUC();
 
+        private static int createdTimes = 0;
+
         public AssignmentViewModel()
         {
+            Log.Instance.Information(nameof(AssignmentViewModel), createdTimes.ToString());
+            createdTimes++;
             CurrentChildView = projectsUC;
             ((IProjects)projectsUC.DataContext).ParentDataContext = this;
             ((IProjects)projectsUC.DataContext).ProjectDetailsDataContext = (IRetrieveProjectID)projectDetailsUC.DataContext;
@@ -30,12 +35,12 @@ namespace CompanyManagement.ViewModels.UserControls
 
         public void MoveToProjectsView()
         {
-            CurrentChildView.Content = projectsUC;
+            CurrentChildView = projectsUC;
         }
 
         public void MoveToProjectDetailsView()
         {
-            CurrentChildView.Content = projectDetailsUC;
+            CurrentChildView = projectDetailsUC;
         }
     }
 }

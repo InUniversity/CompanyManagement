@@ -5,6 +5,7 @@ using CompanyManagement.Views.Dialogs;
 using CompanyManagement.Database.Interfaces;
 using CompanyManagement.ViewModels.Dialogs;
 using CompanyManagement.ViewModels.Base;
+using CompanyManagement.Utilities;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
@@ -21,6 +22,9 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private ObservableCollection<Project> projects;
         public ObservableCollection<Project> Projects { get => projects; set { projects = value; OnPropertyChanged(); } }
+
+        private Project selectedProject;
+        public Project SelectedProject { get => selectedProject; set { selectedProject = value; OnPropertyChanged(); } }
         
         public ICommand OpenProjectInputCommand { get; set; }
         public ICommand DeleteProjectCommand { get; set; }
@@ -49,7 +53,7 @@ namespace CompanyManagement.ViewModels.UserControls
             OpenProjectInputCommand = new RelayCommand<object>(OpenAddProjectDialog);
             DeleteProjectCommand = new RelayCommand<string>(ExecuteDeleteCommand);
             UpdateProjectCommand = new RelayCommand<Project>(OpenUpdateProjectDialog);
-            ItemClickCommand = new RelayCommand<string>(ItemClicked);
+            ItemClickCommand = new RelayCommand<object>(ItemClicked);
         }
 
         public void Add(Project project)
@@ -106,10 +110,12 @@ namespace CompanyManagement.ViewModels.UserControls
             projectDetailsDialog.ShowDialog();
         }
 
-        private void ItemClicked(string projectID)
+        private void ItemClicked(object obj)
         {
-            ProjectDetailsDataContext.RetrieveProjectID(projectID);
+            ProjectDetailsDataContext.RetrieveProjectID(SelectedProject.ID);
             ParentDataContext.MoveToProjectDetailsView();
+
+            Log.Instance.Information(nameof(ProjectsViewModel), "ItemClicked");
         }
     }
 }
