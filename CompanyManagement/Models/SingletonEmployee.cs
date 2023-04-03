@@ -6,7 +6,7 @@
         private Employee employee;
         private Account account;
 
-        private Employee CurrentEmployee
+        public Employee CurrentEmployee
         {
             get { return employee; }
             set { employee = value; }
@@ -33,6 +33,7 @@
         private SingletonEmployee()
         {
             account = new Account();
+            employee = new Employee();
         }
     }
 }

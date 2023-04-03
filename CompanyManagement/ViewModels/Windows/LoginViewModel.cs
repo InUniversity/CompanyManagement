@@ -1,7 +1,9 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using CompanyManagement.Database.Implementations;
 using CompanyManagement.Database.Interfaces;
+using CompanyManagement.Models;
 using CompanyManagement.Utilities;
 using CompanyManagement.ViewModels.Base;
 using CompanyManagement.Views.Windows;
@@ -21,11 +23,14 @@ namespace CompanyManagement.ViewModels.Windows
         public ICommand PasswordChangedCommand { get; set; }
 
         private IEmployeeDao employeeAccountDao;
+        private IAccountDao accountDao = new AccountDao();
 
+        public static SingletonEmployee CurrentUser = SingletonEmployee.Instance;
+       
         public LoginViewModel(IEmployeeDao employeeAccountDao)
         {
             this.employeeAccountDao = employeeAccountDao;
-            SetCommands();
+            SetCommands(); 
         }
 
         private void SetCommands()
@@ -34,7 +39,11 @@ namespace CompanyManagement.ViewModels.Windows
             ForgotPasswordCommand = new RelayCommand<object>(ExecuteForgotPasswordCommand);
             PasswordChangedCommand = new RelayCommand<PasswordBox>(p => { password = p.Password; });
         }
-
+        private void CreateCurrentUser()
+        {
+            CurrentUser.CurrentAccount = accountDao.SearchByUserName(username);
+            CurrentUser.CurrentEmployee = employeeAccountDao.SearchByID(CurrentUser.CurrentAccount.EmployeeID);
+        }
         private void ExecuteLoginCommand(Window loginWindow)
         {
             // EmployeeAccount employeeAccount = employeeAccountDao.SearchByUsername(Username);
@@ -47,7 +56,7 @@ namespace CompanyManagement.ViewModels.Windows
             // Window nextWindow = string.Equals(employeeAccount.PositionID, BaseDao.MANAGERIAL_POSITION_ID)
             //     ? new ManagerWindow() : new EmployeeWindow();
             // nextWindow.Show();
-
+            CreateCurrentUser();
             Log.Instance.Information(nameof(LoginViewModel), "Logging.........");
             new ManagerWindow().Show();
             loginWindow.Close();
