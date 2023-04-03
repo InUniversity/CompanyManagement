@@ -22,9 +22,17 @@ namespace CompanyManagement.Database.Implementations
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
+        public void Update(TimeKeeping timeKeeping)
+        {
+            string sqlStr = $"UPDATE {TIME_KEEPING_TABLE} SET {TIME_KEEPING_START_TIME} = '{timeKeeping.StartTime}', " +
+                            $"{TIME_KEEPING_END_TIME} = '{timeKeeping.EndTime}', {TIME_KEEPING_EMPLOYEE_ID} = '{timeKeeping.EmployeeID}', " +
+                            $"{TIME_KEEPING_NOTES} = '{timeKeeping.Notes}', {TIME_KEEPING_CREATE_BY} = '{timeKeeping.CreateBy}' " +
+                            $"WHERE {TIME_KEEPING_TASK_ID} = '{timeKeeping.TaskID}';";
+            dbConnection.ExecuteNonQuery(sqlStr);
+        }
+
         public List<TimeKeeping> GetAll()
         {
-
             string sqlStr = $"SELECT * FROM {TIME_KEEPING_TABLE}";
             return dbConnection.GetList(sqlStr, reader => new TimeKeeping(reader));
         }
@@ -43,15 +51,6 @@ namespace CompanyManagement.Database.Implementations
             string sqlStr = $"SELECT * FROM {TIME_KEEPING_TABLE} WHERE {TIME_KEEPING_TASK_ID} IN" +
                             $"(SELECT {TASK_ID} FROM {TASK_TABLE} WHERE {TASK_PROJECT_ID}='{projectID}')";
             return dbConnection.GetList(sqlStr, reader => new TimeKeeping(reader));
-        }
-
-        public void Update(TimeKeeping timeKeeping)
-        {
-            string sqlStr = $"UPDATE {TIME_KEEPING_TABLE} SET {TIME_KEEPING_START_TIME} = '{timeKeeping.StartTime}', " +
-                            $"{TIME_KEEPING_END_TIME} = '{timeKeeping.EndTime}', {TIME_KEEPING_EMPLOYEE_ID} = '{timeKeeping.EmployeeID}', " +
-                            $"{TIME_KEEPING_NOTES} = '{timeKeeping.Notes}', {TIME_KEEPING_CREATE_BY} = '{timeKeeping.CreateBy}' " +
-                            $"WHERE {TIME_KEEPING_TASK_ID} = '{timeKeeping.TaskID}';";
-            dbConnection.ExecuteNonQuery(sqlStr);
         }
     }
 }

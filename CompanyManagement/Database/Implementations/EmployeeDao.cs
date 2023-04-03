@@ -1,6 +1,5 @@
 ﻿using CompanyManagement.Database.Interfaces;
 using System.Collections.Generic;
-using CompanyManagement.Models;
 
 namespace CompanyManagement.Database.Implementations
 {

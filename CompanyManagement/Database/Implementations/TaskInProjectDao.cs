@@ -21,12 +21,6 @@ namespace CompanyManagement.Database.Implementations
             string sqlStr = $"DELETE FROM {TASK_TABLE} WHERE {TASK_ID} = '{id}'";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
-        
-        public void DeleteAll()
-        {
-            string sqlStr = $"DELETE FROM {TASK_TABLE}";
-            dbConnection.ExecuteNonQuery(sqlStr);
-        }
 
         public void Update(TaskInProject task)
         {
@@ -36,12 +30,6 @@ namespace CompanyManagement.Database.Implementations
                             $"{TASK_PROGRESS}='{task.Progress}', {TASK_EMPLOYEE_ID}='{task.EmployeeID}', " +
                             $"{TASK_PROJECT_ID}='{task.ProjectID}', {TASK_STATUS_ID} = {task.Status} WHERE {TASK_ID}='{task.ID}'";
             dbConnection.ExecuteNonQuery(sqlStr);
-        }
-
-        public List<TaskInProject> GetAll()
-        {
-            string sqlStr = $"SELECT * FROM {TASK_TABLE}";
-            return dbConnection.GetList(sqlStr, reader => new TaskInProject(reader));
         }
 
         public TaskInProject SearchByID(string taskInProjectID)
@@ -57,11 +45,6 @@ namespace CompanyManagement.Database.Implementations
         {
             string sqlStr = $"SELECT * FROM {TASK_TABLE} WHERE {TASK_PROJECT_ID}='{projectID}'";
             return dbConnection.GetList(sqlStr, reader => new TaskInProject(reader));
-        }
-
-        public void Delete(TaskInProject task)
-        {
-            throw new System.NotImplementedException();
         }
     }
 }

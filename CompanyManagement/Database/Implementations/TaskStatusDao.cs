@@ -6,7 +6,6 @@ namespace CompanyManagement.Database.Implementations
 {
     public class TaskStatusDao: BaseDao, ITaskStatusDao
     {
-
         public void Add(TaskStatus taskStatus)
         {
             string sqlStr = $"INSERT INTO {TASK_STATUS_TABLE} ({TASK_STATUS_ID}, {TASK_STATUS_NAME})" +
@@ -20,6 +19,13 @@ namespace CompanyManagement.Database.Implementations
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
+        public void Update(TaskStatus taskStatus)
+        {
+            string sqlStr = $"UPDATE {TASK_STATUS_TABLE} SET {TASK_STATUS_NAME} = '{taskStatus.Name}', " +
+                            $"WHERE {TASK_STATUS_ID} = '{taskStatus.ID}';";
+            dbConnection.ExecuteNonQuery(sqlStr);
+        }
+
         public TaskStatus SearchByID(string taskStatusID)
         {
             string sqlStr = $"SELECT * FROM {TASK_STATUS_TABLE} WHERE {TASK_STATUS_ID} = '{taskStatusID}'";
@@ -27,13 +33,6 @@ namespace CompanyManagement.Database.Implementations
             if (tasks.Count == 0)
                 return null;
             return tasks[0];
-        }
-
-        public void Update(TaskStatus taskStatus)
-        {
-            string sqlStr = $"UPDATE {TASK_STATUS_TABLE} SET {TASK_STATUS_NAME} = '{taskStatus.Name}', " +
-                            $"WHERE {TASK_STATUS_ID} = '{taskStatus.ID}';";
-            dbConnection.ExecuteNonQuery(sqlStr);
         }
 
         public List<TaskStatus> GetAll()
