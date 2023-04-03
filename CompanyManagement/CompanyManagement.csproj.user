@@ -16,6 +16,9 @@
     <Compile Update="Views\UserControls\NotifyUC.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\UserControls\ProjectDetailsUC.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\UserControls\SettingsUC.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -37,6 +40,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\UserControls\NotifyUC.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\UserControls\ProjectDetailsUC.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\UserControls\SettingsUC.xaml">

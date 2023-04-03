@@ -19,12 +19,11 @@
             BorderThickness="2"
             ClipToBounds="True">
             <Grid>
-                <ListView ItemsSource="{Binding Projects}"
-                          SelectedItem="{Binding SelectedProject}">
+                <ListView ItemsSource="{Binding Projects}">
                     <b:Interaction.Triggers>
                         <b:EventTrigger EventName="SelectionChanged">
                             <b:InvokeCommandAction Command="{Binding ItemClickCommand}"
-                                                   CommandParameter="{Binding SelectedProject}" />
+                                                   CommandParameter="{Binding ID}" />
                         </b:EventTrigger>
                     </b:Interaction.Triggers>
                     <ListView.ItemContainerStyle>

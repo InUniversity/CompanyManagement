@@ -16,9 +16,6 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Height="700" Width="1200" MinHeight="600" MinWidth="600">
-    <Window.DataContext>
-        <vm:ManagerViewModel/>
-    </Window.DataContext>
     <Grid>
         <materialDesign:DrawerHost  >
             <materialDesign:DrawerHost.LeftDrawerContent >
@@ -127,7 +124,7 @@
                             Height="80"
                             Width="50"
                             Style="{StaticResource MaterialDesignIconButton}"
-                            Command="{Binding ShowAssignViewCommand}"                                       
+                            Command="{Binding ShowAssignmentViewCommand}"                                       
                             BorderThickness="0">
                             <materialDesign:PackIcon Kind="Briefcase" Foreground="White" />
                         </Button>

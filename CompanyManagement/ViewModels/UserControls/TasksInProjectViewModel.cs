@@ -15,11 +15,6 @@ namespace CompanyManagement.ViewModels.UserControls
         void Add(TaskInProject task);
         void Update(TaskInProject task);
     }
-
-    public interface IRetrieveProjectID
-    {
-        void RetrieveProjectID(string projectID);
-    }
     
     public class TasksInProjectViewModel : BaseViewModel, ITasksInProject, IRetrieveProjectID
     {

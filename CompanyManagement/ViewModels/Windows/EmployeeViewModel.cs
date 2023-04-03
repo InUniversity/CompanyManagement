@@ -7,9 +7,9 @@ namespace CompanyManagement.ViewModels.Windows
 {
     class EmployeeViewModel : BaseViewModel
     {
-        private ContentControl currentChildView = new AssignUC();
-
-        public ContentControl CurrentChildView { get => currentChildView; set { currentChildView = value; OnPropertyChanged(nameof(CurrentChildView)); } }
+        
+        private ContentControl currentChildView = new AssignmentUC();
+        public ContentControl CurrentChildView { get => currentChildView; set { currentChildView = value; OnPropertyChanged(); } }
 
         public ICommand ShowAssignView { get; }
 
@@ -21,7 +21,7 @@ namespace CompanyManagement.ViewModels.Windows
 
         private void ExecuteShowAssignView(object obj)
         {
-            currentChildView.Content = new AssignUC();
+            currentChildView.Content = new AssignmentUC();
 
         }
     }
