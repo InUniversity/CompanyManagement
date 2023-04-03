@@ -7,54 +7,60 @@ namespace CompanyManagement.ViewModels.Windows
 {
     public class ManagerViewModel : BaseViewModel
     {
-        private ContentControl currentChildView = new AssignUC();
+        
+        private ContentControl currentChildView;
         public ContentControl CurrentChildView { get => currentChildView; set { currentChildView = value; OnPropertyChanged(); } }
 
-        private TimeKeepingUC timeKeepingUC = new TimeKeepingUC();
-        private TasksInProjectUC tasksInProjectUC = new TasksInProjectUC();
-        private SettingsUC settingsUC = new SettingsUC();
-        private NotifyUC notifyUC = new NotifyUC();
-        private WorkScheduleUC workScheduleUC = new WorkScheduleUC();
+        private AssignmentUC assignmentUC = new AssignmentUC();
         private EmployeesUC employeesUC = new EmployeesUC();
-        private AssignUC assignUC = new AssignUC();
+        private WorkScheduleUC workScheduleUC = new WorkScheduleUC();
+        private NotifyUC notifyUC = new NotifyUC();
+        private SettingsUC settingsUC = new SettingsUC();
 
-        public ICommand ShowAssignViewCommand { get; }
-        public ICommand ShowEmployeesViewCommand { get; }
-        public ICommand ShowWorkScheduleViewCommand { get; }
-        public ICommand ShowNotifyViewCommand { get; }
-        public ICommand ShowSettingsViewCommand { get; }
+        public ICommand ShowAssignmentViewCommand { get; set; }
+        public ICommand ShowEmployeesViewCommand { get; set; }
+        public ICommand ShowWorkScheduleViewCommand { get; set; }
+        public ICommand ShowNotifyViewCommand { get; set; }
+        public ICommand ShowSettingsViewCommand { get; set; }
 
         public ManagerViewModel()
         {
-            ShowAssignViewCommand = new RelayCommand<object>(ExecuteShowAssignView);
+            CurrentChildView = assignmentUC;
+            SetCommands();
+        }
+
+        private void SetCommands()
+        {
+            ShowAssignmentViewCommand = new RelayCommand<object>(ExecuteShowAssignmentView);
             ShowEmployeesViewCommand = new RelayCommand<object>(ExecuteShowEmployeesView);
             ShowWorkScheduleViewCommand = new RelayCommand<object>(ExecuteShowWorkScheduleView);
             ShowNotifyViewCommand = new RelayCommand<object>(ExecuteShowNotifyView);
             ShowSettingsViewCommand = new RelayCommand<object>(ExecuteShowSettingsView);         
         }
-        private void ExecuteShowSettingsView(object obj)
-        {
-            currentChildView.Content = settingsUC;
-        }
 
-        private void ExecuteShowNotifyView(object obj)
+        private void ExecuteShowAssignmentView(object obj)
         {
-            currentChildView.Content = notifyUC;
-        }
-
-        private void ExecuteShowWorkScheduleView(object obj)
-        {
-            currentChildView.Content = workScheduleUC;
+            CurrentChildView = assignmentUC;
         }
 
         private void ExecuteShowEmployeesView(object obj)
         {
-            currentChildView.Content = employeesUC;
+            CurrentChildView = employeesUC;
         }
 
-        private void ExecuteShowAssignView(object obj)
+        private void ExecuteShowWorkScheduleView(object obj)
         {
-            currentChildView.Content = assignUC;
+            CurrentChildView = workScheduleUC;
+        }
+
+        private void ExecuteShowNotifyView(object obj)
+        {
+            CurrentChildView = notifyUC;
+        }
+        
+        private void ExecuteShowSettingsView(object obj)
+        {
+            CurrentChildView = settingsUC;
         }
     }
 }

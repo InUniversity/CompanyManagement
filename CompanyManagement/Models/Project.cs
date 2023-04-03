@@ -59,7 +59,8 @@ namespace CompanyManagement
 
         public Project() { }
 
-        public Project(string id, string name, DateTime start, DateTime end, DateTime completed, string progress, string statusID)
+        public Project(string id, string name, DateTime start, DateTime end, 
+            DateTime completed, string progress, string statusID)
         {
             this.id = id;
             this.name = name;

@@ -5,7 +5,13 @@ using CompanyManagement.ViewModels.Base;
 
 namespace CompanyManagement.ViewModels.Dialogs
 {
-    public class AddProjectViewModel : BaseViewModel
+    public interface IAddProject
+    {
+        IProjects ParentDataContext { set; }
+        IProjectInput ProjectInputDataContext { get; }
+    }
+
+    public class AddProjectViewModel : BaseViewModel, IAddProject
     {
 
         public ICommand AddProjectCommand { get; set; }

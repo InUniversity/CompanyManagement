@@ -13,7 +13,7 @@ public partial class AddProjectDialog : Window
     public AddProjectDialog()
     {
         InitializeComponent();
-        IProjectInput projectInput = new ProjectInputViewModel(new ProjectAssignmentDao(), new ProjectStatusDao());
+        IProjectInput projectInput = new ProjectInputViewModel(new ProjectAssignmentDao());
         DataContext = new AddProjectViewModel(projectInput);
     }
 }

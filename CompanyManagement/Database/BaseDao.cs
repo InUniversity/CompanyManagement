@@ -40,7 +40,7 @@ namespace CompanyManagement.Database
         public const string PROJECT_NAME = "project_name";
         public const string PROJECT_START = "create_date";
         public const string PROJECT_END = "end_date";
-        public const string PROJECT_COMPLETED = "completed";
+        public const string PROJECT_COMPLETED = "completed_date";
         public const string PROJECT_PROPRESS = "progress";
         public const string PROJECT_STATUS_ID = "project_status_id";
         

@@ -5,11 +5,14 @@ using CompanyManagement.Views.Dialogs;
 using CompanyManagement.Database.Interfaces;
 using CompanyManagement.ViewModels.Dialogs;
 using CompanyManagement.ViewModels.Base;
+using CompanyManagement.Utilities;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
     public interface IProjects
     {
+        INavigateAssignmentView ParentDataContext { set; }
+        IRetrieveProjectID ProjectDetailsDataContext { set; }
         void Add(Project project);
         void Update(Project project);
     }
@@ -19,16 +22,17 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private ObservableCollection<Project> projects;
         public ObservableCollection<Project> Projects { get => projects; set { projects = value; OnPropertyChanged(); } }
-        public Project SelectedProject { get; set; }
 
-        public IAsignments parentDataContext { get; set; }
-
+        private Project selectedProject;
+        public Project SelectedProject { get => selectedProject; set { selectedProject = value; OnPropertyChanged(); } }
+        
         public ICommand OpenProjectInputCommand { get; set; }
         public ICommand DeleteProjectCommand { get; set; }
         public ICommand UpdateProjectCommand { get; set; }
         public ICommand ItemClickCommand { get; set; }
 
-        public TasksInProjectViewModel TasksDataContext { get; set; }
+        public INavigateAssignmentView ParentDataContext { get; set; }
+        public IRetrieveProjectID ProjectDetailsDataContext { get; set; }
 
         private IProjectDao projectDao;
 
@@ -67,11 +71,16 @@ namespace CompanyManagement.ViewModels.UserControls
         private void OpenAddProjectDialog(object p)
         {
             AddProjectDialog addProjectDialog = new AddProjectDialog();
-            AddProjectViewModel addProjectVM = (AddProjectViewModel)addProjectDialog.DataContext;
+            IAddProject addProjectVM = (IAddProject)addProjectDialog.DataContext;
             addProjectVM.ParentDataContext = this;
-            addProjectVM.ProjectInputDataContext.RetrieveProject(new Project(AutoGenerateID()));
-            addProjectVM.ProjectInputDataContext.LoadDepartmentsCanAssign(new Project());
+            Project project = CreateProject();
+            addProjectVM.ProjectInputDataContext.RetrieveProject(project);
             addProjectDialog.ShowDialog();
+        }
+
+        private Project CreateProject()
+        {
+            return new Project(AutoGenerateID());
         }
 
         private string AutoGenerateID()
@@ -95,18 +104,18 @@ namespace CompanyManagement.ViewModels.UserControls
         private void OpenUpdateProjectDialog(Project project)
         {
             UpdateProjectDialog projectDetailsDialog = new UpdateProjectDialog();
-            UpdateProjectViewModel projectViewModel = (UpdateProjectViewModel)projectDetailsDialog.DataContext;
+            IUpdateProject projectViewModel = (IUpdateProject)projectDetailsDialog.DataContext;
             projectViewModel.ParentDataContext = this;
             projectViewModel.ProjectInputDataContext.RetrieveProject(project);
-            projectViewModel.ProjectInputDataContext.LoadDepartmentsInProject(project.ID);
-            projectViewModel.ProjectInputDataContext.LoadDepartmentsCanAssign(project);
             projectDetailsDialog.ShowDialog();
         }
 
-        private void ItemClicked(object p)
+        private void ItemClicked(object obj)
         {
-            parentDataContext.ShowTasksView();
-            TasksDataContext.RetrieveProjectID(SelectedProject.ID);
+            ProjectDetailsDataContext.RetrieveProjectID(SelectedProject.ID);
+            ParentDataContext.MoveToProjectDetailsView();
+
+            Log.Instance.Information(nameof(ProjectsViewModel), "ItemClicked");
         }
     }
 }

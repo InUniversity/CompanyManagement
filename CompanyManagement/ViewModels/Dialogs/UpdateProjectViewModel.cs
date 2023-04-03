@@ -5,7 +5,13 @@ using CompanyManagement.ViewModels.UserControls;
 
 namespace CompanyManagement.ViewModels.Dialogs
 {
-    public class UpdateProjectViewModel : BaseViewModel
+    public interface IUpdateProject
+    {
+        IProjects ParentDataContext { set; }
+        IProjectInput ProjectInputDataContext { get; }
+    }
+    
+    public class UpdateProjectViewModel : BaseViewModel, IUpdateProject
     {
         
         public ICommand UpdateProjectCommand { get; set; }

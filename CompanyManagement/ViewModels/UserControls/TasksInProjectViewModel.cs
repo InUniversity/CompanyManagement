@@ -15,11 +15,6 @@ namespace CompanyManagement.ViewModels.UserControls
         void Add(TaskInProject task);
         void Update(TaskInProject task);
     }
-
-    public interface IRetrieveProjectID
-    {
-        void RetrieveProjectID(string projectID);
-    }
     
     public class TasksInProjectViewModel : BaseViewModel, ITasksInProject, IRetrieveProjectID
     {
@@ -27,32 +22,19 @@ namespace CompanyManagement.ViewModels.UserControls
         private ObservableCollection<TaskInProject> tasksInProject;
         public ObservableCollection<TaskInProject> TasksInProject { get => tasksInProject; set { tasksInProject = value; OnPropertyChanged(); } }
 
-        private ObservableCollection<Employee> employeesInProject;
-        public ObservableCollection<Employee> EmployeesInProject { get => employeesInProject; set { employeesInProject = value; OnPropertyChanged(); } }
-
-        public static string projectID = "";
-
         public ICommand OpenTaskInProjectInputCommand { get; set; }
         public ICommand DeleteTaskInProjectCommand { get; set; }
         public ICommand UpdateTaskInProjectCommand { get; set; }
 
         private ITaskInProjectDao taskInProjectDao;
-        private IProjectAssignmentDao projectAssignmentDao;
-        private ITaskStatusDao taskStatusDao;
+        
+        private string projectID = "";
 
-        public TasksInProjectViewModel(ITaskInProjectDao taskInProjectDao, IProjectAssignmentDao projectAssignmentDao, ITaskStatusDao taskStatusDao)
+        public TasksInProjectViewModel(ITaskInProjectDao taskInProjectDao)
         {
             this.taskInProjectDao = taskInProjectDao;
-            this.projectAssignmentDao = projectAssignmentDao;
-            this.taskStatusDao = taskStatusDao;
             LoadTaskInProjects();
             SetCommands();
-        }
-
-        private TaskInProject CreateTaskInProjectInstance()
-        {
-            return new TaskInProject(AutoGenerateID(), "", "", DateTime.Now , DateTime.Now , "",
-                SingletonEmployee.Instance.CurrentAccount.EmployeeID, "", projectID, "1");
         }
 
         private void LoadTaskInProjects()
@@ -81,8 +63,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         public void RetrieveProjectID(string projectID)
         {
-            TasksInProjectViewModel.projectID = projectID;
-           // TimeKeepingViewModel.projectID = projectID;
+            this.projectID = projectID;
             TasksInProject = new ObservableCollection<TaskInProject>(taskInProjectDao.SearchByProjectID(projectID));
         }
 
@@ -94,6 +75,12 @@ namespace CompanyManagement.ViewModels.UserControls
             task = CreateTaskInProjectInstance();
             addTaskViewModel.TaskInputDataContext.Retrieve(task);
             addTaskDialog.ShowDialog();
+        }
+
+        private TaskInProject CreateTaskInProjectInstance()
+        {
+            return new TaskInProject(AutoGenerateID(), "", "", DateTime.Now , DateTime.Now , "",
+                SingletonEmployee.Instance.CurrentAccount.EmployeeID, "", projectID, "1");
         }
 
         private void ExecuteDeleteCommand(string id)

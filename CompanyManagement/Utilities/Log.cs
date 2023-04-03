@@ -29,12 +29,12 @@ namespace CompanyManagement.Utilities
 
         public void Information(string tag, string message)
         {
-            traceSource.TraceInformation($"[TAG={tag}, Time={DateTime.Now}, MESSAGE={message}]");
+            traceSource.TraceInformation($"[TAG='{tag}', Time='{DateTime.Now}', MESSAGE='{message}']");
         }
 
         public void Error(string tag, string message)
         {
-            traceSource.TraceEvent(TraceEventType.Warning, 0, $"[TAG={tag}, Time={DateTime.Now}, MESSAGE={message}]");
+            traceSource.TraceEvent(TraceEventType.Warning, 0, $"[TAG='{tag}', Time='{DateTime.Now}', MESSAGE='{message}']");
         }
     }
 }

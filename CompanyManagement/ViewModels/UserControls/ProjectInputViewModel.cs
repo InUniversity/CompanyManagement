@@ -16,8 +16,6 @@ namespace CompanyManagement.ViewModels.UserControls
         bool CheckAllFields();
         void TrimAllTexts();
         void RetrieveProject(Project project);
-        void LoadDepartmentsInProject(string projectID);
-        void LoadDepartmentsCanAssign(Project project);
     }
 
     public class ProjectInputViewModel : BaseViewModel, IProjectInput
@@ -74,24 +72,16 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private IProjectAssignmentDao projectAssignmentDao;
 
-        private IProjectStatusDao projectStatusDao;
-        
-
-        public ProjectInputViewModel(IProjectAssignmentDao projectAssignmentDao, IProjectStatusDao projectStatusDao)
+        public ProjectInputViewModel(IProjectAssignmentDao projectAssignmentDao)
         {
-            this.projectStatusDao = projectStatusDao;
             this.projectAssignmentDao = projectAssignmentDao;
-            LoadDepartmentsCanAssign(new Project());
             SetCommands();
         }
 
-        void IProjectInput.LoadDepartmentsInProject(string projectID)
-        {
-            LoadDepartmentsInProject(projectID);
-        }       
         private void LoadDepartmentsInProject(string projectID)
         {
-            DepartmentsInProject = new ObservableCollection<Department>(projectAssignmentDao.GetAllDepartmentInProject(projectID));
+            var departments = projectAssignmentDao.GetAllDepartmentInProject(projectID);
+            DepartmentsInProject = new ObservableCollection<Department>(departments);
         }
 
         public void LoadDepartmentsCanAssign(Project project)
@@ -102,24 +92,16 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void SetCommands()
         {
-            GetAllSelectedDepartmentComman = new RelayCommand<object>(ExecuteGetAllSelectedDepartmentCommnan);
+            GetAllSelectedDepartmentComman = new RelayCommand<ListView>(ExecuteGetAllSelectedDepartment);
             AddDepartmentCommand = new RelayCommand<object>(ExecuteAddDepartmentCommand);
             DeleteDepartmentCommand = new RelayCommand<string>(ExecuteDeleteDepartmentCommand);
         }
-        private void ExecuteGetAllSelectedDepartmentCommnan(object b)
+        
+        private void ExecuteGetAllSelectedDepartment(ListView listView)
         {     
-            if(b != null)
-            {
-                ListView listView = b as ListView;
-                List<Department> selectedItems = new List<Department>();
-                foreach (object selectedItem in listView.SelectedItems)
-                {
-                    selectedItems.Add((Department)selectedItem);
-                }
-                DepartmentsIsSelected = new ObservableCollection<Department>(selectedItems);
-            }
+            var selectedItems = listView.SelectedItems.Cast<Department>().ToList();
+            DepartmentsIsSelected = new ObservableCollection<Department>(selectedItems);
         }    
-            
 
         private void ExecuteAddDepartmentCommand(object b)
         {
@@ -191,6 +173,8 @@ namespace CompanyManagement.ViewModels.UserControls
             Completed = project.Completed;
             Progress = project.Progress;
             ProjectStatusID = project.StatusID;
+            LoadDepartmentsInProject(project.ID);
+            LoadDepartmentsCanAssign(project);
         }
     }
 }
