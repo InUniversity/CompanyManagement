@@ -65,12 +65,15 @@ namespace CompanyManagement.ViewModels.UserControls
 
         public List<ProjectStatus> ProjectStatuses { get; set; }
 
+        private IProjectStatusDao projectStatusDao;
         private IProjectAssignmentDao projectAssignmentDao;
 
-        public ProjectInputViewModel(IProjectAssignmentDao projectAssignmentDao)
+        public ProjectInputViewModel(IProjectAssignmentDao projectAssignmentDao, IProjectStatusDao projectStatusDao)
         {
+            this.projectStatusDao = projectStatusDao;
             this.projectAssignmentDao = projectAssignmentDao;
             SetCommands();
+            SetAllComboBox();
         }
 
         private void LoadDepartmentsInProject(string projectID)
@@ -91,7 +94,13 @@ namespace CompanyManagement.ViewModels.UserControls
             AddDepartmentCommand = new RelayCommand<object>(ExecuteAddDepartmentCommand);
             DeleteDepartmentCommand = new RelayCommand<string>(ExecuteDeleteDepartmentCommand);
         }
-        
+
+        private void SetAllComboBox()
+        {
+            ProjectStatuses = projectStatusDao.GetAll();
+        }
+
+
         private void ExecuteGetAllSelectedDepartment(ListView listView)
         {
             var selectedItems = listView.SelectedItems.Cast<Department>().ToList();
