@@ -8,9 +8,9 @@ namespace CompanyManagement.Database.Implementations
         public void Add(Project project)
         {
             string sqlStr = $"INSERT INTO {PROJECT_TABLE}({PROJECT_ID}, {PROJECT_NAME}, {PROJECT_START}, " +
-                            $"{PROJECT_END}, {PROJECT_COMPLETED}, {PROJECT_PROPRESS}, {PROJECT_STATUS_ID}) " +
+                            $"{PROJECT_END}, {PROJECT_COMPLETED}, {PROJECT_PROPRESS}, {PROJECT_STATUS_ID}, {PROJECT_CREATE_BY}) " +
                             $"VALUES ('{project.ID}', N'{project.Name}', '{project.Start}', '{project.End}', " +
-                            $"'{project.Completed}','{project.Progress}', '{project.StatusID}')";
+                            $"'{project.Completed}','{project.Progress}', '{project.StatusID}', {project.CreateBy})";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
@@ -38,6 +38,12 @@ namespace CompanyManagement.Database.Implementations
         {
             string sqlStr = $"SELECT * FROM {PROJECT_TABLE} WHERE {PROJECT_ID} = '{id}'";
             return (Project)dbConnection.GetSingleObject(sqlStr, reader => new Project(reader));
+        }
+
+        public List<Project> SearchByEmployeeID(string employeeID)
+        {
+            string sqlStr = $"SELECT * FROM {PROJECT_TABLE} WHERE {PROJECT_CREATE_BY} = '{employeeID}'";
+            return dbConnection.GetList(sqlStr, reader => new Project(reader));
         }
     }
 }
