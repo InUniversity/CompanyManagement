@@ -12,6 +12,6 @@ public partial class TasksInProjectUC : UserControl
     public TasksInProjectUC()
     {
         InitializeComponent();
-        DataContext = new TasksInProjectViewModel(new TaskInProjectDao());
+        DataContext = new TasksInProjectViewModel();
     }
 }

@@ -13,6 +13,6 @@ public partial class AddTaskDialog : Window
     public AddTaskDialog()
     {
         InitializeComponent();
-        DataContext = new AddTaskViewModel(new TaskInputViewModel(new ProjectAssignmentDao(), new TaskStatusDao()));
+        DataContext = new AddTaskViewModel();
     }
 }

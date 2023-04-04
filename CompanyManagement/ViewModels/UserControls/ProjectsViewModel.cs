@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using CompanyManagement.Database.Implementations;
 using CompanyManagement.Views.Dialogs;
 using CompanyManagement.Database.Interfaces;
 using CompanyManagement.Models;
@@ -21,8 +23,8 @@ namespace CompanyManagement.ViewModels.UserControls
     public class ProjectsViewModel : BaseViewModel, IProjects
     {
 
-        private ObservableCollection<Project> projects;
-        public ObservableCollection<Project> Projects { get => projects; set { projects = value; OnPropertyChanged(); } }
+        private List<Project> projects;
+        public List<Project> Projects { get => projects; set { projects = value; OnPropertyChanged(); } }
 
         private Project selectedProject;
         public Project SelectedProject { get => selectedProject; set { selectedProject = value; OnPropertyChanged(); } }
@@ -38,10 +40,10 @@ namespace CompanyManagement.ViewModels.UserControls
         private IProjectDao projectDao;
         private IProjectAssignmentDao projectAssignmentDao;
 
-        public ProjectsViewModel(IProjectDao projectDao, IProjectAssignmentDao projectAssignmentDao)
+        public ProjectsViewModel()
         {
-            this.projectDao = projectDao;
-            this.projectAssignmentDao = projectAssignmentDao;
+            projectDao = new ProjectDao();
+            projectAssignmentDao = new ProjectAssignmentDao();
             LoadProjects();
             SetCommands();
         }
@@ -49,8 +51,7 @@ namespace CompanyManagement.ViewModels.UserControls
         private void LoadProjects()
         {
             var employeeID = SingletonEmployee.Instance.CurrentAccount.EmployeeID;
-            var projects = projectAssignmentDao.SearchProjectByEmployeeID(employeeID);
-            Projects = new ObservableCollection<Project>(projects);
+            Projects = projectAssignmentDao.SearchProjectByEmployeeID(employeeID);;
         }
 
         private void SetCommands()

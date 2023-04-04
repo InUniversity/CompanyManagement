@@ -19,9 +19,9 @@ namespace CompanyManagement.ViewModels.Dialogs
         public IProjects ParentDataContext { get; set; }
         public IProjectInput ProjectInputDataContext { get; }
 
-        public UpdateProjectViewModel(IProjectInput projectInput)
+        public UpdateProjectViewModel()
         {
-            ProjectInputDataContext = projectInput;
+            ProjectInputDataContext = new ProjectInputViewModel();
             UpdateProjectCommand = new RelayCommand<Window>(ExecuteUpdateCommand);
         }
 

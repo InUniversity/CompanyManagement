@@ -9,6 +9,6 @@ public partial class EmployeeInputUC : UserControl
     public EmployeeInputUC()
     {
         InitializeComponent();
-        DataContext = new EmployeeInputViewModel(new PositionDao(), new DepartmentDao());
+        DataContext = new EmployeeInputViewModel();
     }
 }

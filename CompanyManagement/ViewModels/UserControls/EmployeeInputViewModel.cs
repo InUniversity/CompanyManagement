@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Input;
 using System;
 using System.Windows.Controls;
+using CompanyManagement.Database.Implementations;
 using CompanyManagement.Utilities;
 using CompanyManagement.Database.Interfaces;
 using CompanyManagement.ViewModels.Base;
@@ -65,10 +66,10 @@ namespace CompanyManagement.ViewModels.UserControls
         private IPositionDao positionDao;
         private IDepartmentDao departmentDao;
 
-        public EmployeeInputViewModel(IPositionDao positionDao, IDepartmentDao departmentDao)
+        public EmployeeInputViewModel()
         {
-            this.positionDao = positionDao;
-            this.departmentDao = departmentDao;
+            positionDao = new PositionDao();
+            departmentDao = new DepartmentDao();
             SetAllComboBox();
         }
 

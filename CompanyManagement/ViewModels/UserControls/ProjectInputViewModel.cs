@@ -7,6 +7,7 @@ using CompanyManagement.Models;
 using CompanyManagement.ViewModels.Base;
 using System.Linq;
 using System.Windows.Controls;
+using CompanyManagement.Database.Implementations;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
@@ -71,10 +72,10 @@ namespace CompanyManagement.ViewModels.UserControls
         private IProjectStatusDao projectStatusDao;
         private IProjectAssignmentDao projectAssignmentDao;
 
-        public ProjectInputViewModel(IProjectAssignmentDao projectAssignmentDao, IProjectStatusDao projectStatusDao)
+        public ProjectInputViewModel()
         {
-            this.projectStatusDao = projectStatusDao;
-            this.projectAssignmentDao = projectAssignmentDao;
+            this.projectStatusDao = new ProjectStatusDao();
+            this.projectAssignmentDao = new ProjectAssignmentDao();
             SetCommands();
             SetAllComboBox();
         }

@@ -4,7 +4,6 @@ using CompanyManagement.ViewModels.Base;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
-
     public interface ITimeKeepingInput
     {
         TimeKeeping CreateTimeKeepingInstance();
@@ -14,6 +13,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
     public class TimeKeepingInputViewModel: BaseViewModel, ITimeKeepingInput
     {
+        
         private string taskID = "";
         public string TaskID { get => taskID; set { taskID = value; OnPropertyChanged(); } }
 

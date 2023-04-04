@@ -17,7 +17,7 @@ public partial class ProjectInputUC : UserControl
     public ProjectInputUC()
     {
         InitializeComponent();
-        DataContext = new ProjectInputViewModel(new ProjectAssignmentDao(), new ProjectStatusDao());
+        DataContext = new ProjectInputViewModel();
 
     }
 }

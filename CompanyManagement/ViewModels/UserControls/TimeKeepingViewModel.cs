@@ -1,10 +1,11 @@
-﻿using CompanyManagement.Database.Interfaces;
+﻿using System.Collections.Generic;
+using CompanyManagement.Database.Interfaces;
 using CompanyManagement.Models;
 using CompanyManagement.ViewModels.Base;
 using CompanyManagement.ViewModels.Dialogs;
 using CompanyManagement.Views.Dialogs;
-using System.Collections.ObjectModel;
 using System.Windows.Input;
+using CompanyManagement.Database.Implementations;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
@@ -18,8 +19,8 @@ namespace CompanyManagement.ViewModels.UserControls
     public class TimeKeepingViewModel : BaseViewModel, ITimeKeeping, IRetrieveProjectID
     {
 
-        private ObservableCollection<TimeKeeping> timeKeepingSet; 
-        public ObservableCollection<TimeKeeping> TimeKeepingSet { get => timeKeepingSet; set { timeKeepingSet = value; OnPropertyChanged(); } }
+        private List<TimeKeeping> timeKeepingSet; 
+        public List<TimeKeeping> TimeKeepingSet { get => timeKeepingSet; set { timeKeepingSet = value; OnPropertyChanged(); } }
 
         public ICommand OpenTimeKeepingInputCommand { get; set; }
         public ICommand DeleteTimeKeepingCommand { get; set; }
@@ -29,16 +30,16 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private string projectID = "";
 
-        public TimeKeepingViewModel(ITimeKeepingDao timeKeepingDao)
+        public TimeKeepingViewModel()
         {
-            this.timeKeepingDao = timeKeepingDao;
+            timeKeepingDao = new TimeKeepingDao();
             LoadTimeKeeping();
             SetCommands();
         }
 
         private void LoadTimeKeeping()
         {
-            TimeKeepingSet = new ObservableCollection<TimeKeeping>(timeKeepingDao.SearchByProjectID(projectID));
+            TimeKeepingSet = timeKeepingDao.SearchByProjectID(projectID);
         }
 
         private void SetCommands()

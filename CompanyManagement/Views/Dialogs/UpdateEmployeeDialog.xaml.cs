@@ -13,7 +13,6 @@ public partial class UpdateEmployeeDialog : Window
     public UpdateEmployeeDialog()
     {
         InitializeComponent();
-        IEmployeeInput employeeInput = new EmployeeInputViewModel(new PositionDao(), new DepartmentDao());
-        DataContext = new UpdateEmployeeViewModel(employeeInput);
+        DataContext = new UpdateEmployeeViewModel();
     }
 }

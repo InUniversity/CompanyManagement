@@ -1,20 +1,28 @@
 ﻿using System.Windows.Input;
 using System.Windows;
+using CompanyManagement.Database.Implementations;
 using CompanyManagement.ViewModels.UserControls;
 using CompanyManagement.ViewModels.Base;
 
 namespace CompanyManagement.ViewModels.Dialogs
 {
-    class UpdateEmployeeViewModel : BaseViewModel
+    public interface IUpdateEmployee
     {
+        IEmployees ParentDataContext { set; } 
+        IEmployeeInput EmployeeInputDataContext { get; } 
+    }
+    
+    public class UpdateEmployeeViewModel : BaseViewModel, IUpdateEmployee
+    {
+        
         public ICommand UpdateEmployeeCommand { get; }
 
         public IEmployees ParentDataContext { get; set; }
         public IEmployeeInput EmployeeInputDataContext { get; }
 
-        public UpdateEmployeeViewModel(IEmployeeInput employeeInputDataContext)
+        public UpdateEmployeeViewModel()
         {
-            EmployeeInputDataContext = employeeInputDataContext;
+            EmployeeInputDataContext = new EmployeeInputViewModel();
             UpdateEmployeeCommand = new RelayCommand<Window>(UpdateCommand);
         }
 
