@@ -1,5 +1,7 @@
 ﻿using System.Windows;
+using CompanyManagement.Database.Implementations;
 using CompanyManagement.ViewModels.Dialogs;
+using CompanyManagement.ViewModels.UserControls;
 
 namespace CompanyManagement.Views.Dialogs;
 
@@ -11,6 +13,6 @@ public partial class UpdateTaskDialog : Window
     public UpdateTaskDialog()
     {
         InitializeComponent();
-        DataContext = new UpdateTaskViewModel();
+        DataContext = new UpdateTaskViewModel(new TaskInputViewModel(new ProjectAssignmentDao(), new TaskStatusDao()));
     }
 }

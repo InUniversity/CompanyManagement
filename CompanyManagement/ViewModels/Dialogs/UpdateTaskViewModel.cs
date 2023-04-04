@@ -7,32 +7,39 @@ using CompanyManagement.ViewModels.Base;
 
 namespace CompanyManagement.ViewModels.Dialogs
 {
-    public class UpdateTaskViewModel : BaseViewModel
+    public interface IUpdateTask
+    {
+        ITasksInProject ParentDataContext { set; } 
+        ITaskInput TaskInputDataContext { get; }
+    }
+    
+    public class UpdateTaskViewModel : BaseViewModel, IUpdateTask
     {
 
         public ICommand UpdateTaskCommand { get; set; }
 
-        public TasksInProjectViewModel ParentDataContext { get; set; }
+        public ITasksInProject ParentDataContext { get; set; }
+        public ITaskInput TaskInputDataContext { get; set; }
 
-        public TaskInputViewModel TaskInputDataContext { get; set; }
-
-        public UpdateTaskViewModel()
+        public UpdateTaskViewModel(ITaskInput taskInputDataContext)
         {
+            TaskInputDataContext = taskInputDataContext;
             SetCommands();
         }
 
         private void SetCommands()
         {
-            TaskInputDataContext = new TaskInputViewModel(new ProjectAssignmentDao(), new TaskStatusDao());
             UpdateTaskCommand = new RelayCommand<Window>(UpdateCommand);
         }
 
-        private void UpdateCommand(Window inputwindow)
+        private void UpdateCommand(Window inputWindow)
         {
             TaskInputDataContext.TrimAllTexts();
+            if (!TaskInputDataContext.CheckAllFields())
+                return;
             TaskInProject task = TaskInputDataContext.CreateTaskInProjectInstance();
             ParentDataContext.Update(task);
-            inputwindow.Close();
+            inputWindow.Close();
         }
     }
 }

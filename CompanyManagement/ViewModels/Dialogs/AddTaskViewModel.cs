@@ -7,22 +7,28 @@ using CompanyManagement.ViewModels.Base;
 
 namespace CompanyManagement.ViewModels.Dialogs
 {
-    public class AddTaskViewModel : BaseViewModel
+    public interface IAddTask
+    {
+        ITasksInProject ParentDataContext { get; set; } 
+        ITaskInput TaskInputDataContext { get; set; } 
+    }
+
+    public class AddTaskViewModel : BaseViewModel, IAddTask
     {
 
         public ICommand AddTaskCommand { get; set; }
 
-        public TasksInProjectViewModel ParentDataContext { get; set; }
-        public TaskInputViewModel TaskInputDataContext { get; set; }
+        public ITasksInProject ParentDataContext { get; set; }
+        public ITaskInput TaskInputDataContext { get; set; }
 
-        public AddTaskViewModel()
+        public AddTaskViewModel(ITaskInput taskInputDataContext)
         {
+            TaskInputDataContext = taskInputDataContext;
             SetCommands();
         }
 
         private void SetCommands()
         {
-            TaskInputDataContext = new TaskInputViewModel(new ProjectAssignmentDao(), new TaskStatusDao());
             AddTaskCommand = new RelayCommand<Window>(AddCommand);
         }
 

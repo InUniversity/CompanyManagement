@@ -9,7 +9,6 @@ using CompanyManagement.ViewModels.Base;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
-    
     public interface ITasksInProject
     {
         void Add(TaskInProject task);
@@ -70,10 +69,10 @@ namespace CompanyManagement.ViewModels.UserControls
         private void ExecuteAddCommand(TaskInProject task)   
         {
             AddTaskDialog addTaskDialog = new AddTaskDialog();
-            AddTaskViewModel addTaskViewModel = (AddTaskViewModel)addTaskDialog.DataContext;
+            IAddTask addTaskViewModel = (IAddTask)addTaskDialog.DataContext;
             addTaskViewModel.ParentDataContext = this;
             task = CreateTaskInProjectInstance();
-            addTaskViewModel.TaskInputDataContext.Retrieve(task);
+            addTaskViewModel.TaskInputDataContext.RetrieveTask(task);
             addTaskDialog.ShowDialog();
         }
 
@@ -92,9 +91,9 @@ namespace CompanyManagement.ViewModels.UserControls
         private void ExecuteUpdateCommand(TaskInProject task)
         {
             UpdateTaskDialog updateTaskDialog = new UpdateTaskDialog();
-            UpdateTaskViewModel updateTaskViewModel = (UpdateTaskViewModel)updateTaskDialog.DataContext;
+            IUpdateTask updateTaskViewModel = (IUpdateTask)updateTaskDialog.DataContext;
             updateTaskViewModel.ParentDataContext = this;
-            updateTaskViewModel.TaskInputDataContext.Retrieve(task);
+            updateTaskViewModel.TaskInputDataContext.RetrieveTask(task);
             updateTaskDialog.ShowDialog();
         }
 

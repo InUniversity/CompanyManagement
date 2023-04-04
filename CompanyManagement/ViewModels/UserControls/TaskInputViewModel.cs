@@ -7,8 +7,17 @@ using CompanyManagement.ViewModels.Base;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
-    public class TaskInputViewModel : BaseViewModel, IRetrieveTaskInProject
+    public interface ITaskInput
     {
+        TaskInProject CreateTaskInProjectInstance();
+        bool CheckAllFields();
+        void TrimAllTexts();
+        void RetrieveTask(TaskInProject taskInProject);
+    }
+
+    public class TaskInputViewModel : BaseViewModel, ITaskInput 
+    {
+        
         private string id = "";
         public string ID { get => id; set { id = value; OnPropertyChanged(); } }
 
@@ -94,7 +103,7 @@ namespace CompanyManagement.ViewModels.UserControls
             projectID = projectID.Trim();
         }
 
-        public void Retrieve(TaskInProject taskInProject)
+        public void RetrieveTask(TaskInProject taskInProject)
         {
             id = taskInProject.ID;
             title = taskInProject.Title;
@@ -108,10 +117,5 @@ namespace CompanyManagement.ViewModels.UserControls
             statusID = taskInProject.Status;
             Employees = new ObservableCollection<Employee>(assignmentDao.GetEmployeesInProject(taskInProject.ProjectID));
         }
-    }
-
-    public interface IRetrieveTaskInProject
-    {
-        void Retrieve(TaskInProject taskInProject);
     }
 }
