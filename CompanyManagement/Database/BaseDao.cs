@@ -66,11 +66,12 @@ namespace CompanyManagement.Database
         public const string TIME_KEEPING_CREATE_BY = "create_by";
 
         protected const string PROJECT_STATUS_TABLE = "ProjectStatus";
-        public const string PROJECT_STATUS_NAME = "project_status_id";
+        public const string PROJECT_STATUS_NAME = "project_status_name";
 
         protected const string TASK_STATUS_TABLE = "TaskStatus";
-        public const string TASK_STATUS_NAME = "task_status_id";
-        
+        public const string TASK_STATUS_NAME = "task_status_name";
+     
+
         protected DBConnection dbConnection = new DBConnection();
     }
 }

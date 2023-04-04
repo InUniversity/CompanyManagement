@@ -45,7 +45,7 @@ namespace CompanyManagement.ViewModels.Windows
 
         public ManagerViewModel()
         {
-            CurrentChildView = assignmentUC;
+            ExecuteShowUserInformationViewCommand(null);
             SetCommands();
         }
 
