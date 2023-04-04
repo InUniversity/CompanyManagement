@@ -12,8 +12,7 @@ namespace CompanyManagement.Views.Dialogs
         public UpdateTimeKeepingDialog()
         {
             InitializeComponent();
-            ITimeKeepingInput timeKeepingInput = new TimeKeepingInputViewModel();
-            DataContext = new UpdateTimeKeepingViewModel(timeKeepingInput);
+            DataContext = new UpdateTimeKeepingViewModel();
         }
     }
 }

@@ -12,6 +12,6 @@ public partial class TaskInputUC : UserControl
     public TaskInputUC()
     {
         InitializeComponent();
-        DataContext = new TaskInputViewModel(new ProjectAssignmentDao(), new TaskStatusDao());
+        DataContext = new TaskInputViewModel();
     }
 }

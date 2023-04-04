@@ -12,7 +12,7 @@ namespace CompanyManagement.Views.UserControls
         public TimeKeepingUC()
         {
             InitializeComponent();
-            DataContext = new TimeKeepingViewModel(new TimeKeepingDao());
+            DataContext = new TimeKeepingViewModel();
         }
     }
 }

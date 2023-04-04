@@ -3,6 +3,7 @@ using System;
 using System.Collections.ObjectModel;
 using CompanyManagement.Database.Interfaces;
 using System.Collections.Generic;
+using CompanyManagement.Database.Implementations;
 using CompanyManagement.ViewModels.Base;
 
 namespace CompanyManagement.ViewModels.UserControls
@@ -59,10 +60,10 @@ namespace CompanyManagement.ViewModels.UserControls
         private ITaskStatusDao taskStatusDao;
         private IProjectAssignmentDao assignmentDao;
 
-        public TaskInputViewModel(IProjectAssignmentDao assignmentDao, ITaskStatusDao taskStatusDao)
+        public TaskInputViewModel()
         {
-            this.taskStatusDao = taskStatusDao;
-            this.assignmentDao = assignmentDao;
+            taskStatusDao = new TaskStatusDao();
+            assignmentDao = new ProjectAssignmentDao();
             SetAllComboBox();
         }
 

@@ -26,10 +26,10 @@ namespace CompanyManagement.ViewModels.Windows
         private IAccountDao accountDao;
         private IEmployeeDao employeeDao;
 
-        public LoginViewModel(IAccountDao accountDao, IEmployeeDao employeeDao)
+        public LoginViewModel()
         {
-            this.accountDao = accountDao;
-            this.employeeDao = employeeDao;
+            accountDao = new AccountDao();
+            employeeDao = new EmployeeDao();
             SetCommands();
         }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
+using CompanyManagement.Database.Implementations;
 using CompanyManagement.Views.Dialogs;
 using CompanyManagement.Database.Interfaces;
 using CompanyManagement.ViewModels.Dialogs;
@@ -18,10 +19,11 @@ namespace CompanyManagement.ViewModels.UserControls
 
     public class EmployeesViewModel : BaseViewModel, IEmployees
     {
+        
         private List<Employee> employees;
 
-        private ObservableCollection<Employee> searchedEmployees;
-        public ObservableCollection<Employee> SearchedEmployees { get => searchedEmployees; set { searchedEmployees = value; OnPropertyChanged(); } }
+        private List<Employee> searchedEmployees;
+        public List<Employee> SearchedEmployees { get => searchedEmployees; set { searchedEmployees = value; OnPropertyChanged(); } }
 
         private string textToSearch = "";
         public string TextToSearch { get => textToSearch; set { textToSearch = value; OnPropertyChanged(); SearchByName(); } }
@@ -31,10 +33,12 @@ namespace CompanyManagement.ViewModels.UserControls
         public ICommand OpenUpdateDialogCommand { get; set; }
 
         private IEmployeeDao employeeAccountDao;
+        private IAccountDao accountDao;
 
-        public EmployeesViewModel(IEmployeeDao employeeAccountDao)
+        public EmployeesViewModel()
         {
-            this.employeeAccountDao = employeeAccountDao;
+            employeeAccountDao = new EmployeeDao();
+            accountDao = new AccountDao();
             LoadEmployees();
             SetCommands();
         }
@@ -42,7 +46,7 @@ namespace CompanyManagement.ViewModels.UserControls
         private void LoadEmployees()
         {
             employees = employeeAccountDao.GetAll();
-            SearchedEmployees = new ObservableCollection<Employee>(employees);
+            SearchedEmployees = employees;
         }
 
         private void SetCommands()
@@ -61,16 +65,23 @@ namespace CompanyManagement.ViewModels.UserControls
                     .Where(item => item.Name.Contains(textToSearch, StringComparison.OrdinalIgnoreCase))
                     .ToList();
             }
-            SearchedEmployees = new ObservableCollection<Employee>(searchedItems);
+            SearchedEmployees = searchedItems;
         }
 
         private void OpenAddEmployeeDialog(object p)
         {
             AddEmployeeDialog addEmployeeDialog = new AddEmployeeDialog();
-            AddEmployeeViewModel addEmployeeVM = (AddEmployeeViewModel)addEmployeeDialog.DataContext;
+            IAddEmployee addEmployeeVM = (IAddEmployee)addEmployeeDialog.DataContext;
             addEmployeeVM.ParentDataContext = this;
-            addEmployeeVM.EmployeeInputDataContext.Retrieve(new Employee(AutoGenerateID()));
+            Employee employee = CreateEmployee();
+            addEmployeeVM.EmployeeInputDataContext.Retrieve(employee);
             addEmployeeDialog.ShowDialog();
+        }
+
+        private Employee CreateEmployee()
+        {
+            return new Employee(AutoGenerateID(), "", "", DateOnly.MinValue, 
+                "", "", "", "", "", "", 0);
         }
 
         private string AutoGenerateID()
@@ -88,13 +99,14 @@ namespace CompanyManagement.ViewModels.UserControls
         private void DeleteEmployee(string id)
         {
             employeeAccountDao.Delete(id);
+            accountDao.Delete(id);
             LoadEmployees();
         }
 
         private void OpenUpdateEmployeeDialog(Employee employee)
         {
             UpdateEmployeeDialog updateEmployeeDialog = new UpdateEmployeeDialog();
-            UpdateEmployeeViewModel updateEmployeeVM = (UpdateEmployeeViewModel)updateEmployeeDialog.DataContext;
+            IUpdateEmployee updateEmployeeVM = (IUpdateEmployee)updateEmployeeDialog.DataContext;
             updateEmployeeVM.ParentDataContext = this;
             updateEmployeeVM.EmployeeInputDataContext.Retrieve(employee);
             updateEmployeeDialog.ShowDialog();

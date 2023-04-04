@@ -1,5 +1,6 @@
 ﻿using System.Windows.Input;
 using System.Windows;
+using CompanyManagement.Database.Implementations;
 using CompanyManagement.ViewModels.UserControls;
 using CompanyManagement.ViewModels.Base;
 
@@ -19,9 +20,9 @@ namespace CompanyManagement.ViewModels.Dialogs
         public IProjects ParentDataContext { get; set; }
         public IProjectInput ProjectInputDataContext { get; }
 
-        public AddProjectViewModel(IProjectInput projectInput)
+        public AddProjectViewModel()
         {
-            ProjectInputDataContext = projectInput;
+            ProjectInputDataContext = new ProjectInputViewModel();
             AddProjectCommand = new RelayCommand<Window>(AddCommand);
         }
 

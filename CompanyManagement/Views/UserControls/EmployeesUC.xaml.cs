@@ -12,6 +12,6 @@ public partial class EmployeesUC : UserControl
     public EmployeesUC()
     {
         InitializeComponent();
-        DataContext = new EmployeesViewModel(new EmployeeDao());
+        DataContext = new EmployeesViewModel();
     }
 }

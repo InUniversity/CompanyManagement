@@ -18,6 +18,7 @@ namespace CompanyManagement.ViewModels.UserControls
     
     public class ProjectDetailsViewModel : BaseViewModel, IProjectDetails, IRetrieveProjectID
     {
+        
         private ContentControl currentChildView;
         public ContentControl CurrentChildView { get => currentChildView; set { currentChildView = value; OnPropertyChanged(); } }
 
@@ -39,11 +40,6 @@ namespace CompanyManagement.ViewModels.UserControls
         private string projectID = "";
         
         public ProjectDetailsViewModel()
-        {
-            SetCommands();
-        }
-
-        private void SetCommands()
         {
             BackProjectsViewCommand = new RelayCommand<object>(ExecuteShowProjectsView);
             ShowTasksViewCommand = new RelayCommand<object>(_ => ShowTasksView());

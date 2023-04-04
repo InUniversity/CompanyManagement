@@ -1,7 +1,5 @@
 ﻿using CompanyManagement.ViewModels.Base;
 using CompanyManagement.Views.UserControls;
-using System;
-using System.CodeDom.Compiler;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -63,7 +61,7 @@ namespace CompanyManagement.ViewModels.Windows
 
         private void ExecuteShowUserInformationViewCommand(object obj)
         {
-            currentChildView = userInformationUC;
+            CurrentChildView = userInformationUC;
             StatusUserInformationView = true;
         }
 
@@ -75,7 +73,7 @@ namespace CompanyManagement.ViewModels.Windows
 
         private void ExecuteShowEmployeesView(object obj)
         {
-            currentChildView = employeesUC;
+            CurrentChildView = employeesUC;
             StatusEmployeesView = true; 
         }
 

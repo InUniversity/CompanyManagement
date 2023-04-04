@@ -1,8 +1,10 @@
 using System;
+using System.Collections.Generic;
 using CompanyManagement.Views.Dialogs;
 using CompanyManagement.Models;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using CompanyManagement.Database.Implementations;
 using CompanyManagement.Database.Interfaces;
 using CompanyManagement.ViewModels.Dialogs;
 using CompanyManagement.ViewModels.Base;
@@ -18,8 +20,8 @@ namespace CompanyManagement.ViewModels.UserControls
     public class TasksInProjectViewModel : BaseViewModel, ITasksInProject, IRetrieveProjectID
     {
 
-        private ObservableCollection<TaskInProject> tasksInProject;
-        public ObservableCollection<TaskInProject> TasksInProject { get => tasksInProject; set { tasksInProject = value; OnPropertyChanged(); } }
+        private List<TaskInProject> tasksInProject;
+        public List<TaskInProject> TasksInProject { get => tasksInProject; set { tasksInProject = value; OnPropertyChanged(); } }
 
         public ICommand OpenTaskInProjectInputCommand { get; set; }
         public ICommand DeleteTaskInProjectCommand { get; set; }
@@ -29,16 +31,16 @@ namespace CompanyManagement.ViewModels.UserControls
         
         private string projectID = "";
 
-        public TasksInProjectViewModel(ITaskInProjectDao taskInProjectDao)
+        public TasksInProjectViewModel()
         {
-            this.taskInProjectDao = taskInProjectDao;
+            taskInProjectDao = new TaskInProjectDao();
             LoadTaskInProjects();
             SetCommands();
         }
 
         private void LoadTaskInProjects()
         {
-            TasksInProject = new ObservableCollection<TaskInProject>(taskInProjectDao.SearchByProjectID(projectID));
+            TasksInProject = taskInProjectDao.SearchByProjectID(projectID);
         }
 
         private void SetCommands()
@@ -63,7 +65,7 @@ namespace CompanyManagement.ViewModels.UserControls
         public void RetrieveProjectID(string projectID)
         {
             this.projectID = projectID;
-            TasksInProject = new ObservableCollection<TaskInProject>(taskInProjectDao.SearchByProjectID(projectID));
+            TasksInProject = taskInProjectDao.SearchByProjectID(projectID);
         }
 
         private void ExecuteAddCommand(TaskInProject task)   

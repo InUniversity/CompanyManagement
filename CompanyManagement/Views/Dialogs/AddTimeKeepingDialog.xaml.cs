@@ -13,7 +13,6 @@ public partial class AddTimeKeepingDialog : Window
     public AddTimeKeepingDialog()
     {
         InitializeComponent();
-        ITimeKeepingInput timeKeepingInput = new TimeKeepingInputViewModel();
-        DataContext = new AddTimeKeepingViewModel(timeKeepingInput);
+        DataContext = new AddTimeKeepingViewModel();
     }
 }

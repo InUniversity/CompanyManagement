@@ -14,9 +14,9 @@ namespace CompanyManagement.ViewModels.Dialogs
         public ITimeKeeping ParentDataContext { get; set; }
         public ITimeKeepingInput TimeKeepingInputDataContext { get; set; }
 
-        public UpdateTimeKeepingViewModel(ITimeKeepingInput timeKeepingInputDataContext)
+        public UpdateTimeKeepingViewModel()
         {
-            TimeKeepingInputDataContext = timeKeepingInputDataContext;
+            TimeKeepingInputDataContext = new TimeKeepingInputViewModel();
             UpdateTimeKeepingCommand = new RelayCommand<Window>(UpdateCommand);
         }
 

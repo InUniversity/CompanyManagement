@@ -21,9 +21,9 @@ namespace CompanyManagement.ViewModels.Dialogs
         public ITasksInProject ParentDataContext { get; set; }
         public ITaskInput TaskInputDataContext { get; set; }
 
-        public UpdateTaskViewModel(ITaskInput taskInputDataContext)
+        public UpdateTaskViewModel()
         {
-            TaskInputDataContext = taskInputDataContext;
+            TaskInputDataContext = new TaskInputViewModel();
             SetCommands();
         }
 
