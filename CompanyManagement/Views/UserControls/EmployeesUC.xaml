@@ -86,7 +86,7 @@
                     <DataGridTextColumn Header="Mã nhân viên" IsReadOnly="True" Binding="{Binding ID}" />
                     <DataGridTextColumn Header="Họ và tên" IsReadOnly="True" Binding="{Binding Name}" />
                     <DataGridTextColumn Header="Giới tính" IsReadOnly="True" Binding="{Binding Gender}" />
-                    <DataGridTextColumn Header="Ngày sinh" IsReadOnly="True" Binding="{Binding Birthday}" />
+                    <DataGridTextColumn Header="Ngày sinh" IsReadOnly="True" Binding="{Binding Birthday, StringFormat='dd/MM/yyyy'}" />
                     <DataGridTextColumn Header="Chứng minh nhân dân" IsReadOnly="True" Binding="{Binding IdentifyCard}" />
                     <DataGridTextColumn Header="Email" IsReadOnly="True" Binding="{Binding Email}" />
                     <DataGridTextColumn Header="Số điện thoại" IsReadOnly="True" Binding="{Binding PhoneNumber}" />

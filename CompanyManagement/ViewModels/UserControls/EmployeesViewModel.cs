@@ -80,7 +80,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private Employee CreateEmployee()
         {
-            return new Employee(AutoGenerateID(), "", "", DateOnly.MinValue, 
+            return new Employee(AutoGenerateID(), "", "", DateTime.Now,
                 "", "", "", "", "", "", 0);
         }
 

@@ -17,11 +17,11 @@ namespace CompanyManagement.ViewModels.UserControls
         private string taskID = "";
         public string TaskID { get => taskID; set { taskID = value; OnPropertyChanged(); } }
 
-        private TimeOnly start = TimeOnly.MinValue;
-        public TimeOnly Start { get => start; set { start = value; OnPropertyChanged(); } }
+        private DateTime start = DateTime.Now;
+        public DateTime Start { get => start; set { start = value; OnPropertyChanged(); } }
         
-        private TimeOnly end = TimeOnly.MaxValue;
-        public TimeOnly End { get => end; set { end = value; OnPropertyChanged(); } }
+        private DateTime end = DateTime.Now;
+        public DateTime End { get => end; set { end = value; OnPropertyChanged(); } }
 
         private string employeeID = "";
         public string EmployeeID { get => employeeID; set { employeeID = value; OnPropertyChanged(); } }

@@ -10,7 +10,7 @@ namespace CompanyManagement
         private string id = "";
         private string name = "";
         private string gender = "";
-        private DateOnly birthday = DateOnly.MinValue;
+        private DateTime birthday = DateTime.Now;
         private string identifyCard = "";
         private string email = "";
         private string phoneNumber = "";
@@ -25,7 +25,7 @@ namespace CompanyManagement
 
         public string Gender => gender;
 
-        public DateOnly Birthday => birthday;
+        public DateTime Birthday => birthday;
 
         public string IdentifyCard => identifyCard;
 
@@ -43,7 +43,7 @@ namespace CompanyManagement
 
         public Employee() { }
 
-        public Employee(string id, string name, string gender, DateOnly birthday, string identifyCard, string email, 
+        public Employee(string id, string name, string gender, DateTime birthday, string identifyCard, string email, 
             string phoneNumber, string address, string departmentID, string positionID, int salary)
         {
             this.id = id;
@@ -66,7 +66,7 @@ namespace CompanyManagement
                 id = (string)reader[BaseDao.EMPLOYEE_ID];
                 name = (string)reader[BaseDao.EMPLOYEE_NAME];
                 gender = (string)reader[BaseDao.EMPLOYEE_GENDER];
-                birthday = Utils.DateTimeToDateOnly(reader.GetDateTime(reader.GetOrdinal(BaseDao.EMPLOYEE_BIRTHDAY)));
+                birthday = reader.GetDateTime(reader.GetOrdinal(BaseDao.EMPLOYEE_BIRTHDAY));
                 identifyCard = (string)reader[BaseDao.EMPLOYEE_IDENTIFY_CARD];
                 email = (string)reader[BaseDao.EMPLOYEE_EMAIL];
                 phoneNumber = (string)reader[BaseDao.EMPLOYEE_PHONE_NUMBER];
