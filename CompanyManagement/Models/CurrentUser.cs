@@ -1,8 +1,8 @@
 ﻿namespace CompanyManagement.Models
 {
-    public class SingletonEmployee
+    public class CurrentUser
     {
-        private static SingletonEmployee instance;
+        private static CurrentUser instance;
         private Employee employee;
         private Account account;
 
@@ -18,19 +18,19 @@
             set { account = value; }
         }
         
-        public static SingletonEmployee Instance
+        public static CurrentUser Instance
         {
             get
             {
                 if (instance == null)
                 {
-                    instance = new SingletonEmployee();
+                    instance = new CurrentUser();
                 }
                 return instance;
             }
         }
         
-        private SingletonEmployee()
+        private CurrentUser()
         {
             account = new Account();
             employee = new Employee();

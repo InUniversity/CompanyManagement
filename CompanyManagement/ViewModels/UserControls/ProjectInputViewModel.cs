@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Windows.Input;
-using CompanyManagement.Database.Interfaces;
 using CompanyManagement.Models;
 using CompanyManagement.ViewModels.Base;
 using System.Linq;
 using System.Windows.Controls;
-using System.Windows.Documents;
-using CompanyManagement.Database.Implementations;
+using CompanyManagement.Database;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
@@ -44,7 +41,7 @@ namespace CompanyManagement.ViewModels.UserControls
         private string projectStatusID = "1";
         public string ProjectStatusID { get => projectStatusID; set { projectStatusID = value; OnPropertyChanged(); } }
 
-        private string createBy = SingletonEmployee.Instance.CurrentAccount.EmployeeID;
+        private string createBy = CurrentUser.Instance.CurrentAccount.EmployeeID;
         public string CreateBy { get => createBy; set { createBy = value; OnPropertyChanged(); } }
 
         private string errorMessage = "";
@@ -70,8 +67,8 @@ namespace CompanyManagement.ViewModels.UserControls
 
         public List<ProjectStatus> ProjectStatuses { get; set; }
 
-        private IProjectStatusDao projectStatusDao;
-        private IProjectAssignmentDao projectAssignmentDao;
+        private ProjectStatusDao projectStatusDao;
+        private ProjectAssignmentDao projectAssignmentDao;
 
         public ProjectInputViewModel()
         {

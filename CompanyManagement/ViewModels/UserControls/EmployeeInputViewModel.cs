@@ -1,11 +1,8 @@
 ﻿using CompanyManagement.Models;
 using System.Collections.Generic;
-using System.Windows.Input;
 using System;
-using System.Windows.Controls;
-using CompanyManagement.Database.Implementations;
+using CompanyManagement.Database;
 using CompanyManagement.Utilities;
-using CompanyManagement.Database.Interfaces;
 using CompanyManagement.ViewModels.Base;
 
 namespace CompanyManagement.ViewModels.UserControls
@@ -63,8 +60,8 @@ namespace CompanyManagement.ViewModels.UserControls
         public List<PositionInCompany> Positions { get; set; }
         public List<Department> Departments { get; set; }
 
-        private IPositionDao positionDao;
-        private IDepartmentDao departmentDao;
+        private PositionDao positionDao;
+        private DepartmentDao departmentDao;
 
         public EmployeeInputViewModel()
         {

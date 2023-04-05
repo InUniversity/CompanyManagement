@@ -3,15 +3,17 @@ using CompanyManagement.ViewModels.UserControls;
 using System.Windows.Input;
 using System.Windows;
 using CompanyManagement.ViewModels.Base;
+using CompanyManagement.ViewModels.Dialogs.Interfaces;
+using CompanyManagement.ViewModels.UserControls.Interfaces;
 
 namespace CompanyManagement.ViewModels.Dialogs
 {
-    public class UpdateTimeKeepingViewModel : BaseViewModel
+    public class UpdateTimeKeepingViewModel : BaseViewModel, IDialogViewModel
     {
 
         public ICommand UpdateTimeKeepingCommand { get; set; }
 
-        public ITimeKeeping ParentDataContext { get; set; }
+        public IEditDBViewModel ParentDataContext { get; set; }
         public ITimeKeepingInput TimeKeepingInputDataContext { get; set; }
 
         public UpdateTimeKeepingViewModel()
@@ -24,8 +26,13 @@ namespace CompanyManagement.ViewModels.Dialogs
         {
             TimeKeepingInputDataContext.TrimAllTexts();
             TimeKeeping timeKeeping = TimeKeepingInputDataContext.CreateTimeKeepingInstance(); 
-            ParentDataContext.Update(timeKeeping);
+            ParentDataContext.UpdateToDB(timeKeeping);
             inputWindow.Close();
+        }
+
+        public void Retrieve(object timeKeeping)
+        {
+            TimeKeepingInputDataContext.Retrieve(timeKeeping as TimeKeeping);
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using CompanyManagement.Database.Implementations;
-using CompanyManagement.ViewModels.UserControls;
+﻿using CompanyManagement.ViewModels.UserControls;
 using System.Windows.Controls;
 
 namespace CompanyManagement.Views.UserControls

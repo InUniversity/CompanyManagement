@@ -1,4 +1,4 @@
-﻿using CompanyManagement.Database;
+﻿using CompanyManagement.Database.Base;
 using CompanyManagement.Utilities;
 using System;
 using System.Data.SqlClient;

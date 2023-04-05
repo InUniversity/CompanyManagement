@@ -1,28 +1,24 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Input;
-using CompanyManagement.Database.Implementations;
-using CompanyManagement.Database.Interfaces;
+using CompanyManagement.Database;
 using CompanyManagement.Utilities;
 using CompanyManagement.ViewModels.Base;
+using CompanyManagement.ViewModels.Dialogs.Interfaces;
 using CompanyManagement.ViewModels.UserControls;
+using CompanyManagement.ViewModels.UserControls.Interfaces;
 
 namespace CompanyManagement.ViewModels.Dialogs
 {
-    public interface IAddEmployee
-    {
-        IEmployees ParentDataContext { set; } 
-        IEmployeeInput EmployeeInputDataContext { get; }
-    }
-    
-    public class AddEmployeeViewModel : BaseViewModel, IAddEmployee
+    public class AddEmployeeViewModel : BaseViewModel, IDialogViewModel
     {
         
         public ICommand AddEmployeeCommand { get; set; }
 
-        public IEmployees ParentDataContext { get; set; }
+        public IEditDBViewModel ParentDataContext { get; set; }
         public IEmployeeInput EmployeeInputDataContext { get; }
 
-        private IEmployeeDao employeeAccountDao;
+        private EmployeeDao employeeAccountDao;
 
         public AddEmployeeViewModel()
         {
@@ -36,7 +32,7 @@ namespace CompanyManagement.ViewModels.Dialogs
             if (!CheckAllFields()) return;
             EmployeeInputDataContext.TrimAllTexts();
             Employee empl = EmployeeInputDataContext.CreateEmployeeInstance();
-            ParentDataContext.Add(empl);
+            ParentDataContext.AddToDB(empl);
             inputWindow.Close();
         }
 
@@ -60,6 +56,11 @@ namespace CompanyManagement.ViewModels.Dialogs
                 return false;
             }
             return true;
+        }
+        
+        public void Retrieve(object employee)
+        {
+            EmployeeInputDataContext.Retrieve(employee as Employee);
         }
     }
 }

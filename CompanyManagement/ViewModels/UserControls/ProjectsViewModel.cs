@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Windows.Input;
-using CompanyManagement.Database.Implementations;
 using CompanyManagement.Views.Dialogs;
-using CompanyManagement.Database.Interfaces;
 using CompanyManagement.Models;
-using CompanyManagement.ViewModels.Dialogs;
 using CompanyManagement.ViewModels.Base;
 using CompanyManagement.Utilities;
-using CompanyManagement.Database;
+using ProjectAssignmentDao = CompanyManagement.Database.ProjectAssignmentDao;
+using ProjectDao = CompanyManagement.Database.ProjectDao;
+using CompanyManagement.ViewModels.Dialogs.Interfaces;
+using CompanyManagement.ViewModels.UserControls.Interfaces;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
@@ -17,11 +16,9 @@ namespace CompanyManagement.ViewModels.UserControls
     {
         INavigateAssignmentView ParentDataContext { set; }
         IRetrieveProjectID ProjectDetailsDataContext { set; }
-        void Add(Project project);
-        void Update(Project project);
     }
     
-    public class ProjectsViewModel : BaseViewModel, IProjects
+    public class ProjectsViewModel : BaseViewModel, IProjects, IEditDBViewModel
     {
 
         private List<Project> projects;
@@ -38,8 +35,8 @@ namespace CompanyManagement.ViewModels.UserControls
         public INavigateAssignmentView ParentDataContext { get; set; }
         public IRetrieveProjectID ProjectDetailsDataContext { get; set; }
 
-        private IProjectDao projectDao;
-        private IProjectAssignmentDao projectAssignmentDao;
+        private ProjectDao projectDao;
+        private ProjectAssignmentDao projectAssignmentDao;
 
         public ProjectsViewModel()
         {
@@ -51,7 +48,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void LoadProjects()
         {
-            var employeeID = SingletonEmployee.Instance.CurrentAccount.EmployeeID;
+            var employeeID = CurrentUser.Instance.CurrentAccount.EmployeeID;
             Projects = projectAssignmentDao.SearchProjectByEmployeeID(employeeID);;
         }
 
@@ -63,32 +60,32 @@ namespace CompanyManagement.ViewModels.UserControls
             ItemClickCommand = new RelayCommand<object>(ItemClicked);
         }
 
-        public void Add(Project project)
+        public void AddToDB(object project)
         {
-            projectDao.Add(project);
+            projectDao.Add(project as Project);
             LoadProjects();
         }
 
-        public void Update(Project project)
+        public void UpdateToDB(object project)
         {
-            projectDao.Update(project);
+            projectDao.Update(project as Project);
             LoadProjects();
         }
 
-        private void OpenAddProjectDialog(object p)
+        private void OpenAddProjectDialog(object obj)
         {
             AddProjectDialog addProjectDialog = new AddProjectDialog();
-            IAddProject addProjectVM = (IAddProject)addProjectDialog.DataContext;
+            IDialogViewModel addProjectVM = (IDialogViewModel)addProjectDialog.DataContext;
             addProjectVM.ParentDataContext = this;
             Project project = CreateProject();
-            addProjectVM.ProjectInputDataContext.RetrieveProject(project);
+            addProjectVM.Retrieve(project);
             addProjectDialog.ShowDialog();
         }
 
         private Project CreateProject()
         {
             return new Project(AutoGenerateID(), "", DateTime.Now, DateTime.Now, 
-                Utils.EMPTY_DATETIME, "0", "", SingletonEmployee.Instance.CurrentAccount.EmployeeID);
+                Utils.EMPTY_DATETIME, "0", "", CurrentUser.Instance.CurrentAccount.EmployeeID);
         }
 
         private string AutoGenerateID()
@@ -112,9 +109,9 @@ namespace CompanyManagement.ViewModels.UserControls
         private void OpenUpdateProjectDialog(Project project)
         {
             UpdateProjectDialog projectDetailsDialog = new UpdateProjectDialog();
-            IUpdateProject projectViewModel = (IUpdateProject)projectDetailsDialog.DataContext;
+            IDialogViewModel projectViewModel = (IDialogViewModel)projectDetailsDialog.DataContext;
             projectViewModel.ParentDataContext = this;
-            projectViewModel.ProjectInputDataContext.RetrieveProject(project);
+            projectViewModel.Retrieve(project);
             projectDetailsDialog.ShowDialog();
         }
 

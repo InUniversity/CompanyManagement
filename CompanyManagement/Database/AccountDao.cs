@@ -1,9 +1,9 @@
-﻿using CompanyManagement.Database.Interfaces;
+﻿using CompanyManagement.Database.Base;
 using CompanyManagement.Models;
 
-namespace CompanyManagement.Database.Implementations
+namespace CompanyManagement.Database
 {
-    public class AccountDao : BaseDao, IAccountDao
+    public class AccountDao : BaseDao
     {
         public void Add(Account account)
         {

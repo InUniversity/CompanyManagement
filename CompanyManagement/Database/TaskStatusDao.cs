@@ -1,10 +1,10 @@
-﻿using CompanyManagement.Database.Interfaces;
+﻿using CompanyManagement.Database.Base;
 using CompanyManagement.Models;
 using System.Collections.Generic;
 
-namespace CompanyManagement.Database.Implementations
+namespace CompanyManagement.Database
 {
-    public class TaskStatusDao: BaseDao, ITaskStatusDao
+    public class TaskStatusDao : BaseDao
     {
         public void Add(TaskStatus taskStatus)
         {

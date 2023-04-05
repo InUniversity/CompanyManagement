@@ -1,23 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
-using CompanyManagement.Database.Implementations;
+using CompanyManagement.Database;
 using CompanyManagement.Views.Dialogs;
-using CompanyManagement.Database.Interfaces;
-using CompanyManagement.ViewModels.Dialogs;
 using CompanyManagement.ViewModels.Base;
+using CompanyManagement.ViewModels.Dialogs.Interfaces;
+using CompanyManagement.ViewModels.UserControls.Interfaces;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
-    public interface IEmployees
-    {
-        void Add(Employee employee);
-        void Update(Employee employee);
-    }
-
-    public class EmployeesViewModel : BaseViewModel, IEmployees
+    public class EmployeesViewModel : BaseViewModel, IEditDBViewModel
     {
         
         private List<Employee> employees;
@@ -32,8 +25,8 @@ namespace CompanyManagement.ViewModels.UserControls
         public ICommand DeleteEmployeeCommand { get; set; }
         public ICommand OpenUpdateDialogCommand { get; set; }
 
-        private IEmployeeDao employeeAccountDao;
-        private IAccountDao accountDao;
+        private EmployeeDao employeeAccountDao;
+        private AccountDao accountDao;
 
         public EmployeesViewModel()
         {
@@ -68,13 +61,13 @@ namespace CompanyManagement.ViewModels.UserControls
             SearchedEmployees = searchedItems;
         }
 
-        private void OpenAddEmployeeDialog(object p)
+        private void OpenAddEmployeeDialog(object obj)
         {
             AddEmployeeDialog addEmployeeDialog = new AddEmployeeDialog();
-            IAddEmployee addEmployeeVM = (IAddEmployee)addEmployeeDialog.DataContext;
+            IDialogViewModel addEmployeeVM = (IDialogViewModel)addEmployeeDialog.DataContext;
             addEmployeeVM.ParentDataContext = this;
             Employee employee = CreateEmployee();
-            addEmployeeVM.EmployeeInputDataContext.Retrieve(employee);
+            addEmployeeVM.Retrieve(employee);
             addEmployeeDialog.ShowDialog();
         }
 
@@ -106,21 +99,21 @@ namespace CompanyManagement.ViewModels.UserControls
         private void OpenUpdateEmployeeDialog(Employee employee)
         {
             UpdateEmployeeDialog updateEmployeeDialog = new UpdateEmployeeDialog();
-            IUpdateEmployee updateEmployeeVM = (IUpdateEmployee)updateEmployeeDialog.DataContext;
+            IDialogViewModel updateEmployeeVM = (IDialogViewModel)updateEmployeeDialog.DataContext;
             updateEmployeeVM.ParentDataContext = this;
-            updateEmployeeVM.EmployeeInputDataContext.Retrieve(employee);
+            updateEmployeeVM.Retrieve(employee);
             updateEmployeeDialog.ShowDialog();
         }
 
-        public void Add(Employee employee)
+        public void AddToDB(object employee)
         {
-            employeeAccountDao.Add(employee);
+            employeeAccountDao.Add(employee as Employee);
             LoadEmployees();
         }
 
-        public void Update(Employee employee)
+        public void UpdateToDB(object employee)
         {
-            employeeAccountDao.Update(employee);
+            employeeAccountDao.Update(employee as Employee);
             LoadEmployees();
         }
     }

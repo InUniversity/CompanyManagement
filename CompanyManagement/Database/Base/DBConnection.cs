@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using CompanyManagement.Utilities;
 
-namespace CompanyManagement.Database
+namespace CompanyManagement.Database.Base
 {
     public class DBConnection
     {
@@ -64,5 +64,5 @@ namespace CompanyManagement.Database
             }
             return list;
         }
-    }  
+    }
 }

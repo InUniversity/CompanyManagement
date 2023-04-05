@@ -2,22 +2,15 @@ using System;
 using System.Collections.Generic;
 using CompanyManagement.Views.Dialogs;
 using CompanyManagement.Models;
-using System.Collections.ObjectModel;
 using System.Windows.Input;
-using CompanyManagement.Database.Implementations;
-using CompanyManagement.Database.Interfaces;
-using CompanyManagement.ViewModels.Dialogs;
+using CompanyManagement.Database;
 using CompanyManagement.ViewModels.Base;
+using CompanyManagement.ViewModels.Dialogs.Interfaces;
+using CompanyManagement.ViewModels.UserControls.Interfaces;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
-    public interface ITasksInProject
-    {
-        void Add(TaskInProject task);
-        void Update(TaskInProject task);
-    }
-    
-    public class TasksInProjectViewModel : BaseViewModel, ITasksInProject, IRetrieveProjectID
+    public class TasksInProjectViewModel : BaseViewModel, IEditDBViewModel, IRetrieveProjectID
     {
 
         private List<TaskInProject> tasksInProject;
@@ -27,7 +20,7 @@ namespace CompanyManagement.ViewModels.UserControls
         public ICommand DeleteTaskInProjectCommand { get; set; }
         public ICommand UpdateTaskInProjectCommand { get; set; }
 
-        private ITaskInProjectDao taskInProjectDao;
+        private TaskInProjectDao taskInProjectDao;
         
         private string projectID = "";
 
@@ -45,20 +38,20 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void SetCommands()
         {
-            OpenTaskInProjectInputCommand = new RelayCommand<TaskInProject>(ExecuteAddCommand);
+            OpenTaskInProjectInputCommand = new RelayCommand<TaskInProject>(OpenAddDialog);
             DeleteTaskInProjectCommand = new RelayCommand<string>(ExecuteDeleteCommand);
-            UpdateTaskInProjectCommand = new RelayCommand<TaskInProject>(ExecuteUpdateCommand);
+            UpdateTaskInProjectCommand = new RelayCommand<TaskInProject>(OpenUpdateDialog);
         }
 
-        public void Add(TaskInProject task)
+        public void AddToDB(object task)
         {
-            taskInProjectDao.Add(task);
+            taskInProjectDao.Add(task as TaskInProject);
             LoadTaskInProjects();
         }
 
-        public void Update(TaskInProject task)
+        public void UpdateToDB(object task)
         {
-            taskInProjectDao.Update(task);
+            taskInProjectDao.Update(task as TaskInProject);
             LoadTaskInProjects();
         }
 
@@ -68,20 +61,20 @@ namespace CompanyManagement.ViewModels.UserControls
             TasksInProject = taskInProjectDao.SearchByProjectID(projectID);
         }
 
-        private void ExecuteAddCommand(TaskInProject task)   
+        private void OpenAddDialog(TaskInProject task)   
         {
             AddTaskDialog addTaskDialog = new AddTaskDialog();
-            IAddTask addTaskViewModel = (IAddTask)addTaskDialog.DataContext;
+            IDialogViewModel addTaskViewModel = (IDialogViewModel)addTaskDialog.DataContext;
             addTaskViewModel.ParentDataContext = this;
             task = CreateTaskInProjectInstance();
-            addTaskViewModel.TaskInputDataContext.RetrieveTask(task);
+            addTaskViewModel.Retrieve(task);
             addTaskDialog.ShowDialog();
         }
 
         private TaskInProject CreateTaskInProjectInstance()
         {
             return new TaskInProject(AutoGenerateID(), "", "", DateTime.Now , DateTime.Now , "",
-                SingletonEmployee.Instance.CurrentAccount.EmployeeID, "", projectID, "1");
+                CurrentUser.Instance.CurrentAccount.EmployeeID, "", projectID, "1");
         }
 
         private void ExecuteDeleteCommand(string id)
@@ -90,12 +83,12 @@ namespace CompanyManagement.ViewModels.UserControls
             LoadTaskInProjects();
         }
 
-        private void ExecuteUpdateCommand(TaskInProject task)
+        private void OpenUpdateDialog(TaskInProject task)
         {
             UpdateTaskDialog updateTaskDialog = new UpdateTaskDialog();
-            IUpdateTask updateTaskViewModel = (IUpdateTask)updateTaskDialog.DataContext;
+            IDialogViewModel updateTaskViewModel = (IDialogViewModel)updateTaskDialog.DataContext;
             updateTaskViewModel.ParentDataContext = this;
-            updateTaskViewModel.TaskInputDataContext.RetrieveTask(task);
+            updateTaskViewModel.Retrieve(task);
             updateTaskDialog.ShowDialog();
         }
 

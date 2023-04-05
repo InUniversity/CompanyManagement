@@ -1,22 +1,16 @@
 ﻿using System.Collections.Generic;
-using CompanyManagement.Database.Interfaces;
 using CompanyManagement.Models;
 using CompanyManagement.ViewModels.Base;
 using CompanyManagement.ViewModels.Dialogs;
 using CompanyManagement.Views.Dialogs;
 using System.Windows.Input;
-using CompanyManagement.Database.Implementations;
+using CompanyManagement.Database;
+using CompanyManagement.ViewModels.Dialogs.Interfaces;
+using CompanyManagement.ViewModels.UserControls.Interfaces;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
-
-    public interface ITimeKeeping
-    {
-        void Add(TimeKeeping timeKeeping);
-        void Update(TimeKeeping timeKeeping);
-    }
-
-    public class TimeKeepingViewModel : BaseViewModel, ITimeKeeping, IRetrieveProjectID
+    public class TimeKeepingViewModel : BaseViewModel, IEditDBViewModel, IRetrieveProjectID
     {
 
         private List<TimeKeeping> timeKeepingSet; 
@@ -26,7 +20,7 @@ namespace CompanyManagement.ViewModels.UserControls
         public ICommand DeleteTimeKeepingCommand { get; set; }
         public ICommand UpdateTimeKeepingCommand { get; set; }
 
-        private ITimeKeepingDao timeKeepingDao;
+        private TimeKeepingDao timeKeepingDao;
 
         private string projectID = "";
 
@@ -52,10 +46,10 @@ namespace CompanyManagement.ViewModels.UserControls
         private void ExecuteAddCommand(object p)
         {
             AddTimeKeepingDialog addTimeKeepingDialog = new AddTimeKeepingDialog();
-            AddTimeKeepingViewModel addTimeKeepingViewModel = (AddTimeKeepingViewModel)addTimeKeepingDialog.DataContext;
+            IDialogViewModel addTimeKeepingViewModel = (IDialogViewModel)addTimeKeepingDialog.DataContext;
             addTimeKeepingViewModel.ParentDataContext = this;
             TimeKeeping timeKeeping = CreateTimeKeeping();
-            addTimeKeepingViewModel.TimeKeepingInputDataContext.Retrieve(timeKeeping);
+            addTimeKeepingViewModel.Retrieve(timeKeeping);
             addTimeKeepingDialog.ShowDialog();
         }
 
@@ -74,21 +68,21 @@ namespace CompanyManagement.ViewModels.UserControls
         private void ExecuteUpdateCommand(TimeKeeping timeKeeping)
         {
             UpdateTimeKeepingDialog updateTimeKeepingDialog = new UpdateTimeKeepingDialog();
-            UpdateTimeKeepingViewModel updateTaskViewModel = (UpdateTimeKeepingViewModel)updateTimeKeepingDialog.DataContext;
+            IDialogViewModel updateTaskViewModel = (IDialogViewModel)updateTimeKeepingDialog.DataContext;
             updateTaskViewModel.ParentDataContext = this;
-            updateTaskViewModel.TimeKeepingInputDataContext.Retrieve(timeKeeping);
+            updateTaskViewModel.Retrieve(timeKeeping);
             updateTimeKeepingDialog.ShowDialog();
         }
 
-        public void Add(TimeKeeping timeKeeping)
+        public void AddToDB(object timeKeeping)
         {
-            timeKeepingDao.Add(timeKeeping);
+            timeKeepingDao.Add(timeKeeping as TimeKeeping);
             LoadTimeKeeping();
         }
 
-        public void Update(TimeKeeping timeKeeping)
+        public void UpdateToDB(object timeKeeping)
         {
-            timeKeepingDao.Update(timeKeeping);
+            timeKeepingDao.Update(timeKeeping as TimeKeeping);
             LoadTimeKeeping();
         }
 

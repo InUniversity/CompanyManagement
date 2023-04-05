@@ -1,9 +1,7 @@
 ﻿using CompanyManagement.Models;
 using System;
-using System.Collections.ObjectModel;
-using CompanyManagement.Database.Interfaces;
 using System.Collections.Generic;
-using CompanyManagement.Database.Implementations;
+using CompanyManagement.Database;
 using CompanyManagement.ViewModels.Base;
 
 namespace CompanyManagement.ViewModels.UserControls
@@ -34,7 +32,7 @@ namespace CompanyManagement.ViewModels.UserControls
         private DateTime deadline = DateTime.Now;
         public DateTime Deadline { get => deadline; set { deadline = value; OnPropertyChanged(); } }
 
-        private string createBy = SingletonEmployee.Instance.CurrentAccount.EmployeeID;
+        private string createBy = CurrentUser.Instance.CurrentAccount.EmployeeID;
         public string CreateBy { get => createBy; set { createBy = value; OnPropertyChanged(); } }
 
         private string progress = "";
@@ -58,8 +56,8 @@ namespace CompanyManagement.ViewModels.UserControls
         private List<TaskStatus> taskStatuses;
         public List<TaskStatus> TaskStatuses { get => taskStatuses; set { taskStatuses = value; OnPropertyChanged(); } }
 
-        private ITaskStatusDao taskStatusDao;
-        private IProjectAssignmentDao assignmentDao;
+        private TaskStatusDao taskStatusDao;
+        private ProjectAssignmentDao assignmentDao;
 
         public TaskInputViewModel()
         {

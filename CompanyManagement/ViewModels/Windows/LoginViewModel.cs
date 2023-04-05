@@ -2,8 +2,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using CompanyManagement.Database;
-using CompanyManagement.Database.Implementations;
-using CompanyManagement.Database.Interfaces;
+using CompanyManagement.Database.Base;
 using CompanyManagement.Models;
 using CompanyManagement.Utilities;
 using CompanyManagement.ViewModels.Base;
@@ -23,8 +22,8 @@ namespace CompanyManagement.ViewModels.Windows
         public ICommand ForgotPasswordCommand { get; set; }
         public ICommand PasswordChangedCommand { get; set; }
 
-        private IAccountDao accountDao;
-        private IEmployeeDao employeeDao;
+        private AccountDao accountDao;
+        private EmployeeDao employeeDao;
 
         public LoginViewModel()
         {
@@ -48,9 +47,9 @@ namespace CompanyManagement.ViewModels.Windows
                 MessageBox.Show(Utils.INVALIDATE_USERNAME_PASSWORD_MESSAGE);
                 return;
             }
-            SingletonEmployee.Instance.CurrentAccount = account;
+            CurrentUser.Instance.CurrentAccount = account;
             Employee employee = employeeDao.SearchByID(account.EmployeeID);
-            SingletonEmployee.Instance.CurrentEmployee = employee;
+            CurrentUser.Instance.CurrentEmployee = employee;
             Window nextWindow = string.Equals(employee.PositionID, BaseDao.MANAGERIAL_POSITION_ID)
                 ? new ManagerWindow() : new EmployeeWindow();
             nextWindow.Show();
