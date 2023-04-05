@@ -16,7 +16,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         public UserInformationViewModel() 
         {
-            ((EmployeeInputViewModel)employeeInputUC.DataContext).Retrieve(SingletonEmployee.Instance.CurrentEmployee);
+            ((EmployeeInputViewModel)employeeInputUC.DataContext).Retrieve(CurrentUser.Instance.CurrentEmployee);
             currentChildView = employeeInputUC;
         }
     }

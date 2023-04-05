@@ -47,9 +47,9 @@ namespace CompanyManagement.ViewModels.Windows
                 MessageBox.Show(Utils.INVALIDATE_USERNAME_PASSWORD_MESSAGE);
                 return;
             }
-            SingletonEmployee.Instance.CurrentAccount = account;
+            CurrentUser.Instance.CurrentAccount = account;
             Employee employee = employeeDao.SearchByID(account.EmployeeID);
-            SingletonEmployee.Instance.CurrentEmployee = employee;
+            CurrentUser.Instance.CurrentEmployee = employee;
             Window nextWindow = string.Equals(employee.PositionID, BaseDao.MANAGERIAL_POSITION_ID)
                 ? new ManagerWindow() : new EmployeeWindow();
             nextWindow.Show();

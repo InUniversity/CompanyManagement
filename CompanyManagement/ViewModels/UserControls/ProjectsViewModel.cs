@@ -47,7 +47,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void LoadProjects()
         {
-            var employeeID = SingletonEmployee.Instance.CurrentAccount.EmployeeID;
+            var employeeID = CurrentUser.Instance.CurrentAccount.EmployeeID;
             Projects = projectAssignmentDao.SearchProjectByEmployeeID(employeeID);;
         }
 
@@ -84,7 +84,7 @@ namespace CompanyManagement.ViewModels.UserControls
         private Project CreateProject()
         {
             return new Project(AutoGenerateID(), "", DateTime.Now, DateTime.Now, 
-                Utils.EMPTY_DATETIME, "0", "", SingletonEmployee.Instance.CurrentAccount.EmployeeID);
+                Utils.EMPTY_DATETIME, "0", "", CurrentUser.Instance.CurrentAccount.EmployeeID);
         }
 
         private string AutoGenerateID()

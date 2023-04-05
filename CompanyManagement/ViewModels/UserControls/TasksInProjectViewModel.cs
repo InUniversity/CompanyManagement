@@ -74,7 +74,7 @@ namespace CompanyManagement.ViewModels.UserControls
         private TaskInProject CreateTaskInProjectInstance()
         {
             return new TaskInProject(AutoGenerateID(), "", "", DateTime.Now , DateTime.Now , "",
-                SingletonEmployee.Instance.CurrentAccount.EmployeeID, "", projectID, "1");
+                CurrentUser.Instance.CurrentAccount.EmployeeID, "", projectID, "1");
         }
 
         private void ExecuteDeleteCommand(string id)

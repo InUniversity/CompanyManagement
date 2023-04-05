@@ -32,7 +32,7 @@ namespace CompanyManagement.ViewModels.UserControls
         private DateTime deadline = DateTime.Now;
         public DateTime Deadline { get => deadline; set { deadline = value; OnPropertyChanged(); } }
 
-        private string createBy = SingletonEmployee.Instance.CurrentAccount.EmployeeID;
+        private string createBy = CurrentUser.Instance.CurrentAccount.EmployeeID;
         public string CreateBy { get => createBy; set { createBy = value; OnPropertyChanged(); } }
 
         private string progress = "";

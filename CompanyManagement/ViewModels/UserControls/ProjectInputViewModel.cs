@@ -41,7 +41,7 @@ namespace CompanyManagement.ViewModels.UserControls
         private string projectStatusID = "1";
         public string ProjectStatusID { get => projectStatusID; set { projectStatusID = value; OnPropertyChanged(); } }
 
-        private string createBy = SingletonEmployee.Instance.CurrentAccount.EmployeeID;
+        private string createBy = CurrentUser.Instance.CurrentAccount.EmployeeID;
         public string CreateBy { get => createBy; set { createBy = value; OnPropertyChanged(); } }
 
         private string errorMessage = "";
