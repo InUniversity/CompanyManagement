@@ -14,11 +14,11 @@ namespace CompanyManagement.Database.Implementations
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
-        public void Delete(string projectID, string departmentID)
+        public void Delete(ProjectAssignment projectAssignment)
         {
             string sqlStr = $"DELETE FROM {PROJECT_ASSIGNMENT_TABLE} " +
-                            $"WHERE {PROJECT_ASSIGNMENT_PROJECT_ID}='{projectID}' AND " +
-                            $"{PROJECT_ASSIGNMENT_DEPARTMENT_ID}='{departmentID}'";
+                            $"WHERE {PROJECT_ASSIGNMENT_PROJECT_ID}='{projectAssignment.ProjectID}' AND " +
+                            $"{PROJECT_ASSIGNMENT_DEPARTMENT_ID}='{projectAssignment.DeparmentID}'";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
@@ -51,8 +51,20 @@ namespace CompanyManagement.Database.Implementations
 
         public List<Project> SearchProjectByEmployeeID(string employeeID)
         {
-            // TODO
-            return new ProjectDao().GetAll();
+            string sqlStr = $"SELECT * FROM {PROJECT_TABLE} WHERE {PROJECT_ID} IN " +
+                            $"(SELECT {PROJECT_ASSIGNMENT_PROJECT_ID} FROM {PROJECT_ASSIGNMENT_TABLE}, {EMPLOYEE_TABLE} " +
+                            $"WHERE {PROJECT_ASSIGNMENT_TABLE}.{PROJECT_ASSIGNMENT_DEPARTMENT_ID} = {EMPLOYEE_TABLE}.{EMPLOYEE_DEPARTMENT_ID} " +
+                            $"AND {EMPLOYEE_TABLE}.{EMPLOYEE_ID} =  '{employeeID}')";
+            return dbConnection.GetList(sqlStr, reader => new Project(reader));
+        }
+
+        public List<Project> SearchProjectByCreatorID(string managerID)
+        {
+            string sqlStr = $"SELECT * FROM {PROJECT_TABLE} WHERE {PROJECT_ID} IN " +
+                            $"(SELECT {PROJECT_ASSIGNMENT_PROJECT_ID} FROM {PROJECT_ASSIGNMENT_TABLE}, {EMPLOYEE_TABLE} " +
+                            $"WHERE {PROJECT_ASSIGNMENT_TABLE}.{PROJECT_ASSIGNMENT_DEPARTMENT_ID} = {EMPLOYEE_TABLE}.{EMPLOYEE_DEPARTMENT_ID} " +
+                            $"AND {PROJECT_TABLE}.{PROJECT_CREATE_BY} =  '{managerID}')";
+            return dbConnection.GetList(sqlStr, reader => new Project(reader));
         }
     }
 }

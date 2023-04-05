@@ -104,7 +104,7 @@ namespace CompanyManagement.ViewModels.UserControls
         {
             ProjectStatuses = projectStatusDao.GetAll();
         }
-
+        
         private void ExecuteGetAllSelectedDepartment(ListView listView)
         {
             var selectedItems = listView.SelectedItems.Cast<Department>().ToList();
@@ -127,7 +127,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void ExecuteDeleteDepartmentCommand(string departmentID)
         {
-            projectAssignmentDao.Delete(ID, departmentID);
+            projectAssignmentDao.Delete(new ProjectAssignment(ID, departmentID));
             LoadDepartmentsInProject(ID);
             LoadDepartmentsCanAssign(CreateProjectInstance());
         }

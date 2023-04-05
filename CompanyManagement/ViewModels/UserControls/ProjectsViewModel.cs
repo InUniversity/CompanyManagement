@@ -9,6 +9,7 @@ using CompanyManagement.Models;
 using CompanyManagement.ViewModels.Dialogs;
 using CompanyManagement.ViewModels.Base;
 using CompanyManagement.Utilities;
+using CompanyManagement.Database;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
