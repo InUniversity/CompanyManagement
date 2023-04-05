@@ -71,11 +71,7 @@
 
         </Border>
         <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Border Grid.Column="0" BorderBrush="Gray" BorderThickness="0.1"  Margin="3" >
+            <Border BorderBrush="Gray" BorderThickness="0.1"  Margin="3" >
                 <ContentControl Content="{Binding ElementName=projectDetailsUC, Path=DataContext.CurrentChildView}">
                 </ContentControl>
             </Border >

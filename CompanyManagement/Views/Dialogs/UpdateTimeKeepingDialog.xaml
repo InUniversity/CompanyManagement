@@ -4,41 +4,38 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:userControls="clr-namespace:CompanyManagement.Views.UserControls"
+        WindowStartupLocation="CenterScreen"
         mc:Ignorable="d"
         x:Name="updataTimeKeepingWindow"
-        Title="TimeKeepingInputWindow" Height="673" Width="920">
+        Title="TimeKeepingInputWindow" Height="700" Width="600">
     <Grid>
-        <StackPanel Height="673" VerticalAlignment="Center" HorizontalAlignment="Right" Width="920">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-            </Grid>
-            <Grid Height="73">
-                <Label 
-                    FontWeight="ExtraBold"
-                    FontSize="30"
-                    VerticalAlignment="Bottom"
-                    HorizontalAlignment="Center"
-                    Content="Cập nhật Bảng Chấm Công"/>
-            </Grid>
-            <Grid Height="511">
-                <userControls:TimeKeepingInputUC DataContext="{Binding TimeKeepingInputDataContext}"/>
-            </Grid>
-            <Grid Height="73">
-                <Button
-                    Content="Lưu"
-                    Command="{Binding UpdateTimeKeepingCommand}"
-                    CommandParameter="{Binding ElementName=updataTimeKeepingWindow}"
-                    Width="70"
-                    Background="ForestGreen"
-                    VerticalAlignment="Center"
-                    IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-                    Style="{StaticResource MaterialDesignFlatMidBgButton}"
-                    ToolTip="Lưu bảng chấm công" />
-            </Grid>
-        </StackPanel>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="100"/>
+        </Grid.RowDefinitions>
+        <TextBlock 
+                Grid.Row="0"
+                FontWeight="Bold"
+                FontSize="25"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Text="Cập nhật Bảng Chấm Công"/>
+        <userControls:TimeKeepingInputUC Grid.Row="1" 
+                                         Margin="0 20"
+                                         DataContext="{Binding TimeKeepingInputDataContext}"/>
+        <Button
+            Grid.Row="2"
+            Margin="20"
+            Content="Lưu"
+            Command="{Binding UpdateTimeKeepingCommand}"
+            CommandParameter="{Binding ElementName=updataTimeKeepingWindow}"
+            Width="300"
+            Height="50"
+            Background="ForestGreen"
+            VerticalAlignment="Center"
+            IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+            Style="{StaticResource MaterialDesignFlatMidBgButton}"
+            ToolTip="Lưu bảng chấm công" />
     </Grid>
 </Window>
