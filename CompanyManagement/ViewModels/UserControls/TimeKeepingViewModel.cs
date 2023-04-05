@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
-using CompanyManagement.Database.Interfaces;
 using CompanyManagement.Models;
 using CompanyManagement.ViewModels.Base;
 using CompanyManagement.ViewModels.Dialogs;
 using CompanyManagement.Views.Dialogs;
 using System.Windows.Input;
-using CompanyManagement.Database.Implementations;
+using CompanyManagement.Database;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
@@ -26,7 +25,7 @@ namespace CompanyManagement.ViewModels.UserControls
         public ICommand DeleteTimeKeepingCommand { get; set; }
         public ICommand UpdateTimeKeepingCommand { get; set; }
 
-        private ITimeKeepingDao timeKeepingDao;
+        private TimeKeepingDao timeKeepingDao;
 
         private string projectID = "";
 

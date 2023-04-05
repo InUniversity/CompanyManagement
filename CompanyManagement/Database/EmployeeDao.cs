@@ -1,9 +1,9 @@
-﻿using CompanyManagement.Database.Interfaces;
+﻿using CompanyManagement.Database.Base;
 using System.Collections.Generic;
 
-namespace CompanyManagement.Database.Implementations
+namespace CompanyManagement.Database
 {
-    public class EmployeeDao : BaseDao, IEmployeeDao
+    public class EmployeeDao : BaseDao
     {
         public void Add(Employee empl)
         {

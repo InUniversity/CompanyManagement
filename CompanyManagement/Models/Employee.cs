@@ -1,6 +1,6 @@
 using System;
 using System.Data.SqlClient;
-using CompanyManagement.Database;
+using CompanyManagement.Database.Base;
 using CompanyManagement.Utilities;
 
 namespace CompanyManagement

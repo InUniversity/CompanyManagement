@@ -2,8 +2,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using CompanyManagement.Database;
-using CompanyManagement.Database.Implementations;
-using CompanyManagement.Database.Interfaces;
+using CompanyManagement.Database.Base;
 using CompanyManagement.Models;
 using CompanyManagement.Utilities;
 using CompanyManagement.ViewModels.Base;
@@ -23,8 +22,8 @@ namespace CompanyManagement.ViewModels.Windows
         public ICommand ForgotPasswordCommand { get; set; }
         public ICommand PasswordChangedCommand { get; set; }
 
-        private IAccountDao accountDao;
-        private IEmployeeDao employeeDao;
+        private AccountDao accountDao;
+        private EmployeeDao employeeDao;
 
         public LoginViewModel()
         {

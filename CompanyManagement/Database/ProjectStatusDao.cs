@@ -1,10 +1,10 @@
-﻿using CompanyManagement.Database.Interfaces;
+﻿using CompanyManagement.Database.Base;
 using CompanyManagement.Models;
 using System.Collections.Generic;
 
-namespace CompanyManagement.Database.Implementations
+namespace CompanyManagement.Database
 {
-    public class ProjectStatusDao : BaseDao, IProjectStatusDao
+    public class ProjectStatusDao : BaseDao
     {
         public void Add(ProjectStatus projectStatus)
         {

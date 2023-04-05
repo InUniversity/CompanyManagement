@@ -1,10 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Input;
-using CompanyManagement.Database.Implementations;
-using CompanyManagement.Models;
+﻿using System.Windows.Controls;
 using CompanyManagement.ViewModels.UserControls;
 
 namespace CompanyManagement.Views.UserControls;

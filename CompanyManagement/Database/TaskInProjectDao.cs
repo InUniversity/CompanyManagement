@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
-using CompanyManagement.Database.Interfaces;
+using CompanyManagement.Database.Base;
 using CompanyManagement.Models;
 
-namespace CompanyManagement.Database.Implementations
+namespace CompanyManagement.Database
 {
-    public class TaskInProjectDao : BaseDao, ITaskInProjectDao
+    public class TaskInProjectDao : BaseDao
     {
         public void Add(TaskInProject task)
         {

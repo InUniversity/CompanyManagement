@@ -1,5 +1,4 @@
 using System.Windows.Controls;
-using CompanyManagement.Database.Implementations;
 using CompanyManagement.ViewModels.UserControls;
 
 namespace CompanyManagement.Views.UserControls;

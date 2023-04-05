@@ -1,7 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Input;
-using CompanyManagement.Database.Implementations;
-using CompanyManagement.Database.Interfaces;
+using CompanyManagement.Database;
 using CompanyManagement.Utilities;
 using CompanyManagement.ViewModels.Base;
 using CompanyManagement.ViewModels.UserControls;
@@ -13,7 +12,7 @@ namespace CompanyManagement.ViewModels.Dialogs
         IEmployees ParentDataContext { set; } 
         IEmployeeInput EmployeeInputDataContext { get; }
     }
-    
+
     public class AddEmployeeViewModel : BaseViewModel, IAddEmployee
     {
         
@@ -22,7 +21,7 @@ namespace CompanyManagement.ViewModels.Dialogs
         public IEmployees ParentDataContext { get; set; }
         public IEmployeeInput EmployeeInputDataContext { get; }
 
-        private IEmployeeDao employeeAccountDao;
+        private EmployeeDao employeeAccountDao;
 
         public AddEmployeeViewModel()
         {

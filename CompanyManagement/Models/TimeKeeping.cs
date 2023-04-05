@@ -1,7 +1,7 @@
-﻿using CompanyManagement.Database;
-using System;
+﻿using System;
 using System.Data.SqlClient;
 using CompanyManagement.Utilities;
+using CompanyManagement.Database.Base;
 
 namespace CompanyManagement.Models
 {

@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
-using CompanyManagement.Database.Interfaces;
+using CompanyManagement.Database.Base;
 using CompanyManagement.Models;
 
-namespace CompanyManagement.Database.Implementations
+namespace CompanyManagement.Database
 {
-    public class ProjectAssignmentDao : BaseDao, IProjectAssignmentDao
+    public class ProjectAssignmentDao : BaseDao
     {
         public void Add(ProjectAssignment projectAssignment)
         {
@@ -27,7 +27,7 @@ namespace CompanyManagement.Database.Implementations
             string sqlStr = $"SELECT D.* FROM {DEPARTMENT_TABLE} D INNER JOIN {PROJECT_ASSIGNMENT_TABLE} PA ON " +
                             $"D.{DEPARTMENT_ID} = PA.{PROJECT_ASSIGNMENT_DEPARTMENT_ID} " +
                             $"WHERE PA.{PROJECT_ASSIGNMENT_PROJECT_ID}='{projectID}'";
-            return dbConnection.GetList(sqlStr, reader => new Department(reader));   
+            return dbConnection.GetList(sqlStr, reader => new Department(reader));
         }
 
         public List<Employee> GetEmployeesInProject(string projectID)
@@ -36,7 +36,7 @@ namespace CompanyManagement.Database.Implementations
                 $"SELECT {PROJECT_ASSIGNMENT_DEPARTMENT_ID} FROM {PROJECT_ASSIGNMENT_TABLE} WHERE {PROJECT_ASSIGNMENT_PROJECT_ID} = '{projectID}')";
             return dbConnection.GetList(sqlStr, reader => new Employee(reader));
         }
-        
+
         public List<Department> GetDepartmentsCanAssignWork(Project project)
         {
             string sqlStr = $"SELECT * FROM {DEPARTMENT_TABLE} WHERE {DEPARTMENT_ID} NOT IN (" +

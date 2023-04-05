@@ -2,10 +2,8 @@ using System;
 using System.Collections.Generic;
 using CompanyManagement.Views.Dialogs;
 using CompanyManagement.Models;
-using System.Collections.ObjectModel;
 using System.Windows.Input;
-using CompanyManagement.Database.Implementations;
-using CompanyManagement.Database.Interfaces;
+using CompanyManagement.Database;
 using CompanyManagement.ViewModels.Dialogs;
 using CompanyManagement.ViewModels.Base;
 
@@ -27,7 +25,7 @@ namespace CompanyManagement.ViewModels.UserControls
         public ICommand DeleteTaskInProjectCommand { get; set; }
         public ICommand UpdateTaskInProjectCommand { get; set; }
 
-        private ITaskInProjectDao taskInProjectDao;
+        private TaskInProjectDao taskInProjectDao;
         
         private string projectID = "";
 

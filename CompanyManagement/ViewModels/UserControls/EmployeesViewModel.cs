@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
-using CompanyManagement.Database.Implementations;
+using CompanyManagement.Database;
 using CompanyManagement.Views.Dialogs;
-using CompanyManagement.Database.Interfaces;
 using CompanyManagement.ViewModels.Dialogs;
 using CompanyManagement.ViewModels.Base;
 
@@ -32,8 +30,8 @@ namespace CompanyManagement.ViewModels.UserControls
         public ICommand DeleteEmployeeCommand { get; set; }
         public ICommand OpenUpdateDialogCommand { get; set; }
 
-        private IEmployeeDao employeeAccountDao;
-        private IAccountDao accountDao;
+        private EmployeeDao employeeAccountDao;
+        private AccountDao accountDao;
 
         public EmployeesViewModel()
         {

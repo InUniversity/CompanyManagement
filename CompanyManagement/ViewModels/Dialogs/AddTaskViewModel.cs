@@ -1,7 +1,6 @@
 ﻿using CompanyManagement.Models;
 using System.Windows;
 using System.Windows.Input;
-using CompanyManagement.Database.Implementations;
 using CompanyManagement.ViewModels.UserControls;
 using CompanyManagement.ViewModels.Base;
 

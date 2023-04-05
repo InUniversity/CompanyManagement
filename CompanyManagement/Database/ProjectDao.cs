@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using CompanyManagement.Database.Interfaces;
+using CompanyManagement.Database.Base;
 
-namespace CompanyManagement.Database.Implementations
+namespace CompanyManagement.Database
 {
-    public class ProjectDao : BaseDao, IProjectDao
+    public class ProjectDao : BaseDao
     {
         public void Add(Project project)
         {
@@ -33,7 +33,7 @@ namespace CompanyManagement.Database.Implementations
             string sqlStr = $"SELECT * FROM {PROJECT_TABLE}";
             return dbConnection.GetList(sqlStr, reader => new Project(reader));
         }
-       
+
         public Project SearchByID(string id)
         {
             string sqlStr = $"SELECT * FROM {PROJECT_TABLE} WHERE {PROJECT_ID} = '{id}'";

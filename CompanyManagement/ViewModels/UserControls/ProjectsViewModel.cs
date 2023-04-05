@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Windows.Input;
-using CompanyManagement.Database.Implementations;
+using CompanyManagement.Database;
 using CompanyManagement.Views.Dialogs;
-using CompanyManagement.Database.Interfaces;
 using CompanyManagement.Models;
 using CompanyManagement.ViewModels.Dialogs;
 using CompanyManagement.ViewModels.Base;
@@ -37,8 +35,8 @@ namespace CompanyManagement.ViewModels.UserControls
         public INavigateAssignmentView ParentDataContext { get; set; }
         public IRetrieveProjectID ProjectDetailsDataContext { get; set; }
 
-        private IProjectDao projectDao;
-        private IProjectAssignmentDao projectAssignmentDao;
+        private ProjectDao projectDao;
+        private ProjectAssignmentDao projectAssignmentDao;
 
         public ProjectsViewModel()
         {
