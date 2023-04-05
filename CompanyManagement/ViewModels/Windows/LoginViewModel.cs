@@ -50,10 +50,16 @@ namespace CompanyManagement.ViewModels.Windows
             CurrentUser.Instance.CurrentAccount = account;
             Employee employee = employeeDao.SearchByID(account.EmployeeID);
             CurrentUser.Instance.CurrentEmployee = employee;
-            Window nextWindow = string.Equals(employee.PositionID, BaseDao.MANAGERIAL_POSITION_ID)
-                ? new ManagerWindow() : new EmployeeWindow();
+            Window nextWindow = CreateWindow(employee.PositionID);
             nextWindow.Show();
             loginWindow.Close();
+        }
+
+        private Window CreateWindow(string positionID)
+        {
+            return string.Equals(positionID, BaseDao.MANAGERIAL_POSITION_ID)
+                ? new ManagerWindow()
+                : new EmployeeWindow();
         }
 
         private void ExecuteForgotPasswordCommand(object p)
