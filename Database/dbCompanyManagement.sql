@@ -51,8 +51,10 @@ CREATE TABLE Project(
 	end_date SMALLDATETIME,
 	completed_date SMALLDATETIME,
 	progress varchar(30),
-	project_status_id varchar(10)
+	project_status_id varchar(10),
+	create_by varchar(20)
 );
+
 GO
 CREATE TABLE ProjectAssignment(
 	project_id varchar(20),
@@ -243,13 +245,13 @@ FROM Employee;
 GO
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
-INSERT INTO Project (project_id, project_name, create_date, end_date, completed_date, progress, project_status_id)
+INSERT INTO Project (project_id, project_name, create_date, end_date, completed_date, progress, project_status_id, create_by)
 VALUES 
-('PRJ001', 'Website Development', CONVERT(SMALLDATETIME, '01-01-2023 08:00 AM', 105), CONVERT(SMALLDATETIME, '30-06-2023 05:00 PM', 105), CONVERT(SMALLDATETIME, '01-01-2000 00:00 AM', 105), '50','4'),
-('PRJ002', 'Mobile App Development', CONVERT(SMALLDATETIME, '01-02-2023 09:30 AM', 105), CONVERT(SMALLDATETIME, '31-08-2023 07:00 PM', 105), CONVERT(SMALLDATETIME, '01-01-2000 00:00 AM', 105),'35', '4'),
-('PRJ003', 'Database Management System', CONVERT(SMALLDATETIME, '01-03-2023 10:15 AM', 105), CONVERT(SMALLDATETIME, '31-10-2023 04:30 PM', 105), CONVERT(SMALLDATETIME, '01-01-2000 00:00 AM', 105),'10', '4'),
-('PRJ004', 'Artificial Intelligence Research', CONVERT(SMALLDATETIME, '01-04-2023 01:00 PM', 105), CONVERT(SMALLDATETIME, '31-03-2024 11:00 AM', 105), CONVERT(SMALLDATETIME, '01-01-2000 00:00 AM', 105),'0', '1'),
-('PRJ005', 'Cloud Computing Migration', CONVERT(SMALLDATETIME, '01-05-2023 02:45 PM', 105), CONVERT(SMALLDATETIME, '30-11-2023 10:30 AM', 105), CONVERT(SMALLDATETIME, '01-01-2000 00:00 AM', 105),'0', '1');
+('PRJ001', 'Website Development', CONVERT(SMALLDATETIME, '01-01-2023 08:00 AM', 105), CONVERT(SMALLDATETIME, '30-06-2023 05:00 PM', 105), CONVERT(SMALLDATETIME, '01-01-2000 00:00 AM', 105), '50','4', 'EM001'),
+('PRJ002', 'Mobile App Development', CONVERT(SMALLDATETIME, '01-02-2023 09:30 AM', 105), CONVERT(SMALLDATETIME, '31-08-2023 07:00 PM', 105), CONVERT(SMALLDATETIME, '01-01-2000 00:00 AM', 105),'35', '4', 'EM002'),
+('PRJ003', 'Database Management System', CONVERT(SMALLDATETIME, '01-03-2023 10:15 AM', 105), CONVERT(SMALLDATETIME, '31-10-2023 04:30 PM', 105), CONVERT(SMALLDATETIME, '01-01-2000 00:00 AM', 105),'10', '4', 'EM003'),
+('PRJ004', 'Artificial Intelligence Research', CONVERT(SMALLDATETIME, '01-04-2023 01:00 PM', 105), CONVERT(SMALLDATETIME, '31-03-2024 11:00 AM', 105), CONVERT(SMALLDATETIME, '01-01-2000 00:00 AM', 105),'0', '1', 'EM004'),
+('PRJ005', 'Cloud Computing Migration', CONVERT(SMALLDATETIME, '01-05-2023 02:45 PM', 105), CONVERT(SMALLDATETIME, '30-11-2023 10:30 AM', 105), CONVERT(SMALLDATETIME, '01-01-2000 00:00 AM', 105),'0', '1', 'EM050');
 GO
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -262,10 +264,9 @@ VALUES
 ('PRJ005', 'DPM005');
 GO
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
-
 INSERT INTO Task (task_id, title, task_description, assign_date, deadline, create_by, progress, employee_id, project_id, importance, task_status_id)
 VALUES
-('T000001', N'Website Development - Design', N'Thiết kế giao diện website cho khách hàng ABC', CONVERT(SMALLDATETIME, '01-03-2023 09:00 AM', 105), CONVERT(SMALLDATETIME, '15-03-2023 05:00 PM', 105), 'EM002', '50', 'EM001', 'PRJ001', '1', '2'),
+('T000001', N'Website Development - Design', N'Thiết kế giao diện website cho khách hàng ABC', CONVERT(SMALLDATETIME, '01-03-2023 09:00 AM', 105), CONVERT(SMALLDATETIME, '15-03-2023 05:00 PM', 105), 'EM002', '50', 'EM003', 'PRJ001', '1', '2'),
 ('T000002', N'Website Development - Front-end', N'Lập trình phần front-end cho website khách hàng ABC', CONVERT(SMALLDATETIME, '16-03-2023 08:00 AM', 105), CONVERT(SMALLDATETIME, '31-03-2023 05:00 PM', 105), 'EM002', '30', 'EM007', 'PRJ001','1', '2'),
 ('T000003', N'Website Development - Back-end', N'Lập trình phần back-end cho website khách hàng ABC', CONVERT(SMALLDATETIME, '01-04-2023 08:00 AM', 105), CONVERT(SMALLDATETIME, '15-04-2023 05:00 PM', 105), 'EM002', '10', 'EM009', 'PRJ001', '1', '2'),
 ('T000004', N'Website Development - Testing', N'Kiểm thử và sửa lỗi cho website khách hàng ABC', CONVERT(SMALLDATETIME, '16-04-2023 08:00 AM', 105), CONVERT(SMALLDATETIME, '30-04-2023 05:00 PM', 105), 'EM002', '10', 'EM013', 'PRJ001', '2', '2'),

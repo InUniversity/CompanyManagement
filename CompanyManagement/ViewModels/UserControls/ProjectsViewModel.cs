@@ -9,9 +9,7 @@ using CompanyManagement.Models;
 using CompanyManagement.ViewModels.Dialogs;
 using CompanyManagement.ViewModels.Base;
 using CompanyManagement.Utilities;
-using System.Windows;
 using CompanyManagement.Database;
-using CompanyManagement.Views.Windows;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
