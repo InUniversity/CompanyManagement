@@ -52,11 +52,11 @@ namespace CompanyManagement.ViewModels.UserControls
         private string errorMessage = "";
         public string ErrorMessage { get => errorMessage; set { errorMessage = value; OnPropertyChanged(); } }
 
-        private ObservableCollection<Employee> employees;
-        public ObservableCollection<Employee> Employees { get => employees; set { employees = value; OnPropertyChanged(); } }
+        private List<Employee> employees;
+        public List<Employee> Employees { get => employees; set { employees = value; OnPropertyChanged(); } }
 
-        private ObservableCollection<TaskStatus> taskStatuses;
-        public ObservableCollection<TaskStatus> TaskStatuses { get => taskStatuses; set { taskStatuses = value; OnPropertyChanged(); } }
+        private List<TaskStatus> taskStatuses;
+        public List<TaskStatus> TaskStatuses { get => taskStatuses; set { taskStatuses = value; OnPropertyChanged(); } }
 
         private ITaskStatusDao taskStatusDao;
         private IProjectAssignmentDao assignmentDao;
@@ -70,7 +70,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void SetAllComboBox()
         {
-            TaskStatuses = new ObservableCollection<TaskStatus>( taskStatusDao.GetAll());
+            TaskStatuses = taskStatusDao.GetAll();
         }
 
         public TaskInProject CreateTaskInProjectInstance()
@@ -96,28 +96,28 @@ namespace CompanyManagement.ViewModels.UserControls
 
         public void TrimAllTexts()
         {
-            id = id.Trim();
-            title = title.Trim();
-            description = description.Trim();
-            createBy = createBy.Trim();
-            progress = progress.Trim(); 
-            employeeID = employeeID.Trim();
-            projectID = projectID.Trim();
+            ID = id.Trim();
+            Title = title.Trim();
+            Description = description.Trim();
+            CreateBy = createBy.Trim();
+            Progress = progress.Trim(); 
+            EmployeeID = employeeID.Trim();
+            ProjectID = projectID.Trim();
         }
 
         public void RetrieveTask(TaskInProject taskInProject)
         {
-            id = taskInProject.ID;
-            title = taskInProject.Title;
-            description = taskInProject.Description;
-            assignDate = taskInProject.AssignDate;
-            deadline = taskInProject.Deadline;
-            createBy = taskInProject.CreateBy;
-            progress = taskInProject.Progress;
-            employeeID = taskInProject.EmployeeID;
-            projectID = taskInProject.ProjectID;
-            statusID = taskInProject.Status;
-            Employees = new ObservableCollection<Employee>(assignmentDao.GetEmployeesInProject(taskInProject.ProjectID));
+            ID = taskInProject.ID;
+            Title = taskInProject.Title;
+            Description = taskInProject.Description;
+            AssignDate = taskInProject.AssignDate;
+            Deadline = taskInProject.Deadline;
+            CreateBy = taskInProject.CreateBy;
+            Progress = taskInProject.Progress;
+            EmployeeID = taskInProject.EmployeeID;
+            ProjectID = taskInProject.ProjectID;
+            StatusID = taskInProject.Status;
+            Employees = assignmentDao.GetEmployeesInProject(taskInProject.ProjectID);
         }
     }
 }
