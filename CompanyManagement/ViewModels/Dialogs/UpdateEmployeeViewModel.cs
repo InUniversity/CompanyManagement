@@ -2,21 +2,17 @@
 using System.Windows;
 using CompanyManagement.ViewModels.UserControls;
 using CompanyManagement.ViewModels.Base;
+using CompanyManagement.ViewModels.Dialogs.Interfaces;
+using CompanyManagement.ViewModels.UserControls.Interfaces;
 
 namespace CompanyManagement.ViewModels.Dialogs
 {
-    public interface IUpdateEmployee
-    {
-        IEmployees ParentDataContext { set; } 
-        IEmployeeInput EmployeeInputDataContext { get; } 
-    }
-    
-    public class UpdateEmployeeViewModel : BaseViewModel, IUpdateEmployee
+    public class UpdateEmployeeViewModel : BaseViewModel, IDialogViewModel
     {
         
         public ICommand UpdateEmployeeCommand { get; }
 
-        public IEmployees ParentDataContext { get; set; }
+        public IEditDBViewModel ParentDataContext { get; set; }
         public IEmployeeInput EmployeeInputDataContext { get; }
 
         public UpdateEmployeeViewModel()
@@ -30,13 +26,18 @@ namespace CompanyManagement.ViewModels.Dialogs
             if (!CheckAllFields()) return;
             EmployeeInputDataContext.TrimAllTexts();
             Employee empl = EmployeeInputDataContext.CreateEmployeeInstance();
-            ParentDataContext.Update(empl);
+            ParentDataContext.UpdateToDB(empl);
             inputWindow.Close();
         }
 
         private bool CheckAllFields()
         {
             return EmployeeInputDataContext.CheckAllFields();
+        }
+        
+        public void Retrieve(object employee)
+        {
+            EmployeeInputDataContext.Retrieve(employee as Employee);
         }
     }
 }

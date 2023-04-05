@@ -3,21 +3,17 @@ using System.Windows;
 using System.Windows.Input;
 using CompanyManagement.ViewModels.UserControls;
 using CompanyManagement.ViewModels.Base;
+using CompanyManagement.ViewModels.Dialogs.Interfaces;
+using CompanyManagement.ViewModels.UserControls.Interfaces;
 
 namespace CompanyManagement.ViewModels.Dialogs
 {
-    public interface IUpdateTask
-    {
-        ITasksInProject ParentDataContext { set; } 
-        ITaskInput TaskInputDataContext { get; }
-    }
-    
-    public class UpdateTaskViewModel : BaseViewModel, IUpdateTask
+    public class UpdateTaskViewModel : BaseViewModel, IDialogViewModel
     {
 
         public ICommand UpdateTaskCommand { get; set; }
 
-        public ITasksInProject ParentDataContext { get; set; }
+        public IEditDBViewModel ParentDataContext { get; set; }
         public ITaskInput TaskInputDataContext { get; set; }
 
         public UpdateTaskViewModel()
@@ -37,8 +33,13 @@ namespace CompanyManagement.ViewModels.Dialogs
             if (!TaskInputDataContext.CheckAllFields())
                 return;
             TaskInProject task = TaskInputDataContext.CreateTaskInProjectInstance();
-            ParentDataContext.Update(task);
+            ParentDataContext.UpdateToDB(task);
             inputWindow.Close();
+        }
+        
+        public void Retrieve(object task)
+        {
+            TaskInputDataContext.RetrieveTask(task as TaskInProject);
         }
     }
 }

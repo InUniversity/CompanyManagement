@@ -4,9 +4,10 @@ using System.Windows.Input;
 using CompanyManagement.Database;
 using CompanyManagement.Views.Dialogs;
 using CompanyManagement.Models;
-using CompanyManagement.ViewModels.Dialogs;
 using CompanyManagement.ViewModels.Base;
 using CompanyManagement.Utilities;
+using CompanyManagement.ViewModels.Dialogs.Interfaces;
+using CompanyManagement.ViewModels.UserControls.Interfaces;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
@@ -14,11 +15,9 @@ namespace CompanyManagement.ViewModels.UserControls
     {
         INavigateAssignmentView ParentDataContext { set; }
         IRetrieveProjectID ProjectDetailsDataContext { set; }
-        void Add(Project project);
-        void Update(Project project);
     }
     
-    public class ProjectsViewModel : BaseViewModel, IProjects
+    public class ProjectsViewModel : BaseViewModel, IProjects, IEditDBViewModel
     {
 
         private List<Project> projects;
@@ -60,25 +59,25 @@ namespace CompanyManagement.ViewModels.UserControls
             ItemClickCommand = new RelayCommand<object>(ItemClicked);
         }
 
-        public void Add(Project project)
+        public void AddToDB(object project)
         {
-            projectDao.Add(project);
+            projectDao.Add(project as Project);
             LoadProjects();
         }
 
-        public void Update(Project project)
+        public void UpdateToDB(object project)
         {
-            projectDao.Update(project);
+            projectDao.Update(project as Project);
             LoadProjects();
         }
 
-        private void OpenAddProjectDialog(object p)
+        private void OpenAddProjectDialog(object obj)
         {
             AddProjectDialog addProjectDialog = new AddProjectDialog();
-            IAddProject addProjectVM = (IAddProject)addProjectDialog.DataContext;
+            IDialogViewModel addProjectVM = (IDialogViewModel)addProjectDialog.DataContext;
             addProjectVM.ParentDataContext = this;
             Project project = CreateProject();
-            addProjectVM.ProjectInputDataContext.RetrieveProject(project);
+            addProjectVM.Retrieve(project);
             addProjectDialog.ShowDialog();
         }
 
@@ -109,9 +108,9 @@ namespace CompanyManagement.ViewModels.UserControls
         private void OpenUpdateProjectDialog(Project project)
         {
             UpdateProjectDialog projectDetailsDialog = new UpdateProjectDialog();
-            IUpdateProject projectViewModel = (IUpdateProject)projectDetailsDialog.DataContext;
+            IDialogViewModel projectViewModel = (IDialogViewModel)projectDetailsDialog.DataContext;
             projectViewModel.ParentDataContext = this;
-            projectViewModel.ProjectInputDataContext.RetrieveProject(project);
+            projectViewModel.Retrieve(project);
             projectDetailsDialog.ShowDialog();
         }
 
