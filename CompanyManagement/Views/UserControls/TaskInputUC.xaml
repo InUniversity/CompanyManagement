@@ -32,7 +32,7 @@
                     Text="{Binding ID}"
                     Background="White"
                     Margin="10"
-                    IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedTextBoxEnabledComboBox}"
+                    IsEnabled="False"
                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
                     materialDesign:HintAssist.Hint="Mã nhiệm vụ" />
             </Grid>
@@ -126,7 +126,7 @@
                     Width="310"
                     Margin="10"
                     ItemsSource="{Binding TaskStatuses}"
-                    SelectedValue="{Binding TaskStatus}"
+                    SelectedValue="{Binding StatusID}"
                     SelectedValuePath="ID"
                     materialDesign:HintAssist.Hint="Trạng thái"
                     Style="{StaticResource MaterialDesignOutlinedComboBox}">

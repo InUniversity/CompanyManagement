@@ -42,6 +42,18 @@
                         <RadioButton
                             Height="50"
                             Margin="4"
+                            Command="{Binding ShowUserInformationViewCommand}" 
+                            BorderBrush="{DynamicResource PrimaryHueMidBrush}"
+                            IsChecked="{Binding StatusUserInformationView}"
+                            Style="{StaticResource MaterialDesignTabRadioButtonRight}" >
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="AccountCircle" />
+                                <TextBlock Text="Tôi" Margin="47 0"></TextBlock>
+                            </StackPanel>
+                        </RadioButton>
+                        <RadioButton
+                            Height="50"
+                            Margin="4"
                             Command="{Binding ShowAssignmentViewCommand}" 
                             BorderBrush="{DynamicResource PrimaryHueMidBrush}"
                             IsChecked="{Binding StatusAssignmentView}"

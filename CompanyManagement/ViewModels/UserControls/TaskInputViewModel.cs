@@ -37,7 +37,7 @@ namespace CompanyManagement.ViewModels.UserControls
         private string createBy = SingletonEmployee.Instance.CurrentAccount.EmployeeID;
         public string CreateBy { get => createBy; set { createBy = value; OnPropertyChanged(); } }
 
-        private string progress = "50";
+        private string progress = "";
         public string Progress { get => progress; set { progress = value; OnPropertyChanged(); } }
 
         private string employeeID = "";
@@ -46,7 +46,7 @@ namespace CompanyManagement.ViewModels.UserControls
         private string projectID = "";
         public string ProjectID { get => projectID; set { projectID = value; OnPropertyChanged(); } }
 
-        private string statusID = "1";
+        private string statusID = "";
         public string StatusID { get => statusID; set { statusID = value; OnPropertyChanged(); } }
 
         private string errorMessage = "";
@@ -55,7 +55,8 @@ namespace CompanyManagement.ViewModels.UserControls
         private ObservableCollection<Employee> employees;
         public ObservableCollection<Employee> Employees { get => employees; set { employees = value; OnPropertyChanged(); } }
 
-        public List<TaskStatus> TaskStatuses { get; set; }
+        private ObservableCollection<TaskStatus> taskStatuses;
+        public ObservableCollection<TaskStatus> TaskStatuses { get => taskStatuses; set { taskStatuses = value; OnPropertyChanged(); } }
 
         private ITaskStatusDao taskStatusDao;
         private IProjectAssignmentDao assignmentDao;
@@ -69,8 +70,8 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void SetAllComboBox()
         {
-            TaskStatuses = taskStatusDao.GetAll();
-        }    
+            TaskStatuses = new ObservableCollection<TaskStatus>( taskStatusDao.GetAll());
+        }
 
         public TaskInProject CreateTaskInProjectInstance()
         {

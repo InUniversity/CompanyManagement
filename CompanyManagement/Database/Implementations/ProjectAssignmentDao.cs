@@ -52,7 +52,7 @@ namespace CompanyManagement.Database.Implementations
         public List<Project> SearchProjectByEmployeeID(string employeeID)
         {
             // TODO
-            throw new System.NotImplementedException();
+            return new ProjectDao().GetAll();
         }
     }
 }
