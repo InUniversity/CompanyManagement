@@ -64,8 +64,8 @@
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                     <DataGridTextColumn Width="125" Header="Mã nhiệm vụ" IsReadOnly="True" Binding="{Binding TaskID}" />
-                    <DataGridTextColumn Width="150" Header="Ngày bắt đầu" IsReadOnly="True" Binding="{Binding Start}" />
-                    <DataGridTextColumn Width="150" Header="Ngày kết thúc" IsReadOnly="True" Binding="{Binding End}" />
+                    <DataGridTextColumn Width="150" Header="Ngày bắt đầu" IsReadOnly="True" Binding="{Binding Start, StringFormat='HH:mm tt'}" />
+                    <DataGridTextColumn Width="150" Header="Ngày kết thúc" IsReadOnly="True" Binding="{Binding End, StringFormat='HH:mm tt'}" />
                     <DataGridTextColumn Width="120" Header="Mã nhân viên" IsReadOnly="True" Binding="{Binding EmployeeID}" />
                     <DataGridTextColumn Width="250" Header="Ghi chú" IsReadOnly="True" Binding="{Binding Notes}" />
                     <DataGridTextColumn Width="125" Header="Người tạo" IsReadOnly="True" Binding="{Binding CreateBy}" />

@@ -33,8 +33,8 @@ namespace CompanyManagement.ViewModels.UserControls
         private string gender = "";
         public string Gender { get => gender; set { gender = value; OnPropertyChanged(); } }
 
-        private DateOnly birthday = DateOnly.FromDateTime(DateTime.Now);
-        public DateOnly Birthday { get => birthday; set { birthday = value; OnPropertyChanged(); } }
+        private DateTime birthday = DateTime.Now;
+        public DateTime Birthday { get => birthday; set { birthday = value; OnPropertyChanged(); } }
 
         private string identifyCard = "";
         public string IdentifyCard { get => identifyCard; set { identifyCard = value; OnPropertyChanged(); } }
@@ -81,7 +81,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         public Employee CreateEmployeeInstance()
         {
-            return new Employee(ID, Name, Gender, Birthday, IdentifyCard,
+            return new Employee(ID, Name, Gender, Birthday.Date, IdentifyCard,
                 Email, PhoneNumber, Address, DepartmentID, PositionID, Salary);
         }
 
