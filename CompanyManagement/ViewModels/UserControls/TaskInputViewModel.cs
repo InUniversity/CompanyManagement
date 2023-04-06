@@ -3,6 +3,11 @@ using System;
 using System.Collections.Generic;
 using CompanyManagement.Database;
 using CompanyManagement.ViewModels.Base;
+using System.Windows.Input;
+using System.Linq;
+using System.Windows.Controls;
+using CompanyManagement.Utilities;
+using CompanyManagement.Views.UserControls;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
@@ -54,7 +59,20 @@ namespace CompanyManagement.ViewModels.UserControls
         public List<Employee> Employees { get => employees; set { employees = value; OnPropertyChanged(); } }
 
         private List<TaskStatus> taskStatuses;
+
         public List<TaskStatus> TaskStatuses { get => taskStatuses; set { taskStatuses = value; OnPropertyChanged(); } }
+
+        private List<Employee> searchedEmployeesCanAssign;
+        public List<Employee> SearchedEmployeesCanAssign { get => searchedEmployeesCanAssign; set { searchedEmployeesCanAssign = value; OnPropertyChanged(); } }
+
+        private Employee employeesIsSelected;
+        public Employee EmployeesIsSelected { get => employeesIsSelected; set { employeesIsSelected = value; OnPropertyChanged(); } }
+
+        private string textToSearch = "";
+        public string TextToSearch { get => textToSearch; set { textToSearch = value; OnPropertyChanged(); SearchByName(); } }
+
+        public ICommand AddEmployeeCommand { get; set; }
+        public ICommand GetSelectedEmployeeCommand { get; set; }
 
         private TaskStatusDao taskStatusDao;
         private ProjectAssignmentDao assignmentDao;
@@ -62,8 +80,25 @@ namespace CompanyManagement.ViewModels.UserControls
         public TaskInputViewModel()
         {
             taskStatusDao = new TaskStatusDao();
-            assignmentDao = new ProjectAssignmentDao();
+            assignmentDao = new ProjectAssignmentDao();            
+            GetSelectedEmployeeCommand = new RelayCommand<ListView>(ExecuteGetSelectedEmployeeCommand);
+            AddEmployeeCommand = new RelayCommand<object>(ExecuteAddEmployeeCommand);
             SetAllComboBox();
+        }
+
+        private void ExecuteAddEmployeeCommand(object obj)
+        {
+            if (EmployeesIsSelected != null)
+            {
+                Log.Instance.Information("TaskInputViewModel","add employee : "+ employeesIsSelected.Name);
+            }
+            employeesIsSelected = new Employee();
+        }
+
+        private void ExecuteGetSelectedEmployeeCommand(ListView listView)
+        {
+            var selectedItems = listView.SelectedItem as Employee;
+            employeesIsSelected = selectedItems;
         }
 
         private void SetAllComboBox()
@@ -91,6 +126,17 @@ namespace CompanyManagement.ViewModels.UserControls
             }
             return true;
         }
+        private void SearchByName()
+        {
+            var searchedItems = employees;
+            if (!string.IsNullOrEmpty(textToSearch))
+            {
+                searchedItems = employees
+                    .Where(item => item.Name.Contains(textToSearch, StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+            }       
+            SearchedEmployeesCanAssign = new List<Employee>(searchedItems);
+        }
 
         public void TrimAllTexts()
         {
@@ -116,6 +162,7 @@ namespace CompanyManagement.ViewModels.UserControls
             ProjectID = taskInProject.ProjectID;
             StatusID = taskInProject.Status;
             Employees = assignmentDao.GetEmployeesInProject(taskInProject.ProjectID);
+            SearchedEmployeesCanAssign = new List<Employee>(Employees);
         }
     }
 }

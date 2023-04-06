@@ -3,13 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              TextElement.FontWeight="Regular"
              TextElement.FontSize="13"
              TextOptions.TextFormattingMode="Ideal"
              TextOptions.TextRenderingMode="Auto"
-             Background="White"
+             Background="White"           
+             Name="taskInputUC"
              FontFamily="{DynamicResource MaterialDesignFont}"
              mc:Ignorable="d">
     <Grid>
@@ -102,25 +104,120 @@
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <ComboBox
-                    Grid.Column="0"
-                    Width="310"
-                    Margin="10"
-                    ItemsSource="{Binding Employees}"
-                    SelectedValue="{Binding EmployeeID}"
-                    SelectedValuePath="ID"
-                    materialDesign:HintAssist.Hint="Nhân viên"
-                    Style="{StaticResource MaterialDesignOutlinedComboBox}">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{Binding ID}" />
-                                <TextBlock Text=" "/>
-                                <TextBlock Text="{Binding Name}" />
-                            </StackPanel>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
+                <materialDesign:DialogHost CloseOnClickAway="True">
+                    <materialDesign:DialogHost.DialogContent>
+                        <StackPanel Width="500" Height="500">
+                            <Grid Height="60" Margin="5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="80" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Button Grid.Column="0"
+                                Margin="10 5"
+                                Style="{StaticResource MaterialDesignIconButton}">
+                                    <materialDesign:PackIcon Kind="Magnify" />
+                                </Button>
+                                <TextBox Grid.Column="1"
+                                 Margin="20 5"
+                                 Text="{Binding ElementName=taskInputUC,Path=DataContext.TextToSearch, UpdateSourceTrigger=PropertyChanged}"
+                                 Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+                            </Grid>
+                            <ListView Height="350" Margin="5" 
+                                      Name="listEmployee"
+                                      SelectionMode="Single"
+                                        ItemsSource="{Binding ElementName=taskInputUC,Path=DataContext.SearchedEmployeesCanAssign , UpdateSourceTrigger=PropertyChanged}">
+                                <b:Interaction.Triggers>
+                                    <b:EventTrigger EventName="SelectionChanged">
+                                        <b:InvokeCommandAction Command="{Binding  GetSelectedEmployeeCommand}"
+                                                   CommandParameter="{Binding ElementName= listEmployee}" />
+                                    </b:EventTrigger>
+                                </b:Interaction.Triggers>
+                                <ListView.ItemContainerStyle>
+                                    <Style TargetType="{x:Type ListViewItem}">
+                                        <Setter Property="Foreground" Value="Black" />
+                                        <Setter Property="Background" Value="White" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}"
+                                             Value="True">
+                                                <Setter Property="Background" Value="#e1f5fe" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ListView.ItemContainerStyle>
+                                <ListView.View>
+                                    <GridView>
+                                        <GridView.Columns>
+                                            <GridViewColumn Width="250">
+                                                <GridViewColumn.Header>
+                                                    <TextBlock Text="Tên" FontWeight="ExtraBold"></TextBlock>
+                                                </GridViewColumn.Header>
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock  Height="40" Text="{Binding Name}" />
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+                                            <GridViewColumn Width="100">
+                                                <GridViewColumn.Header>
+                                                    <TextBlock Text="ID" FontWeight="ExtraBold"></TextBlock>
+                                                </GridViewColumn.Header>
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock  Height="40" Text="{Binding ID}" />
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+                                            <GridViewColumn Width="100">
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <ToggleButton
+                                                          Margin="20 0" 
+                                                          IsEnabled="False"   
+                                                          Background="Transparent"
+                                                          IsChecked="{Binding IsSelected, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}}"
+                                                          Style="{StaticResource MaterialDesignActionLightToggleButton}"/>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+                                        </GridView.Columns>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                            <Grid Margin="5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Button Width="100"
+                                Content="Thêm"
+                                Grid.Column="0"            
+                                Command="{Binding  AddEmployeeCommand}"
+                                Style="{StaticResource MaterialDesignIconButton}" />
+                                <Button Width="100"
+                                Content="Hoàn tất"
+                                Grid.Column="1"
+                                Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                                Style="{StaticResource MaterialDesignIconButton}" />
+                            </Grid>
+                        </StackPanel>
+                    </materialDesign:DialogHost.DialogContent>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox Margin="10"
+                                 Text="{Binding EmployeeID}"
+                                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                 materialDesign:HintAssist.Hint="Nhân viên"
+                                 Width="280"></TextBox>
+                        <Button Width="20" 
+                                Style="{StaticResource MaterialDesignIconButton}"
+                                Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
+                                ToolTip="Thêm nhân viên">
+                            <Button.Effect>
+                                <DropShadowEffect BlurRadius="1" ShadowDepth="1"></DropShadowEffect>
+                            </Button.Effect>
+                            <materialDesign:PackIcon Kind="AccountPlus" Width="20"/>
+                        </Button>
+                    </StackPanel>
+                </materialDesign:DialogHost>
                 <ComboBox
                     Grid.Column="1"
                     Width="310"

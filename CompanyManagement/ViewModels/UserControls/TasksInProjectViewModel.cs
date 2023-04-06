@@ -12,7 +12,6 @@ namespace CompanyManagement.ViewModels.UserControls
 {
     public class TasksInProjectViewModel : BaseViewModel, IEditDBViewModel, IRetrieveProjectID
     {
-
         private List<TaskInProject> tasksInProject;
         public List<TaskInProject> TasksInProject { get => tasksInProject; set { tasksInProject = value; OnPropertyChanged(); } }
 
