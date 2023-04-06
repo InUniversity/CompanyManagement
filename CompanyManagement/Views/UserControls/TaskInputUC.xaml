@@ -125,7 +125,7 @@
                             <ListView Height="350" Margin="5" 
                                       Name="listEmployee"
                                       SelectionMode="Single"
-                                        ItemsSource="{Binding ElementName=taskInputUC,Path=DataContext.SearchedEmployeesCanAssign , UpdateSourceTrigger=PropertyChanged}">
+                                      ItemsSource="{Binding ElementName=taskInputUC,Path=DataContext.SearchedEmployeesCanAssign , UpdateSourceTrigger=PropertyChanged}">
                                 <b:Interaction.Triggers>
                                     <b:EventTrigger EventName="SelectionChanged">
                                         <b:InvokeCommandAction Command="{Binding  GetSelectedEmployeeCommand}"
@@ -183,21 +183,11 @@
                                     </GridView>
                                 </ListView.View>
                             </ListView>
-                            <Grid Margin="5">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Button Width="100"
-                                Content="Thêm"
-                                Grid.Column="0"            
-                                Command="{Binding  AddEmployeeCommand}"
-                                Style="{StaticResource MaterialDesignIconButton}" />
-                                <Button Width="100"
+                            <Grid Margin="10">
+                                <Button Width="200"
                                 Content="Hoàn tất"
-                                Grid.Column="1"
-                                Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
-                                Style="{StaticResource MaterialDesignIconButton}" />
+                                Foreground="White"
+                                Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"/>
                             </Grid>
                         </StackPanel>
                     </materialDesign:DialogHost.DialogContent>
@@ -210,7 +200,7 @@
                         <Button Width="20" 
                                 Style="{StaticResource MaterialDesignIconButton}"
                                 Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
-                                ToolTip="Thêm nhân viên">
+                                ToolTip="Thay đổi nhân viên">
                             <Button.Effect>
                                 <DropShadowEffect BlurRadius="1" ShadowDepth="1"></DropShadowEffect>
                             </Button.Effect>

@@ -65,9 +65,6 @@ namespace CompanyManagement.ViewModels.UserControls
         private List<Employee> searchedEmployeesCanAssign;
         public List<Employee> SearchedEmployeesCanAssign { get => searchedEmployeesCanAssign; set { searchedEmployeesCanAssign = value; OnPropertyChanged(); } }
 
-        private Employee employeesIsSelected;
-        public Employee EmployeesIsSelected { get => employeesIsSelected; set { employeesIsSelected = value; OnPropertyChanged(); } }
-
         private string textToSearch = "";
         public string TextToSearch { get => textToSearch; set { textToSearch = value; OnPropertyChanged(); SearchByName(); } }
 
@@ -81,24 +78,17 @@ namespace CompanyManagement.ViewModels.UserControls
         {
             taskStatusDao = new TaskStatusDao();
             assignmentDao = new ProjectAssignmentDao();            
-            GetSelectedEmployeeCommand = new RelayCommand<ListView>(ExecuteGetSelectedEmployeeCommand);
-            AddEmployeeCommand = new RelayCommand<object>(ExecuteAddEmployeeCommand);
+            GetSelectedEmployeeCommand = new RelayCommand<ListView>(ExecuteGetSelectedEmployeeCommand);       
             SetAllComboBox();
-        }
-
-        private void ExecuteAddEmployeeCommand(object obj)
-        {
-            if (EmployeesIsSelected != null)
-            {
-                Log.Instance.Information("TaskInputViewModel","add employee : "+ employeesIsSelected.Name);
-            }
-            employeesIsSelected = new Employee();
         }
 
         private void ExecuteGetSelectedEmployeeCommand(ListView listView)
         {
-            var selectedItems = listView.SelectedItem as Employee;
-            employeesIsSelected = selectedItems;
+            if(listView.SelectedItem != null)
+            {
+                var selectedItem = listView.SelectedItem as Employee;
+                EmployeeID = selectedItem.ID;
+            }       
         }
 
         private void SetAllComboBox()
