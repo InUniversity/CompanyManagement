@@ -8,8 +8,8 @@ namespace CompanyManagement.Models
     public class TimeKeeping
     {
         private string taskID = "";
-        private DateTime startTime = DateTime.Now;
-        private DateTime endTime = DateTime.Now;
+        private DateTime start = DateTime.Now;
+        private DateTime end = DateTime.Now;
         private string employeeeID = "";
         private string notes = "";
         private string createBy = "";
@@ -20,16 +20,16 @@ namespace CompanyManagement.Models
             set => taskID = value;
         }
 
-        public DateTime StartTime
+        public DateTime Start
         {
-            get => startTime;
-            set => startTime = value;
+            get => start;
+            set => start = value;
         }
 
-        public DateTime EndTime
+        public DateTime End
         {
-            get => endTime;
-            set => endTime = value;
+            get => end;
+            set => end = value;
         }
 
         public string EmployeeID
@@ -55,8 +55,8 @@ namespace CompanyManagement.Models
         public TimeKeeping(string taskID, DateTime startTime, DateTime endTime, string employeeeID, string notes, string createBy)
         {
             this.taskID = taskID;
-            this.startTime = startTime;
-            this.endTime = endTime;
+            this.start = startTime;
+            this.end = endTime;
             this.employeeeID = employeeeID;
             this.notes = notes;
             this.createBy = createBy;
@@ -67,8 +67,8 @@ namespace CompanyManagement.Models
             try
             {
                 taskID = (string)reader[BaseDao.TIME_KEEPING_TASK_ID];
-                startTime = reader.GetDateTime(reader.GetOrdinal(BaseDao.TIME_KEEPING_START_TIME));
-                endTime = reader.GetDateTime(reader.GetOrdinal(BaseDao.TIME_KEEPING_END_TIME));
+                start = reader.GetDateTime(reader.GetOrdinal(BaseDao.TIME_KEEPING_START_TIME));
+                end = reader.GetDateTime(reader.GetOrdinal(BaseDao.TIME_KEEPING_END_TIME));
                 employeeeID = (string)reader[BaseDao.TIME_KEEPING_EMPLOYEE_ID];
                 notes = (string)reader[BaseDao.TIME_KEEPING_NOTES];
                 createBy = (string)reader[BaseDao.TIME_KEEPING_CREATE_BY];

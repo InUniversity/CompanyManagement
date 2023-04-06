@@ -10,8 +10,8 @@ namespace CompanyManagement.Database
         {
             string sqlStr = $"INSERT INTO {TIME_KEEPING_TABLE} ({TIME_KEEPING_TASK_ID}, {TIME_KEEPING_START_TIME}, " +
                             $"{TIME_KEEPING_END_TIME}, {TIME_KEEPING_EMPLOYEE_ID}, {TIME_KEEPING_NOTES}, " +
-                            $"{TIME_KEEPING_CREATE_BY}) VALUES('{timeKeeping.TaskID}', '{timeKeeping.StartTime}', " +
-                            $"'{timeKeeping.EndTime}', '{timeKeeping.EmployeeID}', '{timeKeeping.Notes}', '{timeKeeping.CreateBy}')";
+                            $"{TIME_KEEPING_CREATE_BY}) VALUES('{timeKeeping.TaskID}', '{timeKeeping.Start}', " +
+                            $"'{timeKeeping.End}', '{timeKeeping.EmployeeID}', '{timeKeeping.Notes}', '{timeKeeping.CreateBy}')";
 
             dbConnection.ExecuteNonQuery(sqlStr);
         }
@@ -24,8 +24,8 @@ namespace CompanyManagement.Database
 
         public void Update(TimeKeeping timeKeeping)
         {
-            string sqlStr = $"UPDATE {TIME_KEEPING_TABLE} SET {TIME_KEEPING_START_TIME} = '{timeKeeping.StartTime}', " +
-                            $"{TIME_KEEPING_END_TIME} = '{timeKeeping.EndTime}', {TIME_KEEPING_EMPLOYEE_ID} = '{timeKeeping.EmployeeID}', " +
+            string sqlStr = $"UPDATE {TIME_KEEPING_TABLE} SET {TIME_KEEPING_START_TIME} = '{timeKeeping.Start}', " +
+                            $"{TIME_KEEPING_END_TIME} = '{timeKeeping.End}', {TIME_KEEPING_EMPLOYEE_ID} = '{timeKeeping.EmployeeID}', " +
                             $"{TIME_KEEPING_NOTES} = '{timeKeeping.Notes}', {TIME_KEEPING_CREATE_BY} = '{timeKeeping.CreateBy}' " +
                             $"WHERE {TIME_KEEPING_TASK_ID} = '{timeKeeping.TaskID}';";
             dbConnection.ExecuteNonQuery(sqlStr);
