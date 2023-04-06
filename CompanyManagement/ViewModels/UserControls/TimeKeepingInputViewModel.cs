@@ -51,8 +51,8 @@ namespace CompanyManagement.ViewModels.UserControls
         public void Retrieve(TimeKeeping timeKeeping)
         {
             TaskID = timeKeeping.TaskID;
-            Start = timeKeeping.StartTime;
-            End = timeKeeping.EndTime;
+            Start = timeKeeping.Start;
+            End = timeKeeping.End;
             EmployeeID = timeKeeping.EmployeeID;
             Notes = timeKeeping.Notes;
             CreateBy = timeKeeping.CreateBy;
