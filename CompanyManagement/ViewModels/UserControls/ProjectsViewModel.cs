@@ -31,11 +31,11 @@ namespace CompanyManagement.ViewModels.UserControls
         private Visibility visibleAddButton = Visibility.Collapsed;
         public Visibility VisibleAddButton { get => visibleAddButton; set { visibleAddButton = value; OnPropertyChanged(); } }
 
-        private Visibility visibleUpdateButton = Visibility.Collapsed;
-        public Visibility VisibleUpdateButton { get => visibleUpdateButton; set { visibleUpdateButton = value; OnPropertyChanged(); } }
-
         private Visibility visibleDeleteButton = Visibility.Collapsed;
         public Visibility VisibleDeleteButton { get => visibleDeleteButton; set { visibleDeleteButton = value; OnPropertyChanged(); } }
+
+        private Visibility visibleUpdateButton = Visibility.Collapsed;
+        public Visibility VisibleUpdateButton { get => visibleUpdateButton; set { visibleUpdateButton = value; OnPropertyChanged(); } }
 
         public ICommand OpenProjectInputCommand { get; set; }
         public ICommand DeleteProjectCommand { get; set; }
@@ -47,7 +47,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private ProjectDao projectDao;
         private ProjectAssignmentDao projectAssignmentDao;
-        private Employee currentEmployee = CurrentUser.Instance.CurrentEmployee;
+        private string currentEmployeeID = CurrentUser.Instance.CurrentEmployee.ID;
 
         public ProjectsViewModel()
         {
@@ -60,23 +60,30 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void LoadProjects()
         {
-            var employeeID = CurrentUser.Instance.CurrentAccount.EmployeeID;
-            List<Project> projects = string.Equals(currentEmployee.PositionID, Utils.POSITION_ID_EMPLOYEE) ?
-               projectAssignmentDao.SearchProjectByEmployeeID(employeeID)
-                : projectAssignmentDao.SearchProjectByCreatorID(employeeID);
+            List<Project> projects = CurrentUser.Instance.IsEmployee()
+                ? projectAssignmentDao.SearchProjectByEmployeeID(currentEmployeeID)
+                : projectAssignmentDao.SearchProjectByCreatorID(currentEmployeeID);
             Projects = projects;
         }
 
         private void SetVisible()
         {
-            if(!string.Equals(currentEmployee.PositionID, Utils.POSITION_ID_EMPLOYEE)) VisibilityCRUDCommands();
+            if (!CurrentUser.Instance.IsEmployee())
+            {
+                VisibilityCRUD();
+                VisibilityCRUDCommands();
+            }
+        }
+
+        private void VisibilityCRUD()
+        {
+            visibleAddButton = Visibility.Visible;
+            visibleDeleteButton = Visibility.Visible;
+            visibleUpdateButton = Visibility.Visible;
         }
 
         private void VisibilityCRUDCommands()
         {
-            visibleAddButton = Visibility.Visible;
-            visibleUpdateButton = Visibility.Visible;
-            visibleDeleteButton = Visibility.Visible;
             OpenProjectInputCommand = new RelayCommand<object>(OpenAddProjectDialog);
             DeleteProjectCommand = new RelayCommand<string>(ExecuteDeleteCommand);
             UpdateProjectCommand = new RelayCommand<Project>(OpenUpdateProjectDialog);

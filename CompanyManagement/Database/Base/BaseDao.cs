@@ -2,7 +2,9 @@ namespace CompanyManagement.Database.Base
 {
     public abstract class BaseDao
     {
-        public const string MANAGERIAL_POSITION_ID = "1";
+        public const string MANAGER_POS_ID = "1";
+        public const string DEPARTMENT_HEAD_POS_ID = "2";
+        public const string EMPLOYEE_POS_ID = "3";
 
         protected const string ACCOUNT_TABLE = "Account";
         public const string ACCOUNT_USERNAME = "account_username";
@@ -55,7 +57,7 @@ namespace CompanyManagement.Database.Base
         public const string TASK_PROGRESS = "progress";
         public const string TASK_EMPLOYEE_ID = "employee_id";
         public const string TASK_PROJECT_ID = "project_id";
-        public const string TASK_STATUS_ID = "task_status_id";
+        public const string TASK_STATUS_ID = "task_status_id";s
 
         protected const string TIME_KEEPING_TABLE = "TimeKeeping";
         public const string TIME_KEEPING_TASK_ID = "task_id";

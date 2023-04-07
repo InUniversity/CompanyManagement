@@ -1,13 +1,11 @@
 ﻿using System.Collections.Generic;
 using CompanyManagement.Models;
 using CompanyManagement.ViewModels.Base;
-using CompanyManagement.ViewModels.Dialogs;
 using CompanyManagement.Views.Dialogs;
 using System.Windows.Input;
 using CompanyManagement.Database;
 using CompanyManagement.ViewModels.Dialogs.Interfaces;
 using CompanyManagement.ViewModels.UserControls.Interfaces;
-using CompanyManagement.Utilities;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
@@ -16,7 +14,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private List<TimeKeeping> timeKeepingSet; 
         public List<TimeKeeping> TimeKeepingSet { get => timeKeepingSet; set { timeKeepingSet = value; OnPropertyChanged(); } }
-
+            
         public ICommand OpenTimeKeepingInputCommand { get; set; }
         public ICommand DeleteTimeKeepingCommand { get; set; }
         public ICommand UpdateTimeKeepingCommand { get; set; }
@@ -24,7 +22,7 @@ namespace CompanyManagement.ViewModels.UserControls
         private TimeKeepingDao timeKeepingDao;
 
         private string projectID = "";
-        private Employee currentEmployee = CurrentUser.Instance.CurrentEmployee;
+        private string currentEmployeeID = CurrentUser.Instance.CurrentEmployee.ID;
 
         public TimeKeepingViewModel()
         {
@@ -35,8 +33,8 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void LoadTimeKeeping()
         {
-            List<TimeKeeping> timeKeepingSet = string.Equals(currentEmployee.PositionID, Utils.POSITION_ID_EMPLOYEE) ?
-                timeKeepingDao.SearchByEmployeeID(projectID, currentEmployee.ID)
+            List<TimeKeeping> timeKeepingSet = CurrentUser.Instance.IsEmployee()
+                ? timeKeepingDao.SearchByEmployeeID(projectID, currentEmployeeID)
                 : timeKeepingDao.SearchByProjectID(projectID);
             TimeKeepingSet = timeKeepingSet;
         }

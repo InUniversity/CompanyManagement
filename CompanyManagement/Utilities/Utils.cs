@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Globalization;
 
 namespace CompanyManagement.Utilities
@@ -20,8 +19,6 @@ namespace CompanyManagement.Utilities
         private const string FORMAT_DATEONLY = "dd-MM-yyyy";
         private const string FORMAT_TIMEONLY = "hh:mm tt";
         private const string FORMAT_DATETIME = "dd-MM-yyyy hh:mm tt";
-
-        public const string POSITION_ID_EMPLOYEE = "3";
 
         public static DateOnly DateTimeToDateOnly(DateTime dateTime)
         {

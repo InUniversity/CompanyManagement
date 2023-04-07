@@ -8,7 +8,6 @@ using CompanyManagement.ViewModels.Base;
 using CompanyManagement.ViewModels.Dialogs.Interfaces;
 using CompanyManagement.ViewModels.UserControls.Interfaces;
 using System.Windows;
-using CompanyManagement.Utilities;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
@@ -21,11 +20,11 @@ namespace CompanyManagement.ViewModels.UserControls
         private Visibility visibleAddButton = Visibility.Collapsed;
         public Visibility VisibleAddButton { get => visibleAddButton; set { visibleAddButton = value; OnPropertyChanged(); } }
 
-        private Visibility visibleUpdateButton = Visibility.Visible;
-        public Visibility VisibleUpdateButton { get => visibleUpdateButton; set { visibleUpdateButton = value; OnPropertyChanged(); } }
-
         private Visibility visibleDeleteButton = Visibility.Collapsed;
         public Visibility VisibleDeleteButton { get => visibleDeleteButton; set { visibleDeleteButton = value; OnPropertyChanged(); } }
+
+        private Visibility visibleUpdateButton = Visibility.Visible;
+        public Visibility VisibleUpdateButton { get => visibleUpdateButton; set { visibleUpdateButton = value; OnPropertyChanged(); } }
 
         public ICommand OpenTaskInProjectInputCommand { get; set; }
         public ICommand DeleteTaskInProjectCommand { get; set; }
@@ -33,9 +32,9 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private TaskInProjectDao taskInProjectDao;
 
-        private Employee currentEmployee = CurrentUser.Instance.CurrentEmployee;
-
         private string projectID = "";
+
+        private string currentEmployeeID = CurrentUser.Instance.CurrentEmployee.ID;
 
         public TasksInProjectViewModel()
         {
@@ -47,21 +46,29 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void LoadTaskInProjects()
         {
-            List<TaskInProject> tasks = string.Equals(currentEmployee.PositionID, Utils.POSITION_ID_EMPLOYEE) ? 
-                taskInProjectDao.SearchByEmployeeID(projectID, currentEmployee.ID) 
+            List<TaskInProject> tasks = CurrentUser.Instance.IsEmployee()
+                ? taskInProjectDao.SearchByEmployeeID(projectID, currentEmployeeID) 
                 : taskInProjectDao.SearchByProjectID(projectID);
             TasksInProject = tasks;
         }
 
         private void SetVisible()
         {
-            if (!string.Equals(currentEmployee.PositionID, Utils.POSITION_ID_EMPLOYEE)) VisibilityCRUDCommand();
+            if (!CurrentUser.Instance.IsEmployee())
+            {
+                VisibilityCRUD();
+                VisibilityCRUDCommands();
+            }
         }
 
-        private void VisibilityCRUDCommand()
+        private void VisibilityCRUD()
         {
             visibleAddButton = Visibility.Visible;
             visibleDeleteButton = Visibility.Visible;
+        }
+
+        private void VisibilityCRUDCommands()
+        {
             OpenTaskInProjectInputCommand = new RelayCommand<TaskInProject>(OpenAddDialog);
             DeleteTaskInProjectCommand = new RelayCommand<string>(ExecuteDeleteCommand);
         }
@@ -86,8 +93,8 @@ namespace CompanyManagement.ViewModels.UserControls
         public void RetrieveProjectID(string projectID)
         {
             this.projectID = projectID;
-            List<TaskInProject> tasks = string.Equals(currentEmployee.PositionID, Utils.POSITION_ID_EMPLOYEE) ?
-                taskInProjectDao.SearchByEmployeeID(projectID, currentEmployee.ID)
+            List<TaskInProject> tasks = CurrentUser.Instance.IsEmployee()
+                ? taskInProjectDao.SearchByEmployeeID(projectID, currentEmployeeID)
                 : taskInProjectDao.SearchByProjectID(projectID);
             TasksInProject = tasks;
         }
