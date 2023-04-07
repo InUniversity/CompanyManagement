@@ -1,13 +1,14 @@
 using System.Windows.Controls;
 using CompanyManagement.ViewModels.UserControls;
 
-namespace CompanyManagement.Views.UserControls;
-
-public partial class EmployeeInputUC : UserControl
+namespace CompanyManagement.Views.UserControls
 {
-    public EmployeeInputUC()
+    public partial class EmployeeInputUC : UserControl
     {
-        InitializeComponent();
-        DataContext = new EmployeeInputViewModel();
+        public EmployeeInputUC()
+        {
+            InitializeComponent();
+            DataContext = new EmployeeInputViewModel();
+        }
     }
 }

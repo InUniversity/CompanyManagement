@@ -1,16 +1,17 @@
 ﻿using System.Windows.Controls;
 using CompanyManagement.ViewModels.UserControls;
 
-namespace CompanyManagement.Views.UserControls;
-
-/// <summary>
-///     Interaction logic for TasksInProjectUC.xaml
-/// </summary>
-public partial class TasksInProjectUC : UserControl
+namespace CompanyManagement.Views.UserControls
 {
-    public TasksInProjectUC()
+    /// <summary>
+    ///     Interaction logic for TasksInProjectUC.xaml
+    /// </summary>
+    public partial class TasksInProjectUC : UserControl
     {
-        InitializeComponent();
-        DataContext = new TasksInProjectViewModel();
+        public TasksInProjectUC()
+        {
+            InitializeComponent();
+            DataContext = new TasksInProjectViewModel();
+        }
     }
 }

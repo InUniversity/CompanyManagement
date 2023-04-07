@@ -139,7 +139,7 @@ namespace CompanyManagement.ViewModels.UserControls
             if (!string.IsNullOrEmpty(textToSearch))
             {
                 searchedItems = departmentsCanAssign
-                    .Where(item => item.Name.Contains(textToSearch, StringComparison.OrdinalIgnoreCase))
+                    .Where(item => item.Name.ToLower().Contains(textToSearch.ToLower()))
                     .ToList();
             }
             SearchedDepartmentsCanAssign = new ObservableCollection<Department>(searchedItems);

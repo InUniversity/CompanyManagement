@@ -1,16 +1,17 @@
 ﻿using CompanyManagement.ViewModels.Windows;
 using System.Windows;
 
-namespace CompanyManagement.Views.Windows;
-
-/// <summary>
-///     Interaction logic for MainWindow.xaml
-/// </summary>
-public partial class ManagerWindow : Window
+namespace CompanyManagement.Views.Windows
 {
-    public ManagerWindow()
+    /// <summary>
+    ///     Interaction logic for MainWindow.xaml
+    /// </summary>
+    public partial class ManagerWindow : Window
     {
-        InitializeComponent();
-        DataContext = new ManagerViewModel();
+        public ManagerWindow()
+        {
+            InitializeComponent();
+            DataContext = new ManagerViewModel();
+        }
     }
 }

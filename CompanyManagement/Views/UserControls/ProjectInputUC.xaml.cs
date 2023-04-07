@@ -1,17 +1,18 @@
 ﻿using System.Windows.Controls;
 using CompanyManagement.ViewModels.UserControls;
 
-namespace CompanyManagement.Views.UserControls;
-
-/// <summary>
-///     Interaction logic for ProjectInputUC.xaml
-/// </summary>
-public partial class ProjectInputUC : UserControl
+namespace CompanyManagement.Views.UserControls
 {
-    public ProjectInputUC()
+    /// <summary>
+    ///     Interaction logic for ProjectInputUC.xaml
+    /// </summary>
+    public partial class ProjectInputUC : UserControl
     {
-        InitializeComponent();
-        DataContext = new ProjectInputViewModel();
+        public ProjectInputUC()
+        {
+            InitializeComponent();
+            DataContext = new ProjectInputViewModel();
 
+        }
     }
 }

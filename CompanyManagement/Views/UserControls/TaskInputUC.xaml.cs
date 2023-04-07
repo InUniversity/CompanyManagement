@@ -1,16 +1,17 @@
 ﻿using System.Windows.Controls;
 using CompanyManagement.ViewModels.UserControls;
 
-namespace CompanyManagement.Views.UserControls;
-
-/// <summary>
-///     Interaction logic for TaskInputUC.xaml
-/// </summary>
-public partial class TaskInputUC : UserControl
+namespace CompanyManagement.Views.UserControls
 {
-    public TaskInputUC()
+    /// <summary>
+    ///     Interaction logic for TaskInputUC.xaml
+    /// </summary>
+    public partial class TaskInputUC : UserControl
     {
-        InitializeComponent();
-        DataContext = new TaskInputViewModel();
+        public TaskInputUC()
+        {
+            InitializeComponent();
+            DataContext = new TaskInputViewModel();
+        }
     }
 }

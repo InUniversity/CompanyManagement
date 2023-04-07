@@ -1,16 +1,17 @@
 ﻿using System.Windows;
 using CompanyManagement.ViewModels.Windows;
 
-namespace CompanyManagement.Views.Windows;
-
-/// <summary>
-///     Interaction logic for LoginWindow.xaml
-/// </summary>
-public partial class LoginWindow : Window
+namespace CompanyManagement.Views.Windows
 {
-    public LoginWindow()
+    /// <summary>
+    ///     Interaction logic for LoginWindow.xaml
+    /// </summary>
+    public partial class LoginWindow : Window
     {
-        InitializeComponent();
-        DataContext = new LoginViewModel();
+        public LoginWindow()
+        {
+            InitializeComponent();
+            DataContext = new LoginViewModel();
+        }
     }
 }
