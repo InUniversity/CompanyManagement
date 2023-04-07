@@ -57,7 +57,7 @@ namespace CompanyManagement.ViewModels.Windows
 
         private Window CreateWindow(string positionID)
         {
-            return string.Equals(positionID, BaseDao.MANAGERIAL_POSITION_ID)
+            return CurrentUser.Instance.IsManager()
                 ? new ManagerWindow()
                 : new EmployeeWindow();
         }

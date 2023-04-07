@@ -57,7 +57,7 @@ namespace CompanyManagement.Database.Base
         public const string TASK_PROGRESS = "progress";
         public const string TASK_EMPLOYEE_ID = "employee_id";
         public const string TASK_PROJECT_ID = "project_id";
-        public const string TASK_STATUS_ID = "task_status_id";s
+        public const string TASK_STATUS_ID = "task_status_id";
 
         protected const string TIME_KEEPING_TABLE = "TimeKeeping";
         public const string TIME_KEEPING_TASK_ID = "task_id";
@@ -72,7 +72,6 @@ namespace CompanyManagement.Database.Base
 
         protected const string TASK_STATUS_TABLE = "TaskStatus";
         public const string TASK_STATUS_NAME = "task_status_name";
-
 
         protected DBConnection dbConnection = new DBConnection();
     }
