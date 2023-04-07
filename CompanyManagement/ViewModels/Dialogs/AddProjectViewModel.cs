@@ -30,6 +30,7 @@ namespace CompanyManagement.ViewModels.Dialogs
             ParentDataContext.AddToDB(project);
             inputWindow.Close();
         }
+        
         public void Retrieve(object project)
         {
             ProjectInputDataContext.RetrieveProject(project as Project);

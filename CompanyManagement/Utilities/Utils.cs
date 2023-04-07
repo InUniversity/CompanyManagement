@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
-using System.Globalization;
 
 namespace CompanyManagement.Utilities
 {
@@ -11,7 +9,8 @@ namespace CompanyManagement.Utilities
         public const string INVALIDATE_PHONE_NUMBER_MESSAGE = "Số điện thoại không hợp lệ!!!";
         public const string INVALIDATE_BIRTHDAY_MESSAGE = "Ngày sinh không hợp lệ!!!";
         public const string INVALIDATE_IDENTIFY_CARD_MESSAGE = "CMND/CCCD không hợp lệ!!!";
-        public const string INVALIDATE_EMPTY_MESSAGE = "Các thông tin không được để trống!!!";
+        public const string INVALIDATE_EMPTY_MESSAGE = "Các thông tin có dấu (*) không được để trống!!!";
+        public const string INVALIDATE_TIMELINE = "Ngày bắt đầu phải lớn hơn ngày hiện tại và thời gian kết thúc phải lớn hơn ngày bắt đầu!!!";
         public const string EXIST_ID_MESSAGE = "ID đã tồn tại!!!";
         public const string EXIST_IDENTIFY_CARD_MESSAGE = "CMND/CCCD đã tồn tại!!!";
         public const string EXIST_PHONE_NUMBER_MESSAGE = "Số điện thoại đã tồn tại!!!";
@@ -20,28 +19,5 @@ namespace CompanyManagement.Utilities
         private const string FORMAT_DATEONLY = "dd-MM-yyyy";
         private const string FORMAT_TIMEONLY = "hh:mm tt";
         private const string FORMAT_DATETIME = "dd-MM-yyyy hh:mm tt";
-
-        public static DateOnly DateTimeToDateOnly(DateTime dateTime)
-        {
-            return new DateOnly(dateTime.Year, dateTime.Month, dateTime.Day);
-        }
-
-        public static TimeOnly TimeSpanToTimeOnly(TimeSpan timeSpan)
-        {
-            DateTime time = DateTime.Now.Add(timeSpan);
-            return StringToTimeOnly(DateTimeToString(time));
-        }
-
-        private static TimeOnly StringToTimeOnly(string timeStr)
-        {
-            TimeOnly result;
-            bool canParse = TimeOnly.TryParseExact(timeStr, FORMAT_TIMEONLY, CultureInfo.CurrentCulture, DateTimeStyles.None, out result);
-            return canParse ? result : TimeOnly.MinValue;
-        }
-        
-        private static string DateTimeToString(DateTime dateTime)
-        {
-            return dateTime.ToString(FORMAT_DATETIME);
-        }
     }
 }

@@ -9,6 +9,7 @@ using ProjectAssignmentDao = CompanyManagement.Database.ProjectAssignmentDao;
 using ProjectDao = CompanyManagement.Database.ProjectDao;
 using CompanyManagement.ViewModels.Dialogs.Interfaces;
 using CompanyManagement.ViewModels.UserControls.Interfaces;
+using CompanyManagement.Database.Base;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
@@ -48,8 +49,11 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void LoadProjects()
         {
-            var employeeID = CurrentUser.Instance.CurrentAccount.EmployeeID;
-            Projects = projectAssignmentDao.SearchProjectByEmployeeID(employeeID);;
+            var employee = CurrentUser.Instance.CurrentEmployee;
+            if (string.Equals(employee.PositionID, BaseDao.MANAGERIAL_POSITION_ID))
+                Projects = projectAssignmentDao.SearchProjectByCreatorID(employee.ID);
+            else
+                Projects = projectAssignmentDao.SearchProjectByEmployeeID(employee.ID); ;
         }
 
         private void SetCommands()
