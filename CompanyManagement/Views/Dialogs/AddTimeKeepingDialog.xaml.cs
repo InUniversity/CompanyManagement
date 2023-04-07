@@ -1,16 +1,17 @@
 ﻿using System.Windows;
 using CompanyManagement.ViewModels.Dialogs;
 
-namespace CompanyManagement.Views.Dialogs;
-
-/// <summary>
-/// Interaction logic for AddTimeKeepingDialog.xaml
-/// </summary>
-public partial class AddTimeKeepingDialog : Window
+namespace CompanyManagement.Views.Dialogs
 {
-    public AddTimeKeepingDialog()
+    /// <summary>
+    /// Interaction logic for AddTimeKeepingDialog.xaml
+    /// </summary>
+    public partial class AddTimeKeepingDialog : Window
     {
-        InitializeComponent();
-        DataContext = new AddTimeKeepingViewModel();
+        public AddTimeKeepingDialog()
+        {
+            InitializeComponent();
+            DataContext = new AddTimeKeepingViewModel();
+        }
     }
 }

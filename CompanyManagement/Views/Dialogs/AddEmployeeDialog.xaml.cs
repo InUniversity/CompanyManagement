@@ -1,16 +1,17 @@
 ﻿using System.Windows;
 using CompanyManagement.ViewModels.Dialogs;
 
-namespace CompanyManagement.Views.Dialogs;
-
-/// <summary>
-///     Interaction logic for EmployeeInputWindow.xaml
-/// </summary>
-public partial class AddEmployeeDialog : Window
+namespace CompanyManagement.Views.Dialogs
 {
-    public AddEmployeeDialog()
+    /// <summary>
+    ///     Interaction logic for EmployeeInputWindow.xaml
+    /// </summary>
+    public partial class AddEmployeeDialog : Window
     {
-        InitializeComponent();
-        DataContext = new AddEmployeeViewModel();
+        public AddEmployeeDialog()
+        {
+            InitializeComponent();
+            DataContext = new AddEmployeeViewModel();
+        }
     }
 }

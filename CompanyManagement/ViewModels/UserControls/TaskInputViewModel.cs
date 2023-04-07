@@ -122,7 +122,7 @@ namespace CompanyManagement.ViewModels.UserControls
             if (!string.IsNullOrEmpty(textToSearch))
             {
                 searchedItems = employees
-                    .Where(item => item.Name.Contains(textToSearch, StringComparison.OrdinalIgnoreCase))
+                    .Where(item => item.Name.ToLower().Contains(textToSearch.ToLower()))
                     .ToList();
             }       
             SearchedEmployeesCanAssign = new List<Employee>(searchedItems);

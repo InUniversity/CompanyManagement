@@ -1,16 +1,17 @@
 ﻿using System.Windows;
 using CompanyManagement.ViewModels.Dialogs;
 
-namespace CompanyManagement.Views.Dialogs;
-
-/// <summary>
-///     Interaction logic for AddProjectDialog.xaml
-/// </summary>
-public partial class AddProjectDialog : Window
+namespace CompanyManagement.Views.Dialogs
 {
-    public AddProjectDialog()
+    /// <summary>
+    ///     Interaction logic for AddProjectDialog.xaml
+    /// </summary>
+    public partial class AddProjectDialog : Window
     {
-        InitializeComponent();
-        DataContext = new AddProjectViewModel();
+        public AddProjectDialog()
+        {
+            InitializeComponent();
+            DataContext = new AddProjectViewModel();
+        }
     }
 }
