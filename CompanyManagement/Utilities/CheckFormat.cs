@@ -1,4 +1,5 @@
-﻿using System.Net.Mail;
+﻿using System;
+using System.Net.Mail;
 using System.Text.RegularExpressions;
 
 namespace CompanyManagement.Utilities
@@ -7,6 +8,7 @@ namespace CompanyManagement.Utilities
     {
         private const int IDENTIFY_CARD_LENGTH = 12;
         private const int PASSWORD_MINIMUM_LENGTH = 8;
+        private const int AGE_MINIMUM = 18;
 
         public static bool ValidateEmail(string email)
         {
@@ -35,6 +37,28 @@ namespace CompanyManagement.Utilities
         public static bool ValidatePassword(string password)
         {
             return password.Length >= PASSWORD_MINIMUM_LENGTH;
+        }
+
+        public static bool ValidateBirthday(DateTime birthday)
+        {
+            DateTime today = DateTime.Now;
+            int age = today.Year - birthday.Year;
+            if (age < AGE_MINIMUM)
+                return false;
+            if (age > AGE_MINIMUM)
+                return true;
+            if (birthday.Month > today.Month)
+                return false;
+            if (birthday.Month < today.Month)
+                return true;
+            if (birthday.Day > today.Day)
+                return false;
+            return true;
+        }
+
+        public static bool ValidateTimeline(DateTime start, DateTime end)
+        {
+            return start >= DateTime.Now && start <= end;
         }
     }
 }

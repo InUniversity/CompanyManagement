@@ -93,8 +93,7 @@ namespace CompanyManagement.ViewModels.UserControls
                 ErrorMessage = Utils.INVALIDATE_EMPTY_MESSAGE;
                 return false;
             }
-            int age = Birthday.Year - DateOnly.FromDateTime(DateTime.Now).Year;
-            if (age < 18 || (age == 18 && (Birthday.Month)<(DateOnly.FromDateTime(DateTime.Now).Month)))
+            if (!CheckFormat.ValidateBirthday(Birthday))
             {
                 ErrorMessage = Utils.INVALIDATE_BIRTHDAY_MESSAGE;
                 return false;
@@ -132,8 +131,6 @@ namespace CompanyManagement.ViewModels.UserControls
 
         public void Retrieve(Employee employee)
         {
-            if (employee == null) 
-                return;
             ID = employee.ID;
             Name = employee.Name;
             Gender = employee.Gender;

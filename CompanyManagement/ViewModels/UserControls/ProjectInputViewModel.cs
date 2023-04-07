@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 using CompanyManagement.Models;
 using CompanyManagement.ViewModels.Base;
 using System.Linq;
 using System.Windows.Controls;
 using CompanyManagement.Database;
+using CompanyManagement.Utilities;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
@@ -47,16 +49,16 @@ namespace CompanyManagement.ViewModels.UserControls
         private string errorMessage = "";
         public string ErrorMessage { get => errorMessage; set { errorMessage = value; OnPropertyChanged(); } }
 
-        private List<Department> departmentsInProject;
-        public List<Department> DepartmentsInProject { get => departmentsInProject; set { departmentsInProject = value; OnPropertyChanged(); } }
+        private ObservableCollection<Department> departmentsInProject;
+        public ObservableCollection<Department> DepartmentsInProject { get => departmentsInProject; set => departmentsInProject = value; }
 
         private List<Department> departmentsCanAssign;
         
-        private List<Department> searchedDepartmentsCanAssign;
-        public List<Department> SearchedDepartmentsCanAssign { get => searchedDepartmentsCanAssign; set { searchedDepartmentsCanAssign = value; OnPropertyChanged(); } }
+        private ObservableCollection<Department> searchedDepartmentsCanAssign;
+        public ObservableCollection<Department> SearchedDepartmentsCanAssign { get => searchedDepartmentsCanAssign; set => searchedDepartmentsCanAssign = value; }
 
         private List<Department> departmentsIsSelected;
-        public List<Department> DepartmentsIsSelected { get => departmentsIsSelected; set { departmentsIsSelected = value; OnPropertyChanged(); } }
+        public List<Department> DepartmentsIsSelected { get => departmentsIsSelected; set => departmentsIsSelected = value; }
 
         private string textToSearch = "";
         public string TextToSearch { get => textToSearch; set { textToSearch = value; OnPropertyChanged(); SearchByName(); } }
@@ -81,13 +83,15 @@ namespace CompanyManagement.ViewModels.UserControls
         private void LoadDepartmentsInProject(string projectID)
         {
             var departments = projectAssignmentDao.GetAllDepartmentInProject(projectID);
-            DepartmentsInProject = departments;
+            DepartmentsInProject = new ObservableCollection<Department>(departments);
         }
 
         private void LoadDepartmentsCanAssign(Project project)
         {
             departmentsCanAssign = projectAssignmentDao.GetDepartmentsCanAssignWork(project);
-            SearchedDepartmentsCanAssign = departmentsCanAssign;
+            Log.Instance.Information(nameof(ProjectInputViewModel), $"{project.ID}");
+            Log.Instance.Information(nameof(ProjectInputViewModel), $"{departmentsCanAssign.Count.ToString()}");
+            SearchedDepartmentsCanAssign = new ObservableCollection<Department>(departmentsCanAssign);
         }
 
         private void SetCommands()
@@ -138,7 +142,7 @@ namespace CompanyManagement.ViewModels.UserControls
                     .Where(item => item.Name.Contains(textToSearch, StringComparison.OrdinalIgnoreCase))
                     .ToList();
             }
-            SearchedDepartmentsCanAssign = new List<Department>(searchedItems);
+            SearchedDepartmentsCanAssign = new ObservableCollection<Department>(searchedItems);
         }
 
         public Project CreateProjectInstance()
@@ -151,12 +155,12 @@ namespace CompanyManagement.ViewModels.UserControls
             ErrorMessage = "";
             if (string.IsNullOrWhiteSpace(Name))
             {
-                ErrorMessage = "Tên không được để trống!!!";
+                ErrorMessage = Utils.INVALIDATE_EMPTY_MESSAGE;
                 return false;
             }
-            if (End < start)
+            if (CheckFormat.ValidateTimeline(Start, End))
             {
-                ErrorMessage = "Thời gian kết thúc phải lớn hơn ngày bắt đầu!!!";
+                ErrorMessage = Utils.INVALIDATE_TIMELINE;
                 return false;
             }
             return true;

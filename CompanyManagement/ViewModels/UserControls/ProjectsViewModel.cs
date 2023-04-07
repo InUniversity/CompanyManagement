@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Input;
+using CompanyManagement.Database.Base;
 using CompanyManagement.Views.Dialogs;
 using CompanyManagement.Models;
 using CompanyManagement.ViewModels.Base;
@@ -9,7 +11,6 @@ using ProjectAssignmentDao = CompanyManagement.Database.ProjectAssignmentDao;
 using ProjectDao = CompanyManagement.Database.ProjectDao;
 using CompanyManagement.ViewModels.Dialogs.Interfaces;
 using CompanyManagement.ViewModels.UserControls.Interfaces;
-using System.Windows;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
@@ -151,7 +152,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void ItemClicked(object obj)
         {
-            if(selectedProject != null) 
+            if (selectedProject != null) 
             {
                 ProjectDetailsDataContext.RetrieveProjectID(SelectedProject.ID);
                 ParentDataContext.MoveToProjectDetailsView();
