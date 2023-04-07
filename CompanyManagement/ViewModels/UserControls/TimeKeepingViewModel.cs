@@ -7,6 +7,7 @@ using System.Windows.Input;
 using CompanyManagement.Database;
 using CompanyManagement.ViewModels.Dialogs.Interfaces;
 using CompanyManagement.ViewModels.UserControls.Interfaces;
+using CompanyManagement.Utilities;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
@@ -23,6 +24,7 @@ namespace CompanyManagement.ViewModels.UserControls
         private TimeKeepingDao timeKeepingDao;
 
         private string projectID = "";
+        private Employee currentEmployee = CurrentUser.Instance.CurrentEmployee;
 
         public TimeKeepingViewModel()
         {
@@ -33,7 +35,10 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void LoadTimeKeeping()
         {
-            TimeKeepingSet = timeKeepingDao.SearchByProjectID(projectID);
+            List<TimeKeeping> timeKeepingSet = string.Equals(currentEmployee.PositionID, Utils.POSITION_ID_EMPLOYEE) ?
+                timeKeepingDao.SearchByEmployeeID(projectID, currentEmployee.ID)
+                : timeKeepingDao.SearchByProjectID(projectID);
+            TimeKeepingSet = timeKeepingSet;
         }
 
         private void SetCommands()

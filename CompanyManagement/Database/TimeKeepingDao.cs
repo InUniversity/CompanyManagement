@@ -52,5 +52,13 @@ namespace CompanyManagement.Database
                             $"(SELECT {TASK_ID} FROM {TASK_TABLE} WHERE {TASK_PROJECT_ID}='{projectID}')";
             return dbConnection.GetList(sqlStr, reader => new TimeKeeping(reader));
         }
+
+        public List<TimeKeeping> SearchByEmployeeID(string projectID, string employeeID)
+        {
+            string sqlStr = $"SELECT * FROM {TIME_KEEPING_TABLE} WHERE {TIME_KEEPING_TASK_ID} IN" +
+                            $"(SELECT {TASK_ID} FROM {TASK_TABLE} WHERE {TASK_PROJECT_ID}='{projectID}' " +
+                            $"AND {TASK_EMPLOYEE_ID} = '{employeeID}')";
+            return dbConnection.GetList(sqlStr, reader => new TimeKeeping(reader));
+        }
     }
 }

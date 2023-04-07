@@ -32,13 +32,15 @@
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
                                         <Button
-                                    Command="{Binding DataContext.UpdateTaskInProjectCommand, ElementName=tasksInProjectUC}"
-                                    CommandParameter="{Binding}">
+                                            Visibility="{Binding DataContext.VisibleUpdateButton, ElementName=tasksInProjectUC}"
+                                            Command="{Binding DataContext.UpdateTaskInProjectCommand, ElementName=tasksInProjectUC}"
+                                            CommandParameter="{Binding}">
                                             <materialDesign:PackIcon Kind="PencilOutline" />
                                         </Button>
                                         <Button Margin="5 0 0 0"
-                                        Command="{Binding DataContext.DeleteTaskInProjectCommand, ElementName=tasksInProjectUC}"
-                                        CommandParameter="{Binding ID}">
+                                            Visibility="{Binding DataContext.VisibleDeleteButton, ElementName=tasksInProjectUC}"
+                                            Command="{Binding DataContext.DeleteTaskInProjectCommand, ElementName=tasksInProjectUC}"
+                                            CommandParameter="{Binding ID}">
                                             <materialDesign:PackIcon Kind="DeleteOutline" />
                                         </Button>
                                     </StackPanel>
@@ -62,6 +64,7 @@
             Command="{Binding OpenTaskInProjectInputCommand}"
             HorizontalAlignment="Right"
             VerticalAlignment="Bottom"
+            Visibility="{Binding DataContext.VisibleAddButton, ElementName=tasksInProjectUC}"
             Content="{materialDesign:PackIcon Kind=Plus , Size=30}"
             Style="{StaticResource MaterialDesignFloatingActionButton}" />
             </Grid>

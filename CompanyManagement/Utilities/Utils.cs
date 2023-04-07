@@ -21,6 +21,8 @@ namespace CompanyManagement.Utilities
         private const string FORMAT_TIMEONLY = "hh:mm tt";
         private const string FORMAT_DATETIME = "dd-MM-yyyy hh:mm tt";
 
+        public const string POSITION_ID_EMPLOYEE = "3";
+
         public static DateOnly DateTimeToDateOnly(DateTime dateTime)
         {
             return new DateOnly(dateTime.Year, dateTime.Month, dateTime.Day);
