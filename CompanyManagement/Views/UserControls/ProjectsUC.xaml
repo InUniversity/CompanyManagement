@@ -38,23 +38,24 @@
                             </Style.Triggers>
                         </Style>
                     </ListView.ItemContainerStyle>
-                    <ListView.ItemTemplate>
+                    <ListView.ItemTemplate> 
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
                                 <Button
+                                    Visibility="{Binding DataContext.VisibleUpdateButton, ElementName=projectsUC}"
                                     Height="50"
                                     Width="50"
                                     Margin="10 10"
                                     Background="LightCyan"
                                     Command="{Binding ElementName=projectsUC,Path=DataContext.UpdateProjectCommand}"
                                     CommandParameter="{Binding}"
-                                    IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                    IsEnabled="{Binding ControlsEnabled}"
                                     Style="{StaticResource MaterialDesignIconForegroundButton}"
                                     ToolTip="Edit">
                                     <materialDesign:PackIcon Kind="PencilPlus" />
                                 </Button>
-
                                 <Button
+                                    Visibility="{Binding DataContext.VisibleDeleteButton, ElementName=projectsUC}"
                                     Height="50"
                                     Width="50"
                                     Margin="10 10"
@@ -66,7 +67,6 @@
                                     ToolTip="Delete">
                                     <materialDesign:PackIcon Kind="DeleteForever" />
                                 </Button>
-
                                 <TextBlock Margin="30 10" HorizontalAlignment="Center" VerticalAlignment="Center"
                                            Text="{Binding Name}" FontSize="22" />
                             </StackPanel>
@@ -80,6 +80,7 @@
                     HorizontalAlignment="Right"
                     VerticalAlignment="Bottom"
                     ToolTip="Thêm dự án mới"
+                    Visibility="{Binding DataContext.VisibleAddButton, ElementName=projectsUC}"
                     Command="{Binding ElementName=projectsUC,Path=DataContext.OpenProjectInputCommand}"
                     Content="{materialDesign:PackIcon Kind=Plus, Size=30}"
                     Style="{StaticResource MaterialDesignFloatingActionMiniSecondaryButton}" />

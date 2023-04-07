@@ -1,4 +1,6 @@
-﻿namespace CompanyManagement.Models
+﻿using CompanyManagement.Database.Base;
+
+namespace CompanyManagement.Models
 {
     public class CurrentUser
     {
@@ -34,6 +36,21 @@
         {
             account = new Account();
             employee = new Employee();
+        }
+        
+        public bool IsEmployee()
+        {
+            return string.Equals(this.CurrentEmployee.PositionID, BaseDao.EMPLOYEE_POS_ID);
+        }
+
+        public bool IsManager()
+        {
+            return string.Equals(this.CurrentEmployee.PositionID, BaseDao.MANAGER_POS_ID);
+        }
+
+        public bool IsDepartmentHead()
+        {
+            return string.Equals(this.CurrentEmployee.PositionID, BaseDao.DEPARTMENT_HEAD_POS_ID);
         }
     }
 }
