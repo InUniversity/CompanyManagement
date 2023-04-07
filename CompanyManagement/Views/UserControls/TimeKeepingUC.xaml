@@ -12,7 +12,7 @@
             Name="timeKeepingUC"
             FontFamily="{DynamicResource MaterialDesignFont}" 
             mc:Ignorable="d">
-    <Grid MinHeight="600" MinWidth="1000">
+    <Grid MinHeight="600" MinWidth="1100">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
@@ -20,20 +20,42 @@
         <materialDesign:ColorZone Grid.Row="0" Height="50" Background="White">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button  Style="{StaticResource MaterialDesignIconButton}">
-                    <materialDesign:PackIcon Kind="ChevronLeft" />
+                    <materialDesign:PackIcon Kind="ChevronLeft"  Width="20" Height="20" />
                 </Button>
-                <Button  Style="{StaticResource MaterialDesignIconButton}">
-                    <materialDesign:PackIcon Kind="CalendarBlankOutline" />
-                </Button>
-                <TextBlock Text="..." VerticalAlignment="Center"></TextBlock>
-                <Button  Style="{StaticResource MaterialDesignIconButton}">
-                    <materialDesign:PackIcon Kind="ChevronRight" />
-                </Button>
+                <materialDesign:DialogHost CloseOnClickAway="True" >
+                    <materialDesign:DialogHost.DialogContent>
+                        <StackPanel Width="300" Height="400">
+                            <Calendar Name="calendarTimekeeping" ></Calendar>
+                            <StackPanel Orientation="Horizontal">
+                                <Button Margin="10"
+                                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                                    CommandParameter="0"
+                                    Content="CANCEL"
+                                    Style="{StaticResource MaterialDesignFlatButton}" />
+                                <Button
+                                    Margin="10"
+                                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                                    CommandParameter="1"
+                                    Content="OK"
+                                    Style="{StaticResource MaterialDesignFlatButton}" />
+                            </StackPanel>
+                        </StackPanel>
+                    </materialDesign:DialogHost.DialogContent>
+                    <StackPanel Orientation="Horizontal">
+                        <Button  Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" Style="{StaticResource MaterialDesignIconButton}" >
+                            <materialDesign:PackIcon Kind="CalendarBlankOutline" Width="20" Height="20"/>
+                        </Button>
+                        <TextBox Width="100" Height="25" Text="{Binding ElementName=calendarTimekeeping ,Path=SelectedDate}"></TextBox>
+                        <Button  Style="{StaticResource MaterialDesignIconButton}">
+                            <materialDesign:PackIcon Kind="ChevronRight"  Width="20" Height="20" />
+                        </Button>
+                    </StackPanel>
+                </materialDesign:DialogHost>
             </StackPanel>
         </materialDesign:ColorZone>
         <ListView Grid.Row="1">
             <DataGrid   
-                MinWidth="1000"
+                MinWidth="1100"
                 MinHeight="600"
                 CanUserAddRows="False"
                 AutoGenerateColumns="False"
