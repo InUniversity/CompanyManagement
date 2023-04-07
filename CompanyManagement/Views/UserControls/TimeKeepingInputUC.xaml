@@ -18,49 +18,61 @@
             Text="{Binding TaskID, UpdateSourceTrigger=PropertyChanged}"
             Background="White"
             Margin="20 10"
-            IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedTextBoxEnabledComboBox}"
+            IsEnabled="False"  
             Style="{StaticResource MaterialDesignOutlinedTextBox}"
-            materialDesign:HintAssist.Hint="Mã dự án" />
-            <materialDesign:TimePicker
-                SelectedTime="{Binding Start}"
-                Height="50"
-                Margin="20 10"
-                Width="540"
-                HorizontalAlignment="Left"
-                materialDesign:HintAssist.Hint="Giờ bắt đầu nhiệm vụ"
-                Is24Hours="True"
-                Style="{StaticResource MaterialDesignOutlinedTimePicker}" />
-            <materialDesign:TimePicker
-                SelectedTime="{Binding End}"
-                Height="50"
-                Margin="20 10"
-                Width="540"
-                HorizontalAlignment="Left"
-                materialDesign:HintAssist.Hint="Giờ kết thúc nhiệm vụ"
-                Is24Hours="True"
-                Style="{StaticResource MaterialDesignOutlinedTimePicker}" />
-            <TextBox
-                Text="{Binding EmployeeID, UpdateSourceTrigger=PropertyChanged}"
-                Background="White"
-                Margin="20 10"
-                IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedTextBoxEnabledComboBox}"
-                Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                materialDesign:HintAssist.Hint="Mã nhân viên" />
-            <TextBox
-                Text="{Binding Notes, UpdateSourceTrigger=PropertyChanged}"
-                Background="White"
-                Margin="20 10"
-                IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedTextBoxEnabledComboBox}"
-                Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                materialDesign:HintAssist.Hint="Ghi chú" />
+            materialDesign:HintAssist.Hint="Mã tác vụ" />
             <TextBox
                 Text="{Binding CreateBy, UpdateSourceTrigger=PropertyChanged}"
                 Background="White"
                 Margin="20 10"
-                IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedTextBoxEnabledComboBox}"
+                IsEnabled="False"                    
                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                materialDesign:HintAssist.Hint="Người tạo" />
+                materialDesign:HintAssist.Hint="Người tạo"/>
+            <TextBox
+                Text="{Binding EmployeeID, UpdateSourceTrigger=PropertyChanged}"
+                Background="White"
+                Margin="20 10"
+                IsEnabled="False"
+                Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                materialDesign:HintAssist.Hint="Mã nhân viên" />
+            <Grid Height="60" Margin="20 10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <materialDesign:TimePicker
+                            Grid.Column="0"
+                            SelectedTime="{Binding Start}"
+                            Height="50"          
+                            Width="250"
+                            Margin="0 0 10 0"
+                            HorizontalAlignment="Left"
+                            materialDesign:HintAssist.Hint="Giờ bắt đầu nhiệm vụ"
+                            Is24Hours="True"
+                            Style="{StaticResource MaterialDesignOutlinedTimePicker}" />
+                <materialDesign:TimePicker
+                            Grid.Column="1"
+                            SelectedTime="{Binding End}"
+                            Height="50"
+                            Width="250"
+                            Margin="10 0 0 0"
+                            HorizontalAlignment="Left"
+                            materialDesign:HintAssist.Hint="Giờ kết thúc nhiệm vụ"
+                            Is24Hours="True"
+                            Style="{StaticResource MaterialDesignOutlinedTimePicker}" />
+            </Grid>
+            
+            
+            <TextBox
+                Height="60"
+                Text="{Binding Notes, UpdateSourceTrigger=PropertyChanged}"
+                Background="White"
+                Margin="20 10"            
+                Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                materialDesign:HintAssist.Hint="Ghi chú" />
+            
             <TextBlock Text="{Binding ErrorMessage}" 
+                       Height="50"
                        HorizontalAlignment="Center" 
                        VerticalAlignment="Center"
                        Foreground="Red" />

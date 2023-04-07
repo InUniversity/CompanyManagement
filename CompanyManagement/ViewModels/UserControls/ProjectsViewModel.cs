@@ -151,8 +151,11 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void ItemClicked(object obj)
         {
-            ProjectDetailsDataContext.RetrieveProjectID(SelectedProject.ID);
-            ParentDataContext.MoveToProjectDetailsView();
+            if(selectedProject != null) 
+            {
+                ProjectDetailsDataContext.RetrieveProjectID(SelectedProject.ID);
+                ParentDataContext.MoveToProjectDetailsView();
+            }
         }
     }
 }

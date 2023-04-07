@@ -7,7 +7,7 @@
         WindowStartupLocation="CenterScreen"
         mc:Ignorable="d"
         x:Name="addTimeKeepingWindow"
-        Title="TimeKeepingInputWindow" Height="700" Width="600">
+        Title="TimeKeepingInputWindow" Height="600" Width="600">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
