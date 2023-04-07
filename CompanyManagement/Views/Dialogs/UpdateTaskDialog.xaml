@@ -24,11 +24,11 @@
             <Button Style="{StaticResource MaterialDesignFlatSecondaryMidBgButton}"
                     Height="50"
                     Command="{Binding UpdateTaskCommand}"
-                    CommandParameter="{Binding ElementName = updateProjectDialog}"
+                    CommandParameter="{Binding ElementName = updateTaskDialog}"
                     ToolTip="Thêm"
                     IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType = Window}}"
                     Margin="100 10">
-                <materialDesign:PackIcon Kind="Plus" />
+                <materialDesign:PackIcon Kind="Pencil" />
             </Button>
         </StackPanel>
     </Grid>
