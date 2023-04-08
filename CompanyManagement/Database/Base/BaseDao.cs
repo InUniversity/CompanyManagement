@@ -1,3 +1,5 @@
+using System.Configuration.Internal;
+
 namespace CompanyManagement.Database.Base
 {
     public abstract class BaseDao
@@ -71,6 +73,17 @@ namespace CompanyManagement.Database.Base
         protected const string TASK_STATUS_TABLE = "TaskStatus";
         public const string TASK_STATUS_NAME = "task_status_name";
 
+        protected const string CHECK_IN_TABLE = "CheckIn";
+        public const string CHECK_IN_DATE = "check_date";
+        public const string CHECK_IN_EMPLOYEE_ID = "employee_id";
+        public const string CHECK_IN_TIME = "check_int_time";
+
+        protected const string CHECK_OUT_TABLE = "CheckIn";
+        public const string CHECK_OUT_DATE = "check_date";
+        public const string CHECK_OUT_EMPLOYEE_ID = "employee_id";
+        public const string CHECK_OUT_TASK_ID = "task_id";
+        public const string CHECK_OUT_TASK_PROGRESS = "progress";
+        public const string CHECK_OUT_TIME = "check_out_time";
 
         protected DBConnection dbConnection = new DBConnection();
     }

@@ -95,6 +95,20 @@ CREATE TABLE TimeKeeping(
 	create_by varchar(20)
 );
 GO
+CREATE TABLE CheckIn(
+	check_date datetime,
+	employee_id varchar(20),
+	check_in_time datetime
+);
+GO
+CREATE TABLE CheckOut(
+	check_date datetime,
+	employee_id varchar(20),
+	task_id varchar(20),
+	progress int,
+	check_out_time datetime
+)
+GO
 INSERT INTO Position(position_id, position_name)
 VALUES	
 ('1', N'Quản lý'),
