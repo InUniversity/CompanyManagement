@@ -19,50 +19,29 @@
         </Grid.RowDefinitions>
         <materialDesign:ColorZone Grid.Row="0" Height="50" Background="White">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button  Style="{StaticResource MaterialDesignIconButton}">
+                <Button Command="{Binding BackTimeKeepingDate}" 
+                        Style="{StaticResource MaterialDesignIconButton}">
                     <materialDesign:PackIcon Kind="ChevronLeft"  Width="20" Height="20" />
                 </Button>
-                <materialDesign:DialogHost CloseOnClickAway="True" >
-                    <materialDesign:DialogHost.DialogContent>
-                        <StackPanel Width="300" Height="400">
-                            <Calendar Name="calendarTimekeeping" ></Calendar>
-                            <StackPanel Orientation="Horizontal">
-                                <Button Margin="10"
-                                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
-                                    CommandParameter="0"
-                                    Content="CANCEL"
-                                    Style="{StaticResource MaterialDesignFlatButton}" />
-                                <Button
-                                    Margin="10"
-                                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
-                                    CommandParameter="1"
-                                    Content="OK"
-                                    Style="{StaticResource MaterialDesignFlatButton}" />
-                            </StackPanel>
-                        </StackPanel>
-                    </materialDesign:DialogHost.DialogContent>
-                    <StackPanel Orientation="Horizontal">
-                        <Button  Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" Style="{StaticResource MaterialDesignIconButton}" >
-                            <materialDesign:PackIcon Kind="CalendarBlankOutline" Width="20" Height="20"/>
-                        </Button>
-                        <TextBox Width="100" Height="25" Text="{Binding ElementName=calendarTimekeeping ,Path=SelectedDate}"></TextBox>
-                        <Button  Style="{StaticResource MaterialDesignIconButton}">
-                            <materialDesign:PackIcon Kind="ChevronRight"  Width="20" Height="20" />
-                        </Button>
-                    </StackPanel>
-                </materialDesign:DialogHost>
+                <DatePicker
+                  Name="LocaleDatePickerRTL"
+                  Width="80"                
+                  SelectedDate="{Binding ElementName=timeKeepingUC,Path=DataContext.TimeKeepingDateSelected,UpdateSourceTrigger=PropertyChanged}"
+                  FlowDirection="RightToLeft" />
+                <Button Command="{Binding NextTimeKeepingDate}" 
+                        Style="{StaticResource MaterialDesignIconButton}">
+                    <materialDesign:PackIcon Kind="ChevronRight"  Width="20" Height="20" />
+                </Button>
             </StackPanel>
         </materialDesign:ColorZone>
-        <ListView Grid.Row="1">
+        <Border Grid.Row="1">
             <DataGrid   
                 MinWidth="1100"
-                MinHeight="600"
+                MinHeight="550"               
                 CanUserAddRows="False"
                 AutoGenerateColumns="False"
                 Background="White"
-                ItemsSource="{Binding TimeKeepingSet}"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center">
+                ItemsSource="{Binding TimeKeepingSet}">
                 <DataGrid.Columns>
                     <DataGridTemplateColumn Header="Operations" 
                                             CanUserResize="False" 
@@ -86,14 +65,14 @@
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                     <DataGridTextColumn Width="125" Header="Mã nhiệm vụ" IsReadOnly="True" Binding="{Binding TaskID}" />
-                    <DataGridTextColumn Width="150" Header="Ngày bắt đầu" IsReadOnly="True" Binding="{Binding Start, StringFormat='HH:mm tt'}" />
-                    <DataGridTextColumn Width="150" Header="Ngày kết thúc" IsReadOnly="True" Binding="{Binding End, StringFormat='HH:mm tt'}" />
+                    <DataGridTextColumn Width="150" Header="Giờ bắt đầu" IsReadOnly="True" Binding="{Binding Start, StringFormat='HH:mm tt'}" />
+                    <DataGridTextColumn Width="150" Header="Giờ kết thúc" IsReadOnly="True" Binding="{Binding End, StringFormat='HH:mm tt'}" />
                     <DataGridTextColumn Width="120" Header="Mã nhân viên" IsReadOnly="True" Binding="{Binding EmployeeID}" />
                     <DataGridTextColumn Width="250" Header="Ghi chú" IsReadOnly="True" Binding="{Binding Notes}" />
                     <DataGridTextColumn Width="130" Header="Người tạo" IsReadOnly="True" Binding="{Binding CreateBy}" />
                 </DataGrid.Columns>
             </DataGrid>
-        </ListView>
+        </Border>
         <Button
             ToolTip="Thêm bảng chấm công mới"
             Grid.Row="1"

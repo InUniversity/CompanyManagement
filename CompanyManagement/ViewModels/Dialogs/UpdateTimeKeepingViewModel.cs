@@ -18,7 +18,7 @@ namespace CompanyManagement.ViewModels.Dialogs
 
         public UpdateTimeKeepingViewModel()
         {
-            TimeKeepingInputDataContext = new TimeKeepingInputViewModel();
+            TimeKeepingInputDataContext = new TimeKeepingInputViewModel() { InformationLockStatus=false};
             UpdateTimeKeepingCommand = new RelayCommand<Window>(UpdateCommand);
         }
 

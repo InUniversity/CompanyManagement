@@ -6,6 +6,12 @@ using System.Windows.Input;
 using CompanyManagement.Database;
 using CompanyManagement.ViewModels.Dialogs.Interfaces;
 using CompanyManagement.ViewModels.UserControls.Interfaces;
+using System;
+using System.Linq;
+using System.Globalization;
+using System.Collections.ObjectModel;
+using System.Windows.Controls;
+using CompanyManagement.Utilities;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
@@ -14,10 +20,17 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private List<TimeKeeping> timeKeepingSet; 
         public List<TimeKeeping> TimeKeepingSet { get => timeKeepingSet; set { timeKeepingSet = value; OnPropertyChanged(); } }
-            
+
+        private DateTime timeKeepingDateSelected;
+        public DateTime TimeKeepingDateSelected { get => timeKeepingDateSelected; set { timeKeepingDateSelected = value; OnPropertyChanged(); FilterDate(); } }
+
+       
+
         public ICommand OpenTimeKeepingInputCommand { get; set; }
         public ICommand DeleteTimeKeepingCommand { get; set; }
         public ICommand UpdateTimeKeepingCommand { get; set; }
+        public ICommand NextTimeKeepingDate { get; set; }
+        public ICommand BackTimeKeepingDate { get; set; }
 
         private TimeKeepingDao timeKeepingDao;
 
@@ -26,11 +39,11 @@ namespace CompanyManagement.ViewModels.UserControls
 
         public TimeKeepingViewModel()
         {
+            timeKeepingDateSelected = DateTime.Now;
             timeKeepingDao = new TimeKeepingDao();
-            LoadTimeKeeping();
             SetCommands();
         }
-
+        
         private void LoadTimeKeeping()
         {
             List<TimeKeeping> timeKeepingSet = CurrentUser.Instance.IsEmployee()
@@ -38,12 +51,33 @@ namespace CompanyManagement.ViewModels.UserControls
                 : timeKeepingDao.SearchByProjectID(projectID);
             TimeKeepingSet = timeKeepingSet;
         }
-
+        private void FilterDate()
+        {
+            LoadTimeKeeping();
+            var allItem = TimeKeepingSet;
+            Log.Instance.Information("Timkeeping","selected date = "+ timeKeepingDateSelected.ToShortDateString());
+            allItem = TimeKeepingSet
+                    .Where(item => item.Start.ToShortDateString() == timeKeepingDateSelected.ToShortDateString())
+                    .ToList();
+            TimeKeepingSet = new List<TimeKeeping>(allItem);
+        }
         private void SetCommands()
         {
             OpenTimeKeepingInputCommand = new RelayCommand<object>(ExecuteAddCommand);
             DeleteTimeKeepingCommand = new RelayCommand<string>(ExecuteDeleteCommand);
             UpdateTimeKeepingCommand = new RelayCommand<TimeKeeping>(ExecuteUpdateCommand);
+            NextTimeKeepingDate = new RelayCommand<object>(ExecuteNextTimeKeepingDate);
+            BackTimeKeepingDate = new RelayCommand<object>(ExecuteBackTimeKeepingDate);
+        }
+
+        private void ExecuteBackTimeKeepingDate(object obj)
+        {
+            TimeKeepingDateSelected = TimeKeepingDateSelected.AddDays(-1);
+        }
+
+        private void ExecuteNextTimeKeepingDate(object obj)
+        {
+            TimeKeepingDateSelected = TimeKeepingDateSelected.AddDays(1);
         }
 
         private void ExecuteAddCommand(object p)
@@ -65,7 +99,7 @@ namespace CompanyManagement.ViewModels.UserControls
         private void ExecuteDeleteCommand(string id)
         {
             timeKeepingDao.Delete(id);
-            LoadTimeKeeping();
+            FilterDate();
         }
 
         private void ExecuteUpdateCommand(TimeKeeping timeKeeping)
@@ -80,19 +114,19 @@ namespace CompanyManagement.ViewModels.UserControls
         public void AddToDB(object timeKeeping)
         {
             timeKeepingDao.Add(timeKeeping as TimeKeeping);
-            LoadTimeKeeping();
+            FilterDate();
         }
 
         public void UpdateToDB(object timeKeeping)
         {
             timeKeepingDao.Update(timeKeeping as TimeKeeping);
-            LoadTimeKeeping();
+            FilterDate();
         }
 
         public void RetrieveProjectID(string projectID)
         {
             this.projectID = projectID;
-            LoadTimeKeeping();
+            FilterDate();
         }
     }
 }

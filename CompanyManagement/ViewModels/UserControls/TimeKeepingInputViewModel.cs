@@ -23,6 +23,9 @@ namespace CompanyManagement.ViewModels.UserControls
         private DateTime end = DateTime.Now;
         public DateTime End { get => end; set { end = value; OnPropertyChanged(); } }
 
+        private bool informationLockStatus = true;
+        public bool InformationLockStatus { get => informationLockStatus; set { informationLockStatus = value; OnPropertyChanged(); } }
+
         private string employeeID = "";
         public string EmployeeID { get => employeeID; set { employeeID = value; OnPropertyChanged(); } }
 

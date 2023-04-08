@@ -18,21 +18,21 @@
             Text="{Binding TaskID, UpdateSourceTrigger=PropertyChanged}"
             Background="White"
             Margin="20 10"
-            IsEnabled="False"  
+            IsEnabled="{Binding InformationLockStatus}"  
             Style="{StaticResource MaterialDesignOutlinedTextBox}"
             materialDesign:HintAssist.Hint="Mã tác vụ" />
             <TextBox
                 Text="{Binding CreateBy, UpdateSourceTrigger=PropertyChanged}"
                 Background="White"
                 Margin="20 10"
-                IsEnabled="False"                    
+                IsEnabled="{Binding InformationLockStatus}"                    
                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
                 materialDesign:HintAssist.Hint="Người tạo"/>
             <TextBox
                 Text="{Binding EmployeeID, UpdateSourceTrigger=PropertyChanged}"
                 Background="White"
                 Margin="20 10"
-                IsEnabled="False"
+                IsEnabled="{Binding InformationLockStatus}"
                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
                 materialDesign:HintAssist.Hint="Mã nhân viên" />
             <Grid Height="60" Margin="20 10">
