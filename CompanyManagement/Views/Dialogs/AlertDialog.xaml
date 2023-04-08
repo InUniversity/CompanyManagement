@@ -41,7 +41,7 @@
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0" 
-                           Text="{Binding Tile}" 
+                           Text="{Binding Title}" 
                            Margin="20 0"
                            FontSize="20"
                            Foreground="White"
@@ -94,8 +94,7 @@
                         BorderBrush="Black"
                         Width="100"
                         Content="No"
-                        Command="{Binding CloseCommand}"
-                        CommandParameter="{Binding ElementName=alertDialog}"
+                        Command="{Binding NoCommand}"
                         Margin="20 0"
                         Foreground="Black"
                         BorderThickness="0.5">
