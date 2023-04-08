@@ -6,6 +6,7 @@ using System.Windows.Input;
 using CompanyManagement.Database;
 using CompanyManagement.ViewModels.Dialogs.Interfaces;
 using CompanyManagement.ViewModels.UserControls.Interfaces;
+using CompanyManagement.ViewModels.Dialogs;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
@@ -64,8 +65,14 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void ExecuteDeleteCommand(string id)
         {
-            timeKeepingDao.Delete(id);
-            LoadTimeKeeping();
+            AlertDialog alertDialog = new AlertDialog();
+            ((AlertDialogViewModel)alertDialog.DataContext).Message = "Bạn chắc chắn muốn xóa bảng chấm công !";
+            alertDialog.ShowDialog();
+            if (((AlertDialogViewModel)alertDialog.DataContext).YesSelection)
+            {
+                timeKeepingDao.Delete(id);
+                LoadTimeKeeping();
+            }         
         }
 
         private void ExecuteUpdateCommand(TimeKeeping timeKeeping)

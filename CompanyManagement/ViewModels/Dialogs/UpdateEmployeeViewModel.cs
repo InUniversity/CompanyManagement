@@ -4,6 +4,8 @@ using CompanyManagement.ViewModels.UserControls;
 using CompanyManagement.ViewModels.Base;
 using CompanyManagement.ViewModels.Dialogs.Interfaces;
 using CompanyManagement.ViewModels.UserControls.Interfaces;
+using CompanyManagement.Models;
+using CompanyManagement.Views.Dialogs;
 
 namespace CompanyManagement.ViewModels.Dialogs
 {
@@ -24,9 +26,15 @@ namespace CompanyManagement.ViewModels.Dialogs
         private void UpdateCommand(Window inputWindow)
         {
             if (!CheckAllFields()) return;
-            EmployeeInputDataContext.TrimAllTexts();
-            Employee empl = EmployeeInputDataContext.CreateEmployeeInstance();
-            ParentDataContext.UpdateToDB(empl);
+            AlertDialog alertDialog = new AlertDialog();
+            ((AlertDialogViewModel)alertDialog.DataContext).Message = "Bạn chắc chắn muốn \n cập nhật dữ liệu nhân viên !";
+            alertDialog.ShowDialog();
+            if (((AlertDialogViewModel)alertDialog.DataContext).YesSelection)
+            {
+                EmployeeInputDataContext.TrimAllTexts();
+                Employee empl = EmployeeInputDataContext.CreateEmployeeInstance();
+                ParentDataContext.UpdateToDB(empl);
+            }            
             inputWindow.Close();
         }
 

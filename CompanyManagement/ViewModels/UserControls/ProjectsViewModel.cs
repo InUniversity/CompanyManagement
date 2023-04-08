@@ -11,6 +11,8 @@ using ProjectAssignmentDao = CompanyManagement.Database.ProjectAssignmentDao;
 using ProjectDao = CompanyManagement.Database.ProjectDao;
 using CompanyManagement.ViewModels.Dialogs.Interfaces;
 using CompanyManagement.ViewModels.UserControls.Interfaces;
+using CompanyManagement.Database;
+using CompanyManagement.ViewModels.Dialogs;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
@@ -137,8 +139,14 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void ExecuteDeleteCommand(string id)
         {
-            projectDao.Delete(id);
-            LoadProjects();
+            AlertDialog alertDialog = new AlertDialog();
+            ((AlertDialogViewModel)alertDialog.DataContext).Message = "Bạn chắc chắn muốn xóa dự án !";
+            alertDialog.ShowDialog();
+            if (((AlertDialogViewModel)alertDialog.DataContext).YesSelection)
+            {
+                projectDao.Delete(id);
+                LoadProjects();
+            }         
         }
 
         private void OpenUpdateProjectDialog(Project project)

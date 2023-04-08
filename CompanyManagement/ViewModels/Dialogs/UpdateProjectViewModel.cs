@@ -4,6 +4,7 @@ using CompanyManagement.ViewModels.Base;
 using CompanyManagement.ViewModels.Dialogs.Interfaces;
 using CompanyManagement.ViewModels.UserControls;
 using CompanyManagement.ViewModels.UserControls.Interfaces;
+using CompanyManagement.Views.Dialogs;
 
 namespace CompanyManagement.ViewModels.Dialogs
 {
@@ -26,8 +27,14 @@ namespace CompanyManagement.ViewModels.Dialogs
             ProjectInputDataContext.TrimAllTexts();
             if (!ProjectInputDataContext.CheckAllFields())
                 return;
-            Project project = ProjectInputDataContext.CreateProjectInstance();
-            ParentDataContext.UpdateToDB(project);
+            AlertDialog alertDialog = new AlertDialog();
+            ((AlertDialogViewModel)alertDialog.DataContext).Message = "     Bạn chắc chắn muốn \n cập nhật dữ liệu dự án !";
+            alertDialog.ShowDialog();
+            if (((AlertDialogViewModel)alertDialog.DataContext).YesSelection)
+            {
+                Project project = ProjectInputDataContext.CreateProjectInstance();
+                ParentDataContext.UpdateToDB(project);
+            }          
             inputWindow.Close();
         }
         

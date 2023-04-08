@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using CompanyManagement.Views.Dialogs;
 using CompanyManagement.Models;
@@ -8,6 +8,7 @@ using CompanyManagement.ViewModels.Base;
 using CompanyManagement.ViewModels.Dialogs.Interfaces;
 using CompanyManagement.ViewModels.UserControls.Interfaces;
 using System.Windows;
+using CompanyManagement.ViewModels.Dialogs;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
@@ -116,8 +117,14 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void ExecuteDeleteCommand(string id)
         {
-            taskInProjectDao.Delete(id);
-            LoadTaskInProjects();
+            AlertDialog alertDialog = new AlertDialog();
+            ((AlertDialogViewModel)alertDialog.DataContext).Message = "Bạn chắc chắn muốn xóa nhiệm vụ !";
+            alertDialog.ShowDialog();
+            if (((AlertDialogViewModel)alertDialog.DataContext).YesSelection)
+            {
+                taskInProjectDao.Delete(id);
+                LoadTaskInProjects();
+            }            
         }
 
         private void OpenUpdateDialog(TaskInProject task)

@@ -7,6 +7,8 @@ using CompanyManagement.Views.Dialogs;
 using CompanyManagement.ViewModels.Base;
 using CompanyManagement.ViewModels.Dialogs.Interfaces;
 using CompanyManagement.ViewModels.UserControls.Interfaces;
+using CompanyManagement.Models;
+using CompanyManagement.ViewModels.Dialogs;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
@@ -91,9 +93,15 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void DeleteEmployee(string id)
         {
-            employeeAccountDao.Delete(id);
-            accountDao.Delete(id);
-            LoadEmployees();
+            AlertDialog alertDialog = new AlertDialog();
+            ((AlertDialogViewModel)alertDialog.DataContext).Message = "Bạn chắc chắn muốn xóa nhân viên !";
+            alertDialog.ShowDialog();
+            if (((AlertDialogViewModel)alertDialog.DataContext).YesSelection)
+            {
+                employeeAccountDao.Delete(id);
+                accountDao.Delete(id);
+                LoadEmployees();
+            }       
         }
 
         private void OpenUpdateEmployeeDialog(Employee employee)

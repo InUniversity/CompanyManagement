@@ -1,0 +1,106 @@
+﻿<Window x:Class="CompanyManagement.Views.Dialogs.AlertDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CompanyManagement.Views.Dialogs"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="White"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        Name="alertDialog"
+        mc:Ignorable="d"
+        Title="AlertDialog" Height="255" Width="355">
+
+    <Border Height="250"
+            Width="350" 
+            VerticalAlignment="Top"
+            HorizontalAlignment="Left"
+            Background="#3979a4" 
+            BorderThickness="1" 
+            BorderBrush="Black">
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="10" ShadowDepth="5"></DropShadowEffect>
+        </Border.Effect>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" 
+                           Text="{Binding Tile}" 
+                           Margin="20 0"
+                           FontSize="20"
+                           Foreground="White"
+                           FontWeight="Bold"
+                           HorizontalAlignment="Left" 
+                           VerticalAlignment="Center"></TextBlock>
+                <Button Width="50" 
+                    Height="40"
+                    Grid.Column="1"
+                    HorizontalAlignment="Right" 
+                    Margin="0 -7 40 0" 
+                    Background="#bc0502"
+                    Command="{Binding CloseCommand}"
+                    CommandParameter="{Binding ElementName=alertDialog}"
+                    materialDesign:ButtonAssist.CornerRadius="10"
+                    VerticalAlignment="Top">
+                    <Grid>
+                        <materialDesign:PackIcon Kind="CloseThick" VerticalAlignment="Bottom" Width="15"  Height="15"/>
+                    </Grid>
+                </Button>
+            </Grid>
+            <Border Grid.Row="1" 
+                    Background="White" 
+                    Margin="10 5" 
+                    BorderBrush="Black" 
+                    CornerRadius="10"
+                    BorderThickness="0.5">
+                <TextBlock Text="{Binding Message}"  FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap"></TextBlock>
+            </Border>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" 
+                        Background="White" 
+                        HorizontalAlignment="Right" 
+                        BorderBrush="Black"
+                        Width="100"
+                        Content="Yes"
+                        Command="{Binding YesCommand}"
+                        CommandParameter="{Binding ElementName=alertDialog}"
+                        Margin="20 0"
+                        Foreground="Black"
+                        BorderThickness="0.5">
+                </Button>
+                <Button Grid.Column="1" 
+                        Background="White" 
+                        HorizontalAlignment="Left" 
+                        BorderBrush="Black"
+                        Width="100"
+                        Content="No"
+                        Command="{Binding CloseCommand}"
+                        CommandParameter="{Binding ElementName=alertDialog}"
+                        Margin="20 0"
+                        Foreground="Black"
+                        BorderThickness="0.5">
+                </Button>
+            </Grid>
+        </Grid>
+    </Border>
+</Window>
