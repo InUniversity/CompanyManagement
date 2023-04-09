@@ -4,6 +4,10 @@ using CompanyManagement.ViewModels.UserControls;
 using CompanyManagement.ViewModels.Base;
 using CompanyManagement.ViewModels.Dialogs.Interfaces;
 using CompanyManagement.ViewModels.UserControls.Interfaces;
+using CompanyManagement.Views.Dialogs;
+using System.Windows.Controls;
+using System.Windows.Media;
+using CompanyManagement.Services;
 
 namespace CompanyManagement.ViewModels.Dialogs
 {
@@ -26,8 +30,15 @@ namespace CompanyManagement.ViewModels.Dialogs
             ProjectInputDataContext.TrimAllTexts();
             if (!ProjectInputDataContext.CheckAllFields())
                 return;
-            Project project = ProjectInputDataContext.CreateProjectInstance();
-            ParentDataContext.AddToDB(project);
+            AlertDialogService dialog = new AlertDialogService(
+               "Thêm dự án",
+               "Bạn chắc chắn muốn thêm dự án !",
+               () =>
+               {
+                   Project project = ProjectInputDataContext.CreateProjectInstance();
+                   ParentDataContext.AddToDB(project);
+               }, () => { });
+            dialog.Show();           
             inputWindow.Close();
         }
         

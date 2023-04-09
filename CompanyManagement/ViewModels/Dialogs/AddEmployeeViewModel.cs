@@ -2,11 +2,14 @@
 using System.Windows;
 using System.Windows.Input;
 using CompanyManagement.Database;
+using CompanyManagement.Models;
+using CompanyManagement.Services;
 using CompanyManagement.Utilities;
 using CompanyManagement.ViewModels.Base;
 using CompanyManagement.ViewModels.Dialogs.Interfaces;
 using CompanyManagement.ViewModels.UserControls;
 using CompanyManagement.ViewModels.UserControls.Interfaces;
+using CompanyManagement.Views.Dialogs;
 
 namespace CompanyManagement.ViewModels.Dialogs
 {
@@ -29,10 +32,18 @@ namespace CompanyManagement.ViewModels.Dialogs
 
         private void AddCommand(Window inputWindow)
         {
-            if (!CheckAllFields()) return;
             EmployeeInputDataContext.TrimAllTexts();
-            Employee empl = EmployeeInputDataContext.CreateEmployeeInstance();
-            ParentDataContext.AddToDB(empl);
+            if (!CheckAllFields()) 
+                return;
+            AlertDialogService dialog = new AlertDialogService(
+                "Thêm nhân viên", 
+                "Bạn chắc chắn muốn thêm nhân viên !",
+                () =>
+                {
+                    Employee empl = EmployeeInputDataContext.CreateEmployeeInstance();
+                    ParentDataContext.AddToDB(empl);
+                }, () => {});
+            dialog.Show();
             inputWindow.Close();
         }
 

@@ -5,6 +5,8 @@ using CompanyManagement.ViewModels.UserControls;
 using CompanyManagement.ViewModels.Base;
 using CompanyManagement.ViewModels.Dialogs.Interfaces;
 using CompanyManagement.ViewModels.UserControls.Interfaces;
+using CompanyManagement.Views.Dialogs;
+using CompanyManagement.Services;
 
 namespace CompanyManagement.ViewModels.Dialogs
 {
@@ -30,8 +32,15 @@ namespace CompanyManagement.ViewModels.Dialogs
         private void AddCommand(Window inputWindow)
         {
             TaskInputDataContext.TrimAllTexts();
-            TaskInProject task = TaskInputDataContext.CreateTaskInProjectInstance();
-            ParentDataContext.AddToDB(task);
+            AlertDialogService dialog = new AlertDialogService(
+               "Thêm nhiệm vụ",
+               "Bạn chắc chắn muốn thêm nhiệm vụ !",
+               () =>
+               {
+                   TaskInProject task = TaskInputDataContext.CreateTaskInProjectInstance();
+                   ParentDataContext.AddToDB(task);
+               }, () => { });
+            dialog.Show();          
             inputWindow.Close();
         }
         

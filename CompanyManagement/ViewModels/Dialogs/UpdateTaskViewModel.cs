@@ -5,6 +5,8 @@ using CompanyManagement.ViewModels.UserControls;
 using CompanyManagement.ViewModels.Base;
 using CompanyManagement.ViewModels.Dialogs.Interfaces;
 using CompanyManagement.ViewModels.UserControls.Interfaces;
+using CompanyManagement.Views.Dialogs;
+using CompanyManagement.Services;
 
 namespace CompanyManagement.ViewModels.Dialogs
 {
@@ -32,8 +34,15 @@ namespace CompanyManagement.ViewModels.Dialogs
             TaskInputDataContext.TrimAllTexts();
             if (!TaskInputDataContext.CheckAllFields())
                 return;
-            TaskInProject task = TaskInputDataContext.CreateTaskInProjectInstance();
-            ParentDataContext.UpdateToDB(task);
+            AlertDialogService dialog = new AlertDialogService(
+              "Cập nhật nhiệm vụ",
+              "Bạn chắc chắn muốn cập nhật nhiệm vụ !",
+              () =>
+              {
+                  TaskInProject task = TaskInputDataContext.CreateTaskInProjectInstance();
+                  ParentDataContext.UpdateToDB(task);
+              }, () => { });
+            dialog.Show();        
             inputWindow.Close();
         }
         
