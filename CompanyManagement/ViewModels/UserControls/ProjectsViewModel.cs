@@ -13,6 +13,7 @@ using CompanyManagement.ViewModels.Dialogs.Interfaces;
 using CompanyManagement.ViewModels.UserControls.Interfaces;
 using CompanyManagement.Database;
 using CompanyManagement.ViewModels.Dialogs;
+using CompanyManagement.Services;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
@@ -139,14 +140,15 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void ExecuteDeleteCommand(string id)
         {
-            AlertDialog alertDialog = new AlertDialog();
-            ((AlertDialogViewModel)alertDialog.DataContext).Message = "Bạn chắc chắn muốn xóa dự án !";
-            alertDialog.ShowDialog();
-            if (((AlertDialogViewModel)alertDialog.DataContext).YesSelection)
-            {
-                projectDao.Delete(id);
-                LoadProjects();
-            }         
+            AlertDialogService dialog = new AlertDialogService(
+             "Xóa dự án",
+             "Bạn chắc chắn muốn xóa dự án !",
+             () =>
+             {
+                 projectDao.Delete(id);
+             }, () => { });
+            dialog.Show();
+            LoadProjects();   
         }
 
         private void OpenUpdateProjectDialog(Project project)

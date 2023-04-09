@@ -7,6 +7,7 @@ using CompanyManagement.Database;
 using CompanyManagement.ViewModels.Dialogs.Interfaces;
 using CompanyManagement.ViewModels.UserControls.Interfaces;
 using CompanyManagement.ViewModels.Dialogs;
+using CompanyManagement.Services;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
@@ -65,14 +66,15 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void ExecuteDeleteCommand(string id)
         {
-            AlertDialog alertDialog = new AlertDialog();
-            ((AlertDialogViewModel)alertDialog.DataContext).Message = "Bạn chắc chắn muốn xóa bảng chấm công !";
-            alertDialog.ShowDialog();
-            if (((AlertDialogViewModel)alertDialog.DataContext).YesSelection)
-            {
-                timeKeepingDao.Delete(id);
-                LoadTimeKeeping();
-            }         
+            AlertDialogService dialog = new AlertDialogService(
+             "Xóa bảng chấm công",
+             "Bạn chắc chắn muốn xóa bảng chấm công !",
+             () =>
+             {
+                 timeKeepingDao.Delete(id);
+             }, () => { });
+            dialog.Show();
+            LoadTimeKeeping();
         }
 
         private void ExecuteUpdateCommand(TimeKeeping timeKeeping)

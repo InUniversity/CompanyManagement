@@ -17,7 +17,7 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         Name="alertDialog"
         mc:Ignorable="d"
-        Title="AlertDialog" Height="255" Width="355">
+        Title="AlertDialog" Height="258" Width="358">
 
     <Border Height="250"
             Width="350" 

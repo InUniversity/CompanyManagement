@@ -9,6 +9,7 @@ using CompanyManagement.ViewModels.Dialogs.Interfaces;
 using CompanyManagement.ViewModels.UserControls.Interfaces;
 using CompanyManagement.Models;
 using CompanyManagement.ViewModels.Dialogs;
+using CompanyManagement.Services;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
@@ -93,15 +94,16 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void DeleteEmployee(string id)
         {
-            AlertDialog alertDialog = new AlertDialog();
-            ((AlertDialogViewModel)alertDialog.DataContext).Message = "Bạn chắc chắn muốn xóa nhân viên !";
-            alertDialog.ShowDialog();
-            if (((AlertDialogViewModel)alertDialog.DataContext).YesSelection)
-            {
-                employeeAccountDao.Delete(id);
-                accountDao.Delete(id);
-                LoadEmployees();
-            }       
+            AlertDialogService dialog = new AlertDialogService(
+              "Xóa nhân viên",
+              "Bạn chắc chắn muốn xóa nhân viên !",
+              () =>
+              {
+                  employeeAccountDao.Delete(id);
+                  accountDao.Delete(id);
+              }, () => { });
+            dialog.Show();
+            LoadEmployees();
         }
 
         private void OpenUpdateEmployeeDialog(Employee employee)

@@ -99,6 +99,7 @@
     <Compile Include="Models\TaskInProject.cs" />
     <Compile Include="Models\TaskStatus.cs" />
     <Compile Include="Models\TimeKeeping.cs" />
+    <Compile Include="Services\AlertDialogService.cs" />
     <Compile Include="Utilities\CheckFormat.cs" />
     <Compile Include="Utilities\Log.cs" />
     <Compile Include="Utilities\Utils.cs" />

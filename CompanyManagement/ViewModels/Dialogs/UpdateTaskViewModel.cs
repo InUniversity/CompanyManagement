@@ -6,6 +6,7 @@ using CompanyManagement.ViewModels.Base;
 using CompanyManagement.ViewModels.Dialogs.Interfaces;
 using CompanyManagement.ViewModels.UserControls.Interfaces;
 using CompanyManagement.Views.Dialogs;
+using CompanyManagement.Services;
 
 namespace CompanyManagement.ViewModels.Dialogs
 {
@@ -33,14 +34,15 @@ namespace CompanyManagement.ViewModels.Dialogs
             TaskInputDataContext.TrimAllTexts();
             if (!TaskInputDataContext.CheckAllFields())
                 return;
-            AlertDialog alertDialog = new AlertDialog();
-            ((AlertDialogViewModel)alertDialog.DataContext).Message = "       Bạn chắc chắn muốn \n cập nhật dữ liệu nhiệm vụ !";
-            alertDialog.ShowDialog();
-            if (((AlertDialogViewModel)alertDialog.DataContext).YesSelection)
-            {
-                TaskInProject task = TaskInputDataContext.CreateTaskInProjectInstance();
-                ParentDataContext.UpdateToDB(task);
-            }
+            AlertDialogService dialog = new AlertDialogService(
+              "Cập nhật nhiệm vụ",
+              "Bạn chắc chắn muốn cập nhật nhiệm vụ !",
+              () =>
+              {
+                  TaskInProject task = TaskInputDataContext.CreateTaskInProjectInstance();
+                  ParentDataContext.UpdateToDB(task);
+              }, () => { });
+            dialog.Show();        
             inputWindow.Close();
         }
         

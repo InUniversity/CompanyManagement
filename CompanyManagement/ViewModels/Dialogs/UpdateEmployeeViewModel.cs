@@ -6,6 +6,7 @@ using CompanyManagement.ViewModels.Dialogs.Interfaces;
 using CompanyManagement.ViewModels.UserControls.Interfaces;
 using CompanyManagement.Models;
 using CompanyManagement.Views.Dialogs;
+using CompanyManagement.Services;
 
 namespace CompanyManagement.ViewModels.Dialogs
 {
@@ -25,16 +26,17 @@ namespace CompanyManagement.ViewModels.Dialogs
 
         private void UpdateCommand(Window inputWindow)
         {
+            EmployeeInputDataContext.TrimAllTexts();
             if (!CheckAllFields()) return;
-            AlertDialog alertDialog = new AlertDialog();
-            ((AlertDialogViewModel)alertDialog.DataContext).Message = "Bạn chắc chắn muốn \n cập nhật dữ liệu nhân viên !";
-            alertDialog.ShowDialog();
-            if (((AlertDialogViewModel)alertDialog.DataContext).YesSelection)
-            {
-                EmployeeInputDataContext.TrimAllTexts();
-                Employee empl = EmployeeInputDataContext.CreateEmployeeInstance();
-                ParentDataContext.UpdateToDB(empl);
-            }            
+            AlertDialogService dialog = new AlertDialogService(
+               "Cập nhật nhân viên",
+               "Bạn chắc chắn muốn cập nhật nhân viên !",
+               () =>
+               {
+                   Employee empl = EmployeeInputDataContext.CreateEmployeeInstance();
+                   ParentDataContext.UpdateToDB(empl);
+               }, () => { });
+            dialog.Show();              
             inputWindow.Close();
         }
 

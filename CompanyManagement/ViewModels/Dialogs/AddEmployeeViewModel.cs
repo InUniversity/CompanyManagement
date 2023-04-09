@@ -36,7 +36,7 @@ namespace CompanyManagement.ViewModels.Dialogs
             if (!CheckAllFields()) 
                 return;
             AlertDialogService dialog = new AlertDialogService(
-                "Xóa nhân viên", 
+                "Thêm nhân viên", 
                 "Bạn chắc chắn muốn thêm nhân viên !",
                 () =>
                 {

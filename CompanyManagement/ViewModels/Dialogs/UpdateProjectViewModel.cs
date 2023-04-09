@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Input;
+using CompanyManagement.Services;
 using CompanyManagement.ViewModels.Base;
 using CompanyManagement.ViewModels.Dialogs.Interfaces;
 using CompanyManagement.ViewModels.UserControls;
@@ -27,14 +28,15 @@ namespace CompanyManagement.ViewModels.Dialogs
             ProjectInputDataContext.TrimAllTexts();
             if (!ProjectInputDataContext.CheckAllFields())
                 return;
-            AlertDialog alertDialog = new AlertDialog();
-            ((AlertDialogViewModel)alertDialog.DataContext).Message = "     Bạn chắc chắn muốn \n cập nhật dữ liệu dự án !";
-            alertDialog.ShowDialog();
-            if (((AlertDialogViewModel)alertDialog.DataContext).YesSelection)
-            {
-                Project project = ProjectInputDataContext.CreateProjectInstance();
-                ParentDataContext.UpdateToDB(project);
-            }          
+            AlertDialogService dialog = new AlertDialogService(
+               "Cập nhật dự án",
+               "Bạn chắc chắn muốn cập nhật dự án !",
+               () =>
+               {
+                   Project project = ProjectInputDataContext.CreateProjectInstance();
+                   ParentDataContext.UpdateToDB(project);
+               }, () => { });
+            dialog.Show();
             inputWindow.Close();
         }
         

@@ -6,6 +6,7 @@ using CompanyManagement.ViewModels.Base;
 using CompanyManagement.ViewModels.Dialogs.Interfaces;
 using CompanyManagement.ViewModels.UserControls.Interfaces;
 using CompanyManagement.Views.Dialogs;
+using CompanyManagement.Services;
 
 namespace CompanyManagement.ViewModels.Dialogs
 {
@@ -24,15 +25,16 @@ namespace CompanyManagement.ViewModels.Dialogs
 
         private void AddCommand(Window inputWindow)
         {
-            AlertDialog alertDialog = new AlertDialog();
-            ((AlertDialogViewModel)alertDialog.DataContext).Message = "Bạn chắc chắn muốn thêm bảng chấm công !";
-            alertDialog.ShowDialog();
-            if (((AlertDialogViewModel)alertDialog.DataContext).YesSelection)
-            {
-                TimeKeepingInputDataContext.TrimAllTexts();
-                TimeKeeping timeKeeping = TimeKeepingInputDataContext.CreateTimeKeepingInstance();
-                ParentDataContext.AddToDB(timeKeeping);
-            }            
+            TimeKeepingInputDataContext.TrimAllTexts();
+            AlertDialogService dialog = new AlertDialogService(
+               "Thêm bảng chấm công",
+               "Bạn chắc chắn muốn thêm bảng chấm công !",
+               () =>
+               {
+                   TimeKeeping timeKeeping = TimeKeepingInputDataContext.CreateTimeKeepingInstance();
+                   ParentDataContext.AddToDB(timeKeeping);
+               }, () => { });
+            dialog.Show();          
             inputWindow.Close();
         }
         

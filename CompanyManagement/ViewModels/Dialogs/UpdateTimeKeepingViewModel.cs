@@ -6,6 +6,7 @@ using CompanyManagement.ViewModels.Base;
 using CompanyManagement.ViewModels.Dialogs.Interfaces;
 using CompanyManagement.ViewModels.UserControls.Interfaces;
 using CompanyManagement.Views.Dialogs;
+using CompanyManagement.Services;
 
 namespace CompanyManagement.ViewModels.Dialogs
 {
@@ -25,15 +26,16 @@ namespace CompanyManagement.ViewModels.Dialogs
 
         private void UpdateCommand(Window inputWindow)
         {
-            AlertDialog alertDialog = new AlertDialog();
-            ((AlertDialogViewModel)alertDialog.DataContext).Message = "    Bạn chắc chắn muốn \n cập nhật bảng chấm công !";
-            alertDialog.ShowDialog();
-            if (((AlertDialogViewModel)alertDialog.DataContext).YesSelection)
-            {
-                TimeKeepingInputDataContext.TrimAllTexts();
-                TimeKeeping timeKeeping = TimeKeepingInputDataContext.CreateTimeKeepingInstance();
-                ParentDataContext.UpdateToDB(timeKeeping);
-            }           
+            TimeKeepingInputDataContext.TrimAllTexts();
+            AlertDialogService dialog = new AlertDialogService(
+              "Cập nhật bảng chấm công",
+              "Bạn chắc chắn muốn cập nhật \n bảng chấm công !",
+              () =>
+              {
+                  TimeKeeping timeKeeping = TimeKeepingInputDataContext.CreateTimeKeepingInstance();
+                  ParentDataContext.UpdateToDB(timeKeeping);
+              }, () => { });
+            dialog.Show();
             inputWindow.Close();
         }
 
