@@ -1,0 +1,14 @@
+# Ignore Visual Studio build directories
+*.sln
+*.suo
+*.user
+*.psess
+*.vsp
+/.vs/
+bin/
+obj/
+
+# Ignore Rider files
+.idea/
+*.sln.DotSettings.user
+*.DotSettings.user
