@@ -72,9 +72,9 @@ CREATE TABLE Task(
 	progress varchar(30),
 	employee_id varchar(20),
 	project_id varchar(20),
-	importance int, 
+	task_priority_id varchar(20), 
 	task_status_id varchar(10)
-);
+); 
 GO
 CREATE TABLE ProjectStatus(
 	project_status_id varchar(10) PRIMARY KEY,
@@ -86,27 +86,24 @@ CREATE TABLE TaskStatus(
 	task_status_name nvarchar(50)
 );
 GO
-CREATE TABLE TimeKeeping(
-	task_id varchar(20) PRIMARY KEY,
-	start_time datetime,
-	end_time datetime,
-	employee_id varchar(20),
-	notes nvarchar(255),
-	create_by varchar(20)
+CREATE TABLE TaskPriority(
+	task_priority_id varchar(20),
+	task_priority_name varchar(20)
 );
 GO
 CREATE TABLE CheckIn(
-	check_date datetime,
 	employee_id varchar(20),
-	check_in_time datetime
+	check_in_time SMALLDATETIME
 );
 GO
 CREATE TABLE CheckOut(
-	check_date datetime,
 	employee_id varchar(20),
 	task_id varchar(20),
 	progress int,
-	check_out_time datetime
+	start_time SMALLDATETIME,
+	end_time SMALLDATETIME,
+	notes nvarchar(255),
+	check_out_time SMALLDATETIME
 )
 GO
 INSERT INTO Position(position_id, position_name)
@@ -279,7 +276,7 @@ VALUES
 ('PRJ005', 'DPM005');
 GO
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
-INSERT INTO Task (task_id, title, task_description, assign_date, deadline, create_by, progress, employee_id, project_id, importance, task_status_id)
+INSERT INTO Task (task_id, title, task_description, assign_date, deadline, create_by, progress, employee_id, project_id, task_priority, task_status_id)
 VALUES
 ('T000001', N'Website Development - Design', N'Thiết kế giao diện website cho khách hàng ABC', CONVERT(SMALLDATETIME, '01-03-2023 09:00 AM', 105), CONVERT(SMALLDATETIME, '15-03-2023 05:00 PM', 105), 'EM002', '50', 'EM003', 'PRJ001', '1', '2'),
 ('T000002', N'Website Development - Front-end', N'Lập trình phần front-end cho website khách hàng ABC', CONVERT(SMALLDATETIME, '16-03-2023 08:00 AM', 105), CONVERT(SMALLDATETIME, '31-03-2023 05:00 PM', 105), 'EM002', '30', 'EM007', 'PRJ001','1', '2'),
@@ -307,37 +304,6 @@ VALUES
 ('T000024', N'Set up security infrastructure', N'Cài đặt và cấu hình cơ sở hạ tầng bảo mật cho công ty', CONVERT(SMALLDATETIME, '15-05-2023 02:45 PM', 105), CONVERT(SMALLDATETIME, '30-11-2023 10:30 AM', 105), 'EM050', '0', 'EM053', 'PRJ005', '1', 1),
 ('T000025', N'Implement backup infrastructure', N'Cài đặt và cấu hình cơ sở hạ tầng sao lưu cho công ty', CONVERT(SMALLDATETIME, '20-05-2023 02:45 PM', 105), CONVERT(SMALLDATETIME, '30-11-2023 10:30 AM', 105), 'EM050', '0', 'EM054', 'PRJ005', '1', '1'),
 ('T000026', N'Manage IT infrastructure', N'Quản lý và duy trì cơ sở hạ tầng công nghệ thông tin cho công ty', CONVERT(SMALLDATETIME, '25-05-2023 02:45 PM', 105), CONVERT(SMALLDATETIME, '30-11-2023 10:30 AM', 105), 'EM050', '0', 'EM055', 'PRJ005', '1', '1');
-GO
----------------------------------------------------------------------------------------------------------------------------------------------------------
-INSERT INTO TimeKeeping (task_id, start_time, end_time, employee_id, notes, create_by)
-VALUES
-('T000001', CONVERT(TIME, '08:00 AM', 100), CONVERT(TIME, '11:00 AM', 100), 'EM001', '', 'EM002'),
-('T000002', CONVERT(TIME, '09:00 AM', 100), CONVERT(TIME, '12:00 AM', 100), 'EM007', '', 'EM002'),
-('T000003', CONVERT(TIME, '01:30 PM', 100), CONVERT(TIME, '4:00 PM', 100), 'EM009', '', 'EM002'),
-('T000004', CONVERT(TIME, '09:00 AM', 100), CONVERT(TIME, '12:00 AM', 100), 'EM013', '', 'EM002'),
-('T000005', CONVERT(TIME, '10:00 AM', 100), CONVERT(TIME, '11:30 AM', 100), 'EM017', '', 'EM002'),
-('T000006', CONVERT(TIME, '09:00 AM', 100), CONVERT(TIME, '12:00 AM', 100), 'EM027', '', 'EM001'),
-('T000007', CONVERT(TIME, '10:00 AM', 100), CONVERT(TIME, '11:30 AM', 100), 'EM026', '', 'EM001'),
-('T000008', CONVERT(TIME, '09:00 AM', 100), CONVERT(TIME, '12:00 AM', 100), 'EM028', '', 'EM001'),
-('T000009', CONVERT(TIME, '10:00 AM', 100), CONVERT(TIME, '11:30 AM', 100), 'EM031', '', 'EM001'),
-('T000010', CONVERT(TIME, '09:00 AM', 100), CONVERT(TIME, '12:00 AM', 100), 'EM030', '', 'EM001'),
-('T000011', CONVERT(TIME, '10:00 AM', 100), CONVERT(TIME, '11:30 AM', 100), 'EM035', '', 'EM003'),
-('T000012', CONVERT(TIME, '09:00 AM', 100), CONVERT(TIME, '12:00 AM', 100), 'EM036', '', 'EM003'),
-('T000013', CONVERT(TIME, '10:00 AM', 100), CONVERT(TIME, '11:30 AM', 100), 'EM037', '', 'EM003'),
-('T000014', CONVERT(TIME, '09:00 AM', 100), CONVERT(TIME, '12:00 AM', 100), 'EM038', '', 'EM003'),
-('T000015', CONVERT(TIME, '10:00 AM', 100), CONVERT(TIME, '11:30 AM', 100), 'EM039', '', 'EM003'),
-('T000016', CONVERT(TIME, '09:00 AM', 100), CONVERT(TIME, '12:00 AM', 100), 'EM045', '', 'EM004'),
-('T000017', CONVERT(TIME, '10:00 AM', 100), CONVERT(TIME, '11:30 AM', 100), 'EM046', '', 'EM004'),
-('T000018', CONVERT(TIME, '01:30 PM', 100), CONVERT(TIME, '4:00 PM', 100), 'EM047', '', 'EM004'),
-('T000019', CONVERT(TIME, '09:00 AM', 100), CONVERT(TIME, '12:00 AM', 100), 'EM048', '', 'EM004'),
-('T000020', CONVERT(TIME, '01:30 PM', 100), CONVERT(TIME, '4:00 PM', 100), 'EM049', '', 'EM004'),
-('T000021', CONVERT(TIME, '09:00 AM', 100), CONVERT(TIME, '12:00 AM', 100), 'EM050', '', 'EM050'),
-('T000022', CONVERT(TIME, '01:30 PM', 100), CONVERT(TIME, '4:00 PM', 100), 'EM051', '', 'EM050'),
-('T000023', CONVERT(TIME, '09:00 AM', 100), CONVERT(TIME, '12:00 AM', 100), 'EM052', '', 'EM050'),
-('T000024', CONVERT(TIME, '01:30 PM', 100), CONVERT(TIME, '4:00 PM', 100), 'EM053', '', 'EM050'),
-('T000025', CONVERT(TIME, '09:00 AM', 100), CONVERT(TIME, '12:00 AM', 100), 'EM054', '', 'EM050'),
-('T000026', CONVERT(TIME, '01:30 PM', 100), CONVERT(TIME, '3:30 PM', 100), 'EM055', '', 'EM050');
-GO
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
 INSERT INTO ProjectStatus(project_status_id, project_status_name)
 VALUES
@@ -363,3 +329,8 @@ VALUES
 ( '7', N'Đã đóng'); 
 GO
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
+INSERT INTO TaskPriority(task_priority_id, task_priority_name)
+VALUES 
+('1', N'Cao'),
+('2', N'Trung bình'),
+('3', N'Thấp');

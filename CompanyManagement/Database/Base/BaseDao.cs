@@ -57,6 +57,7 @@ namespace CompanyManagement.Database.Base
         public const string TASK_PROGRESS = "progress";
         public const string TASK_EMPLOYEE_ID = "employee_id";
         public const string TASK_PROJECT_ID = "project_id";
+        public const string TASK_PRIORITY_ID = "task_priority_id";
         public const string TASK_STATUS_ID = "task_status_id";
 
         protected const string TIME_KEEPING_TABLE = "TimeKeeping";
@@ -73,16 +74,20 @@ namespace CompanyManagement.Database.Base
         protected const string TASK_STATUS_TABLE = "TaskStatus";
         public const string TASK_STATUS_NAME = "task_status_name";
 
+        protected const string TASK_PRIORITY_TABLE = "TaskPriority";
+        public const string TASK_PRIORITY_NAME = "task_priority_name";
+
         protected const string CHECK_IN_TABLE = "CheckIn";
-        public const string CHECK_IN_DATE = "check_date";
         public const string CHECK_IN_EMPLOYEE_ID = "employee_id";
         public const string CHECK_IN_TIME = "check_int_time";
 
-        protected const string CHECK_OUT_TABLE = "CheckIn";
-        public const string CHECK_OUT_DATE = "check_date";
+        protected const string CHECK_OUT_TABLE = "CheckOut";
         public const string CHECK_OUT_EMPLOYEE_ID = "employee_id";
         public const string CHECK_OUT_TASK_ID = "task_id";
         public const string CHECK_OUT_TASK_PROGRESS = "progress";
+        public const string CHECK_OUT_START_TIME = "start_time";
+        public const string CHECK_OUT_END_TIME = "end_time";
+        public const string CHECK_OUT_NOTES = "Notes";
         public const string CHECK_OUT_TIME = "check_out_time";
 
         protected DBConnection dbConnection = new DBConnection();
