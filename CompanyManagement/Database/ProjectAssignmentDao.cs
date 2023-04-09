@@ -45,7 +45,7 @@ namespace CompanyManagement.Database
                             $"SELECT {PROJECT_ID} FROM {PROJECT_TABLE} " +
                             $"WHERE {PROJECT_ID} NOT LIKE '{project.ID}' AND {PROJECT_PROPRESS} NOT LIKE '100'" +
                             $"AND {PROJECT_START} <= Convert(Datetime, '{project.End}', 105) " +
-                            $"AND {PROJECT_END} >= Convert(Datetime, '{project.Start}', 105))))";
+                            $"AND {PROJECT_END} >= Convert(Datetime, '{project.Start}', 105) ))";
             return dbConnection.GetList(sqlStr, reader => new Department(reader));
         }
 

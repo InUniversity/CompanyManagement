@@ -17,26 +17,26 @@
     <StackPanel>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition />
+                <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <TextBox
                 Grid.Column="0"
-            Text="{Binding Name}"
-            Background="White"
-            Margin="10"
-            IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedTextBoxEnabledComboBox}"
-            Style="{StaticResource MaterialDesignOutlinedTextBox}"
-            materialDesign:HintAssist.Hint="Tên dự án" />
+                Text="{Binding Name}"
+                Background="White"
+                Margin="10"
+                IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedTextBoxEnabledComboBox}"
+                Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                materialDesign:HintAssist.Hint="Tên dự án" />
             <TextBox
-                 Grid.Column="1"
-            IsReadOnly="True"
-            Text="{Binding ID}"
-            Background="White"
-            IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedTextBoxEnabledComboBox}"
-            Margin="10"
-            Style="{StaticResource MaterialDesignOutlinedTextBox}"
-            materialDesign:HintAssist.Hint="Mã dự án" />
+                Grid.Column="1"
+                IsReadOnly="True"
+                Text="{Binding ID}"
+                Background="White"
+                IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedTextBoxEnabledComboBox}"
+                Margin="10"
+                Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                materialDesign:HintAssist.Hint="Mã dự án" />
         </Grid>
 
         <Grid>
@@ -46,7 +46,7 @@
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
                 <DatePicker
-                    SelectedDate="{Binding Start}"
+                    SelectedDate="{Binding Start, UpdateSourceTrigger=PropertyChanged}"
                     Margin="10"
                     Width="320"
                     HorizontalAlignment="Center"
@@ -55,7 +55,7 @@
             </Grid>
             <Grid Grid.Column="1">
                 <materialDesign:TimePicker
-                    SelectedTime="{Binding Start}"
+                    SelectedTime="{Binding Start, UpdateSourceTrigger=PropertyChanged}"
                     Margin="10"
                     Width="320"
                     HorizontalAlignment="Center"
@@ -72,7 +72,7 @@
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
                 <DatePicker
-                    SelectedDate="{Binding End}"
+                    SelectedDate="{Binding End, UpdateSourceTrigger=PropertyChanged}"
                     Margin="10"
                     Width="320"
                     HorizontalAlignment="Center"
@@ -81,7 +81,7 @@
             </Grid>
             <Grid Grid.Column="1">
                 <materialDesign:TimePicker
-                    SelectedTime="{Binding End}"
+                    SelectedTime="{Binding End, UpdateSourceTrigger=PropertyChanged}"
                     Margin="10"
                     Width="320"
                     HorizontalAlignment="Center"
@@ -92,12 +92,12 @@
         </Grid>
         <Canvas Height="40">
             <StackPanel Orientation="Horizontal" Margin="20 5" VerticalAlignment="Bottom">
-                <TextBlock Text="Tiến độ: "/>
-                <TextBlock Text="{Binding Progress}"></TextBlock>
-                <TextBlock Text="%"></TextBlock>
+                <TextBlock Text="Tiến độ: " />
+                <TextBlock Text="{Binding Progress}" />
+                <TextBlock Text="%" />
             </StackPanel>
         </Canvas>
-        <materialDesign:DialogHost CornerRadius="20" CloseOnClickAway="True" >
+        <materialDesign:DialogHost CornerRadius="20" CloseOnClickAway="True">
             <materialDesign:DialogHost.DialogContent>
                 <StackPanel Width="500" Height="500">
                     <Grid Height="60" Margin="5">
@@ -115,14 +115,14 @@
                                  Text="{Binding ElementName=projectInputUC, Path=DataContext.TextToSearch, UpdateSourceTrigger=PropertyChanged}"
                                  Style="{StaticResource MaterialDesignOutlinedTextBox}" />
                     </Grid>
-                    <ListView Height="350" Margin="5" 
-                              Name="listDepartment" 
-                              SelectionMode="Multiple"                             
+                    <ListView Height="350" Margin="5"
+                              Name="listDepartment"
+                              SelectionMode="Multiple"
                               ItemsSource="{Binding ElementName=projectInputUC, Path=DataContext.SearchedDepartmentsCanAssign , UpdateSourceTrigger=PropertyChanged}">
                         <b:Interaction.Triggers>
                             <b:EventTrigger EventName="SelectionChanged">
                                 <b:InvokeCommandAction Command="{Binding GetAllSelectedDepartmentCommand}"
-                                                   CommandParameter="{Binding ElementName= listDepartment}" />
+                                                       CommandParameter="{Binding ElementName=listDepartment}" />
                             </b:EventTrigger>
                         </b:Interaction.Triggers>
                         <ListView.ItemContainerStyle>
@@ -131,11 +131,11 @@
                                 <Setter Property="Background" Value="White" />
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}"
-                                             Value="True">
+                                                 Value="True">
                                         <Setter Property="Background" Value="#e1f5fe" />
                                     </DataTrigger>
                                     <DataTrigger Binding="{Binding ElementName=checkALL, Path= IsChecked}" Value="True">
-                                        <Setter Property="IsSelected" Value="True"></Setter>
+                                        <Setter Property="IsSelected" Value="True" />
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
@@ -145,26 +145,26 @@
                                 <GridView.Columns>
                                     <GridViewColumn Width="380">
                                         <GridViewColumn.Header>
-                                            <TextBlock Text="Tên phòng ban" FontWeight="ExtraBold"></TextBlock>
+                                            <TextBlock Text="Tên phòng ban" FontWeight="ExtraBold" />
                                         </GridViewColumn.Header>
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
-                                                <TextBlock  Height="40" Text="{Binding Name}" />
+                                                <TextBlock Height="40" Text="{Binding Name}" />
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
                                     <GridViewColumn Width="100">
                                         <GridViewColumn.Header>
-                                            <CheckBox Name="checkALL"></CheckBox>
+                                            <CheckBox Name="checkALL" />
                                         </GridViewColumn.Header>
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
                                                 <ToggleButton
-                                                  Margin="20 0" 
-                                                  IsEnabled="False"   
-                                                  Background="Transparent"
-                                                  IsChecked="{Binding IsSelected, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}}"
-                                                  Style="{StaticResource MaterialDesignActionLightToggleButton}"/>
+                                                    Margin="20 0"
+                                                    IsEnabled="False"
+                                                    Background="Transparent"
+                                                    IsChecked="{Binding IsSelected, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}}"
+                                                    Style="{StaticResource MaterialDesignActionLightToggleButton}" />
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
@@ -206,7 +206,8 @@
                     <StackPanel>
                         <Border Margin="5" BorderThickness="1">
 
-                            <ItemsControl ItemsSource="{Binding ElementName=projectInputUC, Path=DataContext.DepartmentsInProject}">
+                            <ItemsControl
+                                ItemsSource="{Binding ElementName=projectInputUC, Path=DataContext.DepartmentsInProject}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
                                         <Border Width="270" Height="50" CornerRadius="5" BorderBrush="Black"
@@ -236,31 +237,32 @@
         </Border>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition />
+                <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <ComboBox
-                    Grid.Column="0"                 
-                    ItemsSource="{Binding ProjectStatuses}"
-                    SelectedValue="{Binding ProjectStatus}"
-                    SelectedValuePath="ID"
-                    Margin="10 10"
-                    materialDesign:HintAssist.Hint="Trạng thái"
-                    Background="White"
-                    Foreground="Black"
-                    Style="{StaticResource MaterialDesignOutlinedComboBox}">
+                Grid.Column="0"
+                ItemsSource="{Binding ProjectStatuses}"
+                SelectedValue="{Binding ProjectStatus}"
+                SelectedValuePath="ID"
+                Margin="10 10"
+                materialDesign:HintAssist.Hint="Trạng thái"
+                Background="White"
+                Foreground="Black"
+                Style="{StaticResource MaterialDesignOutlinedComboBox}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Name}" />
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-            <TextBlock Text="{Binding ErrorMessage}"
-                        Grid.Column="1" 
-                       Height="40"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       Foreground="Red" />
+            <TextBlock
+                Grid.Column="1"
+                Text="{Binding ErrorMessage}"
+                Height="40"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Foreground="Red" />
         </Grid>
     </StackPanel>
 </UserControl>

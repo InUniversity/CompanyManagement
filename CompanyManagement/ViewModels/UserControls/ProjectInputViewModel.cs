@@ -29,10 +29,10 @@ namespace CompanyManagement.ViewModels.UserControls
         public string Name { get => name; set { name = value; OnPropertyChanged(); } }
 
         private DateTime start = DateTime.Now;
-        public DateTime Start { get => start; set { start = value; OnPropertyChanged(); } }
+        public DateTime Start { get => start; set { start = value; OnPropertyChanged(); LoadDepartmentsCanAssign(CreateProjectInstance()); } }
 
         private DateTime end = DateTime.Now;
-        public DateTime End { get => end; set { end = value; OnPropertyChanged(); } }
+        public DateTime End { get => end; set { end = value; OnPropertyChanged(); LoadDepartmentsCanAssign(CreateProjectInstance()); } }
 
         private DateTime completed = DateTime.Now;
         public DateTime Completed { get => completed; set { completed = value; OnPropertyChanged(); } }
@@ -55,10 +55,11 @@ namespace CompanyManagement.ViewModels.UserControls
         private List<Department> departmentsCanAssign;
         
         private ObservableCollection<Department> searchedDepartmentsCanAssign;
-        public ObservableCollection<Department> SearchedDepartmentsCanAssign { get => searchedDepartmentsCanAssign; set => searchedDepartmentsCanAssign = value; }
+        public ObservableCollection<Department> SearchedDepartmentsCanAssign 
+            { get => searchedDepartmentsCanAssign; set => searchedDepartmentsCanAssign = value; }
 
-        private List<Department> departmentsIsSelected;
-        public List<Department> DepartmentsIsSelected { get => departmentsIsSelected; set => departmentsIsSelected = value; }
+        private List<Department> selectedDepartments;
+        public List<Department> SelectedDepartments { get => selectedDepartments; set => selectedDepartments = value; }
 
         private string textToSearch = "";
         public string TextToSearch { get => textToSearch; set { textToSearch = value; OnPropertyChanged(); SearchByName(); } }
@@ -90,7 +91,7 @@ namespace CompanyManagement.ViewModels.UserControls
         {
             departmentsCanAssign = projectAssignmentDao.GetDepartmentsCanAssignWork(project);
             Log.Instance.Information(nameof(ProjectInputViewModel), $"{project.ID}");
-            Log.Instance.Information(nameof(ProjectInputViewModel), $"{departmentsCanAssign.Count.ToString()}");
+            Log.Instance.Information(nameof(ProjectInputViewModel), $"{departmentsCanAssign.Count}");
             SearchedDepartmentsCanAssign = new ObservableCollection<Department>(departmentsCanAssign);
         }
 
@@ -109,21 +110,21 @@ namespace CompanyManagement.ViewModels.UserControls
         private void ExecuteGetAllSelectedDepartment(ListView listView)
         {
             var selectedItems = listView.SelectedItems.Cast<Department>().ToList();
-            DepartmentsIsSelected = selectedItems;
+            SelectedDepartments = selectedItems;
         }
 
         private void ExecuteAddDepartmentCommand(object b)
         {
-            if(DepartmentsIsSelected != null)
+            if (SelectedDepartments != null)
             {
-                foreach (Department department in DepartmentsIsSelected)
+                foreach (Department department in SelectedDepartments)
                 {
                     projectAssignmentDao.Add(new ProjectAssignment(ID, department.ID));
                 }
                 LoadDepartmentsInProject(ID);
                 LoadDepartmentsCanAssign(CreateProjectInstance());
             }                
-            DepartmentsIsSelected = new List<Department>();
+            SelectedDepartments = new List<Department>();
         }
 
         private void ExecuteDeleteDepartmentCommand(string departmentID)
