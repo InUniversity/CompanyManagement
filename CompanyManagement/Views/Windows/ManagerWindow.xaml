@@ -154,11 +154,11 @@
                         </Button>
                         <Button HorizontalAlignment="Right"          
                             Height="80"
-                            Width="50"
+                            Width="50"                         
                             Style="{StaticResource MaterialDesignIconButton}"
-                            Command="{Binding ShowWorkScheduleViewCommand}"                                                          
+                            Command="{Binding ShowUserInformationViewCommand}"                                                               
                             BorderThickness="0">
-                            <materialDesign:PackIcon Kind="CalendarText" Foreground="White" />
+                            <materialDesign:PackIcon Kind="Account" Foreground="White" />
                         </Button>
                     </StackPanel>
                 </Border>

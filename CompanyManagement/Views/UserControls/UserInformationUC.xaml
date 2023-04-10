@@ -22,8 +22,9 @@
             <StackPanel Orientation="Horizontal">
                 <RadioButton
                             Height="40"
-                            Margin="4"    
-                            IsChecked="True"   
+                            Margin="4"  
+                            Command="{Binding ShowMyInformationView}"
+                            IsChecked="{Binding StatusMyInformationView}"   
                             BorderBrush="{DynamicResource PrimaryHueMidBrush}"
                             Style="{StaticResource MaterialDesignTabRadioButtonBottom}" >
                     <TextBlock Text="Thông tin cá nhân" Margin="30 0"></TextBlock>
@@ -31,10 +32,11 @@
                 <RadioButton
                             Height="40"
                             Margin="4"         
-                            IsChecked="False"                       
+                            Command="{Binding ShowWorkingView}"
+                            IsChecked="{Binding StatusWorkingView}"                         
                             BorderBrush="{DynamicResource PrimaryHueMidBrush}"
                             Style="{StaticResource MaterialDesignTabRadioButtonBottom}" >
-                    <TextBlock Text="Dự án tham gia" Margin="30 0"></TextBlock>
+                    <TextBlock Text="Trạng thái làm việc" Margin="30 0"></TextBlock>
                 </RadioButton>
                 <RadioButton
                             Height="40"
@@ -42,16 +44,14 @@
                             IsChecked="False"                          
                             BorderBrush="{DynamicResource PrimaryHueMidBrush}"
                             Style="{StaticResource MaterialDesignTabRadioButtonBottom}" >
-                    <TextBlock Text="Nhiệm vụ được giao" Margin="30 0"></TextBlock>
+                    <TextBlock Text="Thống kê" Margin="30 0"></TextBlock>
                 </RadioButton>
             </StackPanel>
 
         </Border>
         <Grid Grid.Row="1">
-            <Border Grid.Column="0" BorderBrush="Black" BorderThickness="0.3"  Margin="10">
-                <ContentControl Margin="10" Content="{Binding CurrentChildView}" HorizontalAlignment="Center" VerticalAlignment="Center">
-                </ContentControl>
-            </Border >
+            <ContentControl Margin="10" Content="{Binding CurrentChildView}" HorizontalAlignment="Center" VerticalAlignment="Center">
+            </ContentControl>
         </Grid>
     </Grid>
 </UserControl>
