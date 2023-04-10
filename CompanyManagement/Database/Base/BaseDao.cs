@@ -73,6 +73,41 @@ namespace CompanyManagement.Database.Base
         protected const string TASK_STATUS_TABLE = "TaskStatus";
         public const string TASK_STATUS_NAME = "task_status_name";
 
+        protected const string TASK_PRIORITY_TABLE = "TaskPriority";
+        public const string TASK_PRIORITY_ID = "task_priority_id";
+        public const string TASK_PRIORITY_NAME = "task_priority_name";
+        
+        protected const string CHECK_IN_OUT_TABLE = "CheckInOut";
+        public const string CHECK_IN_OUT_ID = "id";
+        public const string CHECK_IN_OUT_EMPLOYEE_ID = "employee_id";
+        public const string CHECK_IN_TIME = "check_in_time";
+        public const string CHECK_OUT_TIME = "check_out_time";
+        public const string CHECK_OUT_STATUS = "check_out_status";
+        public const string CHECK_IN_OUT_TASK_ID = "task_id";
+        public const string CHECK_IN_OUT_COMPLETED_TASK_ID = "completed_task_id";
+
+        protected const string COMPLETED_TASK_TABLE = "CompletedTask";
+        public const string COMPLETED_TASK_ID = "id";
+        public const string COMPLETED_TASK_TASK_ID = "task_id";
+
+        protected const string LEAVE_TABLE = "Leave";
+        public const string LEAVE_ID = "id";
+        public const string LEAVE_EMPLOYEE_ID = "employee_id";
+        public const string LEAVE_TYPE_ID = "leave_type_id";
+        public const string LEAVE_REASON = "leave_reason";
+        public const string LEAVE_START_DATE = "start_date";
+        public const string LEAVE_END_DATE = "end_date";
+        public const string LEAVE_STATUS_ID = "leave_status_id";
+        public const string LEAVE_CREATED_DATE = "created_date";
+        public const string LEAVE_APPROVED_BY = "approved_by";
+        public const string LEAVE_NOTE = "note";
+
+        protected const string LEAVE_TYPE_TABLE = "LeaveType";
+        public const string LEAVE_TYPE_NAME = "leave_type_name";
+        
+        protected const string LEAVE_STATUS_TABLE = "LeaveStatus";
+        public const string LEAVE_STATUS_NAME = "leave_status_name";
+
         protected DBConnection dbConnection = new DBConnection();
     }
 }
