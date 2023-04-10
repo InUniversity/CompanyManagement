@@ -1,5 +1,3 @@
-using System.Configuration.Internal;
-
 namespace CompanyManagement.Database.Base
 {
     public abstract class BaseDao
@@ -59,7 +57,6 @@ namespace CompanyManagement.Database.Base
         public const string TASK_PROGRESS = "progress";
         public const string TASK_EMPLOYEE_ID = "employee_id";
         public const string TASK_PROJECT_ID = "project_id";
-        public const string TASK_PRIORITY_ID = "task_priority_id";
         public const string TASK_STATUS_ID = "task_status_id";
 
         protected const string TIME_KEEPING_TABLE = "TimeKeeping";
