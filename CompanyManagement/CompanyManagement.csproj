@@ -160,6 +160,9 @@
     <Compile Include="Views\UserControls\AssignmentUC.xaml.cs">
       <DependentUpon>AssignmentUC.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\UserControls\CheckInOutUC.xaml.cs">
+      <DependentUpon>CheckInOutUC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserControls\EmployeeInputUC.xaml.cs">
       <DependentUpon>EmployeeInputUC.xaml</DependentUpon>
     </Compile>
@@ -198,9 +201,6 @@
     </Compile>
     <Compile Include="Views\UserControls\UserInformationUC.xaml.cs">
       <DependentUpon>UserInformationUC.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\UserControls\WorkingStatusUC.xaml.cs">
-      <DependentUpon>WorkingStatusUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UserControls\WorkScheduleUC.xaml.cs">
       <DependentUpon>WorkScheduleUC.xaml</DependentUpon>
@@ -258,6 +258,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\UserControls\CheckInOutUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\UserControls\EmployeeInputUC.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -309,10 +313,6 @@
     <Page Include="Views\UserControls\UserInformationUC.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\UserControls\WorkingStatusUC.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\UserControls\WorkScheduleUC.xaml">
       <Generator>MSBuild:Compile</Generator>
