@@ -50,7 +50,7 @@ CREATE TABLE Project(
 	create_date SMALLDATETIME,
 	end_date SMALLDATETIME,
 	completed_date SMALLDATETIME,
-	progress varchar(30),
+	progress varchar(4),
 	project_status_id varchar(10),
 	create_by varchar(20)
 );
@@ -68,8 +68,8 @@ CREATE TABLE Task(
 	task_description nvarchar(255),
 	assign_date SMALLDATETIME,
 	deadline SMALLDATETIME,
-	create_by varchar(25),
-	progress varchar(30),
+	create_by varchar(20),
+	progress varchar(4),
 	employee_id varchar(20),
 	project_id varchar(20),
 	task_priority_id varchar(20), 
@@ -91,20 +91,49 @@ CREATE TABLE TaskPriority(
 	task_priority_name varchar(20)
 );
 GO
-CREATE TABLE CheckIn(
+
+-- check-in-out
+CREATE TABLE CheckInOut(
+	id varchar(20) PRIMARY KEY,
 	employee_id varchar(20),
-	check_in_time SMALLDATETIME
-);
-GO
-CREATE TABLE CheckOut(
-	employee_id varchar(20),
-	task_id varchar(20),
-	progress int,
-	start_time SMALLDATETIME,
-	end_time SMALLDATETIME,
-	notes nvarchar(255),
-	check_out_time SMALLDATETIME
+    check_in_time SMALLDATETIME,
+    check_out_time SMALLDATETIME,
+    check_out_status BIT DEFAULT 0,
+    task_id varchar(20),
+    completed_task_id varchar(20)
 )
+GO
+CREATE TABLE CompletedTask(
+    id varchar(20) PRIMARY KEY,
+    task_id varchar(20),
+)
+GO
+
+-- request for leave
+CREATE TABLE Leave(
+    id varchar(20) PRIMARY KEY,
+    employee_id varchar(20),
+    leave_type_id varchar(20),
+    leave_reason nvarchar(255),
+    start_date SMALLDATETIME,
+    end_date SMALLDATETIME,
+    leave_status_id varchar(20),
+    created_date SMALLDATETIME,
+    approved_by varchar(20),
+    note nvarchar(255)
+)
+GO
+CREATE TABLE LeaveType(
+    leave_type_id varchar(20) PRIMARY KEY,
+    leave_type_name nvarchar(20),
+)
+GO
+CREATE TABLE LeaveStatus(
+    leave_status_id varchar(20) PRIMARY KEY,
+    leave_status_name nvarchar(50)
+)
+GO
+
 GO
 INSERT INTO Position(position_id, position_name)
 VALUES	
@@ -276,7 +305,7 @@ VALUES
 ('PRJ005', 'DPM005');
 GO
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
-INSERT INTO Task (task_id, title, task_description, assign_date, deadline, create_by, progress, employee_id, project_id, task_priority, task_status_id)
+INSERT INTO Task (task_id, title, task_description, assign_date, deadline, create_by, progress, employee_id, project_id, task_priority_id, task_status_id)
 VALUES
 ('T000001', N'Website Development - Design', N'Thiết kế giao diện website cho khách hàng ABC', CONVERT(SMALLDATETIME, '01-03-2023 09:00 AM', 105), CONVERT(SMALLDATETIME, '15-03-2023 05:00 PM', 105), 'EM002', '50', 'EM003', 'PRJ001', '1', '2'),
 ('T000002', N'Website Development - Front-end', N'Lập trình phần front-end cho website khách hàng ABC', CONVERT(SMALLDATETIME, '16-03-2023 08:00 AM', 105), CONVERT(SMALLDATETIME, '31-03-2023 05:00 PM', 105), 'EM002', '30', 'EM007', 'PRJ001','1', '2'),
@@ -334,3 +363,33 @@ VALUES
 ('1', N'Cao'),
 ('2', N'Trung bình'),
 ('3', N'Thấp');
+GO
+
+INSERT INTO CheckInOut(id, employee_id, check_in_time, check_out_time, check_out_status, task_id, completed_task_id)
+VALUES
+    ('CI00001', 'EM007', '2023-04-10 08:30:00', '2023-04-10 12:00:00', 1, 'T001', 'CT00001'),
+    ('CI00002', 'EM008', '2023-04-11 13:30:00', '2023-04-11 16:00:00', 0, 'T003', '');
+GO
+INSERT INTO CompletedTask(id, task_id)
+VALUES
+    ('CT00001', 'T000001');
+GO
+
+-- when taking a leave, one must request permission from 'department head'
+INSERT INTO Leave(id, employee_id, leave_type_id, leave_reason, start_date, end_date, leave_status_id, created_date, approved_by, note)
+VALUES
+    ('LEA0001', 'EM007', 'LT1', N'Nghỉ do bị ốm', '2023-04-01', '2023-04-05', 'LS1', '2023-04-06', 'EM001', N'ghi chú 1'),
+    ('LEA0002', 'EM008', 'LT2', N'Nghỉ đi khám bệnh', '2023-04-01', '2023-04-10', 'LS1', '2023-04-06', 'EM001', N'ghi chú 2');
+GO
+INSERT INTO LeaveType(leave_type_id, leave_type_name)
+VALUES
+    ('LT1', N'Nghỉ bệnh'),
+    ('LT2', N'Nghỉ cá nhân'),
+    ('LT3', N'Nghỉ phép');
+GO
+INSERT INTO LeaveStatus(leave_status_id, leave_status_name)
+VALUES
+    ('LS1', N'chấp nhận'),
+    ('LS2', N'chưa giải quyết'),
+    ('LS3', N'từ chối');
+
