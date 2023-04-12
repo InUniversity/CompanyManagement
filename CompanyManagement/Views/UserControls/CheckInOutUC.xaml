@@ -1,64 +1,72 @@
-﻿<UserControl x:Class="CompanyManagement.Views.UserControls.WorkingStatusUC"
+﻿<UserControl x:Class="CompanyManagement.Views.UserControls.CheckInOutUC"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:CompanyManagement.Views.UserControls"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-            TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-            TextElement.FontWeight="Regular"
-            TextElement.FontSize="13"
-            TextOptions.TextFormattingMode="Ideal"
-            TextOptions.TextRenderingMode="Auto"
-            Background="White"
-            FontFamily="{DynamicResource MaterialDesignFont}"  
-             mc:Ignorable="d" 
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.FontWeight="Regular"
+             TextElement.FontSize="13"
+             TextOptions.TextFormattingMode="Ideal"
+             TextOptions.TextRenderingMode="Auto"
+             Background="White"
+             FontFamily="{DynamicResource MaterialDesignFont}"
+             Name="checkInOutUC"
+             mc:Ignorable="d"
              d:DesignHeight="600" d:DesignWidth="1100">
     <Grid>
         <Border Margin="10" BorderBrush="Teal" BorderThickness="1.5" MinWidth="1060">
             <StackPanel>
-                <materialDesign:ColorZone Height="50" 
-                                          Margin="15"  
+                <materialDesign:ColorZone Height="50"
+                                          Margin="15"
                                           BorderBrush="Teal"
                                           BorderThickness="1"
                                           Background="White">
-                    <Canvas >
+                    <Canvas>
                         <TextBlock FontWeight="Bold"
                                    Canvas.Left="10"
-                                   Canvas.Top="12"                                 
+                                   Canvas.Top="12"
                                    Margin="10 0"
                                    VerticalAlignment="Center"
                                    FontSize="20">
                             <TextBlock.Style>
                                 <Style TargetType="{x:Type TextBlock}">
                                     <Style.Triggers>
-                                        <DataTrigger Binding="{Binding ElementName= btCheck,Path=IsChecked}" Value="True">
-                                            <Setter Property="Text" Value="Check in"></Setter>
-                                            <Setter Property="Foreground" Value="Teal"></Setter>
+                                        <DataTrigger Binding="{Binding ElementName= btnCheck,Path=IsChecked}"
+                                                     Value="True">
+                                            <Setter Property="Text" Value="Check in" />
+                                            <Setter Property="Foreground" Value="Teal" />
                                         </DataTrigger>
-                                        <DataTrigger Binding="{Binding ElementName= btCheck,Path=IsChecked}" Value="False">
-                                            <Setter Property="Text" Value="Check out"></Setter>
-                                            <Setter Property="Foreground" Value="Red"></Setter>
+                                        <DataTrigger Binding="{Binding ElementName= btnCheck,Path=IsChecked}"
+                                                     Value="False">
+                                            <Setter Property="Text" Value="Check out" />
+                                            <Setter Property="Foreground" Value="Red" />
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>
                             </TextBlock.Style>
                         </TextBlock>
                         <ToggleButton
-                                Name="btCheck"
-                                Canvas.Left="120"
-                                Canvas.Top="10" 
-                                Margin="10 0"
-                                Width="50"
-                                IsChecked="False"
-                                Style="{StaticResource MaterialDesignSwitchToggleButton}"
-                                Foreground="Red"
-                                ToolTip="Check in and check out">
+                            Name="btnCheck"
+                            Canvas.Left="120"
+                            Canvas.Top="10"
+                            Margin="10 0"
+                            Width="50"
+                            IsChecked="{Binding DataContext.IsToggled, ElementName=checkInOutUC}"
+                            Style="{StaticResource MaterialDesignSwitchToggleButton}"
+                            Foreground="Red"
+                            ToolTip="Check in and check out">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <i:InvokeCommandAction Command="{Binding ToggledCommand}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
                             <materialDesign:PackIcon Kind="StarRemove"
-                                    RenderTransformOrigin=".5,.5">
-                            </materialDesign:PackIcon>
+                                                     RenderTransformOrigin=".5,.5" />
                             <materialDesign:ToggleButtonAssist.OnContent>
-                                <materialDesign:PackIcon  Kind="StarCheck" Foreground="White" />
+                                <materialDesign:PackIcon Kind="StarCheck" Foreground="White" />
                             </materialDesign:ToggleButtonAssist.OnContent>
                             <materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
                                 <SolidColorBrush
@@ -69,35 +77,37 @@
                                     Color="Red" />
                             </materialDesign:ToggleButtonAssist.SwitchTrackOffBackground>
                         </ToggleButton>
-                        <Border Width="200" 
+                        <Border Width="200"
                                 Height="30"
                                 Canvas.Left="300"
-                                Margin="10" 
+                                Margin="10"
                                 ToolTip="Thời gian Check in"
-                                BorderThickness="1"                           
+                                BorderThickness="1"
                                 BorderBrush="Teal">
                             <StackPanel Orientation="Horizontal">
-                                <Border Width="50"   
+                                <Border Width="50"
                                         Background="Teal">
-                                    <TextBlock Text="Start" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"></TextBlock>
+                                    <TextBlock Text="Start" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                               Foreground="White" />
                                 </Border>
-                                <TextBlock Text="8:13:30" Margin="40 0 0 0" VerticalAlignment="Center"></TextBlock>
+                                <TextBlock Text="8:13:30" Margin="40 0 0 0" VerticalAlignment="Center" />
                             </StackPanel>
                         </Border>
 
-                        <Border Width="200" 
+                        <Border Width="200"
                                 Height="30"
                                 Canvas.Left="600"
-                                Margin="10" 
+                                Margin="10"
                                 ToolTip="Thời gian Check out"
-                                BorderThickness="1"                           
+                                BorderThickness="1"
                                 BorderBrush="#bc5052">
                             <StackPanel Orientation="Horizontal">
-                                <Border Width="50"   
+                                <Border Width="50"
                                         Background="#bc5052">
-                                    <TextBlock Text="End" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"></TextBlock>
+                                    <TextBlock Text="End" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                               Foreground="White" />
                                 </Border>
-                                <TextBlock Text="8:13:30" Margin="40 0 0 0" VerticalAlignment="Center"></TextBlock>
+                                <TextBlock Text="8:13:30" Margin="40 0 0 0" VerticalAlignment="Center" />
                             </StackPanel>
                         </Border>
                         <Button Style="{StaticResource MaterialDesignIconButton}"
@@ -107,39 +117,39 @@
                         </Button>
                     </Canvas>
                 </materialDesign:ColorZone>
-                <TextBlock Text="Lịch sử :" FontSize="15" Margin="15 5" FontWeight="Bold"></TextBlock>
-                <Border BorderBrush="Gray" BorderThickness="0.5"  Margin="10" >
-                    <ListView MinHeight="450">
+                <TextBlock Text="Lịch sử :" FontSize="15" Margin="15 5" FontWeight="Bold" />
+                <Border BorderBrush="Gray" BorderThickness="0.5" Margin="10">
+                    <ListView MinHeight="450" ItemsSource="{Binding CheckInOutList}">
                         <ListView.View>
                             <GridView>
                                 <GridView.Columns>
                                     <GridViewColumn Width="300">
                                         <GridViewColumn.Header>
-                                            <TextBlock Text="Ngày làm việc"></TextBlock>
+                                            <TextBlock Text="Ngày làm việc" />
                                         </GridViewColumn.Header>
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
-                                                <TextBlock></TextBlock>
+                                                <TextBlock Text="{Binding CheckInTime, StringFormat='dd/MM/yyyy'}" />
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
                                     <GridViewColumn Width="300">
                                         <GridViewColumn.Header>
-                                            <TextBlock Text="Thời gian check in"></TextBlock>
+                                            <TextBlock Text="Thời gian check in" />
                                         </GridViewColumn.Header>
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
-                                                <TextBlock></TextBlock>
+                                                <TextBlock Text="{Binding CheckInTime, StringFormat='hh:MM tt'}" />
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
                                     <GridViewColumn Width="300">
                                         <GridViewColumn.Header>
-                                            <TextBlock Text="Thời gian check out"></TextBlock>
+                                            <TextBlock Text="Thời gian check out" />
                                         </GridViewColumn.Header>
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
-                                                <TextBlock></TextBlock>
+                                                <TextBlock Text="{Binding CheckOutTime, StringFormat='hh:MM tt'}" />
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
@@ -148,9 +158,9 @@
                         </ListView.View>
                     </ListView>
                 </Border>
-                
+
             </StackPanel>
         </Border>
-       
+
     </Grid>
 </UserControl>

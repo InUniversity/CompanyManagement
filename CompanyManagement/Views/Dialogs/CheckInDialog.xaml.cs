@@ -10,17 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CompanyManagement.Views.UserControls
+namespace CompanyManagement.Views.Dialogs
 {
     /// <summary>
-    /// Interaction logic for WorkingStatusUC.xaml
+    /// Interaction logic for CheckInDialog.xaml
     /// </summary>
-    public partial class WorkingStatusUC : UserControl
+    public partial class CheckInDialog : Window
     {
-        public WorkingStatusUC()
+        public CheckInDialog()
         {
             InitializeComponent();
         }

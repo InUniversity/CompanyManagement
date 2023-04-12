@@ -7,7 +7,7 @@ namespace CompanyManagement.Services
 {
     public class AlertDialogService
     {
-        private AlertDialog alertDialog;
+        private AlertDialog alertDialog = new AlertDialog();
         private AlertDialogViewModel viewmodel;
 
         private Action yesAction;
@@ -15,8 +15,7 @@ namespace CompanyManagement.Services
 
         public AlertDialogService(string title, string message, Action yesAction, Action noAction)
         {
-            alertDialog = new AlertDialog();
-            viewmodel = (AlertDialogViewModel)alertDialog.DataContext;
+            viewmodel = alertDialog.ViewModel;
             viewmodel.Title = title;
             viewmodel.Message = message;
             this.yesAction = yesAction;
