@@ -37,5 +37,11 @@ namespace CompanyManagement.Database
                             $"WHERE {LEAVE_ID} = '{leave.ID}'";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
+
+        public List<Leave> GetAll()
+        {
+            string sqlStr = $"SELECT * FROM {LEAVE_TABLE}";
+            return dbConnection.GetList(sqlStr, reader => new Leave(reader));
+        }
     }
 }
