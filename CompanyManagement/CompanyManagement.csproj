@@ -77,6 +77,7 @@
     <Compile Include="Database\Base\BaseDao.cs" />
     <Compile Include="Database\Base\DBConnection.cs" />
     <Compile Include="Database\CheckInOutDao.cs" />
+    <Compile Include="Database\CompletedTaskDao.cs" />
     <Compile Include="Database\DepartmentDao.cs" />
     <Compile Include="Database\EmployeeDao.cs" />
     <Compile Include="Database\PositionDao.cs" />
@@ -88,6 +89,7 @@
     <Compile Include="Database\TimeKeepingDao.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\CheckInOut.cs" />
+    <Compile Include="Models\CompletedTask.cs" />
     <Compile Include="Models\CurrentUser.cs" />
     <Compile Include="Models\Department.cs" />
     <Compile Include="Models\Employee.cs" />
@@ -117,8 +119,8 @@
     <Compile Include="ViewModels\Dialogs\UpdateTimeKeepingViewModel.cs" />
     <Compile Include="ViewModels\UserControls\AssignmentViewModel.cs" />
     <Compile Include="ViewModels\UserControls\CheckInOutViewModel.cs" />
-    <Compile Include="ViewModels\UserControls\CheckInViewModel.cs" />
-    <Compile Include="ViewModels\UserControls\CheckOutViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\CheckInViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\CheckOutViewModel.cs" />
     <Compile Include="ViewModels\UserControls\EmployeeInputViewModel.cs" />
     <Compile Include="ViewModels\UserControls\EmployeesViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Interfaces\IEditDBViewModel.cs" />

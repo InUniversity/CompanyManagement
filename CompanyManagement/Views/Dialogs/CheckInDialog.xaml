@@ -6,7 +6,6 @@
         xmlns:local="clr-namespace:CompanyManagement.Views.Dialogs"
          xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
-        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
@@ -15,6 +14,7 @@
         Background="White"
         FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
+        Name="checkInDialog"
         Height="300" Width="600">
     <Grid>
         <StackPanel>
@@ -133,7 +133,7 @@
                             <Border Margin="5" BorderThickness="1">
 
                                 <ItemsControl
-                                ItemsSource="{Binding ElementName=projectInputUC, Path=DataContext.DepartmentsInProject}">
+                                ItemsSource="{Binding ElementName=checkInDialog, Path=DataContext.SelectedDepartment}">
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
                                             <Border Width="500" Height="50" CornerRadius="5" BorderBrush="Black"

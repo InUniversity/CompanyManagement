@@ -14,7 +14,7 @@
         TextOptions.TextRenderingMode="Auto"
         Background="White"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        Name="checkInOutUC"
+        Name="checkOutDialog"
         mc:Ignorable="d"
         Height="600" Width="700">
     <Grid>
@@ -103,7 +103,7 @@
                             <Button Width="100"
                                 Content="Thêm"
                                 Grid.Column="0"
-                                Command="{Binding ElementName=projectInputUC, Path=DataContext.AddDepartmentCommand}"
+                                Command="{Binding ElementName=checkOutDialog, Path=DataContext.CheckOutCommand}"
                                 Style="{StaticResource MaterialDesignIconButton}" />
                             <Button Width="100"
                                 Content="Hoàn tất"

@@ -98,9 +98,9 @@ namespace CompanyManagement.ViewModels.UserControls
             ItemClickCommand = new RelayCommand<object>(ItemClicked);
         }
 
-        public void AddToDB(object project)
+        public void AddToDB(object obj)
         {
-            projectDao.Add(project as Project);
+            projectDao.Add(obj as Project);
             LoadProjects();
         }
 

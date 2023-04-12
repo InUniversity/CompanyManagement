@@ -79,9 +79,9 @@ namespace CompanyManagement.ViewModels.UserControls
             UpdateTaskInProjectCommand = new RelayCommand<TaskInProject>(OpenUpdateDialog);
         }
 
-        public void AddToDB(object task)
+        public void AddToDB(object obj)
         {
-            taskInProjectDao.Add(task as TaskInProject);
+            taskInProjectDao.Add(obj as TaskInProject);
             LoadTaskInProjects();
         }
 

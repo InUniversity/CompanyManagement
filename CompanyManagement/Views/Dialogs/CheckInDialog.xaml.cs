@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CompanyManagement.ViewModels.UserControls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using CompanyManagement.ViewModels.Dialogs.Interfaces;
 
 namespace CompanyManagement.Views.Dialogs
 {
@@ -19,9 +21,13 @@ namespace CompanyManagement.Views.Dialogs
     /// </summary>
     public partial class CheckInDialog : Window
     {
+        public IDialogViewModel ViewModel { get; }
+
         public CheckInDialog()
         {
             InitializeComponent();
+            ViewModel = new CheckInViewModel();
+            DataContext = ViewModel; 
         }
     }
 }

@@ -115,9 +115,9 @@ namespace CompanyManagement.ViewModels.UserControls
             updateEmployeeDialog.ShowDialog();
         }
 
-        public void AddToDB(object employee)
+        public void AddToDB(object obj)
         {
-            employeeAccountDao.Add(employee as Employee);
+            employeeAccountDao.Add(obj as Employee);
             LoadEmployees();
         }
 

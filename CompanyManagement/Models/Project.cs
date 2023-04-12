@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Data.SqlClient;
 using CompanyManagement.Database.Base;
 using CompanyManagement.Utilities;
 
@@ -47,7 +48,7 @@ namespace CompanyManagement
             this.createBy = createBy;
         }
 
-        public Project(IDataRecord reader)
+        public Project(SqlDataReader reader)
         {
             try
             {

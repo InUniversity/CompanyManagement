@@ -38,14 +38,6 @@
                             Style="{StaticResource MaterialDesignTabRadioButtonBottom}" >
                     <TextBlock Text="Trạng thái làm việc" Margin="30 0"></TextBlock>
                 </RadioButton>
-                <RadioButton
-                            Height="40"
-                            Margin="4"         
-                            IsChecked="False"                          
-                            BorderBrush="{DynamicResource PrimaryHueMidBrush}"
-                            Style="{StaticResource MaterialDesignTabRadioButtonBottom}" >
-                    <TextBlock Text="Thống kê" Margin="30 0"></TextBlock>
-                </RadioButton>
             </StackPanel>
 
         </Border>

@@ -183,7 +183,7 @@
                                 Command="{Binding ElementName=projectInputUC, Path=DataContext.AddDepartmentCommand}"
                                 Style="{StaticResource MaterialDesignIconButton}" />
                         <Button Width="100"
-                                Content="Hoàn tất"
+                                Content="Đóng"
                                 Grid.Column="1"
                                 Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
                                 Style="{StaticResource MaterialDesignIconButton}" />

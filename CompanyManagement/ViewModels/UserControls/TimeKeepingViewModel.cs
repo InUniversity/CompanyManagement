@@ -86,9 +86,9 @@ namespace CompanyManagement.ViewModels.UserControls
             updateTimeKeepingDialog.ShowDialog();
         }
 
-        public void AddToDB(object timeKeeping)
+        public void AddToDB(object obj)
         {
-            timeKeepingDao.Add(timeKeeping as TimeKeeping);
+            timeKeepingDao.Add(obj as TimeKeeping);
             LoadTimeKeeping();
         }
 

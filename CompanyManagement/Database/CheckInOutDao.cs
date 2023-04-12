@@ -30,5 +30,11 @@ namespace CompanyManagement.Database
             string sqlStr = $"SELECT * FROM {CHECK_IN_OUT_TABLE}";
             return dbConnection.GetList(sqlStr, reader => new CheckInOut(reader)); 
         }
+
+        public CheckInOut SearchByID(string id)
+        {
+            string sqlStr = $"SELECT * FROM {CHECK_IN_OUT_TABLE} C WHERE C.{CHECK_IN_OUT_ID}='{id}'";
+            return (CheckInOut)dbConnection.GetSingleObject(sqlStr, reader => new CheckInOut(reader));
+        }
     }
 }
