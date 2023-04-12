@@ -11,23 +11,17 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using CompanyManagement.ViewModels;
-using CompanyManagement.ViewModels.Dialogs;
 
 namespace CompanyManagement.Views.Dialogs
 {
     /// <summary>
-    /// Interaction logic for AlertDialog.xaml
+    /// Interaction logic for CheckInDialog.xaml
     /// </summary>
-    public partial class AlertDialog : Window
+    public partial class CheckInDialog : Window
     {
-        public AlertDialogViewModel ViewModel { get; }
-
-        public AlertDialog()
+        public CheckInDialog()
         {
             InitializeComponent();
-            ViewModel = new AlertDialogViewModel();
-            DataContext = ViewModel;
         }
     }
 }
