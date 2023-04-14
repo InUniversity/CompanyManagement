@@ -2,17 +2,13 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
-using CompanyManagement.Database.Base;
 using CompanyManagement.Views.Dialogs;
 using CompanyManagement.Models;
 using CompanyManagement.ViewModels.Base;
 using CompanyManagement.Utilities;
-using ProjectAssignmentDao = CompanyManagement.Database.ProjectAssignmentDao;
-using ProjectDao = CompanyManagement.Database.ProjectDao;
 using CompanyManagement.ViewModels.Dialogs.Interfaces;
 using CompanyManagement.ViewModels.UserControls.Interfaces;
 using CompanyManagement.Database;
-using CompanyManagement.ViewModels.Dialogs;
 using CompanyManagement.Services;
 
 namespace CompanyManagement.ViewModels.UserControls
@@ -98,9 +94,9 @@ namespace CompanyManagement.ViewModels.UserControls
             ItemClickCommand = new RelayCommand<object>(ItemClicked);
         }
 
-        public void AddToDB(object project)
+        public void AddToDB(object obj)
         {
-            projectDao.Add(project as Project);
+            projectDao.Add(obj as Project);
             LoadProjects();
         }
 
@@ -145,10 +141,10 @@ namespace CompanyManagement.ViewModels.UserControls
              "Bạn chắc chắn muốn xóa dự án !",
              () =>
              {
-                 projectDao.Delete(id);
+                 projectDao.Delete(id); 
+                 LoadProjects();
              }, () => { });
             dialog.Show();
-            LoadProjects();   
         }
 
         private void OpenUpdateProjectDialog(Project project)

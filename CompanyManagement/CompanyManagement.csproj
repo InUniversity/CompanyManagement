@@ -77,6 +77,7 @@
     <Compile Include="Database\Base\BaseDao.cs" />
     <Compile Include="Database\Base\DBConnection.cs" />
     <Compile Include="Database\CheckInOutDao.cs" />
+    <Compile Include="Database\CompletedTaskDao.cs" />
     <Compile Include="Database\DepartmentDao.cs" />
     <Compile Include="Database\EmployeeDao.cs" />
     <Compile Include="Database\PositionDao.cs" />
@@ -88,6 +89,7 @@
     <Compile Include="Database\TimeKeepingDao.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\CheckInOut.cs" />
+    <Compile Include="Models\CompletedTask.cs" />
     <Compile Include="Models\CurrentUser.cs" />
     <Compile Include="Models\Department.cs" />
     <Compile Include="Models\Employee.cs" />
@@ -99,7 +101,7 @@
     <Compile Include="Models\TaskStatus.cs" />
     <Compile Include="Models\TimeKeeping.cs" />
     <Compile Include="Services\AlertDialogService.cs" />
-    <Compile Include="Services\EditDialogService.cs" />
+    <Compile Include="Services\InputDialogService.cs" />
     <Compile Include="Utilities\CheckFormat.cs" />
     <Compile Include="Utilities\Log.cs" />
     <Compile Include="Utilities\Utils.cs" />
@@ -111,14 +113,15 @@
     <Compile Include="ViewModels\Dialogs\AddTimeKeepingViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\AlertDialogViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\Interfaces\IDialogViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\Interfaces\IInputViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\UpdateEmployeeViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\UpdateProjectViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\UpdateTaskViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\UpdateTimeKeepingViewModel.cs" />
     <Compile Include="ViewModels\UserControls\AssignmentViewModel.cs" />
     <Compile Include="ViewModels\UserControls\CheckInOutViewModel.cs" />
-    <Compile Include="ViewModels\UserControls\CheckInViewModel.cs" />
-    <Compile Include="ViewModels\UserControls\CheckOutViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\CheckInViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\CheckOutViewModel.cs" />
     <Compile Include="ViewModels\UserControls\EmployeeInputViewModel.cs" />
     <Compile Include="ViewModels\UserControls\EmployeesViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Interfaces\IEditDBViewModel.cs" />
@@ -154,6 +157,7 @@
     <Compile Include="Views\Dialogs\CheckOutDialog.xaml.cs">
       <DependentUpon>CheckOutDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Dialogs\Interfaces\IInputDialog.cs" />
     <Compile Include="Views\Dialogs\UpdateEmployeeDialog.xaml.cs">
       <DependentUpon>UpdateEmployeeDialog.xaml</DependentUpon>
     </Compile>

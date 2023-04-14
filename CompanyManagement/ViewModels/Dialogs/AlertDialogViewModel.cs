@@ -14,6 +14,5 @@ namespace CompanyManagement.ViewModels.Dialogs
 
         public ICommand YesCommand { get; set; }
         public ICommand NoCommand { get; set; }
-        public ICommand CloseCommand { get; } = new RelayCommand<Window>(window => window.Close());
     }
 }

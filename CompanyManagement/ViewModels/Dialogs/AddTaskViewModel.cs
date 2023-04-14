@@ -36,12 +36,12 @@ namespace CompanyManagement.ViewModels.Dialogs
                "Thêm nhiệm vụ",
                "Bạn chắc chắn muốn thêm nhiệm vụ !",
                () =>
-               {
+               { 
                    TaskInProject task = TaskInputDataContext.CreateTaskInProjectInstance();
-                   ParentDataContext.AddToDB(task);
+                   ParentDataContext.AddToDB(task); 
+                   inputWindow.Close();
                }, () => { });
             dialog.Show();          
-            inputWindow.Close();
         }
         
         public void Retrieve(object task)

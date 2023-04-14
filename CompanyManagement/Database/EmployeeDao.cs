@@ -34,9 +34,9 @@ namespace CompanyManagement.Database
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
-        public List<Employee> GetAll()
+        public List<Employee> SearchByCurrentID(string employeeID)
         {
-            string sqlStr = $"SELECT * FROM {EMPLOYEE_TABLE}";
+            string sqlStr = $"SELECT * FROM {EMPLOYEE_TABLE} E WHERE E.{EMPLOYEE_ID} NOT LIKE '{employeeID}'";
             return dbConnection.GetList(sqlStr, reader => new Employee(reader));
         }
 

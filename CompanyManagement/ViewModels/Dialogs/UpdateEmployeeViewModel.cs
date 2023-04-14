@@ -4,8 +4,6 @@ using CompanyManagement.ViewModels.UserControls;
 using CompanyManagement.ViewModels.Base;
 using CompanyManagement.ViewModels.Dialogs.Interfaces;
 using CompanyManagement.ViewModels.UserControls.Interfaces;
-using CompanyManagement.Models;
-using CompanyManagement.Views.Dialogs;
 using CompanyManagement.Services;
 
 namespace CompanyManagement.ViewModels.Dialogs
@@ -34,10 +32,10 @@ namespace CompanyManagement.ViewModels.Dialogs
                () =>
                {
                    Employee empl = EmployeeInputDataContext.CreateEmployeeInstance();
-                   ParentDataContext.UpdateToDB(empl);
+                   ParentDataContext.UpdateToDB(empl); 
+                   inputWindow.Close();
                }, () => { });
             dialog.Show();              
-            inputWindow.Close();
         }
 
         private bool CheckAllFields()

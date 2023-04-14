@@ -32,10 +32,10 @@ namespace CompanyManagement.ViewModels.Dialogs
                () =>
                {
                    TimeKeeping timeKeeping = TimeKeepingInputDataContext.CreateTimeKeepingInstance();
-                   ParentDataContext.AddToDB(timeKeeping);
+                   ParentDataContext.AddToDB(timeKeeping); 
+                   inputWindow.Close();
                }, () => { });
-            dialog.Show();          
-            inputWindow.Close();
+            dialog.Show();
         }
         
         public void Retrieve(object timeKeeping)

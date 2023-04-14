@@ -5,7 +5,6 @@ using CompanyManagement.ViewModels.Base;
 using CompanyManagement.ViewModels.Dialogs.Interfaces;
 using CompanyManagement.ViewModels.UserControls;
 using CompanyManagement.ViewModels.UserControls.Interfaces;
-using CompanyManagement.Views.Dialogs;
 
 namespace CompanyManagement.ViewModels.Dialogs
 {
@@ -34,10 +33,10 @@ namespace CompanyManagement.ViewModels.Dialogs
                () =>
                {
                    Project project = ProjectInputDataContext.CreateProjectInstance();
-                   ParentDataContext.UpdateToDB(project);
+                   ParentDataContext.UpdateToDB(project); 
+                   inputWindow.Close();
                }, () => { });
             dialog.Show();
-            inputWindow.Close();
         }
         
         public void Retrieve(object project)
