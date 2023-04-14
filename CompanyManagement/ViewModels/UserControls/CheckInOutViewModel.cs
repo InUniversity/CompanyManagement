@@ -20,7 +20,12 @@ namespace CompanyManagement.ViewModels.UserControls
         
         private ObservableCollection<CheckInOut> checkInOutList;
         public ObservableCollection<CheckInOut> CheckInOutList { get => checkInOutList; set { checkInOutList = value; } }
-        
+
+        private DateTime checkInTime;
+        public DateTime CheckInTime { get => checkInTime; set { checkInTime = value; OnPropertyChanged(); } }
+        private DateTime checkOutTime;
+        public DateTime CheckOutTime { get => checkOutTime; set { checkOutTime = value; OnPropertyChanged(); } }
+
         public ICommand ToggledCommand { get; set; }
 
         private CheckInOutDao checkInOutDao = new CheckInOutDao();
@@ -38,11 +43,10 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void Toggled(object obj)
         {
-            OpenCheckInDialog();
-            // if (IsToggled) OpenCheckInDialog();
-            // else OpenCheckOutDialog();
-            // if (!string.IsNullOrWhiteSpace(currentCheckInOut.TaskID))
-            //     IsToggled = !IsToggled;
+            if (IsToggled) OpenCheckInDialog();
+            else OpenCheckOutDialog();
+            if (!string.IsNullOrWhiteSpace(currentCheckInOut.TaskID))
+                IsToggled = !IsToggled;
         }
 
         private void OpenCheckInDialog()
@@ -53,6 +57,7 @@ namespace CompanyManagement.ViewModels.UserControls
             CreateNewCheckIn();
             checkInViewModel.Retrieve(currentCheckInOut);
             checkInDialog.ShowDialog();
+            CheckInTime = DateTime.Now;
         }
 
         private void CreateNewCheckIn()
@@ -80,6 +85,7 @@ namespace CompanyManagement.ViewModels.UserControls
             checkInViewModel.ParentDataContext = this;
             checkInViewModel.Retrieve(currentCheckInOut);
             checkOutDialog.ShowDialog();
+            CheckOutTime= DateTime.Now;
         }
 
         public void AddToDB(object checkInOut)

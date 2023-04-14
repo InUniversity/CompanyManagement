@@ -33,9 +33,9 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void LoadTasksCanChoose()
         {
-            var list = completedTaskDao.GetOpenAssignedTasks(checkIn.EmployeeID, 
-                Utils.ToFormatSQLServer(checkIn.CheckInTime));
-            TaskInProjects = new ObservableCollection<TaskInProject>(list);
+            //var list = completedTaskDao.GetOpenAssignedTasks(checkIn.EmployeeID, 
+            //    Utils.ToFormatSQLServer(checkIn.CheckInTime));
+            //TaskInProjects = new ObservableCollection<TaskInProject>(list);
         }
 
         private void CheckIn(Window window)

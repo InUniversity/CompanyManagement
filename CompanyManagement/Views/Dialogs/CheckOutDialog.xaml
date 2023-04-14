@@ -12,6 +12,7 @@
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
+        WindowStartupLocation="CenterScreen"
         Background="White"
         FontFamily="{DynamicResource MaterialDesignFont}"
         Name="checkOutDialog"
@@ -35,17 +36,17 @@
                             </Button>
                             <TextBox Grid.Column="1"
                                  Margin="20 5"
-                                 Text="{Binding ElementName=projectInputUC, Path=DataContext.TextToSearch, UpdateSourceTrigger=PropertyChanged}"
+                                 Text="{Binding ElementName=checkOutDialog, Path=DataContext.TextToSearch, UpdateSourceTrigger=PropertyChanged}"
                                  Style="{StaticResource MaterialDesignOutlinedTextBox}" />
                         </Grid>
                         <ListView Height="350" Margin="5"
-                              Name="listDepartment"
+                              Name="listTasks"
                               SelectionMode="Multiple"
-                              ItemsSource="{Binding ElementName=projectInputUC, Path=DataContext.SearchedDepartmentsCanAssign , UpdateSourceTrigger=PropertyChanged}">
+                              ItemsSource="{Binding ElementName=checkOutDialog, Path=DataContext.SearchedTasksCanChoose , UpdateSourceTrigger=PropertyChanged}">
                             <b:Interaction.Triggers>
                                 <b:EventTrigger EventName="SelectionChanged">
-                                    <b:InvokeCommandAction Command="{Binding GetAllSelectedDepartmentCommand}"
-                                                       CommandParameter="{Binding ElementName=listDepartment}" />
+                                    <b:InvokeCommandAction Command="{Binding GetAllSelectedTasksCommand}"
+                                                       CommandParameter="{Binding ElementName=listTasks}" />
                                 </b:EventTrigger>
                             </b:Interaction.Triggers>
                             <ListView.ItemContainerStyle>
@@ -68,11 +69,11 @@
                                     <GridView.Columns>
                                         <GridViewColumn Width="380">
                                             <GridViewColumn.Header>
-                                                <TextBlock Text="Tên phòng ban" FontWeight="ExtraBold" />
+                                                <TextBlock Text="Tên nhiệm vụ" FontWeight="ExtraBold" />
                                             </GridViewColumn.Header>
                                             <GridViewColumn.CellTemplate>
                                                 <DataTemplate>
-                                                    <TextBlock Height="40" Text="{Binding Name}" />
+                                                    <TextBlock Height="40" Text="{Binding Title}" />
                                                 </DataTemplate>
                                             </GridViewColumn.CellTemplate>
                                         </GridViewColumn>
@@ -103,7 +104,7 @@
                             <Button Width="100"
                                 Content="Thêm"
                                 Grid.Column="0"
-                                Command="{Binding ElementName=checkOutDialog, Path=DataContext.CheckOutCommand}"
+                                Command="{Binding ElementName=checkOutDialog, Path=DataContext.AddTaskCompletedCommand}"
                                 Style="{StaticResource MaterialDesignIconButton}" />
                             <Button Width="100"
                                 Content="Hoàn tất"
@@ -123,24 +124,31 @@
                 </Canvas>
             </materialDesign:DialogHost>
 
-            <Border BorderBrush="Black" BorderThickness="0.5" Margin="20 10" Height="450">
+            <Border BorderBrush="Black" BorderThickness="0.5" Margin="20 10" Height="400">
                 <StackPanel>
-                    <ScrollViewer Height="450">
+                    <ScrollViewer Height="400">
                         <StackPanel>
                             <Border Margin="5" BorderThickness="1">
 
-                                <ItemsControl
-                                ItemsSource="{Binding ElementName=projectInputUC, Path=DataContext.DepartmentsInProject}">
+                                <ItemsControl               
+                                    ItemsSource="{Binding ElementName=checkOutDialog, Path=DataContext.TasksCompleted}">
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
-                                            <Border Width="300" Height="50" CornerRadius="5" BorderBrush="Black"
+                                            <Border Width="575" Height="50" CornerRadius="5" BorderBrush="Black"
                                                 BorderThickness="0.5" Margin="10" HorizontalAlignment="Center">
                                                 <Canvas>
-                                                    <TextBlock Margin="15" Text="{Binding Name}" />
+                                                    <TextBlock Margin="15" Text="{Binding Title}" />
+                                                    <StackPanel Orientation="Horizontal"  Margin="5" Canvas.Right="100">
+                                                        <TextBox Text="{Binding Progress}"                            
+                                                                     VerticalAlignment="Center"
+                                                                     materialDesign:TextFieldAssist.SuffixText=" %"                                                                                                                                                                                       
+                                                                     Height="30">
+                                                        </TextBox>
+                                                    </StackPanel>
                                                     <Button Style="{StaticResource MaterialDesignIconButton}"
                                                         Canvas.Right="0"
-                                                        Command="{Binding ElementName=projectInputUC, Path=DataContext.DeleteDepartmentCommand}"
-                                                        CommandParameter="{Binding ID}">
+                                                        Command="{Binding ElementName=checkOutDialog , Path=DataContext.DeleteTaskCompletedCommand}"
+                                                        CommandParameter="{Binding }">
                                                         <materialDesign:PackIcon Kind="Close" Foreground="Black" />
                                                     </Button>
                                                 </Canvas>
@@ -158,6 +166,12 @@
                     </ScrollViewer>
                 </StackPanel>
             </Border>
+            <Button Content="Hoàn thành"
+                    Margin="10" 
+                    Width="200" 
+                    Height="35"                     
+                    Command="{Binding CheckOutCommand}" 
+                    CommandParameter="{Binding ElementName=checkOutDialog}"> </Button>
         </StackPanel>
     </Grid>
 </Window>
