@@ -5,14 +5,12 @@ using System.Windows;
 using CompanyManagement.ViewModels.Base;
 using CompanyManagement.ViewModels.Dialogs.Interfaces;
 using CompanyManagement.ViewModels.UserControls.Interfaces;
-using CompanyManagement.Views.Dialogs;
 using CompanyManagement.Services;
 
 namespace CompanyManagement.ViewModels.Dialogs
 {
     public class UpdateTimeKeepingViewModel : BaseViewModel, IDialogViewModel
     {
-
         public ICommand UpdateTimeKeepingCommand { get; set; }
 
         public IEditDBViewModel ParentDataContext { get; set; }
@@ -33,10 +31,10 @@ namespace CompanyManagement.ViewModels.Dialogs
               () =>
               {
                   TimeKeeping timeKeeping = TimeKeepingInputDataContext.CreateTimeKeepingInstance();
-                  ParentDataContext.UpdateToDB(timeKeeping);
+                  ParentDataContext.UpdateToDB(timeKeeping); 
+                  inputWindow.Close();
               }, () => { });
             dialog.Show();
-            inputWindow.Close();
         }
 
         public void Retrieve(object timeKeeping)

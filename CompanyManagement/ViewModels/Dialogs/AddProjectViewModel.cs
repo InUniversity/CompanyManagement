@@ -35,11 +35,11 @@ namespace CompanyManagement.ViewModels.Dialogs
                "Bạn chắc chắn muốn thêm dự án !",
                () =>
                {
-                   Project project = ProjectInputDataContext.CreateProjectInstance();
-                   ParentDataContext.AddToDB(project);
-               }, () => { });
+                   Project project = ProjectInputDataContext.CreateProjectInstance(); 
+                   ParentDataContext.AddToDB(project); 
+                   inputWindow.Close();
+               }, () => { }); 
             dialog.Show();           
-            inputWindow.Close();
         }
         
         public void Retrieve(object project)

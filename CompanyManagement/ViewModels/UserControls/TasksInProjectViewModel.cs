@@ -123,10 +123,10 @@ namespace CompanyManagement.ViewModels.UserControls
              "Bạn chắc chắn muốn xóa nhiệm vụ !",
              () =>
              {
-                 taskInProjectDao.Delete(id);
+                 taskInProjectDao.Delete(id); 
+                 LoadTaskInProjects();       
              }, () => { });
             dialog.Show();
-            LoadTaskInProjects();       
         }
 
         private void OpenUpdateDialog(TaskInProject task)

@@ -2,24 +2,20 @@
 using System.Windows;
 using System.Windows.Input;
 using CompanyManagement.Database;
-using CompanyManagement.Models;
 using CompanyManagement.Services;
 using CompanyManagement.Utilities;
 using CompanyManagement.ViewModels.Base;
 using CompanyManagement.ViewModels.Dialogs.Interfaces;
 using CompanyManagement.ViewModels.UserControls;
-using CompanyManagement.ViewModels.UserControls.Interfaces;
-using CompanyManagement.Views.Dialogs;
 
 namespace CompanyManagement.ViewModels.Dialogs
 {
-    public class AddEmployeeViewModel : BaseViewModel, IDialogViewModel
+    public class AddEmployeeViewModel : BaseViewModel, IInputViewModel<Employee>
     {
-        
         public ICommand AddEmployeeCommand { get; set; }
 
-        public IEditDBViewModel ParentDataContext { get; set; }
-        public IEmployeeInput EmployeeInputDataContext { get; }
+        public EmployeeInputViewModel EmployeeInputDataContext;
+        private Action<Employee> submitObjectAction;
 
         private EmployeeDao employeeAccountDao;
 
@@ -41,10 +37,10 @@ namespace CompanyManagement.ViewModels.Dialogs
                 () =>
                 {
                     Employee empl = EmployeeInputDataContext.CreateEmployeeInstance();
-                    ParentDataContext.AddToDB(empl);
+                    submitObjectAction?.Invoke(empl);
+                    inputWindow.Close();
                 }, () => {});
             dialog.Show();
-            inputWindow.Close();
         }
 
         private bool CheckAllFields()
@@ -68,10 +64,15 @@ namespace CompanyManagement.ViewModels.Dialogs
             }
             return true;
         }
-        
-        public void Retrieve(object employee)
+
+        public void RetrieveObject(Employee employee)
         {
-            EmployeeInputDataContext.Retrieve(employee as Employee);
+            EmployeeInputDataContext.Retrieve(employee);
+        }
+
+        public void RetrieveSubmitAction(Action<Employee> submitObjectAction)
+        {
+            this.submitObjectAction = submitObjectAction;
         }
     }
 }

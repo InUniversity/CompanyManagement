@@ -185,9 +185,9 @@
                             </ListView>
                             <Grid Margin="10">
                                 <Button Width="200"
-                                Content="Hoàn tất"
-                                Foreground="White"
-                                Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"/>
+                                    Content="Hoàn tất"
+                                    Foreground="White"
+                                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"/>
                             </Grid>
                         </StackPanel>
                     </materialDesign:DialogHost.DialogContent>
@@ -232,22 +232,29 @@
                 <Grid Grid.Row="0">
                     <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="10" VerticalAlignment="Bottom">
                         <TextBlock Text="Tiến trình: "/>
-                        <TextBlock Text="{Binding ElementName=ProgressSlider, Path=Value}"/>
+                        <TextBlock Text="{Binding ElementName=progressSlider, Path=Value}"/>
                         <TextBlock Text="%"/>
                     </StackPanel>
                 </Grid>
                 <Grid Grid.Row="1">
-                    <Slider x:Name="ProgressSlider" Value="{Binding Progress}" Maximum="100" Minimum="0" IsSnapToTickEnabled="True" TickFrequency="10" Margin="20 5 20 0"/>
-
+                    <Slider 
+                        x:Name="progressSlider" 
+                        Value="{Binding Progress}" 
+                        Maximum="100" 
+                        Minimum="0" 
+                        IsSnapToTickEnabled="True" 
+                        TickFrequency="10" 
+                        Margin="20 5 20 0"/>
                 </Grid>
             </Grid>
             <Grid>
-                <TextBlock Height="40" 
-                           Margin="5"
-                           Text="{Binding ErrorMessage}" 
-                           HorizontalAlignment="Center" 
-                           VerticalAlignment="Center"
-                       Foreground="Red" />
+                <TextBlock 
+                    Text="{Binding ErrorMessage}" 
+                    TextWrapping="Wrap" 
+                    Foreground="#FF0000" 
+                    TextAlignment="Center" 
+                    FontSize="13"
+                    Height="30"/>
             </Grid>
         </StackPanel>
     </Grid>

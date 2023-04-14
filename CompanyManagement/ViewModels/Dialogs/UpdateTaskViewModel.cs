@@ -5,14 +5,12 @@ using CompanyManagement.ViewModels.UserControls;
 using CompanyManagement.ViewModels.Base;
 using CompanyManagement.ViewModels.Dialogs.Interfaces;
 using CompanyManagement.ViewModels.UserControls.Interfaces;
-using CompanyManagement.Views.Dialogs;
 using CompanyManagement.Services;
 
 namespace CompanyManagement.ViewModels.Dialogs
 {
     public class UpdateTaskViewModel : BaseViewModel, IDialogViewModel
     {
-
         public ICommand UpdateTaskCommand { get; set; }
 
         public IEditDBViewModel ParentDataContext { get; set; }
@@ -40,10 +38,10 @@ namespace CompanyManagement.ViewModels.Dialogs
               () =>
               {
                   TaskInProject task = TaskInputDataContext.CreateTaskInProjectInstance();
-                  ParentDataContext.UpdateToDB(task);
+                  ParentDataContext.UpdateToDB(task); 
+                  inputWindow.Close();
               }, () => { });
             dialog.Show();        
-            inputWindow.Close();
         }
         
         public void Retrieve(object task)

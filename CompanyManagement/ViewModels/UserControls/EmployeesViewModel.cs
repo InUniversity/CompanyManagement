@@ -7,9 +7,8 @@ using CompanyManagement.Views.Dialogs;
 using CompanyManagement.ViewModels.Base;
 using CompanyManagement.ViewModels.Dialogs.Interfaces;
 using CompanyManagement.ViewModels.UserControls.Interfaces;
-using CompanyManagement.Models;
-using CompanyManagement.ViewModels.Dialogs;
 using CompanyManagement.Services;
+using CompanyManagement.Models;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
@@ -28,20 +27,18 @@ namespace CompanyManagement.ViewModels.UserControls
         public ICommand DeleteEmployeeCommand { get; set; }
         public ICommand OpenUpdateDialogCommand { get; set; }
 
-        private EmployeeDao employeeAccountDao;
-        private AccountDao accountDao;
+        private EmployeeDao employeeAccountDao = new EmployeeDao();
+        private AccountDao accountDao = new AccountDao();
 
         public EmployeesViewModel()
         {
-            employeeAccountDao = new EmployeeDao();
-            accountDao = new AccountDao();
             LoadEmployees();
             SetCommands();
         }
 
         private void LoadEmployees()
         {
-            employees = employeeAccountDao.GetAll();
+            employees = employeeAccountDao.SearchByCurrentID(CurrentUser.Instance.CurrentEmployee.ID);
             SearchedEmployees = employees;
         }
 
@@ -66,18 +63,28 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void OpenAddEmployeeDialog(object obj)
         {
-            AddEmployeeDialog addEmployeeDialog = new AddEmployeeDialog();
-            IDialogViewModel addEmployeeVM = (IDialogViewModel)addEmployeeDialog.DataContext;
-            addEmployeeVM.ParentDataContext = this;
+            //AddEmployeeDialog addEmployeeDialog = new AddEmployeeDialog();
+            //IDialogViewModel addEmployeeVM = (IDialogViewModel)addEmployeeDialog.DataContext;
+            //addEmployeeVM.ParentDataContext = this;
+            //Employee employee = CreateEmployee();
+            //addEmployeeVM.Retrieve(employee);
+            //addEmployeeDialog.ShowDialog();
             Employee employee = CreateEmployee();
-            addEmployeeVM.Retrieve(employee);
-            addEmployeeDialog.ShowDialog();
+            InputDialogService<Employee> inputDialogService = 
+                new InputDialogService<Employee>(new AddEmployeeDialog(), employee, Add);
+            inputDialogService.Show();
         }
 
         private Employee CreateEmployee()
         {
             return new Employee(AutoGenerateID(), "", "", DateTime.Now,
                 "", "", "", "", "", "", 0);
+        }
+
+        private void Add(Employee employee)
+        {
+            employeeAccountDao.Add(employee);
+            LoadEmployees();
         }
 
         private string AutoGenerateID()
@@ -100,10 +107,10 @@ namespace CompanyManagement.ViewModels.UserControls
               () =>
               {
                   employeeAccountDao.Delete(id);
-                  accountDao.Delete(id);
+                  accountDao.Delete(id); 
+                  LoadEmployees();
               }, () => { });
             dialog.Show();
-            LoadEmployees();
         }
 
         private void OpenUpdateEmployeeDialog(Employee employee)
@@ -115,9 +122,16 @@ namespace CompanyManagement.ViewModels.UserControls
             updateEmployeeDialog.ShowDialog();
         }
 
-        public void AddToDB(object obj)
+
+        private void Update(Employee employee)
         {
-            employeeAccountDao.Add(obj as Employee);
+            employeeAccountDao.Update(employee as Employee);
+            LoadEmployees();
+        }
+
+        public void AddToDB(object employee)
+        {
+            employeeAccountDao.Add(employee as Employee);
             LoadEmployees();
         }
 

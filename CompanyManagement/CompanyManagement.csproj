@@ -101,7 +101,7 @@
     <Compile Include="Models\TaskStatus.cs" />
     <Compile Include="Models\TimeKeeping.cs" />
     <Compile Include="Services\AlertDialogService.cs" />
-    <Compile Include="Services\EditDialogService.cs" />
+    <Compile Include="Services\InputDialogService.cs" />
     <Compile Include="Utilities\CheckFormat.cs" />
     <Compile Include="Utilities\Log.cs" />
     <Compile Include="Utilities\Utils.cs" />
@@ -113,6 +113,7 @@
     <Compile Include="ViewModels\Dialogs\AddTimeKeepingViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\AlertDialogViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\Interfaces\IDialogViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\Interfaces\IInputViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\UpdateEmployeeViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\UpdateProjectViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\UpdateTaskViewModel.cs" />
@@ -156,6 +157,7 @@
     <Compile Include="Views\Dialogs\CheckOutDialog.xaml.cs">
       <DependentUpon>CheckOutDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Dialogs\Interfaces\IInputDialog.cs" />
     <Compile Include="Views\Dialogs\UpdateEmployeeDialog.xaml.cs">
       <DependentUpon>UpdateEmployeeDialog.xaml</DependentUpon>
     </Compile>

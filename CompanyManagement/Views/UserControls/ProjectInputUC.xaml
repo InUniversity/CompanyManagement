@@ -118,7 +118,7 @@
                     <ListView Height="350" Margin="5"
                               Name="listDepartment"
                               SelectionMode="Multiple"
-                              ItemsSource="{Binding ElementName=projectInputUC, Path=DataContext.SearchedDepartmentsCanAssign , UpdateSourceTrigger=PropertyChanged}">
+                              ItemsSource="{Binding ElementName=projectInputUC, Path=DataContext.SearchedDepartmentsCanAssign, UpdateSourceTrigger=PropertyChanged}">
                         <b:Interaction.Triggers>
                             <b:EventTrigger EventName="SelectionChanged">
                                 <b:InvokeCommandAction Command="{Binding GetAllSelectedDepartmentCommand}"
@@ -256,13 +256,12 @@
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-            <TextBlock
-                Grid.Column="1"
-                Text="{Binding ErrorMessage}"
-                Height="40"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Foreground="Red" />
+            <TextBlock 
+                Text="{Binding ErrorMessage}" 
+                TextWrapping="Wrap" 
+                Foreground="#FF0000" 
+                TextAlignment="Left" 
+                FontSize="13"/>
         </Grid>
     </StackPanel>
 </UserControl>
