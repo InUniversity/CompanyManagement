@@ -31,6 +31,7 @@ namespace CompanyManagement.Views.Dialogs
             ViewModel = new CheckInViewModel();
             DataContext = ViewModel; 
         }
+
         public void ShowInputDialog()
         {
             ShowDialog();

@@ -51,12 +51,6 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void OpenCheckInDialog()
         {
-            //var checkInDialog = new CheckInDialog();
-            //var checkInViewModel = checkInDialog.ViewModel;
-            //// checkInViewModel.ParentDataContext = this;
-            //CreateNewCheckIn();
-            //// checkInViewModel.Retrieve(currentCheckInOut);
-            //checkInDialog.ShowDialog();
             var inputService = new InputDialogService<CheckInOut>(new CheckInDialog(), currentCheckInOut, Add);
             inputService.Show();
             CheckInTime = DateTime.Now;
@@ -83,16 +77,9 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void OpenCheckOutDialog()
         {
-            // var checkOutDialog = new CheckOutDialog();
-            // var checkInViewModel = (IDialogViewModel)checkOutDialog.DataContext;
-            // checkInViewModel.ParentDataContext = this;
-            // checkInViewModel.Retrieve(currentCheckInOut);
-            // checkOutDialog.ShowDialog();
-            // CheckOutTime= DateTime.Now;
             var inputService = new InputDialogService<CheckInOut>(new CheckOutDialog(), currentCheckInOut, Update);
             inputService.Show();
             CheckOutTime = DateTime.Now;
-
         }
 
         private void Add(CheckInOut checkInOut)

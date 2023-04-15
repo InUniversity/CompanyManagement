@@ -22,10 +22,12 @@ namespace CompanyManagement.ViewModels.UserControls
         {
             checkInOut = new CheckInOut();
         }
+
         public void Receive(CheckInOut checkInOut)
         {
             this.checkInOut = checkInOut;
         }
+
         public CheckInOut CreateCheckInOutInstance()
         {
             return new CheckInOut(ID, EmployeeID, CheckInTime, CheckOutTime, CheckOutStatus, TaskID, CompletedTaskID);
