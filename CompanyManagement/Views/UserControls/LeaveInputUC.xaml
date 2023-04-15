@@ -16,17 +16,20 @@
                 SelectedValue="{Binding ID}"
                 SelectedValuePath="ID"
                 Margin="10 10 10 0"
-                materialDesign:HintAssist.Hint="Loại nghỉ phép: ">
+                materialDesign:HintAssist.Hint="Loại nghỉ phép: "
+                Padding="10"
+                Style="{StaticResource MaterialDesignOutlinedComboBox}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Name}" />
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-            <Label Height="25" Content="Lý do:" Margin="10 5"/>
+            <Label Height="25" Content="Lý do:" Margin="10 5" FontSize="12" Foreground="DimGray" FontFamily="Bold"/>
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <TextBox TextWrapping="Wrap" AcceptsReturn="True" Height="125" VerticalScrollBarVisibility="Disabled" Width="780"
-                         Text="{Binding LeaveReason,  UpdateSourceTrigger=PropertyChanged}"/>
+                         Text="{Binding LeaveReason,  UpdateSourceTrigger=PropertyChanged}"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
             </ScrollViewer>
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -39,7 +42,8 @@
                     Margin="10 10 0 5"
                     Width="380"
                     HorizontalAlignment="Center"
-                    materialDesign:HintAssist.Hint="Ngày bắt đầu" />
+                    materialDesign:HintAssist.Hint="Ngày bắt đầu" 
+                    Style="{StaticResource MaterialDesignOutlinedDatePicker}"/>
                 </Grid>
                 <Grid Grid.Column="1">
                     <materialDesign:TimePicker
@@ -64,7 +68,8 @@
                     Margin="10 5 0 10"
                     Width="380"
                     HorizontalAlignment="Center"
-                    materialDesign:HintAssist.Hint="Ngày kết thúc"/>
+                    materialDesign:HintAssist.Hint="Ngày kết thúc"
+                    Style="{StaticResource MaterialDesignOutlinedDatePicker}"/>
                 </Grid>
                 <Grid Grid.Column="1">
                     <materialDesign:TimePicker
@@ -82,7 +87,8 @@
                 Text="{Binding Note, UpdateSourceTrigger=PropertyChanged}"
                 Background="White"
                 Margin="10"            
-                materialDesign:HintAssist.Hint= "Chú thích" />
+                materialDesign:HintAssist.Hint= "Chú thích" 
+                Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
             <TextBlock Text="{Binding ErrorMessage}" 
                        Height="60"
                        Width="780"
