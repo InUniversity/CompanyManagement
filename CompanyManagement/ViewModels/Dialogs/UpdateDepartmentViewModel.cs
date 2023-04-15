@@ -32,7 +32,7 @@ namespace CompanyManagement.ViewModels.Dialogs
 
         public void Retrieve(object department)
         {
-            DepartmentInputDataContext.Retrieve(department as Department);
+            DepartmentInputDataContext.Receive(department as Department);
         }
     }
 }

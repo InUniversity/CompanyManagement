@@ -4,7 +4,7 @@ namespace CompanyManagement.ViewModels.Dialogs.Interfaces
 {
     public interface IInputViewModel<TObject>
     {
-        void RetrieveObject(TObject obj);
-        void RetrieveSubmitAction(Action<TObject> submitObjectAction);
+        void ReceiveObject(TObject obj);
+        void ReceiveSubmitAction(Action<TObject> submitObjectAction);
     }
 }

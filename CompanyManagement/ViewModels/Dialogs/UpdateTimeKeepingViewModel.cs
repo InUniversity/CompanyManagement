@@ -39,7 +39,7 @@ namespace CompanyManagement.ViewModels.Dialogs
 
         public void Retrieve(object timeKeeping)
         {
-            TimeKeepingInputDataContext.Retrieve(timeKeeping as TimeKeeping);
+            TimeKeepingInputDataContext.Receive(timeKeeping as TimeKeeping);
         }
     }
 }

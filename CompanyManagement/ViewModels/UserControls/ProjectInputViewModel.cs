@@ -16,7 +16,7 @@ namespace CompanyManagement.ViewModels.UserControls
         Project CreateProjectInstance();
         bool CheckAllFields();
         void TrimAllTexts();
-        void RetrieveProject(Project project);
+        void Receive(Project project);
     }
 
     public class ProjectInputViewModel : BaseViewModel, IProjectInput
@@ -174,7 +174,7 @@ namespace CompanyManagement.ViewModels.UserControls
             Progress = progress.Trim();
         }
 
-        public void RetrieveProject(Project project)
+        public void Receive(Project project)
         {
             ID = project.ID;
             Name = project.Name;

@@ -16,7 +16,7 @@ namespace CompanyManagement.ViewModels.UserControls
         Employee CreateEmployeeInstance();
         bool CheckAllFields();
         void TrimAllTexts();
-        void Retrieve(Employee employee);
+        void Receive(Employee employee);
     }
 
     public class EmployeeInputViewModel : BaseViewModel, IEmployeeInput
@@ -129,7 +129,7 @@ namespace CompanyManagement.ViewModels.UserControls
             positionID = positionID.Trim();
         }
 
-        public void Retrieve(Employee employee)
+        public void Receive(Employee employee)
         {
             ID = employee.ID;
             Name = employee.Name;

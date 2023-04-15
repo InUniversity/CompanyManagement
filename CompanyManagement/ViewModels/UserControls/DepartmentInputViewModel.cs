@@ -11,7 +11,7 @@ namespace CompanyManagement.ViewModels.UserControls
         string ErrorMessage { set; }
         Department CreateDepartmentInstance();
         void TrimAllTexts();
-        void Retrieve(Department department);
+        void Receive(Department department);
     }
 
     public class DepartmentInputViewModel : BaseViewModel, IDepartmentInput
@@ -46,7 +46,7 @@ namespace CompanyManagement.ViewModels.UserControls
             managerID = managerID.Trim();
         }
 
-        public void Retrieve(Department department)
+        public void Receive(Department department)
         {
             ID = department.ID;
             Name = department.Name;

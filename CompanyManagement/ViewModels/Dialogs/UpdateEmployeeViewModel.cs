@@ -45,7 +45,7 @@ namespace CompanyManagement.ViewModels.Dialogs
         
         public void Retrieve(object employee)
         {
-            EmployeeInputDataContext.Retrieve(employee as Employee);
+            EmployeeInputDataContext.Receive(employee as Employee);
         }
     }
 }

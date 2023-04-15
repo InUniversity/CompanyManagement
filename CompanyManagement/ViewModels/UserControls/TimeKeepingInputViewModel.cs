@@ -8,12 +8,11 @@ namespace CompanyManagement.ViewModels.UserControls
     {
         TimeKeeping CreateTimeKeepingInstance();
         void TrimAllTexts();
-        void Retrieve(TimeKeeping timeKeeping);
+        void Receive(TimeKeeping timeKeeping);
     }
 
     public class TimeKeepingInputViewModel: BaseViewModel, ITimeKeepingInput
     {
-        
         private string taskID = "";
         public string TaskID { get => taskID; set { taskID = value; OnPropertyChanged(); } }
 
@@ -48,7 +47,7 @@ namespace CompanyManagement.ViewModels.UserControls
             createBy = createBy.Trim();
         }
 
-        public void Retrieve(TimeKeeping timeKeeping)
+        public void Receive(TimeKeeping timeKeeping)
         {
             TaskID = timeKeeping.TaskID;
             Start = timeKeeping.Start;

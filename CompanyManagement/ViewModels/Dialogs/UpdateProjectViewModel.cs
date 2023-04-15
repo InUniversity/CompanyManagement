@@ -41,7 +41,7 @@ namespace CompanyManagement.ViewModels.Dialogs
         
         public void Retrieve(object project)
         {
-            ProjectInputDataContext.RetrieveProject(project as Project);
+            ProjectInputDataContext.Receive(project as Project);
         }
     }
 }
