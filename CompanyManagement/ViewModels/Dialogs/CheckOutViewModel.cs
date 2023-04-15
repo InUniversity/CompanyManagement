@@ -9,15 +9,18 @@ using CompanyManagement.Utilities;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Controls;
+using CompanyManagement.ViewModels.Dialogs.Interfaces;
+using System;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
-    public class CheckOutViewModel : BaseViewModel
+    public class CheckOutViewModel : BaseViewModel, IInputViewModel<CheckInOut>
     {
-        private CheckInOut checkOut = new CheckInOut();
+        public CheckInOutInputViewModel CheckInOutInputDataContext { get; }
+        private Action<CheckInOut> submitObjectAction;
 
         private ObservableCollection<TaskInProject> tasksCompleted;
-        public ObservableCollection<TaskInProject> TasksCompleted { get => tasksCompleted; set { tasksCompleted = value; OnPropertyChanged(); } }
+        public ObservableCollection<TaskInProject> TasksCompleted { get => tasksCompleted; set { tasksCompleted = value;  } }
 
         private List<TaskInProject> TasksCanChoose;
 
@@ -44,6 +47,7 @@ namespace CompanyManagement.ViewModels.UserControls
             LoadTasksCompleted();
             SetCommands();
             LoadTasksCanChoose();
+            CheckInOutInputDataContext = new CheckInOutInputViewModel();
             TasksCompleted = new ObservableCollection<TaskInProject>();
         }
         private void SetCommands()
@@ -61,7 +65,9 @@ namespace CompanyManagement.ViewModels.UserControls
                  "Bạn có chắc chắn muốn check out không ?",
                  () =>
                  {
+                     CheckInOut checkOut = CheckInOutInputDataContext.CreateCheckInOutInstance();
                      AddTaskCompletedToDB();
+                     submitObjectAction?.Invoke(checkOut);
                      window.Close();
                  }, () => { });
             dialog.Show();
@@ -123,14 +129,19 @@ namespace CompanyManagement.ViewModels.UserControls
         {
            foreach (var task in TasksCompleted)
            {
-               var completedTask = new CompletedTask(checkOut.CompletedTaskID, task.ID);
+               var completedTask = new CompletedTask(CheckInOutInputDataContext.CompletedTaskID, task.ID);
                 completedTaskDao.Add(completedTask);
            }
         }
         
-        public void Retrieve(object obj)
+        public void ReceiveObject(CheckInOut checkInOut)
         {
-            checkOut = obj as CheckInOut;
+            CheckInOutInputDataContext.Receive(checkInOut);
+        }
+
+        public void ReceiveSubmitAction(Action<CheckInOut> submitObjectAction)
+        {
+            this.submitObjectAction = submitObjectAction;
         }
     }
 }

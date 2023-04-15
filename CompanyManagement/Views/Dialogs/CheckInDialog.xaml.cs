@@ -13,21 +13,27 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using CompanyManagement.ViewModels.Dialogs.Interfaces;
+using CompanyManagement.Models;
+using CompanyManagement.Views.Dialogs.Interfaces;
 
 namespace CompanyManagement.Views.Dialogs
 {
     /// <summary>
     /// Interaction logic for CheckInDialog.xaml
     /// </summary>
-    public partial class CheckInDialog : Window
+    public partial class CheckInDialog : Window, IInputDialog<CheckInOut>
     {
-        public CheckInViewModel ViewModel { get; }
+        public IInputViewModel<CheckInOut> ViewModel { get; }
 
         public CheckInDialog()
         {
             InitializeComponent();
             ViewModel = new CheckInViewModel();
             DataContext = ViewModel; 
+        }
+        public void ShowInputDialog()
+        {
+            ShowDialog();
         }
     }
 }

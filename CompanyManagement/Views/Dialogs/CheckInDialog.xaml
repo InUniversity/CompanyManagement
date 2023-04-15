@@ -35,17 +35,17 @@
                             </Button>
                             <TextBox Grid.Column="1"
                                  Margin="20 5"
-                                 Text="{Binding ElementName=projectInputUC, Path=DataContext.TextToSearch, UpdateSourceTrigger=PropertyChanged}"
+                                 Text="{Binding ElementName=checkInDialog, Path=DataContext.TextToSearch, UpdateSourceTrigger=PropertyChanged}"
                                  Style="{StaticResource MaterialDesignOutlinedTextBox}" />
                         </Grid>
                         <ListView Height="350" Margin="5" 
-                                      Name="listEmployee"
+                                      Name="listTasks"
                                       SelectionMode="Single"
-                                      ItemsSource="{Binding ElementName=taskInputUC,Path=DataContext.SearchedEmployeesCanAssign , UpdateSourceTrigger=PropertyChanged}">
+                                      ItemsSource="{Binding ElementName=checkInDialog,Path=DataContext.SearchedTasksCanChoose , UpdateSourceTrigger=PropertyChanged}">
                             <b:Interaction.Triggers>
                                 <b:EventTrigger EventName="SelectionChanged">
-                                    <b:InvokeCommandAction Command="{Binding  GetSelectedEmployeeCommand}"
-                                                   CommandParameter="{Binding ElementName= listEmployee}" />
+                                    <b:InvokeCommandAction Command="{Binding  GetSelectedTaskCommand}"
+                                                   CommandParameter="{Binding ElementName= listTasks}" />
                                 </b:EventTrigger>
                             </b:Interaction.Triggers>
                             <ListView.ItemContainerStyle>
@@ -65,11 +65,11 @@
                                     <GridView.Columns>
                                         <GridViewColumn Width="250">
                                             <GridViewColumn.Header>
-                                                <TextBlock Text="Tên" FontWeight="ExtraBold"></TextBlock>
+                                                <TextBlock Text="Title" FontWeight="ExtraBold"></TextBlock>
                                             </GridViewColumn.Header>
                                             <GridViewColumn.CellTemplate>
                                                 <DataTemplate>
-                                                    <TextBlock  Height="40" Text="{Binding Name}" />
+                                                    <TextBlock  Height="40" Text="{Binding Title}" />
                                                 </DataTemplate>
                                             </GridViewColumn.CellTemplate>
                                         </GridViewColumn>
@@ -105,9 +105,9 @@
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
                             <Button Width="100"
-                                Content="Thêm"
+                                Content="Chọn"
                                 Grid.Column="0"
-                                Command="{Binding ElementName=projectInputUC, Path=DataContext.AddDepartmentCommand}"
+                                Command="{Binding ElementName=checkInDialog, Path=DataContext.ChooseTaskCommand}"
                                 Style="{StaticResource MaterialDesignIconButton}" />
                             <Button Width="100"
                                 Content="Hoàn tất"
@@ -119,49 +119,41 @@
                     </StackPanel>
                 </materialDesign:DialogHost.DialogContent>
                 <Canvas Height="40">
-                    <TextBlock Text="Công việc:" FontWeight="Bold" Margin="10" />
+                    <TextBlock Text="Nhiệm vụ khởi đầu:" FontWeight="Bold" Margin="10" />
                     <Button Style="{StaticResource MaterialDesignIconButton}"
                         Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" Canvas.Right="5">
                         <materialDesign:PackIcon Kind="PlaylistPlus" />
                     </Button>
                 </Canvas>
             </materialDesign:DialogHost>
-
-            <Border BorderBrush="Black" BorderThickness="0.5" Margin="20 10" Height="150">
-                <StackPanel>
-                    <ScrollViewer Height="150">
-                        <StackPanel>
-                            <Border Margin="5" BorderThickness="1">
-
-                                <ItemsControl
-                                ItemsSource="{Binding ElementName=checkInDialog, Path=DataContext.SelectedDepartment}">
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                            <Border Width="500" Height="50" CornerRadius="5" BorderBrush="Black"
-                                                BorderThickness="0.5" Margin="20" HorizontalAlignment="Center">
-                                                <Canvas>
-                                                    <TextBlock Margin="15" Text="{Binding Name}" />
-                                                    <Button Style="{StaticResource MaterialDesignIconButton}"
-                                                        Canvas.Right="0"
-                                                        Command="{Binding ElementName=projectInputUC, Path=DataContext.DeleteDepartmentCommand}"
-                                                        CommandParameter="{Binding ID}">
-                                                        <materialDesign:PackIcon Kind="Close" Foreground="Black" />
-                                                    </Button>
-                                                </Canvas>
-                                            </Border>
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                    <ItemsControl.ItemsPanel>
-                                        <ItemsPanelTemplate>
-                                            <WrapPanel />
-                                        </ItemsPanelTemplate>
-                                    </ItemsControl.ItemsPanel>
-                                </ItemsControl>
+            <Grid Height="100" Margin="10">
+                <ItemsControl
+                    ItemsSource="{Binding ElementName=checkInDialog, Path=DataContext.StartingTask}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Width="500" Height="50" CornerRadius="10" BorderBrush="Black"
+                                            BorderThickness="0.5"  Margin="20 30" HorizontalAlignment="Center">
+                                <Canvas>
+                                    <TextBlock Margin="15" Text="{Binding Title}" />
+                                    <Button Style="{StaticResource MaterialDesignIconButton}"
+                                                    Canvas.Right="0"
+                                                    Command="{Binding ElementName=checkInDialog, Path=DataContext.DeleteSelectedTaskCommand}"
+                                                    CommandParameter="{Binding }">
+                                        <materialDesign:PackIcon Kind="Close" Foreground="Black" />
+                                    </Button>
+                                </Canvas>
                             </Border>
-                        </StackPanel>
-                    </ScrollViewer>
-                </StackPanel>
-            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Grid>
+            <Button Content="Hoàn thành"
+                    VerticalAlignment="Bottom"
+                    Margin="10" 
+                    Width="200" 
+                    Height="35"                     
+                    Command="{Binding CheckInCommand}" 
+                    CommandParameter="{Binding ElementName=checkInDialog}"></Button>
         </StackPanel>
     </Grid>
 </Window>
