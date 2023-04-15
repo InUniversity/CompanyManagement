@@ -19,14 +19,20 @@ namespace CompanyManagement.ViewModels.UserControls
     public class CheckInViewModel : BaseViewModel, IInputViewModel<CheckInOut>
     {
         public CheckInOutInputViewModel CheckInOutInputDataContext { get; }
+
         private Action<CheckInOut> submitObjectAction;
+
         private TaskInProject selectedTask ;
         public TaskInProject SelectedTask { get => selectedTask; set => selectedTask = value; }
+
         private ObservableCollection<TaskInProject> startingTask;
         public ObservableCollection<TaskInProject> StartingTask { get => startingTask; set => startingTask = value; }
+
         private List<TaskInProject> TasksCanChoose;
+
         private ObservableCollection<TaskInProject> searchedTasksCanChoose;
         public ObservableCollection<TaskInProject> SearchedTasksCanChoose { get => searchedTasksCanChoose; set { searchedTasksCanChoose = value; OnPropertyChanged(); }  }
+
         private string textToSearch = "";
         public string TextToSearch { get => textToSearch; set { textToSearch = value; OnPropertyChanged(); SearchByName(); } }
 
