@@ -1,20 +1,20 @@
-﻿using CompanyManagement.Models;
+﻿using System;
+using CompanyManagement.Models;
 using System.Windows;
 using System.Windows.Input;
 using CompanyManagement.ViewModels.UserControls;
 using CompanyManagement.ViewModels.Base;
 using CompanyManagement.ViewModels.Dialogs.Interfaces;
-using CompanyManagement.ViewModels.UserControls.Interfaces;
 using CompanyManagement.Services;
 
 namespace CompanyManagement.ViewModels.Dialogs
 {
-    public class UpdateTaskViewModel : BaseViewModel, IDialogViewModel
+    public class UpdateTaskViewModel : BaseViewModel, IInputViewModel<TaskInProject>
     {
         public ICommand UpdateTaskCommand { get; set; }
 
-        public IEditDBViewModel ParentDataContext { get; set; }
         public ITaskInput TaskInputDataContext { get; set; }
+        private Action<TaskInProject> submitObjectAction;
 
         public UpdateTaskViewModel()
         {
@@ -38,15 +38,20 @@ namespace CompanyManagement.ViewModels.Dialogs
               () =>
               {
                   TaskInProject task = TaskInputDataContext.CreateTaskInProjectInstance();
-                  ParentDataContext.UpdateToDB(task); 
+                  submitObjectAction?.Invoke(task);
                   inputWindow.Close();
               }, () => { });
             dialog.Show();        
         }
         
-        public void Retrieve(object task)
+        public void ReceiveObject(TaskInProject task)
         {
-            TaskInputDataContext.RetrieveTask(task as TaskInProject);
+            TaskInputDataContext.RetrieveTask(task);
+        }
+
+        public void ReceiveSubmitAction(Action<TaskInProject> submitObjectAction)
+        {
+            this.submitObjectAction = submitObjectAction;
         }
     }
 }

@@ -6,8 +6,6 @@ using CompanyManagement.Views.Dialogs;
 using CompanyManagement.Models;
 using CompanyManagement.ViewModels.Base;
 using CompanyManagement.Utilities;
-using CompanyManagement.ViewModels.Dialogs.Interfaces;
-using CompanyManagement.ViewModels.UserControls.Interfaces;
 using CompanyManagement.Database;
 using CompanyManagement.Services;
 
@@ -19,7 +17,7 @@ namespace CompanyManagement.ViewModels.UserControls
         IRetrieveProjectID ProjectDetailsDataContext { set; }
     }
     
-    public class ProjectsViewModel : BaseViewModel, IProjects, IEditDBViewModel
+    public class ProjectsViewModel : BaseViewModel, IProjects
     {
 
         private List<Project> projects;
@@ -94,26 +92,17 @@ namespace CompanyManagement.ViewModels.UserControls
             ItemClickCommand = new RelayCommand<object>(ItemClicked);
         }
 
-        public void AddToDB(object obj)
-        {
-            projectDao.Add(obj as Project);
-            LoadProjects();
-        }
-
-        public void UpdateToDB(object project)
-        {
-            projectDao.Update(project as Project);
-            LoadProjects();
-        }
-
         private void OpenAddProjectDialog(object obj)
         {
-            AddProjectDialog addProjectDialog = new AddProjectDialog();
-            IDialogViewModel addProjectVM = (IDialogViewModel)addProjectDialog.DataContext;
-            addProjectVM.ParentDataContext = this;
             Project project = CreateProject();
-            addProjectVM.Retrieve(project);
-            addProjectDialog.ShowDialog();
+            var inputService = new InputDialogService<Project>(new AddProjectDialog(), project, Add);
+            inputService.Show();
+        }
+
+        private void Add(Project project)
+        {
+            projectDao.Add(project);
+            LoadProjects();
         }
 
         private Project CreateProject()
@@ -149,11 +138,14 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void OpenUpdateProjectDialog(Project project)
         {
-            UpdateProjectDialog projectDetailsDialog = new UpdateProjectDialog();
-            IDialogViewModel projectViewModel = (IDialogViewModel)projectDetailsDialog.DataContext;
-            projectViewModel.ParentDataContext = this;
-            projectViewModel.Retrieve(project);
-            projectDetailsDialog.ShowDialog();
+            var inputService = new InputDialogService<Project>(new UpdateProjectDialog(), project, Update);
+            inputService.Show();
+        }
+
+        private void Update(Project project)
+        {
+            projectDao.Update(project);
+            LoadProjects();
         }
 
         private void ItemClicked(object obj)

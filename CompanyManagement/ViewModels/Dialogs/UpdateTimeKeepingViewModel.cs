@@ -3,17 +3,14 @@ using CompanyManagement.ViewModels.UserControls;
 using System.Windows.Input;
 using System.Windows;
 using CompanyManagement.ViewModels.Base;
-using CompanyManagement.ViewModels.Dialogs.Interfaces;
-using CompanyManagement.ViewModels.UserControls.Interfaces;
 using CompanyManagement.Services;
 
 namespace CompanyManagement.ViewModels.Dialogs
 {
-    public class UpdateTimeKeepingViewModel : BaseViewModel, IDialogViewModel
+    public class UpdateTimeKeepingViewModel : BaseViewModel
     {
         public ICommand UpdateTimeKeepingCommand { get; set; }
 
-        public IEditDBViewModel ParentDataContext { get; set; }
         public ITimeKeepingInput TimeKeepingInputDataContext { get; set; }
 
         public UpdateTimeKeepingViewModel()
@@ -27,11 +24,11 @@ namespace CompanyManagement.ViewModels.Dialogs
             TimeKeepingInputDataContext.TrimAllTexts();
             AlertDialogService dialog = new AlertDialogService(
               "Cập nhật bảng chấm công",
-              "Bạn chắc chắn muốn cập nhật \n bảng chấm công !",
+              "Bạn chắc chắn muốn cập nhật bảng chấm công !",
               () =>
               {
                   TimeKeeping timeKeeping = TimeKeepingInputDataContext.CreateTimeKeepingInstance();
-                  ParentDataContext.UpdateToDB(timeKeeping); 
+                  // ParentDataContext.UpdateToDB(timeKeeping); 
                   inputWindow.Close();
               }, () => { });
             dialog.Show();

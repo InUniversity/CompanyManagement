@@ -5,13 +5,11 @@ using CompanyManagement.Database;
 using CompanyManagement.Models;
 using CompanyManagement.Utilities;
 using CompanyManagement.ViewModels.Base;
-using CompanyManagement.ViewModels.Dialogs.Interfaces;
-using CompanyManagement.ViewModels.UserControls.Interfaces;
 using CompanyManagement.Views.Dialogs;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
-    public class CheckInOutViewModel : BaseViewModel, IEditDBViewModel
+    public class CheckInOutViewModel : BaseViewModel
     {
         private bool isToggled;
         public bool IsToggled { get => isToggled; set { isToggled = value; OnPropertyChanged(); } }
@@ -23,6 +21,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private DateTime checkInTime;
         public DateTime CheckInTime { get => checkInTime; set { checkInTime = value; OnPropertyChanged(); } }
+        
         private DateTime checkOutTime;
         public DateTime CheckOutTime { get => checkOutTime; set { checkOutTime = value; OnPropertyChanged(); } }
 
@@ -53,9 +52,9 @@ namespace CompanyManagement.ViewModels.UserControls
         {
             var checkInDialog = new CheckInDialog();
             var checkInViewModel = checkInDialog.ViewModel;
-            checkInViewModel.ParentDataContext = this;
+            // checkInViewModel.ParentDataContext = this;
             CreateNewCheckIn();
-            checkInViewModel.Retrieve(currentCheckInOut);
+            // checkInViewModel.Retrieve(currentCheckInOut);
             checkInDialog.ShowDialog();
             CheckInTime = DateTime.Now;
         }
@@ -80,22 +79,22 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void OpenCheckOutDialog()
         {
-            var checkOutDialog = new CheckOutDialog();
-            var checkInViewModel = (IDialogViewModel)checkOutDialog.DataContext;
-            checkInViewModel.ParentDataContext = this;
-            checkInViewModel.Retrieve(currentCheckInOut);
-            checkOutDialog.ShowDialog();
-            CheckOutTime= DateTime.Now;
+            // var checkOutDialog = new CheckOutDialog();
+            // var checkInViewModel = (IDialogViewModel)checkOutDialog.DataContext;
+            // checkInViewModel.ParentDataContext = this;
+            // checkInViewModel.Retrieve(currentCheckInOut);
+            // checkOutDialog.ShowDialog();
+            // CheckOutTime= DateTime.Now;
         }
 
-        public void AddToDB(object checkInOut)
+        private void Add(CheckInOut checkInOut)
         {
-            checkInOutDao.Add(checkInOut as CheckInOut);
+            checkInOutDao.Add(checkInOut);
         }
 
-        public void UpdateToDB(object checkInOut)
+        private void Update(CheckInOut checkInOut)
         {
-            checkInOutDao.Update(checkInOut as CheckInOut);
+            checkInOutDao.Update(checkInOut);
         }
     }
 }

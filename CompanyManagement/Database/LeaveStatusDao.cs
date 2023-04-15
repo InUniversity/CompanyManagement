@@ -1,14 +1,9 @@
 ﻿using CompanyManagement.Database.Base;
 using CompanyManagement.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CompanyManagement.Database
 {
-    public class LeaveTypeDao: BaseDao
+    public class LeaveStatusDao: BaseDao
     {
 
         public void Add(LeaveStatus leaveStatus)

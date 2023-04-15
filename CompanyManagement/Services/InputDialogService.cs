@@ -7,8 +7,7 @@ namespace CompanyManagement.Services
     {
         private IInputDialog<TObject> inputDialog;
 
-        public InputDialogService(IInputDialog<TObject> inputDialog, 
-            TObject obj, Action<TObject> submitObjectCommand)
+        public InputDialogService(IInputDialog<TObject> inputDialog, TObject obj, Action<TObject> submitObjectCommand)
         {
             this.inputDialog = inputDialog;
             inputDialog.ViewModel.ReceiveObject(obj);

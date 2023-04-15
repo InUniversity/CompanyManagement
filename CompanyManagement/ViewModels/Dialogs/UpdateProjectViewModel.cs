@@ -1,20 +1,19 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Input;
 using CompanyManagement.Services;
 using CompanyManagement.ViewModels.Base;
 using CompanyManagement.ViewModels.Dialogs.Interfaces;
 using CompanyManagement.ViewModels.UserControls;
-using CompanyManagement.ViewModels.UserControls.Interfaces;
 
 namespace CompanyManagement.ViewModels.Dialogs
 {
-    public class UpdateProjectViewModel : BaseViewModel, IDialogViewModel
+    public class UpdateProjectViewModel : BaseViewModel, IInputViewModel<Project>
     {
-        
         public ICommand UpdateProjectCommand { get; }
 
-        public IEditDBViewModel ParentDataContext { get; set; }
         public IProjectInput ProjectInputDataContext { get; }
+        private Action<Project> submitObjectAction;
 
         public UpdateProjectViewModel()
         {
@@ -33,15 +32,20 @@ namespace CompanyManagement.ViewModels.Dialogs
                () =>
                {
                    Project project = ProjectInputDataContext.CreateProjectInstance();
-                   ParentDataContext.UpdateToDB(project); 
+                   submitObjectAction?.Invoke(project);
                    inputWindow.Close();
                }, () => { });
             dialog.Show();
         }
-        
-        public void Retrieve(object project)
+
+        public void ReceiveObject(Project project)
         {
-            ProjectInputDataContext.Receive(project as Project);
+            ProjectInputDataContext.Receive(project);
+        }
+
+        public void ReceiveSubmitAction(Action<Project> submitObjectAction)
+        {
+            this.submitObjectAction = submitObjectAction;
         }
     }
 }

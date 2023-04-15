@@ -5,14 +5,12 @@ using System.Windows.Input;
 using CompanyManagement.Database;
 using CompanyManagement.Views.Dialogs;
 using CompanyManagement.ViewModels.Base;
-using CompanyManagement.ViewModels.Dialogs.Interfaces;
-using CompanyManagement.ViewModels.UserControls.Interfaces;
 using CompanyManagement.Services;
 using CompanyManagement.Models;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
-    public class EmployeesViewModel : BaseViewModel, IEditDBViewModel
+    public class EmployeesViewModel : BaseViewModel
     {
         private List<Employee> employees;
 
@@ -62,12 +60,6 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void OpenAddEmployeeDialog(object obj)
         {
-            // AddEmployeeDialog addEmployeeDialog = new AddEmployeeDialog();
-            // IDialogViewModel addEmployeeVM = (IDialogViewModel)addEmployeeDialog.DataContext;
-            // addEmployeeVM.ParentDataContext = this;
-            // Employee employee = CreateEmployee();
-            // addEmployeeVM.Retrieve(employee);
-            // addEmployeeDialog.ShowDialog();
             var employee = CreateEmployee();
             var inputService = new InputDialogService<Employee>(new AddEmployeeDialog(), employee, Add);
             inputService.Show();
@@ -113,29 +105,13 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void OpenUpdateEmployeeDialog(Employee employee)
         {
-            UpdateEmployeeDialog updateEmployeeDialog = new UpdateEmployeeDialog();
-            IDialogViewModel updateEmployeeVM = (IDialogViewModel)updateEmployeeDialog.DataContext;
-            updateEmployeeVM.ParentDataContext = this;
-            updateEmployeeVM.Retrieve(employee);
-            updateEmployeeDialog.ShowDialog();
+            var inputService = new InputDialogService<Employee>(new UpdateEmployeeDialog(), employee, Update);
+            inputService.Show();
         }
-
 
         private void Update(Employee employee)
         {
             employeeDao.Update(employee);
-            LoadEmployees();
-        }
-
-        public void AddToDB(object employee)
-        {
-            employeeDao.Add(employee as Employee);
-            LoadEmployees();
-        }
-
-        public void UpdateToDB(object employee)
-        {
-            employeeDao.Update(employee as Employee);
             LoadEmployees();
         }
     }

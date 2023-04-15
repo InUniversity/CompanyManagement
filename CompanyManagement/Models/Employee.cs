@@ -18,28 +18,72 @@ namespace CompanyManagement
         private string departmentID = "";
         private string positionID = "";
         private int salary;
-        
-        public string ID => id;
 
-        public string Name => name;
+        public string ID
+        {
+            get => id;
+            set => id = value;
+        }
 
-        public string Gender => gender;
+        public string Name
+        {
+            get => name;
+            set => name = value;
+        }
 
-        public DateTime Birthday => birthday;
+        public string Gender
+        {
+            get => gender;
+            set => gender = value;
+        }
 
-        public string IdentifyCard => identifyCard;
+        public DateTime Birthday
+        {
+            get => birthday;
+            set => birthday = value;
+        }
 
-        public string Email => email;
+        public string IdentifyCard
+        {
+            get => identifyCard;
+            set => identifyCard = value;
+        }
 
-        public string PhoneNumber => phoneNumber;
+        public string Email
+        {
+            get => email;
+            set => email = value;
+        }
 
-        public string Address => address;
+        public string PhoneNumber
+        {
+            get => phoneNumber;
+            set => phoneNumber = value;
+        }
 
-        public string DepartmentID => departmentID;
+        public string Address
+        {
+            get => address;
+            set => address = value;
+        }
 
-        public string PositionID => positionID;
+        public string DepartmentID
+        {
+            get => departmentID;
+            set => departmentID = value;
+        }
 
-        public int Salary => salary;
+        public string PositionID
+        {
+            get => positionID;
+            set => positionID = value;
+        }
+
+        public int Salary
+        {
+            get => salary;
+            set => salary = value;
+        }
 
         public Employee() { }
 
