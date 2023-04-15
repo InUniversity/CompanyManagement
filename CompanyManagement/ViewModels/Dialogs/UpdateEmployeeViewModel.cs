@@ -1,20 +1,19 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Windows.Input;
 using System.Windows;
 using CompanyManagement.ViewModels.UserControls;
 using CompanyManagement.ViewModels.Base;
 using CompanyManagement.ViewModels.Dialogs.Interfaces;
-using CompanyManagement.ViewModels.UserControls.Interfaces;
 using CompanyManagement.Services;
 
 namespace CompanyManagement.ViewModels.Dialogs
 {
-    public class UpdateEmployeeViewModel : BaseViewModel, IDialogViewModel
+    public class UpdateEmployeeViewModel : BaseViewModel, IInputViewModel<Employee>
     {
-        
         public ICommand UpdateEmployeeCommand { get; }
 
-        public IEditDBViewModel ParentDataContext { get; set; }
-        public IEmployeeInput EmployeeInputDataContext { get; }
+        public EmployeeInputViewModel EmployeeInputDataContext { get; }
+        private Action<Employee> submitObjectAction;
 
         public UpdateEmployeeViewModel()
         {
@@ -32,7 +31,7 @@ namespace CompanyManagement.ViewModels.Dialogs
                () =>
                {
                    Employee empl = EmployeeInputDataContext.CreateEmployeeInstance();
-                   ParentDataContext.UpdateToDB(empl); 
+                   submitObjectAction?.Invoke(empl);
                    inputWindow.Close();
                }, () => { });
             dialog.Show();              
@@ -42,10 +41,15 @@ namespace CompanyManagement.ViewModels.Dialogs
         {
             return EmployeeInputDataContext.CheckAllFields();
         }
-        
-        public void Retrieve(object employee)
+
+        public void ReceiveObject(Employee employee)
         {
-            EmployeeInputDataContext.Retrieve(employee as Employee);
+            EmployeeInputDataContext.Receive(employee);
+        }
+
+        public void ReceiveSubmitAction(Action<Employee> submitObjectAction)
+        {
+            this.submitObjectAction = submitObjectAction;
         }
     }
 }

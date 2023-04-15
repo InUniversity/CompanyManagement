@@ -5,15 +5,12 @@ using CompanyManagement.Models;
 using System.Windows.Input;
 using CompanyManagement.Database;
 using CompanyManagement.ViewModels.Base;
-using CompanyManagement.ViewModels.Dialogs.Interfaces;
-using CompanyManagement.ViewModels.UserControls.Interfaces;
 using System.Windows;
-using CompanyManagement.ViewModels.Dialogs;
 using CompanyManagement.Services;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
-    public class TasksInProjectViewModel : BaseViewModel, IEditDBViewModel, IRetrieveProjectID
+    public class TasksInProjectViewModel : BaseViewModel, IRetrieveProjectID
     {
         private List<TaskInProject> tasksInProject;
         public List<TaskInProject> TasksInProject { get => tasksInProject; set { tasksInProject = value; OnPropertyChanged(); } }
@@ -31,7 +28,7 @@ namespace CompanyManagement.ViewModels.UserControls
         public ICommand DeleteTaskInProjectCommand { get; set; }
         public ICommand UpdateTaskInProjectCommand { get; set; }
 
-        private TaskInProjectDao taskInProjectDao;
+        private TaskInProjectDao taskInProjectDao = new TaskInProjectDao();
 
         private string projectID = "";
 
@@ -39,7 +36,6 @@ namespace CompanyManagement.ViewModels.UserControls
 
         public TasksInProjectViewModel()
         {
-            taskInProjectDao = new TaskInProjectDao();
             LoadTaskInProjects();
             SetVisible();
             SetCommands();
@@ -70,7 +66,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void VisibilityCRUDCommands()
         {
-            OpenTaskInProjectInputCommand = new RelayCommand<TaskInProject>(OpenAddDialog);
+            OpenTaskInProjectInputCommand = new RelayCommand<object>(OpenAddDialog);
             DeleteTaskInProjectCommand = new RelayCommand<string>(ExecuteDeleteCommand);
         }
 
@@ -79,17 +75,6 @@ namespace CompanyManagement.ViewModels.UserControls
             UpdateTaskInProjectCommand = new RelayCommand<TaskInProject>(OpenUpdateDialog);
         }
 
-        public void AddToDB(object obj)
-        {
-            taskInProjectDao.Add(obj as TaskInProject);
-            LoadTaskInProjects();
-        }
-
-        public void UpdateToDB(object task)
-        {
-            taskInProjectDao.Update(task as TaskInProject);
-            LoadTaskInProjects();
-        }
 
         public void RetrieveProjectID(string projectID)
         {
@@ -100,14 +85,17 @@ namespace CompanyManagement.ViewModels.UserControls
             TasksInProject = tasks;
         }
 
-        private void OpenAddDialog(TaskInProject task)   
+        private void OpenAddDialog(object obj)   
         {
-            AddTaskDialog addTaskDialog = new AddTaskDialog();
-            IDialogViewModel addTaskViewModel = (IDialogViewModel)addTaskDialog.DataContext;
-            addTaskViewModel.ParentDataContext = this;
-            task = CreateTaskInProjectInstance();
-            addTaskViewModel.Retrieve(task);
-            addTaskDialog.ShowDialog();
+            TaskInProject task = CreateTaskInProjectInstance();
+            var inputService = new InputDialogService<TaskInProject>(new AddTaskDialog(), task, Add);
+            inputService.Show();
+        }
+
+        private void Add(object obj)
+        {
+            taskInProjectDao.Add(obj as TaskInProject);
+            LoadTaskInProjects();
         }
 
         private TaskInProject CreateTaskInProjectInstance()
@@ -131,11 +119,14 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void OpenUpdateDialog(TaskInProject task)
         {
-            UpdateTaskDialog updateTaskDialog = new UpdateTaskDialog();
-            IDialogViewModel updateTaskViewModel = (IDialogViewModel)updateTaskDialog.DataContext;
-            updateTaskViewModel.ParentDataContext = this;
-            updateTaskViewModel.Retrieve(task);
-            updateTaskDialog.ShowDialog();
+            var inputService = new InputDialogService<TaskInProject>(new UpdateTaskDialog(), task, Update);
+            inputService.Show();
+        }
+
+        private void Update(TaskInProject task)
+        {
+            taskInProjectDao.Update(task);
+            LoadTaskInProjects();
         }
 
         private string AutoGenerateID()

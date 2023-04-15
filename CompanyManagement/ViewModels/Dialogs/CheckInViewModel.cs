@@ -6,13 +6,10 @@ using System.Windows;
 using System.Windows.Input;
 using CompanyManagement.Database;
 using CompanyManagement.Services;
-using CompanyManagement.Utilities;
-using CompanyManagement.ViewModels.Dialogs.Interfaces;
-using CompanyManagement.ViewModels.UserControls.Interfaces;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
-    public class CheckInViewModel : BaseViewModel, IDialogViewModel
+    public class CheckInViewModel : BaseViewModel
     {
         private CheckInOut checkIn;
 
@@ -20,8 +17,6 @@ namespace CompanyManagement.ViewModels.UserControls
         public ObservableCollection<TaskInProject> TaskInProjects { get => tasksCanChoose; set => tasksCanChoose = value; }
 
         private ICommand CheckInCommand { get; set; }
-        
-        public IEditDBViewModel ParentDataContext { get; set; }
 
         private CompletedTaskDao completedTaskDao = new CompletedTaskDao();
 
@@ -46,14 +41,8 @@ namespace CompanyManagement.ViewModels.UserControls
                 () =>
                 {
                     checkIn.CheckInTime = DateTime.Now;
-                    ParentDataContext.AddToDB(checkIn);
                     window.Close();
                 }, () => { });
-        }
-        
-        public void Retrieve(object obj)
-        {
-            checkIn = obj as CheckInOut;
         }
     }
 }

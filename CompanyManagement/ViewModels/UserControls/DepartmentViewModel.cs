@@ -1,8 +1,6 @@
 ﻿using CompanyManagement.Database;
 using CompanyManagement.Models;
 using CompanyManagement.ViewModels.Base;
-using CompanyManagement.ViewModels.Dialogs.Interfaces;
-using CompanyManagement.ViewModels.UserControls.Interfaces;
 using CompanyManagement.Views.Dialogs;
 using System;
 using System.Collections.Generic;
@@ -10,7 +8,7 @@ using System.Windows.Input;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
-    public class DepartmentViewModel : BaseViewModel, IEditDBViewModel
+    public class DepartmentViewModel : BaseViewModel
     {
 
         private List<Department> departments;
@@ -52,11 +50,11 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void ExecuteUpdateCommand(Department department)
         {
-            UpdateDepartmentDialog updateDepartmentDialog = new UpdateDepartmentDialog();
-            IDialogViewModel updateDepartmentModel = (IDialogViewModel)updateDepartmentDialog.DataContext;
-            updateDepartmentModel.ParentDataContext = this;
-            updateDepartmentModel.Retrieve(department);
-            updateDepartmentDialog.ShowDialog();
+            // UpdateDepartmentDialog updateDepartmentDialog = new UpdateDepartmentDialog();
+            // IDialogViewModel updateDepartmentModel = (IDialogViewModel)updateDepartmentDialog.DataContext;
+            // updateDepartmentModel.ParentDataContext = this;
+            // updateDepartmentModel.Retrieve(department);
+            // updateDepartmentDialog.ShowDialog();
         }
 
         public void UpdateToDB(object department)

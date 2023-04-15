@@ -21,7 +21,7 @@ namespace CompanyManagement.Views.Dialogs
     /// </summary>
     public partial class CheckInDialog : Window
     {
-        public IDialogViewModel ViewModel { get; }
+        public CheckInViewModel ViewModel { get; }
 
         public CheckInDialog()
         {

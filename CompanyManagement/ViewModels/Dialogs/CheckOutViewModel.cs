@@ -6,17 +6,13 @@ using System.Windows.Input;
 using CompanyManagement.Database;
 using CompanyManagement.Services;
 using CompanyManagement.Utilities;
-using CompanyManagement.ViewModels.Dialogs.Interfaces;
-using CompanyManagement.ViewModels.UserControls.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Controls;
-using System;
-using System.Threading.Tasks;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
-    public class CheckOutViewModel : BaseViewModel, IDialogViewModel
+    public class CheckOutViewModel : BaseViewModel
     {
         private CheckInOut checkOut = new CheckInOut();
 
@@ -40,7 +36,6 @@ namespace CompanyManagement.ViewModels.UserControls
         public ICommand AddTaskCompletedCommand { get; set; }
         public ICommand GetAllSelectedTasksCommand { get; set; }
         public ICommand DeleteTaskCompletedCommand { get; set; }
-        public IEditDBViewModel ParentDataContext { get; set; }
 
         private CompletedTaskDao completedTaskDao = new CompletedTaskDao();
 

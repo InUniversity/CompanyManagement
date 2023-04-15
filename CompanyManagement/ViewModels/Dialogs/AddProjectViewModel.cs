@@ -1,23 +1,19 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Windows.Input;
 using System.Windows;
 using CompanyManagement.ViewModels.UserControls;
 using CompanyManagement.ViewModels.Base;
 using CompanyManagement.ViewModels.Dialogs.Interfaces;
-using CompanyManagement.ViewModels.UserControls.Interfaces;
-using CompanyManagement.Views.Dialogs;
-using System.Windows.Controls;
-using System.Windows.Media;
 using CompanyManagement.Services;
 
 namespace CompanyManagement.ViewModels.Dialogs
 {
-    public class AddProjectViewModel : BaseViewModel, IDialogViewModel
+    public class AddProjectViewModel : BaseViewModel, IInputViewModel<Project>
     {
-
         public ICommand AddProjectCommand { get; }
 
-        public IEditDBViewModel ParentDataContext { get; set; }
         public IProjectInput ProjectInputDataContext { get; }
+        private Action<Project> submitObjectAction;
 
         public AddProjectViewModel()
         {
@@ -36,15 +32,20 @@ namespace CompanyManagement.ViewModels.Dialogs
                () =>
                {
                    Project project = ProjectInputDataContext.CreateProjectInstance(); 
-                   ParentDataContext.AddToDB(project); 
+                   submitObjectAction?.Invoke(project);
                    inputWindow.Close();
                }, () => { }); 
             dialog.Show();           
         }
-        
-        public void Retrieve(object project)
+
+        public void ReceiveObject(Project project)
         {
-            ProjectInputDataContext.RetrieveProject(project as Project);
+            ProjectInputDataContext.Receive(project);
+        }
+
+        public void ReceiveSubmitAction(Action<Project> submitObjectAction)
+        {
+            this.submitObjectAction = submitObjectAction;
         }
     }
 }
