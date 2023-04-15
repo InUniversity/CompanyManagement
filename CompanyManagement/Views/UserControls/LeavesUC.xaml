@@ -85,7 +85,7 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTextColumn Width="125" Header="Mã nhiệm vụ" IsReadOnly="True" Binding="{Binding ID}" />
+                    <DataGridTextColumn Width="125" Header="Mã xin nghỉ" IsReadOnly="True" Binding="{Binding ID}" />
                     <DataGridTextColumn Width="125" Header="Mã nhân viên" IsReadOnly="True" Binding="{Binding EmployeeID}" />
                     <DataGridTextColumn Width="125" Header="Mã loại nghỉ phép" IsReadOnly="True" Binding="{Binding LeaveTypeID}" />
                     <DataGridTextColumn Width="125" Header="Lý do" IsReadOnly="True" Binding="{Binding LeaveReason}" />
