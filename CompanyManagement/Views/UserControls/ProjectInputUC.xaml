@@ -257,6 +257,7 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
             <TextBlock 
+                Grid.Column="1"
                 Text="{Binding ErrorMessage}" 
                 TextWrapping="Wrap" 
                 Foreground="#FF0000" 
