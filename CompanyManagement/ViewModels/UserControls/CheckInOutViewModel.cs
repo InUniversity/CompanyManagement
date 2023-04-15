@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using CompanyManagement.Database;
 using CompanyManagement.Models;
+using CompanyManagement.Services;
 using CompanyManagement.Utilities;
 using CompanyManagement.ViewModels.Base;
 using CompanyManagement.Views.Dialogs;
@@ -50,13 +51,10 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void OpenCheckInDialog()
         {
-            var checkInDialog = new CheckInDialog();
-            var checkInViewModel = checkInDialog.ViewModel;
-            // checkInViewModel.ParentDataContext = this;
-            CreateNewCheckIn();
-            // checkInViewModel.Retrieve(currentCheckInOut);
-            checkInDialog.ShowDialog();
+            var inputService = new InputDialogService<CheckInOut>(new CheckInDialog(), currentCheckInOut, Add);
+            inputService.Show();
             CheckInTime = DateTime.Now;
+            CheckOutTime = new DateTime();
         }
 
         private void CreateNewCheckIn()
@@ -79,22 +77,21 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void OpenCheckOutDialog()
         {
-            // var checkOutDialog = new CheckOutDialog();
-            // var checkInViewModel = (IDialogViewModel)checkOutDialog.DataContext;
-            // checkInViewModel.ParentDataContext = this;
-            // checkInViewModel.Retrieve(currentCheckInOut);
-            // checkOutDialog.ShowDialog();
-            // CheckOutTime= DateTime.Now;
+            var inputService = new InputDialogService<CheckInOut>(new CheckOutDialog(), currentCheckInOut, Update);
+            inputService.Show();
+            CheckOutTime = DateTime.Now;
         }
 
         private void Add(CheckInOut checkInOut)
         {
             checkInOutDao.Add(checkInOut);
+            LoadCheckInOutList();
         }
 
         private void Update(CheckInOut checkInOut)
         {
             checkInOutDao.Update(checkInOut);
+            LoadCheckInOutList();
         }
     }
 }
