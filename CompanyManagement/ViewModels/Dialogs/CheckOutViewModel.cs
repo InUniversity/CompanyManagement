@@ -17,25 +17,15 @@ namespace CompanyManagement.ViewModels.UserControls
     public class CheckOutViewModel : BaseViewModel, IInputViewModel<CheckInOut>
     {
         public CheckInOutInputViewModel CheckInOutInputDataContext { get; }
-
         private Action<CheckInOut> submitObjectAction;
-
         private ObservableCollection<TaskInProject> tasksCompleted;
-
         public ObservableCollection<TaskInProject> TasksCompleted { get => tasksCompleted; set => tasksCompleted = value; }
-
         private List<TaskInProject> TasksCanChoose;
-
         private ObservableCollection<TaskInProject> searchedTasksCanChoose;
-
         public ObservableCollection<TaskInProject> SearchedTasksCanChoose { get => searchedTasksCanChoose; set { searchedTasksCanChoose = value; OnPropertyChanged(); }  }
-
         private List<TaskInProject> selectedTasks;
-
         public List<TaskInProject> SelectedTasks { get => selectedTasks; set => selectedTasks = value; }
-
         private string textToSearch = "";
-
         public string TextToSearch { get => textToSearch; set { textToSearch = value; OnPropertyChanged(); SearchByName(); } }
 
         public ICommand CheckOutCommand { get; set; }
@@ -110,6 +100,7 @@ namespace CompanyManagement.ViewModels.UserControls
             TasksCanChoose = new List<TaskInProject>(new TaskInProjectDao().SearchByProjectID("PRJ001"));
             SearchedTasksCanChoose = new ObservableCollection<TaskInProject>(TasksCanChoose);            
         }
+
         private void SearchByName()
         {
             var searchedItems = TasksCanChoose;

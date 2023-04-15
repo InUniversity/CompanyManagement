@@ -85,11 +85,13 @@ namespace CompanyManagement.ViewModels.UserControls
         private void Add(CheckInOut checkInOut)
         {
             checkInOutDao.Add(checkInOut);
+            LoadCheckInOutList();
         }
 
         private void Update(CheckInOut checkInOut)
         {
             checkInOutDao.Update(checkInOut);
+            LoadCheckInOutList();
         }
     }
 }
