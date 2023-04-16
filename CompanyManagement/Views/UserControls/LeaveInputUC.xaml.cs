@@ -1,5 +1,5 @@
-﻿using CompanyManagement.ViewModels.UserControls;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
+using CompanyManagement.ViewModels.UserControls;
 
 namespace CompanyManagement.Views.UserControls
 {
@@ -10,8 +10,7 @@ namespace CompanyManagement.Views.UserControls
     {
         public LeaveInputUC()
         {
-            InitializeComponent();
-            DataContext = new LeaveViewModel();
+            DataContext = new LeaveInputViewModel();
         }
     }
 }

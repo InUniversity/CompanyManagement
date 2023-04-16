@@ -32,18 +32,10 @@ namespace CompanyManagement.Database
             return dbConnection.GetList(sqlStr, reader => new Department(reader));
         }
 
-        public Department DepartmentByEmployeeID(string dptID)
+        public Department DepartmentByEmployeeDeptID(string dptID)
         {
-            string sqlStr = $"SELECT * FROM {DEPARTMENT_TABLE} WEHERE {DEPARTMENT_ID} = '{dptID}'";
-            return dbConnection.GetList(sqlStr, reader => new Department(reader))[0];
-        }
-
-        public string SearchManagerIDByEmployeeID(string employeeID)
-        {
-            string sqlStr = $"SELECT * FROM {DEPARTMENT_TABLE} WEHERE {DEPARTMENT_ID} = " +
-                $"(SELECT {EMPLOYEE_TABLE}.{EMPLOYEE_DEPARTMENT_ID} FROM {EMPLOYEE_TABLE} " +
-                $"WHERE {EMPLOYEE_ID} = '{employeeID}')";
-            return dbConnection.GetList(sqlStr, reader => new Department(reader))[0].ManagerID;
+            string sqlStr = $"SELECT * FROM {DEPARTMENT_TABLE} WHERE {DEPARTMENT_ID} = '{dptID}'";
+            return (Department)dbConnection.GetSingleObject(sqlStr, reader => new Department(reader));
         }
     }
 }

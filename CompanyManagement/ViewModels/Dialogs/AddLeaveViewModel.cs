@@ -13,17 +13,16 @@ namespace CompanyManagement.ViewModels.Dialogs
 {
     public class AddLeaveViewModel : BaseViewModel, IInputViewModel<Leave>
     {
-        public ICommand AddLeaveCommand { get; set; }
+        public ICommand AddLeaveCommand { get; }
 
-        public LeaveInputViewModel LeaveInputDataContext;
+        public LeaveInputViewModel LeaveInputDataContext { get; }
         private Action<Leave> submitObjectAction;
 
-        private LeaveDao leaveDao;
+        private LeaveDao leaveDao = new LeaveDao();
 
         public AddLeaveViewModel()
         {
             LeaveInputDataContext = new LeaveInputViewModel();
-            leaveDao = new LeaveDao();
             AddLeaveCommand = new RelayCommand<Window>(AddCommand);
         }
 
