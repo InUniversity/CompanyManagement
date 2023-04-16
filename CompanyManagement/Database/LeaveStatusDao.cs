@@ -1,11 +1,11 @@
-﻿using CompanyManagement.Database.Base;
+﻿using System.Collections.Generic;
+using CompanyManagement.Database.Base;
 using CompanyManagement.Models;
 
 namespace CompanyManagement.Database
 {
     public class LeaveStatusDao : BaseDao
     {
-
         public void Add(LeaveStatus leaveStatus)
         {
             string sqlStr = $"INSERT INTO {LEAVE_STATUS_TABLE} ({LEAVE_STATUS_ID}, {LEAVE_STATUS_NAME})" +

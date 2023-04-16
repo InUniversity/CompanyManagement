@@ -140,10 +140,19 @@
                             Height="80"
                             Width="50"
                             Style="{StaticResource MaterialDesignIconButton}"
-                            Command="{Binding ElementName=managerWindow, Path=DataContext.ShowAssignView}"                                       
+                            Command="{Binding ElementName=employeesWindow, Path=DataContext.ShowAssignmentViewCommand}"                                       
                             BorderThickness="0"
-                            Margin="0 220">
+                            Margin="0 20">
                             <materialDesign:PackIcon Kind="Briefcase" Foreground="White" />
+                        </Button>
+                        <Button HorizontalAlignment="Right"  
+                            Height="80"
+                            Width="50"
+                            Style="{StaticResource MaterialDesignIconButton}"
+                            Command="{Binding ElementName=employeesWindow, Path=DataContext.ShowLeaveViewCommand}"                                       
+                            BorderThickness="0"
+                            Margin="0 20">
+                            <materialDesign:PackIcon Kind="BriefcaseOff" />                        
                         </Button>
                     </StackPanel>
                 </Border>

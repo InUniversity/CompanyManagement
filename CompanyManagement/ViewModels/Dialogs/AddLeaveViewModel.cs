@@ -40,7 +40,7 @@ namespace CompanyManagement.ViewModels.Dialogs
                     Leave leave = LeaveInputDataContext.CreateLeaveInstance();
                     submitObjectAction?.Invoke(leave);
                     inputWindow.Close();
-                }, () => { });
+                }, null);
             dialog.Show();
         }
 
@@ -49,12 +49,12 @@ namespace CompanyManagement.ViewModels.Dialogs
             return true;
         }
 
-        public void RetrieveObject(Leave leave)
+        public void ReceiveObject(Leave leave)
         {
             LeaveInputDataContext.Retrieve(leave);
         }
 
-        public void RetrieveSubmitAction(Action<Leave> submitObjectAction)
+        public void ReceiveSubmitAction(Action<Leave> submitObjectAction)
         {
             this.submitObjectAction = submitObjectAction;
         }
