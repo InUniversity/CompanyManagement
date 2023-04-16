@@ -21,8 +21,10 @@
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
                 Text="Thêm Xin Nghỉ Phép"/>
-        <userControls:LeaveInputUC Grid.Row="1"
-                                         DataContext="{Binding LeaveInputDataContext}"/>
+        
+        <!--<userControls:LeaveInputUC Grid.Row="1"
+                                         DataContext="{Binding LeaveInputDataContext}"/>-->
+        <userControls:LeaveInputUC Grid.Row="1"></userControls:LeaveInputUC>
         <Button
             Grid.Row="2"
             Margin="20"

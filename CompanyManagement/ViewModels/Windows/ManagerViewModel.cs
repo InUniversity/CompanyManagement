@@ -17,7 +17,7 @@ namespace CompanyManagement.ViewModels.Windows
         private NotifyUC notifyUC = new NotifyUC();
         private SettingsUC settingsUC = new SettingsUC();
         private UserInformationUC userInformationUC = new UserInformationUC();
-        private LeavesUC leavesUC = new LeavesUC();
+        private LeaveUC leavesUC = new LeaveUC();
         
         private bool statusSettingsView = false;
         public bool StatusSettingsView { get => statusSettingsView; set { statusSettingsView = value; OnPropertyChanged(); } }

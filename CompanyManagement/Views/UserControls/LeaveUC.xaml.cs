@@ -1,14 +1,14 @@
-﻿using CompanyManagement.ViewModels.UserControls;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
+using CompanyManagement.ViewModels.UserControls;
 
 namespace CompanyManagement.Views.UserControls
 {
     /// <summary>
-    /// Interaction logic for LeavesUC.xaml
+    /// Interaction logic for LeaveUC.xaml
     /// </summary>
-    public partial class LeavesUC : UserControl
+    public partial class LeaveUC : UserControl
     {
-        public LeavesUC()
+        public LeaveUC()
         {
             InitializeComponent();
             DataContext = new LeaveViewModel();

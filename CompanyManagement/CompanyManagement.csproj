@@ -203,9 +203,18 @@
     <Compile Include="Views\UserControls\EmployeesUC.xaml.cs">
       <DependentUpon>EmployeesUC.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserControls\LeaveInputUC.xaml.cs" />
-    <Compile Include="Views\UserControls\LeavesUC.xaml.cs" />
-    <Compile Include="Views\UserControls\LeaveViewUC.xaml.cs" />
+    <Compile Include="Views\UserControls\LeaveHistoryUC.xaml.cs">
+      <DependentUpon>LeaveHistoryUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\LeaveInputUC.xaml.cs">
+      <DependentUpon>LeaveInputUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\LeaveUC.xaml.cs">
+      <DependentUpon>LeaveUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\LeaveViewUC.xaml.cs">
+      <DependentUpon>LeaveViewUC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserControls\MenuInProjectUC.xaml.cs">
       <DependentUpon>MenuInProjectUC.xaml</DependentUpon>
     </Compile>
@@ -326,9 +335,22 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\UserControls\LeaveInputUC.xaml" />
-    <Page Include="Views\UserControls\LeavesUC.xaml" />
-    <Page Include="Views\UserControls\LeaveViewUC.xaml" />
+    <Page Include="Views\UserControls\LeaveHistoryUC.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\UserControls\LeaveInputUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\LeaveUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\LeaveViewUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\UserControls\MenuInProjectUC.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

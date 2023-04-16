@@ -1,6 +1,5 @@
 ﻿using System.Windows.Controls;
 using CompanyManagement.ViewModels.UserControls;
-
 namespace CompanyManagement.Views.UserControls
 {
     /// <summary>
