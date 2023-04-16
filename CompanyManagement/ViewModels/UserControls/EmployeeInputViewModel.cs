@@ -7,18 +7,6 @@ using CompanyManagement.ViewModels.Base;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
-    // public interface IEmployeeInput
-    // {
-    //     string ID { get; }
-    //     string IdentifyCard { get; }
-    //     string PhoneNumber { get; }
-    //     string ErrorMessage { set; }
-    //     Employee CreateEmployeeInstance();
-    //     bool CheckAllFields();
-    //     void TrimAllTexts();
-    //     void Receive(Employee employee);
-    // }
-
     public class EmployeeInputViewModel : BaseViewModel
     {
         private Employee employee; 

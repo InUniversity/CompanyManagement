@@ -1,7 +1,8 @@
 ﻿using System;
-using System.Data;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 using CompanyManagement.Database.Base;
+using CompanyManagement.Models;
 using CompanyManagement.Utilities;
 
 namespace CompanyManagement
@@ -16,27 +17,66 @@ namespace CompanyManagement
         private string progress;
         private string statusID;
         private string createBy;
+        private ICollection<Department> departments = new List<Department>();
 
-        public string ID => id;
+        public string ID
+        {
+            get => id;
+            set => id = value;
+        }
 
-        public string Name => name;
+        public string Name
+        {
+            get => name;
+            set => name = value;
+        }
 
-        public DateTime Start => start;
+        public DateTime Start
+        {
+            get => start;
+            set => start = value;
+        }
 
-        public DateTime End => end;
+        public DateTime End
+        {
+            get => end;
+            set => end = value;
+        }
 
-        public DateTime Completed => completed;
+        public DateTime Completed
+        {
+            get => completed;
+            set => completed = value;
+        }
 
-        public string Progress => progress;
+        public string Progress
+        {
+            get => progress;
+            set => progress = value;
+        }
 
-        public string StatusID => statusID;
+        public string StatusID
+        {
+            get => statusID;
+            set => statusID = value;
+        }
 
-        public string CreateBy => createBy;
+        public string CreateBy
+        {
+            get => createBy;
+            set => createBy = value;
+        }
+
+        public ICollection<Department> Departments
+        {
+            get => departments;
+            set => departments = value;
+        }
 
         public Project() { }
 
         public Project(string id, string name, DateTime start, DateTime end, 
-            DateTime completed, string progress, string statusID, string createBy)
+            DateTime completed, string progress, string statusID, string createBy, ICollection<Department> departments)
         {
             this.id = id;
             this.name = name;
@@ -46,6 +86,7 @@ namespace CompanyManagement
             this.progress = progress;
             this.statusID = statusID;
             this.createBy = createBy;
+            this.departments = departments;
         }
 
         public Project(SqlDataReader reader)
