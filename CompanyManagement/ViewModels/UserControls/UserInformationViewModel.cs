@@ -34,7 +34,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void ExcuteShowMyInformationView(object obj)
         {
-            ((EmployeeInputViewModel)MyInformationView.DataContext).Retrieve(CurrentUser.Instance.CurrentEmployee);
+            ((EmployeeInputViewModel)MyInformationView.DataContext).Receive(CurrentUser.Instance.CurrentEmployee);
             CurrentChildView = MyInformationView;
             StatusMyInformationView= true; 
         }

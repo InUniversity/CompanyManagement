@@ -80,6 +80,9 @@
     <Compile Include="Database\CompletedTaskDao.cs" />
     <Compile Include="Database\DepartmentDao.cs" />
     <Compile Include="Database\EmployeeDao.cs" />
+    <Compile Include="Database\LeaveDao.cs" />
+    <Compile Include="Database\LeaveStatusDao.cs" />
+    <Compile Include="Database\LeaveTypeDao.cs" />
     <Compile Include="Database\PositionDao.cs" />
     <Compile Include="Database\ProjectAssignmentDao.cs" />
     <Compile Include="Database\ProjectDao.cs" />
@@ -93,6 +96,9 @@
     <Compile Include="Models\CurrentUser.cs" />
     <Compile Include="Models\Department.cs" />
     <Compile Include="Models\Employee.cs" />
+    <Compile Include="Models\Leave.cs" />
+    <Compile Include="Models\LeaveStatus.cs" />
+    <Compile Include="Models\LeaveType.cs" />
     <Compile Include="Models\PositionInCompany.cs" />
     <Compile Include="Models\Project.cs" />
     <Compile Include="Models\ProjectAssignment.cs" />
@@ -108,23 +114,29 @@
     <Compile Include="ViewModels\Base\BaseViewModel.cs" />
     <Compile Include="ViewModels\Base\RelayCommand.cs" />
     <Compile Include="ViewModels\Dialogs\AddEmployeeViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\AddLeaveViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\AddProjectViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\AddTaskViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\AddTimeKeepingViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\AlertDialogViewModel.cs" />
-    <Compile Include="ViewModels\Dialogs\Interfaces\IDialogViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\Interfaces\IInputViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\UpdateDepartmentViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\UpdateEmployeeViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\UpdateLeaveViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\UpdateProjectViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\UpdateTaskViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\UpdateTimeKeepingViewModel.cs" />
     <Compile Include="ViewModels\UserControls\AssignmentViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\CheckInOutInputViewModel.cs" />
     <Compile Include="ViewModels\UserControls\CheckInOutViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\CheckInViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\CheckOutViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\DepartmentInputViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\DepartmentViewModel.cs" />
     <Compile Include="ViewModels\UserControls\EmployeeInputViewModel.cs" />
     <Compile Include="ViewModels\UserControls\EmployeesViewModel.cs" />
-    <Compile Include="ViewModels\UserControls\Interfaces\IEditDBViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\LeaveInputViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\LeaveViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ProjectDetailsViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ProjectInputViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ProjectsViewModel.cs" />
@@ -139,6 +151,7 @@
     <Compile Include="Views\Dialogs\AddEmployeeDialog.xaml.cs">
       <DependentUpon>AddEmployeeDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Dialogs\AddLeaveDialog.xaml.cs" />
     <Compile Include="Views\Dialogs\AddProjectDialog.xaml.cs">
       <DependentUpon>AddProjectDialog.xaml</DependentUpon>
     </Compile>
@@ -158,9 +171,14 @@
       <DependentUpon>CheckOutDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Dialogs\Interfaces\IInputDialog.cs" />
+    <Compile Include="Views\Dialogs\UpdateDepartmentDialog.xaml.cs">
+      <DependentUpon>UpdateDepartmentDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Dialogs\UpdateEmployeeDialog.xaml.cs">
       <DependentUpon>UpdateEmployeeDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Dialogs\UpdateLeaveDialog.xaml.cs" />
+    <Compile Include="Views\Dialogs\UpdateLeaveForManagerDialog.xaml.cs" />
     <Compile Include="Views\Dialogs\UpdateProjectDialog.xaml.cs">
       <DependentUpon>UpdateProjectDialog.xaml</DependentUpon>
     </Compile>
@@ -176,12 +194,18 @@
     <Compile Include="Views\UserControls\CheckInOutUC.xaml.cs">
       <DependentUpon>CheckInOutUC.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\UserControls\DepartmentInputUC.xaml.cs">
+      <DependentUpon>DepartmentInputUC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserControls\EmployeeInputUC.xaml.cs">
       <DependentUpon>EmployeeInputUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UserControls\EmployeesUC.xaml.cs">
       <DependentUpon>EmployeesUC.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\UserControls\LeaveInputUC.xaml.cs" />
+    <Compile Include="Views\UserControls\LeavesUC.xaml.cs" />
+    <Compile Include="Views\UserControls\LeaveViewUC.xaml.cs" />
     <Compile Include="Views\UserControls\MenuInProjectUC.xaml.cs">
       <DependentUpon>MenuInProjectUC.xaml</DependentUpon>
     </Compile>
@@ -235,6 +259,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\Dialogs\AddLeaveDialog.xaml" />
     <Page Include="Views\Dialogs\AddProjectDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -259,10 +284,16 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Dialogs\UpdateDepartmentDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\Dialogs\UpdateEmployeeDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\Dialogs\UpdateLeaveDialog.xaml" />
+    <Page Include="Views\Dialogs\UpdateLeaveForManagerDialog.xaml" />
     <Page Include="Views\Dialogs\UpdateProjectDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -283,6 +314,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\UserControls\DepartmentInputUC.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\UserControls\EmployeeInputUC.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -291,6 +326,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\UserControls\LeaveInputUC.xaml" />
+    <Page Include="Views\UserControls\LeavesUC.xaml" />
+    <Page Include="Views\UserControls\LeaveViewUC.xaml" />
     <Page Include="Views\UserControls\MenuInProjectUC.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -379,7 +417,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.8.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.8.0\build\MaterialDesignThemes.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

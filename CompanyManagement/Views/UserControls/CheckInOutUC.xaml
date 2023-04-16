@@ -90,7 +90,7 @@
                                     <TextBlock Text="Start" HorizontalAlignment="Center" VerticalAlignment="Center"
                                                Foreground="White" />
                                 </Border>
-                                <TextBlock Text="8:13:30" Margin="40 0 0 0" VerticalAlignment="Center" />
+                                <TextBlock Text="{Binding CheckInTime ,StringFormat= hh:mm:ss}" Margin="40 0 0 0" VerticalAlignment="Center" />
                             </StackPanel>
                         </Border>
 
@@ -107,7 +107,7 @@
                                     <TextBlock Text="End" HorizontalAlignment="Center" VerticalAlignment="Center"
                                                Foreground="White" />
                                 </Border>
-                                <TextBlock Text="8:13:30" Margin="40 0 0 0" VerticalAlignment="Center" />
+                                <TextBlock Text="{Binding CheckOutTime ,StringFormat= hh:mm:ss}" Margin="40 0 0 0" VerticalAlignment="Center" />
                             </StackPanel>
                         </Border>
                         <Button Style="{StaticResource MaterialDesignIconButton}"

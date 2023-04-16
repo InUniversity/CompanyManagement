@@ -12,17 +12,16 @@ namespace CompanyManagement.ViewModels.Dialogs
 {
     public class AddEmployeeViewModel : BaseViewModel, IInputViewModel<Employee>
     {
-        public ICommand AddEmployeeCommand { get; set; }
+        public ICommand AddEmployeeCommand { get; }
 
-        public EmployeeInputViewModel EmployeeInputDataContext;
+        public EmployeeInputViewModel EmployeeInputDataContext { get; }
         private Action<Employee> submitObjectAction;
 
-        private EmployeeDao employeeAccountDao;
+        private EmployeeDao employeeDao = new EmployeeDao();
 
         public AddEmployeeViewModel()
         {
             EmployeeInputDataContext = new EmployeeInputViewModel();
-            employeeAccountDao = new EmployeeDao();
             AddEmployeeCommand = new RelayCommand<Window>(AddCommand);
         }
 
@@ -39,7 +38,7 @@ namespace CompanyManagement.ViewModels.Dialogs
                     Employee empl = EmployeeInputDataContext.CreateEmployeeInstance();
                     submitObjectAction?.Invoke(empl);
                     inputWindow.Close();
-                }, () => {});
+                }, null);
             dialog.Show();
         }
 
@@ -47,17 +46,17 @@ namespace CompanyManagement.ViewModels.Dialogs
         {
             if (!EmployeeInputDataContext.CheckAllFields())
                 return false;
-            if (employeeAccountDao.SearchByID(EmployeeInputDataContext.ID) != null)
+            if (employeeDao.SearchByID(EmployeeInputDataContext.ID) != null)
             {
                 EmployeeInputDataContext.ErrorMessage = Utils.EXIST_ID_MESSAGE;
                 return false;
             }
-            if (employeeAccountDao.SearchByIdentifyCard(EmployeeInputDataContext.IdentifyCard) != null)
+            if (employeeDao.SearchByIdentifyCard(EmployeeInputDataContext.IdentifyCard) != null)
             {
                 EmployeeInputDataContext.ErrorMessage = Utils.EXIST_IDENTIFY_CARD_MESSAGE;
                 return false;
             }
-            if (employeeAccountDao.SearchByPhoneNumber(EmployeeInputDataContext.PhoneNumber) != null)
+            if (employeeDao.SearchByPhoneNumber(EmployeeInputDataContext.PhoneNumber) != null)
             {
                 EmployeeInputDataContext.ErrorMessage = Utils.EXIST_PHONE_NUMBER_MESSAGE;
                 return false;
@@ -65,12 +64,12 @@ namespace CompanyManagement.ViewModels.Dialogs
             return true;
         }
 
-        public void RetrieveObject(Employee employee)
+        public void ReceiveObject(Employee employee)
         {
-            EmployeeInputDataContext.Retrieve(employee);
+            EmployeeInputDataContext.Receive(employee);
         }
 
-        public void RetrieveSubmitAction(Action<Employee> submitObjectAction)
+        public void ReceiveSubmitAction(Action<Employee> submitObjectAction)
         {
             this.submitObjectAction = submitObjectAction;
         }

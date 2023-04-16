@@ -1,7 +1,5 @@
-﻿using CompanyManagement.ViewModels.Dialogs.Interfaces;
-using CompanyManagement.Views.Dialogs.Interfaces;
+﻿using CompanyManagement.Views.Dialogs.Interfaces;
 using System;
-using System.Windows.Input;
 
 namespace CompanyManagement.Services
 {
@@ -12,9 +10,8 @@ namespace CompanyManagement.Services
         public InputDialogService(IInputDialog<TObject> inputDialog, TObject obj, Action<TObject> submitObjectCommand)
         {
             this.inputDialog = inputDialog;
-            IInputViewModel<TObject> inputViewModel = inputDialog.ViewModel;
-            inputViewModel.RetrieveObject(obj);
-            inputViewModel.RetrieveSubmitAction(submitObjectCommand);
+            inputDialog.ViewModel.ReceiveObject(obj);
+            inputDialog.ViewModel.ReceiveSubmitAction(submitObjectCommand);
         }
 
         public void Show()
