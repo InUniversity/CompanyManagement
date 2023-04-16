@@ -16,7 +16,7 @@ namespace CompanyManagement.Utilities
         public const string EXIST_PHONE_NUMBER_MESSAGE = "Số điện thoại đã tồn tại!!!";
 
         public static readonly DateTime EMPTY_DATETIME = new DateTime(2000, 1, 1, 0, 0, 0);
-        private const string FORMAT_DATETIME = "YYYY-MM-DD hh:mm:ss";
+        private const string FORMAT_DATETIME = "yyyy-MM-dd hh:mm:ss";
 
         public static string ToFormatSQLServer(DateTime dateTime)
         {

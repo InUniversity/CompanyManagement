@@ -19,7 +19,6 @@ namespace CompanyManagement.ViewModels.UserControls
     
     public class ProjectsViewModel : BaseViewModel, IProjects
     {
-
         private List<Project> projects;
         public List<Project> Projects { get => projects; set { projects = value; OnPropertyChanged(); } }
 
@@ -43,14 +42,12 @@ namespace CompanyManagement.ViewModels.UserControls
         public INavigateAssignmentView ParentDataContext { get; set; }
         public IRetrieveProjectID ProjectDetailsDataContext { get; set; }
 
-        private ProjectDao projectDao;
-        private ProjectAssignmentDao projectAssignmentDao;
+        private ProjectDao projectDao = new ProjectDao();
+        private ProjectAssignmentDao projectAssignmentDao = new ProjectAssignmentDao();
         private string currentEmployeeID = CurrentUser.Instance.CurrentEmployee.ID;
 
         public ProjectsViewModel()
         {
-            projectDao = new ProjectDao();
-            projectAssignmentDao = new ProjectAssignmentDao();
             LoadProjects();
             SetVisible();
             SetCommands();
@@ -99,16 +96,21 @@ namespace CompanyManagement.ViewModels.UserControls
             inputService.Show();
         }
 
-        private void Add(Project project)
-        {
-            projectDao.Add(project);
-            LoadProjects();
-        }
-
         private Project CreateProject()
         {
             return new Project(AutoGenerateID(), "", DateTime.Now, DateTime.Now, 
-                Utils.EMPTY_DATETIME, "0", "", CurrentUser.Instance.CurrentAccount.EmployeeID);
+                Utils.EMPTY_DATETIME, "0", "", CurrentUser.Instance.CurrentEmployee.ID, 
+                new List<Department>());
+        }
+
+        private void Add(Project project)
+        {
+            projectDao.Add(project);
+            foreach (var department in project.Departments)
+            {
+                projectAssignmentDao.Add(new ProjectAssignment(project.ID, department.ID));
+            }
+            LoadProjects();
         }
 
         private string AutoGenerateID()
@@ -138,6 +140,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void OpenUpdateProjectDialog(Project project)
         {
+            project.Departments = projectAssignmentDao.GetAllDepartmentInProject(project.ID);
             var inputService = new InputDialogService<Project>(new UpdateProjectDialog(), project, Update);
             inputService.Show();
         }
@@ -150,11 +153,11 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void ItemClicked(object obj)
         {
-            if (selectedProject != null) 
-            {
-                ProjectDetailsDataContext.RetrieveProjectID(SelectedProject.ID);
-                ParentDataContext.MoveToProjectDetailsView();
-            }
+            if (SelectedProject == null)
+                return;
+            ProjectDetailsDataContext.RetrieveProjectID(SelectedProject.ID);
+            ParentDataContext.MoveToProjectDetailsView();
+            SelectedProject = null;
         }
     }
 }

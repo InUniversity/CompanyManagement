@@ -21,48 +21,32 @@ namespace CompanyManagement.ViewModels.UserControls
 
     public class ProjectInputViewModel : BaseViewModel, IProjectInput
     {
+        private Project project = new Project();
+        public string ID { get => project.ID; set { project.ID = value; OnPropertyChanged(); } }
+        public string Name { get => project.Name; set { project.Name = value; OnPropertyChanged(); } }
+        public DateTime Start { get => project.Start; set { project.Start = value; OnPropertyChanged(); LoadDepartmentsCanAssign(); } }
+        public DateTime End { get => project.End; set { project.End = value; OnPropertyChanged(); LoadDepartmentsCanAssign(); } }
+        public DateTime Completed { get => project.Completed; set { project.Completed = value; OnPropertyChanged(); } }
+        public string Progress { get => project.Progress; set { project.Progress = value; OnPropertyChanged(); } }
+        public string ProjectStatusID { get => project.StatusID; set { project.StatusID = value; OnPropertyChanged(); } }
+        public string CreateBy { get => project.CreateBy; set { project.CreateBy = value; OnPropertyChanged(); } }
+        public ObservableCollection<Department> DepartmentsInProject 
+        { get => new ObservableCollection<Department>(project.Departments) ; set { project.Departments = value; OnPropertyChanged(); } }
 
-        private string id = "";
-        public string ID { get => id; set { id = value; OnPropertyChanged(); } }
-
-        private string name = "";
-        public string Name { get => name; set { name = value; OnPropertyChanged(); } }
-
-        private DateTime start = DateTime.Now;
-        public DateTime Start { get => start; set { start = value; OnPropertyChanged(); LoadDepartmentsCanAssign(CreateProjectInstance()); } }
-
-        private DateTime end = DateTime.Now;
-        public DateTime End { get => end; set { end = value; OnPropertyChanged(); LoadDepartmentsCanAssign(CreateProjectInstance()); } }
-
-        private DateTime completed = DateTime.Now;
-        public DateTime Completed { get => completed; set { completed = value; OnPropertyChanged(); } }
-
-        private string progress = "0";
-        public string Progress { get => progress; set { progress = value; OnPropertyChanged(); } }
-
-        private string projectStatusID = "1";
-        public string ProjectStatusID { get => projectStatusID; set { projectStatusID = value; OnPropertyChanged(); } }
-
-        private string createBy = CurrentUser.Instance.CurrentAccount.EmployeeID;
-        public string CreateBy { get => createBy; set { createBy = value; OnPropertyChanged(); } }
-
-        private string errorMessage = "";
-        public string ErrorMessage { get => errorMessage; set { errorMessage = value; OnPropertyChanged(); } }
-
-        private ObservableCollection<Department> departmentsInProject;
-        public ObservableCollection<Department> DepartmentsInProject { get => departmentsInProject; set => departmentsInProject = value; }
-
-        private List<Department> departmentsCanAssign;
+        private List<Department> departmentsCanAssign = new List<Department>();
         
         private ObservableCollection<Department> searchedDepartmentsCanAssign;
         public ObservableCollection<Department> SearchedDepartmentsCanAssign 
-            { get => searchedDepartmentsCanAssign; set => searchedDepartmentsCanAssign = value; }
+        { get => searchedDepartmentsCanAssign; set { searchedDepartmentsCanAssign = value; OnPropertyChanged();} }
 
-        private List<Department> selectedDepartments;
+        private List<Department> selectedDepartments = new List<Department>();
         public List<Department> SelectedDepartments { get => selectedDepartments; set => selectedDepartments = value; }
 
         private string textToSearch = "";
         public string TextToSearch { get => textToSearch; set { textToSearch = value; OnPropertyChanged(); SearchByName(); } }
+        
+        private string errorMessage = "";
+        public string ErrorMessage { get => errorMessage; set { errorMessage = value; OnPropertyChanged(); } }
 
         public ICommand AddDepartmentCommand { get; set; }
         public ICommand DeleteDepartmentCommand { get; set; }
@@ -70,36 +54,36 @@ namespace CompanyManagement.ViewModels.UserControls
 
         public List<ProjectStatus> ProjectStatuses { get; set; }
 
-        private ProjectStatusDao projectStatusDao;
-        private ProjectAssignmentDao projectAssignmentDao;
+        private ProjectStatusDao projectStatusDao = new ProjectStatusDao();
+        private ProjectAssignmentDao projectAssignmentDao = new ProjectAssignmentDao();
 
         public ProjectInputViewModel()
         {
-            projectStatusDao = new ProjectStatusDao();
-            projectAssignmentDao = new ProjectAssignmentDao();
             SetCommands();
             SetAllComboBox();
         }
 
-        private void LoadDepartmentsInProject(string projectID)
+        private void LoadDepartmentsInProject()
         {
-            var departments = projectAssignmentDao.GetAllDepartmentInProject(projectID);
+            var departments = projectAssignmentDao.GetAllDepartmentInProject(project.ID);
             DepartmentsInProject = new ObservableCollection<Department>(departments);
         }
 
-        private void LoadDepartmentsCanAssign(Project project)
+        private void LoadDepartmentsCanAssign()
         {
-            departmentsCanAssign = projectAssignmentDao.GetDepartmentsCanAssignWork(project);
+            departmentsCanAssign = projectAssignmentDao.GetDepartmentsCanAssignWork(project.ID, 
+                Utils.ToFormatSQLServer(project.Start), Utils.ToFormatSQLServer(project.End));
+            SearchedDepartmentsCanAssign = new ObservableCollection<Department>(departmentsCanAssign);
+            
             Log.Instance.Information(nameof(ProjectInputViewModel), $"{project.ID}");
             Log.Instance.Information(nameof(ProjectInputViewModel), $"{departmentsCanAssign.Count}");
-            SearchedDepartmentsCanAssign = new ObservableCollection<Department>(departmentsCanAssign);
         }
 
         private void SetCommands()
         {
             GetAllSelectedDepartmentCommand = new RelayCommand<ListView>(ExecuteGetAllSelectedDepartment);
             AddDepartmentCommand = new RelayCommand<object>(ExecuteAddDepartmentCommand);
-            DeleteDepartmentCommand = new RelayCommand<string>(ExecuteDeleteDepartmentCommand);
+            DeleteDepartmentCommand = new RelayCommand<Department>(ExecuteDeleteDepartmentCommand);
         }
 
         private void SetAllComboBox()
@@ -113,31 +97,31 @@ namespace CompanyManagement.ViewModels.UserControls
             SelectedDepartments = selectedItems;
         }
 
-        private void ExecuteAddDepartmentCommand(object b)
+        private void ExecuteAddDepartmentCommand(object obj)
         {
             if (SelectedDepartments != null)
             {
-                foreach (Department department in SelectedDepartments)
+                foreach (var department in SelectedDepartments)
                 {
-                    projectAssignmentDao.Add(new ProjectAssignment(ID, department.ID));
+                    DepartmentsInProject.Add(department);
+                    departmentsCanAssign.Remove(department);
                 }
-                LoadDepartmentsInProject(ID);
-                LoadDepartmentsCanAssign(CreateProjectInstance());
             }                
             SelectedDepartments = new List<Department>();
         }
 
-        private void ExecuteDeleteDepartmentCommand(string departmentID)
+        private void ExecuteDeleteDepartmentCommand(Department department)
         {
-            projectAssignmentDao.Delete(new ProjectAssignment(ID, departmentID));
-            LoadDepartmentsInProject(ID);
-            LoadDepartmentsCanAssign(CreateProjectInstance());
+            // wrong case when add new project
+            // projectAssignmentDao.Delete(new ProjectAssignment(ID, department.ID));
+            DepartmentsInProject.Remove(department);
+            departmentsCanAssign.Add(department);
         }
 
         private void SearchByName()
         {
             var searchedItems = departmentsCanAssign;
-            if (!string.IsNullOrEmpty(textToSearch))
+            if (!string.IsNullOrWhiteSpace(textToSearch))
             {
                 searchedItems = departmentsCanAssign
                     .Where(item => item.Name.ToLower().Contains(textToSearch.ToLower()))
@@ -148,7 +132,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         public Project CreateProjectInstance()
         {
-            return new Project(id, name, start, end, completed, progress, projectStatusID, createBy);
+            return new Project(ID, Name, Start, End, Completed, Progress, ProjectStatusID, CreateBy, DepartmentsInProject);
         }
 
         public bool CheckAllFields()
@@ -169,22 +153,15 @@ namespace CompanyManagement.ViewModels.UserControls
 
         public void TrimAllTexts()
         {
-            ID = id.Trim();
-            Name = name.Trim();
-            Progress = progress.Trim();
+            ID = ID.Trim();
+            Name = Name.Trim();
         }
 
         public void Receive(Project project)
         {
-            ID = project.ID;
-            Name = project.Name;
-            Start = project.Start;
-            End = project.End;
-            Completed = project.Completed;
-            Progress = project.Progress;
-            ProjectStatusID = project.StatusID;
-            LoadDepartmentsInProject(project.ID);
-            LoadDepartmentsCanAssign(project);
+            this.project = project;
+            LoadDepartmentsInProject();
+            LoadDepartmentsCanAssign();
         }
     }
 }
