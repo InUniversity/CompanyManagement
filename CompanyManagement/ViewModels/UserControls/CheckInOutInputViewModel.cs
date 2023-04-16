@@ -1,6 +1,8 @@
 ﻿using CompanyManagement.Models;
 using CompanyManagement.ViewModels.Base;
 using System;
+using System.Net;
+using System.Xml.Linq;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
@@ -19,6 +21,16 @@ namespace CompanyManagement.ViewModels.UserControls
         public CheckInOutInputViewModel()
         {
             checkInOut = new CheckInOut();
+        }
+
+        public void Receive(CheckInOut checkInOut)
+        {
+            this.checkInOut = checkInOut;
+        }
+
+        public CheckInOut CreateCheckInOutInstance()
+        {
+            return new CheckInOut(ID, EmployeeID, CheckInTime, CheckOutTime, CheckOutStatus, TaskID, CompletedTaskID);
         }
     }
 }

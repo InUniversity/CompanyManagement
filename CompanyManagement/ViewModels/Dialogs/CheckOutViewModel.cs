@@ -9,28 +9,30 @@ using CompanyManagement.Utilities;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Controls;
+using CompanyManagement.ViewModels.Dialogs.Interfaces;
+using System;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
-    public class CheckOutViewModel : BaseViewModel
+    public class CheckOutViewModel : BaseViewModel, IInputViewModel<CheckInOut>
     {
-        private CheckInOut checkOut = new CheckInOut();
+        public CheckInOutInputViewModel CheckInOutInputDataContext { get; }
+
+        private Action<CheckInOut> submitObjectAction;
 
         private ObservableCollection<TaskInProject> tasksCompleted;
-        public ObservableCollection<TaskInProject> TasksCompleted { get => tasksCompleted; set { tasksCompleted = value; OnPropertyChanged(); } }
+        public ObservableCollection<TaskInProject> TasksCompleted { get => tasksCompleted; set => tasksCompleted = value; }
 
         private List<TaskInProject> TasksCanChoose;
 
         private ObservableCollection<TaskInProject> searchedTasksCanChoose;
-        public ObservableCollection<TaskInProject> SearchedTasksCanChoose
-        { get => searchedTasksCanChoose; set { searchedTasksCanChoose = value; OnPropertyChanged(); } }
+        public ObservableCollection<TaskInProject> SearchedTasksCanChoose { get => searchedTasksCanChoose; set { searchedTasksCanChoose = value; OnPropertyChanged(); }  }
 
         private List<TaskInProject> selectedTasks;
         public List<TaskInProject> SelectedTasks { get => selectedTasks; set => selectedTasks = value; }
 
         private string textToSearch = "";
         public string TextToSearch { get => textToSearch; set { textToSearch = value; OnPropertyChanged(); SearchByName(); } }
-
 
         public ICommand CheckOutCommand { get; set; }
         public ICommand AddTaskCompletedCommand { get; set; }
@@ -41,11 +43,12 @@ namespace CompanyManagement.ViewModels.UserControls
 
         public CheckOutViewModel()
         {
-            LoadTasksCompleted();
             SetCommands();
             LoadTasksCanChoose();
+            CheckInOutInputDataContext = new CheckInOutInputViewModel();
             TasksCompleted = new ObservableCollection<TaskInProject>();
         }
+
         private void SetCommands()
         {
             CheckOutCommand = new RelayCommand<Window>(ExecuteCheckOutCommand);
@@ -61,7 +64,9 @@ namespace CompanyManagement.ViewModels.UserControls
                  "Bạn có chắc chắn muốn check out không ?",
                  () =>
                  {
+                     CheckInOut checkOut = CheckInOutInputDataContext.CreateCheckInOutInstance();
                      AddTaskCompletedToDB();
+                     submitObjectAction?.Invoke(checkOut);
                      window.Close();
                  }, () => { });
             dialog.Show();
@@ -70,7 +75,6 @@ namespace CompanyManagement.ViewModels.UserControls
         private void ExecuteDeleteTaskCompletedCommand(TaskInProject task)
         {
             TasksCompleted.Remove(task);
-            LoadTasksCompleted();
             LoadTasksCanChoose();
         }
 
@@ -80,10 +84,8 @@ namespace CompanyManagement.ViewModels.UserControls
             {
                 foreach (TaskInProject task in SelectedTasks)
                 {
-                    Log.Instance.Information("CheckoutViewModel","selected task: "+ task.Title);
                     TasksCompleted.Add(task);
                 }
-                LoadTasksCompleted();
                 LoadTasksCanChoose();
             }
             SelectedTasks = new List<TaskInProject>();
@@ -95,18 +97,16 @@ namespace CompanyManagement.ViewModels.UserControls
             SelectedTasks = selectedItems;
         }
 
-        private void LoadTasksCompleted()
-        {
-            //var tasks = completedTaskDao.GetCompletedTasksWithoutTimeTracking(checkOut.EmployeeID, 
-            //    Utils.ToFormatSQLServer(checkOut.CheckInTime));
-            //TasksCompleted = new ObservableCollection<TaskInProject>(tasks);
-        }
         private void LoadTasksCanChoose()
         {
+            //var list = completedTaskDao.GetOpenAssignedTasks(CheckInOutInputDataContext.EmployeeID,
+            //    Utils.ToFormatSQLServer(CheckInOutInputDataContext.CheckOutTime));
+            //TasksCanChoose = new List<TaskInProject>(list);
+            //SearchedTasksCanChoose = new ObservableCollection<TaskInProject>(TasksCanChoose);
             TasksCanChoose = new List<TaskInProject>(new TaskInProjectDao().SearchByProjectID("PRJ001"));
-            SearchedTasksCanChoose = new ObservableCollection<TaskInProject>(TasksCanChoose);
-            
+            SearchedTasksCanChoose = new ObservableCollection<TaskInProject>(TasksCanChoose);            
         }
+
         private void SearchByName()
         {
             var searchedItems = TasksCanChoose;
@@ -123,14 +123,19 @@ namespace CompanyManagement.ViewModels.UserControls
         {
            foreach (var task in TasksCompleted)
            {
-               var completedTask = new CompletedTask(checkOut.CompletedTaskID, task.ID);
+               var completedTask = new CompletedTask(CheckInOutInputDataContext.CompletedTaskID, task.ID);
                 completedTaskDao.Add(completedTask);
            }
         }
         
-        public void Retrieve(object obj)
+        public void ReceiveObject(CheckInOut checkInOut)
         {
-            checkOut = obj as CheckInOut;
+            CheckInOutInputDataContext.Receive(checkInOut);
+        }
+
+        public void ReceiveSubmitAction(Action<CheckInOut> submitObjectAction)
+        {
+            this.submitObjectAction = submitObjectAction;
         }
     }
 }
