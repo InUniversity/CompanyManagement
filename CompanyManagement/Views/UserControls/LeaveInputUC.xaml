@@ -1,14 +1,22 @@
 ﻿<UserControl x:Class="CompanyManagement.Views.UserControls.LeaveInputUC"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CompanyManagement.Views.UserControls"
+              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.FontWeight="Regular"
+             TextElement.FontSize="13"
+             TextOptions.TextFormattingMode="Ideal"
+             TextOptions.TextRenderingMode="Auto"
              Background="White"
-             x:Name="leaveInputUC"
-             Height="500" Width="800">
+             FontFamily="{DynamicResource MaterialDesignFont}"
+             mc:Ignorable="d" >
     <Grid>
         <StackPanel>
-            <ComboBox
-                Width="780"
+            <ComboBox             
                 Height="40"
                 ItemsSource="{Binding LeaveTypes}"
                 SelectedValue="{Binding ID}"
@@ -24,8 +32,12 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
             <Label Height="25" Content="Lý do:" Margin="10 5" FontSize="12" Foreground="DimGray" FontFamily="Bold"/>
-            <ScrollViewer VerticalScrollBarVisibility="Auto">
-                <TextBox TextWrapping="Wrap" AcceptsReturn="True" Height="125" VerticalScrollBarVisibility="Disabled" Width="780"
+            <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="10 0">
+                <TextBox TextWrapping="Wrap" 
+                         AcceptsReturn="True" 
+                         Height="125"                         
+                         VerticalScrollBarVisibility="Disabled" 
+                         Width="780"
                          Text="{Binding LeaveReason,  UpdateSourceTrigger=PropertyChanged}"
                          Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
             </ScrollViewer>
