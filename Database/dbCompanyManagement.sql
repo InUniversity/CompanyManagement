@@ -3,6 +3,11 @@ GO
 USE CompanyManagement
 GO
 
+CREATE TABLE Position(
+	position_id varchar(20) PRIMARY KEY,
+	position_name nvarchar(50)
+);
+GO
 CREATE TABLE Employee(
 	employee_id varchar (20) PRIMARY KEY,
 	employee_name nvarchar(100),
@@ -17,31 +22,28 @@ CREATE TABLE Employee(
 	salary int
 );
 GO
-CREATE TABLE Position(
-	position_id varchar(20) PRIMARY KEY,
-	position_name nvarchar(50)
-);
-GO
-CREATE TABLE EmployeeStatus(
-	employee_id varchar(20),
-	work_status_id varchar(10)
-);
-GO
-CREATE TABLE WorkStatus(
-	work_status_id varchar(10) PRIMARY KEY,
-	work_status_name nvarchar(50)
-);
+ALTER TABLE Employee ADD CONSTRAINT FK_Employee_Position FOREIGN KEY(position_id) REFERENCES Position(position_id)
 GO
 CREATE TABLE Account(
-	account_username varchar(100) PRIMARY KEY,
+	account_username varchar(100),
 	account_password varchar(100),
-	employee_id varchar (20)
+	employee_id varchar(20) PRIMARY KEY,
 );
+GO
+ALTER TABLE Account ADD CONSTRAINT FK_Account_Employee FOREIGN KEY(employee_id) REFERENCES Employee(employee_id)
 GO
 CREATE TABLE Department(
 	department_id varchar(20) PRIMARY KEY,
 	department_name nvarchar(100),
 	manager_id varchar(20)
+);
+GO
+ALTER TABLE Department ADD CONSTRAINT FK_Department_Employee 
+FOREIGN KEY(manager_id) REFERENCES Employee(employee_id)
+GO
+CREATE TABLE ProjectStatus(
+	project_status_id varchar(10) PRIMARY KEY,
+	project_status_name nvarchar(50)
 );
 GO
 CREATE TABLE Project(
@@ -54,12 +56,33 @@ CREATE TABLE Project(
 	project_status_id varchar(10),
 	create_by varchar(20)
 );
-
+GO
+ALTER TABLE Project ADD CONSTRAINT FK_Project_ProjectStatus
+FOREIGN KEY(project_status_id) REFERENCES ProjectStatus(project_status_id)
+GO
+ALTER TABLE Project ADD CONSTRAINT FK_Project_Employee
+FOREIGN KEY(create_by) REFERENCES Employee(employee_id)
 GO
 CREATE TABLE ProjectAssignment(
 	project_id varchar(20),
 	department_id varchar(20),
 	PRIMARY KEY(project_id, department_id)
+);
+GO
+ALTER TABLE ProjectAssignment ADD CONSTRAINT FK_ProjectAssignment_Project 
+FOREIGN KEY(project_id) REFERENCES Project(project_id)
+GO
+ALTER TABLE ProjectAssignment ADD CONSTRAINT FK_ProjectAssignment_Department 
+FOREIGN KEY(department_id) REFERENCES Department(department_id)
+GO
+CREATE TABLE TaskStatus(
+	task_status_id varchar(10) PRIMARY KEY, 
+	task_status_name nvarchar(50)
+);
+GO
+CREATE TABLE TaskPriority(
+	task_priority_id varchar(20) PRIMARY KEY,
+	task_priority_name varchar(20)
 );
 GO
 CREATE TABLE Task(
@@ -74,22 +97,22 @@ CREATE TABLE Task(
 	project_id varchar(20),
 	task_priority_id varchar(20), 
 	task_status_id varchar(10)
-); 
-GO
-CREATE TABLE ProjectStatus(
-	project_status_id varchar(10) PRIMARY KEY,
-	project_status_name nvarchar(50)
 );
 GO
-CREATE TABLE TaskStatus(
-	task_status_id varchar(10) PRIMARY KEY, 
-	task_status_name nvarchar(50)
-);
+ALTER TABLE Task ADD CONSTRAINT FK_Task_Manager
+FOREIGN KEY(create_by) REFERENCES Employee(employee_id)
 GO
-CREATE TABLE TaskPriority(
-	task_priority_id varchar(20),
-	task_priority_name varchar(20)
-);
+ALTER TABLE Task ADD CONSTRAINT FK_Task_Employee
+FOREIGN KEY(employee_id) REFERENCES Employee(employee_id)
+GO
+ALTER TABLE Task ADD CONSTRAINT FK_Task_Project
+FOREIGN KEY(project_id) REFERENCES Project(project_id)
+GO
+ALTER TABLE Task ADD CONSTRAINT FK_Task_Priority
+FOREIGN KEY(task_priority_id) REFERENCES TaskPriority(task_priority_id)
+GO
+ALTER TABLE Task ADD CONSTRAINT FK_Task_Status
+FOREIGN KEY(task_status_id) REFERENCES TaskStatus(task_status_id)
 GO
 
 -- check-in-out
@@ -99,30 +122,28 @@ CREATE TABLE CheckInOut(
     check_in_time SMALLDATETIME,
     check_out_time SMALLDATETIME,
     check_out_status BIT DEFAULT 0,
-    task_id varchar(20),
-    completed_task_id varchar(20)
+    task_id varchar(20)
 )
 GO
+ALTER TABLE CheckInOut ADD CONSTRAINT FK_CheckInOut_Employee
+FOREIGN KEY(employee_id) REFERENCES Employee(employee_id)
+GO
+ALTER TABLE CheckInOut ADD CONSTRAINT FK_CheckInOut_Task
+FOREIGN KEY(task_id) REFERENCES Task(task_id)
+GO
 CREATE TABLE CompletedTask(
-    id varchar(20) PRIMARY KEY,
-    task_id varchar(20),
+    check_in_out_id varchar(20),
+    task_id varchar(20) PRIMARY KEY
 )
+GO
+ALTER TABLE CompletedTask ADD CONSTRAINT FK_CompletedTask_CheckInOut
+FOREIGN KEY(check_in_out_id) REFERENCES CheckInOut(id)
+GO
+ALTER TABLE CompletedTask ADD CONSTRAINT FK_CompletedTask_Task
+FOREIGN KEY(task_id) REFERENCES Task(task_id)
 GO
 
 -- request for leave
-CREATE TABLE Leave(
-    id varchar(20) PRIMARY KEY,
-    employee_id varchar(20),
-    leave_type_id varchar(20),
-    leave_reason nvarchar(255),
-    start_date SMALLDATETIME,
-    end_date SMALLDATETIME,
-    leave_status_id varchar(20),
-    created_date SMALLDATETIME,
-    approved_by varchar(20),
-    note nvarchar(255)
-)
-GO
 CREATE TABLE LeaveType(
     leave_type_id varchar(20) PRIMARY KEY,
     leave_type_name nvarchar(20),
@@ -133,7 +154,27 @@ CREATE TABLE LeaveStatus(
     leave_status_name nvarchar(50)
 )
 GO
-
+CREATE TABLE Leave(
+    id varchar(20) PRIMARY KEY,
+    employee_id varchar(20),
+    leave_type_id varchar(20),
+    leave_reason nvarchar(255),
+    start_date SMALLDATETIME,
+    end_date SMALLDATETIME,
+    leave_status_id varchar(20),
+    created_date SMALLDATETIME,
+    approved_by varchar(20),
+    notes nvarchar(255)
+)
+GO
+ALTER TABLE Leave ADD CONSTRAINT FK_Leave_Type
+FOREIGN KEY(leave_type_id) REFERENCES LeaveType(leave_type_id)
+GO
+ALTER TABLE Leave ADD CONSTRAINT FK_Leave_Status
+FOREIGN KEY(leave_status_id) REFERENCES LeaveStatus(leave_status_id)
+GO
+ALTER TABLE Leave ADD CONSTRAINT FK_Leave_Employee
+FOREIGN KEY(approved_by) REFERENCES Employee(employee_id)
 GO
 INSERT INTO Position(position_id, position_name)
 VALUES	
@@ -211,81 +252,24 @@ VALUES
 ('DPM006', 'Finance and Accounting', 'EM005');
 GO
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
-INSERT INTO WorkStatus(work_status_id, work_status_name)
-VALUES	
-('1', N'Đang làm việc'),
-('2', N'Nghỉ có phép'),
-('3', N'Nghỉ không phép'),
-('4', N'Nghỉ theo biên chế'),
-('5', N'Đang công tác')
-GO
----------------------------------------------------------------------------------------------------------------------------------------------------------
-INSERT INTO EmployeeStatus(employee_id, work_status_id)
-VALUES
-    ('EM001',  '1'),
-    ('EM002',  '1'),
-    ('EM003',  '1'),
-    ('EM004',  '1'),
-    ('EM005',  '1'),
-    ('EM006',  '1'),
-    ('EM007',  '1'),
-    ('EM008',  '1'),
-    ('EM009',  '1'),
-    ('EM010',  '1'),
-    ('EM011',  '1'),
-    ('EM012',  '1'),
-    ('EM013',  '1'),
-    ('EM014',  '1'),
-    ('EM015',  '1'),
-    ('EM016',  '1'),
-    ('EM017',  '1'),
-    ('EM018',  '1'),
-    ('EM019',  '1'),
-    ('EM020',  '1'),
-    ('EM021',  '1'),
-    ('EM022',  '1'),
-    ('EM023',  '1'),
-    ('EM024',  '1'),
-    ('EM025',  '1'),
-    ('EM026',  '1'),
-    ('EM027',  '1'),
-    ('EM028',  '1'),
-    ('EM029',  '1'),
-    ('EM030',  '1'),
-    ('EM031',  '1'),
-    ('EM032',  '1'),
-    ('EM033',  '1'),
-    ('EM034',  '1'),
-    ('EM035',  '1'),
-    ('EM036',  '1'),
-    ('EM037',  '1'),
-    ('EM038',  '1'),
-	('EM039',  '1'),	
-	('EM040',  '1'),	
-	('EM041',  '1'),	
-	('EM042',  '1'),	
-	('EM043',  '1'),	
-	('EM044',  '1'),	
-	('EM045',  '1'),	
-	('EM046',  '1'),	
-	('EM047',  '1'),	
-	('EM048',  '1'),
-	('EM049',  '1'),
-	('EM050',  '1'),
-	('EM051',  '1'),
-	('EM052',  '1'),
-	('EM053',  '1'),
-	('EM054',  '1'),
-	('EM055',  '1');	
-GO
----------------------------------------------------------------------------------------------------------------------------------------------------------
 INSERT INTO Account (account_username, account_password, employee_id)
 SELECT CONCAT(employee_id, SUBSTRING(CONVERT(varchar, birthday, 103), 1, 2), SUBSTRING(CONVERT(varchar, birthday, 103), 4, 2)), 
 					   '@1234567', employee_id 
 FROM Employee;
 GO
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
-
+INSERT INTO ProjectStatus(project_status_id, project_status_name)
+VALUES
+( '0', N'Đã hủy'),
+( '1', N'Đang thu thập yêu cầu'),
+( '2', N'Đang thiết kế và phát triển'),
+( '3', N'Đang kiểm thử và đánh giá'),
+( '4', N'Đang triển khai'),
+( '5', N'Đang bảo trì và hỗ trợ'),
+( '6', N'Đang nâng cấp và cải tiến'),
+( '7', N'Đang đình chỉ');
+GO
+---------------------------------------------------------------------------------------------------------------------------------------------------------
 INSERT INTO Project (project_id, project_name, create_date, end_date, completed_date, progress, project_status_id, create_by)
 VALUES 
 ('PRJ001', 'Website Development', CONVERT(SMALLDATETIME, '01-01-2023 08:00 AM', 105), CONVERT(SMALLDATETIME, '30-06-2023 05:00 PM', 105), CONVERT(SMALLDATETIME, '01-01-2000 00:00 AM', 105), '50','4', 'EM001'),
@@ -303,6 +287,25 @@ VALUES
 ('PRJ003', 'DPM003'),
 ('PRJ004', 'DPM004'),
 ('PRJ005', 'DPM005');
+GO
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+INSERT INTO TaskStatus(task_status_id, task_status_name)
+VALUES
+( '0', N'Đã hủy'),
+( '1', N'Mở'),
+( '2', N'Đang tiến hành'),
+( '3', N'Đang xem lại'),
+( '4', N'Sẽ được kiểm tra'),
+( '5', N'Đang chờ'),
+( '6', N'Đang hoãn'),
+( '7', N'Đã đóng'); 
+GO
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+INSERT INTO TaskPriority(task_priority_id, task_priority_name)
+VALUES 
+('1', N'Cao'),
+('2', N'Trung bình'),
+('3', N'Thấp');
 GO
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
 INSERT INTO Task (task_id, title, task_description, assign_date, deadline, create_by, progress, employee_id, project_id, task_priority_id, task_status_id)
@@ -333,54 +336,18 @@ VALUES
 ('T000024', N'Set up security infrastructure', N'Cài đặt và cấu hình cơ sở hạ tầng bảo mật cho công ty', CONVERT(SMALLDATETIME, '15-05-2023 02:45 PM', 105), CONVERT(SMALLDATETIME, '30-11-2023 10:30 AM', 105), 'EM050', '0', 'EM053', 'PRJ005', '1', 1),
 ('T000025', N'Implement backup infrastructure', N'Cài đặt và cấu hình cơ sở hạ tầng sao lưu cho công ty', CONVERT(SMALLDATETIME, '20-05-2023 02:45 PM', 105), CONVERT(SMALLDATETIME, '30-11-2023 10:30 AM', 105), 'EM050', '0', 'EM054', 'PRJ005', '1', '1'),
 ('T000026', N'Manage IT infrastructure', N'Quản lý và duy trì cơ sở hạ tầng công nghệ thông tin cho công ty', CONVERT(SMALLDATETIME, '25-05-2023 02:45 PM', 105), CONVERT(SMALLDATETIME, '30-11-2023 10:30 AM', 105), 'EM050', '0', 'EM055', 'PRJ005', '1', '1');
----------------------------------------------------------------------------------------------------------------------------------------------------------
-INSERT INTO ProjectStatus(project_status_id, project_status_name)
+
+INSERT INTO CheckInOut(id, employee_id, check_in_time, check_out_time, check_out_status, task_id)
 VALUES
-( '0', N'Đã hủy'),
-( '1', N'Đang thu thập yêu cầu'),
-( '2', N'Đang thiết kế và phát triển'),
-( '3', N'Đang kiểm thử và đánh giá'),
-( '4', N'Đang triển khai'),
-( '5', N'Đang bảo trì và hỗ trợ'),
-( '6', N'Đang nâng cấp và cải tiến'),
-( '7', N'Đang đình chỉ');
+    ('CI00001', 'EM007', '2023-04-10 08:30:00', '2023-04-10 12:00:00', 1, 'T000001'),
+    ('CI00002', 'EM008', '2023-04-11 13:30:00', '2023-04-11 16:00:00', 0, 'T000002');
 GO
----------------------------------------------------------------------------------------------------------------------------------------------------------
-INSERT INTO TaskStatus(task_status_id, task_status_name)
+INSERT INTO CompletedTask(check_in_out_id, task_id)
 VALUES
-( '0', N'Đã hủy'),
-( '1', N'Mở'),
-( '2', N'Đang tiến hành'),
-( '3', N'Đang xem lại'),
-( '4', N'Sẽ được kiểm tra'),
-( '5', N'Đang chờ'),
-( '6', N'Đang hoãn'),
-( '7', N'Đã đóng'); 
-GO
----------------------------------------------------------------------------------------------------------------------------------------------------------
-INSERT INTO TaskPriority(task_priority_id, task_priority_name)
-VALUES 
-('1', N'Cao'),
-('2', N'Trung bình'),
-('3', N'Thấp');
+    ('CI00001', 'T000001'),
+	('CI00001', 'T000002');
 GO
 
-INSERT INTO CheckInOut(id, employee_id, check_in_time, check_out_time, check_out_status, task_id, completed_task_id)
-VALUES
-    ('CI00001', 'EM007', '2023-04-10 08:30:00', '2023-04-10 12:00:00', 1, 'T001', 'CT00001'),
-    ('CI00002', 'EM008', '2023-04-11 13:30:00', '2023-04-11 16:00:00', 0, 'T003', '');
-GO
-INSERT INTO CompletedTask(id, task_id)
-VALUES
-    ('CT00001', 'T000001');
-GO
-
--- when taking a leave, one must request permission from 'department head'
-INSERT INTO Leave(id, employee_id, leave_type_id, leave_reason, start_date, end_date, leave_status_id, created_date, approved_by, note)
-VALUES
-    ('LEA0001', 'EM007', 'LT1', N'Nghỉ do bị ốm', '2023-04-01', '2023-04-05', 'LS1', '2023-04-06', 'EM001', N'ghi chú 1'),
-    ('LEA0002', 'EM008', 'LT2', N'Nghỉ đi khám bệnh', '2023-04-01', '2023-04-10', 'LS1', '2023-04-06', 'EM001', N'ghi chú 2');
-GO
 INSERT INTO LeaveType(leave_type_id, leave_type_name)
 VALUES
     ('LT1', N'Nghỉ bệnh'),
@@ -392,4 +359,11 @@ VALUES
     ('LS1', N'chấp nhận'),
     ('LS2', N'chưa giải quyết'),
     ('LS3', N'từ chối');
+GO
+-- when taking a leave, one must request permission from 'department head'
+INSERT INTO Leave(id, employee_id, leave_type_id, leave_reason, start_date, end_date, leave_status_id, created_date, approved_by, notes)
+VALUES
+    ('LEA0001', 'EM007', 'LT1', N'Nghỉ do bị ốm', '2023-04-01', '2023-04-05', 'LS1', '2023-04-06', 'EM001', N'ghi chú 1'),
+    ('LEA0002', 'EM008', 'LT2', N'Nghỉ đi khám bệnh', '2023-04-01', '2023-04-10', 'LS1', '2023-04-06', 'EM001', N'ghi chú 2');
+
 
