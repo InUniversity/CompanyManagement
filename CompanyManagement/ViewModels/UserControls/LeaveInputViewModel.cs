@@ -67,7 +67,7 @@ namespace CompanyManagement.ViewModels.UserControls
         {
             leaveTypeDao = new LeaveTypeDao();
             leaveStatusDao = new LeaveStatusDao();
-
+            SetAllComboBox();
         }
 
         private void SetAllComboBox()

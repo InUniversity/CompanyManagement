@@ -1,8 +1,8 @@
-﻿using System.Windows;
-using CompanyManagement.Models;
-using CompanyManagement.ViewModels.Dialogs;
+﻿using CompanyManagement.Models;
 using CompanyManagement.ViewModels.Dialogs.Interfaces;
+using CompanyManagement.ViewModels.Dialogs;
 using CompanyManagement.Views.Dialogs.Interfaces;
+using System.Windows;
 
 namespace CompanyManagement.Views.Dialogs
 {
