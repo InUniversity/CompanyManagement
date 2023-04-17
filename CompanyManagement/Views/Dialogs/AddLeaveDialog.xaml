@@ -3,40 +3,43 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:CompanyManagement.Views.Dialogs"        
-        xmlns:userControls="clr-namespace:CompanyManagement.Views.UserControls"
+        xmlns:local="clr-namespace:CompanyManagement.Views.Dialogs"
+        xmlns:uc="clr-namespace:CompanyManagement.Views.UserControls"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        WindowStartupLocation="CenterScreen"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="White"
+        FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
-        x:Name="addLeaveWindow"
-        Title="LeaveInputWindow" Height="640" Width="800">
+         x:Name="addLeaveWindow"
+        Title="LeaveInputWindow" Height="650" Width="800">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="100"/>
-        </Grid.RowDefinitions>
-        <TextBlock 
-                Grid.Row="0"
+        <StackPanel>
+            <TextBlock 
+                Margin="10"
                 FontWeight="Bold"
                 FontSize="25"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
-                Text="Thêm Xin Nghỉ Phép"/>
-        
-        <!--<userControls:LeaveInputUC Grid.Row="1"
-                                         DataContext="{Binding LeaveInputDataContext}"/>-->
-        <userControls:LeaveInputUC Grid.Row="1"></userControls:LeaveInputUC>
-        <Button
-            Grid.Row="2"
-            Margin="20"
-            Content="Thêm"
-            Command="{Binding AddLeaveCommand}"
-            CommandParameter="{Binding ElementName=addLeaveWindow}"
-            Width="300"
-            Height="50"
-            Background="ForestGreen"
-            VerticalAlignment="Center"
-            IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-            Style="{StaticResource MaterialDesignFlatMidBgButton}"
-            ToolTip="Lưu bảng xin nghỉ phép" />
+                Text="Tạo xin nghỉ phép"/>
+
+            <uc:LeaveInputUC Margin="10"  DataContext="{Binding LeaveInputDataContext}"></uc:LeaveInputUC>
+
+            <Button Style="{StaticResource MaterialDesignFlatSecondaryMidBgButton}"
+                    Height="50"
+                    Foreground="White"
+                    FontSize="18"
+                    Command="{Binding AddLeaveCommand}"
+                    CommandParameter="{Binding ElementName=addLeaveWindow}"
+                    Content="Xác nhận"
+                    ToolTip="Tạo bảng xin nghỉ phép"
+                    Background="ForestGreen"
+                    IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                    Margin="100 10"></Button>
+        </StackPanel>
     </Grid>
 </Window>

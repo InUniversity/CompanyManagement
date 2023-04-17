@@ -13,7 +13,7 @@ namespace CompanyManagement.ViewModels.UserControls
         string LeaveReason { get; }
         DateTime Start { get; }
         DateTime End { get; }
-        DateTime CreateTime { get; }
+        DateTime CreateDate { get; }
         string ApprovedBy { get; }
         string Note { get; }
         string ErrorMessage { set; }
@@ -46,7 +46,7 @@ namespace CompanyManagement.ViewModels.UserControls
         public string LeaveStatusID { get => leaveStatusID; set { leaveStatusID = value; OnPropertyChanged(); } }
 
         private DateTime createDate = DateTime.Now;
-        public DateTime CreateTime { get => createDate; set { createDate = value; OnPropertyChanged(); } }
+        public DateTime CreateDate { get => createDate; set { createDate = value; OnPropertyChanged(); } }
 
         private string approvedBy = "";
         public string ApprovedBy { get => approvedBy; set { approvedBy = value; OnPropertyChanged(); } }

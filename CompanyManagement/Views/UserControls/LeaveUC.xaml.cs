@@ -10,7 +10,7 @@ namespace CompanyManagement.Views.UserControls
     {
         public LeaveUC()
         {
-            // InitializeComponent();
+            InitializeComponent();
             DataContext = new LeaveViewModel();
         }
     }

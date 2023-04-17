@@ -11,7 +11,7 @@ namespace CompanyManagement.ViewModels.Windows
         public ContentControl CurrentChildView { get => currentChildView; set { currentChildView = value; OnPropertyChanged(); } }
 
         private AssignmentUC assignmentUC = new AssignmentUC();
-        private LeaveHistoryUC leaveUC = new LeaveHistoryUC();
+        private LeaveUC leaveUC = new LeaveUC();
         
         private bool statusAssignmentView = false;
         public bool StatusAssignmentView { get => statusAssignmentView; set { statusAssignmentView = value; OnPropertyChanged(); } }

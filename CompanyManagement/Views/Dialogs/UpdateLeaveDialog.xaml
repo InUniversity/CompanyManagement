@@ -3,39 +3,43 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:userControls="clr-namespace:CompanyManagement.Views.UserControls"
+        xmlns:uc="clr-namespace:CompanyManagement.Views.UserControls"
+        xmlns:local="clr-namespace:CompanyManagement.Views.Dialogs"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="White"       
+        FontFamily="{DynamicResource MaterialDesignFont}"
         WindowStartupLocation="CenterScreen"
         mc:Ignorable="d"
         x:Name="updataLeaveWindow"
-        Title="LeaveInputWindow" Height="640" Width="800">
+        Title="LeaveInputWindow" Height="650" Width="800">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="100"/>
-        </Grid.RowDefinitions>
-        <TextBlock 
-                Grid.Row="0"
+        <StackPanel>
+            <TextBlock 
                 FontWeight="Bold"
                 FontSize="25"
+                Margin="10"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
-                Text="Cập Nhật Xin Nghỉ Phép"/>
-        <userControls:LeaveInputUC Grid.Row="1" 
-                                         Margin="0 20"
-                                         DataContext="{Binding LeaveInputDataContext}"/>
-        <Button
-            Grid.Row="2"
-            Margin="20"
-            Content="Lưu"
-            Command="{Binding UpdateLeaveCommand}"
-            CommandParameter="{Binding ElementName=updateLeaveWindow}"
-            Width="300"
-            Height="50"
-            Background="ForestGreen"
-            VerticalAlignment="Center"
-            IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-            Style="{StaticResource MaterialDesignFlatMidBgButton}"
-            ToolTip="Lưu bảng xin nghỉ phép" />
+                Text="Cập nhật xin nghỉ phép"/>
+
+            <uc:LeaveInputUC Margin="10" DataContext="{Binding LeaveInputDataContext}"/>
+            
+            <Button Style="{StaticResource MaterialDesignFlatSecondaryMidBgButton}"
+                    Height="50"
+                    Foreground="White"
+                    FontSize="18"
+                    Command="{Binding UpdateLeaveCommand}"
+                    CommandParameter="{Binding ElementName=updateLeaveWindow}"
+                    Content="Cập nhật"
+                    ToolTip="Cập nhật xin nghỉ phép"
+                    Background="ForestGreen"
+                    IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                    Margin="100 10"></Button>
+        </StackPanel>
     </Grid>
 </Window>

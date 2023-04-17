@@ -1,8 +1,8 @@
 ﻿using CompanyManagement.Models;
 using CompanyManagement.ViewModels.Dialogs.Interfaces;
-using CompanyManagement.ViewModels.Dialogs;
 using CompanyManagement.Views.Dialogs.Interfaces;
 using System.Windows;
+using CompanyManagement.ViewModels.Dialogs;
 
 namespace CompanyManagement.Views.Dialogs
 {
@@ -16,7 +16,8 @@ namespace CompanyManagement.Views.Dialogs
         public UpdateLeaveForManagerDialog()
         {
             InitializeComponent();
-            // DataContext = new UpdateLeaveViewModel();
+            ViewModel = new UpdateLeaveViewModel();
+            DataContext = ViewModel;
         }
 
         public void ShowInputDialog()

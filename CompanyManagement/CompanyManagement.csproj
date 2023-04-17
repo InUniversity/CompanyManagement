@@ -151,7 +151,9 @@
     <Compile Include="Views\Dialogs\AddEmployeeDialog.xaml.cs">
       <DependentUpon>AddEmployeeDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Dialogs\AddLeaveDialog.xaml.cs" />
+    <Compile Include="Views\Dialogs\AddLeaveDialog.xaml.cs">
+      <DependentUpon>AddLeaveDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Dialogs\AddProjectDialog.xaml.cs">
       <DependentUpon>AddProjectDialog.xaml</DependentUpon>
     </Compile>
@@ -177,8 +179,12 @@
     <Compile Include="Views\Dialogs\UpdateEmployeeDialog.xaml.cs">
       <DependentUpon>UpdateEmployeeDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Dialogs\UpdateLeaveDialog.xaml.cs" />
-    <Compile Include="Views\Dialogs\UpdateLeaveForManagerDialog.xaml.cs" />
+    <Compile Include="Views\Dialogs\UpdateLeaveDialog.xaml.cs">
+      <DependentUpon>UpdateLeaveDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\UpdateLeaveForManagerDialog.xaml.cs">
+      <DependentUpon>UpdateLeaveForManagerDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Dialogs\UpdateProjectDialog.xaml.cs">
       <DependentUpon>UpdateProjectDialog.xaml</DependentUpon>
     </Compile>
@@ -202,9 +208,6 @@
     </Compile>
     <Compile Include="Views\UserControls\EmployeesUC.xaml.cs">
       <DependentUpon>EmployeesUC.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\UserControls\LeaveHistoryUC.xaml.cs">
-      <DependentUpon>LeaveHistoryUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UserControls\LeaveInputUC.xaml.cs">
       <DependentUpon>LeaveInputUC.xaml</DependentUpon>
@@ -268,7 +271,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Dialogs\AddLeaveDialog.xaml" />
+    <Page Include="Views\Dialogs\AddLeaveDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Dialogs\AddProjectDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -301,8 +307,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Dialogs\UpdateLeaveDialog.xaml" />
-    <Page Include="Views\Dialogs\UpdateLeaveForManagerDialog.xaml" />
+    <Page Include="Views\Dialogs\UpdateLeaveDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Dialogs\UpdateLeaveForManagerDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Dialogs\UpdateProjectDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -332,10 +344,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\UserControls\EmployeesUC.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\UserControls\LeaveHistoryUC.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
