@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using CompanyManagement.Views.Dialogs;
@@ -45,6 +46,8 @@ namespace CompanyManagement.ViewModels.UserControls
         private ProjectDao projectDao = new ProjectDao();
         private ProjectAssignmentDao projectAssignmentDao = new ProjectAssignmentDao();
         private string currentEmployeeID = CurrentUser.Instance.CurrentEmployee.ID;
+
+        private ICollection<Department> departmentsBeforeChange;
 
         public ProjectsViewModel()
         {
@@ -140,7 +143,8 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void OpenUpdateProjectDialog(Project project)
         {
-            project.Departments = projectAssignmentDao.GetAllDepartmentInProject(project.ID);
+            departmentsBeforeChange = projectAssignmentDao.GetAllDepartmentInProject(project.ID);
+            project.Departments = departmentsBeforeChange;
             var inputService = new InputDialogService<Project>(new UpdateProjectDialog(), project, Update);
             inputService.Show();
         }
@@ -148,7 +152,22 @@ namespace CompanyManagement.ViewModels.UserControls
         private void Update(Project project)
         {
             projectDao.Update(project);
+            UpdateProjectAssignment(project.ID, project.Departments);
             LoadProjects();
+        }
+
+        private void UpdateProjectAssignment(string projectID, ICollection<Department> departmentsAfterChange)
+        {
+            var notInAfterChange = departmentsBeforeChange.Except(departmentsAfterChange);
+            foreach (var department in notInAfterChange)
+            {
+                projectAssignmentDao.Add(new ProjectAssignment(projectID, department.ID));
+            }
+            var notInBeforeChange = departmentsAfterChange.Except(departmentsBeforeChange);
+            foreach (var department in notInBeforeChange)
+            {
+                projectAssignmentDao.Delete(new ProjectAssignment(projectID, department.ID));
+            }
         }
 
         private void ItemClicked(object obj)

@@ -234,7 +234,7 @@
                         <Border Margin="5" BorderThickness="1">
 
                             <ItemsControl
-                                ItemsSource="{Binding ElementName=projectInputUC, Path=DataContext.DepartmentsInProject}">
+                                ItemsSource="{Binding ElementName=projectInputUC, Path=DataContext.DepartmentsInProject, UpdateSourceTrigger=PropertyChanged}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
                                         <Border Width="270" Height="50" CornerRadius="5" BorderBrush="Black"
