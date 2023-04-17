@@ -16,8 +16,7 @@ namespace CompanyManagement.Views.Dialogs
         public UpdateLeaveForManagerDialog()
         {
             InitializeComponent();
-            ViewModel = new UpdateLeaveViewModel();
-            DataContext = ViewModel;
+            DataContext = new UpdateLeaveViewModel();
         }
 
         public void ShowInputDialog()

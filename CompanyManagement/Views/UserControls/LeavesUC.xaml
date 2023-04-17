@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="CompanyManagement.Views.UserControls.LeavesUC"
+﻿<UserControl x:Class="CompanyManagement.Views.UserControls.LeaveUC"
             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -25,7 +25,7 @@
                 <materialDesign:DialogHost CloseOnClickAway="True" >
                     <materialDesign:DialogHost.DialogContent>
                         <StackPanel Width="300" Height="400">
-                            <Calendar Name="calendarLeave" ></Calendar>
+                            <Calendar Name="calendarTimekeeping" ></Calendar>
                             <StackPanel Orientation="Horizontal">
                                 <Button Margin="10"
                                     Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
@@ -42,11 +42,10 @@
                         </StackPanel>
                     </materialDesign:DialogHost.DialogContent>
                     <StackPanel Orientation="Horizontal">
-                        <TextBox Width="50" Height="25" Text="{Binding ElementName=calendarLeave ,Path=SelectedDate}"></TextBox>
                         <Button  Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" Style="{StaticResource MaterialDesignIconButton}" >
                             <materialDesign:PackIcon Kind="CalendarBlankOutline" Width="20" Height="20"/>
                         </Button>
-                        <TextBox Width="50" Height="25" Text="{Binding ElementName=calendarLeave ,Path=SelectedDate}"></TextBox>
+                        <TextBox Width="100" Height="25" Text="{Binding ElementName=calendarTimekeeping ,Path=SelectedDate}"></TextBox>
                         <Button  Style="{StaticResource MaterialDesignIconButton}">
                             <materialDesign:PackIcon Kind="ChevronRight"  Width="20" Height="20" />
                         </Button>
@@ -61,7 +60,7 @@
                 CanUserAddRows="False"
                 AutoGenerateColumns="False"
                 Background="White"
-                ItemsSource="{Binding Leaves}"
+                ItemsSource="{Binding TimeKeepingSet}"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center">
                 <DataGrid.Columns>
@@ -73,49 +72,40 @@
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
                                     <Button
-                                        Visibility="{Binding DataContext.VisibleApproveButton, ElementName=leaveUC}"
-                                        Command="{Binding DataContext.ApproveLeaveCommand, ElementName=leaveUC}"
-                                        CommandParameter="{Binding}">
-                                        <materialDesign:PackIcon Kind="Approve" />
-                                    </Button>
-                                    <Button
-                                        Visibility="{Binding DataContext.VisibleUpdateButton, ElementName=leaveUC}"
                                         Command="{Binding DataContext.UpdateLeaveCommand, ElementName=leaveUC}"
                                         CommandParameter="{Binding}">
                                         <materialDesign:PackIcon Kind="PencilOutline" />
                                     </Button>
-                                    <Button 
-                                        Visibility="{Binding DataContext.VisibleDeleteButton, ElementName=leaveUC}"
-                                        Command="{Binding DataContext.DeleteLeaveCommand, ElementName=leaveUC}"
-                                        CommandParameter="{Binding ID}">
+                                    <Button Margin="5 0 0 0"
+                                            Command="{Binding DataContext.DeleteLeaveCommand, ElementName=leaveUC}"
+                                            CommandParameter="{Binding ID}">
                                         <materialDesign:PackIcon Kind="DeleteOutline" />
                                     </Button>
                                 </StackPanel>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTextColumn Width="125" Header="Mã xin nghỉ" IsReadOnly="True" Binding="{Binding ID}" />
+                    <DataGridTextColumn Width="125" Header="Mã nhiệm vụ" IsReadOnly="True" Binding="{Binding ID}" />
                     <DataGridTextColumn Width="125" Header="Mã nhân viên" IsReadOnly="True" Binding="{Binding EmployeeID}" />
                     <DataGridTextColumn Width="125" Header="Mã loại nghỉ phép" IsReadOnly="True" Binding="{Binding LeaveTypeID}" />
                     <DataGridTextColumn Width="125" Header="Lý do" IsReadOnly="True" Binding="{Binding LeaveReason}" />
-                    <DataGridTextColumn Width="150" Header="Ngày bắt đầu" IsReadOnly="True" Binding="{Binding Start, StringFormat='dd/MM/yyyy HH:ss tt'}" />
-                    <DataGridTextColumn Width="150" Header="Ngày kết thúc" IsReadOnly="True" Binding="{Binding End, StringFormat='dd/MM/yyyy HH:ss tt'}" />
+                    <DataGridTextColumn Width="150" Header="Ngày bắt đầu" IsReadOnly="True" Binding="{Binding Start, StringFormat='HH:mm tt HH:ss tt'}" />
+                    <DataGridTextColumn Width="150" Header="Ngày kết thúc" IsReadOnly="True" Binding="{Binding End, StringFormat='HH:mm tt HH:ss tt'}" />
                     <DataGridTextColumn Width="120" Header="Mã loại trạng thái" IsReadOnly="True" Binding="{Binding LeaveStatusID}" />
-                    <DataGridTextColumn Width="150" Header="Ngày tạo" IsReadOnly="True" Binding="{Binding CreateDate, StringFormat='dd/MM/yyyy HH:ss tt'}" />
+                    <DataGridTextColumn Width="150" Header="Ngày tạo" IsReadOnly="True" Binding="{Binding CreateDate, StringFormat='HH:mm tt HH:ss tt'}" />
                     <DataGridTextColumn Width="120" Header="Chú thích" IsReadOnly="True" Binding="{Binding Note}" />
                 </DataGrid.Columns>
             </DataGrid>
         </ListView>
         <Button
-            Visibility="{Binding VisibleAddButton}"
-            ToolTip="Thêm bảng chấm công mới"
+            ToolTip="Thêm bảng xin nghỉ phép mới"
             Grid.Row="1"
             Width="60"
             Height="60"
             Margin="40"
             HorizontalAlignment="Right"
             VerticalAlignment="Bottom"
-            Command="{Binding OpenTimeKeepingInputCommand}"
+            Command="{Binding OpenLeaveInputCommand}"
             Content="{materialDesign:PackIcon Kind=Plus , Size=30}"
             Style="{StaticResource MaterialDesignFloatingActionButton}" />
     </Grid>

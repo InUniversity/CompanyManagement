@@ -13,16 +13,17 @@ namespace CompanyManagement.ViewModels.Dialogs
 {
     public class AddLeaveViewModel : BaseViewModel, IInputViewModel<Leave>
     {
-        public ICommand AddLeaveCommand { get; }
+        public ICommand AddLeaveCommand { get; set; }
 
-        public LeaveInputViewModel LeaveInputDataContext { get; }
+        public LeaveInputViewModel LeaveInputDataContext;
         private Action<Leave> submitObjectAction;
 
-        private LeaveDao leaveDao = new LeaveDao();
+        private LeaveDao leaveDao;
 
         public AddLeaveViewModel()
         {
             LeaveInputDataContext = new LeaveInputViewModel();
+            leaveDao = new LeaveDao();
             AddLeaveCommand = new RelayCommand<Window>(AddCommand);
         }
 
@@ -39,7 +40,7 @@ namespace CompanyManagement.ViewModels.Dialogs
                     Leave leave = LeaveInputDataContext.CreateLeaveInstance();
                     submitObjectAction?.Invoke(leave);
                     inputWindow.Close();
-                }, null);
+                }, () => { });
             dialog.Show();
         }
 
@@ -48,12 +49,12 @@ namespace CompanyManagement.ViewModels.Dialogs
             return true;
         }
 
-        public void ReceiveObject(Leave leave)
+        public void RetrieveObject(Leave leave)
         {
             LeaveInputDataContext.Retrieve(leave);
         }
 
-        public void ReceiveSubmitAction(Action<Leave> submitObjectAction)
+        public void RetrieveSubmitAction(Action<Leave> submitObjectAction)
         {
             this.submitObjectAction = submitObjectAction;
         }

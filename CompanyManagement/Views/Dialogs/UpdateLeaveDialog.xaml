@@ -7,7 +7,7 @@
         WindowStartupLocation="CenterScreen"
         mc:Ignorable="d"
         x:Name="updataLeaveWindow"
-        Title="LeaveInputWindow" Height="640" Width="800">
+        Title="UpdateLeaveDialog" Height="450" Width="800">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
@@ -20,7 +20,7 @@
                 FontSize="25"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
-                Text="Cập Nhật Xin Nghỉ Phép"/>
+                Text="Thêm Xin Nghỉ Phép"/>
         <userControls:LeaveInputUC Grid.Row="1" 
                                          Margin="0 20"
                                          DataContext="{Binding LeaveInputDataContext}"/>

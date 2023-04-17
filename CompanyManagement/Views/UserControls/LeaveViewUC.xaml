@@ -16,25 +16,24 @@
                 </Grid.ColumnDefinitions>
                 <Grid Grid.Column="0">
                     <TextBox
+                    Width="380"
+                    Height="40"
                     IsReadOnly="True"
-                    Width="360"
-                    Height="50"
-                    Text="{Binding CreateDate, StringFormat='dd/MM/yyyy HH:ss tt', UpdateSourceTrigger=PropertyChanged}"
+                    Text="{Binding CreateDate, StringFormat='dd/MM/yyyy HH:ss tt' , UpdateSourceTrigger=PropertyChanged}"
                     Background="White"
-                    Margin="25 10 5 10"           
-                    materialDesign:HintAssist.Hint= "Ngày tạo" 
-                    Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+                    Margin="10 10 10 5"           
+                    materialDesign:HintAssist.Hint= "Chú thích" />
                 </Grid>
                 <Grid Grid.Column="1">
-                    <ComboBox
-                        Width="360"
-                        Height="50"
-                        ItemsSource="{Binding LeaveStatuses}"
-                        SelectedValue="{Binding LeaveStatuseID}"
-                        SelectedValuePath="ID"
-                        Margin="0 0 10 0"
-                        materialDesign:HintAssist.Hint="Trạng thái xin phép"
-                        Style="{StaticResource MaterialDesignOutlinedComboBox}">
+                <ComboBox
+                    Width="380"
+                    Height="40"
+                    ItemsSource="{Binding LeaveStatuses}"
+                    SelectedValue="{Binding ID}"
+                    SelectedValuePath="ID"
+                    Margin="10 10 10 5"
+                    HorizontalAlignment="Right"
+                    materialDesign:HintAssist.Hint="Trạng thái nghỉ: ">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Name}" />
@@ -43,22 +42,20 @@
                     </ComboBox>
                 </Grid>
             </Grid>
-            <StackPanel Orientation="Horizontal" Height="40" VerticalAlignment="Center">
-                <TextBlock Text="Tên nhân viên: " Margin="25 10 25 0" FontSize="12" FontFamily="Bold" Foreground="DimGray" Padding="10 0 0 0"/>
-                <TextBlock Text="{Binding EmployeeID}" Margin="25 10 25 0" FontSize="12" FontFamily="Bold" Foreground="DimGray"/>
+            <StackPanel Orientation="Horizontal" Height="40">
+                <TextBlock Text="Tên nhân viên: " Margin="10 10 0 0"/>
+                <TextBlock Text="{Binding EmployeeID}" Margin="10 10 0 0"/>
             </StackPanel>
             <TextBox
-                Height="50"
+                Height="60"
                 Text="{Binding LeaveStatusID, UpdateSourceTrigger=PropertyChanged}"
                 Background="White"
-                Margin="25 10 25 10"            
-                materialDesign:HintAssist.Hint= "Trạng thái nghỉ" 
-                Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
-            <Label Height="30" Content="Lý do:" Margin="25 10 25 0" FontSize="12" FontFamily="Bold" Foreground="DimGray" Padding="10 0 0 0"/>
+                Margin="10"            
+                materialDesign:HintAssist.Hint= "Trạng thái nghỉ" />
+            <Label Height="25" Content="Lý do:" Margin="10 5"/>
             <ScrollViewer VerticalScrollBarVisibility="Auto">
-                <TextBox TextWrapping="Wrap" AcceptsReturn="True" Height="100" VerticalScrollBarVisibility="Disabled" Width="750"
-                         Text="{Binding LeaveReason,  UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Margin="25 0 25 10"
-                         Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+                <TextBox TextWrapping="Wrap" AcceptsReturn="True" Height="125" VerticalScrollBarVisibility="Disabled" Width="780"
+                         Text="{Binding LeaveReason,  UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
             </ScrollViewer>
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -67,33 +64,27 @@
                 </Grid.ColumnDefinitions>
                 <Grid Grid.Column="0">
                     <TextBox
-                    IsReadOnly="True"
                     Height="50"
                     Text="{Binding Start, StringFormat='dd/MM/yyyy HH:ss tt', UpdateSourceTrigger=PropertyChanged}"
                     Background="White"
-                    Margin="25 10 5 10"            
-                    materialDesign:HintAssist.Hint= "Thời gian bắt đầu" 
-                    Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+                    Margin="10 10 5 0"            
+                    materialDesign:HintAssist.Hint= "Thời gian bắt đầu" />
                 </Grid>
                 <Grid Grid.Column="1">
                     <TextBox
-                    IsReadOnly="True"
                     Height="50"
                     Text="{Binding End, StringFormat='dd/MM/yyyy HH:ss tt', UpdateSourceTrigger=PropertyChanged}"
                     Background="White"
-                    Margin="5 10 25 10"       
-                    materialDesign:HintAssist.Hint= "Thời gian kết thúc" 
-                    Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+                    Margin="5 10 10 0"       
+                    materialDesign:HintAssist.Hint= "Thời gian kết thúc" />
                 </Grid>
             </Grid>
             <TextBox
-                Height="50"
+                Height="60"
                 Text="{Binding Note, UpdateSourceTrigger=PropertyChanged}"
                 Background="White"
-                Margin="25 10 25 10"            
-                materialDesign:HintAssist.Hint= "Chú thích" 
-                IsReadOnly="True"
-                Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+                Margin="10"            
+                materialDesign:HintAssist.Hint= "Chú thích" />
         </StackPanel>
     </Grid>
 </UserControl>
