@@ -31,7 +31,7 @@ namespace CompanyManagement.ViewModels.UserControls
         public string ProjectStatusID { get => project.StatusID; set { project.StatusID = value; OnPropertyChanged(); } }
         public string CreateBy { get => project.CreateBy; set { project.CreateBy = value; OnPropertyChanged(); } }
         public ObservableCollection<Department> DepartmentsInProject 
-        { get => new ObservableCollection<Department>(project.Departments) ; set { project.Departments = value; OnPropertyChanged(); } }
+        { get => (ObservableCollection<Department>)project.Departments; set { project.Departments = value; OnPropertyChanged(); } }
 
         private List<Department> departmentsCanAssign;
         

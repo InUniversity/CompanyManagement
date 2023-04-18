@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data.SqlClient;
 using CompanyManagement.Database.Base;
 using CompanyManagement.Models;
@@ -17,7 +18,7 @@ namespace CompanyManagement
         private string progress;
         private string statusID;
         private string createBy;
-        private ICollection<Department> departments = new List<Department>();
+        private ObservableCollection<Department> departments = new ObservableCollection<Department>();
 
         public string ID
         {
@@ -67,7 +68,7 @@ namespace CompanyManagement
             set => createBy = value;
         }
 
-        public ICollection<Department> Departments
+        public ObservableCollection<Department> Departments
         {
             get => departments;
             set => departments = value;
@@ -76,7 +77,8 @@ namespace CompanyManagement
         public Project() { }
 
         public Project(string id, string name, DateTime start, DateTime end, 
-            DateTime completed, string progress, string statusID, string createBy, ICollection<Department> departments)
+            DateTime completed, string progress, string statusID, string createBy, 
+            ObservableCollection<Department> departments)
         {
             this.id = id;
             this.name = name;

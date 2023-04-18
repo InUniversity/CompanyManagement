@@ -7,27 +7,26 @@ namespace CompanyManagement.Models
 {
     public class Department
     {
-
         private string id;
         private string name;
         private string managerID;
 
         public string ID
         {
-            get { return id; }
-            set { id = value; }
+            get => id;
+            set => id = value;
         } 
             
         public string Name
         {
-            get { return name; }
-            set { name = value; }
+            get => name;
+            set => name = value;
         }
 
         public string ManagerID
         {
-            get { return managerID; }
-            set { managerID = value; }
+            get => managerID;
+            set => managerID = value;
         }
 
         public Department() { }
@@ -52,5 +51,15 @@ namespace CompanyManagement.Models
                 Log.Instance.Error(nameof(Department), "CAST ERROR: " + ex.Message);
             }
         }
+
+        // public override bool Equals(object obj)
+        // {
+        //     if (obj is not Department department)
+        //         throw new Exception("Not the same type");
+        //     return base.Equals(obj) && 
+        //            string.Equals(department.ID, id) && 
+        //            string.Equals(department.Name, name) && 
+        //            string.Equals(department.managerID, managerID);
+        // }
     }
 }
