@@ -58,7 +58,7 @@ namespace CompanyManagement.Utilities
 
         public static bool ValidateTimeline(DateTime start, DateTime end)
         {
-            return start >= DateTime.Now && start <= end;
+            return start.Date >= DateTime.Now.Date && start <= end;
         }
     }
 }
