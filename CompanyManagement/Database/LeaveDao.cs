@@ -50,5 +50,17 @@ namespace CompanyManagement.Database
             string sqlStr = $"SELECT * FROM {LEAVE_TABLE} WHERE {LEAVE_ID}='{id}'";
             return (Leave)dbConnection.GetSingleObject(sqlStr, reader => new Leave(reader));
         }
+
+        public List<Leave> SearchByEmployeeID(string id)
+        {
+            string sqlStr = $"SELECT * FROM {LEAVE_TABLE} WHERE {LEAVE_EMPLOYEE_ID}='{id}'";
+            return dbConnection.GetList(sqlStr, reader => new Leave(reader));
+        }
+
+        public List<Leave> SearchByDeptHeaderID(string id)
+        {
+            string sqlStr = $"SELECT * FROM {LEAVE_TABLE} WHERE {LEAVE_APPROVED_BY}='{id}'";
+            return dbConnection.GetList(sqlStr, reader => new Leave(reader));
+        }
     }
 }
