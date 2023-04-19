@@ -38,6 +38,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void LoadCheckInOutList()
         {
+            //TODO
             CheckInOutList = new ObservableCollection<CheckInOut>(checkInOutDao.GetAll());
         }
 
