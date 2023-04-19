@@ -16,7 +16,8 @@ namespace CompanyManagement.ViewModels.UserControls
         public DateTime CheckOutTime { get => checkInOut.CheckOutTime; set { checkInOut.CheckOutTime = value; OnPropertyChanged(); } }
         public bool CheckOutStatus { get => checkInOut.CheckOutStatus; set { checkInOut.CheckOutStatus = value; OnPropertyChanged(); } }
         public string TaskID { get => checkInOut.TaskID; set { checkInOut.TaskID = value; OnPropertyChanged(); } }
-       
+        public string CompletedTaskID { get => checkInOut.CompletedTaskID; set { checkInOut.CompletedTaskID = value; OnPropertyChanged(); } }
+
         public CheckInOutInputViewModel()
         {
             checkInOut = new CheckInOut();
@@ -29,7 +30,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         public CheckInOut CreateCheckInOutInstance()
         {
-            return new CheckInOut(ID, EmployeeID, CheckInTime, CheckOutTime, CheckOutStatus, TaskID);
+            return new CheckInOut(ID, EmployeeID, CheckInTime, CheckOutTime, CheckOutStatus, TaskID, CompletedTaskID);
         }
     }
 }
