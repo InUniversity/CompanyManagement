@@ -1,5 +1,6 @@
 ﻿CREATE DATABASE CompanyManagement
 GO
+
 USE CompanyManagement
 GO
 
@@ -46,12 +47,12 @@ CREATE TABLE ProjectStatus(
                               ProjectStatusName nvarchar(50)
 );
 GO
-ALTER TABLE Department ADD CONSTRAINT FK_Department_Employee 
-FOREIGN KEY(manager_id) REFERENCES Employee(employee_id)
+ALTER TABLE Department ADD CONSTRAINT FK_DepartmentEmployee 
+FOREIGN KEY(ManagerID) REFERENCES Employee(EmployeeID)
 GO
 CREATE TABLE ProjectStatus(
-	project_status_id varchar(10) PRIMARY KEY,
-	project_status_name nvarchar(50)
+	ProjectStatusID varchar(10) PRIMARY KEY,
+	ProjectStatusName nvarchar(50)
 );
 GO
 CREATE TABLE Project(
@@ -373,5 +374,3 @@ INSERT INTO Leave(ID, EmployeeID, LeaveTypeID, LeaveReason, StartDate, EndDate, 
 VALUES
     ('LEA0001', 'EM007', 'LT1', N'Nghỉ do bị ốm', '2023-04-01', '2023-04-05', 'LS1', '2023-04-06', 'EM001', N'ghi chú 1'),
     ('LEA0002', 'EM008', 'LT2', N'Nghỉ đi khám bệnh', '2023-04-01', '2023-04-10', 'LS1', '2023-04-06', 'EM001', N'ghi chú 2');
-
-

@@ -106,7 +106,7 @@ namespace CompanyManagement.Models
                 end = reader.GetDateTime(reader.GetOrdinal(BaseDao.LEAVE_END_DATE));
                 leaveStatusID = (string)reader[BaseDao.LEAVE_STATUS_ID];
                 approvedBy = (string)reader[BaseDao.LEAVE_APPROVED_BY];
-                note = (string)reader[BaseDao.LEAVE_NOTE];
+                note = (string)reader[BaseDao.LEAVE_NOTES];
             }
             catch (Exception ex)
             {
