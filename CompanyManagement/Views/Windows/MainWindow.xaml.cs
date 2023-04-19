@@ -6,12 +6,12 @@ namespace CompanyManagement.Views.Windows
     /// <summary>
     ///     Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class ManagerWindow : Window
+    public partial class MainWindow : Window
     {
-        public ManagerWindow()
+        public MainWindow()
         {
             InitializeComponent();
-            DataContext = new ManagerViewModel();
+            DataContext = new MainViewModel();
         }
     }
 }

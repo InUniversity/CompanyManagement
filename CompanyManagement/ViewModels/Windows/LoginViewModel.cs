@@ -57,9 +57,8 @@ namespace CompanyManagement.ViewModels.Windows
 
         private Window CreateWindow(string positionID)
         {
-            return CurrentUser.Instance.IsManager()
-                ? new ManagerWindow()
-                : new EmployeeWindow();
+            // TODO
+            return new MainWindow();
         }
 
         private void ExecuteForgotPasswordCommand(object p)

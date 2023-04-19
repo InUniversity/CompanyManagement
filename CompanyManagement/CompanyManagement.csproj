@@ -145,9 +145,8 @@
     <Compile Include="ViewModels\UserControls\TimeKeepingInputViewModel.cs" />
     <Compile Include="ViewModels\UserControls\TimeKeepingViewModel.cs" />
     <Compile Include="ViewModels\UserControls\UserInformationViewModel.cs" />
-    <Compile Include="ViewModels\Windows\EmployeeViewModel.cs" />
     <Compile Include="ViewModels\Windows\LoginViewModel.cs" />
-    <Compile Include="ViewModels\Windows\ManagerViewModel.cs" />
+    <Compile Include="ViewModels\Windows\MainViewModel.cs" />
     <Compile Include="Views\Dialogs\AddEmployeeDialog.xaml.cs">
       <DependentUpon>AddEmployeeDialog.xaml</DependentUpon>
     </Compile>
@@ -254,14 +253,11 @@
     <Compile Include="Views\UserControls\WorkScheduleUC.xaml.cs">
       <DependentUpon>WorkScheduleUC.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Windows\EmployeeWindow.xaml.cs">
-      <DependentUpon>EmployeeWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Windows\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Windows\ManagerWindow.xaml.cs">
-      <DependentUpon>ManagerWindow.xaml</DependentUpon>
+    <Compile Include="Views\Windows\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -407,15 +403,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Windows\EmployeeWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Views\Windows\LoginWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Windows\ManagerWindow.xaml">
+    <Page Include="Views\Windows\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

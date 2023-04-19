@@ -5,7 +5,7 @@ using System.Windows.Input;
 
 namespace CompanyManagement.ViewModels.Windows
 {
-    public class ManagerViewModel : BaseViewModel
+    public class MainViewModel : BaseViewModel
     {
         
         private ContentControl currentChildView;
@@ -48,7 +48,7 @@ namespace CompanyManagement.ViewModels.Windows
         public ICommand ShowUserInformationViewCommand { get; set; }
         public ICommand ShowLeavesViewCommand { get; set;}
 
-        public ManagerViewModel()
+        public MainViewModel()
         {
             ExecuteShowUserInformationViewCommand(null);
             SetCommands();
