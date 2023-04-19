@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using CompanyManagement.Views.Dialogs;
@@ -46,6 +48,8 @@ namespace CompanyManagement.ViewModels.UserControls
         private ProjectAssignmentDao projectAssignmentDao = new ProjectAssignmentDao();
         private string currentEmployeeID = CurrentUser.Instance.CurrentEmployee.ID;
 
+        private List<Department> departmentsBeforeChange;
+
         public ProjectsViewModel()
         {
             LoadProjects();
@@ -91,7 +95,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void OpenAddProjectDialog(object obj)
         {
-            Project project = CreateProject();
+            var project = CreateProject();
             var inputService = new InputDialogService<Project>(new AddProjectDialog(), project, Add);
             inputService.Show();
         }
@@ -100,7 +104,7 @@ namespace CompanyManagement.ViewModels.UserControls
         {
             return new Project(AutoGenerateID(), "", DateTime.Now, DateTime.Now, 
                 Utils.EMPTY_DATETIME, "0", "", CurrentUser.Instance.CurrentEmployee.ID, 
-                new List<Department>());
+                new ObservableCollection<Department>());
         }
 
         private void Add(Project project)
@@ -127,28 +131,56 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void ExecuteDeleteCommand(string id)
         {
-            AlertDialogService dialog = new AlertDialogService(
-             "Xóa dự án",
-             "Bạn chắc chắn muốn xóa dự án !",
-             () =>
-             {
-                 projectDao.Delete(id); 
-                 LoadProjects();
-             }, () => { });
+            var dialog = new AlertDialogService(
+                "Xóa dự án",
+                "Bạn chắc chắn muỗn xóa dự án này ?",
+                () =>
+                { 
+                    projectDao.Delete(id); 
+                    LoadProjects();
+                }, null);
             dialog.Show();
         }
 
         private void OpenUpdateProjectDialog(Project project)
         {
-            project.Departments = projectAssignmentDao.GetAllDepartmentInProject(project.ID);
+            departmentsBeforeChange = projectAssignmentDao.GetAllDepartmentInProject(project.ID);
+            project.Departments = new ObservableCollection<Department>(departmentsBeforeChange);
             var inputService = new InputDialogService<Project>(new UpdateProjectDialog(), project, Update);
             inputService.Show();
         }
 
         private void Update(Project project)
         {
+            ShowDepartmentsLog(project.Departments);
             projectDao.Update(project);
+            UpdateProjectAssignment(project.ID, project.Departments);
             LoadProjects();
+        }
+
+        private void ShowDepartmentsLog(ObservableCollection<Department> departments)
+        {
+            Log.Instance.Information(nameof(ProjectsViewModel), 
+                $"Department size: {departments.Count}");
+            for (var i = 0; i < departments.Count; i++)
+            {
+                Log.Instance.Information(nameof(ProjectsViewModel), 
+                $"Department[{i}] = {departments[i].Name}");
+            }
+        }
+
+        private void UpdateProjectAssignment(string projectID, ICollection<Department> departmentsAfterChange)
+        {
+            var deletedDepartments = departmentsBeforeChange.Except(departmentsAfterChange);
+            foreach (var department in deletedDepartments)
+            {
+                projectAssignmentDao.Delete(new ProjectAssignment(projectID, department.ID));
+            }
+            var addedDepartments = departmentsAfterChange.Except(departmentsBeforeChange);
+            foreach (var department in addedDepartments)
+            {
+                projectAssignmentDao.Add(new ProjectAssignment(projectID, department.ID));
+            }
         }
 
         private void ItemClicked(object obj)

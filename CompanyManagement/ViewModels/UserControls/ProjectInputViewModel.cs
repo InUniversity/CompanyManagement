@@ -31,16 +31,17 @@ namespace CompanyManagement.ViewModels.UserControls
         public string ProjectStatusID { get => project.StatusID; set { project.StatusID = value; OnPropertyChanged(); } }
         public string CreateBy { get => project.CreateBy; set { project.CreateBy = value; OnPropertyChanged(); } }
         public ObservableCollection<Department> DepartmentsInProject 
-        { get => new ObservableCollection<Department>(project.Departments) ; set { project.Departments = value; OnPropertyChanged(); } }
+        { get => (ObservableCollection<Department>)project.Departments; set { project.Departments = value; OnPropertyChanged(); } }
 
-        private List<Department> departmentsCanAssign = new List<Department>();
+        private List<Department> departmentsCanAssign;
         
         private ObservableCollection<Department> searchedDepartmentsCanAssign;
         public ObservableCollection<Department> SearchedDepartmentsCanAssign 
         { get => searchedDepartmentsCanAssign; set { searchedDepartmentsCanAssign = value; OnPropertyChanged();} }
 
-        private List<Department> selectedDepartments = new List<Department>();
-        public List<Department> SelectedDepartments { get => selectedDepartments; set => selectedDepartments = value; }
+        private List<Department> selectedDepartments;
+        public List<Department> SelectedDepartments 
+        { get => selectedDepartments; set { selectedDepartments = value; OnPropertyChanged();} }
 
         private string textToSearch = "";
         public string TextToSearch { get => textToSearch; set { textToSearch = value; OnPropertyChanged(); SearchByName(); } }
@@ -75,6 +76,7 @@ namespace CompanyManagement.ViewModels.UserControls
                 Utils.ToFormatSQLServer(project.Start), Utils.ToFormatSQLServer(project.End));
             SearchedDepartmentsCanAssign = new ObservableCollection<Department>(departmentsCanAssign);
             
+            Log.Instance.Information(nameof(ProjectInputViewModel), $"Start:{Start}, End:{End}");
             Log.Instance.Information(nameof(ProjectInputViewModel), $"{project.ID}");
             Log.Instance.Information(nameof(ProjectInputViewModel), $"{departmentsCanAssign.Count}");
         }
@@ -105,17 +107,17 @@ namespace CompanyManagement.ViewModels.UserControls
                 {
                     DepartmentsInProject.Add(department);
                     departmentsCanAssign.Remove(department);
+                    SearchedDepartmentsCanAssign.Remove(department);
                 }
             }                
-            SelectedDepartments = new List<Department>();
+            SelectedDepartments = null;
         }
 
         private void ExecuteDeleteDepartmentCommand(Department department)
         {
-            // wrong case when add new project
-            // projectAssignmentDao.Delete(new ProjectAssignment(ID, department.ID));
             DepartmentsInProject.Remove(department);
             departmentsCanAssign.Add(department);
+            SearchedDepartmentsCanAssign.Add(department);
         }
 
         private void SearchByName()
@@ -160,7 +162,6 @@ namespace CompanyManagement.ViewModels.UserControls
         public void Receive(Project project)
         {
             this.project = project;
-            LoadDepartmentsInProject();
             LoadDepartmentsCanAssign();
         }
     }

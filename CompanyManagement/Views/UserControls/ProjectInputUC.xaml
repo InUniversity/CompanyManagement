@@ -234,13 +234,13 @@
                         <Border Margin="5" BorderThickness="1">
 
                             <ItemsControl
-                                ItemsSource="{Binding ElementName=projectInputUC, Path=DataContext.DepartmentsInProject}">
+                                ItemsSource="{Binding ElementName=projectInputUC, Path=DataContext.DepartmentsInProject, UpdateSourceTrigger=PropertyChanged}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
                                         <Border Width="270" Height="50" CornerRadius="5" BorderBrush="Black"
                                                 BorderThickness="0.5" Margin="10" HorizontalAlignment="Center">
                                             <Canvas>
-                                                <TextBlock Margin="15" Text="{Binding Name}" />
+                                                <TextBlock Margin="15" Text="{Binding Name}" TextWrapping="Wrap"/>
                                                 <Button Style="{StaticResource MaterialDesignIconButton}"
                                                         Canvas.Right="0"
                                                         Command="{Binding ElementName=projectInputUC, Path=DataContext.DeleteDepartmentCommand}"
