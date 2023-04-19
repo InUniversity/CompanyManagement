@@ -31,5 +31,11 @@ namespace CompanyManagement.Database
             string sqlStr = $"SELECT * FROM {DEPARTMENT_TABLE}";
             return dbConnection.GetList(sqlStr, reader => new Department(reader));
         }
+
+        public Department DepartmentByEmployeeDeptID(string dptID)
+        {
+            string sqlStr = $"SELECT * FROM {DEPARTMENT_TABLE} WHERE {DEPARTMENT_ID} = '{dptID}'";
+            return (Department)dbConnection.GetSingleObject(sqlStr, reader => new Department(reader));
+        }
     }
 }

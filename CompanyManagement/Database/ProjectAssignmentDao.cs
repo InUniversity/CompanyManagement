@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using CompanyManagement.Database.Base;
 using CompanyManagement.Models;
 
@@ -25,7 +26,7 @@ namespace CompanyManagement.Database
         public List<Department> GetAllDepartmentInProject(string projectID)
         {
             string sqlStr = $"SELECT D.* FROM {DEPARTMENT_TABLE} D INNER JOIN {PROJECT_ASSIGNMENT_TABLE} PA ON " +
-                            $"D.{DEPARTMENT_ID} = PA.{PROJECT_ASSIGNMENT_DEPARTMENT_ID} " +
+                            $"D.{DEPARTMENT_ID}=PA.{PROJECT_ASSIGNMENT_DEPARTMENT_ID} " +
                             $"WHERE PA.{PROJECT_ASSIGNMENT_PROJECT_ID}='{projectID}'";
             return dbConnection.GetList(sqlStr, reader => new Department(reader));
         }
@@ -33,37 +34,34 @@ namespace CompanyManagement.Database
         public List<Employee> GetEmployeesInProject(string projectID)
         {
             string sqlStr = $"SELECT * FROM {EMPLOYEE_TABLE} WHERE {EMPLOYEE_DEPARTMENT_ID} IN(" +
-                $"SELECT {PROJECT_ASSIGNMENT_DEPARTMENT_ID} FROM {PROJECT_ASSIGNMENT_TABLE} WHERE {PROJECT_ASSIGNMENT_PROJECT_ID} = '{projectID}')";
+                $"SELECT {PROJECT_ASSIGNMENT_DEPARTMENT_ID} FROM {PROJECT_ASSIGNMENT_TABLE} WHERE {PROJECT_ASSIGNMENT_PROJECT_ID}='{projectID}')";
             return dbConnection.GetList(sqlStr, reader => new Employee(reader));
         }
 
-        public List<Department> GetDepartmentsCanAssignWork(Project project)
+        public List<Department> GetDepartmentsCanAssignWork(string projectID, string startDateTime, string endDateTime)
         {
             string sqlStr = $"SELECT * FROM {DEPARTMENT_TABLE} WHERE {DEPARTMENT_ID} NOT IN (" +
                             $"SELECT {PROJECT_ASSIGNMENT_DEPARTMENT_ID} FROM {PROJECT_ASSIGNMENT_TABLE} " +
-                            $"WHERE {PROJECT_ASSIGNMENT_PROJECT_ID} IN (" +
-                            $"SELECT {PROJECT_ID} FROM {PROJECT_TABLE} " +
-                            $"WHERE {PROJECT_ID} NOT LIKE '{project.ID}' AND {PROJECT_PROPRESS} NOT LIKE '100'" +
-                            $"AND {PROJECT_START} <= Convert(Datetime, '{project.End}', 105) " +
-                            $"AND {PROJECT_END} >= Convert(Datetime, '{project.Start}', 105) ))";
+                            $"WHERE {PROJECT_ASSIGNMENT_PROJECT_ID} IN (SELECT {PROJECT_ID} FROM {PROJECT_TABLE} " +
+                            $"WHERE {PROJECT_ID} NOT LIKE '{projectID}' AND {PROJECT_PROPRESS} NOT LIKE '100'" +
+                            $"AND {PROJECT_START} <= '{endDateTime}'" +
+                            $"AND {PROJECT_END} >= '{startDateTime}')) EXCEPT (SELECT D.* FROM {DEPARTMENT_TABLE} D INNER JOIN {PROJECT_ASSIGNMENT_TABLE} PA ON D.{DEPARTMENT_ID}=PA.{PROJECT_ASSIGNMENT_DEPARTMENT_ID} WHERE PA.{PROJECT_ASSIGNMENT_PROJECT_ID}='{projectID}')";
+            // TODO
             return dbConnection.GetList(sqlStr, reader => new Department(reader));
         }
 
         public List<Project> SearchProjectByEmployeeID(string employeeID)
         {
             string sqlStr = $"SELECT * FROM {PROJECT_TABLE} WHERE {PROJECT_ID} IN " +
-                            $"(SELECT {PROJECT_ASSIGNMENT_PROJECT_ID} FROM {PROJECT_ASSIGNMENT_TABLE}, {EMPLOYEE_TABLE} " +
-                            $"WHERE {PROJECT_ASSIGNMENT_TABLE}.{PROJECT_ASSIGNMENT_DEPARTMENT_ID} = {EMPLOYEE_TABLE}.{EMPLOYEE_DEPARTMENT_ID} " +
-                            $"AND {EMPLOYEE_TABLE}.{EMPLOYEE_ID} =  '{employeeID}')";
+                            $"(SELECT {PROJECT_ASSIGNMENT_PROJECT_ID} FROM {PROJECT_ASSIGNMENT_TABLE} PA, {EMPLOYEE_TABLE} E " +
+                            $"WHERE PA.{PROJECT_ASSIGNMENT_DEPARTMENT_ID}=E.{EMPLOYEE_DEPARTMENT_ID} " +
+                            $"AND E.{EMPLOYEE_ID}='{employeeID}')";
             return dbConnection.GetList(sqlStr, reader => new Project(reader));
         }
 
         public List<Project> SearchProjectByCreatorID(string managerID)
         {
-            string sqlStr = $"SELECT * FROM {PROJECT_TABLE} WHERE {PROJECT_ID} IN " +
-                            $"(SELECT {PROJECT_ASSIGNMENT_PROJECT_ID} FROM {PROJECT_ASSIGNMENT_TABLE}, {EMPLOYEE_TABLE} " +
-                            $"WHERE {PROJECT_ASSIGNMENT_TABLE}.{PROJECT_ASSIGNMENT_DEPARTMENT_ID} = {EMPLOYEE_TABLE}.{EMPLOYEE_DEPARTMENT_ID} " +
-                            $"AND {PROJECT_TABLE}.{PROJECT_CREATE_BY} =  '{managerID}')";
+            string sqlStr = $"SELECT * FROM {PROJECT_TABLE} P WHERE P.{PROJECT_CREATE_BY}='{managerID}'";
             return dbConnection.GetList(sqlStr, reader => new Project(reader));
         }
     }

@@ -1,0 +1,124 @@
+﻿<UserControl x:Class="CompanyManagement.Views.UserControls.LeaveViewUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CompanyManagement.Views.UserControls"
+              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.FontWeight="Regular"
+             TextElement.FontSize="13"
+             TextOptions.TextFormattingMode="Ideal"
+             TextOptions.TextRenderingMode="Auto"
+             Background="White"
+             FontFamily="{DynamicResource MaterialDesignFont}"
+             mc:Ignorable="d" >
+    <Grid>
+        <StackPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <TextBox
+                    IsReadOnly="True"
+                    Height="50"
+                    Text="{Binding CreateDate, StringFormat='dd/MM/yyyy HH:ss tt', UpdateSourceTrigger=PropertyChanged}"
+                    Background="White"
+                    Margin="10"           
+                    materialDesign:HintAssist.Hint= "Thời gian tạo" 
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+                </Grid>
+                <Grid Grid.Column="1">
+                    <ComboBox
+                        Height="50"
+                        ItemsSource="{Binding LeaveStatuses}"
+                        SelectedValue="{Binding LeaveStatuseID}"
+                        SelectedValuePath="ID"
+                        Margin="10"
+                        materialDesign:HintAssist.Hint="Trạng thái xin phép"
+                        Style="{StaticResource MaterialDesignOutlinedComboBox}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </Grid>
+            </Grid>
+            
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <TextBox
+                    Grid.Column="0"
+                    IsReadOnly="True"
+                    Height="50"
+                    Text="{Binding EmployeeID}"
+                    Background="White"
+                    Margin="10"           
+                    materialDesign:HintAssist.Hint= "Tên nhân viên" 
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+
+                <TextBox
+                    Grid.Column="1"
+                    Height="50"
+                    Text="{Binding LeaveStatusID, UpdateSourceTrigger=PropertyChanged}"
+                    Background="White"
+                    Margin="10"           
+                    materialDesign:HintAssist.Hint= "Trạng thái nghỉ" 
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+            </Grid>
+                   
+            <TextBox
+                Height="100"
+                Margin="10"
+                Text="{Binding LeaveReason,  UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"
+                materialDesign:HintAssist.Hint="Lý do"
+                AcceptsReturn="True"
+                IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedTextBoxEnabledComboBox}"
+                Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                TextWrapping="Wrap"
+                VerticalScrollBarVisibility="Auto" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <TextBox
+                        IsReadOnly="True"
+                        Height="50"
+                        Text="{Binding Start, StringFormat='dd/MM/yyyy HH:ss tt', UpdateSourceTrigger=PropertyChanged}"
+                        Background="White"
+                        Margin="10"            
+                        materialDesign:HintAssist.Hint= "Thời gian bắt đầu" 
+                        Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+                </Grid>
+                <Grid Grid.Column="1">
+                    <TextBox
+                    IsReadOnly="True"
+                    Height="50"
+                    Text="{Binding End, StringFormat='dd/MM/yyyy HH:ss tt', UpdateSourceTrigger=PropertyChanged}"
+                    Background="White"
+                    Margin="10"       
+                    materialDesign:HintAssist.Hint= "Thời gian kết thúc" 
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+                </Grid>
+            </Grid>
+            <TextBox
+                Height="50"
+                Text="{Binding Note, UpdateSourceTrigger=PropertyChanged}"
+                Background="White"
+                Margin="10"            
+                materialDesign:HintAssist.Hint= "Chú thích" 
+                IsReadOnly="True"
+                Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

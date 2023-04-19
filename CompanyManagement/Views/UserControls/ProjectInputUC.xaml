@@ -90,13 +90,40 @@
                     Style="{StaticResource MaterialDesignOutlinedTimePicker}" />
             </Grid>
         </Grid>
-        <Canvas Height="40">
-            <StackPanel Orientation="Horizontal" Margin="20 5" VerticalAlignment="Bottom">
-                <TextBlock Text="Tiến độ: " />
-                <TextBlock Text="{Binding Progress}" />
-                <TextBlock Text="%" />
-            </StackPanel>
-        </Canvas>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <ComboBox
+                Grid.Column="0"
+                ItemsSource="{Binding ProjectStatuses}"
+                SelectedValue="{Binding ProjectStatusID}"
+                SelectedValuePath="ID"
+                Margin="10 10"
+                materialDesign:HintAssist.Hint="Trạng thái"
+                Background="White"
+                Foreground="Black"
+                Style="{StaticResource MaterialDesignOutlinedComboBox}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </Grid>
+            <Grid Grid.Column="1">
+                <Canvas Height="40">
+                    <StackPanel Orientation="Horizontal" Margin="20 5" VerticalAlignment="Bottom">
+                        <TextBlock Text="Tiến độ: " />
+                        <TextBlock Text="{Binding Progress}" />
+                        <TextBlock Text="%" />
+                    </StackPanel>
+                </Canvas>
+            </Grid>
+        </Grid>
+        
         <materialDesign:DialogHost CornerRadius="20" CloseOnClickAway="True">
             <materialDesign:DialogHost.DialogContent>
                 <StackPanel Width="500" Height="500">
@@ -207,17 +234,17 @@
                         <Border Margin="5" BorderThickness="1">
 
                             <ItemsControl
-                                ItemsSource="{Binding ElementName=projectInputUC, Path=DataContext.DepartmentsInProject}">
+                                ItemsSource="{Binding ElementName=projectInputUC, Path=DataContext.DepartmentsInProject, UpdateSourceTrigger=PropertyChanged}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
                                         <Border Width="270" Height="50" CornerRadius="5" BorderBrush="Black"
                                                 BorderThickness="0.5" Margin="10" HorizontalAlignment="Center">
                                             <Canvas>
-                                                <TextBlock Margin="15" Text="{Binding Name}" />
+                                                <TextBlock Margin="15" Text="{Binding Name}" TextWrapping="Wrap"/>
                                                 <Button Style="{StaticResource MaterialDesignIconButton}"
                                                         Canvas.Right="0"
                                                         Command="{Binding ElementName=projectInputUC, Path=DataContext.DeleteDepartmentCommand}"
-                                                        CommandParameter="{Binding ID}">
+                                                        CommandParameter="{Binding}">
                                                     <materialDesign:PackIcon Kind="Close" Foreground="Black" />
                                                 </Button>
                                             </Canvas>
@@ -236,28 +263,8 @@
             </StackPanel>
         </Border>
         <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-            <ComboBox
-                Grid.Column="0"
-                ItemsSource="{Binding ProjectStatuses}"
-                SelectedValue="{Binding ProjectStatus}"
-                SelectedValuePath="ID"
-                Margin="10 10"
-                materialDesign:HintAssist.Hint="Trạng thái"
-                Background="White"
-                Foreground="Black"
-                Style="{StaticResource MaterialDesignOutlinedComboBox}">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding Name}" />
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
             <TextBlock 
-                Grid.Column="1"
+                Margin="10"
                 Text="{Binding ErrorMessage}" 
                 TextWrapping="Wrap" 
                 Foreground="#FF0000" 

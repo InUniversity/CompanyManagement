@@ -1,0 +1,45 @@
+﻿<Window x:Class="CompanyManagement.Views.Dialogs.UpdateLeaveDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:uc="clr-namespace:CompanyManagement.Views.UserControls"
+        xmlns:local="clr-namespace:CompanyManagement.Views.Dialogs"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="White"       
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        WindowStartupLocation="CenterScreen"
+        mc:Ignorable="d"
+        x:Name="updataLeaveWindow"
+        Title="LeaveInputWindow" Height="650" Width="800">
+    <Grid>
+        <StackPanel>
+            <TextBlock 
+                FontWeight="Bold"
+                FontSize="25"
+                Margin="10"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Text="Cập nhật xin nghỉ phép"/>
+
+            <uc:LeaveInputUC Margin="10" DataContext="{Binding LeaveInputDataContext}"/>
+            
+            <Button Style="{StaticResource MaterialDesignFlatSecondaryMidBgButton}"
+                    Height="50"
+                    Foreground="White"
+                    FontSize="18"
+                    Command="{Binding UpdateLeaveCommand}"
+                    CommandParameter="{Binding ElementName=updateLeaveWindow}"
+                    Content="Cập nhật"
+                    ToolTip="Cập nhật xin nghỉ phép"
+                    Background="ForestGreen"
+                    IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                    Margin="100 10"></Button>
+        </StackPanel>
+    </Grid>
+</Window>

@@ -29,7 +29,7 @@
                                     CommandParameter="{x:Static Dock.Left}"
                                     Style="{StaticResource MaterialDesignIconButton}"
                                     Margin="5">
-                                    <materialDesign:PackIcon Kind="Home" />
+                                    <materialDesign:PackIcon Kind="FormatIndentIncrease" />
                                 </Button>
                                 <TextBlock Text="My Company" 
                                            Style="{StaticResource MaterialDesignButtonTextBlock}" 
@@ -42,9 +42,21 @@
                         <RadioButton
                             Height="50"
                             Margin="4"
-                            Command="{Binding ElementName=managerWindow, Path=DataContext.ShowAssignView}" 
+                            Command="{Binding ShowUserInformationViewCommand}" 
                             BorderBrush="{DynamicResource PrimaryHueMidBrush}"
-                            IsChecked="True"
+                            IsChecked="{Binding StatusUserInformationView}"
+                            Style="{StaticResource MaterialDesignTabRadioButtonRight}" >
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="AccountCircle" />
+                                <TextBlock Text="Tôi" Margin="47 0"></TextBlock>
+                            </StackPanel>
+                        </RadioButton>
+                        <RadioButton
+                            Height="50"
+                            Margin="4"
+                            Command="{Binding ShowAssignViewCommand}" 
+                            BorderBrush="{DynamicResource PrimaryHueMidBrush}"
+                            IsChecked="{Binding StatusAssignmentView}"
                             Style="{StaticResource MaterialDesignTabRadioButtonRight}" >
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="Briefcase" />
@@ -127,23 +139,44 @@
                 </Grid.ColumnDefinitions>
                 <Border Grid.Column="0"  Background="#006064" Width="50">
                     <StackPanel>
-                        <Button HorizontalAlignment="Right"                          
+                        <ToggleButton  HorizontalAlignment="Right"     
+                            materialDesign:ToggleButtonAssist.OnContent="{materialDesign:PackIcon Kind=FormatIndentDecrease ,Size=30}"
+                            Style="{StaticResource MaterialDesignActionToggleButton}"
                             Height="80"
                             Width="50"
-                             Style="{StaticResource MaterialDesignIconButton}"
+                            Margin="0 0 0 50"
+                            Background="Transparent"
+                            Content="{materialDesign:PackIcon Kind=FormatListBulleted, Size=30}"         
+                            Foreground="White"                                                   
                             Command="{x:Static materialDesign:DrawerHost.OpenDrawerCommand}"
                             CommandParameter="{x:Static Dock.Left}"                          
                             BorderThickness="0">
-                            <materialDesign:PackIcon Kind="Home" Foreground="White" />
+                        </ToggleButton>
+                        <Button HorizontalAlignment="Right"  
+                            Height="80"
+                            Width="50"
+                            Style="{StaticResource MaterialDesignIconButton}"
+                            Command="{Binding ElementName=employeesWindow, Path=DataContext.ShowAssignmentViewCommand}"                                       
+                            BorderThickness="0">
+                            <materialDesign:PackIcon Kind="Briefcase" Foreground="White" />
+                        </Button>
+                        <Button HorizontalAlignment="Right"          
+                            Height="80"
+                            Width="50"
+                            Margin="0 100"
+                            Style="{StaticResource MaterialDesignIconButton}"
+                            Command="{Binding ElementName=employeesWindow, Path=DataContext.ShowUserInformationViewCommand}"
+                            BorderThickness="0">
+                            <materialDesign:PackIcon Kind="Account" Foreground="White" />
                         </Button>
                         <Button HorizontalAlignment="Right"  
                             Height="80"
                             Width="50"
                             Style="{StaticResource MaterialDesignIconButton}"
-                            Command="{Binding ElementName=managerWindow, Path=DataContext.ShowAssignView}"                                       
+                            Command="{Binding ElementName=employeesWindow, Path=DataContext.ShowLeaveViewCommand}"                                       
                             BorderThickness="0"
-                            Margin="0 220">
-                            <materialDesign:PackIcon Kind="Briefcase" Foreground="White" />
+                            Margin="0 20">
+                            <materialDesign:PackIcon Kind="EmailCheck" Foreground="White"/>                        
                         </Button>
                     </StackPanel>
                 </Border>

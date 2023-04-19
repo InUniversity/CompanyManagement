@@ -17,6 +17,7 @@ namespace CompanyManagement.ViewModels.Windows
         private NotifyUC notifyUC = new NotifyUC();
         private SettingsUC settingsUC = new SettingsUC();
         private UserInformationUC userInformationUC = new UserInformationUC();
+        private LeaveUC leavesUC = new LeaveUC();
         
         private bool statusSettingsView = false;
         public bool StatusSettingsView { get => statusSettingsView; set { statusSettingsView = value; OnPropertyChanged(); } }
@@ -36,12 +37,16 @@ namespace CompanyManagement.ViewModels.Windows
         private bool statusUserInformationView = false;
         public bool StatusUserInformationView { get => statusUserInformationView; set { statusUserInformationView = value; OnPropertyChanged(); } }
 
+        private bool statusLeavesView = false;
+        public bool StatusLeavesView { get => statusLeavesView; set { statusLeavesView = value; OnPropertyChanged(); } }
+
         public ICommand ShowAssignmentViewCommand { get; set; }
         public ICommand ShowEmployeesViewCommand { get; set; }
         public ICommand ShowWorkScheduleViewCommand { get; set; }
         public ICommand ShowNotifyViewCommand { get; set; }
         public ICommand ShowSettingsViewCommand { get; set; }
         public ICommand ShowUserInformationViewCommand { get; set; }
+        public ICommand ShowLeavesViewCommand { get; set;}
 
         public ManagerViewModel()
         {
@@ -57,6 +62,13 @@ namespace CompanyManagement.ViewModels.Windows
             ShowNotifyViewCommand = new RelayCommand<object>(ExecuteShowNotifyView);
             ShowSettingsViewCommand = new RelayCommand<object>(ExecuteShowSettingsView);
             ShowUserInformationViewCommand = new RelayCommand<object>(ExecuteShowUserInformationViewCommand);
+            ShowLeavesViewCommand = new RelayCommand<object>(ExecuteShowLeavesViewCommand);
+        }
+
+        private void ExecuteShowLeavesViewCommand(object obj)
+        {
+            CurrentChildView = leavesUC;
+            StatusLeavesView = true;
         }
 
         private void ExecuteShowUserInformationViewCommand(object obj)

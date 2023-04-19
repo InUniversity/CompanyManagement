@@ -41,14 +41,12 @@ namespace CompanyManagement.ViewModels.Windows
         
         private void ExecuteLoginCommand(Window loginWindow)
         {
-            Username = "EM0010101";
-            password = "@1234567";
             Account account = accountDao.SearchByUsername(Username);
-            //if (account == null || !string.Equals(password, account.Password))
-            //{
-            //    MessageBox.Show(Utils.INVALIDATE_USERNAME_PASSWORD_MESSAGE);
-            //    return;
-            //}
+            if (account == null || !string.Equals(password, account.Password))
+            {
+                MessageBox.Show(Utils.INVALIDATE_USERNAME_PASSWORD_MESSAGE);
+                return;
+            }
             CurrentUser.Instance.CurrentAccount = account;
             Employee employee = employeeDao.SearchByID(account.EmployeeID);
             CurrentUser.Instance.CurrentEmployee = employee;
