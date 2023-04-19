@@ -1,6 +1,5 @@
 ﻿CREATE DATABASE CompanyManagement
 GO
-
 USE CompanyManagement
 GO
 
@@ -23,7 +22,7 @@ CREATE TABLE Employee(
                          Salary int
 );
 GO
-ALTER TABLE Employee ADD CONSTRAINT FK_EmployeePosition FOREIGN KEY(PositionID) REFERENCES Position(PositionID)
+ALTER TABLE Employee ADD CONSTRAINT FK_Employee_Position FOREIGN KEY(position_id) REFERENCES Position(position_id)
 GO
 CREATE TABLE Account(
                         AccountUsername varchar(100),
@@ -31,7 +30,7 @@ CREATE TABLE Account(
                         EmployeeID varchar(20) PRIMARY KEY,
 );
 GO
-ALTER TABLE Account ADD CONSTRAINT FK_AccountEmployee FOREIGN KEY(EmployeeID) REFERENCES Employee(EmployeeID)
+ALTER TABLE Account ADD CONSTRAINT FK_Account_Employee FOREIGN KEY(employee_id) REFERENCES Employee(employee_id)
 GO
 CREATE TABLE Department(
                            DepartmentID varchar(20) PRIMARY KEY,
@@ -47,12 +46,12 @@ CREATE TABLE ProjectStatus(
                               ProjectStatusName nvarchar(50)
 );
 GO
-ALTER TABLE Department ADD CONSTRAINT FK_DepartmentEmployee 
-FOREIGN KEY(ManagerID) REFERENCES Employee(EmployeeID)
+ALTER TABLE Department ADD CONSTRAINT FK_Department_Employee 
+FOREIGN KEY(manager_id) REFERENCES Employee(employee_id)
 GO
 CREATE TABLE ProjectStatus(
-	ProjectStatusID varchar(10) PRIMARY KEY,
-	ProjectStatusName nvarchar(50)
+	project_status_id varchar(10) PRIMARY KEY,
+	project_status_name nvarchar(50)
 );
 GO
 CREATE TABLE Project(
@@ -267,7 +266,7 @@ SELECT CONCAT(EmployeeID, SUBSTRING(CONVERT(varchar, Birthday, 103), 1, 2), SUBS
 FROM Employee;
 GO
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
-INSERT INTO ProjectStatus(ProjectStatusID, ProjectStatusName)
+INSERT INTO ProjectStatus(project_status_id, project_status_name)
 VALUES
     ( '0', N'Đã hủy'),
     ( '1', N'Đang thu thập yêu cầu'),
@@ -289,7 +288,7 @@ VALUES
 GO
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
-INSERT INTO ProjectAssignment (ProjectID, DepartmentID)
+INSERT INTO ProjectAssignment (project_id, department_id)
 VALUES
     ('PRJ001', 'DPM001'),
     ('PRJ002', 'DPM002'),
@@ -298,7 +297,7 @@ VALUES
     ('PRJ005', 'DPM005');
 GO
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
-INSERT INTO TaskStatus(TaskStatusID, TaskStatusName)
+INSERT INTO TaskStatus(task_status_id, task_status_name)
 VALUES
     ( '0', N'Đã hủy'),
     ( '1', N'Mở'),
@@ -317,7 +316,7 @@ VALUES
     ('3', N'Thấp');
 GO
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
-INSERT INTO Task (TaskID, Title, TaskDescription, AssignDate, Deadline, CreateBy, Progress, EmployeeID, ProjectID, TaskPriorityID, TaskStatusID)
+INSERT INTO Task (task_id, title, task_description, assign_date, deadline, create_by, progress, employee_id, project_id, task_priority_id, task_status_id)
 VALUES
     ('T000001', N'Website Development - Design', N'Thiết kế giao diện website cho khách hàng ABC', CONVERT(SMALLDATETIME, '01-03-2023 09:00 AM', 105), CONVERT(SMALLDATETIME, '15-03-2023 05:00 PM', 105), 'EM002', '50', 'EM003', 'PRJ001', '1', '2'),
     ('T000002', N'Website Development - Front-end', N'Lập trình phần front-end cho website khách hàng ABC', CONVERT(SMALLDATETIME, '16-03-2023 08:00 AM', 105), CONVERT(SMALLDATETIME, '31-03-2023 05:00 PM', 105), 'EM002', '30', 'EM007', 'PRJ001','1', '2'),
@@ -346,7 +345,7 @@ VALUES
     ('T000025', N'Implement backup infrastructure', N'Cài đặt và cấu hình cơ sở hạ tầng sao lưu cho công ty', CONVERT(SMALLDATETIME, '20-05-2023 02:45 PM', 105), CONVERT(SMALLDATETIME, '30-11-2023 10:30 AM', 105), 'EM050', '0', 'EM054', 'PRJ005', '1', '1'),
     ('T000026', N'Manage IT infrastructure', N'Quản lý và duy trì cơ sở hạ tầng công nghệ thông tin cho công ty', CONVERT(SMALLDATETIME, '25-05-2023 02:45 PM', 105), CONVERT(SMALLDATETIME, '30-11-2023 10:30 AM', 105), 'EM050', '0', 'EM055', 'PRJ005', '1', '1');
 
-INSERT INTO CheckInOut(ID, EmployeeID, CheckInTime, CheckOutTime, CheckOutStatus, TaskID)
+INSERT INTO CheckInOut(id, employee_id, check_in_time, check_out_time, check_out_status, task_id)
 VALUES
     ('CI00001', 'EM007', '2023-04-10 08:30:00', '2023-04-10 12:00:00', 1, 'T000001'),
     ('CI00002', 'EM008', '2023-04-11 13:30:00', '2023-04-11 16:00:00', 0, 'T000002');
@@ -357,20 +356,20 @@ VALUES
     ('CI00001', 'T000002');
 GO
 
-INSERT INTO LeaveType(LeaveTypeID, LeaveTypeName)
+INSERT INTO LeaveType(leave_type_id, leave_type_name)
 VALUES
     ('LT1', N'Nghỉ bệnh'),
     ('LT2', N'Nghỉ cá nhân'),
     ('LT3', N'Nghỉ phép');
 GO
-INSERT INTO LeaveStatus(LeaveStatusID, LeaveStatusName)
+INSERT INTO LeaveStatus(leave_status_id, leave_status_name)
 VALUES
     ('LS1', N'chấp nhận'),
     ('LS2', N'chưa giải quyết'),
     ('LS3', N'từ chối');
 GO
 -- when taking a leave, one must request permission from 'department head'
-INSERT INTO Leave(ID, EmployeeID, LeaveTypeID, LeaveReason, StartDate, EndDate, LeaveStatusID, CreatedDate, ApprovedBy, Notes)
+INSERT INTO Leave(id, employee_id, leave_type_id, leave_reason, start_date, end_date, leave_status_id, created_date, approved_by, notes)
 VALUES
     ('LEA0001', 'EM007', 'LT1', N'Nghỉ do bị ốm', '2023-04-01', '2023-04-05', 'LS1', '2023-04-06', 'EM001', N'ghi chú 1'),
     ('LEA0002', 'EM008', 'LT2', N'Nghỉ đi khám bệnh', '2023-04-01', '2023-04-10', 'LS1', '2023-04-06', 'EM001', N'ghi chú 2');
