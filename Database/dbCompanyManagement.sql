@@ -5,7 +5,8 @@ GO
 
 CREATE TABLE Position(
                          PositionID varchar(20) PRIMARY KEY,
-                         PositionName nvarchar(50)
+                         PositionName nvarchar(50),
+						 BaseSalary int,
 );
 GO
 CREATE TABLE Employee(
@@ -18,8 +19,7 @@ CREATE TABLE Employee(
                          PhoneNumber varchar (10),
                          EmployeeAddress nvarchar(255),
                          DepartmentID varchar(20),
-                         PositionID varchar(20),
-                         Salary int
+                         PositionID varchar(20)
 );
 GO
 ALTER TABLE Employee ADD CONSTRAINT FK_EmployeePosition FOREIGN KEY(PositionID) REFERENCES Position(PositionID)
@@ -185,6 +185,33 @@ CREATE TABLE TaskDailyProgress(
 GO
 ALTER TABLE TaskDailyProgress ADD CONSTRAINT FK_TaskDailyProgress
     FOREIGN KEY(TaskID) REFERENCES Task(TaskID)
+GO
+CREATE TABLE Salary(
+					 EmployeeID varchar(20),
+					 SalaryTime datetime,
+					 TotalWorkdays int,
+					 Bonus int, 
+					 Income int, --Income = BaseSalary (từ Position) * (TotalWorkdays/30) + Bonus
+					 PRIMARY KEY(EmployeeID, SalaryTime)
+);
+GO
+ALTER TABLE Salary ADD CONSTRAINT FK_SalaryEmployeeID
+    FOREIGN KEY(EmployeeID) REFERENCES Employee(EmployeeID)
+GO
+CREATE TABLE KPI(
+					ProjectID varchar(20),
+					EmployeeID varchar(20),
+					KPITime datetime,
+					NumberTarget int,
+					NumberActual int,
+					PRIMARY KEY (ProjectID, EmployeeID, KPITime)
+);
+GO
+ALTER TABLE KPI ADD CONSTRAINT FK_KPIProjectID
+    FOREIGN KEY(ProjectID) REFERENCES Project(ProjectID)
+GO
+ALTER TABLE KPI ADD CONSTRAINT FK_KPIEmployeeID
+    FOREIGN KEY(EmployeeID) REFERENCES Employee(EmployeeID)
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
 GO
 INSERT INTO Position(PositionID, PositionName)
