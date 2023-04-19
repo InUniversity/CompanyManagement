@@ -70,45 +70,54 @@ namespace CompanyManagement.ViewModels.UserControls
             TimeCreateLeave = timeCreateLeave.AddDays(1);
         }
 
-        private void LoadLeaves()
+        private void LoadLeaveList()
         {
-            var leaves = CurrentUser.Instance.IsEmployee()
-                ? leaveDao.SearchByEmployeeID(currentEmployee.ID)
-                : (CurrentUser.Instance.IsManager()
-                ? leaveDao.GetAll()
-                : leaveDao.SearchByDeptHeaderID(currentEmployee.ID));
-            Leaves = leaves;
+            Leaves = GetLeaveList();
+        }
+
+        private List<Leave> GetLeaveList()
+        {
+            if (CurrentUser.Instance.IsManager())
+                return leaveDao.GetAll();
+            else if (CurrentUser.Instance.IsDepartmentHead())
+                return leaveDao.SearchByDeptHeaderID(currentEmployee.ID);
+            else
+                return leaveDao.SearchByEmployeeID(currentEmployee.ID);
         }
 
         private void SetVisible()
         {
-
             if (CurrentUser.Instance.IsManager())
-            {
-                VisibilityManager();
-                VisibilityManagerCommands();
-                return;
-            }
+                SetVisibleManager();
+            else if (CurrentUser.Instance.IsDepartmentHead())
+                SetVisibleDepartmentHead();
+            else
+                SetVisibleEmployee();
+        }
 
-            if (CurrentUser.Instance.IsEmployee())
-            {
-                VisibilityCRUD();
-                VisibilityCRUDCommands();
-                return;
-            }
- 
-            if(CurrentUser.Instance.IsDepartmentHead())
-            {
-                VisibilityCRUD();
-                VisibilityManager();
-                VisibilityCRUDCommands();
-                VisibilityManagerCommands();
-            }    
+        private void SetVisibleManager()
+        {
+            VisibilityManager();
+            VisibilityManagerCommands();
+        }
+
+        private void SetVisibleDepartmentHead()
+        {
+            VisibilityCRUD();
+            VisibilityManager();
+            VisibilityCRUDCommands();
+            VisibilityManagerCommands();
+        }
+
+        private void SetVisibleEmployee()
+        {
+            VisibilityCRUD();
+            VisibilityCRUDCommands();
         }
 
         private void FilterDate()
         {
-            LoadLeaves();
+            LoadLeaveList();
             var allItem = Leaves;
             Log.Instance.Information("Timkeeping", "selected date = " + timeCreateLeave.ToShortDateString());
             allItem = Leaves
@@ -188,7 +197,7 @@ namespace CompanyManagement.ViewModels.UserControls
               () =>
               {
                   leaveDao.Delete(id);
-                  LoadLeaves();
+                  LoadLeaveList();
               }, () => { });
             dialog.Show();
             FilterDate();

@@ -19,40 +19,33 @@ namespace CompanyManagement.ViewModels.UserControls
         string ErrorMessage { set; }
         Leave CreateLeaveInstance();
         void TrimAllTexts();
-        void Retrieve(Leave leave);
+        void Receive(Leave leave);
     }
 
     public class LeaveInputViewModel: BaseViewModel, ILeaveInput
     {
-        private string id = "";
-        public string ID { get => id; set { id = value; OnPropertyChanged(); } }
 
-        private string employeeID = "";
-        public string EmployeeID { get => employeeID; set { employeeID = value; OnPropertyChanged(); } }
+        private Leave leave;
 
-        private string leaveTypeID = "";
-        public string LeaveTypeID { get => leaveTypeID; set { leaveTypeID = value; OnPropertyChanged(); } }
+        public string ID { get => leave.ID; set { leave.ID = value; OnPropertyChanged(); } } 
 
-        private string leaveReason = "";
-        public string LeaveReason { get => leaveReason; set { leaveReason = value; OnPropertyChanged(); } }
+        public string EmployeeID { get => leave.EmployeeID; set { leave.EmployeeID = value; OnPropertyChanged(); } }
 
-        private DateTime start = DateTime.Now;
-        public DateTime Start { get => start; set { start = value; OnPropertyChanged(); } }
+        public string LeaveTypeID { get => leave.LeaveTypeID; set { leave.LeaveTypeID = value; OnPropertyChanged(); } }
 
-        private DateTime end = DateTime.Now;
-        public DateTime End { get => end; set { end = value; OnPropertyChanged(); } }
+        public string LeaveReason { get => leave.LeaveReason; set { leave.LeaveReason = value; OnPropertyChanged(); } }
 
-        private string leaveStatusID = "LS2";
-        public string LeaveStatusID { get => leaveStatusID; set { leaveStatusID = value; OnPropertyChanged(); } }
+        public DateTime Start { get => leave.Start; set { leave.Start = value; OnPropertyChanged(); } }
 
-        private DateTime createDate = DateTime.Now;
-        public DateTime CreateDate { get => createDate; set { createDate = value; OnPropertyChanged(); } }
+        public DateTime End { get => leave.End; set { leave.End = value; OnPropertyChanged(); } }
 
-        private string approvedBy = "";
-        public string ApprovedBy { get => approvedBy; set { approvedBy = value; OnPropertyChanged(); } }
+        public string LeaveStatusID { get => leave.LeaveStatusID; set { leave.LeaveStatusID = value; OnPropertyChanged(); } }
 
-        private string note = "";
-        public string Note { get => note; set { note = value; OnPropertyChanged(); } }
+        public DateTime CreateDate { get => leave.CreateDate; set { leave.CreateDate = value; OnPropertyChanged(); } }
+
+        public string ApprovedBy { get => leave.ApprovedBy; set { leave.ApprovedBy = value; OnPropertyChanged(); } }
+
+        public string Note { get => leave.Note; set { leave.Note = value; OnPropertyChanged(); } }
 
         private string errorMessage = "";
         public string ErrorMessage { get => errorMessage; set { errorMessage = value; OnPropertyChanged(); } }  
@@ -60,13 +53,11 @@ namespace CompanyManagement.ViewModels.UserControls
         public List<LeaveType> LeaveTypes { get; set; }
         public List<LeaveStatus> LeaveStatuses { get; set;}
 
-        private LeaveTypeDao leaveTypeDao;
-        private LeaveStatusDao leaveStatusDao;
+        private LeaveTypeDao leaveTypeDao = new LeaveTypeDao();
+        private LeaveStatusDao leaveStatusDao = new LeaveStatusDao();
 
         public LeaveInputViewModel()
         {
-            leaveTypeDao = new LeaveTypeDao();
-            leaveStatusDao = new LeaveStatusDao();
             SetAllComboBox();
         }
 
@@ -78,31 +69,24 @@ namespace CompanyManagement.ViewModels.UserControls
 
         public Leave CreateLeaveInstance()
         {
-            return new Leave(id, employeeID, leaveTypeID, leaveReason, start, end, LeaveStatusID, createDate, approvedBy, note);
+            return new Leave(ID, EmployeeID , LeaveTypeID, LeaveReason, 
+                Start, End, LeaveStatusID, CreateDate, ApprovedBy, Note);
         }
 
         public void TrimAllTexts()
         {
-            id = id.Trim();
-            employeeID = employeeID.Trim();
-            leaveTypeID = leaveTypeID.Trim();
-            leaveReason = leaveReason.Trim();
-            leaveStatusID = leaveStatusID.Trim();
-            approvedBy = approvedBy.Trim();
-            note = note.Trim();
+            ID = ID.Trim();
+            EmployeeID = EmployeeID.Trim();
+            LeaveTypeID = LeaveTypeID.Trim();
+            LeaveReason = LeaveReason.Trim();
+            LeaveStatusID = LeaveStatusID.Trim();
+            ApprovedBy = ApprovedBy.Trim();
+            Note = Note.Trim();
         }
 
-        public void Retrieve(Leave leave)
+        public void Receive(Leave leave)
         {
-            ID = leave.ID;
-            employeeID = leave.EmployeeID;
-            leaveTypeID = leave.LeaveTypeID;
-            LeaveReason = leave.LeaveReason;
-            Start = leave.Start;
-            End = leave.End;
-            LeaveStatusID = leave.LeaveStatusID;
-            ApprovedBy = leave.ApprovedBy;
-            Note = leave.Note;
+            this.leave = leave;
         }
     }
 }

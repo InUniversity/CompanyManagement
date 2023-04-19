@@ -17,8 +17,8 @@ namespace CompanyManagement.Database
                             $"{LEAVE_REASON}, {LEAVE_START_DATE}, {LEAVE_END_DATE}, {LEAVE_STATUS_ID}, " +
                             $"{LEAVE_CREATED_DATE}, {LEAVE_APPROVED_BY}, {LEAVE_NOTE})" +
                             $"VALUES ('{leave.ID}', '{leave.EmployeeID}', '{leave.LeaveTypeID}', " +
-                            $"'{leave.LeaveReason}', '{leave.Start}', '{leave.End}', '{leave.LeaveStatusID}', " +
-                            $"'{leave.CreateDate}', '{leave.ApprovedBy}', '{leave.Note})'";
+                            $"N'{leave.LeaveReason}', '{leave.Start}', '{leave.End}', '{leave.LeaveStatusID}', " +
+                            $"'{leave.CreateDate}', '{leave.ApprovedBy}', N'{leave.Note})'";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
@@ -31,10 +31,10 @@ namespace CompanyManagement.Database
         public void Update(Leave leave)
         {
             string sqlStr = $"UPDATE {LEAVE_TABLE} SET {LEAVE_EMPLOYEE_ID}='{leave.EmployeeID}', " +
-                            $"{LEAVE_TYPE_ID} = '{leave.LeaveTypeID}', {LEAVE_REASON} = '{leave.LeaveReason}', " +
+                            $"{LEAVE_TYPE_ID} = '{leave.LeaveTypeID}', {LEAVE_REASON} = N'{leave.LeaveReason}', " +
                             $"{LEAVE_START_DATE} = '{leave.Start}', {LEAVE_END_DATE} = '{leave.End}', " +
                             $"{LEAVE_STATUS_ID} = '{leave.LeaveStatusID}', {LEAVE_CREATED_DATE} = '{leave.CreateDate}', " +
-                            $"{LEAVE_APPROVED_BY} = '{leave.ApprovedBy}', {LEAVE_NOTE} = '{LEAVE_NOTE}'" +
+                            $"{LEAVE_APPROVED_BY} = '{leave.ApprovedBy}', {LEAVE_NOTE} = N'{LEAVE_NOTE}'" +
                             $"WHERE {LEAVE_ID} = '{leave.ID}'";
             dbConnection.ExecuteNonQuery(sqlStr);
         }

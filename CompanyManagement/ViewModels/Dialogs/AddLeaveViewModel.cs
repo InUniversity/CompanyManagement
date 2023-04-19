@@ -50,7 +50,7 @@ namespace CompanyManagement.ViewModels.Dialogs
 
         public void ReceiveObject(Leave leave)
         {
-            LeaveInputDataContext.Retrieve(leave);
+            LeaveInputDataContext.Receive(leave);
         }
 
         public void ReceiveSubmitAction(Action<Leave> submitObjectAction)
