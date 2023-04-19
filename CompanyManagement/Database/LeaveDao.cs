@@ -3,12 +3,13 @@ using CompanyManagement.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Lifetime;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace CompanyManagement.Database
 {
-    public class LeaveDao: BaseDao
+    public class LeaveDao : BaseDao
     {
         public void Add(Leave leave)
         {
@@ -16,8 +17,8 @@ namespace CompanyManagement.Database
                             $"{LEAVE_REASON}, {LEAVE_START_DATE}, {LEAVE_END_DATE}, {LEAVE_STATUS_ID}, " +
                             $"{LEAVE_CREATED_DATE}, {LEAVE_APPROVED_BY}, {LEAVE_NOTE})" +
                             $"VALUES ('{leave.ID}', '{leave.EmployeeID}', '{leave.LeaveTypeID}', " +
-                            $"'{leave.LeaveReason}', '{leave.Start}', '{leave.End}', '{leave.LeaveStatusID}', " +
-                            $"'{leave.CreateDate}', '{leave.ApprovedBy}', '{leave.Note})'";
+                            $"N'{leave.LeaveReason}', '{leave.Start}', '{leave.End}', '{leave.LeaveStatusID}', " +
+                            $"'{leave.CreateDate}', '{leave.ApprovedBy}', N'{leave.Note}')";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
@@ -30,10 +31,10 @@ namespace CompanyManagement.Database
         public void Update(Leave leave)
         {
             string sqlStr = $"UPDATE {LEAVE_TABLE} SET {LEAVE_EMPLOYEE_ID}='{leave.EmployeeID}', " +
-                            $"{LEAVE_TYPE_ID} = '{leave.LeaveTypeID}', {LEAVE_REASON} = '{leave.LeaveReason}', " +
+                            $"{LEAVE_TYPE_ID} = '{leave.LeaveTypeID}', {LEAVE_REASON} = N'{leave.LeaveReason}', " +
                             $"{LEAVE_START_DATE} = '{leave.Start}', {LEAVE_END_DATE} = '{leave.End}', " +
                             $"{LEAVE_STATUS_ID} = '{leave.LeaveStatusID}', {LEAVE_CREATED_DATE} = '{leave.CreateDate}', " +
-                            $"{LEAVE_APPROVED_BY} = '{leave.ApprovedBy}', {LEAVE_NOTE} = '{LEAVE_NOTE}'" +
+                            $"{LEAVE_APPROVED_BY} = '{leave.ApprovedBy}', {LEAVE_NOTE} = N'{LEAVE_NOTE}'" +
                             $"WHERE {LEAVE_ID} = '{leave.ID}'";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
@@ -41,6 +42,24 @@ namespace CompanyManagement.Database
         public List<Leave> GetAll()
         {
             string sqlStr = $"SELECT * FROM {LEAVE_TABLE}";
+            return dbConnection.GetList(sqlStr, reader => new Leave(reader));
+        }
+
+        public Leave SearchByID(string id)
+        {
+            string sqlStr = $"SELECT * FROM {LEAVE_TABLE} WHERE {LEAVE_ID}='{id}'";
+            return (Leave)dbConnection.GetSingleObject(sqlStr, reader => new Leave(reader));
+        }
+
+        public List<Leave> SearchByEmployeeID(string id)
+        {
+            string sqlStr = $"SELECT * FROM {LEAVE_TABLE} WHERE {LEAVE_EMPLOYEE_ID}='{id}'";
+            return dbConnection.GetList(sqlStr, reader => new Leave(reader));
+        }
+
+        public List<Leave> SearchByDeptHeaderID(string id)
+        {
+            string sqlStr = $"SELECT * FROM {LEAVE_TABLE} WHERE {LEAVE_APPROVED_BY}='{id}'";
             return dbConnection.GetList(sqlStr, reader => new Leave(reader));
         }
     }

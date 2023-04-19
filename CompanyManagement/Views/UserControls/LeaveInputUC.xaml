@@ -1,0 +1,108 @@
+﻿<UserControl x:Class="CompanyManagement.Views.UserControls.LeaveInputUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CompanyManagement.Views.UserControls"
+              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.FontWeight="Regular"
+             TextElement.FontSize="13"
+             TextOptions.TextFormattingMode="Ideal"
+             TextOptions.TextRenderingMode="Auto"
+             Background="White"
+             FontFamily="{DynamicResource MaterialDesignFont}"
+             mc:Ignorable="d" >
+    <Grid>
+        <StackPanel>
+            <ComboBox             
+                Height="50"
+                ItemsSource="{Binding LeaveTypes}"
+                SelectedValue="{Binding LeaveTypeID}"
+                SelectedValuePath="ID"
+                Margin="10"
+                materialDesign:HintAssist.Hint="Loại nghỉ phép: "
+                Style="{StaticResource MaterialDesignOutlinedComboBox}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <TextBox
+                Height="100"
+                Margin="10"
+                Text="{Binding LeaveReason,  UpdateSourceTrigger=PropertyChanged}"
+                materialDesign:HintAssist.Hint="Lý do"
+                AcceptsReturn="True"
+                IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedTextBoxEnabledComboBox}"
+                Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                TextWrapping="Wrap"
+                VerticalScrollBarVisibility="Auto" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <DatePicker
+                    SelectedDate="{Binding Start, UpdateSourceTrigger=PropertyChanged}"
+                    Margin="10"
+                    Width="360"
+                    HorizontalAlignment="Center"
+                    materialDesign:HintAssist.Hint="Ngày bắt đầu" 
+                    Style="{StaticResource MaterialDesignOutlinedDatePicker}"/>
+                </Grid>
+                <Grid Grid.Column="1">
+                    <materialDesign:TimePicker
+                    SelectedTime="{Binding Start, UpdateSourceTrigger=PropertyChanged}"
+                    Margin="10"
+                    Width="360"
+                    HorizontalAlignment="Center"
+                    materialDesign:HintAssist.Hint="Giờ bắt đầu"
+                    Is24Hours="True"
+                    Style="{StaticResource MaterialDesignOutlinedTimePicker}" />
+                </Grid>
+
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <DatePicker
+                    SelectedDate="{Binding End, UpdateSourceTrigger=PropertyChanged}"
+                    Margin="10"
+                    Width="360"
+                    HorizontalAlignment="Center"
+                    materialDesign:HintAssist.Hint="Ngày kết thúc"
+                    Style="{StaticResource MaterialDesignOutlinedDatePicker}"/>
+                </Grid>
+                <Grid Grid.Column="1">
+                    <materialDesign:TimePicker
+                    SelectedTime="{Binding End, UpdateSourceTrigger=PropertyChanged}"
+                    Margin="10"
+                    Width="360"
+                    HorizontalAlignment="Center"
+                    materialDesign:HintAssist.Hint="Giờ kết thúc"
+                    Is24Hours="True"
+                    Style="{StaticResource MaterialDesignOutlinedTimePicker}" />
+                </Grid>
+            </Grid>
+            <TextBox
+                Height="50"
+                Text="{Binding Note, UpdateSourceTrigger=PropertyChanged}"
+                Background="White"
+                Margin="10"            
+                materialDesign:HintAssist.Hint= "Chú thích" 
+                Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+            <TextBlock Text="{Binding ErrorMessage}" 
+                       Height="40"
+                       HorizontalAlignment="Center" 
+                       VerticalAlignment="Center"
+                       Foreground="Red" />
+        </StackPanel>
+    </Grid>
+</UserControl>
