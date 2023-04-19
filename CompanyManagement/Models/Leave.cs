@@ -58,7 +58,7 @@ namespace CompanyManagement.Models
         public string LeaveStatusID
         {
             get { return this.leaveStatusID; }
-            set { this.leaveStatusID = value;}
+            set { this.leaveStatusID = value; }
         }
 
         public DateTime CreateDate
@@ -76,12 +76,12 @@ namespace CompanyManagement.Models
         public string Note
         {
             get { return this.note; }
-            set { this.note = value; } 
+            set { this.note = value; }
         }
 
         public Leave() { }
 
-        public Leave(string id, string employeeID, string leaveTypeID, string leaveReason, DateTime start, DateTime end, string leaveStatusID, string approvedBy, string note)
+        public Leave(string id, string employeeID, string leaveTypeID, string leaveReason, DateTime start, DateTime end, string leaveStatusID, DateTime createDate, string approvedBy, string note)
         {
             this.id = id;
             this.employeeID = employeeID;
@@ -90,6 +90,7 @@ namespace CompanyManagement.Models
             this.start = start;
             this.end = end;
             this.leaveStatusID = leaveStatusID;
+            this.createDate = createDate;
             this.approvedBy = approvedBy;
             this.note = note;
         }

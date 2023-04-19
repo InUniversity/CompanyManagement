@@ -3,12 +3,13 @@ using CompanyManagement.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Lifetime;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace CompanyManagement.Database
 {
-    public class LeaveDao: BaseDao
+    public class LeaveDao : BaseDao
     {
         public void Add(Leave leave)
         {
@@ -42,6 +43,12 @@ namespace CompanyManagement.Database
         {
             string sqlStr = $"SELECT * FROM {LEAVE_TABLE}";
             return dbConnection.GetList(sqlStr, reader => new Leave(reader));
+        }
+
+        public Leave SearchByID(string id)
+        {
+            string sqlStr = $"SELECT * FROM {LEAVE_TABLE} WHERE {LEAVE_ID}='{id}'";
+            return (Leave)dbConnection.GetSingleObject(sqlStr, reader => new Leave(reader));
         }
     }
 }
