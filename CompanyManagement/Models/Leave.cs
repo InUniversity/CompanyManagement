@@ -18,65 +18,64 @@ namespace CompanyManagement.Models
         private string approvedBy = "";
         private string note = "";
 
-
         public string ID
         {
-            get { return this.id; }
-            set { this.id = value; }
+            get => id;
+            set => id = value;
         }
 
         public string EmployeeID
         {
-            get { return this.employeeID; }
-            set { this.employeeID = value; }
+            get => employeeID;
+            set => employeeID = value;
         }
 
         public string LeaveTypeID
         {
-            get { return this.leaveTypeID; }
-            set { this.leaveTypeID = value; }
+            get => leaveTypeID;
+            set => leaveTypeID = value;
         }
 
         public string LeaveReason
         {
-            get { return this.leaveReason; }
-            set { this.leaveReason = value; }
+            get => leaveReason;
+            set => leaveReason = value;
         }
 
         public DateTime Start
         {
-            get { return this.start; }
-            set { this.start = value; }
+            get => start;
+            set => start = value;
         }
 
         public DateTime End
         {
-            get { return this.end; }
-            set { this.end = value; }
+            get => end;
+            set => end = value;
         }
 
         public string LeaveStatusID
         {
-            get { return this.leaveStatusID; }
-            set { this.leaveStatusID = value; }
+            get => leaveStatusID;
+            set => leaveStatusID = value;
         }
 
         public DateTime CreateDate
         {
-            get { return this.createDate; }
-            set { this.createDate = value; }
+            get => createDate;
+            set => createDate = value;
         }
 
         public string ApprovedBy
         {
-            get { return this.approvedBy; }
-            set { this.approvedBy = value; }
+            get => approvedBy;
+            set => approvedBy = value;
         }
 
         public string Note
         {
-            get { return this.note; }
-            set { this.note = value; }
+            get => note;
+            set => note = value;
         }
 
         public Leave() { }

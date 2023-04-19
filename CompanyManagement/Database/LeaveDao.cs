@@ -18,7 +18,7 @@ namespace CompanyManagement.Database
                             $"{LEAVE_CREATED_DATE}, {LEAVE_APPROVED_BY}, {LEAVE_NOTE})" +
                             $"VALUES ('{leave.ID}', '{leave.EmployeeID}', '{leave.LeaveTypeID}', " +
                             $"N'{leave.LeaveReason}', '{leave.Start}', '{leave.End}', '{leave.LeaveStatusID}', " +
-                            $"'{leave.CreateDate}', '{leave.ApprovedBy}', N'{leave.Note})'";
+                            $"'{leave.CreateDate}', '{leave.ApprovedBy}', N'{leave.Note}')";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 

@@ -48,7 +48,7 @@ namespace CompanyManagement.ViewModels.UserControls
         public string Note { get => leave.Note; set { leave.Note = value; OnPropertyChanged(); } }
 
         private string errorMessage = "";
-        public string ErrorMessage { get => errorMessage; set { errorMessage = value; OnPropertyChanged(); } }  
+        public string ErrorMessage { get => errorMessage; set { errorMessage = value; OnPropertyChanged(); } }
 
         public List<LeaveType> LeaveTypes { get; set; }
         public List<LeaveStatus> LeaveStatuses { get; set;}

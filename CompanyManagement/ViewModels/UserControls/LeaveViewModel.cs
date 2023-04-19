@@ -33,7 +33,7 @@ namespace CompanyManagement.ViewModels.UserControls
         private Visibility visibleApproveButton = Visibility.Collapsed;
         public Visibility VisibleApproveButton { get => visibleApproveButton; set { visibleApproveButton = value; OnPropertyChanged(); } }
 
-        private DateTime timeCreateLeave;
+        private DateTime timeCreateLeave = DateTime.Now;
         public DateTime TimeCreateLeave { get => timeCreateLeave; set { timeCreateLeave = value; OnPropertyChanged(); FilterDate(); } }
 
         public ICommand NextTimeLeaveCreateDate { get; set; }
@@ -54,7 +54,6 @@ namespace CompanyManagement.ViewModels.UserControls
         public LeaveViewModel()
         {          
             SetVisible();
-            timeCreateLeave = DateTime.Now;
             FilterDate();
             NextTimeLeaveCreateDate = new RelayCommand<object>(ExecuteNextTimeLeaveCreateDate);
             BackTimeLeaveCreateDate = new RelayCommand<object>(ExecuteBackTimeLeaveCreateDate);
@@ -79,10 +78,9 @@ namespace CompanyManagement.ViewModels.UserControls
         {
             if (CurrentUser.Instance.IsManager())
                 return leaveDao.GetAll();
-            else if (CurrentUser.Instance.IsDepartmentHead())
+            if (CurrentUser.Instance.IsDepartmentHead())
                 return leaveDao.SearchByDeptHeaderID(currentEmployee.ID);
-            else
-                return leaveDao.SearchByEmployeeID(currentEmployee.ID);
+            return leaveDao.SearchByEmployeeID(currentEmployee.ID);
         }
 
         private void SetVisible()
@@ -119,11 +117,11 @@ namespace CompanyManagement.ViewModels.UserControls
         {
             LoadLeaveList();
             var allItem = Leaves;
-            Log.Instance.Information("Timkeeping", "selected date = " + timeCreateLeave.ToShortDateString());
             allItem = Leaves
-                    .Where(item => item.CreateDate.ToShortDateString() == timeCreateLeave.ToShortDateString())
+                    .Where(item => item.CreateDate.Date == TimeCreateLeave.Date)
                     .ToList();
             Leaves = new List<Leave>(allItem);
+            Log.Instance.Information(nameof(LeaveViewModel), "selected date = " + timeCreateLeave.ToShortDateString());
         }
 
         private void VisibilityManager()
@@ -155,7 +153,7 @@ namespace CompanyManagement.ViewModels.UserControls
             string approveBy = CurrentUser.Instance.IsEmployee()
                 ? departmentDao.DepartmentByEmployeeDeptID(currentEmployee.DepartmentID).ManagerID
                 : employeeDao.SearchByPositionID(BaseDao.MANAGER_POS_ID).ID;
-            return new Leave(AutoGenerateID(), currentEmployee.ID, "", "", DateTime.Now, DateTime.Now, "LS2",
+            return new Leave(AutoGenerateID(), currentEmployee.ID, "LS2", "", DateTime.Now, DateTime.Now, "LS2",
                 DateTime.Now, approveBy , "");
         }
 
@@ -174,50 +172,47 @@ namespace CompanyManagement.ViewModels.UserControls
         private void Add(Leave leave)
         {
             leaveDao.Add(leave);
+            LoadLeaveList();
         }
 
         private void Update(Leave leave)
         {
             leaveDao.Update(leave);
+            LoadLeaveList();
         }
 
-        public void ExecuteAddCommand(object p)
+        private void ExecuteAddCommand(object p)
         {
-            Leave leave = CreateLeave();
+            var leave = CreateLeave();
             var inputDialogService = new InputDialogService<Leave>(new AddLeaveDialog(), leave, Add);
             inputDialogService.Show();
             FilterDate();
         }
 
-        public void ExecuteDeleteCommand(string id)
+        private void ExecuteDeleteCommand(string id)
         {
-            AlertDialogService dialog = new AlertDialogService(
+            var dialog = new AlertDialogService(
               "Xóa xin phép nghỉ",
               "Bạn chắc chắn muốn xóa xin phép nghỉ!",
               () =>
               {
                   leaveDao.Delete(id);
                   LoadLeaveList();
-              }, () => { });
+              }, null);
             dialog.Show();
             FilterDate();
         }
 
-        public void ExecuteUpdateCommand(Leave leave)
+        private void ExecuteUpdateCommand(Leave leave)
         {
-            var inputDialogService =
-                 new InputDialogService<Leave>(new UpdateLeaveDialog(), leave, Update);
+            var inputDialogService = new InputDialogService<Leave>(new UpdateLeaveDialog(), leave, Update);
             inputDialogService.Show();
         }
 
-        public void ExecuteApproveCommand(Leave leave)
+        private void ExecuteApproveCommand(Leave leave)
         {
-            if(leave != null)
-            {
-                var inputDialogService =
-                new InputDialogService<Leave>(new UpdateLeaveForManagerDialog(), leave, Update);
-                inputDialogService.Show();
-            }           
+            var inputDialogService = new InputDialogService<Leave>(new UpdateLeaveForManagerDialog(), leave, Update);
+            inputDialogService.Show();
         }
     }
 }
