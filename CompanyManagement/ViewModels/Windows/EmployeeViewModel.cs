@@ -6,35 +6,43 @@ using System.Windows.Input;
 
 namespace CompanyManagement.ViewModels.Windows
 {
-    class EmployeeViewModel : BaseViewModel
+    public class EmployeeViewModel : BaseViewModel
     {
-        
         private ContentControl currentChildView;
         public ContentControl CurrentChildView { get => currentChildView; set { currentChildView = value; OnPropertyChanged(); } }
 
-        private UserInformationUC userInformationUC = new UserInformationUC();
         private AssignmentUC assignmentUC = new AssignmentUC();
-
+        private UserInformationUC userInformationUC = new UserInformationUC();
+        private LeaveUC leaveUC = new LeaveUC();
+        
         private bool statusAssignmentView = false;
         public bool StatusAssignmentView { get => statusAssignmentView; set { statusAssignmentView = value; OnPropertyChanged(); } }
-
+        
         private bool statusUserInformationView = false;
         public bool StatusUserInformationView { get => statusUserInformationView; set { statusUserInformationView = value; OnPropertyChanged(); } }
 
-        public ICommand ShowAssignViewCommand { get; }
-        public ICommand ShowUserInformationViewCommand { get; }
+        private bool statusLeaveView = false;
+        public bool StatusLeaveView { get => statusLeaveView; set { statusLeaveView = value; OnPropertyChanged(); } }
 
+        public ICommand ShowAssignmentViewCommand { get; private set; }
+        public ICommand ShowUserInformationViewCommand { get; private set; }
+        public ICommand ShowLeaveViewCommand { get; private set; }
 
         public EmployeeViewModel()
         {
             ExecuteShowUserInformationView(null);
-            ShowAssignViewCommand = new RelayCommand<object>(ExecuteShowAssignView);
+            SetCommands();
+        }
+
+        private void SetCommands()
+        {
+            ShowAssignmentViewCommand = new RelayCommand<object>(ExecuteShowAssignView);
             ShowUserInformationViewCommand = new RelayCommand<object>(ExecuteShowUserInformationView);
+            ShowLeaveViewCommand = new RelayCommand<object>(ExecuteShowLeaveView);
         }
 
         private void ExecuteShowUserInformationView(object obj)
         {
-
             CurrentChildView = userInformationUC;
             StatusUserInformationView = true;
         }
@@ -43,6 +51,12 @@ namespace CompanyManagement.ViewModels.Windows
         {
             CurrentChildView = assignmentUC;
             StatusAssignmentView = true;
+        }
+        
+        private void ExecuteShowLeaveView(object obj)
+        {
+            CurrentChildView = leaveUC;
+            StatusLeaveView = true;
         }
     }
 }

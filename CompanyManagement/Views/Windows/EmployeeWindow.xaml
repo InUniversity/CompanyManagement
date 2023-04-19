@@ -156,7 +156,7 @@
                             Height="80"
                             Width="50"
                             Style="{StaticResource MaterialDesignIconButton}"
-                            Command="{Binding ShowAssignViewCommand}"                                       
+                            Command="{Binding ElementName=employeesWindow, Path=DataContext.ShowAssignViewCommand}"                                       
                             BorderThickness="0">
                             <materialDesign:PackIcon Kind="Briefcase" Foreground="White" />
                         </Button>
@@ -165,9 +165,18 @@
                             Width="50"
                             Margin="0 100"
                             Style="{StaticResource MaterialDesignIconButton}"
-                            Command="{Binding ShowUserInformationViewCommand}"                                                               
+                            Command="{Binding ElementName=employeesWindow, Path=DataContext.ShowUserInformationViewCommand}"
                             BorderThickness="0">
                             <materialDesign:PackIcon Kind="Account" Foreground="White" />
+                        </Button>
+                        <Button HorizontalAlignment="Right"  
+                            Height="80"
+                            Width="50"
+                            Style="{StaticResource MaterialDesignIconButton}"
+                            Command="{Binding ElementName=employeesWindow, Path=DataContext.ShowLeaveViewCommand}"                                       
+                            BorderThickness="0"
+                            Margin="0 20">
+                            <materialDesign:PackIcon Kind="BriefcaseOff" />                        
                         </Button>
                     </StackPanel>
                 </Border>
