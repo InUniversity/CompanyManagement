@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using CompanyManagement.Database.Base;
 using CompanyManagement.Models;
 
@@ -39,13 +40,13 @@ namespace CompanyManagement.Database
 
         public List<Department> GetDepartmentsCanAssignWork(string projectID, string startDateTime, string endDateTime)
         {
-            // TODO
             string sqlStr = $"SELECT * FROM {DEPARTMENT_TABLE} WHERE {DEPARTMENT_ID} NOT IN (" +
                             $"SELECT {PROJECT_ASSIGNMENT_DEPARTMENT_ID} FROM {PROJECT_ASSIGNMENT_TABLE} " +
                             $"WHERE {PROJECT_ASSIGNMENT_PROJECT_ID} IN (SELECT {PROJECT_ID} FROM {PROJECT_TABLE} " +
                             $"WHERE {PROJECT_ID} NOT LIKE '{projectID}' AND {PROJECT_PROPRESS} NOT LIKE '100'" +
                             $"AND {PROJECT_START} <= '{endDateTime}'" +
-                            $"AND {PROJECT_END} >= '{startDateTime}'))";
+                            $"AND {PROJECT_END} >= '{startDateTime}')) EXCEPT (SELECT D.* FROM {DEPARTMENT_TABLE} D INNER JOIN {PROJECT_ASSIGNMENT_TABLE} PA ON D.{DEPARTMENT_ID}=PA.{PROJECT_ASSIGNMENT_DEPARTMENT_ID} WHERE PA.{PROJECT_ASSIGNMENT_PROJECT_ID}='{projectID}')";
+            // TODO
             return dbConnection.GetList(sqlStr, reader => new Department(reader));
         }
 

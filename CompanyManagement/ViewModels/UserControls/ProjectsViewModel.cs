@@ -95,7 +95,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void OpenAddProjectDialog(object obj)
         {
-            Project project = CreateProject();
+            var project = CreateProject();
             var inputService = new InputDialogService<Project>(new AddProjectDialog(), project, Add);
             inputService.Show();
         }
@@ -162,7 +162,7 @@ namespace CompanyManagement.ViewModels.UserControls
         {
             Log.Instance.Information(nameof(ProjectsViewModel), 
                 $"Department size: {departments.Count}");
-            for (int i = 0; i < departments.Count; i++)
+            for (var i = 0; i < departments.Count; i++)
             {
                 Log.Instance.Information(nameof(ProjectsViewModel), 
                 $"Department[{i}] = {departments[i].Name}");
