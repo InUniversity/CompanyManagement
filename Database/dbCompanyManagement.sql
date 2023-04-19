@@ -176,6 +176,17 @@ GO
 ALTER TABLE Leave ADD CONSTRAINT FK_LeaveEmployee
     FOREIGN KEY(ApprovedBy) REFERENCES Employee(EmployeeID)
 GO
+CREATE TABLE TaskDailyProgress(
+					  TaskID varchar(20),
+					  ProgressDate Date,
+					  CompletionPercentage varchar(4),
+					  PRIMARY KEY (TaskID, ProgressDate)
+);
+GO
+ALTER TABLE TaskDailyProgress ADD CONSTRAINT FK_TaskDailyProgress
+    FOREIGN KEY(TaskID) REFERENCES Task(TaskID)
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+GO
 INSERT INTO Position(PositionID, PositionName)
 VALUES
     ('1', N'Quản lý'),
