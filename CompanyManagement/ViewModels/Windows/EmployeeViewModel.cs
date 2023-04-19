@@ -22,26 +22,26 @@ namespace CompanyManagement.ViewModels.Windows
         public bool StatusUserInformationView { get => statusUserInformationView; set { statusUserInformationView = value; OnPropertyChanged(); } }
 
         public ICommand ShowAssignViewCommand { get; }
-        public ICommand ShowUserInformationViewCommand { get; set; }
+        public ICommand ShowUserInformationViewCommand { get; }
 
 
         public EmployeeViewModel()
         {
-            ExecuteShowUserInformationViewCommand(null);
-            ShowAssignViewCommand = new RelayCommand<object>(ExecuteShowAssignViewCommand);
-            ShowUserInformationViewCommand = new RelayCommand<object>(ExecuteShowUserInformationViewCommand);
+            ExecuteShowUserInformationView(null);
+            ShowAssignViewCommand = new RelayCommand<object>(ExecuteShowAssignView);
+            ShowUserInformationViewCommand = new RelayCommand<object>(ExecuteShowUserInformationView);
         }
 
-        private void ExecuteShowUserInformationViewCommand(object obj)
+        private void ExecuteShowUserInformationView(object obj)
         {
 
             CurrentChildView = userInformationUC;
             StatusUserInformationView = true;
         }
 
-        private void ExecuteShowAssignViewCommand(object obj)
+        private void ExecuteShowAssignView(object obj)
         {
-            CurrentChildView.Content = new AssignmentUC();
+            CurrentChildView = assignmentUC;
             StatusAssignmentView = true;
         }
     }
