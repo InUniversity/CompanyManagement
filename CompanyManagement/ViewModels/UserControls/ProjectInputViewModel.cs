@@ -145,7 +145,7 @@ namespace CompanyManagement.ViewModels.UserControls
                 ErrorMessage = Utils.INVALIDATE_EMPTY_MESSAGE;
                 return false;
             }
-            if (CheckFormat.ValidateTimeline(Start, End))
+            if (!CheckFormat.ValidateTimeline(Start, End))
             {
                 ErrorMessage = Utils.INVALIDATE_TIMELINE;
                 return false;
