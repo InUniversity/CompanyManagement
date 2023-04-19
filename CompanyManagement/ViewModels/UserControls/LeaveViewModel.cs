@@ -2,11 +2,8 @@
 using CompanyManagement.Models;
 using CompanyManagement.Services;
 using CompanyManagement.ViewModels.Base;
-using CompanyManagement.ViewModels.Dialogs.Interfaces;
-using CompanyManagement.ViewModels.UserControls.Interfaces;
 using CompanyManagement.Views.Dialogs;
 using CompanyManagement.Views.Dialogs.Interfaces;
-using CompanyManagement.Views.UserControls;
 using System;
 using System.Collections.Generic;
 using System.Windows;
@@ -15,7 +12,7 @@ using System.Windows.Input;
 namespace CompanyManagement.ViewModels.UserControls
 {
 
-    public class LeaveViewModel: BaseViewModel, IEditDBViewModel, IInputViewModel<Leave>
+    public class LeaveViewModel : BaseViewModel
     {
 
         private List<Leave> leaves;
@@ -95,8 +92,7 @@ namespace CompanyManagement.ViewModels.UserControls
         public void ExecuteAddCommand(object p)
         {
             Leave leave = CreateLeave();
-            InputDialogService<Leave> inputDialogService =
-                new InputDialogService<Leave>(new AddLeaveDialog(), leave, Add);
+            var inputDialogService = new InputDialogService<Leave>(new AddLeaveDialog(), leave, Add);
             inputDialogService.Show();
         }
 
@@ -121,28 +117,6 @@ namespace CompanyManagement.ViewModels.UserControls
             InputDialogService<Leave> inputDialogService =
                 new InputDialogService<Leave>(updateInputDiaLog, leave, Update);
             inputDialogService.Show();
-        }
-
-        public void AddToDB(object leave)
-        {
-            leaveDao.Add(leave as Leave);
-            LoadLeave();
-        }
-
-        public void UpdateToDB(object leave)
-        {
-            leaveDao.Update(leave as Leave);
-            LoadLeave();
-        }
-
-        public void RetrieveObject(Leave obj)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void RetrieveSubmitAction(Action<Leave> submitObjectAction)
-        {
-            throw new NotImplementedException();
         }
     }
 }

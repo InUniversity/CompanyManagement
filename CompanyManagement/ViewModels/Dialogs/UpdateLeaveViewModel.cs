@@ -1,20 +1,16 @@
 ﻿using CompanyManagement.Services;
 using CompanyManagement.ViewModels.Base;
-using CompanyManagement.ViewModels.UserControls.Interfaces;
 using CompanyManagement.ViewModels.UserControls;
 using System.Windows.Input;
 using System.Windows;
-using CompanyManagement.ViewModels.Dialogs.Interfaces;
 using CompanyManagement.Models;
 
 namespace CompanyManagement.ViewModels.Dialogs
 {
-    public class UpdateLeaveViewModel: BaseViewModel, IDialogViewModel
+    public class UpdateLeaveViewModel: BaseViewModel
     {
-        
         public ICommand UpdateLeaveCommand { get; }
 
-        public IEditDBViewModel ParentDataContext { get; set; }
         public ILeaveInput LeaveInputDataContext { get; }
 
         public UpdateLeaveViewModel()
@@ -33,7 +29,6 @@ namespace CompanyManagement.ViewModels.Dialogs
                () =>
                {
                    Leave empl = LeaveInputDataContext.CreateLeaveInstance();
-                   ParentDataContext.UpdateToDB(empl);
                    inputWindow.Close();
                }, () => { });
             dialog.Show();
@@ -42,11 +37,6 @@ namespace CompanyManagement.ViewModels.Dialogs
         private bool CheckAllFields()
         {
             return true;
-        }
-
-        public void Retrieve(object leave)
-        {
-            LeaveInputDataContext.Retrieve(leave as Leave);
         }
     }
 }

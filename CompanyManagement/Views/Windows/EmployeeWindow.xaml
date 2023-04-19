@@ -176,7 +176,7 @@
                             Command="{Binding ElementName=employeesWindow, Path=DataContext.ShowLeaveViewCommand}"                                       
                             BorderThickness="0"
                             Margin="0 20">
-                            <materialDesign:PackIcon Kind="EmailCheck" Foreground="White"/>                        
+                            <materialDesign:PackIcon Kind="BriefcaseOff" />                        
                         </Button>
                     </StackPanel>
                 </Border>

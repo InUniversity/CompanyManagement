@@ -16,7 +16,7 @@ namespace CompanyManagement.Views.Dialogs
         public AddLeaveDialog()
         {
             InitializeComponent();
-            ViewModel = new AddLeaveViewModel();
+            // ViewModel = new AddLeaveViewModel();
             DataContext = ViewModel;
         }
 
