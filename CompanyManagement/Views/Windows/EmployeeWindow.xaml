@@ -156,7 +156,7 @@
                             Height="80"
                             Width="50"
                             Style="{StaticResource MaterialDesignIconButton}"
-                            Command="{Binding ElementName=employeesWindow, Path=DataContext.ShowAssignViewCommand}"                                       
+                            Command="{Binding ElementName=employeesWindow, Path=DataContext.ShowAssignmentViewCommand}"                                       
                             BorderThickness="0">
                             <materialDesign:PackIcon Kind="Briefcase" Foreground="White" />
                         </Button>
