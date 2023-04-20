@@ -15,7 +15,7 @@ using System.Windows.Input;
 namespace CompanyManagement.ViewModels.UserControls
 {
 
-    public class LeaveViewModel : BaseViewModel
+    public class LeaveListViewModel : BaseViewModel
     {
 
         private List<Leave> leaves;
@@ -51,7 +51,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private Employee currentEmployee = CurrentUser.Instance.CurrentEmployee;
 
-        public LeaveViewModel()
+        public LeaveListViewModel()
         {          
             SetVisible();
             FilterDate();
@@ -121,7 +121,7 @@ namespace CompanyManagement.ViewModels.UserControls
                     .Where(item => item.CreateDate.Date == TimeCreateLeave.Date)
                     .ToList();
             Leaves = new List<Leave>(allItem);
-            Log.Instance.Information(nameof(LeaveViewModel), "selected date = " + timeCreateLeave.ToShortDateString());
+            Log.Instance.Information(nameof(LeaveListViewModel), "selected date = " + timeCreateLeave.ToShortDateString());
         }
 
         private void VisibilityManager()
