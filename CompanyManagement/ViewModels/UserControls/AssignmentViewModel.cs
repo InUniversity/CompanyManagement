@@ -2,6 +2,8 @@
 using CompanyManagement.Views.UserControls;
 using System.Windows.Controls;
 using System.Windows.Input;
+using CompanyManagement.Models;
+using CompanyManagement.Strategies.UserControls.ProjectsView;
 using CompanyManagement.Utilities;
 
 namespace CompanyManagement.ViewModels.UserControls
@@ -14,7 +16,6 @@ namespace CompanyManagement.ViewModels.UserControls
 
     public class AssignmentViewModel : BaseViewModel, INavigateAssignmentView
     {
-
         private ContentControl currentChildView;
         public ContentControl CurrentChildView { get => currentChildView; set { currentChildView = value; OnPropertyChanged(); } }
 
