@@ -6,12 +6,12 @@ namespace CompanyManagement.Views.UserControls
     /// <summary>
     /// Interaction logic for LeaveUC.xaml
     /// </summary>
-    public partial class LeaveUC : UserControl
+    public partial class LeaveListUC : UserControl
     {
-        public LeaveUC()
+        public LeaveListUC()
         {
             InitializeComponent();
-            DataContext = new LeaveViewModel();
+            DataContext = new LeaveListViewModel();
         }
     }
 }

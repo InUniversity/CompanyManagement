@@ -6,6 +6,7 @@ using System.Windows.Input;
 using CompanyManagement.Database;
 using CompanyManagement.ViewModels.Base;
 using System.Windows;
+using CompanyManagement.Database.Base;
 using CompanyManagement.Services;
 
 namespace CompanyManagement.ViewModels.UserControls
@@ -32,7 +33,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private string projectID = "";
 
-        private string currentEmployeeID = CurrentUser.Instance.CurrentEmployee.ID;
+        private Employee currentEmployee = CurrentUser.Ins.EmployeeIns;
 
         public TasksInProjectViewModel()
         {
@@ -43,15 +44,15 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void LoadTaskInProjects()
         {
-            List<TaskInProject> tasks = CurrentUser.Instance.IsEmployee()
-                ? taskInProjectDao.SearchByEmployeeID(projectID, currentEmployeeID) 
+            List<TaskInProject> tasks = string.Equals(currentEmployee.PositionID, BaseDao.EMPLOYEE_POS_ID)
+                ? taskInProjectDao.SearchByEmployeeID(projectID, currentEmployee.ID) 
                 : taskInProjectDao.SearchByProjectID(projectID);
             TasksInProject = tasks;
         }
 
         private void SetVisible()
         {
-            if (!CurrentUser.Instance.IsEmployee())
+            if (!string.Equals(currentEmployee.PositionID, BaseDao.EMPLOYEE_POS_ID))
             {
                 VisibilityCRUD();
                 VisibilityCRUDCommands();
@@ -79,8 +80,8 @@ namespace CompanyManagement.ViewModels.UserControls
         public void RetrieveProjectID(string projectID)
         {
             this.projectID = projectID;
-            List<TaskInProject> tasks = CurrentUser.Instance.IsEmployee()
-                ? taskInProjectDao.SearchByEmployeeID(projectID, currentEmployeeID)
+            List<TaskInProject> tasks = string.Equals(CurrentUser.Ins.EmployeeIns.PositionID, BaseDao.EMPLOYEE_POS_ID)
+                ? taskInProjectDao.SearchByEmployeeID(projectID, currentEmployee.ID)
                 : taskInProjectDao.SearchByProjectID(projectID);
             TasksInProject = tasks;
         }
@@ -100,8 +101,8 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private TaskInProject CreateTaskInProjectInstance()
         {
-            return new TaskInProject(AutoGenerateID(), "", "", DateTime.Now , DateTime.Now , "",
-                CurrentUser.Instance.CurrentAccount.EmployeeID, "", projectID, "1");
+            return new TaskInProject(AutoGenerateID(), "", "", DateTime.Now , DateTime.Now , 
+                "", CurrentUser.Ins.EmployeeIns.ID, "", projectID, "1");
         }
 
         private void ExecuteDeleteCommand(string id)

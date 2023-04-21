@@ -1,4 +1,6 @@
 ﻿using System.Windows.Controls;
+using CompanyManagement.Models;
+using CompanyManagement.Strategies.UserControls.ProjectsView;
 using CompanyManagement.ViewModels.UserControls;
 
 namespace CompanyManagement.Views.UserControls
@@ -11,7 +13,9 @@ namespace CompanyManagement.Views.UserControls
         public ProjectsUC()
         {
             InitializeComponent();
-            DataContext = new ProjectsViewModel();
+            var positionID = CurrentUser.Ins.EmployeeIns.PositionID;
+            var projectsStrategy = ProjectsStrategyFactory.Create(positionID);
+            DataContext = new ProjectsViewModel(projectsStrategy);
         }
     }
 }

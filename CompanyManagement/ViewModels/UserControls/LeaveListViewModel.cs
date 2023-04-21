@@ -15,7 +15,7 @@ using System.Windows.Input;
 namespace CompanyManagement.ViewModels.UserControls
 {
 
-    public class LeaveViewModel : BaseViewModel
+    public class LeaveListViewModel : BaseViewModel
     {
 
         private List<Leave> leaves;
@@ -49,9 +49,9 @@ namespace CompanyManagement.ViewModels.UserControls
         private DepartmentDao departmentDao = new DepartmentDao();
         private EmployeeDao employeeDao = new EmployeeDao();
 
-        private Employee currentEmployee = CurrentUser.Instance.CurrentEmployee;
+        private Employee currentEmployee = CurrentUser.Ins.EmployeeIns;
 
-        public LeaveViewModel()
+        public LeaveListViewModel()
         {          
             SetVisible();
             FilterDate();
@@ -76,18 +76,18 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private List<Leave> GetLeaveList()
         {
-            if (CurrentUser.Instance.IsManager())
+            if (string.Equals(currentEmployee.PositionID, BaseDao.MANAGER_POS_ID))
                 return leaveDao.GetAll();
-            if (CurrentUser.Instance.IsDepartmentHead())
+            if (string.Equals(currentEmployee.PositionID, BaseDao.DEPARTMENT_HEAD_POS_ID))
                 return leaveDao.SearchByDeptHeaderID(currentEmployee.ID);
             return leaveDao.SearchByEmployeeID(currentEmployee.ID);
         }
 
         private void SetVisible()
         {
-            if (CurrentUser.Instance.IsManager())
+            if (string.Equals(currentEmployee.PositionID, BaseDao.MANAGER_POS_ID))
                 SetVisibleManager();
-            else if (CurrentUser.Instance.IsDepartmentHead())
+            else if (string.Equals(currentEmployee.PositionID, BaseDao.DEPARTMENT_HEAD_POS_ID))
                 SetVisibleDepartmentHead();
             else
                 SetVisibleEmployee();
@@ -121,7 +121,7 @@ namespace CompanyManagement.ViewModels.UserControls
                     .Where(item => item.CreateDate.Date == TimeCreateLeave.Date)
                     .ToList();
             Leaves = new List<Leave>(allItem);
-            Log.Instance.Information(nameof(LeaveViewModel), "selected date = " + timeCreateLeave.ToShortDateString());
+            Log.Instance.Information(nameof(LeaveListViewModel), "selected date = " + timeCreateLeave.ToShortDateString());
         }
 
         private void VisibilityManager()
@@ -150,7 +150,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private Leave CreateLeave()
         {
-            string approveBy = CurrentUser.Instance.IsEmployee()
+            string approveBy = string.Equals(currentEmployee.ID, BaseDao.EMPLOYEE_POS_ID) 
                 ? departmentDao.DepartmentByEmployeeDeptID(currentEmployee.DepartmentID).ManagerID
                 : employeeDao.SearchByPositionID(BaseDao.MANAGER_POS_ID).ID;
             return new Leave(AutoGenerateID(), currentEmployee.ID, "LS2", "", DateTime.Now, DateTime.Now, "LS2",

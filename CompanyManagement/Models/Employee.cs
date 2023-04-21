@@ -1,6 +1,7 @@
 using System;
 using System.Data.SqlClient;
 using CompanyManagement.Database.Base;
+using CompanyManagement.Models;
 using CompanyManagement.Utilities;
 
 namespace CompanyManagement
@@ -18,6 +19,7 @@ namespace CompanyManagement
         private string departmentID = "";
         private string positionID = "";
         private int salary;
+        private Account account = new Account();
 
         public string ID
         {
@@ -83,6 +85,12 @@ namespace CompanyManagement
         {
             get => salary;
             set => salary = value;
+        }
+
+        public Account MyAccount
+        {
+            get => account;
+            set => account = value;
         }
 
         public Employee() { }

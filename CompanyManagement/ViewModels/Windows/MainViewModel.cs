@@ -1,13 +1,25 @@
-﻿using CompanyManagement.ViewModels.Base;
+﻿using System.Windows;
+using CompanyManagement.ViewModels.Base;
 using CompanyManagement.Views.UserControls;
 using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace CompanyManagement.ViewModels.Windows
 {
-    public class MainViewModel : BaseViewModel
+    public interface IMainViewModel
     {
-        
+        ContentControl CurrentChildView { get; set; }
+        bool StatusSettingsView { get; }
+        bool StatusNotifyView { get; }
+        bool StatusWorkScheduleView { get; }
+        bool StatusEmployeesView { get; }
+        bool StatusAssignmentView { get; }
+        bool StatusUserInformationView { get; }
+        bool StatusLeavesView { get; }
+    }
+    
+    public class MainViewModel : BaseViewModel, IMainViewModel
+    {
         private ContentControl currentChildView;
         public ContentControl CurrentChildView { get => currentChildView; set { currentChildView = value; OnPropertyChanged(); } }
 
@@ -17,7 +29,16 @@ namespace CompanyManagement.ViewModels.Windows
         private NotifyUC notifyUC = new NotifyUC();
         private SettingsUC settingsUC = new SettingsUC();
         private UserInformationUC userInformationUC = new UserInformationUC();
-        private LeaveUC leavesUC = new LeaveUC();
+        private LeaveListUC leavesListUC = new LeaveListUC();
+
+        private Visibility visibilityAssignmentView;
+        public Visibility VisibilityAssignmentView { get => visibilityAssignmentView; set { visibilityAssignmentView = value; OnPropertyChanged();} }
+
+        private Visibility visibilityEmployeesView;
+        public Visibility VisibilityEmployeesView { get => visibilityEmployeesView; set { visibilityEmployeesView = value; OnPropertyChanged(); } }
+        
+        private Visibility visibilityWorkScheduleView;
+        public Visibility VisibilityWorkScheduleView { get => visibilityWorkScheduleView; set { visibilityWorkScheduleView = value; OnPropertyChanged(); } }
         
         private bool statusSettingsView = false;
         public bool StatusSettingsView { get => statusSettingsView; set { statusSettingsView = value; OnPropertyChanged(); } }
@@ -67,7 +88,7 @@ namespace CompanyManagement.ViewModels.Windows
 
         private void ExecuteShowLeavesViewCommand(object obj)
         {
-            CurrentChildView = leavesUC;
+            CurrentChildView = leavesListUC;
             StatusLeavesView = true;
         }
 

@@ -108,6 +108,11 @@
     <Compile Include="Models\TimeKeeping.cs" />
     <Compile Include="Services\AlertDialogService.cs" />
     <Compile Include="Services\InputDialogService.cs" />
+    <Compile Include="Strategies\UserControls\ProjectsView\IProjectsStrategy.cs" />
+    <Compile Include="Strategies\UserControls\ProjectsView\ProjectsForDepartmentHead.cs" />
+    <Compile Include="Strategies\UserControls\ProjectsView\ProjectsForEmployee.cs" />
+    <Compile Include="Strategies\UserControls\ProjectsView\ProjectsForManager.cs" />
+    <Compile Include="Strategies\UserControls\ProjectsView\ProjectsStrategyFactory.cs" />
     <Compile Include="Utilities\CheckFormat.cs" />
     <Compile Include="Utilities\Log.cs" />
     <Compile Include="Utilities\Utils.cs" />
@@ -136,7 +141,7 @@
     <Compile Include="ViewModels\UserControls\EmployeeInputViewModel.cs" />
     <Compile Include="ViewModels\UserControls\EmployeesViewModel.cs" />
     <Compile Include="ViewModels\UserControls\LeaveInputViewModel.cs" />
-    <Compile Include="ViewModels\UserControls\LeaveViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\LeaveListViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ProjectDetailsViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ProjectInputViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ProjectsViewModel.cs" />
@@ -211,8 +216,8 @@
     <Compile Include="Views\UserControls\LeaveInputUC.xaml.cs">
       <DependentUpon>LeaveInputUC.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserControls\LeaveUC.xaml.cs">
-      <DependentUpon>LeaveUC.xaml</DependentUpon>
+    <Compile Include="Views\UserControls\LeaveListUC.xaml.cs">
+      <DependentUpon>LeaveListUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UserControls\LeaveViewUC.xaml.cs">
       <DependentUpon>LeaveViewUC.xaml</DependentUpon>
@@ -347,7 +352,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\UserControls\LeaveUC.xaml">
+    <Page Include="Views\UserControls\LeaveListUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -438,6 +443,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Strategies\UserControls\LeaveListView\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.8.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.8.0\build\MaterialDesignThemes.targets')" />

@@ -10,11 +10,22 @@ using CompanyManagement.ViewModels.Base;
 using CompanyManagement.Utilities;
 using CompanyManagement.Database;
 using CompanyManagement.Services;
+using CompanyManagement.Strategies.UserControls.ProjectsView;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
     public interface IProjects
     {
+        List<Project> Projects { get; set; }
+        Project SelectedProject { get; set; }
+        Visibility VisibleAddButton { get; set; }
+        Visibility VisibleDeleteButton { get; set; }
+        Visibility VisibleUpdateButton { get; set; }
+        ICommand OpenProjectInputCommand { get; }
+        ICommand DeleteProjectCommand { get; }
+        ICommand UpdateProjectCommand { get; }
+        ICommand ItemClickCommand { get; }
+        IProjectsStrategy ProjectsStrategy { set; }
         INavigateAssignmentView ParentDataContext { set; }
         IRetrieveProjectID ProjectDetailsDataContext { set; }
     }
@@ -41,56 +52,45 @@ namespace CompanyManagement.ViewModels.UserControls
         public ICommand UpdateProjectCommand { get; set; }
         public ICommand ItemClickCommand { get; set; }
 
+        private IProjectsStrategy projectsStrategy;
+        public IProjectsStrategy ProjectsStrategy 
+        { 
+            get => projectsStrategy;
+            set
+            {
+                if (projectsStrategy == value) return;
+                projectsStrategy = value;
+                projectsStrategy.SetVisible(this);
+                LoadProjects();
+            }
+        }
+
         public INavigateAssignmentView ParentDataContext { get; set; }
         public IRetrieveProjectID ProjectDetailsDataContext { get; set; }
 
         private ProjectDao projectDao = new ProjectDao();
         private ProjectAssignmentDao projectAssignmentDao = new ProjectAssignmentDao();
-        private string currentEmployeeID = CurrentUser.Instance.CurrentEmployee.ID;
+        private Employee currentEmployee = CurrentUser.Ins.EmployeeIns;
 
         private List<Department> departmentsBeforeChange;
 
-        public ProjectsViewModel()
+        public ProjectsViewModel(IProjectsStrategy projectsStrategy)
         {
-            LoadProjects();
-            SetVisible();
+            ProjectsStrategy = projectsStrategy;
             SetCommands();
         }
 
         private void LoadProjects()
         {
-            List<Project> projects = CurrentUser.Instance.IsEmployee()
-                ? projectAssignmentDao.SearchProjectByEmployeeID(currentEmployeeID)
-                : projectAssignmentDao.SearchProjectByCreatorID(currentEmployeeID);
-            Projects = projects;
-        }
-
-        private void SetVisible()
-        {
-            if (!CurrentUser.Instance.IsEmployee())
-            {
-                VisibilityCRUD();
-                VisibilityCRUDCommands();
-            }
-        }
-
-        private void VisibilityCRUD()
-        {
-            visibleAddButton = Visibility.Visible;
-            visibleDeleteButton = Visibility.Visible;
-            visibleUpdateButton = Visibility.Visible;
-        }
-
-        private void VisibilityCRUDCommands()
-        {
-            OpenProjectInputCommand = new RelayCommand<object>(OpenAddProjectDialog);
-            DeleteProjectCommand = new RelayCommand<string>(ExecuteDeleteCommand);
-            UpdateProjectCommand = new RelayCommand<Project>(OpenUpdateProjectDialog);
+            Projects = projectsStrategy.GetProjects(currentEmployee.ID);
         }
 
         private void SetCommands()
         {
             ItemClickCommand = new RelayCommand<object>(ItemClicked);
+            OpenProjectInputCommand = new RelayCommand<object>(OpenAddProjectDialog);
+            DeleteProjectCommand = new RelayCommand<string>(ExecuteDeleteCommand);
+            UpdateProjectCommand = new RelayCommand<Project>(OpenUpdateProjectDialog);
         }
 
         private void OpenAddProjectDialog(object obj)
@@ -103,7 +103,7 @@ namespace CompanyManagement.ViewModels.UserControls
         private Project CreateProject()
         {
             return new Project(AutoGenerateID(), "", DateTime.Now, DateTime.Now, 
-                Utils.EMPTY_DATETIME, "0", "", CurrentUser.Instance.CurrentEmployee.ID, 
+                Utils.EMPTY_DATETIME, "0", "", CurrentUser.Ins.EmployeeIns.ID, 
                 new ObservableCollection<Department>());
         }
 
@@ -152,21 +152,9 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void Update(Project project)
         {
-            ShowDepartmentsLog(project.Departments);
             projectDao.Update(project);
             UpdateProjectAssignment(project.ID, project.Departments);
             LoadProjects();
-        }
-
-        private void ShowDepartmentsLog(ObservableCollection<Department> departments)
-        {
-            Log.Instance.Information(nameof(ProjectsViewModel), 
-                $"Department size: {departments.Count}");
-            for (var i = 0; i < departments.Count; i++)
-            {
-                Log.Instance.Information(nameof(ProjectsViewModel), 
-                $"Department[{i}] = {departments[i].Name}");
-            }
         }
 
         private void UpdateProjectAssignment(string projectID, ICollection<Department> departmentsAfterChange)
@@ -185,8 +173,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void ItemClicked(object obj)
         {
-            if (SelectedProject == null)
-                return;
+            if (SelectedProject == null) return;
             ProjectDetailsDataContext.RetrieveProjectID(SelectedProject.ID);
             ParentDataContext.MoveToProjectDetailsView();
             SelectedProject = null;
