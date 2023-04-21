@@ -35,7 +35,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void LoadEmployees()
         {
-            employees = employeeDao.SearchByCurrentID(CurrentUser.Instance.CurrentEmployee.ID);
+            employees = employeeDao.SearchByCurrentID(CurrentUser.Ins.EmployeeIns.ID);
             SearchedEmployees = employees;
         }
 

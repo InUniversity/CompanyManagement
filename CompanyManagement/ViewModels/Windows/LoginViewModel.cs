@@ -12,7 +12,6 @@ namespace CompanyManagement.ViewModels.Windows
 {
     public class LoginViewModel : BaseViewModel
     {
-
         private string username;
         public string Username { get => username; set { username = value; OnPropertyChanged(); } }
 
@@ -22,13 +21,11 @@ namespace CompanyManagement.ViewModels.Windows
         public ICommand ForgotPasswordCommand { get; set; }
         public ICommand PasswordChangedCommand { get; set; }
 
-        private AccountDao accountDao;
-        private EmployeeDao employeeDao;
+        private AccountDao accountDao = new AccountDao();
+        private EmployeeDao employeeDao = new EmployeeDao();
 
         public LoginViewModel()
         {
-            accountDao = new AccountDao();
-            employeeDao = new EmployeeDao();
             SetCommands();
         }
 
@@ -41,24 +38,23 @@ namespace CompanyManagement.ViewModels.Windows
         
         private void ExecuteLoginCommand(Window loginWindow)
         {
-            Account account = accountDao.SearchByUsername(Username);
+            var account = accountDao.SearchByUsername(Username);
             if (account == null || !string.Equals(password, account.Password))
             {
                 MessageBox.Show(Utils.INVALIDATE_USERNAME_PASSWORD_MESSAGE);
                 return;
             }
-            CurrentUser.Instance.CurrentAccount = account;
-            Employee employee = employeeDao.SearchByID(account.EmployeeID);
-            CurrentUser.Instance.CurrentEmployee = employee;
-            Window nextWindow = CreateWindow(employee.PositionID);
-            nextWindow.Show();
+            var employee = employeeDao.SearchByID(account.EmployeeID);
+            employee.MyAccount = account;
+            CurrentUser.Ins.EmployeeIns = employee;
+            ShowMainWindow();
             loginWindow.Close();
         }
 
-        private Window CreateWindow(string positionID)
+        private void ShowMainWindow()
         {
-            // TODO
-            return new MainWindow();
+            Window nextWindow = new MainWindow();
+            nextWindow.Show();
         }
 
         private void ExecuteForgotPasswordCommand(object p)

@@ -9,6 +9,7 @@ using CompanyManagement.Models;
 using CompanyManagement.ViewModels.Base;
 using CompanyManagement.Utilities;
 using CompanyManagement.Database;
+using CompanyManagement.Database.Base;
 using CompanyManagement.Services;
 
 namespace CompanyManagement.ViewModels.UserControls
@@ -46,7 +47,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private ProjectDao projectDao = new ProjectDao();
         private ProjectAssignmentDao projectAssignmentDao = new ProjectAssignmentDao();
-        private string currentEmployeeID = CurrentUser.Instance.CurrentEmployee.ID;
+        private Employee currentEmployee = CurrentUser.Ins.EmployeeIns;
 
         private List<Department> departmentsBeforeChange;
 
@@ -59,15 +60,15 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void LoadProjects()
         {
-            List<Project> projects = CurrentUser.Instance.IsEmployee()
-                ? projectAssignmentDao.SearchProjectByEmployeeID(currentEmployeeID)
-                : projectAssignmentDao.SearchProjectByCreatorID(currentEmployeeID);
+            List<Project> projects = string.Equals(currentEmployee.ID, BaseDao.EMPLOYEE_POS_ID)
+                ? projectAssignmentDao.SearchProjectByEmployeeID(currentEmployee.ID)
+                : projectAssignmentDao.SearchProjectByCreatorID(currentEmployee.ID);
             Projects = projects;
         }
 
         private void SetVisible()
         {
-            if (!CurrentUser.Instance.IsEmployee())
+            if (!string.Equals(currentEmployee.ID, BaseDao.EMPLOYEE_POS_ID))
             {
                 VisibilityCRUD();
                 VisibilityCRUDCommands();
@@ -103,7 +104,7 @@ namespace CompanyManagement.ViewModels.UserControls
         private Project CreateProject()
         {
             return new Project(AutoGenerateID(), "", DateTime.Now, DateTime.Now, 
-                Utils.EMPTY_DATETIME, "0", "", CurrentUser.Instance.CurrentEmployee.ID, 
+                Utils.EMPTY_DATETIME, "0", "", CurrentUser.Ins.EmployeeIns.ID, 
                 new ObservableCollection<Department>());
         }
 
