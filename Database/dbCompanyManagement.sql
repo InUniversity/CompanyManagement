@@ -2,11 +2,9 @@
 GO
 USE CompanyManagement
 GO
-
 CREATE TABLE Position(
                          PositionID varchar(20) PRIMARY KEY,
-                         PositionName nvarchar(50),
-						 BaseSalary int,
+                         PositionName nvarchar(50)
 );
 GO
 CREATE TABLE Employee(
@@ -19,7 +17,8 @@ CREATE TABLE Employee(
                          PhoneNumber varchar (10),
                          EmployeeAddress nvarchar(255),
                          DepartmentID varchar(20),
-                         PositionID varchar(20)
+                         PositionID varchar(20),
+						 BaseSalary int
 );
 GO
 ALTER TABLE Employee ADD CONSTRAINT FK_EmployeePosition FOREIGN KEY(PositionID) REFERENCES Position(PositionID)
@@ -123,34 +122,6 @@ ALTER TABLE Task ADD CONSTRAINT FK_TaskStatus
     FOREIGN KEY(TaskStatusID) REFERENCES TaskStatus(TaskStatusID)
 GO
 
--- check-in-out
-CREATE TABLE CheckInOut(
-                           ID varchar(20) PRIMARY KEY,
-                           EmployeeID varchar(20),
-                           CheckInTime SMALLDATETIME,
-                           CheckOutTime SMALLDATETIME,
-                           CheckOutStatus BIT DEFAULT 0,
-                           TaskID varchar(20)
-)
-GO
-ALTER TABLE CheckInOut ADD CONSTRAINT FK_CheckInOutEmployee
-    FOREIGN KEY(EmployeeID) REFERENCES Employee(EmployeeID)
-GO
-ALTER TABLE CheckInOut ADD CONSTRAINT FK_CheckInOutTask
-    FOREIGN KEY(TaskID) REFERENCES Task(TaskID)
-GO
-CREATE TABLE CompletedTask(
-                              CheckInOutID varchar(20),
-                              TaskID varchar(20) PRIMARY KEY
-)
-GO
-ALTER TABLE CompletedTask ADD CONSTRAINT FK_CompletedTaskCheckInOut
-    FOREIGN KEY(CheckInOutID) REFERENCES CheckInOut(ID)
-GO
-ALTER TABLE CompletedTask ADD CONSTRAINT FK_CompletedTaskTask
-    FOREIGN KEY(TaskID) REFERENCES Task(TaskID)
-GO
-
 -- request for leave
 CREATE TABLE LeaveType(
                           LeaveTypeID varchar(20) PRIMARY KEY,
@@ -184,19 +155,35 @@ GO
 ALTER TABLE Leave ADD CONSTRAINT FK_LeaveEmployee
     FOREIGN KEY(ApprovedBy) REFERENCES Employee(EmployeeID)
 GO
-CREATE TABLE TaskDailyProgress(
+-- check-in-out
+CREATE TABLE CheckInOut(
+                           ID varchar(20) PRIMARY KEY,
+                           EmployeeID varchar(20),
+                           CheckInTime SMALLDATETIME,
+                           CheckOutTime SMALLDATETIME,
+                           TaskCheckInID varchar(20)
+)
+GO
+ALTER TABLE CheckInOut ADD CONSTRAINT FK_CheckInOutEmployee
+    FOREIGN KEY(EmployeeID) REFERENCES Employee(EmployeeID)
+GO
+ALTER TABLE CheckInOut ADD CONSTRAINT FK_CheckInOutTask
+    FOREIGN KEY(TaskCheckInID) REFERENCES Task(TaskID)
+GO
+CREATE TABLE TaskCheckOut(
+					  CheckInOutID varchar(20),
 					  TaskID varchar(20),
-					  ProgressDate Date,
-					  CompletionPercentage varchar(4),
-					  PRIMARY KEY (TaskID, ProgressDate)
+					  UpdateDate SMALLDATETIME,
+					  Progress varchar(4),
+					  PRIMARY KEY (CheckInOutID, TaskID)
 );
 GO
-ALTER TABLE TaskDailyProgress ADD CONSTRAINT FK_TaskDailyProgress
+ALTER TABLE TaskCheckOut ADD CONSTRAINT FK_TaskIDCheckOut
     FOREIGN KEY(TaskID) REFERENCES Task(TaskID)
 GO
 CREATE TABLE Salary(
 					 EmployeeID varchar(20),
-					 SalaryTime datetime,
+					 SalaryTime SMALLDATETIME,
 					 TotalWorkdays int,
 					 Bonus int, 
 					 Income int, --Income = BaseSalary (từ Position) * (TotalWorkdays/30) + Bonus
@@ -209,7 +196,7 @@ GO
 CREATE TABLE KPI(
 					ProjectID varchar(20),
 					EmployeeID varchar(20),
-					KPITime datetime,
+					KPITime SMALLDATETIME,
 					NumberTarget int,
 					NumberActual int,
 					PRIMARY KEY (ProjectID, EmployeeID, KPITime)
@@ -229,7 +216,7 @@ VALUES
     ('3', N'Nhân viên')
 GO
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
-INSERT INTO Employee (EmployeeID, EmployeeName, Gender, Birthday, IdentifyCard, Email, PhoneNumber, EmployeeAddress, DepartmentID, PositionID, Salary)
+INSERT INTO Employee (EmployeeID, EmployeeName, Gender, Birthday, IdentifyCard, Email, PhoneNumber, EmployeeAddress, DepartmentID, PositionID, BaseSalary)
 VALUES
     ('EM001', N'Nguyễn Văn An', 'Nam', CONVERT(DATE, '01-01-1990', 105), '001234567890', 'an.nguyen@it.company.com', '0123456789', N'TP. Hồ Chí Minh', '', '1', 15000000),
     ('EM002', N'Trần Thị Bình', N'Nữ', CONVERT(DATE, '02-02-1991', 105), '001234567891', 'binh.tran@it.company.com', '0234567890', N'Bình Dương', '', '1', 15000000),
@@ -382,31 +369,33 @@ VALUES
     ('T000024', N'Set up security infrastructure', N'Cài đặt và cấu hình cơ sở hạ tầng bảo mật cho công ty', CONVERT(SMALLDATETIME, '15-05-2023 02:45 PM', 105), CONVERT(SMALLDATETIME, '30-11-2023 10:30 AM', 105), 'EM050', '0', 'EM053', 'PRJ005', '1', 1),
     ('T000025', N'Implement backup infrastructure', N'Cài đặt và cấu hình cơ sở hạ tầng sao lưu cho công ty', CONVERT(SMALLDATETIME, '20-05-2023 02:45 PM', 105), CONVERT(SMALLDATETIME, '30-11-2023 10:30 AM', 105), 'EM050', '0', 'EM054', 'PRJ005', '1', '1'),
     ('T000026', N'Manage IT infrastructure', N'Quản lý và duy trì cơ sở hạ tầng công nghệ thông tin cho công ty', CONVERT(SMALLDATETIME, '25-05-2023 02:45 PM', 105), CONVERT(SMALLDATETIME, '30-11-2023 10:30 AM', 105), 'EM050', '0', 'EM055', 'PRJ005', '1', '1');
-
-INSERT INTO CheckInOut(ID, EmployeeID, CheckInTime, CheckOutTime, CheckOutStatus, TaskID)
-VALUES
-    ('CI00001', 'EM007', '2023-04-10 08:30:00', '2023-04-10 12:00:00', 1, 'T000001'),
-    ('CI00002', 'EM008', '2023-04-11 13:30:00', '2023-04-11 16:00:00', 0, 'T000002');
 GO
-INSERT INTO CompletedTask(CheckInOutID, TaskID)
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+INSERT INTO CheckInOut(ID, EmployeeID, CheckInTime, CheckOutTime, TaskCheckInID)
 VALUES
-    ('CI00001', 'T000001'),
-    ('CI00001', 'T000002');
+    ('CI00001', 'EM007', '2023-04-10 08:30:00', '2023-04-10 12:00:00', 'T000001'),
+    ('CI00002', 'EM008', '2023-04-11 13:30:00', '2023-04-11 16:00:00', 'T000002');
 GO
-
+INSERT INTO TaskCheckOut(CheckInOutID, TaskID, UpdateDate, Progress)
+VALUES 
+('CI00001', 'T000001', '2023-04-10 01:30 PM', '50'),
+('CI00002', 'T000002', '2023-04-10 11:30 PM', '30');
+GO
+---------------------------------------------------------------------------------------------------------------------------------------------------------
 INSERT INTO LeaveType(LeaveTypeID, LeaveTypeName)
 VALUES
     ('LT1', N'Nghỉ bệnh'),
     ('LT2', N'Nghỉ cá nhân'),
     ('LT3', N'Nghỉ phép');
 GO
+---------------------------------------------------------------------------------------------------------------------------------------------------------
 INSERT INTO LeaveStatus(LeaveStatusID, LeaveStatusName)
 VALUES
     ('LS1', N'chấp nhận'),
     ('LS2', N'chưa giải quyết'),
     ('LS3', N'từ chối');
 GO
--- when taking a leave, one must request permission from 'department head'
+---------------------------------------------------------------------------------------------------------------------------------------------------------
 INSERT INTO Leave(ID, EmployeeID, LeaveTypeID, LeaveReason, StartDate, EndDate, LeaveStatusID, CreatedDate, ApprovedBy, Notes)
 VALUES
     ('LEA0001', 'EM007', 'LT1', N'Nghỉ do bị ốm', '2023-04-01', '2023-04-05', 'LS1', '2023-04-06', 'EM001', N'ghi chú 1'),
