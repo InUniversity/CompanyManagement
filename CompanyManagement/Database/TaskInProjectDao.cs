@@ -53,5 +53,41 @@ namespace CompanyManagement.Database
             string sqlStr = $"SELECT * FROM {TASK_TABLE} WHERE {TASK_EMPLOYEE_ID} = '{employeeID}' AND {TASK_PROJECT_ID} = '{projectID}'";
             return dbConnection.GetList(sqlStr, reader => new TaskInProject(reader));
         }
+
+        public List<TaskInProject> SearchCompletedTaskByProjectID(string projectID)
+        {
+            string sqlStr = $"SELECT * FROM {TASK_TABLE} WHERE {TASK_PROJECT_ID} = '{projectID}' AND {TASK_PROGRESS} = '100'";
+            return dbConnection.GetList(sqlStr, reader => new TaskInProject(reader));
+        }
+
+        public List<TaskInProject> SearchNotCompletedTaskByProjectID(string projectID)
+        {
+            string sqlStr = $"SELECT * FROM {TASK_TABLE} WHERE  {TASK_PROJECT_ID} = '{projectID}' AND {TASK_PROGRESS} != '100' AND {TASK_DEADLINE} > GETDATE()";
+            return dbConnection.GetList(sqlStr, reader => new TaskInProject(reader));
+        }
+
+        public List<TaskInProject> SearchOverdueTaskByProjectID(string projectID)
+        {
+            string sqlStr = $"SELECT * FROM {TASK_TABLE} WHERE  {TASK_PROJECT_ID} = '{projectID}' AND {TASK_DEADLINE} < GETDATE() AND {TASK_PROGRESS} != '100'";
+            return dbConnection.GetList(sqlStr, reader => new TaskInProject(reader));
+        }
+
+        public List<TaskInProject> SearchCompletedTaskByEmployeeID(string employeeID,string projectID)
+        {
+            string sqlStr = $"SELECT * FROM {TASK_TABLE} WHERE  {TASK_EMPLOYEE_ID} = '{employeeID}' AND {TASK_PROJECT_ID} = '{projectID}' AND {TASK_PROGRESS} = '100'";
+            return dbConnection.GetList(sqlStr, reader => new TaskInProject(reader));
+        }
+
+        public List<TaskInProject> SearchNotCompletedTaskByEmployeeID(string employeeID,string projectID)
+        {
+            string sqlStr = $"SELECT * FROM {TASK_TABLE} WHERE  {TASK_EMPLOYEE_ID} = '{employeeID}' AND {TASK_PROJECT_ID} = '{projectID}' AND {TASK_PROGRESS} != '100' AND {TASK_DEADLINE} > GETDATE()";
+            return dbConnection.GetList(sqlStr, reader => new TaskInProject(reader));
+        }
+
+        public List<TaskInProject> SearchOverdueTaskByEmployeeID(string employeeID, string projectID)
+        {
+            string sqlStr = $"SELECT * FROM {TASK_TABLE} WHERE  {TASK_EMPLOYEE_ID} = '{employeeID}' AND {TASK_PROJECT_ID} = '{projectID}' AND {TASK_DEADLINE} < GETDATE() AND {TASK_PROGRESS} != '100'";
+            return dbConnection.GetList(sqlStr, reader => new TaskInProject(reader));
+        }
     }
 }

@@ -8,6 +8,7 @@ using CompanyManagement.ViewModels.Base;
 using System.Windows;
 using CompanyManagement.Database.Base;
 using CompanyManagement.Services;
+using CompanyManagement.Utilities;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
@@ -15,6 +16,12 @@ namespace CompanyManagement.ViewModels.UserControls
     {
         private List<TaskInProject> tasksInProject;
         public List<TaskInProject> TasksInProject { get => tasksInProject; set { tasksInProject = value; OnPropertyChanged(); } }
+
+        private List<TaskInProject> completedTasksInProject;
+        public List<TaskInProject> CompletedTasksInProject { get => completedTasksInProject; set { completedTasksInProject = value; OnPropertyChanged(); } }
+
+        private List<TaskInProject> overdueTasksInProject;
+        public List<TaskInProject> OverdueTasksInProject { get => overdueTasksInProject; set { overdueTasksInProject = value; OnPropertyChanged(); } }
 
         private Visibility visibleAddButton = Visibility.Collapsed;
         public Visibility VisibleAddButton { get => visibleAddButton; set { visibleAddButton = value; OnPropertyChanged(); } }
@@ -48,6 +55,16 @@ namespace CompanyManagement.ViewModels.UserControls
                 ? taskInProjectDao.SearchByEmployeeID(projectID, currentEmployee.ID) 
                 : taskInProjectDao.SearchByProjectID(projectID);
             TasksInProject = tasks;
+
+            List<TaskInProject> completedtasks = CurrentUser.Instance.IsEmployee()
+                ? taskInProjectDao.SearchCompletedTaskByEmployeeID(currentEmployeeID, projectID)
+                : taskInProjectDao.SearchCompletedTaskByProjectID( projectID);
+            CompletedTasksInProject = completedtasks;
+
+            List<TaskInProject> overduetasks = CurrentUser.Instance.IsEmployee()
+                ? taskInProjectDao.SearchOverdueTaskByEmployeeID(currentEmployeeID, projectID)
+                : taskInProjectDao.SearchOverdueTaskByProjectID( projectID);
+            OverdueTasksInProject = overduetasks;
         }
 
         private void SetVisible()

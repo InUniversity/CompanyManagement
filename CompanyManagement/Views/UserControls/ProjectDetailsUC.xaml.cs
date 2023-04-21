@@ -4,7 +4,7 @@ using System.Windows.Controls;
 namespace CompanyManagement.Views.UserControls
 {
     /// <summary>
-    /// Interaction logic for ProjectDetailsUC.xaml
+    /// Interaction logic for ProjectDetailsDialog.xaml
     /// </summary>
     public partial class ProjectDetailsUC : UserControl
     {

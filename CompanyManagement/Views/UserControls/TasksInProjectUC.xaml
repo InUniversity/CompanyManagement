@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+              xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
              TextElement.FontWeight="Regular"
              TextElement.FontSize="13"
              TextOptions.TextFormattingMode="Ideal"
@@ -13,61 +14,232 @@
              Background="{DynamicResource MaterialDesignPaper}"
              FontFamily="{DynamicResource MaterialDesignFont}"
              mc:Ignorable="d">
-    <Grid MinHeight="550" MinWidth="1100">
-        <Border MinHeight="550"
-                 Width="1100"               
-                BorderThickness="2"
-                ClipToBounds="True">
-            <Grid>
-                <DataGrid CanUserAddRows="False"
-                  AutoGenerateColumns="False"                 
-                  Background="White"
-                  ItemsSource="{Binding TasksInProject}">
-                    <DataGrid.Columns>
-                        <DataGridTemplateColumn Header="Operations"
-                                        CanUserResize="False"
-                                        IsReadOnly="True"
-                                        Width="auto">
-                            <DataGridTemplateColumn.CellTemplate>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <ScrollViewer Grid.Row="0">
+            <Grid MinHeight="490" MinWidth="1100">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Margin="10 5">
+                    <ListView Name="lvTask" 
+                      Margin="10"
+                      ItemsSource="{Binding TasksInProject}">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="{x:Type ListViewItem}">
+                                <Setter Property="Foreground" Value="Black" />
+                                <Setter Property="Background" Value="White" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}"
+                                             Value="True">
+                                        <Setter Property="Background" Value="#FFE0F7FA" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button
+                                                Margin="10 10"
+                                                Background="LightCyan"
+                                                Visibility="{Binding DataContext.VisibleUpdateButton, ElementName=tasksInProjectUC}"
+                                                Command="{Binding DataContext.UpdateTaskInProjectCommand, ElementName=tasksInProjectUC}"
+                                                CommandParameter="{Binding}"
+                                                IsEnabled="{Binding ControlsEnabled}"
+                                                Style="{StaticResource MaterialDesignIconForegroundButton}"
+                                                ToolTip="Edit">
+                                        <materialDesign:PackIcon Kind="PencilPlus" />
+                                    </Button>
+                                    <Button
+                                                Margin="10 10"
+                                                Background="Orange"
+                                                Visibility="{Binding DataContext.VisibleDeleteButton, ElementName=tasksInProjectUC}"
+                                                Command="{Binding DataContext.DeleteTaskInProjectCommand, ElementName=tasksInProjectUC}"
+                                                CommandParameter="{Binding ID}"
+                                                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                                Style="{StaticResource MaterialDesignIconForegroundButton}"
+                                                ToolTip="Delete">
+                                        <materialDesign:PackIcon Kind="DeleteForever" />
+                                    </Button>
+                                    <TextBlock Margin="30 10" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                           Text="{Binding Title}" FontSize="20" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+                <Grid  Grid.Row="1">
+                    <Expander 
+                  Background="#e8f5e9"  
+                Foreground="#00695c"
+                  Margin="10 5"
+                  ExpandDirection="Down">
+                        <Expander.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon VerticalAlignment="Center" 
+                                                 Margin="10 0" Kind="Check"  
+                                                 Foreground="#00695c" ></materialDesign:PackIcon>
+                                <materialDesign:Badged Badge="{Binding ElementName=lvTaskCompleted,Path=Items.Count,UpdateSourceTrigger=PropertyChanged}"  
+                                               Margin="10 0"   
+                                               BadgeForeground="White"
+                                               BadgeBackground="#80cbc4"
+                                               VerticalAlignment="Center">
+                                    <TextBlock                     
+                                FontWeight="Bold"  
+                                Margin="5"
+                                Text="Đã hoàn thành"                           
+                                FontSize="20"></TextBlock>
+                                </materialDesign:Badged>
+                            </StackPanel>
+                        </Expander.Header>
+                        <ListView Name="lvTaskCompleted" 
+                          Margin="10"
+                          ItemsSource="{Binding CompletedTasksInProject}">
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="{x:Type ListViewItem}">
+                                    <Setter Property="Foreground" Value="Black" />
+                                    <Setter Property="Background" Value="White" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}"
+                                             Value="True">
+                                            <Setter Property="Background" Value="#FFE0F7FA" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                            <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
                                         <Button
-                                            Visibility="{Binding DataContext.VisibleUpdateButton, ElementName=tasksInProjectUC}"
-                                            Command="{Binding DataContext.UpdateTaskInProjectCommand, ElementName=tasksInProjectUC}"
-                                            CommandParameter="{Binding}">
-                                            <materialDesign:PackIcon Kind="PencilOutline" />
+                                                Margin="10 10"
+                                                Background="LightCyan"
+                                                Visibility="{Binding DataContext.VisibleUpdateButton, ElementName=tasksInProjectUC}"
+                                                Command="{Binding DataContext.UpdateTaskInProjectCommand, ElementName=tasksInProjectUC}"
+                                                CommandParameter="{Binding}"
+                                                IsEnabled="{Binding ControlsEnabled}"
+                                                Style="{StaticResource MaterialDesignIconForegroundButton}"
+                                                ToolTip="Edit">
+                                            <materialDesign:PackIcon Kind="PencilPlus" />
                                         </Button>
-                                        <Button Margin="5 0 0 0"
-                                            Visibility="{Binding DataContext.VisibleDeleteButton, ElementName=tasksInProjectUC}"
-                                            Command="{Binding DataContext.DeleteTaskInProjectCommand, ElementName=tasksInProjectUC}"
-                                            CommandParameter="{Binding ID}">
-                                            <materialDesign:PackIcon Kind="DeleteOutline" />
+                                        <Button
+                                                Margin="10 10"
+                                                Background="Orange"
+                                                Visibility="{Binding DataContext.VisibleDeleteButton, ElementName=tasksInProjectUC}"
+                                                Command="{Binding DataContext.DeleteTaskInProjectCommand, ElementName=tasksInProjectUC}"
+                                                CommandParameter="{Binding ID}"
+                                                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                                Style="{StaticResource MaterialDesignIconForegroundButton}"
+                                                ToolTip="Delete">
+                                            <materialDesign:PackIcon Kind="DeleteForever" />
                                         </Button>
+                                        <TextBlock Margin="30 10"  Foreground="Gray"  HorizontalAlignment="Center" VerticalAlignment="Center"
+                                           Text="{Binding Title}" FontSize="20" />
                                     </StackPanel>
                                 </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        <DataGridTextColumn Header="Tên nhiệm vụ" IsReadOnly="True" Binding="{Binding ID}" />
-                        <DataGridTextColumn Header="Tiêu đề" IsReadOnly="True" Binding="{Binding Title}" />
-                        <DataGridTextColumn Header="Mô tả" IsReadOnly="True" Binding="{Binding Description}" />
-                        <DataGridTextColumn Header="Ngày bắt đầu" IsReadOnly="True" Binding="{Binding AssignDate}" />
-                        <DataGridTextColumn Header="Ngày kết thúc" IsReadOnly="True" Binding="{Binding Deadline}" />
-                        <DataGridTextColumn Header="Nhân viên" IsReadOnly="True" Binding="{Binding EmployeeID}" />
-                    </DataGrid.Columns>
-                </DataGrid>
-                <Button
-            ToolTip="Thêm công việc mới"
-            Grid.Row="1"
-            Width="60"
-            Height="60"
-            Margin="40"
-            Command="{Binding OpenTaskInProjectInputCommand}"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Bottom"
-            Visibility="{Binding DataContext.VisibleAddButton, ElementName=tasksInProjectUC}"
-            Content="{materialDesign:PackIcon Kind=Plus , Size=30}"
-            Style="{StaticResource MaterialDesignFloatingActionButton}" />
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </Expander>
+                </Grid>
+                <Grid  Grid.Row="2">
+                    <Expander 
+                  Background="#ffebee"  
+                Foreground="#c62828"
+                  Margin="10 5"
+                  ExpandDirection="Down">
+                        <Expander.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Margin="10 0"
+                                                 VerticalAlignment="Center" 
+                                                Kind="Close"
+                                                Foreground="#c62828" />
+                                <materialDesign:Badged Badge="{Binding ElementName=lvTaskOverdue,Path=Items.Count,UpdateSourceTrigger=PropertyChanged}"  
+                                               Margin="10 0"   
+                                               BadgeForeground="White"
+                                               BadgeBackground="#ef9a9a"
+                                               VerticalAlignment="Center">
+                                    <TextBlock 
+                            Margin="10 0"
+                            FontWeight="Bold"
+                            Text="Đã quá hạn" 
+                            VerticalAlignment="Center" 
+                            FontSize="20"/>
+                                </materialDesign:Badged>
+                            </StackPanel>
+                        </Expander.Header>
+                        <ListView Name="lvTaskOverdue" 
+                      Margin="10"
+                      ItemsSource="{Binding OverdueTasksInProject}">
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="{x:Type ListViewItem}">
+                                    <Setter Property="Foreground" Value="Black" />
+                                    <Setter Property="Background" Value="White" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}"
+                                             Value="True">
+                                            <Setter Property="Background" Value="#FFE0F7FA" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button
+                                                Margin="10 10"
+                                                Background="LightCyan"
+                                                Visibility="{Binding DataContext.VisibleUpdateButton, ElementName=tasksInProjectUC}"
+                                                Command="{Binding DataContext.UpdateTaskInProjectCommand, ElementName=tasksInProjectUC}"
+                                                CommandParameter="{Binding}"
+                                                IsEnabled="{Binding ControlsEnabled}"
+                                                Style="{StaticResource MaterialDesignIconForegroundButton}"
+                                                ToolTip="Edit">
+                                            <materialDesign:PackIcon Kind="PencilPlus" />
+                                        </Button>
+                                        <Button
+                                                Margin="10 10"
+                                                Background="Orange"
+                                                Visibility="{Binding DataContext.VisibleDeleteButton, ElementName=tasksInProjectUC}"
+                                                Command="{Binding DataContext.DeleteTaskInProjectCommand, ElementName=tasksInProjectUC}"
+                                                CommandParameter="{Binding ID}"
+                                                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                                Style="{StaticResource MaterialDesignIconForegroundButton}"
+                                                ToolTip="Delete">
+                                            <materialDesign:PackIcon Kind="DeleteForever" />
+                                        </Button>
+                                        <TextBlock Margin="30 10" Foreground="Gray" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                           Text="{Binding Title}" FontSize="20" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </Expander>
+                </Grid>
             </Grid>
-        </Border>
+        </ScrollViewer>
+        <Button Grid.Row="1" 
+                Margin="10 5" 
+                Height="50"
+                Background="#e3f2fd"
+                BorderThickness="0"
+                Visibility="{Binding DataContext.VisibleAddButton, ElementName=tasksInProjectUC}"
+                ToolTip="Thêm nhiệm vụ mới"
+                Foreground="#0277bd"                 
+                Command="{Binding OpenTaskInProjectInputCommand}">
+            <StackPanel Orientation="Horizontal">
+                <materialDesign:PackIcon  Kind="Plus" Height="30" Width="30"></materialDesign:PackIcon>
+                <TextBlock Grid.Column="1" 
+                       Margin="10 0"
+                       FontWeight="Bold"
+                       Text="New Task" 
+                       VerticalAlignment="Center" 
+                       FontSize="20"></TextBlock>
+            </StackPanel>
+        </Button>
     </Grid>
 </UserControl>

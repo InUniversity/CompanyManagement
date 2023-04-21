@@ -17,7 +17,7 @@
         mc:Ignorable="d" Width="700" Height="650">
     <Grid>
         <StackPanel>
-            <TextBlock Text="Thông tin chi tiết" 
+            <TextBlock Text="Cập nhật dự án" 
                        FontSize="25" 
                        Margin="10"
                        HorizontalAlignment="Center" 
