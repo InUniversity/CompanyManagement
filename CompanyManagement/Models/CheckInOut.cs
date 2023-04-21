@@ -11,9 +11,7 @@ namespace CompanyManagement.Models
         private string employeeID = "";
         private DateTime checkInTime = Utils.EMPTY_DATETIME;
         private DateTime checkOutTime = Utils.EMPTY_DATETIME;
-        private bool checkOutStatus = false;
-        private string taskID = "";
-        private string completedTaskID = "";
+        private string taskCheckInID = "";
 
         public string ID
         {
@@ -39,44 +37,29 @@ namespace CompanyManagement.Models
             set => checkOutTime = value;
         }
 
-        public bool CheckOutStatus
+        public string TaskCheckInID
         {
-            get => checkOutStatus;
-            set => checkOutStatus = value;
-        }
-
-        public string TaskID
-        {
-            get => taskID;
-            set => taskID = value;
-        }
-
-        public string CompletedTaskID
-        {
-            get => completedTaskID;
-            set => completedTaskID = value;
+            get => taskCheckInID;
+            set => taskCheckInID = value;
         }
 
         public CheckInOut() { }
 
-        public CheckInOut(string id, string employeeID, DateTime checkInTime, DateTime checkOutTime, 
-            bool checkOutStatus, string taskID, string completedTaskID)
+        public CheckInOut(string id, string employeeID, DateTime checkInTime, DateTime checkOutTime, string taskCheckInID)
         {
             this.id = id;
             this.employeeID = employeeID;
             this.checkInTime = checkInTime;
             this.checkOutTime = checkOutTime;
-            this.checkOutStatus = checkOutStatus;
-            this.taskID = taskID;
-            this.completedTaskID = completedTaskID;
+            this.taskCheckInID = taskCheckInID;
         }
 
-        public CheckInOut(string id, string employeeID, DateTime checkInTime, string taskID)
+        public CheckInOut(string id, string employeeID, DateTime checkInTime, string taskCheckInID)
         {
             this.id = id;
             this.employeeID = employeeID;
             this.checkInTime = checkInTime;
-            this.taskID = taskID;
+            this.taskCheckInID = taskCheckInID;
         }
 
         public CheckInOut(SqlDataReader reader)
@@ -85,11 +68,9 @@ namespace CompanyManagement.Models
             {
                 id = (string)reader[BaseDao.CHECK_IN_OUT_ID];
                 employeeID = (string)reader[BaseDao.CHECK_IN_OUT_EMPLOYEE_ID];
-                checkInTime = reader.GetDateTime(reader.GetOrdinal(BaseDao.CHECK_IN_TIME));
-                checkOutTime = reader.GetDateTime(reader.GetOrdinal(BaseDao.CHECK_OUT_TIME));
-                checkOutStatus = (bool)reader[BaseDao.CHECK_OUT_STATUS];
-                taskID = (string)reader[BaseDao.CHECK_IN_OUT_TASK_ID];
-                completedTaskID = (string)reader[BaseDao.CHECK_IN_OUT_COMPLETED_TASK_ID];
+                checkInTime = reader.GetDateTime(reader.GetOrdinal(BaseDao.CHECK_IN_OUT_CHECK_IN_TIME));
+                checkOutTime = reader.GetDateTime(reader.GetOrdinal(BaseDao.CHECK_IN_OUT_CHECK_OUT_TIME));
+                taskCheckInID = (string)reader[BaseDao.CHECK_IN_OUT_TASK_CHECK_IN_ID];
             }
             catch (Exception e)
             {
