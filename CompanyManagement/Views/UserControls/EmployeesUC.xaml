@@ -19,7 +19,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <materialDesign:Card Grid.Row="0">
+        <Border Grid.Row="0">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="200" />
@@ -52,12 +52,13 @@
                     </StackPanel>
                 </Grid>
             </Grid>
-        </materialDesign:Card>
+        </Border>
         <Grid Grid.Row="1">
             <DataGrid                 
                 CanUserAddRows="False"
                 AutoGenerateColumns="False"
                 Background="White"
+                Margin="5"
                 ItemsSource="{Binding SearchedEmployees}"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top">

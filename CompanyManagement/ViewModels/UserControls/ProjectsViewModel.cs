@@ -35,6 +35,12 @@ namespace CompanyManagement.ViewModels.UserControls
         private List<Project> projects;
         public List<Project> Projects { get => projects; set { projects = value; OnPropertyChanged(); } }
 
+        private List<Project> completedProjects;
+        public List<Project> CompletedProjects { get => completedProjects; set { completedProjects = value; OnPropertyChanged(); } }
+
+        private List<Project> overdueProjects;
+        public List<Project> OverdueProjects { get => overdueProjects; set { overdueProjects = value; OnPropertyChanged(); } }
+
         private Project selectedProject;
         public Project SelectedProject { get => selectedProject; set { selectedProject = value; OnPropertyChanged(); } }
 
@@ -83,6 +89,39 @@ namespace CompanyManagement.ViewModels.UserControls
         private void LoadProjects()
         {
             Projects = projectsStrategy.GetProjects(currentEmployee.ID);
+
+            List<Project> completedprojects = CurrentUser.Instance.IsEmployee()
+                ? projectAssignmentDao.SearchCompletedProjectByEmployeeID(currentEmployeeID)
+                : projectAssignmentDao.SearchCompletedProjectByEmployeeID(currentEmployeeID);
+            CompletedProjects = completedprojects;
+
+            List<Project> overdueprojects = CurrentUser.Instance.IsEmployee()
+                ? projectAssignmentDao.SearchOverdueProjectByEmployeeID(currentEmployeeID)
+                : projectAssignmentDao.SearchOverdueProjectByEmployeeID(currentEmployeeID);
+            OverdueProjects = overdueprojects;
+        }
+
+        private void SetVisible()
+        {
+            if (!CurrentUser.Instance.IsEmployee())
+            {
+                VisibilityCRUD();
+                VisibilityCRUDCommands();
+            }
+        }
+
+        private void VisibilityCRUD()
+        {
+            visibleAddButton = Visibility.Visible;
+            visibleDeleteButton = Visibility.Visible;
+            visibleUpdateButton = Visibility.Visible;
+        }
+
+        private void VisibilityCRUDCommands()
+        {
+            OpenProjectInputCommand = new RelayCommand<object>(OpenAddProjectDialog);
+            DeleteProjectCommand = new RelayCommand<string>(ExecuteDeleteCommand);
+            UpdateProjectCommand = new RelayCommand<Project>(OpenUpdateProjectDialog);
         }
 
         private void SetCommands()

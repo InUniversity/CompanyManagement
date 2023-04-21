@@ -59,6 +59,38 @@ namespace CompanyManagement.Database
             return dbConnection.GetList(sqlStr, reader => new Project(reader));
         }
 
+        public List<Project> SearchCompletedProjectByEmployeeID(string employeeID)
+        {
+            string sqlStr = $"SELECT * FROM {PROJECT_TABLE} WHERE {PROJECT_ID} IN " +
+                            $"(SELECT {PROJECT_ASSIGNMENT_PROJECT_ID} FROM {PROJECT_ASSIGNMENT_TABLE} PA, {EMPLOYEE_TABLE} E " +
+                            $"WHERE PA.{PROJECT_ASSIGNMENT_DEPARTMENT_ID}=E.{EMPLOYEE_DEPARTMENT_ID} " +
+                            $"AND E.{EMPLOYEE_ID}='{employeeID}')" +
+                            $"AND {PROJECT_PROPRESS} = '100'";
+            return dbConnection.GetList(sqlStr, reader => new Project(reader));
+        }
+
+        public List<Project> SearchNotCompletedProjectByEmployeeID(string employeeID)
+        {
+            string sqlStr = $"SELECT * FROM {PROJECT_TABLE} WHERE {PROJECT_ID} IN " +
+                            $"(SELECT {PROJECT_ASSIGNMENT_PROJECT_ID} FROM {PROJECT_ASSIGNMENT_TABLE} PA, {EMPLOYEE_TABLE} E " +
+                            $"WHERE PA.{PROJECT_ASSIGNMENT_DEPARTMENT_ID}=E.{EMPLOYEE_DEPARTMENT_ID} " +
+                            $"AND E.{EMPLOYEE_ID}='{employeeID}')"+
+                             $"AND {PROJECT_PROPRESS} != '100'" +
+                              $"AND {PROJECT_END} > GETDATE()";
+            return dbConnection.GetList(sqlStr, reader => new Project(reader));
+        }
+
+        public List<Project> SearchOverdueProjectByEmployeeID(string employeeID)
+        {
+            string sqlStr = $"SELECT * FROM {PROJECT_TABLE} WHERE {PROJECT_ID} IN " +
+                            $"(SELECT {PROJECT_ASSIGNMENT_PROJECT_ID} FROM {PROJECT_ASSIGNMENT_TABLE} PA, {EMPLOYEE_TABLE} E " +
+                            $"WHERE PA.{PROJECT_ASSIGNMENT_DEPARTMENT_ID}=E.{EMPLOYEE_DEPARTMENT_ID} " +
+                            $"AND E.{EMPLOYEE_ID}='{employeeID}')" +
+                             $"AND {PROJECT_END} < GETDATE()" +
+                              $"AND {PROJECT_PROPRESS} != '100'";
+            return dbConnection.GetList(sqlStr, reader => new Project(reader));
+        }
+
         public List<Project> SearchProjectByCreatorID(string managerID)
         {
             string sqlStr = $"SELECT * FROM {PROJECT_TABLE} P WHERE P.{PROJECT_CREATE_BY}='{managerID}'";
