@@ -9,19 +9,27 @@ namespace CompanyManagement.Database
 
         public void Add(CheckInOut checkInOut)
         {
-            string sqlStr = $"";
+            string sqlStr = $"INSERT INTO {CHECK_IN_OUT_TABLE} ({CHECK_IN_OUT_ID}, {CHECK_IN_OUT_EMPLOYEE_ID}," +
+                            $" {CHECK_IN_OUT_CHECK_IN_TIME}, {CHECK_IN_OUT_CHECK_OUT_TIME}, {CHECK_IN_OUT_TASK_CHECK_IN_ID})" +
+                            $"VALUES ('{checkInOut.ID}', '{checkInOut.EmployeeID}', '{checkInOut.CheckInTime}', " +
+                            $"'{checkInOut.CheckOutTime}', '{checkInOut.TaskCheckInID}')";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
         public void Delete(string id)
         {
-            string sqlStr = $"";
+            string sqlStr = $"DELETE FROM {CHECK_IN_OUT_TABLE} WHRERE {CHECK_IN_OUT_ID} = '{id}'";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
         public void Update(CheckInOut checkInOut)
         {
-            string sqlStr = $"";
+            string sqlStr = $"UPDATE {CHECK_IN_OUT_TABLE} " +
+                            $"SET {CHECK_IN_OUT_EMPLOYEE_ID} = '{checkInOut.EmployeeID}', " +
+                            $"{CHECK_IN_OUT_CHECK_IN_TIME} = '{checkInOut.CheckInTime}', " +
+                            $"{CHECK_IN_OUT_CHECK_OUT_TIME} = '{checkInOut.CheckOutTime}', " +
+                            $"{CHECK_IN_OUT_TASK_CHECK_IN_ID} = '{checkInOut.TaskCheckInID}' " +
+                            $"WHERE {CHECK_IN_OUT_ID} = '{checkInOut.ID}'";
             dbConnection.ExecuteNonQuery(sqlStr); 
         }
 

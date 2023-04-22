@@ -41,8 +41,6 @@ namespace CompanyManagement.ViewModels.UserControls
         public ICommand DeleteSelectedTaskCommand { get; set; }
         public ICommand GetSelectedTaskCommand { get; set; }
 
-        private CompletedTaskDao completedTaskDao = new CompletedTaskDao();
-
         public CheckInViewModel()
         {
             LoadTasksCanChoose();
