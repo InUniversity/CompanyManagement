@@ -3,65 +3,64 @@ GO
 USE CompanyManagement
 GO
 CREATE TABLE Position(
-                         PositionID varchar(20) PRIMARY KEY,
-                         PositionName nvarchar(50)
+    PositionID varchar(20) PRIMARY KEY,
+    PositionName nvarchar(50)
 );
 GO
 CREATE TABLE Employee(
-                         EmployeeID varchar (20) PRIMARY KEY,
-                         EmployeeName nvarchar(100),
-                         Gender nvarchar(10),
-                         Birthday date,
-                         IdentifyCard varchar(12),
-                         Email varchar(50),
-                         PhoneNumber varchar (10),
-                         EmployeeAddress nvarchar(255),
-                         DepartmentID varchar(20),
-                         PositionID varchar(20),
-						 BaseSalary int
+    EmployeeID varchar (20) PRIMARY KEY,
+    EmployeeName nvarchar(100),
+    Gender nvarchar(10),
+    Birthday date,
+    IdentifyCard varchar(12),
+    Email varchar(50),
+    PhoneNumber varchar (10),
+    EmployeeAddress nvarchar(255),
+    DepartmentID varchar(20),
+    PositionID varchar(20),
+    BaseSalary int
 );
 GO
-ALTER TABLE Employee ADD CONSTRAINT FK_EmployeePosition FOREIGN KEY(PositionID) REFERENCES Position(PositionID)
+ALTER TABLE Employee ADD CONSTRAINT FK_EmployeePosition 
+	FOREIGN KEY(PositionID) REFERENCES Position(PositionID)
 GO
 CREATE TABLE Account(
-                        AccountUsername varchar(100),
-                        AccountPassword varchar(100),
-                        EmployeeID varchar(20) PRIMARY KEY,
+    AccountUsername varchar(100),
+    AccountPassword varchar(100),
+    EmployeeID varchar(20) PRIMARY KEY
 );
 GO
-ALTER TABLE Account ADD CONSTRAINT FK_AccountEmployee FOREIGN KEY(EmployeeID) REFERENCES Employee(EmployeeID)
+ALTER TABLE Account ADD CONSTRAINT FK_AccountEmployee 
+	FOREIGN KEY(EmployeeID) REFERENCES Employee(EmployeeID)
 GO
 CREATE TABLE Department(
-                           DepartmentID varchar(20) PRIMARY KEY,
-                           DepartmentName nvarchar(100),
-                           ManagerID varchar(20)
+    DepartmentID varchar(20) PRIMARY KEY,
+    DepartmentName nvarchar(100),
+    ManagerID varchar(20)
 );
 GO
 ALTER TABLE Department ADD CONSTRAINT FK_DepartmentEmployee
     FOREIGN KEY(ManagerID) REFERENCES Employee(EmployeeID)
 GO
 CREATE TABLE ProjectStatus(
-                              ProjectStatusID varchar(10) PRIMARY KEY,
-                              ProjectStatusName nvarchar(50)
+    ProjectStatusID varchar(10) PRIMARY KEY,
+    ProjectStatusName nvarchar(50)
 );
 GO
-ALTER TABLE Department ADD CONSTRAINT FK_DepartmentEmployee
-    FOREIGN KEY(ManagerID) REFERENCES Employee(EmployeeID)
-GO
 CREATE TABLE ProjectStatus(
-                              ProjectStatusID varchar(10) PRIMARY KEY,
-                              ProjectStatusName nvarchar(50)
+    ProjectStatusID varchar(10) PRIMARY KEY,
+    ProjectStatusName nvarchar(50)
 );
 GO
 CREATE TABLE Project(
-                        ProjectID varchar(20) PRIMARY KEY,
-                        ProjectName nvarchar(225),
-                        CreateDate SMALLDATETIME,
-                        EndDate SMALLDATETIME,
-                        CompletedDate SMALLDATETIME,
-                        Progress varchar(4),
-                        ProjectStatusID varchar(10),
-                        CreateBy varchar(20)
+    ProjectID varchar(20) PRIMARY KEY,
+    ProjectName nvarchar(225),
+    CreateDate SMALLDATETIME,
+    EndDate SMALLDATETIME,
+    CompletedDate SMALLDATETIME,
+    Progress varchar(4),
+    ProjectStatusID varchar(10),
+    CreateBy varchar(20)
 );
 GO
 ALTER TABLE Project ADD CONSTRAINT FK_ProjectProjectStatus
@@ -71,9 +70,9 @@ ALTER TABLE Project ADD CONSTRAINT FK_ProjectEmployee
     FOREIGN KEY(CreateBy) REFERENCES Employee(EmployeeID)
 GO
 CREATE TABLE ProjectAssignment(
-                                  ProjectID varchar(20),
-                                  DepartmentID varchar(20),
-                                  PRIMARY KEY(ProjectID, DepartmentID)
+    ProjectID varchar(20),
+    DepartmentID varchar(20),
+    PRIMARY KEY(ProjectID, DepartmentID)
 );
 GO
 ALTER TABLE ProjectAssignment ADD CONSTRAINT FK_ProjectAssignmentProject
@@ -83,27 +82,27 @@ ALTER TABLE ProjectAssignment ADD CONSTRAINT FK_ProjectAssignmentDepartment
     FOREIGN KEY(DepartmentID) REFERENCES Department(DepartmentID)
 GO
 CREATE TABLE TaskStatus(
-                           TaskStatusID varchar(10) PRIMARY KEY,
-                           TaskStatusName nvarchar(50)
+    TaskStatusID varchar(10) PRIMARY KEY,
+    TaskStatusName nvarchar(50)
 );
 GO
 CREATE TABLE TaskPriority(
-                             TaskPriorityID varchar(20) PRIMARY KEY,
-                             TaskPriorityName varchar(20)
+    TaskPriorityID varchar(20) PRIMARY KEY,
+    TaskPriorityName varchar(20)
 );
 GO
 CREATE TABLE Task(
-                     TaskID varchar(20) PRIMARY KEY,
-                     Title nvarchar(50),
-                     TaskDescription nvarchar(255),
-                     AssignDate SMALLDATETIME,
-                     Deadline SMALLDATETIME,
-                     CreateBy varchar(20),
-                     Progress varchar(4),
-                     EmployeeID varchar(20),
-                     ProjectID varchar(20),
-                     TaskPriorityID varchar(20),
-                     TaskStatusID varchar(10)
+    TaskID varchar(20) PRIMARY KEY,
+    Title nvarchar(50),
+    TaskDescription nvarchar(255),
+    AssignDate SMALLDATETIME,
+    Deadline SMALLDATETIME,
+    CreateBy varchar(20),
+    Progress varchar(4),
+    EmployeeID varchar(20),
+    ProjectID varchar(20),
+    TaskPriorityID varchar(20),
+    TaskStatusID varchar(10)
 );
 GO
 ALTER TABLE Task ADD CONSTRAINT FK_TaskManager
@@ -121,29 +120,27 @@ GO
 ALTER TABLE Task ADD CONSTRAINT FK_TaskStatus
     FOREIGN KEY(TaskStatusID) REFERENCES TaskStatus(TaskStatusID)
 GO
-
--- request for leave
 CREATE TABLE LeaveType(
-                          LeaveTypeID varchar(20) PRIMARY KEY,
-                          LeaveTypeName nvarchar(20),
+    LeaveTypeID varchar(20) PRIMARY KEY,
+    LeaveTypeName nvarchar(20)
 )
 GO
 CREATE TABLE LeaveStatus(
-                            LeaveStatusID varchar(20) PRIMARY KEY,
-                            LeaveStatusName nvarchar(50)
+    LeaveStatusID varchar(20) PRIMARY KEY,
+    LeaveStatusName nvarchar(50)
 )
 GO
 CREATE TABLE Leave(
-                      ID varchar(20) PRIMARY KEY,
-                      EmployeeID varchar(20),
-                      LeaveTypeID varchar(20),
-                      LeaveReason nvarchar(255),
-                      StartDate SMALLDATETIME,
-                      EndDate SMALLDATETIME,
-                      LeaveStatusID varchar(20),
-                      CreatedDate SMALLDATETIME,
-                      ApprovedBy varchar(20),
-                      Notes nvarchar(255)
+    ID varchar(20) PRIMARY KEY,
+    EmployeeID varchar(20),
+    LeaveTypeID varchar(20),
+    LeaveReason nvarchar(255),
+    StartDate SMALLDATETIME,
+    EndDate SMALLDATETIME,
+    LeaveStatusID varchar(20),
+    CreatedDate SMALLDATETIME,
+    ApprovedBy varchar(20),
+    Notes nvarchar(255)
 )
 GO
 ALTER TABLE Leave ADD CONSTRAINT FK_LeaveType
@@ -157,11 +154,11 @@ ALTER TABLE Leave ADD CONSTRAINT FK_LeaveEmployee
 GO
 -- check-in-out
 CREATE TABLE CheckInOut(
-                           ID varchar(20) PRIMARY KEY,
-                           EmployeeID varchar(20),
-                           CheckInTime SMALLDATETIME,
-                           CheckOutTime SMALLDATETIME,
-                           TaskCheckInID varchar(20)
+    ID varchar(20) PRIMARY KEY,
+    EmployeeID varchar(20),
+    CheckInTime SMALLDATETIME,
+    CheckOutTime SMALLDATETIME,
+    TaskCheckInID varchar(20)
 )
 GO
 ALTER TABLE CheckInOut ADD CONSTRAINT FK_CheckInOutEmployee
@@ -171,35 +168,35 @@ ALTER TABLE CheckInOut ADD CONSTRAINT FK_CheckInOutTask
     FOREIGN KEY(TaskCheckInID) REFERENCES Task(TaskID)
 GO
 CREATE TABLE TaskCheckOut(
-					  CheckInOutID varchar(20),
-					  TaskID varchar(20),
-					  UpdateDate SMALLDATETIME,
-					  Progress varchar(4),
-					  PRIMARY KEY (CheckInOutID, TaskID)
+    CheckInOutID varchar(20),
+    TaskID varchar(20),
+    UpdateDate SMALLDATETIME,
+    Progress varchar(4),
+    PRIMARY KEY (CheckInOutID, TaskID)
 );
 GO
 ALTER TABLE TaskCheckOut ADD CONSTRAINT FK_TaskIDCheckOut
     FOREIGN KEY(TaskID) REFERENCES Task(TaskID)
 GO
 CREATE TABLE Salary(
-					 EmployeeID varchar(20),
-					 SalaryTime SMALLDATETIME,
-					 TotalWorkdays int,
-					 Bonus int, 
-					 Income int, --Income = BaseSalary (từ Position) * (TotalWorkdays/30) + Bonus
-					 PRIMARY KEY(EmployeeID, SalaryTime)
+    EmployeeID varchar(20),
+    SalaryTime SMALLDATETIME,
+    TotalWorkdays int,
+    Bonus int, 
+    Income int, --Income = BaseSalary (từ Position) * (TotalWorkdays/30) + Bonus
+    PRIMARY KEY(EmployeeID, SalaryTime)
 );
 GO
 ALTER TABLE Salary ADD CONSTRAINT FK_SalaryEmployeeID
     FOREIGN KEY(EmployeeID) REFERENCES Employee(EmployeeID)
 GO
 CREATE TABLE KPI(
-					ProjectID varchar(20),
-					EmployeeID varchar(20),
-					KPITime SMALLDATETIME,
-					NumberTarget int,
-					NumberActual int,
-					PRIMARY KEY (ProjectID, EmployeeID, KPITime)
+    ProjectID varchar(20),
+    EmployeeID varchar(20),
+    KPITime SMALLDATETIME,
+    NumberTarget int,
+    NumberActual int,
+    PRIMARY KEY (ProjectID, EmployeeID, KPITime)
 );
 GO
 ALTER TABLE KPI ADD CONSTRAINT FK_KPIProjectID

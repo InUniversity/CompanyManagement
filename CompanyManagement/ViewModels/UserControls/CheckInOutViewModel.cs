@@ -60,7 +60,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void CreateNewCheckIn()
         {
-            currentCheckInOut = new CheckInOut(AutoGenerateID(), CurrentUser.Instance.CurrentEmployee.ID,
+            currentCheckInOut = new CheckInOut(AutoGenerateID(), CurrentUser.Ins.EmployeeIns.ID,
                 Utils.EMPTY_DATETIME, Utils.EMPTY_DATETIME, "");
         }
 
