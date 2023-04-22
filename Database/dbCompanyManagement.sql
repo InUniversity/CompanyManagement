@@ -47,11 +47,6 @@ CREATE TABLE ProjectStatus(
     ProjectStatusName nvarchar(50)
 );
 GO
-CREATE TABLE ProjectStatus(
-    ProjectStatusID varchar(10) PRIMARY KEY,
-    ProjectStatusName nvarchar(50)
-);
-GO
 CREATE TABLE Project(
     ProjectID varchar(20) PRIMARY KEY,
     ProjectName nvarchar(225),
@@ -60,7 +55,8 @@ CREATE TABLE Project(
     CompletedDate SMALLDATETIME,
     Progress varchar(4),
     ProjectStatusID varchar(10),
-    CreateBy varchar(20)
+    CreateBy varchar(20),
+    BonusSalary int,
 );
 GO
 ALTER TABLE Project ADD CONSTRAINT FK_ProjectProjectStatus
@@ -191,12 +187,12 @@ ALTER TABLE Salary ADD CONSTRAINT FK_SalaryEmployeeID
     FOREIGN KEY(EmployeeID) REFERENCES Employee(EmployeeID)
 GO
 CREATE TABLE KPI(
+    ID varchar(20) PRIMARY KEY,
     ProjectID varchar(20),
     EmployeeID varchar(20),
     KPITime SMALLDATETIME,
     NumberTarget int,
-    NumberActual int,
-    PRIMARY KEY (ProjectID, EmployeeID, KPITime)
+    NumberActual int
 );
 GO
 ALTER TABLE KPI ADD CONSTRAINT FK_KPIProjectID
