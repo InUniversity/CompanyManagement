@@ -9,6 +9,9 @@ using System.Windows;
 using CompanyManagement.Database.Base;
 using CompanyManagement.Services;
 using CompanyManagement.Utilities;
+using CompanyManagement.Strategies.UserControls.ProjectsView;
+using CompanyManagement.Views.UserControls;
+using System.Linq;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
@@ -51,20 +54,27 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void LoadTaskInProjects()
         {
-            List<TaskInProject> tasks = string.Equals(currentEmployee.PositionID, BaseDao.EMPLOYEE_POS_ID)
-                ? taskInProjectDao.SearchByEmployeeID(projectID, currentEmployee.ID) 
-                : taskInProjectDao.SearchByProjectID(projectID);
-            TasksInProject = tasks;
+            var AllTasks = string.Equals(currentEmployee.PositionID, BaseDao.EMPLOYEE_POS_ID)
+               ? taskInProjectDao.SearchByEmployeeID(projectID, currentEmployee.ID)
+               : taskInProjectDao.SearchByProjectID(projectID);
 
-            List<TaskInProject> completedtasks = CurrentUser.Instance.IsEmployee()
-                ? taskInProjectDao.SearchCompletedTaskByEmployeeID(currentEmployeeID, projectID)
-                : taskInProjectDao.SearchCompletedTaskByProjectID( projectID);
-            CompletedTasksInProject = completedtasks;
+            var tasks = AllTasks.Where(p => p.Progress != "100" && p.Deadline > DateTime.Now).ToList();
+            if (tasks.Count > 0)
+            {
+                TasksInProject = new List<TaskInProject>(tasks);
+            }
 
-            List<TaskInProject> overduetasks = CurrentUser.Instance.IsEmployee()
-                ? taskInProjectDao.SearchOverdueTaskByEmployeeID(currentEmployeeID, projectID)
-                : taskInProjectDao.SearchOverdueTaskByProjectID( projectID);
-            OverdueTasksInProject = overduetasks;
+            var completedtasks = AllTasks.Where(p => p.Progress == "100").ToList();
+            if (completedtasks.Count > 0)
+            {
+                CompletedTasksInProject = new List<TaskInProject>(completedtasks);
+            }
+
+            var overduetasks = AllTasks.Where(p => p.Deadline < DateTime.Now && p.Progress != "100").ToList();
+            if (overduetasks.Count > 0)
+            {
+                OverdueTasksInProject = new List<TaskInProject>(overduetasks);
+            }
         }
 
         private void SetVisible()

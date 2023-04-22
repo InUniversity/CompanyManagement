@@ -88,27 +88,35 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void LoadProjects()
         {
-            Projects = projectsStrategy.GetProjects(currentEmployee.ID);
+            var AllProjects = projectsStrategy.GetProjects(currentEmployee.ID);
 
-            List<Project> completedprojects = CurrentUser.Instance.IsEmployee()
-                ? projectAssignmentDao.SearchCompletedProjectByEmployeeID(currentEmployeeID)
-                : projectAssignmentDao.SearchCompletedProjectByEmployeeID(currentEmployeeID);
-            CompletedProjects = completedprojects;
-
-            List<Project> overdueprojects = CurrentUser.Instance.IsEmployee()
-                ? projectAssignmentDao.SearchOverdueProjectByEmployeeID(currentEmployeeID)
-                : projectAssignmentDao.SearchOverdueProjectByEmployeeID(currentEmployeeID);
-            OverdueProjects = overdueprojects;
-        }
-
-        private void SetVisible()
-        {
-            if (!CurrentUser.Instance.IsEmployee())
+            var projects = AllProjects.Where(p => p.Progress != "100" && p.End > DateTime.Now).ToList();
+            if (projects.Count > 0)
             {
-                VisibilityCRUD();
-                VisibilityCRUDCommands();
+                Projects = new List<Project>(projects);
+            }
+
+            var completedprojects = AllProjects.Where(p => p.Progress == "100").ToList();
+            if(completedprojects.Count > 0) 
+            {
+                CompletedProjects = new List<Project>(completedProjects);
+            }
+           
+            var overdueprojects = AllProjects.Where(p => p.End < DateTime.Now && p.Progress != "100").ToList();        
+            if (overdueprojects.Count > 0)
+            {
+                OverdueProjects = new List<Project>(overdueprojects);
             }
         }
+
+        //private void SetVisible()
+        //{
+        //    if (!CurrentUser.Instance.IsEmployee())
+        //    {
+        //        VisibilityCRUD();
+        //        VisibilityCRUDCommands();
+        //    }
+        //}
 
         private void VisibilityCRUD()
         {
