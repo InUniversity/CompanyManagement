@@ -46,6 +46,14 @@ CREATE TABLE ProjectStatus(
                               ProjectStatusName nvarchar(50)
 );
 GO
+ALTER TABLE Department ADD CONSTRAINT FK_Department_Employee 
+FOREIGN KEY(manager_id) REFERENCES Employee(employee_id)
+GO
+CREATE TABLE ProjectStatus(
+	project_status_id varchar(10) PRIMARY KEY,
+	project_status_name nvarchar(50)
+);
+GO
 CREATE TABLE Project(
                         ProjectID varchar(20) PRIMARY KEY,
                         ProjectName nvarchar(225),
