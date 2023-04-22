@@ -15,7 +15,7 @@ namespace CompanyManagement.Database
         {
             string sqlStr = $"INSERT INTO {LEAVE_TABLE} ({LEAVE_ID}, {LEAVE_EMPLOYEE_ID}, {LEAVE_TYPE_ID}, " +
                             $"{LEAVE_REASON}, {LEAVE_START_DATE}, {LEAVE_END_DATE}, {LEAVE_STATUS_ID}, " +
-                            $"{LEAVE_CREATED_DATE}, {LEAVE_APPROVED_BY}, {LEAVE_NOTE})" +
+                            $"{LEAVE_CREATED_DATE}, {LEAVE_APPROVED_BY}, {LEAVE_NOTES})" +
                             $"VALUES ('{leave.ID}', '{leave.EmployeeID}', '{leave.LeaveTypeID}', " +
                             $"N'{leave.LeaveReason}', '{leave.Start}', '{leave.End}', '{leave.LeaveStatusID}', " +
                             $"'{leave.CreateDate}', '{leave.ApprovedBy}', N'{leave.Note}')";

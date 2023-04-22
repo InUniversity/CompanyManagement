@@ -123,8 +123,9 @@ namespace CompanyManagement.ViewModels.UserControls
         {
            foreach (var task in TasksCompleted)
            {
-               var completedTask = new CompletedTask(CheckInOutInputDataContext.CompletedTaskID, task.ID);
-                completedTaskDao.Add(completedTask);
+                //TODO
+               //var completedTask = new CompletedTask(CheckInOutInputDataContext.CompletedTaskID, task.ID);
+               // completedTaskDao.Add(completedTask);
            }
         }
         
