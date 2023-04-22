@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CompanyManagement.Views.Dialogs"
-         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -131,7 +131,7 @@
                             <Border Margin="5" BorderThickness="1">
 
                                 <ItemsControl               
-                                    ItemsSource="{Binding ElementName=checkOutDialog, Path=DataContext.TasksCompleted}">
+                                    ItemsSource="{Binding ElementName=checkOutDialog, Path=DataContext.TasksCheckOut}">
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
                                             <Border Width="575" Height="50" CornerRadius="5" BorderBrush="Black"

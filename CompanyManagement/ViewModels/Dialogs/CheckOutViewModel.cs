@@ -20,8 +20,8 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private Action<CheckInOut> submitObjectAction;
 
-        private ObservableCollection<TaskInProject> tasksCompleted;
-        public ObservableCollection<TaskInProject> TasksCompleted { get => tasksCompleted; set => tasksCompleted = value; }
+        private ObservableCollection<TaskInProject> tasksCheckOut;
+        public ObservableCollection<TaskInProject> TasksCheckOut { get => tasksCheckOut; set => tasksCheckOut = value; }
 
         private List<TaskInProject> TasksCanChoose;
 
@@ -39,22 +39,23 @@ namespace CompanyManagement.ViewModels.UserControls
         public ICommand GetAllSelectedTasksCommand { get; set; }
         public ICommand DeleteTaskCompletedCommand { get; set; }
 
-        private CompletedTaskDao completedTaskDao = new CompletedTaskDao();
+        private TaskCheckOutDao taskCheckOutDao = new TaskCheckOutDao();
+        private TaskInProjectDao taskInProjectDao = new TaskInProjectDao();
 
         public CheckOutViewModel()
         {
             SetCommands();
             LoadTasksCanChoose();
             CheckInOutInputDataContext = new CheckInOutInputViewModel();
-            TasksCompleted = new ObservableCollection<TaskInProject>();
+            TasksCheckOut = new ObservableCollection<TaskInProject>();
         }
 
         private void SetCommands()
         {
             CheckOutCommand = new RelayCommand<Window>(ExecuteCheckOutCommand);
             GetAllSelectedTasksCommand = new RelayCommand<ListView>(ExecuteGetAllSelectedTasksCommand);
-            AddTaskCompletedCommand = new RelayCommand<object>(ExecuteAddTaskCompletedCommand);
-            DeleteTaskCompletedCommand = new RelayCommand<TaskInProject>(ExecuteDeleteTaskCompletedCommand);
+            AddTaskCompletedCommand = new RelayCommand<object>(ExecuteAddTaskCheckOutCommand);
+            DeleteTaskCompletedCommand = new RelayCommand<TaskInProject>(ExecuteDeleteTaskCheckOutCommand);
         }
 
         private void ExecuteCheckOutCommand(Window window)
@@ -65,26 +66,26 @@ namespace CompanyManagement.ViewModels.UserControls
                  () =>
                  {
                      CheckInOut checkOut = CheckInOutInputDataContext.CreateCheckInOutInstance();
-                     AddTaskCompletedToDB();
+                     CommitTasksCheckOutToDB();
                      submitObjectAction?.Invoke(checkOut);
                      window.Close();
                  }, () => { });
             dialog.Show();
         }
 
-        private void ExecuteDeleteTaskCompletedCommand(TaskInProject task)
+        private void ExecuteDeleteTaskCheckOutCommand(TaskInProject task)
         {
-            TasksCompleted.Remove(task);
+            TasksCheckOut.Remove(task);
             LoadTasksCanChoose();
         }
 
-        private void ExecuteAddTaskCompletedCommand(object b)
+        private void ExecuteAddTaskCheckOutCommand(object b)
         {
             if (SelectedTasks != null)
             {
                 foreach (TaskInProject task in SelectedTasks)
                 {
-                    TasksCompleted.Add(task);
+                    TasksCheckOut.Add(task);
                 }
                 LoadTasksCanChoose();
             }
@@ -119,15 +120,27 @@ namespace CompanyManagement.ViewModels.UserControls
             SearchedTasksCanChoose = new ObservableCollection<TaskInProject>(searchedItems);
         }
 
-        private void AddTaskCompletedToDB()
+        private void CommitTasksCheckOutToDB()
         {
-           foreach (var task in TasksCompleted)
-           {
-               var completedTask = new CompletedTask(CheckInOutInputDataContext.CompletedTaskID, task.ID);
-                completedTaskDao.Add(completedTask);
-           }
+            foreach (var task in TasksCheckOut)
+            {
+                UpdateTaskInProjectToDB(task);
+                AddTaskCheckOutToDB(task);
+            }
+            LoadTasksCanChoose();
         }
-        
+
+        private void UpdateTaskInProjectToDB(TaskInProject task)
+        {
+            taskInProjectDao.Update(task);
+        }
+
+        private void AddTaskCheckOutToDB(TaskInProject task)
+        {
+            TaskCheckOut taskCheckOut = new TaskCheckOut(CheckInOutInputDataContext.ID, task.ID, DateTime.Now, task.Progress);
+            taskCheckOutDao.Add(taskCheckOut);
+        }
+
         public void ReceiveObject(CheckInOut checkInOut)
         {
             CheckInOutInputDataContext.Receive(checkInOut);

@@ -46,7 +46,7 @@ namespace CompanyManagement.ViewModels.UserControls
         {
             if (IsToggled) OpenCheckInDialog();
             else OpenCheckOutDialog();
-            if (!string.IsNullOrWhiteSpace(currentCheckInOut.TaskID))
+            if (!string.IsNullOrWhiteSpace(currentCheckInOut.TaskCheckInID))
                 IsToggled = !IsToggled;
         }
 
@@ -61,7 +61,7 @@ namespace CompanyManagement.ViewModels.UserControls
         private void CreateNewCheckIn()
         {
             currentCheckInOut = new CheckInOut(AutoGenerateID(), CurrentUser.Instance.CurrentEmployee.ID,
-                Utils.EMPTY_DATETIME, Utils.EMPTY_DATETIME, false, "", "");
+                Utils.EMPTY_DATETIME, Utils.EMPTY_DATETIME, "");
         }
 
         private string AutoGenerateID()
