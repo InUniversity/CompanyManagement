@@ -47,8 +47,7 @@ namespace CompanyManagement.ViewModels.Windows
             var employee = employeeDao.SearchByID(account.EmployeeID);
             employee.MyAccount = account;
             CurrentUser.Ins.EmployeeIns = employee;
-            ShowMainWindow();
-            loginWindow.Close();
+            ShowMainWindow();           
         }
 
         private void ShowMainWindow()
