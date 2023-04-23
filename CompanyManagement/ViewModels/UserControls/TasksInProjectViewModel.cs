@@ -8,6 +8,10 @@ using CompanyManagement.ViewModels.Base;
 using System.Windows;
 using CompanyManagement.Database.Base;
 using CompanyManagement.Services;
+using CompanyManagement.Utilities;
+using CompanyManagement.Strategies.UserControls.ProjectsView;
+using CompanyManagement.Views.UserControls;
+using System.Linq;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
@@ -15,6 +19,15 @@ namespace CompanyManagement.ViewModels.UserControls
     {
         private List<TaskInProject> tasksInProject;
         public List<TaskInProject> TasksInProject { get => tasksInProject; set { tasksInProject = value; OnPropertyChanged(); } }
+
+        private List<TaskInProject> ongoingTasksInProject;
+        public List<TaskInProject> OngoingTasksInProject { get => ongoingTasksInProject; set { ongoingTasksInProject = value; OnPropertyChanged(); } }
+
+        private List<TaskInProject> completedTasksInProject;
+        public List<TaskInProject> CompletedTasksInProject { get => completedTasksInProject; set { completedTasksInProject = value; OnPropertyChanged(); } }
+
+        private List<TaskInProject> overdueTasksInProject;
+        public List<TaskInProject> OverdueTasksInProject { get => overdueTasksInProject; set { overdueTasksInProject = value; OnPropertyChanged(); } }
 
         private Visibility visibleAddButton = Visibility.Collapsed;
         public Visibility VisibleAddButton { get => visibleAddButton; set { visibleAddButton = value; OnPropertyChanged(); } }
@@ -44,10 +57,27 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void LoadTaskInProjects()
         {
-            List<TaskInProject> tasks = string.Equals(currentEmployee.PositionID, BaseDao.EMPLOYEE_POS_ID)
-                ? taskInProjectDao.SearchByEmployeeID(projectID, currentEmployee.ID) 
-                : taskInProjectDao.SearchByProjectID(projectID);
-            TasksInProject = tasks;
+            TasksInProject = string.Equals(currentEmployee.PositionID, BaseDao.EMPLOYEE_POS_ID)
+               ? taskInProjectDao.SearchByEmployeeID(projectID, currentEmployee.ID)
+               : taskInProjectDao.SearchByProjectID(projectID);
+
+            var listOngoingTasks = TasksInProject.Where(p => p.Progress != BaseDao.COMPLETED && p.Deadline > DateTime.Now).ToList();
+            if (listOngoingTasks.Count > 0)
+            {
+                OngoingTasksInProject = new List<TaskInProject>(listOngoingTasks);
+            }
+
+            var listCompletedTasks = TasksInProject.Where(p => p.Progress == BaseDao.COMPLETED).ToList();
+            if (listCompletedTasks.Count > 0)
+            {
+                CompletedTasksInProject = new List<TaskInProject>(listCompletedTasks);
+            }
+
+            var listOverdueTasks = TasksInProject.Where(p => p.Deadline < DateTime.Now && p.Progress != BaseDao.COMPLETED).ToList();
+            if (listOverdueTasks.Count > 0)
+            {
+                OverdueTasksInProject = new List<TaskInProject>(listOverdueTasks);
+            }
         }
 
         private void SetVisible()

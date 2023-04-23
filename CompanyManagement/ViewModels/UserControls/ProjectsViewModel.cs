@@ -11,6 +11,7 @@ using CompanyManagement.Utilities;
 using CompanyManagement.Database;
 using CompanyManagement.Services;
 using CompanyManagement.Strategies.UserControls.ProjectsView;
+using CompanyManagement.Database.Base;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
@@ -34,6 +35,15 @@ namespace CompanyManagement.ViewModels.UserControls
     {
         private List<Project> projects;
         public List<Project> Projects { get => projects; set { projects = value; OnPropertyChanged(); } }
+
+        private List<Project> ongoingProjects;
+        public List<Project> OngoingProjects { get => ongoingProjects; set { ongoingProjects = value; OnPropertyChanged(); } }
+
+        private List<Project> completedProjects;
+        public List<Project> CompletedProjects { get => completedProjects; set { completedProjects = value; OnPropertyChanged(); } }
+
+        private List<Project> overdueProjects;
+        public List<Project> OverdueProjects { get => overdueProjects; set { overdueProjects = value; OnPropertyChanged(); } }
 
         private Project selectedProject;
         public Project SelectedProject { get => selectedProject; set { selectedProject = value; OnPropertyChanged(); } }
@@ -83,6 +93,24 @@ namespace CompanyManagement.ViewModels.UserControls
         private void LoadProjects()
         {
             Projects = projectsStrategy.GetProjects(currentEmployee.ID);
+
+            var listOngoingProjects = Projects.Where(p => p.Progress != BaseDao.COMPLETED && p.End > DateTime.Now).ToList();
+            if (listOngoingProjects.Count > 0)
+            {
+                OngoingProjects = new List<Project>(listOngoingProjects);
+            }
+
+            var listCompletedProjects = Projects.Where(p => p.Progress == BaseDao.COMPLETED).ToList();
+            if (listCompletedProjects.Count > 0)
+            {
+                CompletedProjects = new List<Project>(listCompletedProjects);
+            }
+
+            var listOverdueProjects = Projects.Where(p => p.End < DateTime.Now && p.Progress != BaseDao.COMPLETED).ToList();
+            if (listOverdueProjects.Count > 0)
+            {
+                OverdueProjects = new List<Project>(listOverdueProjects);
+            }
         }
 
         private void SetCommands()
