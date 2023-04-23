@@ -20,6 +20,9 @@ namespace CompanyManagement.ViewModels.UserControls
         private List<TaskInProject> tasksInProject;
         public List<TaskInProject> TasksInProject { get => tasksInProject; set { tasksInProject = value; OnPropertyChanged(); } }
 
+        private List<TaskInProject> ongoingTasksInProject;
+        public List<TaskInProject> OngoingTasksInProject { get => ongoingTasksInProject; set { ongoingTasksInProject = value; OnPropertyChanged(); } }
+
         private List<TaskInProject> completedTasksInProject;
         public List<TaskInProject> CompletedTasksInProject { get => completedTasksInProject; set { completedTasksInProject = value; OnPropertyChanged(); } }
 
@@ -54,26 +57,26 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void LoadTaskInProjects()
         {
-            var AllTasks = string.Equals(currentEmployee.PositionID, BaseDao.EMPLOYEE_POS_ID)
+            TasksInProject = string.Equals(currentEmployee.PositionID, BaseDao.EMPLOYEE_POS_ID)
                ? taskInProjectDao.SearchByEmployeeID(projectID, currentEmployee.ID)
                : taskInProjectDao.SearchByProjectID(projectID);
 
-            var tasks = AllTasks.Where(p => p.Progress != "100" && p.Deadline > DateTime.Now).ToList();
-            if (tasks.Count > 0)
+            var listOngoingTasks = TasksInProject.Where(p => p.Progress != BaseDao.COMPLETED && p.Deadline > DateTime.Now).ToList();
+            if (listOngoingTasks.Count > 0)
             {
-                TasksInProject = new List<TaskInProject>(tasks);
+                OngoingTasksInProject = new List<TaskInProject>(listOngoingTasks);
             }
 
-            var completedtasks = AllTasks.Where(p => p.Progress == "100").ToList();
-            if (completedtasks.Count > 0)
+            var listCompletedTasks = TasksInProject.Where(p => p.Progress == BaseDao.COMPLETED).ToList();
+            if (listCompletedTasks.Count > 0)
             {
-                CompletedTasksInProject = new List<TaskInProject>(completedtasks);
+                CompletedTasksInProject = new List<TaskInProject>(listCompletedTasks);
             }
 
-            var overduetasks = AllTasks.Where(p => p.Deadline < DateTime.Now && p.Progress != "100").ToList();
-            if (overduetasks.Count > 0)
+            var listOverdueTasks = TasksInProject.Where(p => p.Deadline < DateTime.Now && p.Progress != BaseDao.COMPLETED).ToList();
+            if (listOverdueTasks.Count > 0)
             {
-                OverdueTasksInProject = new List<TaskInProject>(overduetasks);
+                OverdueTasksInProject = new List<TaskInProject>(listOverdueTasks);
             }
         }
 

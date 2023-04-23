@@ -11,6 +11,7 @@ using CompanyManagement.Utilities;
 using CompanyManagement.Database;
 using CompanyManagement.Services;
 using CompanyManagement.Strategies.UserControls.ProjectsView;
+using CompanyManagement.Database.Base;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
@@ -34,6 +35,9 @@ namespace CompanyManagement.ViewModels.UserControls
     {
         private List<Project> projects;
         public List<Project> Projects { get => projects; set { projects = value; OnPropertyChanged(); } }
+
+        private List<Project> ongoingProjects;
+        public List<Project> OngoingProjects { get => ongoingProjects; set { ongoingProjects = value; OnPropertyChanged(); } }
 
         private List<Project> completedProjects;
         public List<Project> CompletedProjects { get => completedProjects; set { completedProjects = value; OnPropertyChanged(); } }
@@ -88,48 +92,25 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void LoadProjects()
         {
-            var AllProjects = projectsStrategy.GetProjects(currentEmployee.ID);
+            Projects = projectsStrategy.GetProjects(currentEmployee.ID);
 
-            var projects = AllProjects.Where(p => p.Progress != "100" && p.End > DateTime.Now).ToList();
-            if (projects.Count > 0)
+            var listOngoingProjects = Projects.Where(p => p.Progress != BaseDao.COMPLETED && p.End > DateTime.Now).ToList();
+            if (listOngoingProjects.Count > 0)
             {
-                Projects = new List<Project>(projects);
+                OngoingProjects = new List<Project>(listOngoingProjects);
             }
 
-            var completedprojects = AllProjects.Where(p => p.Progress == "100").ToList();
-            if(completedprojects.Count > 0) 
+            var listCompletedProjects = Projects.Where(p => p.Progress == BaseDao.COMPLETED).ToList();
+            if (listCompletedProjects.Count > 0)
             {
-                CompletedProjects = new List<Project>(completedProjects);
+                CompletedProjects = new List<Project>(listCompletedProjects);
             }
-           
-            var overdueprojects = AllProjects.Where(p => p.End < DateTime.Now && p.Progress != "100").ToList();        
-            if (overdueprojects.Count > 0)
+
+            var listOverdueProjects = Projects.Where(p => p.End < DateTime.Now && p.Progress != BaseDao.COMPLETED).ToList();
+            if (listOverdueProjects.Count > 0)
             {
-                OverdueProjects = new List<Project>(overdueprojects);
+                OverdueProjects = new List<Project>(listOverdueProjects);
             }
-        }
-
-        //private void SetVisible()
-        //{
-        //    if (!CurrentUser.Instance.IsEmployee())
-        //    {
-        //        VisibilityCRUD();
-        //        VisibilityCRUDCommands();
-        //    }
-        //}
-
-        private void VisibilityCRUD()
-        {
-            visibleAddButton = Visibility.Visible;
-            visibleDeleteButton = Visibility.Visible;
-            visibleUpdateButton = Visibility.Visible;
-        }
-
-        private void VisibilityCRUDCommands()
-        {
-            OpenProjectInputCommand = new RelayCommand<object>(OpenAddProjectDialog);
-            DeleteProjectCommand = new RelayCommand<string>(ExecuteDeleteCommand);
-            UpdateProjectCommand = new RelayCommand<Project>(OpenUpdateProjectDialog);
         }
 
         private void SetCommands()

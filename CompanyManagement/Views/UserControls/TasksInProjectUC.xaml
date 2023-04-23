@@ -26,10 +26,10 @@
                     <RowDefinition Height="auto"></RowDefinition>
                     <RowDefinition Height="auto"></RowDefinition>
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="0" Margin="10 5">
+                <Grid Grid.Row="0" Margin="10 5" Background="#e1e5fe">
                     <ListView Name="lvTask" 
                       Margin="10"
-                      ItemsSource="{Binding TasksInProject}">
+                      ItemsSource="{Binding OngoingTasksInProject}">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="{x:Type ListViewItem}">
                                 <Setter Property="Foreground" Value="Black" />
@@ -45,30 +45,38 @@
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <Button
-                                                Margin="10 10"
-                                                Background="LightCyan"
+                                    <Button     VerticalAlignment="Center"
+                                                Margin="10 0"
+                                                Foreground="#1e5b20"
                                                 Visibility="{Binding DataContext.VisibleUpdateButton, ElementName=tasksInProjectUC}"
                                                 Command="{Binding DataContext.UpdateTaskInProjectCommand, ElementName=tasksInProjectUC}"
                                                 CommandParameter="{Binding}"
                                                 IsEnabled="{Binding ControlsEnabled}"
                                                 Style="{StaticResource MaterialDesignIconForegroundButton}"
                                                 ToolTip="Edit">
-                                        <materialDesign:PackIcon Kind="PencilPlus" />
+                                        <materialDesign:PackIcon Kind="PencilPlus" Height="15" Width="15" />
                                     </Button>
-                                    <Button
-                                                Margin="10 10"
-                                                Background="Orange"
+                                    <Button     VerticalAlignment="Center"
+                                                Foreground="#d32f2f"
+                                                Margin="10 0"     
                                                 Visibility="{Binding DataContext.VisibleDeleteButton, ElementName=tasksInProjectUC}"
                                                 Command="{Binding DataContext.DeleteTaskInProjectCommand, ElementName=tasksInProjectUC}"
                                                 CommandParameter="{Binding ID}"
                                                 IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                                                 Style="{StaticResource MaterialDesignIconForegroundButton}"
                                                 ToolTip="Delete">
-                                        <materialDesign:PackIcon Kind="DeleteForever" />
+                                        <materialDesign:PackIcon Kind="DeleteForever" Height="15" Width="15" />
                                     </Button>
-                                    <TextBlock Margin="30 10" HorizontalAlignment="Center" VerticalAlignment="Center"
-                                           Text="{Binding Title}" FontSize="20" />
+                                    <TextBlock Margin="30 0" Foreground="#01579b" VerticalAlignment="Center"
+                                           Text="{Binding Title}" FontSize="15" Width="300" />
+                                    <TextBlock Margin="30 0" Foreground="#01579b"  VerticalAlignment="Center"
+                                           Text="{Binding EmployeeID}" FontSize="15" Width="300"/>
+                                    <TextBlock Margin="30 0" Foreground="#01579b" VerticalAlignment="Center"
+                                           Text="{Binding Progress}"  FontSize="15" Width="100"/>
+                                    <TextBlock Margin="30 0" Foreground="#01579b" VerticalAlignment="Center"
+                                           Text="{Binding AssignDate}" FontSize="15" Width="200"/>
+                                    <TextBlock Margin="30 0" Foreground="#01579b" VerticalAlignment="Center"
+                                           Text="{Binding Deadline}" FontSize="15" Width="200"/>
                                 </StackPanel>
                             </DataTemplate>
                         </ListView.ItemTemplate>
@@ -116,30 +124,38 @@
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
-                                        <Button
-                                                Margin="10 10"
-                                                Background="LightCyan"
+                                        <Button     VerticalAlignment="Center"
+                                                Margin="10 0"
+                                                Foreground="#1e5b20"
                                                 Visibility="{Binding DataContext.VisibleUpdateButton, ElementName=tasksInProjectUC}"
                                                 Command="{Binding DataContext.UpdateTaskInProjectCommand, ElementName=tasksInProjectUC}"
                                                 CommandParameter="{Binding}"
                                                 IsEnabled="{Binding ControlsEnabled}"
                                                 Style="{StaticResource MaterialDesignIconForegroundButton}"
                                                 ToolTip="Edit">
-                                            <materialDesign:PackIcon Kind="PencilPlus" />
+                                            <materialDesign:PackIcon Kind="PencilPlus" Height="15" Width="15" />
                                         </Button>
-                                        <Button
-                                                Margin="10 10"
-                                                Background="Orange"
+                                        <Button     VerticalAlignment="Center"
+                                                Foreground="#d32f2f"
+                                                Margin="10 0"     
                                                 Visibility="{Binding DataContext.VisibleDeleteButton, ElementName=tasksInProjectUC}"
                                                 Command="{Binding DataContext.DeleteTaskInProjectCommand, ElementName=tasksInProjectUC}"
                                                 CommandParameter="{Binding ID}"
                                                 IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                                                 Style="{StaticResource MaterialDesignIconForegroundButton}"
                                                 ToolTip="Delete">
-                                            <materialDesign:PackIcon Kind="DeleteForever" />
+                                            <materialDesign:PackIcon Kind="DeleteForever" Height="15" Width="15" />
                                         </Button>
-                                        <TextBlock Margin="30 10"  Foreground="Gray"  HorizontalAlignment="Center" VerticalAlignment="Center"
-                                           Text="{Binding Title}" FontSize="20" />
+                                        <TextBlock Margin="30 0" Foreground="#006064" VerticalAlignment="Center"
+                                           Text="{Binding Title}" FontSize="15" Width="300" />
+                                        <TextBlock Margin="30 0" Foreground="#006064"  VerticalAlignment="Center"
+                                           Text="{Binding EmployeeID}" FontSize="15" Width="300"/>
+                                        <TextBlock Margin="30 0" Foreground="#006064" VerticalAlignment="Center"
+                                           Text="{Binding Progress}"  FontSize="15" Width="100"/>
+                                        <TextBlock Margin="30 0" Foreground="#006064" VerticalAlignment="Center"
+                                           Text="{Binding AssignDate}" FontSize="15" Width="200"/>
+                                        <TextBlock Margin="30 0" Foreground="#006064" VerticalAlignment="Center"
+                                           Text="{Binding Deadline}" FontSize="15" Width="200"/>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
@@ -190,30 +206,38 @@
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
-                                        <Button
-                                                Margin="10 10"
-                                                Background="LightCyan"
+                                        <Button     VerticalAlignment="Center"
+                                                Margin="10 0"
+                                                Foreground="#1e5b20"
                                                 Visibility="{Binding DataContext.VisibleUpdateButton, ElementName=tasksInProjectUC}"
                                                 Command="{Binding DataContext.UpdateTaskInProjectCommand, ElementName=tasksInProjectUC}"
                                                 CommandParameter="{Binding}"
                                                 IsEnabled="{Binding ControlsEnabled}"
                                                 Style="{StaticResource MaterialDesignIconForegroundButton}"
                                                 ToolTip="Edit">
-                                            <materialDesign:PackIcon Kind="PencilPlus" />
+                                            <materialDesign:PackIcon Kind="PencilPlus" Height="15" Width="15" />
                                         </Button>
-                                        <Button
-                                                Margin="10 10"
-                                                Background="Orange"
+                                        <Button     VerticalAlignment="Center"
+                                                Foreground="#d32f2f"
+                                                Margin="10 0"     
                                                 Visibility="{Binding DataContext.VisibleDeleteButton, ElementName=tasksInProjectUC}"
                                                 Command="{Binding DataContext.DeleteTaskInProjectCommand, ElementName=tasksInProjectUC}"
                                                 CommandParameter="{Binding ID}"
                                                 IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                                                 Style="{StaticResource MaterialDesignIconForegroundButton}"
                                                 ToolTip="Delete">
-                                            <materialDesign:PackIcon Kind="DeleteForever" />
+                                            <materialDesign:PackIcon Kind="DeleteForever" Height="15" Width="15" />
                                         </Button>
-                                        <TextBlock Margin="30 10" Foreground="Gray" HorizontalAlignment="Center" VerticalAlignment="Center"
-                                           Text="{Binding Title}" FontSize="20" />
+                                        <TextBlock Margin="30 0" Foreground="#b71c1c" VerticalAlignment="Center"
+                                           Text="{Binding Title}" FontSize="15" Width="300" />
+                                        <TextBlock Margin="30 0" Foreground="#b71c1c"  VerticalAlignment="Center"
+                                           Text="{Binding EmployeeID}" FontSize="15" Width="300"/>
+                                        <TextBlock Margin="30 0" Foreground="#b71c1c" VerticalAlignment="Center"
+                                           Text="{Binding Progress}" FontSize="15" Width="100"/>
+                                        <TextBlock Margin="30 0" Foreground="#b71c1c" VerticalAlignment="Center"
+                                           Text="{Binding AssignDate}" FontSize="15" Width="200"/>
+                                        <TextBlock Margin="30 0" Foreground="#b71c1c" VerticalAlignment="Center"
+                                           Text="{Binding Deadline}" FontSize="15" Width="200"/>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
@@ -223,9 +247,11 @@
             </Grid>
         </ScrollViewer>
         <Button Grid.Row="1" 
-                Margin="10 5" 
+                Margin="20 5" 
                 Height="50"
+                 materialDesign:ButtonAssist.CornerRadius="25"
                 Background="#e3f2fd"
+                FontWeight="ExtraBold"
                 BorderThickness="0"
                 Visibility="{Binding DataContext.VisibleAddButton, ElementName=tasksInProjectUC}"
                 ToolTip="Thêm nhiệm vụ mới"
@@ -235,7 +261,6 @@
                 <materialDesign:PackIcon  Kind="Plus" Height="30" Width="30"></materialDesign:PackIcon>
                 <TextBlock Grid.Column="1" 
                        Margin="10 0"
-                       FontWeight="Bold"
                        Text="New Task" 
                        VerticalAlignment="Center" 
                        FontSize="20"></TextBlock>

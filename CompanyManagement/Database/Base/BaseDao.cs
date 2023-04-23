@@ -6,6 +6,7 @@ namespace CompanyManagement.Database.Base
         public const string DEPARTMENT_HEAD_POS_ID = "2";
         public const string EMPLOYEE_POS_ID = "3";
 
+        public const string COMPLETED = "100";
 
         protected const string ACCOUNT_TABLE = "Account";
         public const string ACCOUNT_USERNAME = "AccountUsername";

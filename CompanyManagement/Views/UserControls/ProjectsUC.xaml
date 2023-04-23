@@ -27,10 +27,10 @@
                     <RowDefinition Height="auto"></RowDefinition>
                     <RowDefinition Height="auto"></RowDefinition>
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="0" Margin="10 5">
+                <Grid Grid.Row="0" Margin="10 5" Background="WhiteSmoke">
                     <ListView Name="lvProject" 
                       Margin="10"
-                      ItemsSource="{Binding Projects}" 
+                      ItemsSource="{Binding OngoingProjects}" 
                       SelectedItem="{Binding SelectedProject}">
                         <b:Interaction.Triggers>
                             <b:EventTrigger EventName="MouseUp">
@@ -53,29 +53,33 @@
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
                                     <Button
-                                    Visibility="{Binding DataContext.VisibleUpdateButton, ElementName=projectsUC}"
-                                    Margin="10 10"
-                                    Background="LightCyan"
-                                    Command="{Binding ElementName=projectsUC,Path=DataContext.UpdateProjectCommand}"
-                                    CommandParameter="{Binding}"
-                                    IsEnabled="{Binding ControlsEnabled}"
-                                    Style="{StaticResource MaterialDesignIconForegroundButton}"
-                                    ToolTip="Edit">
-                                        <materialDesign:PackIcon Kind="PencilPlus" />
+                                        Visibility="{Binding DataContext.VisibleUpdateButton, ElementName=projectsUC}"
+                                        Margin="10 5"
+                                        VerticalAlignment="Center"
+                                         Background="#e0f7fa"
+                                        Foreground="#00bfe5"
+                                        Command="{Binding ElementName=projectsUC,Path=DataContext.UpdateProjectCommand}"
+                                        CommandParameter="{Binding}"
+                                        IsEnabled="{Binding ControlsEnabled}"
+                                        Style="{StaticResource MaterialDesignIconForegroundButton}"
+                                        ToolTip="Edit">
+                                        <materialDesign:PackIcon Kind="PencilPlus" Height="20" Width="20"/>
                                     </Button>
                                     <Button
-                                    Visibility="{Binding DataContext.VisibleDeleteButton, ElementName=projectsUC}"
-                                    Margin="10 10"
-                                    Background="Orange"
-                                    Command="{Binding ElementName=projectsUC,Path=DataContext.DeleteProjectCommand}"
-                                    CommandParameter="{Binding ID}"
-                                    IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-                                    Style="{StaticResource MaterialDesignIconForegroundButton}"
-                                    ToolTip="Delete">
-                                        <materialDesign:PackIcon Kind="DeleteForever" />
+                                        Visibility="{Binding DataContext.VisibleDeleteButton, ElementName=projectsUC}"
+                                        Margin="10 5"
+                                        VerticalAlignment="Center"
+                                         Background="#fff3e0"
+                                        Foreground="#ef6c00"
+                                        Command="{Binding ElementName=projectsUC,Path=DataContext.DeleteProjectCommand}"
+                                        CommandParameter="{Binding ID}"
+                                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                        Style="{StaticResource MaterialDesignIconForegroundButton}"
+                                        ToolTip="Delete">
+                                        <materialDesign:PackIcon Kind="DeleteForever"  Height="20" Width="20"/>
                                     </Button>
-                                    <TextBlock Margin="30 10" HorizontalAlignment="Center" VerticalAlignment="Center"
-                                           Text="{Binding Name}" FontSize="22" />
+                                    <TextBlock Margin="30 5" VerticalAlignment="Center"
+                                           Text="{Binding Name}" FontSize="20" Foreground="Black" />
                                 </StackPanel>
                             </DataTemplate>
                         </ListView.ItemTemplate>
@@ -83,15 +87,15 @@
                 </Grid>
                 <Grid  Grid.Row="1">
                     <Expander 
-                  Background="#e8f5e9"  
-                Foreground="#00695c"
+                  Background="#f1f8e9"  
+                Foreground="#33691e"
                   Margin="10 5"
                   ExpandDirection="Down">
                         <Expander.Header>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon VerticalAlignment="Center" 
                                                  Margin="10 0" Kind="Check"  
-                                                 Foreground="#00695c" ></materialDesign:PackIcon>
+                                                 Foreground="#33691e" ></materialDesign:PackIcon>
                                 <materialDesign:Badged Badge="{Binding ElementName=lvProjectCompleted,Path=Items.Count,UpdateSourceTrigger=PropertyChanged}"  
                                                Margin="10 0"   
                                                BadgeForeground="White"
@@ -129,33 +133,33 @@
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
                                         <Button
-                                    Visibility="{Binding DataContext.VisibleUpdateButton, ElementName=projectsUC}"
-                                    Margin="10 10"
-                                    Background="LightCyan"
-                                    Command="{Binding ElementName=projectsUC,Path=DataContext.UpdateProjectCommand}"
-                                    CommandParameter="{Binding}"
-                                    IsEnabled="{Binding ControlsEnabled}"
-                                    Style="{StaticResource MaterialDesignIconForegroundButton}"
-                                    ToolTip="Edit">
-                                            <materialDesign:PackIcon Kind="PencilPlus" />
+                                        Visibility="{Binding DataContext.VisibleUpdateButton, ElementName=projectsUC}"
+                                        Margin="10 5"
+                                        VerticalAlignment="Center"
+                                        Background="#e0f7fa"
+                                        Foreground="#00bfe5"
+                                        Command="{Binding ElementName=projectsUC,Path=DataContext.UpdateProjectCommand}"
+                                        CommandParameter="{Binding}"
+                                        IsEnabled="{Binding ControlsEnabled}"
+                                        Style="{StaticResource MaterialDesignIconForegroundButton}"
+                                        ToolTip="Edit">
+                                            <materialDesign:PackIcon Kind="PencilPlus" Height="20" Width="20"/>
                                         </Button>
                                         <Button
-                                    Visibility="{Binding DataContext.VisibleDeleteButton, ElementName=projectsUC}"
-                                    Margin="10 10"
-                                    Background="Orange"
-                                    Command="{Binding ElementName=projectsUC,Path=DataContext.DeleteProjectCommand}"
-                                    CommandParameter="{Binding ID}"
-                                    IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-                                    Style="{StaticResource MaterialDesignIconForegroundButton}"
-                                    ToolTip="Delete">
-                                            <materialDesign:PackIcon Kind="DeleteForever" />
+                                        Visibility="{Binding DataContext.VisibleDeleteButton, ElementName=projectsUC}"
+                                        Margin="10 5"
+                                        VerticalAlignment="Center"
+                                        Background="#fff3e0"
+                                        Foreground="#ef6c00"
+                                        Command="{Binding ElementName=projectsUC,Path=DataContext.DeleteProjectCommand}"
+                                        CommandParameter="{Binding ID}"
+                                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                        Style="{StaticResource MaterialDesignIconForegroundButton}"
+                                        ToolTip="Delete">
+                                            <materialDesign:PackIcon Kind="DeleteForever"  Height="20" Width="20"/>
                                         </Button>
-                                        <TextBlock Margin="30 10"
-                                           HorizontalAlignment="Center"
-                                           VerticalAlignment="Center"
-                                           Text="{Binding Name}" 
-                                           Foreground="Gray"
-                                           FontSize="22" />
+                                        <TextBlock Margin="30 5" VerticalAlignment="Center"
+                                           Text="{Binding Name}" FontSize="20" Foreground="Black" />
                                     </StackPanel>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
@@ -164,8 +168,8 @@
                 </Grid>
                 <Grid  Grid.Row="2">
                     <Expander 
-                  Background="#ffebee"  
-                Foreground="#c62828"
+                  Background="#fbe9e7"  
+                Foreground="#bf360c"
                   Margin="10 5"
                   ExpandDirection="Down">
                         <Expander.Header>
@@ -173,7 +177,7 @@
                                 <materialDesign:PackIcon Margin="10 0"
                                                  VerticalAlignment="Center" 
                                                 Kind="Close"
-                                                Foreground="#c62828" />
+                                                Foreground="#bf360c" />
                                 <materialDesign:Badged Badge="{Binding ElementName=lvProjectOverdue,Path=Items.Count,UpdateSourceTrigger=PropertyChanged}"  
                                                Margin="10 0"   
                                                BadgeForeground="White"
@@ -212,22 +216,33 @@
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
                                         <Button
-                                    Visibility="{Binding DataContext.VisibleDeleteButton, ElementName=projectsUC}"
-                                    Margin="10 10"
-                                    Background="Orange"
-                                    Command="{Binding ElementName=projectsUC,Path=DataContext.DeleteProjectCommand}"
-                                    CommandParameter="{Binding ID}"
-                                    IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-                                    Style="{StaticResource MaterialDesignIconForegroundButton}"
-                                    ToolTip="Delete">
-                                            <materialDesign:PackIcon Kind="DeleteForever" />
+                                        Visibility="{Binding DataContext.VisibleUpdateButton, ElementName=projectsUC}"
+                                        Margin="10 5"
+                                        Background="#e0f7fa"
+                                        VerticalAlignment="Center"
+                                        Foreground="#00bfe5"
+                                        Command="{Binding ElementName=projectsUC,Path=DataContext.UpdateProjectCommand}"
+                                        CommandParameter="{Binding}"
+                                        IsEnabled="{Binding ControlsEnabled}"
+                                        Style="{StaticResource MaterialDesignIconForegroundButton}"
+                                        ToolTip="Edit">
+                                            <materialDesign:PackIcon Kind="PencilPlus" Height="20" Width="20"/>
                                         </Button>
-                                        <TextBlock Margin="30 10"
-                                           HorizontalAlignment="Center"
-                                           VerticalAlignment="Center"
-                                           Text="{Binding Name}" 
-                                           Foreground="Gray"
-                                           FontSize="22" />
+                                        <Button
+                                        Visibility="{Binding DataContext.VisibleDeleteButton, ElementName=projectsUC}"
+                                        Margin="10 5"
+                                        VerticalAlignment="Center"
+                                         Background="#fff3e0"
+                                        Foreground="#ef6c00"
+                                        Command="{Binding ElementName=projectsUC,Path=DataContext.DeleteProjectCommand}"
+                                        CommandParameter="{Binding ID}"
+                                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                        Style="{StaticResource MaterialDesignIconForegroundButton}"
+                                        ToolTip="Delete">
+                                            <materialDesign:PackIcon Kind="DeleteForever"  Height="20" Width="20"/>
+                                        </Button>
+                                        <TextBlock Margin="30 5" VerticalAlignment="Center"
+                                           Text="{Binding Name}" FontSize="20" Foreground="Black" />
                                     </StackPanel>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
@@ -238,19 +253,20 @@
             </Grid>
         </ScrollViewer>
         <Button Grid.Row="1" 
-                Margin="10 5" 
+                Margin="20 5" 
                 Height="50"
-                Background="#e3f2fd"
+                 materialDesign:ButtonAssist.CornerRadius="25"
+                Background="WhiteSmoke"
                 BorderThickness="0"
+                FontWeight="ExtraBold"
                 Visibility="{Binding DataContext.VisibleAddButton, ElementName=projectsUC}"
                 ToolTip="Thêm dự án mới"
-                Foreground="#0277bd"                 
+                Foreground="Black"                 
                 Command="{Binding ElementName=projectsUC,Path=DataContext.OpenProjectInputCommand}">
             <StackPanel Orientation="Horizontal">
                 <materialDesign:PackIcon  Kind="Plus" Height="30" Width="30"></materialDesign:PackIcon>
                 <TextBlock Grid.Column="1" 
                        Margin="10 0"
-                       FontWeight="Bold"
                        Text="New Project" 
                        VerticalAlignment="Center" 
                        FontSize="20"></TextBlock>
