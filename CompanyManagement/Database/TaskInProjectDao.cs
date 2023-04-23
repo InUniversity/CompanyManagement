@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using CompanyManagement.Database.Base;
 using CompanyManagement.Models;
@@ -54,5 +55,12 @@ namespace CompanyManagement.Database
             return dbConnection.GetList(sqlStr, reader => new TaskInProject(reader));
         }
 
+        public List<TaskInProject> SearchCurrentTasksByEmployeeID(string employeeID)
+        {
+            string sqlStr = $"SELECT * FROM {TASK_TABLE} WHERE {TASK_EMPLOYEE_ID} = '{employeeID}'" +
+                            $"AND {TASK_DEADLINE} >= '{DateTime.Now}' AND {TASK_ASSIGN_DATE} <= '{DateTime.Now}' " +
+                            $"AND {TASK_PROGRESS} != '{COMPLETED}'";
+            return dbConnection.GetList(sqlStr, reader => new TaskInProject(reader));
+        }
     }
 }
