@@ -6,7 +6,6 @@ namespace CompanyManagement.Database
 {
     public class LeaveTypeDao: BaseDao
     {
-
         public List<LeaveType> GetAll()
         {
             string sqlStr = $"SELECT * FROM {LEAVE_TYPE_TABLE}";
