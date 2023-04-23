@@ -12,10 +12,11 @@
         Background="White"
         FontFamily="{DynamicResource MaterialDesignFont}"        
         mc:Ignorable="d"
+        Name="mainWindow"
         WindowStartupLocation="CenterScreen"
         Height="700" Width="1200" MinHeight="600" MinWidth="600">
     <Grid>
-        <materialDesign:DrawerHost  >
+        <materialDesign:DrawerHost >
             <materialDesign:DrawerHost.LeftDrawerContent >
                 <Border CornerRadius="30" BorderThickness="1">
                     <StackPanel Width="200">
@@ -109,6 +110,18 @@
                                 <TextBlock Text="Cài đặt" Margin="33 0"></TextBlock>
                             </StackPanel>
                         </RadioButton>
+                        <RadioButton
+                            Height="50"
+                            Margin="4"                           
+                            Command="{Binding LogoutCommand}"
+                            CommandParameter="{Binding ElementName=mainWindow}"
+                            BorderBrush="{DynamicResource PrimaryHueMidBrush}"
+                            Style="{StaticResource MaterialDesignTabRadioButtonRight}" >
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="Logout" />
+                                <TextBlock Text="Đăng xuất" Margin="24 0"></TextBlock>
+                            </StackPanel>
+                        </RadioButton>
                     </StackPanel>
                 </Border>
 
@@ -134,38 +147,50 @@
                             BorderThickness="0">
                         </ToggleButton>
                         <Button HorizontalAlignment="Right"  
-                            Height="80"
+                            Height="100"
                             Width="50"
+                            ToolTip="Project"
                             Style="{StaticResource MaterialDesignIconButton}"
                             Command="{Binding ShowAssignmentViewCommand}"                                       
                             BorderThickness="0">
                             <materialDesign:PackIcon Kind="Briefcase" Foreground="White" />
                         </Button>
                         <Button HorizontalAlignment="Right"          
-                            Height="80"
-                            Width="50"
-                            Margin="0 50"
+                            Height="100"
+                            Width="50"     
+                            ToolTip="Nhân sự"
                             Style="{StaticResource MaterialDesignIconButton}"
                             Command="{Binding ShowEmployeesViewCommand}"                                                               
                             BorderThickness="0">
                             <materialDesign:PackIcon Kind="AccountGroup" Foreground="White" />
                         </Button>
                         <Button HorizontalAlignment="Right"          
-                            Height="80"
-                            Width="50"                         
+                            Height="100"
+                            Width="50"      
+                            ToolTip="Tôi"
                             Style="{StaticResource MaterialDesignIconButton}"
                             Command="{Binding ShowUserInformationViewCommand}"                                                               
                             BorderThickness="0">
                             <materialDesign:PackIcon Kind="Account" Foreground="White" />
                         </Button>
                         <Button HorizontalAlignment="Right"  
-                            Height="80"
+                            Height="100"
                             Width="50"
+                            ToolTip="Xin nghỉ phép"
                             Style="{StaticResource MaterialDesignIconButton}"
                             Command="{Binding ShowLeavesViewCommand}"                                       
-                            BorderThickness="0"
-                            Margin="0 20">
+                            BorderThickness="0">
                             <materialDesign:PackIcon Kind="EmailCheck" Foreground="White"/>
+                        </Button>
+                        <Button HorizontalAlignment="Right"  
+                            Height="100"
+                            Width="50"
+                            ToolTip="Đăng xuất"
+                            Style="{StaticResource MaterialDesignIconButton}"
+                            Command="{Binding LogoutCommand}"      
+                            CommandParameter="{Binding ElementName=mainWindow}"
+                            BorderThickness="0">
+                            <materialDesign:PackIcon Kind="Logout" Foreground="White"/>
                         </Button>
                     </StackPanel>
                 </Border>
