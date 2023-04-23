@@ -24,7 +24,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         public AssignmentViewModel()
         {
-            CurrentChildView = projectsUC;
+            MoveToProjectsView();
             ((IProjects)projectsUC.DataContext).ParentDataContext = this;
             ((IProjects)projectsUC.DataContext).ProjectDetailsDataContext = (IRetrieveProjectID)projectDetailsUC.DataContext;
             ((IProjectDetails)projectDetailsUC.DataContext).ParentDataContext = this;
