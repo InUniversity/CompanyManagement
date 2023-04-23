@@ -100,6 +100,7 @@ namespace CompanyManagement.ViewModels.Windows
 
         private void ExecuteShowAssignmentView(object obj)
         {
+            assignmentUC = new AssignmentUC();
             CurrentChildView = assignmentUC;
             StatusAssignmentView = true;
         }
