@@ -102,7 +102,7 @@ namespace CompanyManagement.ViewModels.UserControls
             //    Utils.ToFormatSQLServer(CheckInOutInputDataContext.CheckInTime));
             //TasksCanChoose = new List<TaskInProject>(list);
             //SearchedTasksCanChoose = new ObservableCollection<TaskInProject>(TasksCanChoose);
-            TasksCanChoose = new List<TaskInProject>(new TaskInProjectDao().SearchByProjectID("PRJ001"));
+            TasksCanChoose = new List<TaskInProject>(new TaskInProjectDao().SearchCurrentTasksByEmployeeID(CurrentUser.Ins.EmployeeIns.ID));
             SearchedTasksCanChoose = new ObservableCollection<TaskInProject>(TasksCanChoose);
         }
 
