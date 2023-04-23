@@ -70,7 +70,7 @@
                         <Button
                             Height="50"
                             Command="{Binding LoginCommand}"
-                            CommandParameter="{Binding ElementName=loginWindow}"
+                            CommandParameter="{Binding ElementName=FloatingPasswordBox}"
                             materialDesign:ButtonAssist.CornerRadius="25"
                             IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                             Style="{StaticResource MaterialDesignRaisedDarkButton}">
@@ -94,7 +94,8 @@
                         materialDesign:ButtonAssist.CornerRadius="25"
                         IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                         Style="{StaticResource MaterialDesignPaperButton}"
-                        ToolTip="Resource name: MaterialDesignPaperButton" />
+                        ToolTip="Resource name: MaterialDesignPaperButton">
+                    </Button>
                 </Grid>
             </Grid>
         </materialDesign:Card>
