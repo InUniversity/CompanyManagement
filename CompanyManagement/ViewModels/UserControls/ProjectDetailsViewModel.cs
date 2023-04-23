@@ -27,7 +27,7 @@ namespace CompanyManagement.ViewModels.UserControls
         public ICommand ShowTimeKeepingCommand { get; set; }
 
         private TasksInProjectUC tasksInProjectUC = new TasksInProjectUC();
-        private TimeKeepingUC timeKeepingUC = new TimeKeepingUC();
+        private TimeTrackingUC timeTrackingUC = new TimeTrackingUC();
 
         private bool statusTasksView = false;
         public bool StatusTasksView { get => statusTasksView; set { statusTasksView = value; OnPropertyChanged(); } }
@@ -60,7 +60,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void ExecuteShowTimeKeepingView(object obj)
         {
-            CurrentChildView = timeKeepingUC;
+            CurrentChildView = timeTrackingUC;
             StatusTimeKeepingView = true;
         }
 
@@ -73,7 +73,7 @@ namespace CompanyManagement.ViewModels.UserControls
             try
             {
                 ((IRetrieveProjectID)tasksInProjectUC.DataContext).RetrieveProjectID(projectID);
-                ((IRetrieveProjectID)timeKeepingUC.DataContext).RetrieveProjectID(projectID);
+                ((IRetrieveProjectID)timeTrackingUC.DataContext).RetrieveProjectID(projectID);
             }
             catch 
             {

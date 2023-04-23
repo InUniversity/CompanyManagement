@@ -61,14 +61,6 @@ namespace CompanyManagement.Database.Base
         public const string TASK_PROJECT_ID = "ProjectID";
         public const string TASK_STATUS_ID = "TaskStatusID";
 
-        protected const string TIME_KEEPING_TABLE = "TimeKeeping";
-        public const string TIME_KEEPING_TASK_ID = "TaskID";
-        public const string TIME_KEEPING_START_TIME = "StartTime";
-        public const string TIME_KEEPING_END_TIME = "EndTime";
-        public const string TIME_KEEPING_EMPLOYEE_ID = "EmployeeID";
-        public const string TIME_KEEPING_NOTES = "Notes";
-        public const string TIME_KEEPING_CREATE_BY = "CreateBy";
-
         protected const string PROJECT_STATUS_TABLE = "ProjectStatus";
         public const string PROJECT_STATUS_NAME = "ProjectStatusName";
 
