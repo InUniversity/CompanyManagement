@@ -31,12 +31,12 @@ namespace CompanyManagement.ViewModels.Windows
 
         private void SetCommands()
         {
-            LoginCommand = new RelayCommand<Window>(ExecuteLoginCommand);
+            LoginCommand = new RelayCommand<PasswordBox>(ExecuteLoginCommand);
             ForgotPasswordCommand = new RelayCommand<object>(ExecuteForgotPasswordCommand);
             PasswordChangedCommand = new RelayCommand<PasswordBox>(p => { password = p.Password; });
         }
         
-        private void ExecuteLoginCommand(Window loginWindow)
+        private void ExecuteLoginCommand(PasswordBox passwordBox)
         {
             var account = accountDao.SearchByUsername(Username);
             if (account == null || !string.Equals(password, account.Password))
@@ -47,7 +47,9 @@ namespace CompanyManagement.ViewModels.Windows
             var employee = employeeDao.SearchByID(account.EmployeeID);
             employee.MyAccount = account;
             CurrentUser.Ins.EmployeeIns = employee;
-            ShowMainWindow();           
+            ShowMainWindow();
+            passwordBox.Password = "";
+            Username = "";
         }
 
         private void ShowMainWindow()
