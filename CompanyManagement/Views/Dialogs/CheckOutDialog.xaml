@@ -139,11 +139,22 @@
                                                 <Canvas>
                                                     <TextBlock Margin="15" Text="{Binding Title}" />
                                                     <StackPanel Orientation="Horizontal"  Margin="5" Canvas.Right="100">
-                                                        <TextBox Text="{Binding Progress}"                            
+                                                        <ComboBox Text="{Binding Progress}"                            
                                                                      VerticalAlignment="Center"
                                                                      materialDesign:TextFieldAssist.SuffixText=" %"                                                                                                                                                                                       
                                                                      Height="30">
-                                                        </TextBox>
+                                                            <ComboBoxItem Content="0"></ComboBoxItem>
+                                                            <ComboBoxItem Content="10"></ComboBoxItem>
+                                                            <ComboBoxItem Content="20"></ComboBoxItem>
+                                                            <ComboBoxItem Content="30"></ComboBoxItem>
+                                                            <ComboBoxItem Content="40"></ComboBoxItem>
+                                                            <ComboBoxItem Content="50"></ComboBoxItem>
+                                                            <ComboBoxItem Content="60"></ComboBoxItem>
+                                                            <ComboBoxItem Content="70"></ComboBoxItem>
+                                                            <ComboBoxItem Content="80"></ComboBoxItem>
+                                                            <ComboBoxItem Content="90"></ComboBoxItem>
+                                                            <ComboBoxItem Content="100"></ComboBoxItem>
+                                                        </ComboBox>
                                                     </StackPanel>
                                                     <Button Style="{StaticResource MaterialDesignIconButton}"
                                                         Canvas.Right="0"
