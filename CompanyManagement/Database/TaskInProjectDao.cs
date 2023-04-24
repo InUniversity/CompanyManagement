@@ -35,11 +35,8 @@ namespace CompanyManagement.Database
 
         public TaskInProject SearchByID(string taskInProjectID)
         {
-            string sqlStr = $"SELECT * FROM {TASK_TABLE} WHERE {TASK_ID}='{taskInProjectID}'";
-            List<TaskInProject> tasks = dbConnection.GetList(sqlStr, reader => new TaskInProject(reader));
-            if (tasks.Count == 0)
-                return null;
-            return tasks[0];
+            string sqlStr = $"SELECT * FROM {TASK_TABLE} WHERE {TASK_ID}='{taskInProjectID}'";           
+            return (TaskInProject)dbConnection.GetSingleObject(sqlStr, reader => new TaskInProject(reader));
         }
 
         public List<TaskInProject> SearchByProjectID(string projectID)

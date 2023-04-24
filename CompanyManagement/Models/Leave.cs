@@ -1,7 +1,7 @@
 ﻿using CompanyManagement.Database.Base;
 using CompanyManagement.Utilities;
 using System;
-using System.Data.SqlClient;
+using System.Data;
 
 namespace CompanyManagement.Models
 {
@@ -94,7 +94,7 @@ namespace CompanyManagement.Models
             this.note = note;
         }
 
-        public Leave(SqlDataReader reader)
+        public Leave(IDataRecord reader)
         {
             try
             {

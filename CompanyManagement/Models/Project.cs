@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Data.SqlClient;
+using System.Data;
 using CompanyManagement.Database.Base;
 using CompanyManagement.Models;
 using CompanyManagement.Utilities;
@@ -91,7 +90,7 @@ namespace CompanyManagement
             this.departments = departments;
         }
 
-        public Project(SqlDataReader reader)
+        public Project(IDataRecord reader)
         {
             try
             {

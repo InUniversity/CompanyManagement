@@ -4,15 +4,15 @@ using System.Windows.Controls;
 namespace CompanyManagement.Views.UserControls
 {
     /// <summary>
-    /// Interaction logic for TimeKeepingInputUC.xaml
+    /// Interaction logic for TimeTrackingInputUC.xaml
     /// </summary>
-    public partial class TimeKeepingInputUC : UserControl
+    public partial class TimeTrackingInputUC : UserControl
     {
-        public TimeKeepingInputUC()
+        public TimeTrackingInputUC()
         {
 
             InitializeComponent();
-            DataContext = new TimeKeepingInputViewModel();
+            DataContext = new TimeTrackingInputViewModel();
         }
     }
 }

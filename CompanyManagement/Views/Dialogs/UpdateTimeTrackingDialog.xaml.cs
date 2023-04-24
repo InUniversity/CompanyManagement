@@ -5,14 +5,14 @@ using System.Windows;
 namespace CompanyManagement.Views.Dialogs
 {
     /// <summary>
-    /// Interaction logic for UpdateTimeKeepingDialog.xaml
+    /// Interaction logic for UpdateTimeTrackingDialog.xaml
     /// </summary>
-    public partial class UpdateTimeKeepingDialog : Window
+    public partial class UpdateTimeTrackingDialog : Window
     {
-        public UpdateTimeKeepingDialog()
+        public UpdateTimeTrackingDialog()
         {
             InitializeComponent();
-            DataContext = new UpdateTimeKeepingViewModel();
+            DataContext = new UpdateTimeTrackingViewModel();
         }
     }
 }

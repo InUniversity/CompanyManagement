@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Data.SqlClient;
+using System.Data;
 using CompanyManagement.Database.Base;
 using CompanyManagement.Utilities;
 
@@ -11,23 +11,9 @@ namespace CompanyManagement.Models
         private string password = "";
         private string employeeID = "";
 
-        public string Username
-        {
-            get => username;
-            set => username = value;
-        }
-
-        public string Password
-        {
-            get => password;
-            set => password = value;
-        }
-
-        public string EmployeeID
-        {
-            get => employeeID;
-            set => employeeID = value;
-        }
+        public string Username => username;
+        public string Password => password;
+        public string EmployeeID => employeeID;
 
         public Account() { }
 
@@ -38,12 +24,12 @@ namespace CompanyManagement.Models
             this.employeeID = employeeID;
         }
 
-        public Account(SqlDataReader reader)
+        public Account(IDataRecord reader)
         {
             try
             {
-                Username = (string)reader[BaseDao.ACCOUNT_USERNAME];
-                Password = (string)reader[BaseDao.ACCOUNT_PASSWORD];
+                username = (string)reader[BaseDao.ACCOUNT_USERNAME];
+                password = (string)reader[BaseDao.ACCOUNT_PASSWORD];
                 employeeID = (string)reader[BaseDao.ACCOUNT_EMPLOYEE_ID];
             }
             catch (Exception ex)

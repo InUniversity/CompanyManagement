@@ -28,22 +28,10 @@ namespace CompanyManagement.Database
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
-        public List<Project> GetAll()
-        {
-            string sqlStr = $"SELECT * FROM {PROJECT_TABLE}";
-            return dbConnection.GetList(sqlStr, reader => new Project(reader));
-        }
-
         public Project SearchByID(string id)
         {
             string sqlStr = $"SELECT * FROM {PROJECT_TABLE} WHERE {PROJECT_ID} = '{id}'";
             return (Project)dbConnection.GetSingleObject(sqlStr, reader => new Project(reader));
-        }
-
-        public List<Project> SearchByEmployeeID(string employeeID)
-        {
-            string sqlStr = $"SELECT * FROM {PROJECT_TABLE} WHERE {PROJECT_CREATE_BY} = '{employeeID}'";
-            return dbConnection.GetList(sqlStr, reader => new Project(reader));
         }
     }
 }

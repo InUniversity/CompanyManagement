@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Data.SqlClient;
+using System.Data;
 using CompanyManagement.Database.Base;
 using CompanyManagement.Utilities;
 
@@ -28,7 +28,7 @@ namespace CompanyManagement.Models
             this.deparmentID = deparmentID;
         }
         
-        public ProjectAssignment(SqlDataReader reader)
+        public ProjectAssignment(IDataRecord reader)
         {
             try
             {

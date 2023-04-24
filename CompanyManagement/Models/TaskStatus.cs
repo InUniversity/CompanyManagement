@@ -1,7 +1,7 @@
 ﻿using CompanyManagement.Database.Base;
 using CompanyManagement.Utilities;
 using System;
-using System.Data.SqlClient;
+using System.Data;
 
 namespace CompanyManagement.Models
 {
@@ -10,27 +10,10 @@ namespace CompanyManagement.Models
         private string id;
         private string name;
 
-        public string ID
-        {
-            get { return id; }
-            set { id = value; }
-        }
+        public string ID => id;
+        public string Name => name;
 
-        public string Name
-        {
-            get { return name; }
-            set { name = value; }
-        }
-
-        public TaskStatus() { }
-
-        public TaskStatus(string id, string name)
-        {
-            this.id = id;
-            this.name = name;
-        }
-
-        public TaskStatus(SqlDataReader reader)
+        public TaskStatus(IDataRecord reader)
         {
             try
             {

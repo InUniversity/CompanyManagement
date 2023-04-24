@@ -1,5 +1,5 @@
 using System;
-using System.Data.SqlClient;
+using System.Data;
 using CompanyManagement.Database.Base;
 using CompanyManagement.Models;
 using CompanyManagement.Utilities;
@@ -111,7 +111,7 @@ namespace CompanyManagement
             this.salary = salary;
         }
         
-        public Employee(SqlDataReader reader)
+        public Employee(IDataRecord reader)
         {
             try
             {
