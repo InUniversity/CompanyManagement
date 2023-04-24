@@ -71,7 +71,7 @@
                             Name="buttonLogin"
                             Height="50"      
                             Command="{Binding LoginCommand}"
-                            CommandParameter="{Binding ElementName=loginWindow}"
+                            CommandParameter="{Binding ElementName=FloatingPasswordBox}"
                             materialDesign:ButtonAssist.CornerRadius="25"
                             IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
                             <TextBlock Text="Đăng nhập" />

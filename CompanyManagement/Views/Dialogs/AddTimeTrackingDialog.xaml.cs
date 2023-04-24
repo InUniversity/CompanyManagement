@@ -4,14 +4,14 @@ using CompanyManagement.ViewModels.Dialogs;
 namespace CompanyManagement.Views.Dialogs
 {
     /// <summary>
-    /// Interaction logic for AddTimeKeepingDialog.xaml
+    /// Interaction logic for AddTimeTrackingDialog.xaml
     /// </summary>
-    public partial class AddTimeKeepingDialog : Window
+    public partial class AddTimeTrackingDialog : Window
     {
-        public AddTimeKeepingDialog()
+        public AddTimeTrackingDialog()
         {
             InitializeComponent();
-            DataContext = new AddTimeKeepingViewModel();
+            DataContext = new AddTimeTrackingViewModel();
         }
     }
 }

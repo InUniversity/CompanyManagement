@@ -1,7 +1,4 @@
-﻿using System;
-using CompanyManagement.Database.Base;
-
-namespace CompanyManagement.Models
+﻿namespace CompanyManagement.Models
 {
     public class CurrentUser
     {
@@ -23,6 +20,11 @@ namespace CompanyManagement.Models
         }
         
         private CurrentUser()
+        {
+            employee = new Employee();
+        }
+
+        private void Logout()
         {
             employee = new Employee();
         }

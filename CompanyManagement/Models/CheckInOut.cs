@@ -1,5 +1,5 @@
 using System;
-using System.Data.SqlClient;
+using System.Data;
 using CompanyManagement.Database.Base;
 using CompanyManagement.Utilities;
 
@@ -54,15 +54,7 @@ namespace CompanyManagement.Models
             this.taskCheckInID = taskCheckInID;
         }
 
-        public CheckInOut(string id, string employeeID, DateTime checkInTime, string taskCheckInID)
-        {
-            this.id = id;
-            this.employeeID = employeeID;
-            this.checkInTime = checkInTime;
-            this.taskCheckInID = taskCheckInID;
-        }
-
-        public CheckInOut(SqlDataReader reader)
+        public CheckInOut(IDataRecord reader)
         {
             try
             {

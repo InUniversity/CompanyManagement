@@ -6,7 +6,6 @@ namespace CompanyManagement.Database
 {
     public class CheckInOutDao : BaseDao
     {
-
         public void Add(CheckInOut checkInOut)
         {
             string sqlStr = $"INSERT INTO {CHECK_IN_OUT_TABLE} ({CHECK_IN_OUT_ID}, {CHECK_IN_OUT_EMPLOYEE_ID}," +

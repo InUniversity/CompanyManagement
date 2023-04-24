@@ -11,7 +11,6 @@ namespace CompanyManagement.Database
 {
     public class LeaveStatusDao : BaseDao
     {
-
         public List<LeaveStatus> GetAll()
         {
             string sqlStr = $"SELECT * FROM {LEAVE_STATUS_TABLE}";
