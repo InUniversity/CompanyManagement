@@ -51,7 +51,7 @@
                 <Grid Grid.Row="2">
                     <PasswordBox
                         Name="FloatingPasswordBox"
-                        Height="50"
+                        Height="50"                
                         materialDesign:HintAssist.HelperText="ít nhất 8 ký tự"
                         materialDesign:HintAssist.Hint="Mật Khẩu"
                         materialDesign:TextFieldAssist.HasClearButton="True"
@@ -68,12 +68,12 @@
                 <Grid Grid.Row="3">
                     <Grid Width="auto">
                         <Button
-                            Height="50"
+                            Name="buttonLogin"
+                            Height="50"      
                             Command="{Binding LoginCommand}"
-                            CommandParameter="{Binding ElementName=FloatingPasswordBox}"
+                            CommandParameter="{Binding ElementName=loginWindow}"
                             materialDesign:ButtonAssist.CornerRadius="25"
-                            IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-                            Style="{StaticResource MaterialDesignRaisedDarkButton}">
+                            IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
                             <TextBlock Text="Đăng nhập" />
                         </Button>
                     </Grid>

@@ -1,3 +1,4 @@
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -20,7 +21,7 @@ namespace CompanyManagement.ViewModels.Windows
         public ICommand LoginCommand { get; set; }
         public ICommand ForgotPasswordCommand { get; set; }
         public ICommand PasswordChangedCommand { get; set; }
-
+  
         private AccountDao accountDao = new AccountDao();
         private EmployeeDao employeeDao = new EmployeeDao();
 
@@ -31,12 +32,12 @@ namespace CompanyManagement.ViewModels.Windows
 
         private void SetCommands()
         {
-            LoginCommand = new RelayCommand<PasswordBox>(ExecuteLoginCommand);
+            LoginCommand = new RelayCommand<Window>(ExecuteLoginCommand);
             ForgotPasswordCommand = new RelayCommand<object>(ExecuteForgotPasswordCommand);
             PasswordChangedCommand = new RelayCommand<PasswordBox>(p => { password = p.Password; });
         }
-        
-        private void ExecuteLoginCommand(PasswordBox passwordBox)
+
+        private void ExecuteLoginCommand(Window window)
         {
             var account = accountDao.SearchByUsername(Username);
             if (account == null || !string.Equals(password, account.Password))
@@ -47,15 +48,16 @@ namespace CompanyManagement.ViewModels.Windows
             var employee = employeeDao.SearchByID(account.EmployeeID);
             employee.MyAccount = account;
             CurrentUser.Ins.EmployeeIns = employee;
+            window.Hide();          
             ShowMainWindow();
-            passwordBox.Password = "";
-            Username = "";
+            window.Show();
+            Username = "";         
         }
 
         private void ShowMainWindow()
         {
             Window nextWindow = new MainWindow();
-            nextWindow.Show();
+            nextWindow.ShowDialog();
         }
 
         private void ExecuteForgotPasswordCommand(object p)
