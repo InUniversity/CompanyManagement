@@ -9,7 +9,9 @@ namespace CompanyManagement.ViewModels.UserControls
 {
     public class EmployeeInputViewModel : BaseViewModel
     {
-        private Employee employee; 
+        private Employee employee;
+        public Employee EmployeeIns { get => employee; set => employee = value; }
+        
         public string ID { get => employee.ID; set { employee.ID = value; OnPropertyChanged(); } }
         public string Name { get => employee.Name; set { employee.Name = value; OnPropertyChanged(); } }
         public string Gender { get => employee.Gender; set { employee.Gender = value; OnPropertyChanged(); } }
@@ -41,12 +43,6 @@ namespace CompanyManagement.ViewModels.UserControls
         {
             Positions = positionDao.GetAll();
             Departments = departmentDao.GetAll();
-        }
-
-        public Employee CreateEmployeeInstance()
-        {
-            return new Employee(ID, Name, Gender, Birthday.Date, IdentifyCard,
-                Email, PhoneNumber, Address, DepartmentID, PositionID, Salary);
         }
 
         public bool CheckAllFields()
@@ -85,20 +81,11 @@ namespace CompanyManagement.ViewModels.UserControls
 
         public void TrimAllTexts()
         {
-            ID = ID.Trim();
             Name = Name.Trim();
-            Gender = Gender.Trim();
             IdentifyCard = IdentifyCard.Trim();
             Email = Email.Trim();
             PhoneNumber = PhoneNumber.Trim();
             Address = Address.Trim();
-            DepartmentID = DepartmentID.Trim();
-            PositionID = PositionID.Trim();
-        }
-
-        public void Receive(Employee employee)
-        {
-            this.employee = employee;
         }
     }
 }
