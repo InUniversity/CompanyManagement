@@ -146,6 +146,15 @@
                             CommandParameter="{x:Static Dock.Left}"                          
                             BorderThickness="0">
                         </ToggleButton>
+                        <Button HorizontalAlignment="Right"          
+                            Height="100"
+                            Width="50"      
+                            ToolTip="Tôi"
+                            Style="{StaticResource MaterialDesignIconButton}"
+                            Command="{Binding ShowUserInformationViewCommand}"                                                               
+                            BorderThickness="0">
+                            <materialDesign:PackIcon Kind="Account" Foreground="White" />
+                        </Button>
                         <Button HorizontalAlignment="Right"  
                             Height="100"
                             Width="50"
@@ -163,15 +172,6 @@
                             Command="{Binding ShowEmployeesViewCommand}"                                                               
                             BorderThickness="0">
                             <materialDesign:PackIcon Kind="AccountGroup" Foreground="White" />
-                        </Button>
-                        <Button HorizontalAlignment="Right"          
-                            Height="100"
-                            Width="50"      
-                            ToolTip="Tôi"
-                            Style="{StaticResource MaterialDesignIconButton}"
-                            Command="{Binding ShowUserInformationViewCommand}"                                                               
-                            BorderThickness="0">
-                            <materialDesign:PackIcon Kind="Account" Foreground="White" />
                         </Button>
                         <Button HorizontalAlignment="Right"  
                             Height="100"
