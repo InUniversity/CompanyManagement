@@ -48,6 +48,7 @@ namespace CompanyManagement.Database.Base
         public const string PROJECT_PROPRESS = "Progress";
         public const string PROJECT_STATUS_ID = "ProjectStatusID";
         public const string PROJECT_CREATE_BY = "CreateBy";
+        public const string PROJECT_BONUS_SALARY = "BonusSalary";
 
         protected const string TASK_TABLE = "Task";
         public const string TASK_ID = "TaskID";

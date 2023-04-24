@@ -30,6 +30,7 @@ namespace CompanyManagement.ViewModels.UserControls
         public string Progress { get => project.Progress; set { project.Progress = value; OnPropertyChanged(); } }
         public string ProjectStatusID { get => project.StatusID; set { project.StatusID = value; OnPropertyChanged(); } }
         public string CreateBy { get => project.CreateBy; set { project.CreateBy = value; OnPropertyChanged(); } }
+        public int BonusSalary { get => project.BonusSalary; set { project.BonusSalary = value; OnPropertyChanged(); } }
         public ObservableCollection<Department> DepartmentsInProject 
         { get => (ObservableCollection<Department>)project.Departments; set { project.Departments = value; OnPropertyChanged(); } }
 
@@ -134,7 +135,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         public Project CreateProjectInstance()
         {
-            return new Project(ID, Name, Start, End, Completed, Progress, ProjectStatusID, CreateBy, DepartmentsInProject);
+            return new Project(ID, Name, Start, End, Completed, Progress, ProjectStatusID, CreateBy, BonusSalary, DepartmentsInProject);
         }
 
         public bool CheckAllFields()

@@ -17,6 +17,7 @@ namespace CompanyManagement
         private string progress;
         private string statusID;
         private string createBy;
+        private int bonusSalary;
         private ObservableCollection<Department> departments = new ObservableCollection<Department>();
 
         public string ID
@@ -67,6 +68,12 @@ namespace CompanyManagement
             set => createBy = value;
         }
 
+        public int BonusSalary
+        {
+            get => bonusSalary;
+            set => bonusSalary = value;
+        }
+
         public ObservableCollection<Department> Departments
         {
             get => departments;
@@ -76,7 +83,7 @@ namespace CompanyManagement
         public Project() { }
 
         public Project(string id, string name, DateTime start, DateTime end, 
-            DateTime completed, string progress, string statusID, string createBy, 
+            DateTime completed, string progress, string statusID, string createBy, int bonusSalary,
             ObservableCollection<Department> departments)
         {
             this.id = id;
@@ -87,6 +94,7 @@ namespace CompanyManagement
             this.progress = progress;
             this.statusID = statusID;
             this.createBy = createBy;
+            this.bonusSalary = bonusSalary;
             this.departments = departments;
         }
 
@@ -102,6 +110,7 @@ namespace CompanyManagement
                 progress = (string)reader[BaseDao.PROJECT_PROPRESS];
                 statusID = (string)reader[BaseDao.PROJECT_STATUS_ID];
                 createBy = (string)reader[BaseDao.PROJECT_CREATE_BY];
+                bonusSalary = (int)reader[BaseDao.PROJECT_BONUS_SALARY];
             }
             catch (Exception ex)
             {

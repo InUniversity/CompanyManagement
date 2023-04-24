@@ -296,13 +296,13 @@ VALUES
     ( '7', N'Đang đình chỉ');
 GO
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
-INSERT INTO Project (ProjectID, ProjectName, CreateDate, EndDate, CompletedDate, Progress, ProjectStatusID, CreateBy)
+INSERT INTO Project (ProjectID, ProjectName, CreateDate, EndDate, CompletedDate, Progress, ProjectStatusID, CreateBy, BonusSalary)
 VALUES
-    ('PRJ001', 'Website Development', CONVERT(SMALLDATETIME, '01-01-2023 08:00 AM', 105), CONVERT(SMALLDATETIME, '30-06-2023 05:00 PM', 105), CONVERT(SMALLDATETIME, '01-01-2000 00:00 AM', 105), '50','4', 'EM001'),
-    ('PRJ002', 'Mobile App Development', CONVERT(SMALLDATETIME, '01-02-2023 09:30 AM', 105), CONVERT(SMALLDATETIME, '31-08-2023 07:00 PM', 105), CONVERT(SMALLDATETIME, '01-01-2000 00:00 AM', 105),'35', '4', 'EM002'),
-    ('PRJ003', 'Database Management System', CONVERT(SMALLDATETIME, '01-03-2023 10:15 AM', 105), CONVERT(SMALLDATETIME, '31-10-2023 04:30 PM', 105), CONVERT(SMALLDATETIME, '01-01-2000 00:00 AM', 105),'10', '4', 'EM003'),
-    ('PRJ004', 'Artificial Intelligence Research', CONVERT(SMALLDATETIME, '01-04-2023 01:00 PM', 105), CONVERT(SMALLDATETIME, '31-03-2024 11:00 AM', 105), CONVERT(SMALLDATETIME, '01-01-2000 00:00 AM', 105),'0', '1', 'EM004'),
-    ('PRJ005', 'Cloud Computing Migration', CONVERT(SMALLDATETIME, '01-05-2023 02:45 PM', 105), CONVERT(SMALLDATETIME, '30-11-2023 10:30 AM', 105), CONVERT(SMALLDATETIME, '01-01-2000 00:00 AM', 105),'0', '1', 'EM050');
+    ('PRJ001', 'Website Development', CONVERT(SMALLDATETIME, '01-01-2023 08:00 AM', 105), CONVERT(SMALLDATETIME, '30-06-2023 05:00 PM', 105), CONVERT(SMALLDATETIME, '01-01-2000 00:00 AM', 105), '50','4', 'EM001', 100000000),
+    ('PRJ002', 'Mobile App Development', CONVERT(SMALLDATETIME, '01-02-2023 09:30 AM', 105), CONVERT(SMALLDATETIME, '31-08-2023 07:00 PM', 105), CONVERT(SMALLDATETIME, '01-01-2000 00:00 AM', 105),'35', '4', 'EM002', 100234000),
+    ('PRJ003', 'Database Management System', CONVERT(SMALLDATETIME, '01-03-2023 10:15 AM', 105), CONVERT(SMALLDATETIME, '31-10-2023 04:30 PM', 105), CONVERT(SMALLDATETIME, '01-01-2000 00:00 AM', 105),'10', '4', 'EM003', 100056700),
+    ('PRJ004', 'Artificial Intelligence Research', CONVERT(SMALLDATETIME, '01-04-2023 01:00 PM', 105), CONVERT(SMALLDATETIME, '31-03-2024 11:00 AM', 105), CONVERT(SMALLDATETIME, '01-01-2000 00:00 AM', 105),'0', '1', 'EM004', 112300000),
+    ('PRJ005', 'Cloud Computing Migration', CONVERT(SMALLDATETIME, '01-05-2023 02:45 PM', 105), CONVERT(SMALLDATETIME, '30-11-2023 10:30 AM', 105), CONVERT(SMALLDATETIME, '01-01-2000 00:00 AM', 105),'0', '1', 'EM050', 112300456);
 GO
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
 

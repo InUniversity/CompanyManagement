@@ -131,7 +131,7 @@ namespace CompanyManagement.ViewModels.UserControls
         private Project CreateProject()
         {
             return new Project(AutoGenerateID(), "", DateTime.Now, DateTime.Now, 
-                Utils.EMPTY_DATETIME, "0", "", CurrentUser.Ins.EmployeeIns.ID, 
+                Utils.EMPTY_DATETIME, "0", "", CurrentUser.Ins.EmployeeIns.ID, 0,
                 new ObservableCollection<Department>());
         }
 
