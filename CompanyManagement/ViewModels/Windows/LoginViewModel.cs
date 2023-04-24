@@ -2,7 +2,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using CompanyManagement.Database;
-using CompanyManagement.Database.Base;
 using CompanyManagement.Models;
 using CompanyManagement.Utilities;
 using CompanyManagement.ViewModels.Base;
@@ -16,11 +15,12 @@ namespace CompanyManagement.ViewModels.Windows
         public string Username { get => username; set { username = value; OnPropertyChanged(); } }
 
         private string password;
+        public string Password { get => password; set { password = value; OnPropertyChanged(); } }
 
-        public ICommand LoginCommand { get; set; }
-        public ICommand ForgotPasswordCommand { get; set; }
-        public ICommand PasswordChangedCommand { get; set; }
-
+        public ICommand LoginCommand { get; private set; }
+        public ICommand ForgotPasswordCommand { get; private set; }
+        public ICommand PasswordChangedCommand { get; private set; }
+  
         private AccountDao accountDao = new AccountDao();
         private EmployeeDao employeeDao = new EmployeeDao();
 
@@ -35,8 +35,8 @@ namespace CompanyManagement.ViewModels.Windows
             ForgotPasswordCommand = new RelayCommand<object>(ExecuteForgotPasswordCommand);
             PasswordChangedCommand = new RelayCommand<PasswordBox>(p => { password = p.Password; });
         }
-        
-        private void ExecuteLoginCommand(Window loginWindow)
+
+        private void ExecuteLoginCommand(Window window)
         {
             var account = accountDao.SearchByUsername(Username);
             if (account == null || !string.Equals(password, account.Password))
@@ -44,17 +44,25 @@ namespace CompanyManagement.ViewModels.Windows
                 MessageBox.Show(Utils.INVALIDATE_USERNAME_PASSWORD_MESSAGE);
                 return;
             }
+            RefreshAllText();
             var employee = employeeDao.SearchByID(account.EmployeeID);
             employee.MyAccount = account;
             CurrentUser.Ins.EmployeeIns = employee;
+            window.Hide();
             ShowMainWindow();
-            loginWindow.Close();
+            window.Show();
         }
 
         private void ShowMainWindow()
         {
             Window nextWindow = new MainWindow();
-            nextWindow.Show();
+            nextWindow.ShowDialog();
+        }
+
+        private void RefreshAllText()
+        {
+            Username = "";
+            Password = "";
         }
 
         private void ExecuteForgotPasswordCommand(object p)

@@ -3,10 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"    
         WindowStartupLocation="CenterScreen"
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:helper="clr-namespace:CompanyManagement.Helpers"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
@@ -17,7 +17,6 @@
         Name="loginWindow"
         Height="700" Width="800">
     <Grid>
-       
         <materialDesign:Card Width="500" Height="600"                             
                              HorizontalAlignment="Center"
                              VerticalContentAlignment="Center">
@@ -35,7 +34,11 @@
                     <RowDefinition />
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top">
-                    <TextBlock Text="Đăng Nhập" FontSize="24" Style="{StaticResource MaterialDesignButtonTextBlock}" FontWeight="ExtraBold" Foreground="Gray" />
+                    <TextBlock Text="Đăng Nhập" 
+                               FontSize="24" 
+                               Style="{StaticResource MaterialDesignButtonTextBlock}" 
+                               FontWeight="ExtraBold" 
+                               Foreground="Gray" />
                 </Grid>
                 <Grid Grid.Row="1">
                     <TextBox
@@ -43,37 +46,30 @@
                         VerticalAlignment="Top"
                         Text="{Binding Username}"
                         materialDesign:HintAssist.Hint="Tên Đăng Nhập"
-                        materialDesign:TextFieldAssist.CharacterCounterVisibility="{Binding Path=IsChecked, ElementName=MaterialDesignFilledTextBoxTextCountComboBox, Converter={StaticResource BooleanToVisibilityConverter}}"
+                        materialDesign:TextFieldAssist.HasClearButton="True"
                         MaxLength="40"
                         Style="{StaticResource MaterialDesignFilledTextBox}"
                         TextWrapping="Wrap" />
                 </Grid>
                 <Grid Grid.Row="2">
                     <PasswordBox
-                        Name="FloatingPasswordBox"
-                        Height="50"
+                        Height="50"                
                         materialDesign:HintAssist.HelperText="ít nhất 8 ký tự"
                         materialDesign:HintAssist.Hint="Mật Khẩu"
                         materialDesign:TextFieldAssist.HasClearButton="True"
-                        IsEnabled="{Binding ElementName=RevealPasswordFilledEnabled, Path=IsChecked}"
+                        helper:PasswordBoxHelper.BindPassword="true"
+                        helper:PasswordBoxHelper.BoundPassword="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         Style="{StaticResource MaterialDesignFilledRevealPasswordBox}">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="PasswordChanged">
-                                <i:InvokeCommandAction Command="{Binding PasswordChangedCommand}"
-                                                       CommandParameter="{Binding ElementName = FloatingPasswordBox}" />
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
                     </PasswordBox>
                 </Grid>
                 <Grid Grid.Row="3">
                     <Grid Width="auto">
                         <Button
-                            Height="50"
+                            Height="50"      
                             Command="{Binding LoginCommand}"
                             CommandParameter="{Binding ElementName=loginWindow}"
                             materialDesign:ButtonAssist.CornerRadius="25"
-                            IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-                            Style="{StaticResource MaterialDesignRaisedDarkButton}">
+                            IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
                             <TextBlock Text="Đăng nhập" />
                         </Button>
                     </Grid>
@@ -85,16 +81,15 @@
                         Width="225"
                         materialDesign:ButtonAssist.CornerRadius="25"
                         Content="Quên mật khẩu"
-                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                         Style="{StaticResource MaterialDesignPaperDarkButton}" />
                     <Button
                         Width="225"
                         HorizontalAlignment="Right"
                         Content="Thoát"
                         materialDesign:ButtonAssist.CornerRadius="25"
-                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                         Style="{StaticResource MaterialDesignPaperButton}"
-                        ToolTip="Resource name: MaterialDesignPaperButton" />
+                        ToolTip="Resource name: MaterialDesignPaperButton">
+                    </Button>
                 </Grid>
             </Grid>
         </materialDesign:Card>

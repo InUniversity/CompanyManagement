@@ -30,16 +30,7 @@ namespace CompanyManagement.ViewModels.Dialogs
             EmployeeInputDataContext.TrimAllTexts();
             if (!CheckAllFields()) 
                 return;
-            AlertDialogService dialog = new AlertDialogService(
-                "Thêm nhân viên", 
-                "Bạn chắc chắn muốn thêm nhân viên !",
-                () =>
-                {
-                    Employee empl = EmployeeInputDataContext.CreateEmployeeInstance();
-                    submitObjectAction?.Invoke(empl);
-                    inputWindow.Close();
-                }, null);
-            dialog.Show();
+          
         }
 
         private bool CheckAllFields()
