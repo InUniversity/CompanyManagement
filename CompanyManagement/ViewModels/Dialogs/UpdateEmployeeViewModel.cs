@@ -30,7 +30,7 @@ namespace CompanyManagement.ViewModels.Dialogs
                "Bạn chắc chắn muốn cập nhật nhân viên !",
                () =>
                {
-                   Employee empl = EmployeeInputDataContext.EmployeeIns;
+                   Employee empl = EmployeeInputDataContext.CreateEmployeeInstance();
                    submitObjectAction?.Invoke(empl);
                    inputWindow.Close();
                }, () => { });
@@ -44,7 +44,7 @@ namespace CompanyManagement.ViewModels.Dialogs
 
         public void ReceiveObject(Employee employee)
         {
-            EmployeeInputDataContext.EmployeeIns = employee;
+            EmployeeInputDataContext.Receive(employee);
         }
 
         public void ReceiveSubmitAction(Action<Employee> submitObjectAction)
