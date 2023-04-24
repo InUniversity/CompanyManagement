@@ -30,6 +30,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private PositionDao positionDao = new PositionDao();
         private DepartmentDao departmentDao = new DepartmentDao();
+        private CheckFormat checker = new CheckFormat();
 
         public EmployeeInputViewModel()
         {
@@ -59,22 +60,22 @@ namespace CompanyManagement.ViewModels.UserControls
                 ErrorMessage = Utils.INVALIDATE_EMPTY_MESSAGE;
                 return false;
             }
-            if (!CheckFormat.ValidateBirthday(Birthday))
+            if (!checker.ValidateBirthday(Birthday))
             {
                 ErrorMessage = Utils.INVALIDATE_BIRTHDAY_MESSAGE;
                 return false;
             }
-            if (!CheckFormat.ValidateEmail(Email))
+            if (!checker.ValidateEmail(Email))
             {
                 ErrorMessage = Utils.INVALIDATE_EMAIL_MESSAGE;
                 return false;
             }
-            if (!CheckFormat.ValidatePhoneNumber(PhoneNumber))
+            if (!checker.ValidatePhoneNumber(PhoneNumber))
             {
                 ErrorMessage = Utils.INVALIDATE_PHONE_NUMBER_MESSAGE;
                 return false;
             }
-            if (!CheckFormat.ValidateIdentifyCard(IdentifyCard))
+            if (!checker.ValidateIdentifyCard(IdentifyCard))
             {
                 ErrorMessage = Utils.INVALIDATE_IDENTIFY_CARD_MESSAGE;
                 return false;
