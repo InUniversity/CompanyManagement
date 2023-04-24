@@ -1,11 +1,7 @@
 ﻿using CompanyManagement.Database.Base;
 using CompanyManagement.Utilities;
 using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Data;
 
 namespace CompanyManagement.Models
 {
@@ -14,27 +10,10 @@ namespace CompanyManagement.Models
         private string leaveStatusID = "";
         private string leaveStatusName = "";
 
-        public string ID
-        {
-            get { return leaveStatusID; }
-            set { leaveStatusID = value; }
-        }
+        public string LeaveStatusID => leaveStatusID;
+        public string LeaveStatusName => leaveStatusName;
 
-        public string Name
-        {
-            get { return leaveStatusName; }
-            set { leaveStatusName = value; }
-        }
-
-        public LeaveStatus() { }
-
-        public LeaveStatus(string leaveStatusID, string leaveStatusName)
-        {
-            this.leaveStatusID = leaveStatusID;
-            this.leaveStatusName = leaveStatusName;
-        }
-
-        public LeaveStatus(SqlDataReader reader)
+        public LeaveStatus(IDataRecord reader)
         {
             try
             {

@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Data.SqlClient;
+using System.Data;
 using CompanyManagement.Database.Base;
 using CompanyManagement.Utilities;
 
@@ -11,25 +11,9 @@ namespace CompanyManagement.Models
         private string name;
         private string managerID;
 
-        public string ID
-        {
-            get => id;
-            set => id = value;
-        } 
-            
-        public string Name
-        {
-            get => name;
-            set => name = value;
-        }
-
-        public string ManagerID
-        {
-            get => managerID;
-            set => managerID = value;
-        }
-
-        public Department() { }
+        public string ID => id;
+        public string Name => name;
+        public string ManagerID => managerID;
 
         public Department(string id, string name, string managerID)
         {
@@ -38,7 +22,7 @@ namespace CompanyManagement.Models
             this.managerID = managerID;
         }
         
-        public Department(SqlDataReader reader)
+        public Department(IDataRecord reader)
         {
             try
             {
@@ -51,15 +35,5 @@ namespace CompanyManagement.Models
                 Log.Instance.Error(nameof(Department), "CAST ERROR: " + ex.Message);
             }
         }
-
-        // public override bool Equals(object obj)
-        // {
-        //     if (obj is not Department department)
-        //         throw new Exception("Not the same type");
-        //     return base.Equals(obj) && 
-        //            string.Equals(department.ID, id) && 
-        //            string.Equals(department.Name, name) && 
-        //            string.Equals(department.managerID, managerID);
-        // }
     }
 }

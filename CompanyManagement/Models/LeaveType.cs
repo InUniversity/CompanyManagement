@@ -1,7 +1,7 @@
 ﻿using CompanyManagement.Database.Base;
 using CompanyManagement.Utilities;
 using System;
-using System.Data.SqlClient;
+using System.Data;
 
 namespace CompanyManagement.Models
 {
@@ -10,27 +10,10 @@ namespace CompanyManagement.Models
         private string leaveTypeID = "";
         private string leaveTypeName = "";
 
-        public string ID
-        { 
-            get { return leaveTypeID; } 
-            set { leaveTypeID = value; } 
-        }
+        public string LeaveTypeID => leaveTypeID;
+        public string LeaveTypeName => leaveTypeName;
 
-        public string Name
-        { 
-            get { return leaveTypeName; } 
-            set { leaveTypeName = value; } 
-        }
-
-        public LeaveType() { }
-
-        public LeaveType(string leaveTypeID, string leaveTypeName)
-        {
-            this.leaveTypeID = leaveTypeID;
-            this.leaveTypeName = leaveTypeName;
-        }
-
-        public LeaveType(SqlDataReader reader)
+        public LeaveType(IDataRecord reader)
         {
             try
             {
