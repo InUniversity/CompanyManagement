@@ -10,7 +10,7 @@ namespace CompanyManagement.Utilities
         public const string INVALIDATE_BIRTHDAY_MESSAGE = "Ngày sinh không hợp lệ!!!";
         public const string INVALIDATE_IDENTIFY_CARD_MESSAGE = "CMND/CCCD không hợp lệ!!!";
         public const string INVALIDATE_EMPTY_MESSAGE = "Các thông tin có dấu (*) không được để trống!!!";
-        public const string INVALIDATE_TIMELINE = "Ngày bắt đầu phải lớn hơn ngày hiện tại và thời gian kết thúc phải lớn hơn ngày bắt đầu!!!";
+        public const string INVALIDATE_TIMELINE = "Thời gian kết thúc phải lớn hơn ngày bắt đầu!!!";
         public const string EXIST_ID_MESSAGE = "ID đã tồn tại!!!";
         public const string EXIST_IDENTIFY_CARD_MESSAGE = "CMND/CCCD đã tồn tại!!!";
         public const string EXIST_PHONE_NUMBER_MESSAGE = "Số điện thoại đã tồn tại!!!";
