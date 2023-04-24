@@ -4,13 +4,13 @@ using System.Text.RegularExpressions;
 
 namespace CompanyManagement.Utilities
 {
-    public static class CheckFormat
+    public class CheckFormat
     {
         private const int IDENTIFY_CARD_LENGTH = 12;
         private const int PASSWORD_MINIMUM_LENGTH = 8;
         private const int AGE_MINIMUM = 18;
 
-        public static bool ValidateEmail(string email)
+        public bool ValidateEmail(string email)
         {
             try
             {
@@ -23,23 +23,23 @@ namespace CompanyManagement.Utilities
             return true;
         }
 
-        public static bool ValidatePhoneNumber(string phoneNumber)
+        public bool ValidatePhoneNumber(string phoneNumber)
         {
             string pattern = @"^0[0-9]{9}$";
             return Regex.IsMatch(phoneNumber, pattern);
         }
 
-        public static bool ValidateIdentifyCard(string identifyCard)
+        public bool ValidateIdentifyCard(string identifyCard)
         {
             return identifyCard.Length == IDENTIFY_CARD_LENGTH;
         }
 
-        public static bool ValidatePassword(string password)
+        public bool ValidatePassword(string password)
         {
             return password.Length >= PASSWORD_MINIMUM_LENGTH;
         }
 
-        public static bool ValidateBirthday(DateTime birthday)
+        public bool ValidateBirthday(DateTime birthday)
         {
             DateTime today = DateTime.Now;
             int age = today.Year - birthday.Year;
@@ -56,7 +56,7 @@ namespace CompanyManagement.Utilities
             return true;
         }
 
-        public static bool ValidateTimeline(DateTime start, DateTime end)
+        public bool ValidateTimeline(DateTime start, DateTime end)
         {
             return start <= end;
         }
