@@ -6,7 +6,6 @@
         xmlns:local="clr-namespace:CompanyManagement.Views.Dialogs"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
-        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
@@ -139,10 +138,12 @@
                                                 <Canvas>
                                                     <TextBlock Margin="15" Text="{Binding Title}" />
                                                     <StackPanel Orientation="Horizontal"  Margin="5" Canvas.Right="100">
-                                                        <ComboBox Text="{Binding Progress}"                            
-                                                                     VerticalAlignment="Center"
-                                                                     materialDesign:TextFieldAssist.SuffixText=" %"                                                                                                                                                                                       
-                                                                     Height="30">
+                                                        <ComboBox Text="{Binding Progress}" 
+                                                                  SelectedValuePath="Content"
+                                                                  SelectedValue="{Binding Progress}" 
+                                                                  VerticalAlignment="Center" 
+                                                                  materialDesign:TextFieldAssist.SuffixText=" %"
+                                                                  Height="30">
                                                             <ComboBoxItem Content="0"></ComboBoxItem>
                                                             <ComboBoxItem Content="10"></ComboBoxItem>
                                                             <ComboBoxItem Content="20"></ComboBoxItem>
