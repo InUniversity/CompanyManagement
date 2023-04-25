@@ -34,6 +34,12 @@ namespace CompanyManagement.Database
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
+        public void UpdateProgress(string taskID, string progress)
+        {
+            string sqlStr = $"UPDATE {TASK_TABLE} SET {TASK_PROGRESS}='{progress}' WHERE {TASK_ID}='{taskID}'";
+            dbConnection.ExecuteNonQuery(sqlStr);
+        }
+
         public TaskInProject SearchByID(string taskInProjectID)
         {
             string sqlStr = $"SELECT * FROM {TASK_TABLE} WHERE {TASK_ID}='{taskInProjectID}'";           

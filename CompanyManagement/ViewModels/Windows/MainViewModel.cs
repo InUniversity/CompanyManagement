@@ -6,19 +6,7 @@ using System.Windows.Input;
 
 namespace CompanyManagement.ViewModels.Windows
 {
-    public interface IMainViewModel
-    {
-        ContentControl CurrentChildView { get; set; }
-        bool StatusSettingsView { get; }
-        bool StatusNotifyView { get; }
-        bool StatusWorkScheduleView { get; }
-        bool StatusEmployeesView { get; }
-        bool StatusAssignmentView { get; }
-        bool StatusUserInformationView { get; }
-        bool StatusLeavesView { get; }
-    }
-    
-    public class MainViewModel : BaseViewModel, IMainViewModel
+    public class MainViewModel : BaseViewModel
     {
         private ContentControl currentChildView;
         public ContentControl CurrentChildView { get => currentChildView; set { currentChildView = value; OnPropertyChanged(); } }
@@ -100,6 +88,8 @@ namespace CompanyManagement.ViewModels.Windows
 
         private void ExecuteShowAssignmentView(object obj)
         {
+            // TODO
+            // To refresh tasks view (Bad approve)
             assignmentUC = new AssignmentUC();
             CurrentChildView = assignmentUC;
             StatusAssignmentView = true;

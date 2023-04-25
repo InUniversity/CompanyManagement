@@ -41,12 +41,14 @@ namespace CompanyManagement.ViewModels.UserControls
         public ICommand DeleteSelectedTaskCommand { get; set; }
         public ICommand GetSelectedTaskCommand { get; set; }
 
+        private TaskInProjectDao taskInProjectDao = new TaskInProjectDao();
+
         public CheckInViewModel()
         {
-            LoadTasksCanChoose();
-            SetCommands();
             CheckInOutInputDataContext = new CheckInOutInputViewModel();
             StartingTask = new ObservableCollection<TaskInProject>();
+            LoadTasksCanChoose();
+            SetCommands();
         }
 
         private void SetCommands()
@@ -89,7 +91,7 @@ namespace CompanyManagement.ViewModels.UserControls
                "Bạn chắc chắn muốn check in không?",
                () =>
                {
-                   CheckInOut checkIn = CheckInOutInputDataContext.CreateCheckInOutInstance();
+                   CheckInOut checkIn = CheckInOutInputDataContext.CreateCheckInOut();
                    submitObjectAction?.Invoke(checkIn);
                    window.Close();
                }, () => { });
@@ -98,11 +100,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void LoadTasksCanChoose()
         {
-            //var list = completedTaskDao.GetOpenAssignedTasks(CheckInOutInputDataContext.EmployeeID,
-            //    Utils.ToFormatSQLServer(CheckInOutInputDataContext.CheckInTime));
-            //TasksCanChoose = new List<TaskInProject>(list);
-            //SearchedTasksCanChoose = new ObservableCollection<TaskInProject>(TasksCanChoose);
-            TasksCanChoose = new List<TaskInProject>(new TaskInProjectDao().SearchCurrentTasksByEmployeeID(CurrentUser.Ins.EmployeeIns.ID));
+            TasksCanChoose = new List<TaskInProject>(taskInProjectDao.SearchCurrentTasksByEmployeeID(CurrentUser.Ins.EmployeeIns.ID));
             SearchedTasksCanChoose = new ObservableCollection<TaskInProject>(TasksCanChoose);
         }
 
@@ -120,7 +118,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         public void ReceiveObject(CheckInOut checkInOut)
         {
-            CheckInOutInputDataContext.Receive(checkInOut);
+            CheckInOutInputDataContext.ReceiveCheckInOut(checkInOut);
         }
 
         public void ReceiveSubmitAction(Action<CheckInOut> submitObjectAction)
