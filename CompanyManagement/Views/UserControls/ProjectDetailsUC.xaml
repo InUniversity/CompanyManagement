@@ -42,25 +42,9 @@
                             Command="{Binding ElementName=projectDetailsUC, Path=DataContext.ShowTimeKeepingCommand}"
                             BorderBrush="{DynamicResource PrimaryHueMidBrush}"
                             Style="{StaticResource MaterialDesignTabRadioButtonBottom}" >
-                    <TextBlock Text="Bảng chấm công" Margin="30 0"></TextBlock>
-                </RadioButton>
-                <RadioButton
-                            Height="40"
-                            Margin="4"         
-                            IsChecked="False"                  
-                            BorderBrush="{DynamicResource PrimaryHueMidBrush}"
-                            Style="{StaticResource MaterialDesignTabRadioButtonBottom}" >
-                    <materialDesign:PackIcon Kind="MoreHoriz" />
-                </RadioButton>
-                <RadioButton
-                            Height="40"                                   
-                            IsChecked="False"                          
-                            BorderBrush="{DynamicResource PrimaryHueMidBrush}"
-                            Style="{StaticResource MaterialDesignTabRadioButtonBottom}" >
-                    <materialDesign:PackIcon Kind="BellRing" />
+                    <TextBlock Text="Theo dõi tiến độ" Margin="30 0"></TextBlock>
                 </RadioButton>
             </StackPanel>
-
         </Border>
         <Grid Grid.Row="1">
             <Border BorderBrush="Gray" BorderThickness="0.1"  Margin="3" >

@@ -137,7 +137,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void AddTaskCheckOutToDB(TaskInProject task)
         {
-            TaskCheckOut taskCheckOut = new TaskCheckOut(CheckInOutInputDataContext.ID, task.ID, DateTime.Now, task.Progress);
+            TaskCheckOut taskCheckOut = new TaskCheckOut(CheckInOutInputDataContext.ID, task.ID, DateTime.Now, task.Progress, task);
             taskCheckOutDao.Add(taskCheckOut);
         }
 

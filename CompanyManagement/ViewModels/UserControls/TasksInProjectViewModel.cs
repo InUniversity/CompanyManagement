@@ -107,7 +107,7 @@ namespace CompanyManagement.ViewModels.UserControls
         }
 
 
-        public void RetrieveProjectID(string projectID)
+        public void ReceiveProjectID(string projectID)
         {
             this.projectID = projectID;
             List<TaskInProject> tasks = string.Equals(CurrentUser.Ins.EmployeeIns.PositionID, BaseDao.EMPLOYEE_POS_ID)

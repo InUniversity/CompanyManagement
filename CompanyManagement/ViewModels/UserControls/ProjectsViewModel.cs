@@ -202,7 +202,7 @@ namespace CompanyManagement.ViewModels.UserControls
         private void ItemClicked(object obj)
         {
             if (SelectedProject == null) return;
-            ProjectDetailsDataContext.RetrieveProjectID(SelectedProject.ID);
+            ProjectDetailsDataContext.ReceiveProjectID(SelectedProject.ID);
             ParentDataContext.MoveToProjectDetailsView();
             SelectedProject = null;
         }
