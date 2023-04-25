@@ -6,51 +6,30 @@ using CompanyManagement.ViewModels.Base;
 using System.Windows.Input;
 using System.Linq;
 using System.Windows.Controls;
-using CompanyManagement.Utilities;
-using CompanyManagement.Views.UserControls;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
     public interface ITaskInput
     {
-        TaskInProject CreateTaskInProjectInstance();
+        TaskInProject CreateTask();
         bool CheckAllFields();
         void TrimAllTexts();
-        void RetrieveTask(TaskInProject taskInProject);
+        void ReceiveTask(TaskInProject task);
     }
 
-    public class TaskInputViewModel : BaseViewModel, ITaskInput 
+    public class TaskInputViewModel : BaseViewModel, ITaskInput
     {
-        
-        private string id = "";
-        public string ID { get => id; set { id = value; OnPropertyChanged(); } }
-
-        private string title = "";
-        public string Title { get => title; set { title = value; OnPropertyChanged(); } }
-
-        private string description = "";
-        public string Description { get => description; set { description = value; OnPropertyChanged(); } }
-
-        private DateTime assignDate = DateTime.Now;
-        public DateTime AssignDate { get => assignDate; set { assignDate = value; OnPropertyChanged(); } }
-
-        private DateTime deadline = DateTime.Now;
-        public DateTime Deadline { get => deadline; set { deadline = value; OnPropertyChanged(); } }
-
-        private string createBy = CurrentUser.Ins.EmployeeIns.ID;
-        public string CreateBy { get => createBy; set { createBy = value; OnPropertyChanged(); } }
-
-        private string progress = "";
-        public string Progress { get => progress; set { progress = value; OnPropertyChanged(); } }
-
-        private string employeeID = "";
-        public string EmployeeID { get => employeeID; set { employeeID = value; OnPropertyChanged(); } }
-
-        private string projectID = "";
-        public string ProjectID { get => projectID; set { projectID = value; OnPropertyChanged(); } }
-
-        private string statusID = "";
-        public string StatusID { get => statusID; set { statusID = value; OnPropertyChanged(); } }
+        private TaskInProject task;
+        public string ID { get => task.ID; set { task.ID = value; OnPropertyChanged(); } }
+        public string Title { get => task.Title; set { task.Title = value; OnPropertyChanged(); } }
+        public string Description { get => task.Description; set { task.Description = value; OnPropertyChanged(); } }
+        public DateTime AssignDate { get => task.AssignDate; set { task.AssignDate = value; OnPropertyChanged(); } }
+        public DateTime Deadline { get => task.Deadline; set { task.Deadline = value; OnPropertyChanged(); } }
+        public string CreateBy { get => task.CreateBy; set { task.CreateBy = value; OnPropertyChanged(); } }
+        public string Progress { get => task.Progress; set { task.Progress = value; OnPropertyChanged(); } }
+        public string EmployeeID { get => task.EmployeeID; set { task.EmployeeID = value; OnPropertyChanged(); } }
+        public string ProjectID { get => task.ProjectID; set { task.ProjectID = value; OnPropertyChanged(); } }
+        public string StatusID { get => task.StatusID; set { task.StatusID = value; OnPropertyChanged(); } }
 
         private string errorMessage = "";
         public string ErrorMessage { get => errorMessage; set { errorMessage = value; OnPropertyChanged(); } }
@@ -71,34 +50,25 @@ namespace CompanyManagement.ViewModels.UserControls
         public ICommand AddEmployeeCommand { get; set; }
         public ICommand GetSelectedEmployeeCommand { get; set; }
 
-        private TaskStatusDao taskStatusDao;
-        private ProjectAssignmentDao assignmentDao;
+        private TaskStatusDao taskStatusDao = new TaskStatusDao();
+        private ProjectAssignmentDao assignmentDao = new ProjectAssignmentDao();
 
         public TaskInputViewModel()
         {
-            taskStatusDao = new TaskStatusDao();
-            assignmentDao = new ProjectAssignmentDao();            
             GetSelectedEmployeeCommand = new RelayCommand<ListView>(ExecuteGetSelectedEmployeeCommand);       
             SetAllComboBox();
         }
 
         private void ExecuteGetSelectedEmployeeCommand(ListView listView)
         {
-            if(listView.SelectedItem != null)
-            {
-                var selectedItem = listView.SelectedItem as Employee;
-                EmployeeID = selectedItem.ID;
-            }       
+            if (listView.SelectedItem == null) return;
+            var selectedItem = listView.SelectedItem as Employee;
+            EmployeeID = selectedItem.ID;
         }
 
         private void SetAllComboBox()
         {
             TaskStatuses = taskStatusDao.GetAll();
-        }
-
-        public TaskInProject CreateTaskInProjectInstance()
-        {
-            return new TaskInProject(id, title, description, assignDate, deadline, progress, createBy, employeeID, projectID, statusID);
         }
 
         public bool CheckAllFields()
@@ -116,6 +86,7 @@ namespace CompanyManagement.ViewModels.UserControls
             }
             return true;
         }
+        
         private void SearchByName()
         {
             var searchedItems = employees;
@@ -128,30 +99,22 @@ namespace CompanyManagement.ViewModels.UserControls
             SearchedEmployeesCanAssign = new List<Employee>(searchedItems);
         }
 
-        public void TrimAllTexts()
+        public TaskInProject CreateTask()
         {
-            ID = id.Trim();
-            Title = title.Trim();
-            Description = description.Trim();
-            CreateBy = createBy.Trim();
-            Progress = progress.Trim(); 
-            EmployeeID = employeeID.Trim();
-            ProjectID = projectID.Trim();
+            return task;
         }
 
-        public void RetrieveTask(TaskInProject taskInProject)
+        public void TrimAllTexts()
         {
-            ID = taskInProject.ID;
-            Title = taskInProject.Title;
-            Description = taskInProject.Description;
-            AssignDate = taskInProject.AssignDate;
-            Deadline = taskInProject.Deadline;
-            CreateBy = taskInProject.CreateBy;
-            Progress = taskInProject.Progress;
-            EmployeeID = taskInProject.EmployeeID;
-            ProjectID = taskInProject.ProjectID;
-            StatusID = taskInProject.Status;
-            Employees = assignmentDao.GetEmployeesInProject(taskInProject.ProjectID);
+            Title = Title.Trim();
+            Description = Description.Trim();
+            Progress = Progress.Trim(); 
+        }
+
+        public void ReceiveTask(TaskInProject task)
+        {
+            this.task = task;
+            Employees = assignmentDao.GetEmployeesInProject(task.ProjectID);
             SearchedEmployeesCanAssign = new List<Employee>(Employees);
         }
     }

@@ -67,8 +67,6 @@ namespace CompanyManagement.ViewModels.UserControls
         public void RetrieveProjectID(string projectID)
         {
             ShowTasksView();
-            if (string.Equals(projectID, this.projectID))
-                return;
             this.projectID = projectID;
             try
             {

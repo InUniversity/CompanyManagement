@@ -15,7 +15,7 @@ namespace CompanyManagement.ViewModels.UserControls
         private bool isToggled;
         public bool IsToggled { get => isToggled; set { isToggled = value; OnPropertyChanged(); } }
 
-        private CheckInOut currentCheckInOut = new CheckInOut();
+        private CheckInOut currentCheckInOut;
         
         private ObservableCollection<CheckInOut> checkInOutList;
         public ObservableCollection<CheckInOut> CheckInOutList { get => checkInOutList; set { checkInOutList = value; } }
@@ -26,20 +26,27 @@ namespace CompanyManagement.ViewModels.UserControls
         private DateTime checkOutTime;
         public DateTime CheckOutTime { get => checkOutTime; set { checkOutTime = value; OnPropertyChanged(); } }
 
-        public ICommand ToggledCommand { get; set; }
+        public ICommand ToggledCommand { get; private set; }
 
         private CheckInOutDao checkInOutDao = new CheckInOutDao();
+        private TaskCheckOutDao taskCheckOutDao = new TaskCheckOutDao();
+        private TaskInProjectDao taskInProjectDao = new TaskInProjectDao();
 
         public CheckInOutViewModel()
         {
             LoadCheckInOutList();
-            ToggledCommand = new RelayCommand<object>(Toggled);
+            SetCommands();
         }
 
         private void LoadCheckInOutList()
         {
             //TODO
             CheckInOutList = new ObservableCollection<CheckInOut>(checkInOutDao.GetAll());
+        }
+
+        private void SetCommands()
+        {
+            ToggledCommand = new RelayCommand<object>(Toggled);
         }
 
         private void Toggled(object obj)
@@ -52,13 +59,20 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void OpenCheckInDialog()
         {
+            CreateCheckIn();
             var inputService = new InputDialogService<CheckInOut>(new CheckInDialog(), currentCheckInOut, Add);
             inputService.Show();
-            CheckInTime = DateTime.Now;
-            CheckOutTime = new DateTime();
         }
 
-        private void CreateNewCheckIn()
+        private void Add(CheckInOut checkInOut)
+        {
+            CheckInTime = DateTime.Now;
+            CheckOutTime = new DateTime();
+            checkInOutDao.Add(checkInOut);
+            LoadCheckInOutList();
+        }
+
+        private void CreateCheckIn()
         {
             currentCheckInOut = new CheckInOut(AutoGenerateID(), CurrentUser.Ins.EmployeeIns.ID,
                 Utils.EMPTY_DATETIME, Utils.EMPTY_DATETIME, "");
@@ -80,17 +94,11 @@ namespace CompanyManagement.ViewModels.UserControls
         {
             var inputService = new InputDialogService<CheckInOut>(new CheckOutDialog(), currentCheckInOut, Update);
             inputService.Show();
-            CheckOutTime = DateTime.Now;
-        }
-
-        private void Add(CheckInOut checkInOut)
-        {
-            checkInOutDao.Add(checkInOut);
-            LoadCheckInOutList();
         }
 
         private void Update(CheckInOut checkInOut)
         {
+            CheckOutTime = DateTime.Now;
             checkInOutDao.Update(checkInOut);
             LoadCheckInOutList();
         }

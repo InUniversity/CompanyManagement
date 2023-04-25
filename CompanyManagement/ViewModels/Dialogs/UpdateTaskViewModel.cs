@@ -37,7 +37,7 @@ namespace CompanyManagement.ViewModels.Dialogs
               "Bạn chắc chắn muốn cập nhật nhiệm vụ !",
               () =>
               {
-                  TaskInProject task = TaskInputDataContext.CreateTaskInProjectInstance();
+                  TaskInProject task = TaskInputDataContext.CreateTask();
                   submitObjectAction?.Invoke(task);
                   inputWindow.Close();
               }, () => { });
@@ -46,7 +46,7 @@ namespace CompanyManagement.ViewModels.Dialogs
         
         public void ReceiveObject(TaskInProject task)
         {
-            TaskInputDataContext.RetrieveTask(task);
+            TaskInputDataContext.ReceiveTask(task);
         }
 
         public void ReceiveSubmitAction(Action<TaskInProject> submitObjectAction)

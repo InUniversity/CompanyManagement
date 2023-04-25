@@ -5,7 +5,6 @@ using System.Windows;
 using System.Windows.Input;
 using CompanyManagement.Database;
 using CompanyManagement.Services;
-using CompanyManagement.Utilities;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Controls;
@@ -34,20 +33,20 @@ namespace CompanyManagement.ViewModels.UserControls
         private string textToSearch = "";
         public string TextToSearch { get => textToSearch; set { textToSearch = value; OnPropertyChanged(); SearchByName(); } }
 
-        public ICommand CheckOutCommand { get; set; }
-        public ICommand AddTaskCompletedCommand { get; set; }
-        public ICommand GetAllSelectedTasksCommand { get; set; }
-        public ICommand DeleteTaskCompletedCommand { get; set; }
+        public ICommand CheckOutCommand { get; private set; }
+        public ICommand AddTaskCompletedCommand { get; private set; }
+        public ICommand GetAllSelectedTasksCommand { get; private set; }
+        public ICommand DeleteTaskCompletedCommand { get; private set; }
 
         private TaskCheckOutDao taskCheckOutDao = new TaskCheckOutDao();
         private TaskInProjectDao taskInProjectDao = new TaskInProjectDao();
 
         public CheckOutViewModel()
         {
-            SetCommands();
-            LoadTasksCanChoose();
             CheckInOutInputDataContext = new CheckInOutInputViewModel();
             TasksCheckOut = new ObservableCollection<TaskInProject>();
+            SetCommands();
+            LoadTasksCanChoose();
         }
 
         private void SetCommands()
@@ -60,16 +59,16 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void ExecuteCheckOutCommand(Window window)
         {
-            AlertDialogService dialog = new AlertDialogService(
+            var dialog = new AlertDialogService(
                  "Check out",
                  "Bạn có chắc chắn muốn check out không ?",
                  () =>
                  {
-                     CheckInOut checkOut = CheckInOutInputDataContext.CreateCheckInOutInstance();
-                     CommitTasksCheckOutToDB();
+                     CheckInOut checkOut = CheckInOutInputDataContext.CreateCheckInOut();
+                     AddTasksCheckOut();
                      submitObjectAction?.Invoke(checkOut);
                      window.Close();
-                 }, () => { });
+                 }, null);
             dialog.Show();
         }
 
@@ -83,7 +82,7 @@ namespace CompanyManagement.ViewModels.UserControls
         {
             if (SelectedTasks != null)
             {
-                foreach (TaskInProject task in SelectedTasks)
+                foreach (var task in SelectedTasks)
                 {
                     TasksCheckOut.Add(task);
                 }
@@ -100,12 +99,8 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void LoadTasksCanChoose()
         {
-            //var list = completedTaskDao.GetOpenAssignedTasks(CheckInOutInputDataContext.EmployeeID,
-            //    Utils.ToFormatSQLServer(CheckInOutInputDataContext.CheckOutTime));
-            //TasksCanChoose = new List<TaskInProject>(list);
-            //SearchedTasksCanChoose = new ObservableCollection<TaskInProject>(TasksCanChoose);
-            TasksCanChoose = new List<TaskInProject>(new TaskInProjectDao().SearchByProjectID("PRJ001"));
-            SearchedTasksCanChoose = new ObservableCollection<TaskInProject>(TasksCanChoose);            
+            TasksCanChoose = taskInProjectDao.SearchCurrentTasksByEmployeeID(CurrentUser.Ins.EmployeeIns.ID);
+            SearchedTasksCanChoose = new ObservableCollection<TaskInProject>(TasksCanChoose);
         }
 
         private void SearchByName()
@@ -120,30 +115,30 @@ namespace CompanyManagement.ViewModels.UserControls
             SearchedTasksCanChoose = new ObservableCollection<TaskInProject>(searchedItems);
         }
 
-        private void CommitTasksCheckOutToDB()
+        private void AddTasksCheckOut()
         {
             foreach (var task in TasksCheckOut)
             {
-                UpdateTaskInProjectToDB(task);
-                AddTaskCheckOutToDB(task);
+                UpdateTaskInProject(task);
+                AddTaskCheckOut(task);
             }
             LoadTasksCanChoose();
         }
 
-        private void UpdateTaskInProjectToDB(TaskInProject task)
+        private void UpdateTaskInProject(TaskInProject task)
         {
             taskInProjectDao.Update(task);
         }
 
-        private void AddTaskCheckOutToDB(TaskInProject task)
+        private void AddTaskCheckOut(TaskInProject task)
         {
-            TaskCheckOut taskCheckOut = new TaskCheckOut(CheckInOutInputDataContext.ID, task.ID, DateTime.Now, task.Progress);
+            var taskCheckOut = new TaskCheckOut(CheckInOutInputDataContext.ID, task.ID, DateTime.Now, task.Progress);
             taskCheckOutDao.Add(taskCheckOut);
         }
 
         public void ReceiveObject(CheckInOut checkInOut)
         {
-            CheckInOutInputDataContext.Receive(checkInOut);
+            CheckInOutInputDataContext.ReceiveCheckInOut(checkInOut);
         }
 
         public void ReceiveSubmitAction(Action<CheckInOut> submitObjectAction)

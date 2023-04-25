@@ -12,6 +12,9 @@ using CompanyManagement.Utilities;
 using CompanyManagement.Strategies.UserControls.ProjectsView;
 using CompanyManagement.Views.UserControls;
 using System.Linq;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Collections.ObjectModel;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
@@ -57,27 +60,19 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void LoadTaskInProjects()
         {
+
             TasksInProject = string.Equals(currentEmployee.PositionID, BaseDao.EMPLOYEE_POS_ID)
                ? taskInProjectDao.SearchByEmployeeID(projectID, currentEmployee.ID)
                : taskInProjectDao.SearchByProjectID(projectID);
 
             var listOngoingTasks = TasksInProject.Where(p => p.Progress != BaseDao.COMPLETED && p.Deadline > DateTime.Now).ToList();
-            if (listOngoingTasks.Count > 0)
-            {
-                OngoingTasksInProject = new List<TaskInProject>(listOngoingTasks);
-            }
+            OngoingTasksInProject = new List<TaskInProject>(listOngoingTasks);
 
             var listCompletedTasks = TasksInProject.Where(p => p.Progress == BaseDao.COMPLETED).ToList();
-            if (listCompletedTasks.Count > 0)
-            {
-                CompletedTasksInProject = new List<TaskInProject>(listCompletedTasks);
-            }
+            CompletedTasksInProject = new List<TaskInProject>(listCompletedTasks);
 
             var listOverdueTasks = TasksInProject.Where(p => p.Deadline < DateTime.Now && p.Progress != BaseDao.COMPLETED).ToList();
-            if (listOverdueTasks.Count > 0)
-            {
-                OverdueTasksInProject = new List<TaskInProject>(listOverdueTasks);
-            }
+            OverdueTasksInProject = new List<TaskInProject>(listOverdueTasks);
         }
 
         private void SetVisible()
@@ -114,6 +109,7 @@ namespace CompanyManagement.ViewModels.UserControls
                 ? taskInProjectDao.SearchByEmployeeID(projectID, currentEmployee.ID)
                 : taskInProjectDao.SearchByProjectID(projectID);
             TasksInProject = tasks;
+            LoadTaskInProjects();
         }
 
         private void OpenAddDialog(object obj)   
