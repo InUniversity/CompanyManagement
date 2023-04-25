@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
+using CompanyManagement.Views.UserControls;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
@@ -20,6 +21,15 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private List<Leave> leaves;
         public List<Leave> Leaves { get => leaves; set { leaves = value; OnPropertyChanged(); } }
+
+        private List<Leave> approvalLeaves;
+        public List<Leave> ApprovalLeaves { get => approvalLeaves; set { approvalLeaves = value; OnPropertyChanged(); } }
+
+        private List<Leave> approvedLeaves;
+        public List<Leave> ApprovedLeaves { get => approvedLeaves; set { approvedLeaves = value; OnPropertyChanged(); } }
+
+        private List<Leave> unapprovedLeaves;
+        public List<Leave>  UnapprovedLeaves { get => unapprovedLeaves; set { unapprovedLeaves = value; OnPropertyChanged(); } }
 
         private Visibility visibleAddButton = Visibility.Collapsed;
         public Visibility VisibleAddButton { get => visibleAddButton; set { visibleAddButton = value; OnPropertyChanged(); } }
@@ -32,6 +42,15 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private Visibility visibleApproveButton = Visibility.Collapsed;
         public Visibility VisibleApproveButton { get => visibleApproveButton; set { visibleApproveButton = value; OnPropertyChanged(); } }
+
+        private Visibility visibleApprovalLeavesExpander = Visibility.Collapsed;
+        public Visibility VisibleApprovalLeavesExpander { get => visibleApprovalLeavesExpander; set { visibleApprovalLeavesExpander = value; OnPropertyChanged(); } }
+
+        private Visibility visibleApprovedLeavesExpander = Visibility.Collapsed;
+        public Visibility VisibleApprovedLeavesExpander { get => visibleApprovedLeavesExpander; set { visibleApprovedLeavesExpander = value; OnPropertyChanged(); } }
+
+        private Visibility visibleUnapprovedLeavesExpander = Visibility.Collapsed;
+        public Visibility VisibleUnapprovedLeavesExpander { get => visibleUnapprovedLeavesExpander; set { visibleUnapprovedLeavesExpander = value; OnPropertyChanged(); } }
 
         private DateTime timeCreateLeave = DateTime.Now;
         public DateTime TimeCreateLeave { get => timeCreateLeave; set { timeCreateLeave = value; OnPropertyChanged(); FilterDate(); } }
@@ -72,6 +91,24 @@ namespace CompanyManagement.ViewModels.UserControls
         private void LoadLeaveList()
         {
             Leaves = GetLeaveList();
+
+            var listApprovalLeaves = Leaves.Where(p => p.LeaveStatusID == BaseDao.APPROVAL).ToList();
+            if (listApprovalLeaves.Count > 0)
+            {
+                ApprovalLeaves = new List<Leave>(listApprovalLeaves);
+            }
+
+            var listApprovedLeaves = Leaves.Where(p => p.LeaveStatusID == BaseDao.APPROVED).ToList();
+            if (listApprovedLeaves.Count > 0)
+            {
+                ApprovedLeaves = new List<Leave>(listApprovedLeaves);
+            }
+
+            var listUnapprovedLeaves = Leaves.Where(p => p.LeaveStatusID == BaseDao.UNAPPROVED).ToList();
+            if (listUnapprovedLeaves.Count > 0)
+            {
+                UnapprovedLeaves = new List<Leave>(listUnapprovedLeaves);
+            }
         }
 
         private List<Leave> GetLeaveList()
@@ -109,6 +146,8 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void SetVisibleEmployee()
         {
+            visibleApprovedLeavesExpander = Visibility.Visible;
+            visibleUnapprovedLeavesExpander = Visibility.Visible;
             VisibilityCRUD();
             VisibilityCRUDCommands();
         }
@@ -127,6 +166,9 @@ namespace CompanyManagement.ViewModels.UserControls
         private void VisibilityManager()
         {
             visibleApproveButton = Visibility.Visible;
+            visibleApprovalLeavesExpander = Visibility.Visible;
+            visibleApprovedLeavesExpander = Visibility.Visible;
+            visibleUnapprovedLeavesExpander = Visibility.Visible;
         }
 
         private void VisibilityManagerCommands()

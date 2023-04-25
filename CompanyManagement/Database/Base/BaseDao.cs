@@ -7,6 +7,9 @@ namespace CompanyManagement.Database.Base
         public const string EMPLOYEE_POS_ID = "3";
 
         public const string COMPLETED = "100";
+        public const string APPROVAL = "LS2";
+        public const string APPROVED = "LS1";
+        public const string UNAPPROVED = "LS3";
 
         protected const string ACCOUNT_TABLE = "Account";
         public const string ACCOUNT_USERNAME = "AccountUsername";
