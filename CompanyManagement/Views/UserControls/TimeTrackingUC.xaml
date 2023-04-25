@@ -19,50 +19,24 @@
         </Grid.RowDefinitions>
         <materialDesign:ColorZone Grid.Row="0" Height="50" Background="White">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button  Style="{StaticResource MaterialDesignIconButton}">
+                <Button Command="{Binding BackDateCommand}"  Style="{StaticResource MaterialDesignIconButton}">
                     <materialDesign:PackIcon Kind="ChevronLeft"  Width="20" Height="20" />
                 </Button>
-                <materialDesign:DialogHost CloseOnClickAway="True" >
-                    <materialDesign:DialogHost.DialogContent>
-                        <StackPanel Width="300" Height="400">
-                            <Calendar Name="calendarTimeTracking" ></Calendar>
-                            <StackPanel Orientation="Horizontal">
-                                <Button Margin="10"
-                                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
-                                    CommandParameter="0"
-                                    Content="CANCEL"
-                                    Style="{StaticResource MaterialDesignFlatButton}" />
-                                <Button
-                                    Margin="10"
-                                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
-                                    CommandParameter="1"
-                                    Content="OK"
-                                    Style="{StaticResource MaterialDesignFlatButton}" />
-                            </StackPanel>
-                        </StackPanel>
-                    </materialDesign:DialogHost.DialogContent>
-                    <StackPanel Orientation="Horizontal">
-                        <Button  Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" Style="{StaticResource MaterialDesignIconButton}" >
-                            <materialDesign:PackIcon Kind="CalendarBlankOutline" Width="20" Height="20"/>
-                        </Button>
-                        <TextBox Width="100" Height="25" Text="{Binding ElementName=calendarTimeTracking ,Path=SelectedDate}"></TextBox>
-                        <Button  Style="{StaticResource MaterialDesignIconButton}">
-                            <materialDesign:PackIcon Kind="ChevronRight"  Width="20" Height="20" />
-                        </Button>
-                    </StackPanel>
-                </materialDesign:DialogHost>
+                <DatePicker
+                    Width="80"                
+                    SelectedDate="{Binding ElementName=timeTrackingUC, Path=DataContext.SelectedDate, UpdateSourceTrigger=PropertyChanged}"
+                    FlowDirection="RightToLeft" />
+                <Button Command="{Binding BackDateCommand}" Style="{StaticResource MaterialDesignIconButton}">
+                    <materialDesign:PackIcon Kind="ChevronRight"  Width="20" Height="20" />
+                </Button>
             </StackPanel>
         </materialDesign:ColorZone>
-        <ListView Grid.Row="1">
-        </ListView>
-        <Button          
-            Grid.Row="1"
-            Width="60"
-            Height="60"
-            Margin="40"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Bottom"           
-            Content="{materialDesign:PackIcon Kind=Plus , Size=30}"
-            Style="{StaticResource MaterialDesignFloatingActionButton}" />
+        <DataGrid Grid.Row="1" 
+                  CanUserAddRows="False"
+                  AutoGenerateColumns="False"
+                  Background="White"
+                  ItemsSource="{Binding TaskCheckOutList}">
+            <DataGridTextColumn Width="125" Header="Tiến độ" IsReadOnly="True" Binding="{Binding Progress}" />
+        </DataGrid>
     </Grid>
 </UserControl>
