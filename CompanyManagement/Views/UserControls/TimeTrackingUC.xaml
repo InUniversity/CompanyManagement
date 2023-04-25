@@ -1,42 +1,53 @@
 ﻿<UserControl x:Class="CompanyManagement.Views.UserControls.TimeTrackingUC"
-            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-            xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-            xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-            TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-            TextElement.FontWeight="Regular"
-            TextElement.FontSize="13"
-            TextOptions.TextFormattingMode="Ideal"
-            TextOptions.TextRenderingMode="Auto"  
-            Name="timeTrackingUC"
-            FontFamily="{DynamicResource MaterialDesignFont}" 
-            mc:Ignorable="d">
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.FontWeight="Regular"
+             TextElement.FontSize="13"
+             TextOptions.TextFormattingMode="Ideal"
+             TextOptions.TextRenderingMode="Auto"
+             Name="timeTrackingUC"
+             FontFamily="{DynamicResource MaterialDesignFont}"
+             mc:Ignorable="d">
     <Grid MinHeight="600" MinWidth="1100">
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <materialDesign:ColorZone Grid.Row="0" Height="50" Background="White">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Command="{Binding BackDateCommand}"  Style="{StaticResource MaterialDesignIconButton}">
-                    <materialDesign:PackIcon Kind="ChevronLeft"  Width="20" Height="20" />
-                </Button>
-                <DatePicker
-                    Width="80"                
-                    SelectedDate="{Binding ElementName=timeTrackingUC, Path=DataContext.SelectedDate, UpdateSourceTrigger=PropertyChanged}"
-                    FlowDirection="RightToLeft" />
-                <Button Command="{Binding BackDateCommand}" Style="{StaticResource MaterialDesignIconButton}">
-                    <materialDesign:PackIcon Kind="ChevronRight"  Width="20" Height="20" />
-                </Button>
-            </StackPanel>
-        </materialDesign:ColorZone>
-        <DataGrid Grid.Row="1" 
-                  CanUserAddRows="False"
-                  AutoGenerateColumns="False"
-                  Background="White"
-                  ItemsSource="{Binding TaskCheckOutList}">
-            <DataGridTextColumn Width="125" Header="Tiến độ" IsReadOnly="True" Binding="{Binding Progress}" />
-        </DataGrid>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Command="{Binding BackDateCommand}" Style="{StaticResource MaterialDesignIconButton}">
+                <materialDesign:PackIcon Kind="ChevronLeft" Width="20" Height="20" />
+            </Button>
+            <DatePicker
+                Width="80"
+                SelectedDate="{Binding ElementName=timeTrackingUC, Path=DataContext.SelectedDate, UpdateSourceTrigger=PropertyChanged}"
+                FlowDirection="RightToLeft" />
+            <Button Command="{Binding NextDateCommand}" Style="{StaticResource MaterialDesignIconButton}">
+                <materialDesign:PackIcon Kind="ChevronRight" Width="20" Height="20" />
+            </Button>
+        </StackPanel>
+        <Grid Grid.Row="1">
+            <DataGrid
+                MinWidth="1100"
+                MinHeight="600"
+                CanUserAddRows="False"
+                AutoGenerateColumns="False"
+                Background="White"
+                ItemsSource="{Binding SearchedTasksCheckOut}"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Width="200" Header="Tên tác vụ" IsReadOnly="True" Binding="{Binding Task.Title}" />
+                    <DataGridTextColumn Width="Auto" Header="Người thực hiện" IsReadOnly="True" Binding="{Binding Task.EmployeeID}" />
+                    <DataGridTextColumn Width="Auto" Header="Tiến độ" IsReadOnly="True" Binding="{Binding Progress, StringFormat={}{0}%}" />
+                    <DataGridTextColumn Width="Auto" Header="Ngày giao" IsReadOnly="True" Binding="{Binding Task.AssignDate, StringFormat=dd/MM/yyyy hh:mm tt}" />
+                    <DataGridTextColumn Width="Auto" Header="Hạn cuối" IsReadOnly="True" Binding="{Binding Task.Deadline, StringFormat=dd/MM/yyyy hh:mm tt}" />
+                    <DataGridTextColumn Width="Auto" Header="Người tạo" IsReadOnly="True" Binding="{Binding Task.CreateBy}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
     </Grid>
 </UserControl>

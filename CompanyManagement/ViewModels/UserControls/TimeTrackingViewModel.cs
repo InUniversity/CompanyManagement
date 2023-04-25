@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Input;
 using CompanyManagement.Database;
 using CompanyManagement.Models;
+using CompanyManagement.Utilities;
 using CompanyManagement.ViewModels.Base;
 
 namespace CompanyManagement.ViewModels.UserControls
@@ -24,8 +25,9 @@ namespace CompanyManagement.ViewModels.UserControls
         public ICommand NextDateCommand { get; private set; }
 
         private TaskCheckOutDao taskCheckOutDao = new TaskCheckOutDao();
+        private TaskInProjectDao taskInProjectDao = new TaskInProjectDao();
 
-        private string projectID;
+        private string projectID = "";
 
         public TimeTrackingViewModel()
         {
@@ -35,6 +37,10 @@ namespace CompanyManagement.ViewModels.UserControls
         private void LoadTaskCheckOutList()
         {
             originalTaskCheckOutList = taskCheckOutDao.SearchByProjectID(projectID);
+            foreach (var taskCheckOut in originalTaskCheckOutList)
+            {
+                taskCheckOut.Task = taskInProjectDao.SearchByID(taskCheckOut.TaskID);
+            }
             SearchedTasksCheckOut = originalTaskCheckOutList;
         }
         
@@ -56,8 +62,9 @@ namespace CompanyManagement.ViewModels.UserControls
         
         private void SearchByDate()
         {
+            Log.Instance.Information(nameof(TimeTrackingViewModel), $"Selected Date: {SelectedDate}");
             SearchedTasksCheckOut = originalTaskCheckOutList
-                .Where(item => item.UpdateDate.ToShortDateString() == SelectedDate.ToShortDateString())
+                .Where(item => item.UpdateDate.Date == SelectedDate.Date)
                 .ToList();
         }
 

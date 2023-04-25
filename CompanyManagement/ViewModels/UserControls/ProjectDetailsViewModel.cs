@@ -36,8 +36,6 @@ namespace CompanyManagement.ViewModels.UserControls
 
         public INavigateAssignmentView ParentDataContext { get; set; }
 
-        private string projectID = "";
-        
         public ProjectDetailsViewModel()
         {
             SetCommands();
@@ -71,7 +69,6 @@ namespace CompanyManagement.ViewModels.UserControls
         public void ReceiveProjectID(string projectID)
         {
             ShowTasksView();
-            this.projectID = projectID;
             try
             {
                 ((IRetrieveProjectID)tasksInProjectUC.DataContext).ReceiveProjectID(projectID);
