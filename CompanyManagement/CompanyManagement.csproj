@@ -121,7 +121,6 @@
     <Compile Include="ViewModels\Dialogs\AddLeaveViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\AddProjectViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\AddTaskViewModel.cs" />
-    <Compile Include="ViewModels\Dialogs\AddTimeTrackingViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\AlertDialogViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\Interfaces\IInputViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\UpdateDepartmentViewModel.cs" />
@@ -129,7 +128,6 @@
     <Compile Include="ViewModels\Dialogs\UpdateLeaveViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\UpdateProjectViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\UpdateTaskViewModel.cs" />
-    <Compile Include="ViewModels\Dialogs\UpdateTimeTrackingViewModel.cs" />
     <Compile Include="ViewModels\UserControls\AssignmentViewModel.cs" />
     <Compile Include="ViewModels\UserControls\CheckInOutInputViewModel.cs" />
     <Compile Include="ViewModels\UserControls\CheckInOutViewModel.cs" />
@@ -146,7 +144,6 @@
     <Compile Include="ViewModels\UserControls\ProjectsViewModel.cs" />
     <Compile Include="ViewModels\UserControls\TaskInputViewModel.cs" />
     <Compile Include="ViewModels\UserControls\TasksInProjectViewModel.cs" />
-    <Compile Include="ViewModels\UserControls\TimeTrackingInputViewModel.cs" />
     <Compile Include="ViewModels\UserControls\TimeTrackingViewModel.cs" />
     <Compile Include="ViewModels\UserControls\UserInformationViewModel.cs" />
     <Compile Include="ViewModels\Windows\LoginViewModel.cs" />
@@ -162,9 +159,6 @@
     </Compile>
     <Compile Include="Views\Dialogs\AddTaskDialog.xaml.cs">
       <DependentUpon>AddTaskDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Dialogs\AddTimeTrackingDialog.xaml.cs">
-      <DependentUpon>AddTimeTrackingDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Dialogs\AlertDialog.xaml.cs">
       <DependentUpon>AlertDialog.xaml</DependentUpon>
@@ -193,9 +187,6 @@
     </Compile>
     <Compile Include="Views\Dialogs\UpdateTaskDialog.xaml.cs">
       <DependentUpon>UpdateTaskDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Dialogs\UpdateTimeTrackingDialog.xaml.cs">
-      <DependentUpon>UpdateTimeTrackingDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UserControls\AssignmentUC.xaml.cs">
       <DependentUpon>AssignmentUC.xaml</DependentUpon>
@@ -236,9 +227,6 @@
     <Compile Include="Views\UserControls\TasksInProjectUC.xaml.cs">
       <DependentUpon>TasksInProjectUC.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserControls\TimeTrackingInputUC.xaml.cs">
-      <DependentUpon>TimeTrackingInputUC.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\UserControls\TimeTrackingUC.xaml.cs">
       <DependentUpon>TimeTrackingUC.xaml</DependentUpon>
     </Compile>
@@ -268,10 +256,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Dialogs\AddTaskDialog.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Dialogs\AddTimeTrackingDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -308,10 +292,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Dialogs\UpdateTaskDialog.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Dialogs\UpdateTimeTrackingDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -364,10 +344,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\UserControls\TasksInProjectUC.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\UserControls\TimeTrackingInputUC.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

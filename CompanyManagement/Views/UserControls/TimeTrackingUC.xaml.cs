@@ -1,17 +1,16 @@
-﻿using CompanyManagement.ViewModels.UserControls;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
+using CompanyManagement.ViewModels.UserControls;
 
-namespace CompanyManagement.Views.UserControls
+namespace CompanyManagement.Views.UserControls;
+
+/// <summary>
+///     Interaction logic for TimeTrackingUC.xaml
+/// </summary>
+public partial class TimeTrackingUC : UserControl
 {
-    /// <summary>
-    /// Interaction logic for TimeTrackingUC.xaml
-    /// </summary>
-    public partial class TimeTrackingUC : UserControl
+    public TimeTrackingUC()
     {
-        public TimeTrackingUC()
-        {
-            InitializeComponent();
-            DataContext = new TimeTrackingViewModel();
-        }
+        InitializeComponent();
+        DataContext = new TimeTrackingViewModel();
     }
 }

@@ -8,7 +8,7 @@ namespace CompanyManagement.ViewModels.UserControls
 {
     public interface IRetrieveProjectID
     {
-        void RetrieveProjectID(string projectID);
+        void ReceiveProjectID(string projectID);
     }
     
     public interface IProjectDetails
@@ -18,13 +18,12 @@ namespace CompanyManagement.ViewModels.UserControls
     
     public class ProjectDetailsViewModel : BaseViewModel, IProjectDetails, IRetrieveProjectID
     {
-        
         private ContentControl currentChildView;
         public ContentControl CurrentChildView { get => currentChildView; set { currentChildView = value; OnPropertyChanged(); } }
 
-        public ICommand BackProjectsViewCommand { get; set; }
-        public ICommand ShowTasksViewCommand { get; set; }
-        public ICommand ShowTimeKeepingCommand { get; set; }
+        public ICommand BackProjectsViewCommand { get; private set; }
+        public ICommand ShowTasksViewCommand { get; private set; }
+        public ICommand ShowTimeKeepingCommand { get; private set; }
 
         private TasksInProjectUC tasksInProjectUC = new TasksInProjectUC();
         private TimeTrackingUC timeTrackingUC = new TimeTrackingUC();
@@ -37,9 +36,12 @@ namespace CompanyManagement.ViewModels.UserControls
 
         public INavigateAssignmentView ParentDataContext { get; set; }
 
-        private string projectID = "";
-        
         public ProjectDetailsViewModel()
+        {
+            SetCommands();
+        }
+
+        private void SetCommands()
         {
             BackProjectsViewCommand = new RelayCommand<object>(ExecuteShowProjectsView);
             ShowTasksViewCommand = new RelayCommand<object>(_ => ShowTasksView());
@@ -64,14 +66,13 @@ namespace CompanyManagement.ViewModels.UserControls
             StatusTimeKeepingView = true;
         }
 
-        public void RetrieveProjectID(string projectID)
+        public void ReceiveProjectID(string projectID)
         {
             ShowTasksView();
-            this.projectID = projectID;
             try
             {
-                ((IRetrieveProjectID)tasksInProjectUC.DataContext).RetrieveProjectID(projectID);
-                ((IRetrieveProjectID)timeTrackingUC.DataContext).RetrieveProjectID(projectID);
+                ((IRetrieveProjectID)tasksInProjectUC.DataContext).ReceiveProjectID(projectID);
+                ((IRetrieveProjectID)timeTrackingUC.DataContext).ReceiveProjectID(projectID);
             }
             catch 
             {
