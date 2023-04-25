@@ -36,12 +36,13 @@ namespace CompanyManagement.ViewModels.UserControls
         private string textToSearch = "";
         public string TextToSearch { get => textToSearch; set { textToSearch = value; OnPropertyChanged(); SearchByName(); } }
 
-        public ICommand CheckInCommand { get; set; }
-        public ICommand ChooseTaskCommand { get; set; }
-        public ICommand DeleteSelectedTaskCommand { get; set; }
-        public ICommand GetSelectedTaskCommand { get; set; }
+        public ICommand CheckInCommand { get; private set; }
+        public ICommand ChooseTaskCommand { get; private set; }
+        public ICommand DeleteSelectedTaskCommand { get; private set; }
+        public ICommand GetSelectedTaskCommand { get; private set; }
 
         private TaskInProjectDao taskInProjectDao = new TaskInProjectDao();
+
 
         public CheckInViewModel()
         {
@@ -61,11 +62,8 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void ExecuteGetSelectedTaskCommand(ListView listView)
         {
-            if (listView.SelectedItem != null)
-            {
-                var selectedItem = listView.SelectedItem as TaskInProject;
-                SelectedTask = selectedItem;
-            }
+            if (listView.SelectedItem == null) return;
+            SelectedTask = listView.SelectedItem as TaskInProject;
         }
 
         private void ExecuteDeleteSelectedTaskCommand(TaskInProject task)
@@ -75,18 +73,16 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void ExecuteChooseTaskCommand(object obj)
         {
-            if (SelectedTask != null)
-            {
-                StartingTask.Clear();
-                StartingTask.Add(SelectedTask);
-                LoadTasksCanChoose();
-                SelectedTask = new TaskInProject();
-            }            
+            if (SelectedTask == null) return;
+            StartingTask.Clear();
+            StartingTask.Add(SelectedTask);
+            LoadTasksCanChoose();
+            SelectedTask = new TaskInProject();
         }
 
         private void ExecuteCheckInCommand(Window window)
         {
-            AlertDialogService dialog = new AlertDialogService(
+            var dialog = new AlertDialogService(
                "Check in",
                "Bạn chắc chắn muốn check in không?",
                () =>
@@ -94,13 +90,13 @@ namespace CompanyManagement.ViewModels.UserControls
                    CheckInOut checkIn = CheckInOutInputDataContext.CreateCheckInOut();
                    submitObjectAction?.Invoke(checkIn);
                    window.Close();
-               }, () => { });
+               }, null);
             dialog.Show();
         }
 
         private void LoadTasksCanChoose()
         {
-            TasksCanChoose = new List<TaskInProject>(taskInProjectDao.SearchCurrentTasksByEmployeeID(CurrentUser.Ins.EmployeeIns.ID));
+            TasksCanChoose = taskInProjectDao.SearchCurrentTasksByEmployeeID(CurrentUser.Ins.EmployeeIns.ID);
             SearchedTasksCanChoose = new ObservableCollection<TaskInProject>(TasksCanChoose);
         }
 

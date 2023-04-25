@@ -5,7 +5,6 @@ using System.Windows;
 using System.Windows.Input;
 using CompanyManagement.Database;
 using CompanyManagement.Services;
-using CompanyManagement.Utilities;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Controls;
@@ -34,10 +33,10 @@ namespace CompanyManagement.ViewModels.UserControls
         private string textToSearch = "";
         public string TextToSearch { get => textToSearch; set { textToSearch = value; OnPropertyChanged(); SearchByName(); } }
 
-        public ICommand CheckOutCommand { get; set; }
-        public ICommand AddTaskCompletedCommand { get; set; }
-        public ICommand GetAllSelectedTasksCommand { get; set; }
-        public ICommand DeleteTaskCompletedCommand { get; set; }
+        public ICommand CheckOutCommand { get; private set; }
+        public ICommand AddTaskCompletedCommand { get; private set; }
+        public ICommand GetAllSelectedTasksCommand { get; private set; }
+        public ICommand DeleteTaskCompletedCommand { get; private set; }
 
         private TaskCheckOutDao taskCheckOutDao = new TaskCheckOutDao();
         private TaskInProjectDao taskInProjectDao = new TaskInProjectDao();
@@ -133,7 +132,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void AddTaskCheckOut(TaskInProject task)
         {
-            TaskCheckOut taskCheckOut = new TaskCheckOut(CheckInOutInputDataContext.ID, task.ID, DateTime.Now, task.Progress);
+            var taskCheckOut = new TaskCheckOut(CheckInOutInputDataContext.ID, task.ID, DateTime.Now, task.Progress);
             taskCheckOutDao.Add(taskCheckOut);
         }
 

@@ -26,5 +26,5 @@ git clone https://github.com/InUniversity/CompanyManagement.git
 4. UI: material design.
 5. Concepts: ADO.NET, MVVM, S and O in SOLID, Design pattern (singleton, strategy).
 
-## **Reference Documentat**
+## **Reference Documents**
 [Material design XAML toolkit](https://github.com/MaterialDesignInXAML/MaterialDesignInXamlToolkit)

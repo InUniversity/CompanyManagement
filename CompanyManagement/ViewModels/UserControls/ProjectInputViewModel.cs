@@ -32,7 +32,7 @@ namespace CompanyManagement.ViewModels.UserControls
         public string CreateBy { get => project.CreateBy; set { project.CreateBy = value; OnPropertyChanged(); } }
         public int BonusSalary { get => project.BonusSalary; set { project.BonusSalary = value; OnPropertyChanged(); } }
         public ObservableCollection<Department> DepartmentsInProject 
-        { get => (ObservableCollection<Department>)project.Departments; set { project.Departments = value; OnPropertyChanged(); } }
+        { get => project.Departments; set { project.Departments = value; OnPropertyChanged(); } }
 
         private List<Department> departmentsCanAssign;
         
@@ -58,6 +58,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private ProjectStatusDao projectStatusDao = new ProjectStatusDao();
         private ProjectAssignmentDao projectAssignmentDao = new ProjectAssignmentDao();
+        private CheckFormat checker = new CheckFormat();
 
         public ProjectInputViewModel()
         {
@@ -146,7 +147,7 @@ namespace CompanyManagement.ViewModels.UserControls
                 ErrorMessage = Utils.INVALIDATE_EMPTY_MESSAGE;
                 return false;
             }
-            if (!CheckFormat.ValidateTimeline(Start, End))
+            if (!checker.ValidateTimeline(Start, End))
             {
                 ErrorMessage = Utils.INVALIDATE_TIMELINE;
                 return false;

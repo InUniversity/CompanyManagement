@@ -59,7 +59,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void OpenCheckInDialog()
         {
-            CreateNewCheckIn();
+            CreateCheckIn();
             var inputService = new InputDialogService<CheckInOut>(new CheckInDialog(), currentCheckInOut, Add);
             inputService.Show();
         }
@@ -67,11 +67,12 @@ namespace CompanyManagement.ViewModels.UserControls
         private void Add(CheckInOut checkInOut)
         {
             CheckInTime = DateTime.Now;
+            CheckOutTime = new DateTime();
             checkInOutDao.Add(checkInOut);
             LoadCheckInOutList();
         }
 
-        private void CreateNewCheckIn()
+        private void CreateCheckIn()
         {
             currentCheckInOut = new CheckInOut(AutoGenerateID(), CurrentUser.Ins.EmployeeIns.ID,
                 Utils.EMPTY_DATETIME, Utils.EMPTY_DATETIME, "");

@@ -3,6 +3,8 @@ using CompanyManagement.ViewModels.Base;
 using CompanyManagement.Views.UserControls;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System;
+using CompanyManagement.Services;
 
 namespace CompanyManagement.ViewModels.Windows
 {
@@ -56,6 +58,7 @@ namespace CompanyManagement.ViewModels.Windows
         public ICommand ShowSettingsViewCommand { get; set; }
         public ICommand ShowUserInformationViewCommand { get; set; }
         public ICommand ShowLeavesViewCommand { get; set;}
+        public ICommand LogoutCommand { get; set; }
 
         public MainViewModel()
         {
@@ -72,6 +75,19 @@ namespace CompanyManagement.ViewModels.Windows
             ShowSettingsViewCommand = new RelayCommand<object>(ExecuteShowSettingsView);
             ShowUserInformationViewCommand = new RelayCommand<object>(ExecuteShowUserInformationViewCommand);
             ShowLeavesViewCommand = new RelayCommand<object>(ExecuteShowLeavesViewCommand);
+            LogoutCommand = new RelayCommand<Window>(ExecuteLogoutCommand);
+        }
+
+        private void ExecuteLogoutCommand(Window window)
+        {
+            AlertDialogService dialog = new AlertDialogService(
+              "Đăng xuất",
+              "Bạn chắc chắn đăng xuất khỏi tài khoản!",
+              () =>
+              {
+                  window.Close();
+              }, null);
+            dialog.Show();          
         }
 
         private void ExecuteShowLeavesViewCommand(object obj)
