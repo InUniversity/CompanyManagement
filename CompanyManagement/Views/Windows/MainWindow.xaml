@@ -74,57 +74,8 @@
                                 <TextBlock Text="Nhân sự" Margin="30 0"></TextBlock>
                             </StackPanel>
                         </RadioButton>
-                        <RadioButton
-                            Height="50"
-                            Margin="4"                
-                            Command="{Binding ShowWorkScheduleViewCommand}"
-                            BorderBrush="{DynamicResource PrimaryHueMidBrush}"
-                            IsChecked="{Binding StatusWorkScheduleView}"
-                            Style="{StaticResource MaterialDesignTabRadioButtonRight}" >
-                            <StackPanel Orientation="Horizontal">
-                                <materialDesign:PackIcon Kind="CalendarText" />
-                                <TextBlock Text="Lịch làm" Margin="30 0"></TextBlock>
-                            </StackPanel>
-                        </RadioButton>
-                        <RadioButton
-                            Height="50"
-                            Margin="4"                           
-                            Command="{Binding ShowNotifyViewCommand}"
-                            IsChecked="{Binding StatusNotifyView}"
-                            BorderBrush="{DynamicResource PrimaryHueMidBrush}"
-                            Style="{StaticResource MaterialDesignTabRadioButtonRight}" >
-                            <StackPanel Orientation="Horizontal">
-                                <materialDesign:PackIcon Kind="BellRing" />
-                                <TextBlock Text="Thông báo" Margin="22 0"></TextBlock>
-                            </StackPanel>
-                        </RadioButton>
-                        <RadioButton
-                            Height="50"
-                            Margin="4"                           
-                            IsChecked="{Binding StatusSettingsView}"
-                            Command="{Binding ShowSettingsViewCommand}"
-                            BorderBrush="{DynamicResource PrimaryHueMidBrush}"
-                            Style="{StaticResource MaterialDesignTabRadioButtonRight}" >
-                            <StackPanel Orientation="Horizontal">
-                                <materialDesign:PackIcon Kind="Cog" />
-                                <TextBlock Text="Cài đặt" Margin="33 0"></TextBlock>
-                            </StackPanel>
-                        </RadioButton>
-                        <RadioButton
-                            Height="50"
-                            Margin="4"                           
-                            Command="{Binding LogoutCommand}"
-                            CommandParameter="{Binding ElementName=mainWindow}"
-                            BorderBrush="{DynamicResource PrimaryHueMidBrush}"
-                            Style="{StaticResource MaterialDesignTabRadioButtonRight}" >
-                            <StackPanel Orientation="Horizontal">
-                                <materialDesign:PackIcon Kind="Logout" />
-                                <TextBlock Text="Đăng xuất" Margin="24 0"></TextBlock>
-                            </StackPanel>
-                        </RadioButton>
                     </StackPanel>
                 </Border>
-
             </materialDesign:DrawerHost.LeftDrawerContent>
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -182,7 +133,8 @@
                             BorderThickness="0">
                             <materialDesign:PackIcon Kind="EmailCheck" Foreground="White"/>
                         </Button>
-                        <Button HorizontalAlignment="Right"  
+                        <Button 
+                            HorizontalAlignment="Right"  
                             Height="100"
                             Width="50"
                             ToolTip="Đăng xuất"

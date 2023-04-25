@@ -221,12 +221,6 @@
     <Compile Include="Views\UserControls\LeaveViewUC.xaml.cs">
       <DependentUpon>LeaveViewUC.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserControls\MenuInProjectUC.xaml.cs">
-      <DependentUpon>MenuInProjectUC.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\UserControls\NotifyUC.xaml.cs">
-      <DependentUpon>NotifyUC.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\UserControls\ProjectDetailsUC.xaml.cs">
       <DependentUpon>ProjectDetailsUC.xaml</DependentUpon>
     </Compile>
@@ -235,9 +229,6 @@
     </Compile>
     <Compile Include="Views\UserControls\ProjectsUC.xaml.cs">
       <DependentUpon>ProjectsUC.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\UserControls\SettingsUC.xaml.cs">
-      <DependentUpon>SettingsUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UserControls\TaskInputUC.xaml.cs">
       <DependentUpon>TaskInputUC.xaml</DependentUpon>
@@ -253,9 +244,6 @@
     </Compile>
     <Compile Include="Views\UserControls\UserInformationUC.xaml.cs">
       <DependentUpon>UserInformationUC.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\UserControls\WorkScheduleUC.xaml.cs">
-      <DependentUpon>WorkScheduleUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Windows\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
@@ -359,14 +347,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\UserControls\MenuInProjectUC.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\UserControls\NotifyUC.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Views\UserControls\ProjectDetailsUC.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -376,10 +356,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\UserControls\ProjectsUC.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\UserControls\SettingsUC.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -400,10 +376,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\UserControls\UserInformationUC.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\UserControls\WorkScheduleUC.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -15,9 +15,6 @@ namespace CompanyManagement.ViewModels.Windows
 
         private AssignmentUC assignmentUC = new AssignmentUC();
         private EmployeesUC employeesUC = new EmployeesUC();
-        private WorkScheduleUC workScheduleUC = new WorkScheduleUC();
-        private NotifyUC notifyUC = new NotifyUC();
-        private SettingsUC settingsUC = new SettingsUC();
         private UserInformationUC userInformationUC = new UserInformationUC();
         private LeaveListUC leavesListUC = new LeaveListUC();
 
@@ -29,15 +26,6 @@ namespace CompanyManagement.ViewModels.Windows
         
         private Visibility visibilityWorkScheduleView;
         public Visibility VisibilityWorkScheduleView { get => visibilityWorkScheduleView; set { visibilityWorkScheduleView = value; OnPropertyChanged(); } }
-        
-        private bool statusSettingsView = false;
-        public bool StatusSettingsView { get => statusSettingsView; set { statusSettingsView = value; OnPropertyChanged(); } }
-
-        private bool statusNotifyView = false;
-        public bool StatusNotifyView { get => statusNotifyView; set { statusNotifyView = value; OnPropertyChanged(); } }
-
-        private bool statusWorkScheduleView = false;
-        public bool StatusWorkScheduleView { get => statusWorkScheduleView; set { statusWorkScheduleView = value; OnPropertyChanged(); } }
 
         private bool statusEmployeesView = false;
         public bool StatusEmployeesView { get => statusEmployeesView; set { statusEmployeesView = value; OnPropertyChanged(); } }
@@ -53,9 +41,6 @@ namespace CompanyManagement.ViewModels.Windows
 
         public ICommand ShowAssignmentViewCommand { get; set; }
         public ICommand ShowEmployeesViewCommand { get; set; }
-        public ICommand ShowWorkScheduleViewCommand { get; set; }
-        public ICommand ShowNotifyViewCommand { get; set; }
-        public ICommand ShowSettingsViewCommand { get; set; }
         public ICommand ShowUserInformationViewCommand { get; set; }
         public ICommand ShowLeavesViewCommand { get; set;}
         public ICommand LogoutCommand { get; set; }
@@ -70,9 +55,6 @@ namespace CompanyManagement.ViewModels.Windows
         {
             ShowAssignmentViewCommand = new RelayCommand<object>(ExecuteShowAssignmentView);
             ShowEmployeesViewCommand = new RelayCommand<object>(ExecuteShowEmployeesView);
-            ShowWorkScheduleViewCommand = new RelayCommand<object>(ExecuteShowWorkScheduleView);
-            ShowNotifyViewCommand = new RelayCommand<object>(ExecuteShowNotifyView);
-            ShowSettingsViewCommand = new RelayCommand<object>(ExecuteShowSettingsView);
             ShowUserInformationViewCommand = new RelayCommand<object>(ExecuteShowUserInformationViewCommand);
             ShowLeavesViewCommand = new RelayCommand<object>(ExecuteShowLeavesViewCommand);
             LogoutCommand = new RelayCommand<Window>(ExecuteLogoutCommand);
@@ -115,24 +97,6 @@ namespace CompanyManagement.ViewModels.Windows
         {
             CurrentChildView = employeesUC;
             StatusEmployeesView = true; 
-        }
-
-        private void ExecuteShowWorkScheduleView(object obj)
-        {
-            CurrentChildView = workScheduleUC;
-            StatusWorkScheduleView = true;
-        }
-
-        private void ExecuteShowNotifyView(object obj)
-        {
-            CurrentChildView = notifyUC;
-            StatusNotifyView = true;
-        }
-        
-        private void ExecuteShowSettingsView(object obj)
-        {
-            CurrentChildView = settingsUC;
-            StatusSettingsView = true;
         }
     }
 }
