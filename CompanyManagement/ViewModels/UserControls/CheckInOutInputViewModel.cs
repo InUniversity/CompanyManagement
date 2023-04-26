@@ -9,6 +9,8 @@ namespace CompanyManagement.ViewModels.UserControls
     public class CheckInOutInputViewModel : BaseViewModel
     {
         private CheckInOut checkInOut;
+        public CheckInOut CheckInOutIns { get => checkInOut; set => checkInOut = value; }
+
         public string ID { get => checkInOut.ID; set { checkInOut.ID = value; OnPropertyChanged(); } }
         public string EmployeeID { get => checkInOut.EmployeeID; set { checkInOut.EmployeeID = value; OnPropertyChanged(); } }
         public DateTime CheckInTime { get => checkInOut.CheckInTime; set { checkInOut.CheckInTime = value; OnPropertyChanged(); } }
@@ -18,16 +20,6 @@ namespace CompanyManagement.ViewModels.UserControls
         public CheckInOutInputViewModel()
         {
             checkInOut = new CheckInOut();
-        }
-
-        public CheckInOut CreateCheckInOut()
-        {
-            return checkInOut;
-        }
-
-        public void ReceiveCheckInOut(CheckInOut checkInOut)
-        {
-            this.checkInOut = checkInOut;
         }
     }
 }
