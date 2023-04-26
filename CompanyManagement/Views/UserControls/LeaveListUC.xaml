@@ -56,63 +56,88 @@
         <ScrollViewer Grid.Row="1">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
                     <RowDefinition Height="auto"></RowDefinition>
                     <RowDefinition Height="auto"></RowDefinition>
                     <RowDefinition Height="auto"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid  Grid.Row="0">
-                    <DataGrid                                                 
-                        CanUserAddRows="False"
-                        AutoGenerateColumns="False"
-                        Background="White"
-                        ItemsSource="{Binding Leaves}"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Top">
-                        <DataGrid.Columns>
-                            <DataGridTemplateColumn Header="Operations" 
-                                                CanUserResize="False" 
-                                                IsReadOnly="True"
-                                                Width="auto">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Orientation="Horizontal">
-                                            <Button
-                                            Margin="5 0"
-                                            Visibility="{Binding DataContext.VisibleApproveButton, ElementName=leaveUC}"
-                                            Command="{Binding DataContext.ApproveLeaveCommand, ElementName=leaveUC}"
-                                            CommandParameter="{Binding}">
-                                                <materialDesign:PackIcon Kind="Approve" />
-                                            </Button>
-                                            <Button
-                                            Margin="5 0"
-                                            Visibility="{Binding DataContext.VisibleUpdateButton, ElementName=leaveUC}"
-                                            Command="{Binding DataContext.UpdateLeaveCommand, ElementName=leaveUC}"
-                                            CommandParameter="{Binding}">
-                                                <materialDesign:PackIcon Kind="PencilOutline" />
-                                            </Button>
-                                            <Button 
-                                            Margin="5 0"
-                                            Visibility="{Binding DataContext.VisibleDeleteButton, ElementName=leaveUC}"
-                                            Command="{Binding DataContext.DeleteLeaveCommand, ElementName=leaveUC}"
-                                            CommandParameter="{Binding ID}">
-                                                <materialDesign:PackIcon Kind="DeleteOutline" />
-                                            </Button>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                            <DataGridTextColumn Width="125" Header="Mã xin nghỉ" IsReadOnly="True" Binding="{Binding ID}" />
-                            <DataGridTextColumn Width="125" Header="Mã nhân viên" IsReadOnly="True" Binding="{Binding EmployeeID}" />
-                            <DataGridTextColumn Width="125" Header="Mã loại nghỉ phép" IsReadOnly="True" Binding="{Binding LeaveTypeID}" />
-                            <DataGridTextColumn Width="125" Header="Lý do" IsReadOnly="True" Binding="{Binding LeaveReason}" />
-                            <DataGridTextColumn Width="150" Header="Ngày bắt đầu" IsReadOnly="True" Binding="{Binding Start, StringFormat='dd/MM/yyyy HH:ss tt'}" />
-                            <DataGridTextColumn Width="150" Header="Ngày kết thúc" IsReadOnly="True" Binding="{Binding End, StringFormat='dd/MM/yyyy HH:ss tt'}" />
-                            <DataGridTextColumn Width="120" Header="Mã loại trạng thái" IsReadOnly="True" Binding="{Binding LeaveStatusID}" />
-                            <DataGridTextColumn Width="150" Header="Ngày tạo" IsReadOnly="True" Binding="{Binding CreateDate, StringFormat='dd/MM/yyyy HH:ss tt'}" />
-                            <DataGridTextColumn Width="120" Header="Chú thích" IsReadOnly="True" Binding="{Binding Note}" />
-                        </DataGrid.Columns>
-                    </DataGrid>
+                    <Expander Grid.Row="1" 
+                    Visibility="{Binding DataContext.VisibleApprovalLeavesExpander, ElementName=leaveUC}"
+                    Background="#f3e5f5"  
+                    Foreground="#4a148c"
+                    Margin="10 5"
+                    ExpandDirection="Down">
+                        <Expander.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon VerticalAlignment="Center" 
+                                                 Margin="10 0" Kind="CommentProcessingOutline"  
+                                                 Foreground="#4a148c" ></materialDesign:PackIcon>
+                                <materialDesign:Badged Badge="{Binding ElementName=dgNeedApprove,Path=Items.Count,UpdateSourceTrigger=PropertyChanged}"  
+                                               Margin="10 0"   
+                                               BadgeForeground="White"
+                                               BadgeBackground="#8a24aa"
+                                               VerticalAlignment="Center">
+                                    <TextBlock                     
+                                FontWeight="Bold"  
+                                Margin="5"
+                                Text="Yêu cầu xin nghỉ"                           
+                                FontSize="20"></TextBlock>
+                                </materialDesign:Badged>
+                            </StackPanel>
+                        </Expander.Header>
+                        <DataGrid                                                 
+                            CanUserAddRows="False"
+                            AutoGenerateColumns="False"
+                            Background="White"
+                            ItemsSource="{Binding Leaves}"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Top">
+                            <DataGrid.Columns>
+                                <DataGridTemplateColumn Header="Operations" 
+                                                    CanUserResize="False" 
+                                                    IsReadOnly="True"
+                                                    Width="auto">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Button
+                                                     Style="{StaticResource MaterialDesignIconButton}"
+                                                    Background="#6a1b9a"
+                                                    Foreground="White"
+                                                     Height="30" Width="30"
+                                                    Margin="5 0"                                               
+                                                    Command="{Binding DataContext.UpdateLeaveCommand, ElementName=leaveUC}"
+                                                    CommandParameter="{Binding}">
+                                                    <materialDesign:PackIcon Kind="PencilOutline" Height="15" Width="15"/>
+                                                </Button>
+                                                <Button 
+                                                     Style="{StaticResource MaterialDesignIconButton}"
+                                                    Margin="5 0"           
+                                                    Height="30" Width="30"
+                                                    BorderThickness="0"
+                                                    Foreground="White"
+                                                    Background="#bf360c"
+                                                    Command="{Binding DataContext.DeleteLeaveCommand, ElementName=leaveUC}"
+                                                    CommandParameter="{Binding ID}">
+                                                    <materialDesign:PackIcon Kind="DeleteOutline" Height="15" Width="15" />
+                                                </Button>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTextColumn Width="125" Header="Mã xin nghỉ" IsReadOnly="True" Binding="{Binding ID}" />
+                                <DataGridTextColumn Width="125" Header="Mã nhân viên" IsReadOnly="True" Binding="{Binding EmployeeID}" />
+                                <DataGridTextColumn Width="125" Header="Mã loại nghỉ phép" IsReadOnly="True" Binding="{Binding LeaveTypeID}" />
+                                <DataGridTextColumn Width="125" Header="Lý do" IsReadOnly="True" Binding="{Binding LeaveReason}" />
+                                <DataGridTextColumn Width="150" Header="Ngày bắt đầu" IsReadOnly="True" Binding="{Binding Start, StringFormat='dd/MM/yyyy HH:ss tt'}" />
+                                <DataGridTextColumn Width="150" Header="Ngày kết thúc" IsReadOnly="True" Binding="{Binding End, StringFormat='dd/MM/yyyy HH:ss tt'}" />
+                                <DataGridTextColumn Width="120" Header="Mã loại trạng thái" IsReadOnly="True" Binding="{Binding LeaveStatusID}" />
+                                <DataGridTextColumn Width="150" Header="Ngày tạo" IsReadOnly="True" Binding="{Binding CreateDate, StringFormat='dd/MM/yyyy HH:ss tt'}" />
+                                <DataGridTextColumn Width="120" Header="Chú thích" IsReadOnly="True" Binding="{Binding Note}" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Expander>
                 </Grid>
                 <Expander Grid.Row="1" 
                     Visibility="{Binding DataContext.VisibleApprovalLeavesExpander, ElementName=leaveUC}"
@@ -155,25 +180,24 @@
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal">
                                             <Button
-                                            Margin="5 0"
-                                            Visibility="{Binding DataContext.VisibleApproveButton, ElementName=leaveUC}"
+                                             Height="30" Width="30"
+                                            Margin="5 0"    
+                                             Foreground="White"
+                                            Background="Teal"
+                                            Style="{StaticResource MaterialDesignIconButton}"
                                             Command="{Binding DataContext.ApproveLeaveCommand, ElementName=leaveUC}"
                                             CommandParameter="{Binding}">
-                                                <materialDesign:PackIcon Kind="Approve" />
+                                                <materialDesign:PackIcon Kind="Approve" Height="15" Width="15" />
                                             </Button>
                                             <Button
-                                            Margin="5 0"
-                                            Visibility="{Binding DataContext.VisibleUpdateButton, ElementName=leaveUC}"
-                                            Command="{Binding DataContext.UpdateLeaveCommand, ElementName=leaveUC}"
+                                              Height="30" Width="30"
+                                            Margin="5 0" 
+                                             Foreground="White"
+                                             Style="{StaticResource MaterialDesignIconButton}"
+                                            Background="#bf360c"
+                                            Command="{Binding DataContext.DenyLeaveCommand, ElementName=leaveUC}"
                                             CommandParameter="{Binding}">
-                                                <materialDesign:PackIcon Kind="PencilOutline" />
-                                            </Button>
-                                            <Button 
-                                            Margin="5 0"
-                                            Visibility="{Binding DataContext.VisibleDeleteButton, ElementName=leaveUC}"
-                                            Command="{Binding DataContext.DeleteLeaveCommand, ElementName=leaveUC}"
-                                            CommandParameter="{Binding ID}">
-                                                <materialDesign:PackIcon Kind="DeleteOutline" />
+                                                <materialDesign:PackIcon Kind="CloseOctagon" Height="15" Width="15" />
                                             </Button>
                                         </StackPanel>
                                     </DataTemplate>
@@ -200,7 +224,7 @@
                     <Expander.Header>
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon VerticalAlignment="Center" 
-                                                 Margin="10 0" Kind="Check"  
+                                                 Margin="10 0" Kind="CommentCheckOutline"  
                                                  Foreground="#33691e" ></materialDesign:PackIcon>
                             <materialDesign:Badged Badge="{Binding ElementName=dgApprove,Path=Items.Count,UpdateSourceTrigger=PropertyChanged}"  
                                                Margin="10 0"   
@@ -232,25 +256,14 @@
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal">
                                             <Button
-                                            Margin="5 0"
-                                            Visibility="{Binding DataContext.VisibleApproveButton, ElementName=leaveUC}"
-                                            Command="{Binding DataContext.ApproveLeaveCommand, ElementName=leaveUC}"
+                                              Height="30" Width="30"
+                                            Margin="5 0" 
+                                             Foreground="White"
+                                            Style="{StaticResource MaterialDesignIconButton}"
+                                            Background="#bf360c"
+                                            Command="{Binding DataContext.DenyLeaveCommand, ElementName=leaveUC}"
                                             CommandParameter="{Binding}">
-                                                <materialDesign:PackIcon Kind="Approve" />
-                                            </Button>
-                                            <Button
-                                            Margin="5 0"
-                                            Visibility="{Binding DataContext.VisibleUpdateButton, ElementName=leaveUC}"
-                                            Command="{Binding DataContext.UpdateLeaveCommand, ElementName=leaveUC}"
-                                            CommandParameter="{Binding}">
-                                                <materialDesign:PackIcon Kind="PencilOutline" />
-                                            </Button>
-                                            <Button 
-                                            Margin="5 0"
-                                            Visibility="{Binding DataContext.VisibleDeleteButton, ElementName=leaveUC}"
-                                            Command="{Binding DataContext.DeleteLeaveCommand, ElementName=leaveUC}"
-                                            CommandParameter="{Binding ID}">
-                                                <materialDesign:PackIcon Kind="DeleteOutline" />
+                                                <materialDesign:PackIcon Kind="CloseOctagon" Height="15" Width="15"/>
                                             </Button>
                                         </StackPanel>
                                     </DataTemplate>
@@ -277,7 +290,7 @@
                     <Expander.Header>
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon VerticalAlignment="Center" 
-                                                 Margin="10 0" Kind="Close"  
+                                                 Margin="10 0" Kind="CommentRemoveOutline"  
                                                  Foreground="#bf360c" ></materialDesign:PackIcon>
                             <materialDesign:Badged Badge="{Binding ElementName=dgNotApprove,Path=Items.Count,UpdateSourceTrigger=PropertyChanged}"  
                                                Margin="10 0"   
@@ -309,25 +322,15 @@
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal">
                                             <Button
-                                            Margin="5 0"
+                                              Height="30" Width="30"
+                                              Foreground="White"
+                                             Margin="5 0"
+                                             Background="Teal"
+                                             Style="{StaticResource MaterialDesignIconButton}"
                                             Visibility="{Binding DataContext.VisibleApproveButton, ElementName=leaveUC}"
                                             Command="{Binding DataContext.ApproveLeaveCommand, ElementName=leaveUC}"
                                             CommandParameter="{Binding}">
-                                                <materialDesign:PackIcon Kind="Approve" />
-                                            </Button>
-                                            <Button
-                                            Margin="5 0"
-                                            Visibility="{Binding DataContext.VisibleUpdateButton, ElementName=leaveUC}"
-                                            Command="{Binding DataContext.UpdateLeaveCommand, ElementName=leaveUC}"
-                                            CommandParameter="{Binding}">
-                                                <materialDesign:PackIcon Kind="PencilOutline" />
-                                            </Button>
-                                            <Button 
-                                            Margin="5 0"
-                                            Visibility="{Binding DataContext.VisibleDeleteButton, ElementName=leaveUC}"
-                                            Command="{Binding DataContext.DeleteLeaveCommand, ElementName=leaveUC}"
-                                            CommandParameter="{Binding ID}">
-                                                <materialDesign:PackIcon Kind="DeleteOutline" />
+                                                <materialDesign:PackIcon Kind="Approve" Height="15" Width="15"/>
                                             </Button>
                                         </StackPanel>
                                     </DataTemplate>

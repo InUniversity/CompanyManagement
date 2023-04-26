@@ -61,7 +61,7 @@ namespace CompanyManagement.ViewModels.UserControls
         public ICommand DeleteLeaveCommand { get; set; }
         public ICommand UpdateLeaveCommand { get; set; }
         public ICommand ApproveLeaveCommand { get; set; }
-
+        public ICommand DenyLeaveCommand { get; private set; }
         public INavigateAssignmentView ParentDataContext { get; set; }
 
         private LeaveDao leaveDao = new LeaveDao();
