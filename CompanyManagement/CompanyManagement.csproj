@@ -107,6 +107,11 @@
     <Compile Include="Models\TaskStatus.cs" />
     <Compile Include="Services\AlertDialogService.cs" />
     <Compile Include="Services\InputDialogService.cs" />
+    <Compile Include="Strategies\UserControls\LeaveListView\ILeaveListStrategy.cs" />
+    <Compile Include="Strategies\UserControls\LeaveListView\LeaveListForDepartmentHead.cs" />
+    <Compile Include="Strategies\UserControls\LeaveListView\LeaveListForEmployee.cs" />
+    <Compile Include="Strategies\UserControls\LeaveListView\LeaveListForManager.cs" />
+    <Compile Include="Strategies\UserControls\LeaveListView\LeaveListStrategyFactory.cs" />
     <Compile Include="Strategies\UserControls\ProjectsView\IProjectsStrategy.cs" />
     <Compile Include="Strategies\UserControls\ProjectsView\ProjectsForDepartmentHead.cs" />
     <Compile Include="Strategies\UserControls\ProjectsView\ProjectsForEmployee.cs" />
