@@ -138,7 +138,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         public void ReceiveObject(CheckInOut checkInOut)
         {
-            checkInOut = CheckInOutInputDataContext.CheckInOutIns;
+             CheckInOutInputDataContext.CheckInOutIns = checkInOut;
         }
 
         public void ReceiveSubmitAction(Action<CheckInOut> submitObjectAction)
