@@ -41,7 +41,6 @@ namespace CompanyManagement.ViewModels.UserControls
             {
                 taskCheckOut.Task = taskInProjectDao.SearchByID(taskCheckOut.TaskID);
             }
-            SearchedTasksCheckOut = originalTaskCheckOutList;
         }
         
         private void SetCommands()
@@ -72,6 +71,7 @@ namespace CompanyManagement.ViewModels.UserControls
         {
             this.projectID = projectID;
             LoadTaskCheckOutList();
+            SearchByDate();
         }
     }
 }
