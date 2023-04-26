@@ -9,7 +9,7 @@ namespace CompanyManagement.ViewModels.UserControls
 {
     public class EmployeeInputViewModel : BaseViewModel
     {
-        private Employee employee; 
+        private Employee employee = new Employee(); 
         public Employee EmployeeIns { get => employee; set => employee = value; }
 
         public string ID { get => employee.ID; set { employee.ID = value; OnPropertyChanged(); } }
