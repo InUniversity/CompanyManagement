@@ -22,14 +22,15 @@ namespace CompanyManagement.ViewModels.UserControls
         bool IsReadOnly { get; set; }
         List<LeaveType> LeaveTypes { get; set; }
         List<LeaveStatus> LeaveStatuses { get; set; }
-        Leave CreateLeaveInstance();
         void TrimAllTexts();
-        void Receive(Leave leave);
+        public Leave LeaveIns { get; set; }
     }
 
     public class LeaveInputViewModel : BaseViewModel, ILeaveInput
     {
         private Leave leave;
+        public Leave LeaveIns { get => leave; set => leave = value; }
+
         public string ID { get => leave.ID; set { leave.ID = value; OnPropertyChanged(); } } 
         public string EmployeeID { get => leave.EmployeeID; set { leave.EmployeeID = value; OnPropertyChanged(); } }
         public string LeaveTypeID { get => leave.LeaveTypeID; set { leave.LeaveTypeID = value; OnPropertyChanged(); } }
@@ -64,12 +65,6 @@ namespace CompanyManagement.ViewModels.UserControls
             LeaveStatuses = leaveStatusDao.GetAll();
         }
 
-        public Leave CreateLeaveInstance()
-        {
-            return new Leave(ID, EmployeeID , LeaveTypeID, LeaveReason, 
-                Start, End, LeaveStatusID, CreateDate, ApprovedBy, Note);
-        }
-
         public void TrimAllTexts()
         {
             ID = ID.Trim();
@@ -79,11 +74,6 @@ namespace CompanyManagement.ViewModels.UserControls
             LeaveStatusID = LeaveStatusID.Trim();
             ApprovedBy = ApprovedBy.Trim();
             Note = Note.Trim();
-        }
-
-        public void Receive(Leave leave)
-        {
-            this.leave = leave;
         }
     }
 }

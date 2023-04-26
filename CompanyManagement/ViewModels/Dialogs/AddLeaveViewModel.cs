@@ -36,7 +36,7 @@ namespace CompanyManagement.ViewModels.Dialogs
                 "Bạn chắc chắn muốn thêm xin nghỉ phép !",
                 () =>
                 {
-                    Leave leave = LeaveInputDataContext.CreateLeaveInstance();
+                    Leave leave = LeaveInputDataContext.LeaveIns;
                     submitObjectAction?.Invoke(leave);
                     inputWindow.Close();
                 }, null);
@@ -50,7 +50,7 @@ namespace CompanyManagement.ViewModels.Dialogs
 
         public void ReceiveObject(Leave leave)
         {
-            LeaveInputDataContext.Receive(leave);
+            LeaveInputDataContext.LeaveIns = leave;
         }
 
         public void ReceiveSubmitAction(Action<Leave> submitObjectAction)
