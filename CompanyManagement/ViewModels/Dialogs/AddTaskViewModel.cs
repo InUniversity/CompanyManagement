@@ -35,7 +35,7 @@ namespace CompanyManagement.ViewModels.Dialogs
                "Bạn chắc chắn muốn thêm nhiệm vụ !",
                () =>
                { 
-                   TaskInProject task = TaskInputDataContext.CreateTask();
+                   TaskInProject task = TaskInputDataContext.TaskInProjectIns;
                    submitObjectAction?.Invoke(task);
                    inputWindow.Close();
                }, () => { });
@@ -44,7 +44,7 @@ namespace CompanyManagement.ViewModels.Dialogs
         
         public void ReceiveObject(TaskInProject task)
         {
-            TaskInputDataContext.ReceiveTask(task);
+            TaskInputDataContext.TaskInProjectIns = task;
         }
 
         public void ReceiveSubmitAction(Action<TaskInProject> submitObjectAction)

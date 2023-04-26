@@ -11,15 +11,16 @@ namespace CompanyManagement.ViewModels.UserControls
 {
     public interface ITaskInput
     {
-        TaskInProject CreateTask();
         bool CheckAllFields();
         void TrimAllTexts();
-        void ReceiveTask(TaskInProject task);
+        public TaskInProject TaskInProjectIns { get;set; }
     }
 
     public class TaskInputViewModel : BaseViewModel, ITaskInput
     {
         private TaskInProject task;
+        public TaskInProject TaskInProjectIns { get => task; set { task = value; Employees = assignmentDao.GetEmployeesInProject(task.ProjectID); SearchByName(); } }
+
         public string ID { get => task.ID; set { task.ID = value; OnPropertyChanged(); } }
         public string Title { get => task.Title; set { task.Title = value; OnPropertyChanged(); } }
         public string Description { get => task.Description; set { task.Description = value; OnPropertyChanged(); } }
@@ -99,23 +100,11 @@ namespace CompanyManagement.ViewModels.UserControls
             SearchedEmployeesCanAssign = new List<Employee>(searchedItems);
         }
 
-        public TaskInProject CreateTask()
-        {
-            return task;
-        }
-
         public void TrimAllTexts()
         {
             Title = Title.Trim();
             Description = Description.Trim();
             Progress = Progress.Trim(); 
-        }
-
-        public void ReceiveTask(TaskInProject task)
-        {
-            this.task = task;
-            Employees = assignmentDao.GetEmployeesInProject(task.ProjectID);
-            SearchedEmployeesCanAssign = new List<Employee>(Employees);
         }
     }
 }

@@ -64,7 +64,7 @@ namespace CompanyManagement.ViewModels.UserControls
                  "Bạn có chắc chắn muốn check out không ?",
                  () =>
                  {
-                     CheckInOut checkOut = CheckInOutInputDataContext.CreateCheckInOut();
+                     CheckInOut checkOut = CheckInOutInputDataContext.CheckInOutIns;
                      AddTasksCheckOut();
                      submitObjectAction?.Invoke(checkOut);
                      window.Close();
@@ -138,7 +138,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         public void ReceiveObject(CheckInOut checkInOut)
         {
-            CheckInOutInputDataContext.ReceiveCheckInOut(checkInOut);
+             CheckInOutInputDataContext.CheckInOutIns = checkInOut;
         }
 
         public void ReceiveSubmitAction(Action<CheckInOut> submitObjectAction)

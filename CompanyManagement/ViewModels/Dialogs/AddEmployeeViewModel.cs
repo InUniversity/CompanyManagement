@@ -57,7 +57,7 @@ namespace CompanyManagement.ViewModels.Dialogs
 
         public void ReceiveObject(Employee employee)
         {
-            EmployeeInputDataContext.Receive(employee);
+            employee = EmployeeInputDataContext.EmployeeIns;
         }
 
         public void ReceiveSubmitAction(Action<Employee> submitObjectAction)
