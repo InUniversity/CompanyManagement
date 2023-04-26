@@ -12,16 +12,17 @@ using CompanyManagement.Utilities;
 namespace CompanyManagement.ViewModels.UserControls
 {
     public interface IProjectInput
-    {
-        Project CreateProjectInstance();
+    {    
         bool CheckAllFields();
         void TrimAllTexts();
-        void Receive(Project project);
+        public Project ProjectIns { get; set; }
     }
 
     public class ProjectInputViewModel : BaseViewModel, IProjectInput
     {
         private Project project = new Project();
+        public Project ProjectIns { get => project; set { project = value; LoadDepartmentsCanAssign(); } }
+
         public string ID { get => project.ID; set { project.ID = value; OnPropertyChanged(); } }
         public string Name { get => project.Name; set { project.Name = value; OnPropertyChanged(); } }
         public DateTime Start { get => project.Start; set { project.Start = value; OnPropertyChanged(); LoadDepartmentsCanAssign(); } }
@@ -134,11 +135,6 @@ namespace CompanyManagement.ViewModels.UserControls
             SearchedDepartmentsCanAssign = new ObservableCollection<Department>(searchedItems);
         }
 
-        public Project CreateProjectInstance()
-        {
-            return new Project(ID, Name, Start, End, Completed, Progress, ProjectStatusID, CreateBy, BonusSalary, DepartmentsInProject);
-        }
-
         public bool CheckAllFields()
         {
             ErrorMessage = "";
@@ -159,12 +155,6 @@ namespace CompanyManagement.ViewModels.UserControls
         {
             ID = ID.Trim();
             Name = Name.Trim();
-        }
-
-        public void Receive(Project project)
-        {
-            this.project = project;
-            LoadDepartmentsCanAssign();
         }
     }
 }

@@ -31,7 +31,7 @@ namespace CompanyManagement.ViewModels.Dialogs
                "Bạn chắc chắn muốn thêm dự án !",
                () =>
                {
-                   Project project = ProjectInputDataContext.CreateProjectInstance(); 
+                   Project project = ProjectInputDataContext.ProjectIns; 
                    submitObjectAction?.Invoke(project);
                    inputWindow.Close();
                }, () => { }); 
@@ -40,7 +40,7 @@ namespace CompanyManagement.ViewModels.Dialogs
 
         public void ReceiveObject(Project project)
         {
-            ProjectInputDataContext.Receive(project);
+            ProjectInputDataContext.ProjectIns = project;
         }
 
         public void ReceiveSubmitAction(Action<Project> submitObjectAction)
