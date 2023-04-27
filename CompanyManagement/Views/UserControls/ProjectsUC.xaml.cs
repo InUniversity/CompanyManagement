@@ -13,7 +13,7 @@ namespace CompanyManagement.Views.UserControls
         public ProjectsUC()
         {
             InitializeComponent();
-            var positionID = CurrentUser.Ins.EmployeeIns.PositionID;
+            var positionID = CurrentUser.Ins.EmployeeIns.RoleID;
             var projectsStrategy = ProjectsStrategyFactory.Create(positionID);
             DataContext = new ProjectsViewModel(projectsStrategy);
         }

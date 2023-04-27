@@ -7,27 +7,27 @@ namespace CompanyManagement.Database
     {
         public void Add(Account account)
         {
-            string sqlStr = $"INSERT INTO {ACCOUNT_TABLE} ({ACCOUNT_USERNAME}, {ACCOUNT_USERNAME}, {ACCOUNT_EMPLOYEE_ID})" +
+            string sqlStr = $"INSERT INTO {ACCOUNTS_TABLE} ({ACCOUNTS_USERNAME}, {ACCOUNTS_USERNAME}, {ACCOUNTS_EMPLOYEE_ID})" +
                             $"VALUES ({account.Username}, {account.Password}, {account.EmployeeID})";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
         public void Delete(string employeeID)
         {
-            string sqlStr = $"DELETE FROM {ACCOUNT_TABLE} WHERE {ACCOUNT_EMPLOYEE_ID}='{employeeID}'";
+            string sqlStr = $"DELETE FROM {ACCOUNTS_TABLE} WHERE {ACCOUNTS_EMPLOYEE_ID}='{employeeID}'";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
         public void Update(Account account)
         {
-            string sqlStr = $"UPDATE {ACCOUNT_TABLE} SET {ACCOUNT_USERNAME}='{account.Username}', " +
-                            $"{ACCOUNT_PASSWORD}='{account.Password}' WHERE {ACCOUNT_EMPLOYEE_ID}='{account.EmployeeID}'";
+            string sqlStr = $"UPDATE {ACCOUNTS_TABLE} SET {ACCOUNTS_USERNAME}='{account.Username}', " +
+                            $"{ACCOUNTS_PASSWORD}='{account.Password}' WHERE {ACCOUNTS_EMPLOYEE_ID}='{account.EmployeeID}'";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
         public Account SearchByUsername(string userName)
         {
-            string sqlStr = $"SELECT * FROM {ACCOUNT_TABLE} WHERE {ACCOUNT_USERNAME}='{userName}'";
+            string sqlStr = $"SELECT * FROM {ACCOUNTS_TABLE} WHERE {ACCOUNTS_USERNAME}='{userName}'";
             return (Account)dbConnection.GetSingleObject(sqlStr, reader => new Account(reader));
         }
     }

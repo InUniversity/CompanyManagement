@@ -8,33 +8,33 @@ namespace CompanyManagement.Database
     {
         public void Add(Department department)
         {
-            string sqlStr = $"INSERT INTO {DEPARTMENT_TABLE} ({DEPARTMENT_ID}, {DEPARTMENT_NAME}, {DEPARTMENT_MANAGER_ID})" +
+            string sqlStr = $"INSERT INTO {DEPARTMENTS_TABLE} ({DEPARTMENTS_ID}, {DEPARTMENTS_NAME}, {DEPARTMENTS_MANAGER_ID})" +
                             $"VALUES ('{department.ID}', '{department.Name}', '{department.ManagerID}')";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
         public void Delete(string id)
         {
-            string sqlStr = $"DELETE FROM {DEPARTMENT_TABLE} WHERE {DEPARTMENT_ID} = '{id}'";
+            string sqlStr = $"DELETE FROM {DEPARTMENTS_TABLE} WHERE {DEPARTMENTS_ID} = '{id}'";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
         public void Update(Department department)
         {
-            string sqlStr = $"UPDATE {DEPARTMENT_TABLE} SET {DEPARTMENT_NAME} = '{department.Name}', " +
-                            $"{DEPARTMENT_MANAGER_ID} = '{department.ManagerID}' WHERE {DEPARTMENT_ID} = '{department.ID}'";
+            string sqlStr = $"UPDATE {DEPARTMENTS_TABLE} SET {DEPARTMENTS_NAME} = '{department.Name}', " +
+                            $"{DEPARTMENTS_MANAGER_ID} = '{department.ManagerID}' WHERE {DEPARTMENTS_ID} = '{department.ID}'";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
         public List<Department> GetAll()
         {
-            string sqlStr = $"SELECT * FROM {DEPARTMENT_TABLE}";
+            string sqlStr = $"SELECT * FROM {DEPARTMENTS_TABLE}";
             return dbConnection.GetList(sqlStr, reader => new Department(reader));
         }
 
         public Department DepartmentByEmployeeDeptID(string dptID)
         {
-            string sqlStr = $"SELECT * FROM {DEPARTMENT_TABLE} WHERE {DEPARTMENT_ID} = '{dptID}'";
+            string sqlStr = $"SELECT * FROM {DEPARTMENTS_TABLE} WHERE {DEPARTMENTS_ID} = '{dptID}'";
             return (Department)dbConnection.GetSingleObject(sqlStr, reader => new Department(reader));
         }
     }

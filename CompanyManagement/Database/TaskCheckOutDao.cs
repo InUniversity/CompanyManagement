@@ -18,7 +18,7 @@ namespace CompanyManagement.Database
         public List<TaskCheckOut> SearchByProjectID(string projectID)
         {
             string sqlStr = $"SELECT * FROM {TASK_CHECK_OUT_TABLE} WHERE {TASK_CHECK_OUT_TASK_ID} IN " +
-                            $"(SELECT {TASK_ID} FROM {TASK_TABLE} T WHERE T.{TASK_PROJECT_ID} LIKE '{projectID}')";
+                            $"(SELECT {TASKS_ID} FROM {TASKS_TABLE} T WHERE T.{TASKS_PROJECT_ID} LIKE '{projectID}')";
             return dbConnection.GetList(sqlStr, reader => new TaskCheckOut(reader));
         }
     }
