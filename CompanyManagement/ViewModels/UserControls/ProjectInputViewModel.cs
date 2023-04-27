@@ -24,12 +24,12 @@ namespace CompanyManagement.ViewModels.UserControls
         private Project project = new Project();
         public string ID { get => project.ID; set { project.ID = value; OnPropertyChanged(); } }
         public string Name { get => project.Name; set { project.Name = value; OnPropertyChanged(); } }
-        public DateTime Start { get => project.Start; set { project.Start = value; OnPropertyChanged(); LoadDepartmentsCanAssign(); } }
-        public DateTime End { get => project.End; set { project.End = value; OnPropertyChanged(); LoadDepartmentsCanAssign(); } }
-        public DateTime Completed { get => project.Completed; set { project.Completed = value; OnPropertyChanged(); } }
+        public DateTime Start { get => project.StartDate; set { project.StartDate = value; OnPropertyChanged(); LoadDepartmentsCanAssign(); } }
+        public DateTime End { get => project.EndDate; set { project.EndDate = value; OnPropertyChanged(); LoadDepartmentsCanAssign(); } }
+        public DateTime Completed { get => project.CompletedDate; set { project.CompletedDate = value; OnPropertyChanged(); } }
         public string Progress { get => project.Progress; set { project.Progress = value; OnPropertyChanged(); } }
         public string ProjectStatusID { get => project.StatusID; set { project.StatusID = value; OnPropertyChanged(); } }
-        public string CreateBy { get => project.CreateBy; set { project.CreateBy = value; OnPropertyChanged(); } }
+        public string CreateBy { get => project.OwnerID; set { project.OwnerID = value; OnPropertyChanged(); } }
         public int BonusSalary { get => project.BonusSalary; set { project.BonusSalary = value; OnPropertyChanged(); } }
         public ObservableCollection<Department> DepartmentsInProject 
         { get => project.Departments; set { project.Departments = value; OnPropertyChanged(); } }
@@ -75,7 +75,7 @@ namespace CompanyManagement.ViewModels.UserControls
         private void LoadDepartmentsCanAssign()
         {
             departmentsCanAssign = projectAssignmentDao.GetDepartmentsCanAssignWork(project.ID, 
-                Utils.ToFormatSQLServer(project.Start), Utils.ToFormatSQLServer(project.End));
+                Utils.ToFormatSQLServer(project.StartDate), Utils.ToFormatSQLServer(project.EndDate));
             SearchedDepartmentsCanAssign = new ObservableCollection<Department>(departmentsCanAssign);
             
             Log.Instance.Information(nameof(ProjectInputViewModel), $"Start:{Start}, End:{End}");

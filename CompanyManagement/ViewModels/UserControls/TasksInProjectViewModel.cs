@@ -61,7 +61,7 @@ namespace CompanyManagement.ViewModels.UserControls
         private void LoadTaskInProjects()
         {
 
-            TasksInProject = string.Equals(currentEmployee.PositionID, BaseDao.EMPLOYEE_POS_ID)
+            TasksInProject = string.Equals(currentEmployee.RoleID, BaseDao.EMPLOYEE_ROLE_ID)
                ? taskInProjectDao.SearchByEmployeeID(projectID, currentEmployee.ID)
                : taskInProjectDao.SearchByProjectID(projectID);
 
@@ -77,7 +77,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void SetVisible()
         {
-            if (!string.Equals(currentEmployee.PositionID, BaseDao.EMPLOYEE_POS_ID))
+            if (!string.Equals(currentEmployee.RoleID, BaseDao.EMPLOYEE_ROLE_ID))
             {
                 VisibilityCRUD();
                 VisibilityCRUDCommands();
@@ -105,7 +105,7 @@ namespace CompanyManagement.ViewModels.UserControls
         public void ReceiveProjectID(string projectID)
         {
             this.projectID = projectID;
-            List<TaskInProject> tasks = string.Equals(CurrentUser.Ins.EmployeeIns.PositionID, BaseDao.EMPLOYEE_POS_ID)
+            List<TaskInProject> tasks = string.Equals(CurrentUser.Ins.EmployeeIns.RoleID, BaseDao.EMPLOYEE_ROLE_ID)
                 ? taskInProjectDao.SearchByEmployeeID(projectID, currentEmployee.ID)
                 : taskInProjectDao.SearchByProjectID(projectID);
             TasksInProject = tasks;

@@ -7,30 +7,30 @@ namespace CompanyManagement.Database
     {
         public void Add(Project project)
         {
-            string sqlStr = $"INSERT INTO {PROJECT_TABLE}({PROJECT_ID}, {PROJECT_NAME}, {PROJECT_START}, " +
-                            $"{PROJECT_END}, {PROJECT_COMPLETED}, {PROJECT_PROPRESS}, {PROJECT_STATUS_ID}, {PROJECT_CREATE_BY}) " +
-                            $"VALUES ('{project.ID}', N'{project.Name}', '{project.Start}', '{project.End}', " +
-                            $"'{project.Completed}','{project.Progress}', '{project.StatusID}', '{project.CreateBy}')";
+            string sqlStr = $"INSERT INTO {PROJECTS_TABLE}({PROJECTS_ID}, {PROJECTS_NAME}, {PROJECTS_CREATED} {PROJECTS_START}, " +
+                            $"{PROJECTS_END}, {PROJECTS_COMPLETED}, {PROJECTS_PROPRESS}, {PROJECTS_STATUS_ID}, {PROJECTS_OWNER_ID}) " +
+                            $"VALUES ('{project.ID}', N'{project.Name}', '{project.CreatedDate}','{project.StartDate}', '{project.EndDate}', " +
+                            $"'{project.CompletedDate}','{project.Progress}', '{project.StatusID}', '{project.OwnerID}')";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
         public void Delete(string id)
         {
-            string sqlStr = $"DELETE FROM {PROJECT_TABLE} WHERE {PROJECT_ID} = '{id}'";
+            string sqlStr = $"DELETE FROM {PROJECTS_TABLE} WHERE {PROJECTS_ID} = '{id}'";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
         public void Update(Project project)
         {
-            string sqlStr = $"UPDATE {PROJECT_TABLE} SET {PROJECT_NAME}=N'{project.Name}', {PROJECT_START} ='{project.Start}', " +
-                            $"{PROJECT_END}='{project.End}', {PROJECT_COMPLETED} = '{project.Completed}',{PROJECT_PROPRESS}='{project.Progress}', " +
-                            $"{PROJECT_STATUS_ID} = '{project.StatusID}' WHERE {PROJECT_ID}='{project.ID}'";
+            string sqlStr = $"UPDATE {PROJECTS_TABLE} SET {PROJECTS_NAME}=N'{project.Name}', {PROJECTS_CREATED}='{project.CreatedDate}', {PROJECTS_START} ='{project.StartDate}', " +
+                            $"{PROJECTS_END}='{project.EndDate}', {PROJECTS_COMPLETED} = '{project.CompletedDate}',{PROJECTS_PROPRESS}='{project.Progress}', " +
+                            $"{PROJECTS_STATUS_ID} = '{project.StatusID}' WHERE {PROJECTS_ID}='{project.ID}'";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
         public Project SearchByID(string id)
         {
-            string sqlStr = $"SELECT * FROM {PROJECT_TABLE} WHERE {PROJECT_ID} = '{id}'";
+            string sqlStr = $"SELECT * FROM {PROJECTS_TABLE} WHERE {PROJECTS_ID} = '{id}'";
             return (Project)dbConnection.GetSingleObject(sqlStr, reader => new Project(reader));
         }
     }

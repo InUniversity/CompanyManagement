@@ -19,16 +19,16 @@ namespace CompanyManagement.ViewModels.UserControls
         public string PhoneNumber { get => employee.PhoneNumber; set { employee.PhoneNumber = value; OnPropertyChanged(); } }
         public string Address { get => employee.Address; set { employee.Address = value; OnPropertyChanged(); } }
         public string DepartmentID { get => employee.DepartmentID; set { employee.DepartmentID = value; OnPropertyChanged(); } }
-        public string PositionID { get => employee.PositionID; set { employee.PositionID = value; OnPropertyChanged(); } }
+        public string PositionID { get => employee.RoleID; set { employee.RoleID = value; OnPropertyChanged(); } }
         public int Salary { get => employee.Salary; set { employee.Salary = value; OnPropertyChanged(); } }
 
         private string errorMessage = "";
         public string ErrorMessage { get => errorMessage; set { errorMessage = value; OnPropertyChanged(); } }
 
-        public List<PositionInCompany> Positions { get; set; }
+        public List<Roles> Positions { get; set; }
         public List<Department> Departments { get; set; }
 
-        private PositionDao positionDao = new PositionDao();
+        private RolesDao rolesDao = new RolesDao();
         private DepartmentDao departmentDao = new DepartmentDao();
         private CheckFormat checker = new CheckFormat();
 
@@ -39,7 +39,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void SetAllComboBox()
         {
-            Positions = positionDao.GetAll();
+            Positions = rolesDao.GetAll();
             Departments = departmentDao.GetAll();
         }
 

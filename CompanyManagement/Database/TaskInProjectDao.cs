@@ -10,9 +10,9 @@ namespace CompanyManagement.Database
     {
         public void Add(TaskInProject task)
         {
-            string sqlStr = $"INSERT INTO {TASK_TABLE}({TASK_ID}, {TASK_TITLE}, {TASK_DESCRIPTION}, " +
-                            $"{TASK_ASSIGN_DATE}, {TASK_DEADLINE}, {TASK_CREATE_BY}, {TASK_PROGRESS}, " +
-                            $"{TASK_EMPLOYEE_ID}, {TASK_PROJECT_ID}, {TASK_STATUS_ID}) VALUES ('{task.ID}', N'{task.Title}', " +
+            string sqlStr = $"INSERT INTO {TASKS_TABLE}({TASKS_ID}, {TASKS_TITLE}, {TASKS_DESCRIPTION}, " +
+                            $"{TASKS_ASSIGN_DATE}, {TASKS_DEADLINE}, {TASKS_CREATE_BY}, {TASKS_PROGRESS}, " +
+                            $"{TASKS_EMPLOYEE_ID}, {TASKS_PROJECT_ID}, {TASKS_STATUS_ID}) VALUES ('{task.ID}', N'{task.Title}', " +
                             $"N'{task.Description}', '{task.AssignDate}', '{task.Deadline}', '{task.CreateBy}', " +
                             $"'{task.Progress}', '{task.EmployeeID}', '{task.ProjectID}', {task.StatusID})";
             dbConnection.ExecuteNonQuery(sqlStr);
@@ -20,49 +20,49 @@ namespace CompanyManagement.Database
 
         public void Delete(string id)
         {
-            string sqlStr = $"DELETE FROM {TASK_TABLE} WHERE {TASK_ID} = '{id}'";
+            string sqlStr = $"DELETE FROM {TASKS_TABLE} WHERE {TASKS_ID} = '{id}'";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
         public void Update(TaskInProject task)
         {
-            string sqlStr = $"UPDATE {TASK_TABLE} SET {TASK_TITLE}=N'{task.Title}', " +
-                            $"{TASK_DESCRIPTION}=N'{task.Description}', {TASK_ASSIGN_DATE}='{task.AssignDate}', " +
-                            $"{TASK_DEADLINE}='{task.Deadline}', {TASK_CREATE_BY}='{task.CreateBy}', " +
-                            $"{TASK_PROGRESS}='{task.Progress}', {TASK_EMPLOYEE_ID}='{task.EmployeeID}', " +
-                            $"{TASK_PROJECT_ID}='{task.ProjectID}', {TASK_STATUS_ID}='{task.StatusID}' WHERE {TASK_ID}='{task.ID}'";
+            string sqlStr = $"UPDATE {TASKS_TABLE} SET {TASKS_TITLE}=N'{task.Title}', " +
+                            $"{TASKS_DESCRIPTION}=N'{task.Description}', {TASKS_ASSIGN_DATE}='{task.AssignDate}', " +
+                            $"{TASKS_DEADLINE}='{task.Deadline}', {TASKS_CREATE_BY}='{task.CreateBy}', " +
+                            $"{TASKS_PROGRESS}='{task.Progress}', {TASKS_EMPLOYEE_ID}='{task.EmployeeID}', " +
+                            $"{TASKS_PROJECT_ID}='{task.ProjectID}', {TASKS_STATUS_ID}='{task.StatusID}' WHERE {TASKS_ID}='{task.ID}'";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
         public void UpdateProgress(string taskID, string progress)
         {
-            string sqlStr = $"UPDATE {TASK_TABLE} SET {TASK_PROGRESS}='{progress}' WHERE {TASK_ID}='{taskID}'";
+            string sqlStr = $"UPDATE {TASKS_TABLE} SET {TASKS_PROGRESS}='{progress}' WHERE {TASKS_ID}='{taskID}'";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
         public TaskInProject SearchByID(string taskInProjectID)
         {
-            string sqlStr = $"SELECT * FROM {TASK_TABLE} WHERE {TASK_ID}='{taskInProjectID}'";           
+            string sqlStr = $"SELECT * FROM {TASKS_TABLE} WHERE {TASKS_ID}='{taskInProjectID}'";           
             return (TaskInProject)dbConnection.GetSingleObject(sqlStr, reader => new TaskInProject(reader));
         }
 
         public List<TaskInProject> SearchByProjectID(string projectID)
         {
-            string sqlStr = $"SELECT * FROM {TASK_TABLE} WHERE {TASK_PROJECT_ID}='{projectID}'";
+            string sqlStr = $"SELECT * FROM {TASKS_TABLE} WHERE {TASKS_PROJECT_ID}='{projectID}'";
             return dbConnection.GetList(sqlStr, reader => new TaskInProject(reader));
         }
 
         public List<TaskInProject> SearchByEmployeeID(string projectID, string employeeID)
         {
-            string sqlStr = $"SELECT * FROM {TASK_TABLE} WHERE {TASK_EMPLOYEE_ID} = '{employeeID}' AND {TASK_PROJECT_ID} = '{projectID}'";
+            string sqlStr = $"SELECT * FROM {TASKS_TABLE} WHERE {TASKS_EMPLOYEE_ID} = '{employeeID}' AND {TASKS_PROJECT_ID} = '{projectID}'";
             return dbConnection.GetList(sqlStr, reader => new TaskInProject(reader));
         }
 
         public List<TaskInProject> SearchCurrentTasksByEmployeeID(string employeeID)
         {
-            string sqlStr = $"SELECT * FROM {TASK_TABLE} WHERE {TASK_EMPLOYEE_ID} = '{employeeID}'" +
-                            $"AND {TASK_DEADLINE} >= '{DateTime.Now}' AND {TASK_ASSIGN_DATE} <= '{DateTime.Now}' " +
-                            $"AND {TASK_PROGRESS} != '{COMPLETED}'";
+            string sqlStr = $"SELECT * FROM {TASKS_TABLE} WHERE {TASKS_EMPLOYEE_ID} = '{employeeID}'" +
+                            $"AND {TASKS_DEADLINE} >= '{DateTime.Now}' AND {TASKS_ASSIGN_DATE} <= '{DateTime.Now}' " +
+                            $"AND {TASKS_PROGRESS} != '{COMPLETED}'";
             return dbConnection.GetList(sqlStr, reader => new TaskInProject(reader));
         }
     }
