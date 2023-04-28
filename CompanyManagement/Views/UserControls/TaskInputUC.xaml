@@ -52,7 +52,7 @@
                 </Grid.ColumnDefinitions>
                 <Grid Grid.Column="0">
                     <DatePicker
-                    SelectedDate="{Binding StartDate}"
+                    SelectedDate="{Binding StartDate, StringFormat=dd/MM/yyyy}"
                     Height="50"
                     Margin="10"
                     Width="310"
@@ -79,7 +79,7 @@
                 </Grid.ColumnDefinitions>
                 <Grid Grid.Column="0">
                     <DatePicker
-                    SelectedDate="{Binding Deadline}"
+                    SelectedDate="{Binding Deadline, StringFormat=dd/MM/yyyy}"
                     Height="50"
                     Margin="10"
                     Width="310"
@@ -216,6 +216,8 @@
                     SelectedValue="{Binding StatusID}"
                     SelectedValuePath="ID"
                     materialDesign:HintAssist.Hint="Trạng thái"
+                    Background="White"
+                    Foreground="Black"
                     Style="{StaticResource MaterialDesignOutlinedComboBox}">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
