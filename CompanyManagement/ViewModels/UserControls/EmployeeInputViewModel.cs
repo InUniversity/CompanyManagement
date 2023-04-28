@@ -31,7 +31,7 @@ namespace CompanyManagement.ViewModels.UserControls
         public List<Department> Departments { get; set; }
 
         private RolesDao rolesDao = new RolesDao();
-        private DepartmentDao departmentDao = new DepartmentDao();
+        private DepartmentsDao departmentsDao = new DepartmentsDao();
         private CheckFormat checker = new CheckFormat();
 
         public EmployeeInputViewModel()
@@ -42,7 +42,7 @@ namespace CompanyManagement.ViewModels.UserControls
         private void SetAllComboBox()
         {
             Positions = rolesDao.GetAll();
-            Departments = departmentDao.GetAll();
+            Departments = departmentsDao.GetAll();
         }
         public bool CheckAllFields()
         {

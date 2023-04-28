@@ -3,7 +3,7 @@ using CompanyManagement.Models;
 
 namespace CompanyManagement.Database
 {
-    public class AccountDao : BaseDao
+    public class AccountsDao : BaseDao
     {
         public void Add(Account account)
         {

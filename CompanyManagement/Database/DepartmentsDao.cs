@@ -4,7 +4,7 @@ using CompanyManagement.Models;
 
 namespace CompanyManagement.Database
 {
-    public class DepartmentDao : BaseDao
+    public class DepartmentsDao : BaseDao
     {
         public void Add(Department department)
         {

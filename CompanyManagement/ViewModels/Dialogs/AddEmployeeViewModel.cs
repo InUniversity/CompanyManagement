@@ -17,7 +17,7 @@ namespace CompanyManagement.ViewModels.Dialogs
         public EmployeeInputViewModel EmployeeInputDataContext { get; }
         private Action<Employee> submitObjectAction;
 
-        private EmployeeDao employeeDao = new EmployeeDao();
+        private EmployeesDao employeesDao = new EmployeesDao();
 
         public AddEmployeeViewModel()
         {
@@ -37,17 +37,17 @@ namespace CompanyManagement.ViewModels.Dialogs
         {
             if (!EmployeeInputDataContext.CheckAllFields())
                 return false;
-            if (employeeDao.SearchByID(EmployeeInputDataContext.ID) != null)
+            if (employeesDao.SearchByID(EmployeeInputDataContext.ID) != null)
             {
                 EmployeeInputDataContext.ErrorMessage = Utils.EXIST_ID_MESSAGE;
                 return false;
             }
-            if (employeeDao.SearchByIdentifyCard(EmployeeInputDataContext.IdentifyCard) != null)
+            if (employeesDao.SearchByIdentifyCard(EmployeeInputDataContext.IdentifyCard) != null)
             {
                 EmployeeInputDataContext.ErrorMessage = Utils.EXIST_IDENTIFY_CARD_MESSAGE;
                 return false;
             }
-            if (employeeDao.SearchByPhoneNumber(EmployeeInputDataContext.PhoneNumber) != null)
+            if (employeesDao.SearchByPhoneNumber(EmployeeInputDataContext.PhoneNumber) != null)
             {
                 EmployeeInputDataContext.ErrorMessage = Utils.EXIST_PHONE_NUMBER_MESSAGE;
                 return false;

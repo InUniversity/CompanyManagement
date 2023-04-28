@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
-using CompanyManagement.Database.Base;
+﻿using CompanyManagement.Database.Base;
 
 namespace CompanyManagement.Database
 {
-    public class ProjectDao : BaseDao
+    public class ProjectsDao : BaseDao
     {
         public void Add(Project project)
         {

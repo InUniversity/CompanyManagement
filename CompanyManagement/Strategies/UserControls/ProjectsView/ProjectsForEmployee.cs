@@ -7,7 +7,7 @@ namespace CompanyManagement.Strategies.UserControls.ProjectsView
 {
     public class ProjectsForEmployee : IProjectsStrategy
     {
-        private ProjectAssignmentDao projectAssignmentDao = new ProjectAssignmentDao();
+        private ProjectAssignmentsDao assignmentsDao = new ProjectAssignmentsDao();
         
         public void SetVisible(IProjects viewModel)
         {
@@ -18,7 +18,7 @@ namespace CompanyManagement.Strategies.UserControls.ProjectsView
 
         public List<Project> GetProjects(string employeeID)
         {
-            return projectAssignmentDao.SearchProjectByEmployeeID(employeeID);
+            return assignmentsDao.SearchProjectByEmployeeID(employeeID);
         }
     }
 }

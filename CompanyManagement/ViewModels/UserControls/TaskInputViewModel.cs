@@ -19,7 +19,7 @@ namespace CompanyManagement.ViewModels.UserControls
     public class TaskInputViewModel : BaseViewModel, ITaskInput
     {
         private TaskInProject task;
-        public TaskInProject TaskInProjectIns { get => task; set { task = value; Employees = assignmentDao.GetEmployeesInProject(task.ProjectID); SearchByName(); } }
+        public TaskInProject TaskInProjectIns { get => task; set { task = value; Employees = assignmentsDao.GetEmployeesInProject(task.ProjectID); SearchByName(); } }
 
         public string ID { get => task.ID; set { task.ID = value; OnPropertyChanged(); } }
         public string Title { get => task.Title; set { task.Title = value; OnPropertyChanged(); } }
@@ -52,7 +52,7 @@ namespace CompanyManagement.ViewModels.UserControls
         public ICommand GetSelectedEmployeeCommand { get; set; }
 
         private TaskStatusDao taskStatusDao = new TaskStatusDao();
-        private ProjectAssignmentDao assignmentDao = new ProjectAssignmentDao();
+        private ProjectAssignmentsDao assignmentsDao = new ProjectAssignmentsDao();
 
         public TaskInputViewModel()
         {

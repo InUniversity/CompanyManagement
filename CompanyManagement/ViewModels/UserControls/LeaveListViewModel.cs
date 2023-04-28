@@ -67,8 +67,8 @@ namespace CompanyManagement.ViewModels.UserControls
         public INavigateAssignmentView ParentDataContext { get; set; }
 
         private LeaveDao leaveDao = new LeaveDao();
-        private DepartmentDao departmentDao = new DepartmentDao();
-        private EmployeeDao employeeDao = new EmployeeDao();
+        private DepartmentsDao departmentsDao = new DepartmentsDao();
+        private EmployeesDao employeesDao = new EmployeesDao();
 
         private Employee currentEmployee = CurrentUser.Ins.EmployeeIns;
 
@@ -140,8 +140,8 @@ namespace CompanyManagement.ViewModels.UserControls
         private Leave CreateLeave()
         {
             string approveBy = string.Equals(currentEmployee.ID, BaseDao.EMPLOYEE_ROLE_ID) 
-                ? departmentDao.DepartmentByEmployeeDeptID(currentEmployee.DepartmentID).ManagerID
-                : employeeDao.SearchByPositionID(BaseDao.MANAGER_ROLE_ID).ID;
+                ? departmentsDao.DepartmentByEmployeeDeptID(currentEmployee.DepartmentID).ManagerID
+                : employeesDao.SearchByPositionID(BaseDao.MANAGER_ROLE_ID).ID;
             return new Leave(AutoGenerateID(), currentEmployee.ID, "LS2", "", DateTime.Now, DateTime.Now, "LS2",
                 DateTime.Now, approveBy , "");
         }

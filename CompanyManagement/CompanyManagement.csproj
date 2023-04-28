@@ -73,19 +73,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Database\AccountDao.cs" />
+    <Compile Include="Database\AccountsDao.cs" />
     <Compile Include="Database\Base\BaseDao.cs" />
     <Compile Include="Database\Base\DBConnection.cs" />
     <Compile Include="Database\CheckInOutDao.cs" />
-    <Compile Include="Database\DepartmentDao.cs" />
-    <Compile Include="Database\EmployeeDao.cs" />
+    <Compile Include="Database\DepartmentsDao.cs" />
+    <Compile Include="Database\EmployeesDao.cs" />
     <Compile Include="Database\LeaveDao.cs" />
     <Compile Include="Database\LeaveStatusDao.cs" />
     <Compile Include="Database\LeaveTypeDao.cs" />
     <Compile Include="Database\RolesDao.cs" />
-    <Compile Include="Database\ProjectAssignmentDao.cs" />
-    <Compile Include="Database\ProjectDao.cs" />
-    <Compile Include="Database\ProjectStatusDao.cs" />
+    <Compile Include="Database\ProjectAssignmentsDao.cs" />
+    <Compile Include="Database\ProjectsDao.cs" />
+    <Compile Include="Database\ProjectStatusesDao.cs" />
     <Compile Include="Database\TaskCheckOutDao.cs" />
     <Compile Include="Database\TaskInProjectDao.cs" />
     <Compile Include="Database\TaskStatusDao.cs" />

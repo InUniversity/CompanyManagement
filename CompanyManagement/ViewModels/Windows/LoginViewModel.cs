@@ -21,8 +21,8 @@ namespace CompanyManagement.ViewModels.Windows
         public ICommand ForgotPasswordCommand { get; private set; }
         public ICommand PasswordChangedCommand { get; private set; }
   
-        private AccountDao accountDao = new AccountDao();
-        private EmployeeDao employeeDao = new EmployeeDao();
+        private AccountsDao accountsDao = new AccountsDao();
+        private EmployeesDao employeesDao = new EmployeesDao();
 
         public LoginViewModel()
         {
@@ -38,14 +38,14 @@ namespace CompanyManagement.ViewModels.Windows
 
         private void ExecuteLoginCommand(Window window)
         {
-            var account = accountDao.SearchByUsername(Username);
+            var account = accountsDao.SearchByUsername(Username);
             if (account == null || !string.Equals(password, account.Password))
             {
                 MessageBox.Show(Utils.INVALIDATE_USERNAME_PASSWORD_MESSAGE);
                 return;
             }
             RefreshAllText();
-            var employee = employeeDao.SearchByID(account.EmployeeID);
+            var employee = employeesDao.SearchByID(account.EmployeeID);
             employee.MyAccount = account;
             CurrentUser.Ins.EmployeeIns = employee;
             window.Hide();
