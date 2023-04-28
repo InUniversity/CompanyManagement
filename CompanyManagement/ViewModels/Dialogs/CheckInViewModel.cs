@@ -41,7 +41,7 @@ namespace CompanyManagement.ViewModels.UserControls
         public ICommand DeleteSelectedTaskCommand { get; private set; }
         public ICommand GetSelectedTaskCommand { get; private set; }
 
-        private TaskInProjectDao taskInProjectDao = new TaskInProjectDao();
+        private TasksDao tasksDao = new TasksDao();
 
 
         public CheckInViewModel()
@@ -96,7 +96,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void LoadTasksCanChoose()
         {
-            TasksCanChoose = taskInProjectDao.SearchCurrentTasksByEmployeeID(CurrentUser.Ins.EmployeeIns.ID);
+            TasksCanChoose = tasksDao.SearchCurrentTasksByEmployeeID(CurrentUser.Ins.EmployeeIns.ID);
             SearchedTasksCanChoose = new ObservableCollection<TaskInProject>(TasksCanChoose);
         }
 

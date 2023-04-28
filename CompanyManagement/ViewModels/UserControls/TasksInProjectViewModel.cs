@@ -45,7 +45,7 @@ namespace CompanyManagement.ViewModels.UserControls
         public ICommand DeleteTaskInProjectCommand { get; set; }
         public ICommand UpdateTaskInProjectCommand { get; set; }
 
-        private TaskInProjectDao taskInProjectDao = new TaskInProjectDao();
+        private TasksDao tasksDao = new TasksDao();
 
         private string projectID = "";
 
@@ -62,8 +62,8 @@ namespace CompanyManagement.ViewModels.UserControls
         {
 
             TasksInProject = string.Equals(currentEmployee.RoleID, BaseDao.EMPLOYEE_ROLE_ID)
-               ? taskInProjectDao.SearchByEmployeeID(projectID, currentEmployee.ID)
-               : taskInProjectDao.SearchByProjectID(projectID);
+               ? tasksDao.SearchByEmployeeID(projectID, currentEmployee.ID)
+               : tasksDao.SearchByProjectID(projectID);
 
             var listOngoingTasks = TasksInProject.Where(p => p.Progress != BaseDao.COMPLETED && p.Deadline > DateTime.Now).ToList();
             OngoingTasksInProject = new List<TaskInProject>(listOngoingTasks);
@@ -106,8 +106,8 @@ namespace CompanyManagement.ViewModels.UserControls
         {
             this.projectID = projectID;
             List<TaskInProject> tasks = string.Equals(CurrentUser.Ins.EmployeeIns.RoleID, BaseDao.EMPLOYEE_ROLE_ID)
-                ? taskInProjectDao.SearchByEmployeeID(projectID, currentEmployee.ID)
-                : taskInProjectDao.SearchByProjectID(projectID);
+                ? tasksDao.SearchByEmployeeID(projectID, currentEmployee.ID)
+                : tasksDao.SearchByProjectID(projectID);
             TasksInProject = tasks;
             LoadTaskInProjects();
         }
@@ -121,7 +121,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void Add(object obj)
         {
-            taskInProjectDao.Add(obj as TaskInProject);
+            tasksDao.Add(obj as TaskInProject);
             LoadTaskInProjects();
         }
 
@@ -138,7 +138,7 @@ namespace CompanyManagement.ViewModels.UserControls
              "Bạn chắc chắn muốn xóa nhiệm vụ !",
              () =>
              {
-                 taskInProjectDao.Delete(id); 
+                 tasksDao.Delete(id); 
                  LoadTaskInProjects();       
              }, () => { });
             dialog.Show();
@@ -152,7 +152,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void Update(TaskInProject task)
         {
-            taskInProjectDao.Update(task);
+            tasksDao.Update(task);
             LoadTaskInProjects();
         }
 
@@ -164,7 +164,7 @@ namespace CompanyManagement.ViewModels.UserControls
             {
                 int number = random.Next(1000000);
                 taskInProjectID = $"T{number:000000}";
-            } while (taskInProjectDao.SearchByID(taskInProjectID) != null);
+            } while (tasksDao.SearchByID(taskInProjectID) != null);
             return taskInProjectID;
         }
     }

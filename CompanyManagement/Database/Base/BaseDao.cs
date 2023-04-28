@@ -17,7 +17,7 @@ namespace CompanyManagement.Database.Base
         protected const string DEPARTMENTS_TABLE = "Departments";
         public const string DEPARTMENTS_ID = "ID";
         public const string DEPARTMENTS_NAME = "DepartmentName";
-        public const string DEPARTMENTS_MANAGER_ID = "ManagerID";
+        public const string DEPARTMENTS_DEPARTMENT_HEAD = "DepartmentHead";
 
         protected const string EMPLOYEE_TABLE = "Employees";
         public const string EMPLOYEE_ID = "ID";
@@ -39,11 +39,15 @@ namespace CompanyManagement.Database.Base
         protected const string PROJECT_ASSIGNMENT_TABLE = "ProjectAssignments";
         public const string PROJECT_ASSIGNMENT_PROJECT_ID = "ProjectID";
         public const string PROJECT_ASSIGNMENT_DEPARTMENT_ID = "DepartmentID";
+        
+        protected const string PROJECT_STATUSES_TABLE = "ProjectStatus";
+        public const string PROJECT_STATUSES_ID = "ID";
+        public const string PROJECT_STATUSES_NAME = "StatusName";
 
         protected const string PROJECTS_TABLE = "Projects";
         public const string PROJECTS_ID = "ID";
         public const string PROJECTS_NAME = "ProjectName";
-        public const string PROJECTS_CREATED = "CreateDate";
+        public const string PROJECTS_CREATED = "CreatedDate";
         public const string PROJECTS_START = "StartDate";
         public const string PROJECTS_END = "EndDate";
         public const string PROJECTS_COMPLETED = "CompletedDate";
@@ -52,25 +56,21 @@ namespace CompanyManagement.Database.Base
         public const string PROJECTS_OWNER_ID = "OwnerID";
         public const string PROJECTS_BONUS_SALARY = "BonusSalary";
 
-        protected const string TASKS_TABLE = "Task";
-        public const string TASKS_ID = "TaskID";
-        public const string TASKS_TITLE = "Title";
-        public const string TASKS_DESCRIPTION = "TaskDescription";
-        public const string TASKS_ASSIGN_DATE = "AssignDate";
-        public const string TASKS_DEADLINE = "Deadline";
-        public const string TASKS_CREATE_BY = "CreateBy";
-        public const string TASKS_PROGRESS = "Progress";
-        public const string TASKS_EMPLOYEE_ID = "EmployeeID";
-        public const string TASKS_PROJECT_ID = "ProjectID";
-        public const string TASKS_STATUS_ID = "TaskStatusID";
-
-        protected const string PROJECT_STATUSES_TABLE = "ProjectStatus";
-        public const string PROJECT_ID = "ID";
-        public const string PROJECT_STATUSES_NAME = "StatusName";
-
         protected const string TASK_STATUSES_TABLE = "TaskStatuses";
         public const string TASK_STATUSES_ID = "ID";
         public const string TASK_STATUSES_NAME = "StatusName";
+
+        protected const string TASKS_TABLE = "Tasks";
+        public const string TASKS_ID = "ID";
+        public const string TASKS_TITLE = "Title";
+        public const string TASKS_EXPLANATION = "Explanation";
+        public const string TASKS_START_DATE = "StartDate";
+        public const string TASKS_DEADLINE = "Deadline";
+        public const string TASKS_PROGRESS = "Progress";
+        public const string TASKS_OWNER_ID = "OwnerID";
+        public const string TASKS_EMPLOYEE_ID = "EmployeeID";
+        public const string TASKS_PROJECT_ID = "ProjectID";
+        public const string TASKS_STATUS_ID = "StatusID";
 
         protected const string TIME_SHEETS_TABLE = "CheckInOut";
         public const string CHECK_IN_OUT_ID = "ID";
