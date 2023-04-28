@@ -101,7 +101,6 @@ namespace CompanyManagement.ViewModels.UserControls
             UpdateTaskInProjectCommand = new RelayCommand<TaskInProject>(OpenUpdateDialog);
         }
 
-
         public void ReceiveProjectID(string projectID)
         {
             this.projectID = projectID;
