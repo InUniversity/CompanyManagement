@@ -108,9 +108,9 @@ GO
 ALTER TABLE Departments ADD CONSTRAINT FK_Departments_DepartmentHead FOREIGN KEY(DepartmentHead) REFERENCES Employees(ID)
 GO
 CREATE TABLE Accounts(
-    Username varchar(100) PRIMARY KEY,
+    Username varchar(100) NOT NULL UNIQUE,
     PasswordHash varchar(100) NOT NULL,
-    EmployeeID varchar(20) NOT NULL UNIQUE,
+    EmployeeID varchar(20) PRIMARY KEY NOT NULL,
     CONSTRAINT FK_Accounts_EmployeeID FOREIGN KEY(EmployeeID) REFERENCES Employees(ID)
 );
 GO
@@ -130,7 +130,8 @@ INSERT INTO ProjectStatuses(ID, StatusName)
 VALUES
     ( 'PST1', N'Đang triển khai'),
     ( 'PST2', N'Hoàn thành'),
-    ( 'PST3', N'Quá hạn');
+    ( 'PST3', N'Quá hạn'),
+    ( 'PST4', N'Đang chờ thanh toán');
 GO
 CREATE TABLE Projects(
     ID varchar(20) PRIMARY KEY,
@@ -149,7 +150,7 @@ CREATE TABLE Projects(
 GO
 INSERT INTO Projects(ID, ProjectName, CreatedDate, StartDate, EndDate, CompletedDate, Progress, StatusID, OwnerID, BonusSalary)
 VALUES
-    ('PRJ001', 'Website Development', CONVERT(SMALLDATETIME, '01-01-2023 08:00 AM', 105), CONVERT(SMALLDATETIME, '01-01-2023 08:00 AM', 105), CONVERT(SMALLDATETIME, '30-06-2023 05:00 PM', 105), CONVERT(SMALLDATETIME, '01-01-2000 00:00 AM', 105), '50','PST1', 'EM001', 100000000),
+    ('PRJ001', 'Website Development', CONVERT(SMALLDATETIME, '01-01-2023 08:00 AM', 105), CONVERT(SMALLDATETIME, '01-03-2023 08:00 AM', 105), CONVERT(SMALLDATETIME, '30-06-2023 05:00 PM', 105), CONVERT(SMALLDATETIME, '01-01-2000 00:00 AM', 105), '50','PST1', 'EM001', 100000000),
     ('PRJ002', 'Mobile App Development', CONVERT(SMALLDATETIME, '01-02-2023 09:30 AM', 105), CONVERT(SMALLDATETIME, '01-02-2023 09:30 AM', 105), CONVERT(SMALLDATETIME, '31-08-2023 07:00 PM', 105), CONVERT(SMALLDATETIME, '01-01-2000 00:00 AM', 105),'35', 'PST1', 'EM002', 100234000),
     ('PRJ003', 'Database Management System', CONVERT(SMALLDATETIME, '01-03-2023 10:15 AM', 105), CONVERT(SMALLDATETIME, '01-03-2023 10:15 AM', 105), CONVERT(SMALLDATETIME, '31-10-2023 04:30 PM', 105), CONVERT(SMALLDATETIME, '01-01-2000 00:00 AM', 105),'10', 'PST1', 'EM003', 100056700),
     ('PRJ004', 'Artificial Intelligence Research', CONVERT(SMALLDATETIME, '01-04-2023 01:00 PM', 105), CONVERT(SMALLDATETIME, '01-04-2023 01:00 PM', 105), CONVERT(SMALLDATETIME, '31-03-2024 11:00 AM', 105), CONVERT(SMALLDATETIME, '01-01-2000 00:00 AM', 105),'0', 'PST1', 'EM004', 112300000),
@@ -158,7 +159,7 @@ GO
 CREATE TABLE ProjectAssignments(
     ProjectID varchar(20) NOT NULL,
     DepartmentID varchar(20) NOT NULL,
-    PRIMARY KEY(ProjectID, DepartmentID),
+    CONSTRAINT PK_Assignments PRIMARY KEY(ProjectID, DepartmentID),
     CONSTRAINT FK_Assignments_ProjectID FOREIGN KEY(ProjectID) REFERENCES Projects(ID),
     CONSTRAINT FK_Assignments_DepartmentID FOREIGN KEY(DepartmentID) REFERENCES Departments(ID)
 );
@@ -182,7 +183,8 @@ INSERT INTO TaskStatuses(ID, StatusName)
 VALUES
     ( 'TS1', N'Đang thực hiện'),
     ( 'TS2', N'Đã hoàn thành'),
-    ( 'TS3', N'Quá hạn');
+    ( 'TS3', N'Quá hạn'),
+    ( 'TS4', N'Đang xem xét');
 GO
 CREATE TABLE Tasks(
     ID varchar(20) PRIMARY KEY,
@@ -203,26 +205,30 @@ CREATE TABLE Tasks(
 GO
 INSERT INTO Tasks(ID, Title, Explanation, StartDate, Deadline, Progress, OwnerID, EmployeeID, ProjectID, StatusID)
 VALUES
-    ('T000001', N'Website Development - Design', N'Thiết kế giao diện website cho khách hàng ABC', CONVERT(SMALLDATETIME, '01-03-2023 09:00 AM', 105), CONVERT(SMALLDATETIME, '15-03-2023 05:00 PM', 105), '50', 'EM002', 'EM003', 'PRJ001', 'TS3'),
+    ('T000001', N'Website Development - Design', N'Thiết kế giao diện website cho khách hàng ABC', CONVERT(SMALLDATETIME, '01-03-2023 09:00 AM', 105), CONVERT(SMALLDATETIME, '15-03-2023 05:00 PM', 105), '50', 'EM002', 'EM007', 'PRJ001', 'TS3'),
     ('T000002', N'Website Development - Front-end', N'Lập trình phần front-end cho website khách hàng ABC', CONVERT(SMALLDATETIME, '16-03-2023 08:00 AM', 105), CONVERT(SMALLDATETIME, '31-03-2023 05:00 PM', 105), '30', 'EM002', 'EM007', 'PRJ001','TS3'),
-    ('T000003', N'Website Development - Back-end', N'Lập trình phần back-end cho website khách hàng ABC', CONVERT(SMALLDATETIME, '01-04-2023 08:00 AM', 105), CONVERT(SMALLDATETIME, '15-04-2023 05:00 PM', 105), '10', 'EM002', 'EM009', 'PRJ001', 'TS3'),
+    ('T000003', N'Website Development - Back-end', N'Lập trình phần back-end cho website khách hàng ABC', CONVERT(SMALLDATETIME, '01-04-2023 08:00 AM', 105), CONVERT(SMALLDATETIME, '15-04-2023 05:00 PM', 105), '10', 'EM002', 'EM007', 'PRJ001', 'TS3'),
     ('T000004', N'Website Development - Testing', N'Kiểm thử và sửa lỗi cho website khách hàng ABC', CONVERT(SMALLDATETIME, '16-04-2023 08:00 AM', 105), CONVERT(SMALLDATETIME, '30-04-2023 05:00 PM', 105), '10', 'EM002', 'EM013', 'PRJ001', 'TS1'),
     ('T000005', N'Website Development - Deployment', N'Triển khai website khách hàng ABC trên server', CONVERT(SMALLDATETIME, '01-05-2023 08:00 AM', 105), CONVERT(SMALLDATETIME, '15-05-2023 05:00 PM', 105), '0', 'EM002', 'EM017', 'PRJ001', 'TS1'),
+    
     ('T000006', N'Develop mobile app UI design', N'Phát triển thiết kế giao diện người dùng cho ứng dụng di động', CONVERT(SMALLDATETIME, '20-04-2023 02:30 PM', 105), CONVERT(SMALLDATETIME, '20-05-2023 05:00 PM', 105), '0', 'EM001', 'EM027', 'PRJ002', 'TS1'),
     ('T000007', N'Develop mobile app backend', N'Tạo backend cho ứng dụng di động', CONVERT(SMALLDATETIME, '15-05-2023 10:00 AM', 105), CONVERT(SMALLDATETIME, '30-06-2023 01:30 PM', 105), '0', 'EM001', 'EM026', 'PRJ002', 'TS1'),
     ('T000008', N'Develop mobile app frontend', N'Tạo frontend cho ứng dụng di động', CONVERT(SMALLDATETIME, '01-06-2023 09:15 AM', 105), CONVERT(SMALLDATETIME, '15-07-2023 11:45 AM', 105), '0', 'EM001', 'EM028', 'PRJ002', 'TS1'),
     ('T000009', N'Test mobile app', N'Kiểm thử ứng dụng di động và báo cáo lỗi', CONVERT(SMALLDATETIME, '20-07-2023 02:00 PM', 105), CONVERT(SMALLDATETIME, '15-08-2023 04:30 PM', 105), '0', 'EM001', 'EM031', 'PRJ002', 'TS1'),
     ('T000010', N'Deploy mobile app', N'Triển khai ứng dụng di động lên cửa hàng ứng dụng', CONVERT(SMALLDATETIME, '01-09-2023 10:30 AM', 105), CONVERT(SMALLDATETIME, '30-09-2023 03:00 PM', 105), '0', 'EM001', 'EM030', 'PRJ002', 'TS1'),
+    
     ('T000011', N'Create new database', N'Tạo cơ sở dữ liệu cho hệ thống quản lý nhân viên', CONVERT(SMALLDATETIME, '01-03-2023 10:15 AM', 105), CONVERT(SMALLDATETIME, '15-03-2023 04:30 PM', 105), '0', 'EM003', 'EM035', 'PRJ003', 'TS3'),
     ('T000012', N'Optimize database', N'Tối ưu hóa cơ sở dữ liệu cho hệ thống quản lý nhân viên', CONVERT(DATETIME, '05-03-2023 10:15 AM', 105), CONVERT(DATETIME, '20-03-2023 04:30 PM', 105), '0', 'EM003', 'EM036', 'PRJ003', 'TS3'),
     ('T000013', N'Collect information', N'Thu thập thông tin về các nhân viên trong công ty', CONVERT(SMALLDATETIME, '10-03-2023 10:15 AM', 105), CONVERT(SMALLDATETIME, '25-03-2023 04:30 PM', 105), '0', 'EM003', 'EM037', 'PRJ003', 'TS3'),
     ('T000014', N'Analyze data', N'Phân tích dữ liệu về các nhân viên trong công ty', CONVERT(SMALLDATETIME, '15-03-2023 10:15 AM', 105), CONVERT(SMALLDATETIME, '30-03-2023 04:30 PM', 105), '0', 'EM003', 'EM038', 'PRJ003', 'TS3'),
     ('T000015', N'Perform data check', N'Thực hiện kiểm tra dữ liệu đã thu thập và phân tích', CONVERT(SMALLDATETIME, '20-03-2023 10:15 AM', 105), CONVERT(SMALLDATETIME, '31-10-2023 04:30 PM', 105), '0', 'EM003', 'EM039', 'PRJ003', 'TS1'),
+    
     ('T000016', N'Cloud Computing Migration', N'Migrate các ứng dụng và dữ liệu hiện có đến nền tảng Cloud Computing', CONVERT(SMALLDATETIME, '01-05-2023 02:45 PM', 105), CONVERT(SMALLDATETIME, '30-11-2023 10:30 AM', 105), '0', 'EM004', 'EM045', 'PRJ004', 'TS1'),
     ('T000017', N'Assess current infrastructure', N'Đánh giá cơ sở hạ tầng công nghệ thông tin hiện tại và xác định các khu vực cần được di chuyển đến đám mây.', CONVERT(SMALLDATETIME, '05-05-2023 02:45 PM', 105), CONVERT(SMALLDATETIME, '15-05-2023 04:30 PM', 105), '0', 'EM004', 'EM046', 'PRJ004', 'TS1'),
     ('T000018', N'Select cloud provIDer', N'Nghiên cứu và lựa chọn nhà cung cấp đám mây phù hợp cho công ty', CONVERT(SMALLDATETIME, '10-05-2023 02:45 PM', 105), CONVERT(SMALLDATETIME, '25-05-2023 04:30 PM', 105), '0', 'EM004', 'EM047', 'PRJ004', 'TS1'),
     ('T000019', N'Migrate applications', N'Migrate các ứng dụng hiện có đến nền tảng đám mây', CONVERT(SMALLDATETIME, '15-05-2023 02:45 PM', 105), CONVERT(SMALLDATETIME, '30-11-2023 10:30 AM', 105), '0', 'EM004', 'EM048', 'PRJ004', 'TS1'),
     ('T000020', N'Migrate data', N'Transfer dữ liệu của công ty đến nền tảng đám mây', CONVERT(SMALLDATETIME, '20-05-2023 02:45 PM', 105), CONVERT(SMALLDATETIME, '30-11-2023 10:30 AM', 105), '0', 'EM004', 'EM049', 'PRJ004', 'TS1'),
+    
     ('T000021', N'Infrastructure Department', N'Triển khai và quản lý cơ sở hạ tầng công nghệ thông tin cho công ty', CONVERT(SMALLDATETIME, '01-05-2023 02:45 PM', 105), CONVERT(SMALLDATETIME, '30-11-2023 10:30 AM', 105), '0', 'EM051', 'EM050', 'PRJ005', 'TS1'),
     ('T000022', N'Set up network infrastructure', N'Cài đặt và cấu hình cơ sở hạ tầng mạng cho công ty', CONVERT(SMALLDATETIME, '05-05-2023 02:45 PM', 105), CONVERT(SMALLDATETIME, '15-05-2023 04:30 PM', 105), '0', 'EM051', 'EM050', 'PRJ005', 'TS1'),
     ('T000023', N'Implement server infrastructure', N'Cài đặt và cấu hình cơ sở hạ tầng máy chủ cho công ty', CONVERT(SMALLDATETIME, '10-05-2023 02:45 PM', 105), CONVERT(SMALLDATETIME, '25-05-2023 04:30 PM', 105), '0', 'EM051', 'EM052', 'PRJ005', 'TS1'),
@@ -231,12 +237,57 @@ VALUES
     ('T000026', N'Manage IT infrastructure', N'Quản lý và duy trì cơ sở hạ tầng công nghệ thông tin cho công ty', CONVERT(SMALLDATETIME, '25-05-2023 02:45 PM', 105), CONVERT(SMALLDATETIME, '30-11-2023 10:30 AM', 105), '0', 'EM051', 'EM054', 'PRJ005', 'TS1');
 GO
 
--- NON-FIX
+-- -- Project plans
+-- GO
+-- CREATE TABLE MilestoneStatuses(
+--     ID varchar(10) PRIMARY KEY,
+--     StatusName nvarchar(50) NOT NULL,
+-- )
+-- GO
+-- INSERT INTO MilestoneStatuses(ID, StatusName)
+-- VALUES
+--     ( 'MS1', N'Đang thực hiện'),
+--     ( 'MS2', N'Đúng tiến độ'),
+--     ( 'MS3', N'Trễ tiến độ');
+-- GO
+-- CREATE TABLE Milestones(
+--     ID varchar(20) PRIMARY KEY,
+--     StartDate SMALLDATETIME,
+--     EndDate SMALLDATETIME,
+--     Explanation nvarchar(255),
+--     ProjectID varchar(20) NOT NULL,
+--     CONSTRAINT FK_Milestones_ProjectID FOREIGN KEY(ProjectID) REFERENCES Projects(ID)
+-- );
+-- GO
+-- CREATE TABLE MilestoneTasks(
+--     MilestoneID varchar(20) NOT NULL,
+--     TaskID varchar(20) NOT NULL, -- task in ProjectID of Milestones table
+--     PRIMARY KEY (MilestoneID, TaskID),
+--     CONSTRAINT FK_MilestoneTasks_MilestoneID FOREIGN KEY(MilestoneID) REFERENCES Milestones(ID),
+--     CONSTRAINT FK_MilestoneTasks_TaskID FOREIGN KEY(TaskID) REFERENCES Tasks(ID)
+-- )
+-- GO
+-- INSERT INTO Milestones(ID, StartDate, EndDate, Explanation, ProjectID)
+-- VALUES
+--     ('MST0001', CONVERT(SMALLDATETIME, '01-01-2023 08:00 AM', 105), CONVERT(SMALLDATETIME, '01-04-2023 05:00 PM', 105), N'Chưa kịp do không hiểu vấn đề', 'PRJ001');
+-- GO
+-- INSERT INTO MilestoneTasks(MilestoneID, TaskID)
+-- VALUES
+--     ('MST0001', 'T000001'),
+--     ('MST0001', 'T000002');
+-- GO
+
 -- leave requests
 CREATE TABLE LeaveStatuses(
     ID varchar(20) PRIMARY KEY,
     StatusName nvarchar(50)
 )
+GO
+INSERT INTO LeaveStatuses(ID, StatusName)
+VALUES
+    ('LS1', N'Chấp nhận'),
+    ('LS2', N'Chưa giải quyết'),
+    ('LS3', N'Từ chối');
 GO
 CREATE TABLE LeaveRequests(
     ID varchar(20) PRIMARY KEY,
@@ -248,10 +299,15 @@ CREATE TABLE LeaveRequests(
     StatusID varchar(20),
     EmployeeID varchar(20),
     ApproverID varchar(20),
-    CONSTRAINT FK_Leave_StatusID FOREIGN KEY(StatusID) REFERENCES LeaveStatuses(ID),
-    CONSTRAINT FK_Leave_EmployeeID FOREIGN KEY(EmployeeID) REFERENCES Employees(ID),
-    CONSTRAINT FK_Leave_ApproverID FOREIGN KEY(ApproverID) REFERENCES Employees(ID)
+    CONSTRAINT FK_Leaves_StatusID FOREIGN KEY(StatusID) REFERENCES LeaveStatuses(ID),
+    CONSTRAINT FK_Leaves_EmployeeID FOREIGN KEY(EmployeeID) REFERENCES Employees(ID),
+    CONSTRAINT FK_Leaves_ApproverID FOREIGN KEY(ApproverID) REFERENCES Employees(ID)
 )
+GO
+INSERT INTO LeaveRequests(ID, EmployeeID, Reason, Notes, CreatedDate, StartDate, EndDate, StatusID, ApproverID)
+VALUES
+    ('LEA0001', 'EM007', N'Nghỉ do bị ốm', N'ghi chú 1', '2023-04-01', '2023-04-08', '2023-04-09', 'LS1', 'EM006'),
+    ('LEA0002', 'EM008', N'Nghỉ đi khám bệnh', N'ghi chú 2', '2023-04-01', '2023-04-10', '2023-04-06', 'LS1', 'EM006');
 GO
 
 -- check-in-out
@@ -265,6 +321,12 @@ CREATE TABLE TimeSheets(
     CONSTRAINT FK_CheckInOut_TaskCheckInID FOREIGN KEY(TaskCheckInID) REFERENCES Tasks(ID)
 )
 GO
+INSERT INTO TimeSheets(ID, CheckInTime, CheckOutTime, EmployeeID, TaskCheckInID)
+VALUES
+    ('TSH00001', '2023-04-10 08:30:00', '2023-04-10 12:00:00', 'EM007', 'T000001'),
+    ('TSH00002', '2023-04-11 13:30:00', '2023-04-11 16:00:00', 'EM008', 'T000002');
+GO
+GO
 CREATE TABLE TaskCheckOuts(
     UpdateDate SMALLDATETIME NOT NULL,
     Progress varchar(4) NOT NULL,
@@ -275,50 +337,47 @@ CREATE TABLE TaskCheckOuts(
     CONSTRAINT FK_TaskCheckOuts_TaskID FOREIGN KEY(TaskID) REFERENCES Tasks(ID)
 );
 GO
-
--- salary (store salary of each employee by month)
-CREATE TABLE SalaryRecords(
-    EmployeeID varchar(20) NOT NULL,
-    SalaryTime date NOT NULL,
-    TotalWorkdays int,
-    Bonus int,
-    Income int, --Income = BaseSalary (from Employees) * (TotalWorkdays/30) + Bonus
-    PRIMARY KEY(EmployeeID, SalaryTime),
-    CONSTRAINT FK_SalaryEmployeeID FOREIGN KEY(EmployeeID) REFERENCES Employees(ID)
-);
+INSERT INTO TaskCheckOuts(UpdateDate, Progress, TimeSheetID, TaskID)
+VALUES
+    ('2023-04-10 01:30 PM', '50', 'TSH00001', 'T000001'),
+    ('2023-04-10 11:30 PM', '30', 'TSH00002', 'T000002');
 GO
 
 -- set KPI
+-- set by month
 CREATE TABLE KPIs(
     ID varchar(20) PRIMARY KEY,
-    MonthYear SMALLDATETIME,
-    NumberTarget int,
-    NumberActual int,
-    ProjectID varchar(20),
+    MonthYear date,
+    RequiredTasksCount int,
+    ActualTasksCount int,
     EmployeeID varchar(20),
-    CONSTRAINT FK_KPIs_ProjectID FOREIGN KEY(ProjectID) REFERENCES Projects(ID),
     CONSTRAINT FK_KPIs_EmployeeID FOREIGN KEY(EmployeeID) REFERENCES Employees(ID)
 );
 GO
-INSERT INTO TimeSheets(ID, CheckInTime, CheckOutTime, EmployeeID, TaskCheckInID)
+INSERT INTO KPIs(ID, MonthYear, RequiredTasksCount, ActualTasksCount, EmployeeID)
 VALUES
-    ('CI00001', '2023-04-10 08:30:00', '2023-04-10 12:00:00', 'EM007', 'T000001'),
-    ('CI00002', '2023-04-11 13:30:00', '2023-04-11 16:00:00', 'EM008', 'T000002');
+    ('KPI00001', '2023-04-01', 10, 0, 'EM007'),
+    ('KPI00002', '2023-04-01', 5, 0, 'EM008');
 GO
-INSERT INTO TaskCheckOuts(UpdateDate, Progress, TimeSheetID, TaskID)
-VALUES 
-('T000001', '2023-04-10 01:30 PM', '50'),
-('CI00002', 'T000002', '2023-04-10 11:30 PM', '30');
+
+-- salary (store salary of each employee by month)
+CREATE TABLE ProjectBonuses(
+    ID varchar(20) PRIMARY KEY,
+    Amount int,
+    ReceivedDate SMALLDATETIME,
+    EmployeeID varchar(20),
+    ProjectID varchar(20),
+    CONSTRAINT FK_Bonuses_EmployeeID FOREIGN KEY(EmployeeID) REFERENCES Employees(ID),
+    CONSTRAINT FK_Bonuses_ProjectID FOREIGN KEY(ProjectID) REFERENCES Projects(ID)
+);
 GO
-INSERT INTO LeaveStatuses(ID, StatusName)
-VALUES
-    ('LS1', N'chấp nhận'),
-    ('LS2', N'chưa giải quyết'),
-    ('LS3', N'từ chối');
-GO
----------------------------------------------------------------------------------------------------------------------------------------------------------
-INSERT INTO LeaveRequests(ID, EmployeeID, LeaveTypeID, LeaveReason, StartDate, EndDate, LeaveStatusID, CreatedDate, ApprovedBy, Notes)
-VALUES
-    ('LEA0001', 'EM007', 'LT1', N'Nghỉ do bị ốm', '2023-04-01', '2023-04-05', 'LS1', '2023-04-06', 'EM001', N'ghi chú 1'),
-    ('LEA0002', 'EM008', 'LT2', N'Nghỉ đi khám bệnh', '2023-04-01', '2023-04-10', 'LS1', '2023-04-06', 'EM001', N'ghi chú 2');
+CREATE TABLE SalaryRecords(
+    ID varchar(20) PRIMARY KEY,
+    EmployeeID varchar(20) NOT NULL,
+    MonthYear date,
+    TotalWorkdays int,
+    TotalBonus int,
+    Income int, --Income = BaseSalary (from Employees) * (TotalWorkdays/30) + Bonus
+    CONSTRAINT FK_SalaryEmployeeID FOREIGN KEY(EmployeeID) REFERENCES Employees(ID)
+);
 GO
