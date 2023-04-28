@@ -12,7 +12,7 @@ namespace CompanyManagement.ViewModels.Dialogs
     {
         public ICommand AddProjectCommand { get; }
 
-        public IProjectInput ProjectInputDataContext { get; }
+        public ProjectInputViewModel ProjectInputDataContext { get; }
         private Action<Project> submitObjectAction;
 
         public AddProjectViewModel()

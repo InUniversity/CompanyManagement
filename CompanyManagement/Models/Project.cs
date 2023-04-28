@@ -18,7 +18,7 @@ namespace CompanyManagement
         private string progress;
         private string statusID;
         private string ownerID;
-        private int bonusSalary;
+        private decimal bonusSalary;
         private ObservableCollection<Department> departments = new ObservableCollection<Department>();
 
         public string ID
@@ -75,7 +75,7 @@ namespace CompanyManagement
             set => ownerID = value;
         }
 
-        public int BonusSalary
+        public decimal BonusSalary
         {
             get => bonusSalary;
             set => bonusSalary = value;
@@ -90,7 +90,7 @@ namespace CompanyManagement
         public Project() { }
 
         public Project(string id, string name, DateTime createdDate, DateTime startDate, DateTime endDate, 
-            DateTime completedDate, string progress, string statusID, string ownerID, int bonusSalary,
+            DateTime completedDate, string progress, string statusID, string ownerID, decimal bonusSalary,
             ObservableCollection<Department> departments)
         {
             this.id = id;
@@ -119,7 +119,7 @@ namespace CompanyManagement
                 progress = (string)reader[BaseDao.PROJECTS_PROPRESS];
                 statusID = (string)reader[BaseDao.PROJECTS_STATUS_ID];
                 ownerID = (string)reader[BaseDao.PROJECTS_OWNER_ID];
-                bonusSalary = (int)reader[BaseDao.PROJECTS_BONUS_SALARY];
+                bonusSalary = reader.GetDecimal(reader.GetOrdinal(BaseDao.PROJECTS_BONUS_SALARY));
             }
             catch (Exception ex)
             {
