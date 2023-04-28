@@ -6,14 +6,14 @@ namespace CompanyManagement.Views.UserControls
     /// <summary>
     ///     Interaction logic for CheckInOutUC.xaml
     /// </summary>
-    public partial class CheckInOutUC : UserControl
+    public partial class TimeSheetUC : UserControl
     {
-        public CheckInOutViewModel ViewModel { get => (CheckInOutViewModel)DataContext; }
+        public TimeSheetViewModel ViewModel { get => (TimeSheetViewModel)DataContext; }
 
-        public CheckInOutUC()
+        public TimeSheetUC()
         {
             InitializeComponent();
-            DataContext = new CheckInOutViewModel();
+            DataContext = new TimeSheetViewModel();
         }
     }
 }

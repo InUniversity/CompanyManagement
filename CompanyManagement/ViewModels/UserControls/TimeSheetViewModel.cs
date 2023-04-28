@@ -10,15 +10,15 @@ using CompanyManagement.Views.Dialogs;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
-    public class CheckInOutViewModel : BaseViewModel
+    public class TimeSheetViewModel : BaseViewModel
     {
         private bool isToggled;
         public bool IsToggled { get => isToggled; set { isToggled = value; OnPropertyChanged(); } }
 
         private TimeSheet currentTimeSheet;
         
-        private ObservableCollection<TimeSheet> checkInOutList;
-        public ObservableCollection<TimeSheet> CheckInOutList { get => checkInOutList; set { checkInOutList = value; } }
+        private ObservableCollection<TimeSheet> timeSheetList;
+        public ObservableCollection<TimeSheet> TimeSheetList { get => timeSheetList; set { timeSheetList = value; } }
 
         private DateTime checkInTime;
         public DateTime CheckInTime { get => checkInTime; set { checkInTime = value; OnPropertyChanged(); } }
@@ -32,16 +32,16 @@ namespace CompanyManagement.ViewModels.UserControls
         private TaskCheckOutsDao taskCheckOutsDao = new TaskCheckOutsDao();
         private TasksDao tasksDao = new TasksDao();
 
-        public CheckInOutViewModel()
+        public TimeSheetViewModel()
         {
-            LoadCheckInOutList();
+            LoadTimeSheetList();
             SetCommands();
         }
 
-        private void LoadCheckInOutList()
+        private void LoadTimeSheetList()
         {
             //TODO
-            CheckInOutList = new ObservableCollection<TimeSheet>(timeSheetsDao.GetAll());
+            TimeSheetList = new ObservableCollection<TimeSheet>(timeSheetsDao.GetAll());
         }
 
         private void SetCommands()
@@ -69,7 +69,7 @@ namespace CompanyManagement.ViewModels.UserControls
             CheckInTime = DateTime.Now;
             CheckOutTime = new DateTime();
             timeSheetsDao.Add(timeSheet);
-            LoadCheckInOutList();
+            LoadTimeSheetList();
         }
 
         private void CreateCheckIn()
@@ -100,7 +100,7 @@ namespace CompanyManagement.ViewModels.UserControls
         {
             CheckOutTime = DateTime.Now;
             timeSheetsDao.Update(timeSheet);
-            LoadCheckInOutList();
+            LoadTimeSheetList();
         }
     }
 }
