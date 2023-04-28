@@ -9,9 +9,9 @@ namespace CompanyManagement.Views.Dialogs
     /// <summary>
     /// Interaction logic for CheckOutDialog.xaml
     /// </summary>
-    public partial class CheckOutDialog : Window, IInputDialog<CheckInOut>
+    public partial class CheckOutDialog : Window, IInputDialog<TimeSheet>
     {
-        public IInputViewModel<CheckInOut> ViewModel { get; }
+        public IInputViewModel<TimeSheet> ViewModel { get; }
 
         public CheckOutDialog()
         {

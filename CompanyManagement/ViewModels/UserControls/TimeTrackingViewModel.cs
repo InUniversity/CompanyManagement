@@ -24,7 +24,7 @@ namespace CompanyManagement.ViewModels.UserControls
         public ICommand BackDateCommand { get; private set; }
         public ICommand NextDateCommand { get; private set; }
 
-        private TaskCheckOutDao taskCheckOutDao = new TaskCheckOutDao();
+        private TaskCheckOutsDao taskCheckOutsDao = new TaskCheckOutsDao();
         private TasksDao tasksDao = new TasksDao();
 
         private string projectID = "";
@@ -36,7 +36,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void LoadTaskCheckOutList()
         {
-            originalTaskCheckOutList = taskCheckOutDao.SearchByProjectID(projectID);
+            originalTaskCheckOutList = taskCheckOutsDao.SearchByProjectID(projectID);
             foreach (var taskCheckOut in originalTaskCheckOutList)
             {
                 taskCheckOut.Task = tasksDao.SearchByID(taskCheckOut.TaskID);

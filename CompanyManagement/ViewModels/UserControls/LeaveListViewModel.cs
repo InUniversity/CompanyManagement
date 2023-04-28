@@ -18,8 +18,8 @@ namespace CompanyManagement.ViewModels.UserControls
     public class LeaveListViewModel : BaseViewModel
     {
 
-        private List<Leave> leaves;
-        public List<Leave> Leaves { get => leaves; set { leaves = value; OnPropertyChanged(); } }
+        private List<LeaveRequest> leaves;
+        public List<LeaveRequest> Leaves { get => leaves; set { leaves = value; OnPropertyChanged(); } }
 
         private Visibility visibleAddButton = Visibility.Collapsed;
         public Visibility VisibleAddButton { get => visibleAddButton; set { visibleAddButton = value; OnPropertyChanged(); } }
@@ -45,7 +45,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         public INavigateAssignmentView ParentDataContext { get; set; }
 
-        private LeaveDao leaveDao = new LeaveDao();
+        private LeaveRequestsDao leaveRequestsDao = new LeaveRequestsDao();
         private DepartmentsDao departmentsDao = new DepartmentsDao();
         private EmployeesDao employeesDao = new EmployeesDao();
 
@@ -74,13 +74,13 @@ namespace CompanyManagement.ViewModels.UserControls
             Leaves = GetLeaveList();
         }
 
-        private List<Leave> GetLeaveList()
+        private List<LeaveRequest> GetLeaveList()
         {
             if (string.Equals(currentEmployee.RoleID, BaseDao.MANAGER_ROLE_ID))
-                return leaveDao.GetAll();
+                return leaveRequestsDao.GetAll();
             if (string.Equals(currentEmployee.RoleID, BaseDao.DEPARTMENT_HEAD_ROLE_ID))
-                return leaveDao.SearchByDeptHeaderID(currentEmployee.ID);
-            return leaveDao.SearchByEmployeeID(currentEmployee.ID);
+                return leaveRequestsDao.SearchByDeptHeaderID(currentEmployee.ID);
+            return leaveRequestsDao.SearchByEmployeeID(currentEmployee.ID);
         }
 
         private void SetVisible()
@@ -118,9 +118,9 @@ namespace CompanyManagement.ViewModels.UserControls
             LoadLeaveList();
             var allItem = Leaves;
             allItem = Leaves
-                    .Where(item => item.CreateDate.Date == TimeCreateLeave.Date)
+                    .Where(item => item.CreatedDate.Date == TimeCreateLeave.Date)
                     .ToList();
-            Leaves = new List<Leave>(allItem);
+            Leaves = new List<LeaveRequest>(allItem);
             Log.Instance.Information(nameof(LeaveListViewModel), "selected date = " + timeCreateLeave.ToShortDateString());
         }
 
@@ -131,7 +131,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void VisibilityManagerCommands()
         {
-            ApproveLeaveCommand = new RelayCommand<Leave>(ExecuteApproveCommand);
+            ApproveLeaveCommand = new RelayCommand<LeaveRequest>(ExecuteApproveCommand);
         }    
 
         private void VisibilityCRUD()
@@ -145,16 +145,15 @@ namespace CompanyManagement.ViewModels.UserControls
         {
             OpenLeaveInputCommand = new RelayCommand<object>(ExecuteAddCommand);
             DeleteLeaveCommand = new RelayCommand<string>(ExecuteDeleteCommand);
-            UpdateLeaveCommand = new RelayCommand<Leave>(ExecuteUpdateCommand);
+            UpdateLeaveCommand = new RelayCommand<LeaveRequest>(ExecuteUpdateCommand);
         }
 
-        private Leave CreateLeave()
+        private LeaveRequest CreateLeave()
         {
             string approveBy = string.Equals(currentEmployee.ID, BaseDao.EMPLOYEE_ROLE_ID) 
                 ? departmentsDao.DepartmentByEmployeeDeptID(currentEmployee.DepartmentID).ManagerID
                 : employeesDao.SearchByPositionID(BaseDao.MANAGER_ROLE_ID).ID;
-            return new Leave(AutoGenerateID(), currentEmployee.ID, "LS2", "", DateTime.Now, DateTime.Now, "LS2",
-                DateTime.Now, approveBy , "");
+            return new LeaveRequest(AutoGenerateID(), "", "", "LS2", currentEmployee.ID, approveBy);
         }
 
         private string AutoGenerateID()
@@ -165,26 +164,26 @@ namespace CompanyManagement.ViewModels.UserControls
             {
                 int number = random.Next(10000);
                 leaaveID = $"LEA{number:0000}";
-            } while (leaveDao.SearchByID(leaaveID) != null);
+            } while (leaveRequestsDao.SearchByID(leaaveID) != null);
             return leaaveID;
         }
 
-        private void Add(Leave leave)
+        private void Add(LeaveRequest leaveRequest)
         {
-            leaveDao.Add(leave);
+            leaveRequestsDao.Add(leaveRequest);
             LoadLeaveList();
         }
 
-        private void Update(Leave leave)
+        private void Update(LeaveRequest leaveRequest)
         {
-            leaveDao.Update(leave);
+            leaveRequestsDao.Update(leaveRequest);
             LoadLeaveList();
         }
 
         private void ExecuteAddCommand(object p)
         {
             var leave = CreateLeave();
-            var inputDialogService = new InputDialogService<Leave>(new AddLeaveDialog(), leave, Add);
+            var inputDialogService = new InputDialogService<LeaveRequest>(new AddLeaveDialog(), leave, Add);
             inputDialogService.Show();
             FilterDate();
         }
@@ -196,22 +195,22 @@ namespace CompanyManagement.ViewModels.UserControls
               "Bạn chắc chắn muốn xóa xin phép nghỉ!",
               () =>
               {
-                  leaveDao.Delete(id);
+                  leaveRequestsDao.Delete(id);
                   LoadLeaveList();
               }, null);
             dialog.Show();
             FilterDate();
         }
 
-        private void ExecuteUpdateCommand(Leave leave)
+        private void ExecuteUpdateCommand(LeaveRequest leaveRequest)
         {
-            var inputDialogService = new InputDialogService<Leave>(new UpdateLeaveDialog(), leave, Update);
+            var inputDialogService = new InputDialogService<LeaveRequest>(new UpdateLeaveDialog(), leaveRequest, Update);
             inputDialogService.Show();
         }
 
-        private void ExecuteApproveCommand(Leave leave)
+        private void ExecuteApproveCommand(LeaveRequest leaveRequest)
         {
-            var inputDialogService = new InputDialogService<Leave>(new UpdateLeaveForManagerDialog(), leave, Update);
+            var inputDialogService = new InputDialogService<LeaveRequest>(new UpdateLeaveForManagerDialog(), leaveRequest, Update);
             inputDialogService.Show();
         }
     }

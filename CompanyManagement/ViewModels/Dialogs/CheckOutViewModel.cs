@@ -13,11 +13,11 @@ using System;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
-    public class CheckOutViewModel : BaseViewModel, IInputViewModel<CheckInOut>
+    public class CheckOutViewModel : BaseViewModel, IInputViewModel<TimeSheet>
     {
         public CheckInOutInputViewModel CheckInOutInputDataContext { get; }
 
-        private Action<CheckInOut> submitObjectAction;
+        private Action<TimeSheet> submitObjectAction;
 
         private ObservableCollection<TaskInProject> tasksCheckOut;
         public ObservableCollection<TaskInProject> TasksCheckOut { get => tasksCheckOut; set => tasksCheckOut = value; }
@@ -38,7 +38,7 @@ namespace CompanyManagement.ViewModels.UserControls
         public ICommand GetAllSelectedTasksCommand { get; private set; }
         public ICommand DeleteTaskCompletedCommand { get; private set; }
 
-        private TaskCheckOutDao taskCheckOutDao = new TaskCheckOutDao();
+        private TaskCheckOutsDao taskCheckOutsDao = new TaskCheckOutsDao();
         private TasksDao tasksDao = new TasksDao();
 
         public CheckOutViewModel()
@@ -64,7 +64,7 @@ namespace CompanyManagement.ViewModels.UserControls
                  "Bạn có chắc chắn muốn check out không ?",
                  () =>
                  {
-                     CheckInOut checkOut = CheckInOutInputDataContext.CheckInOutIns;
+                     TimeSheet checkOut = CheckInOutInputDataContext.TimeSheetIns;
                      AddTasksCheckOut();
                      submitObjectAction?.Invoke(checkOut);
                      window.Close();
@@ -133,15 +133,15 @@ namespace CompanyManagement.ViewModels.UserControls
         private void AddTaskCheckOut(TaskInProject task)
         {
             TaskCheckOut taskCheckOut = new TaskCheckOut(CheckInOutInputDataContext.ID, task.ID, DateTime.Now, task.Progress, task);
-            taskCheckOutDao.Add(taskCheckOut);
+            taskCheckOutsDao.Add(taskCheckOut);
         }
 
-        public void ReceiveObject(CheckInOut checkInOut)
+        public void ReceiveObject(TimeSheet timeSheet)
         {
-             CheckInOutInputDataContext.CheckInOutIns = checkInOut;
+             CheckInOutInputDataContext.TimeSheetIns = timeSheet;
         }
 
-        public void ReceiveSubmitAction(Action<CheckInOut> submitObjectAction)
+        public void ReceiveSubmitAction(Action<TimeSheet> submitObjectAction)
         {
             this.submitObjectAction = submitObjectAction;
         }

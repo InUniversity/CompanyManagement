@@ -5,7 +5,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CompanyManagement.Views.UserControls"
               xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              TextElement.FontWeight="Regular"
              TextElement.FontSize="13"
@@ -18,28 +17,23 @@
         <StackPanel>
             <ComboBox             
                 Height="50"
-                ItemsSource="{Binding LeaveTypes}"
-                SelectedValue="{Binding LeaveTypeID}"
+                SelectedValue="{Binding Reason}"
                 SelectedValuePath="ID"
                 Margin="10"
-                materialDesign:HintAssist.Hint="Loại nghỉ phép: "
+                materialDesign:HintAssist.Hint="Lý do"
                 Style="{StaticResource MaterialDesignOutlinedComboBox}">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding Name}" />
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
+                    <ComboBoxItem Content="Vấn đề sức khỏe" />
+                    <ComboBoxItem Content="Vấn đề gia đình" />
+                    <ComboBoxItem Content="Du lịch, thư giãn" />
+                    <ComboBoxItem Content="Khác" />            
             </ComboBox>
             <TextBox
-                Height="100"
-                Margin="10"
-                Text="{Binding LeaveReason,  UpdateSourceTrigger=PropertyChanged}"
-                materialDesign:HintAssist.Hint="Lý do"
-                AcceptsReturn="True"
-                IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedTextBoxEnabledComboBox}"
-                Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                TextWrapping="Wrap"
-                VerticalScrollBarVisibility="Auto" />
+                Height="50"
+                Text="{Binding Notes, UpdateSourceTrigger=PropertyChanged}"
+                Background="White"
+                Margin="10"            
+                materialDesign:HintAssist.Hint= "Chú thích" 
+                Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
@@ -47,7 +41,7 @@
                 </Grid.ColumnDefinitions>
                 <Grid Grid.Column="0">
                     <DatePicker
-                    SelectedDate="{Binding Start, UpdateSourceTrigger=PropertyChanged}"
+                    SelectedDate="{Binding StartDate, UpdateSourceTrigger=PropertyChanged}"
                     Margin="10"
                     Width="360"
                     HorizontalAlignment="Center"
@@ -56,7 +50,7 @@
                 </Grid>
                 <Grid Grid.Column="1">
                     <materialDesign:TimePicker
-                    SelectedTime="{Binding Start, UpdateSourceTrigger=PropertyChanged}"
+                    SelectedTime="{Binding StartDate, UpdateSourceTrigger=PropertyChanged}"
                     Margin="10"
                     Width="360"
                     HorizontalAlignment="Center"
@@ -73,7 +67,7 @@
                 </Grid.ColumnDefinitions>
                 <Grid Grid.Column="0">
                     <DatePicker
-                    SelectedDate="{Binding End, UpdateSourceTrigger=PropertyChanged}"
+                    SelectedDate="{Binding EndDate, UpdateSourceTrigger=PropertyChanged}"
                     Margin="10"
                     Width="360"
                     HorizontalAlignment="Center"
@@ -82,7 +76,7 @@
                 </Grid>
                 <Grid Grid.Column="1">
                     <materialDesign:TimePicker
-                    SelectedTime="{Binding End, UpdateSourceTrigger=PropertyChanged}"
+                    SelectedTime="{Binding EndDate, UpdateSourceTrigger=PropertyChanged}"
                     Margin="10"
                     Width="360"
                     HorizontalAlignment="Center"
@@ -91,13 +85,6 @@
                     Style="{StaticResource MaterialDesignOutlinedTimePicker}" />
                 </Grid>
             </Grid>
-            <TextBox
-                Height="50"
-                Text="{Binding Note, UpdateSourceTrigger=PropertyChanged}"
-                Background="White"
-                Margin="10"            
-                materialDesign:HintAssist.Hint= "Chú thích" 
-                Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
             <TextBlock Text="{Binding ErrorMessage}" 
                        Height="40"
                        HorizontalAlignment="Center" 

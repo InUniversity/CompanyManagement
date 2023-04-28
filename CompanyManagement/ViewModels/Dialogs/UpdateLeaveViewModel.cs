@@ -9,12 +9,12 @@ using System;
 
 namespace CompanyManagement.ViewModels.Dialogs
 {
-    public class UpdateLeaveViewModel: BaseViewModel, IInputViewModel<Leave>
+    public class UpdateLeaveViewModel: BaseViewModel, IInputViewModel<LeaveRequest>
     {
         public ICommand UpdateLeaveCommand { get; }
 
-        public ILeaveInput LeaveInputDataContext { get; }
-        private Action<Leave> submitObjectAction;
+        public LeaveInputViewModel LeaveInputDataContext { get; }
+        private Action<LeaveRequest> submitObjectAction;
 
         public UpdateLeaveViewModel()
         {
@@ -31,7 +31,7 @@ namespace CompanyManagement.ViewModels.Dialogs
                 "Bạn chắc chắn muốn cập nhật xin phép nghỉ !",
                 () =>
                 {
-                    Leave empl = LeaveInputDataContext.LeaveIns;
+                    LeaveRequest empl = LeaveInputDataContext.LeaveRequestIns;
                     inputWindow.Close();
                 }, () => { });
             dialog.Show();
@@ -42,12 +42,12 @@ namespace CompanyManagement.ViewModels.Dialogs
             return true;
         }
 
-        public void ReceiveObject(Leave leave)
+        public void ReceiveObject(LeaveRequest leaveRequest)
         {
-            LeaveInputDataContext.LeaveIns = leave;
+            LeaveInputDataContext.LeaveRequestIns = leaveRequest;
         }
 
-        public void ReceiveSubmitAction(Action<Leave> submitObjectAction)
+        public void ReceiveSubmitAction(Action<LeaveRequest> submitObjectAction)
         {
             this.submitObjectAction = submitObjectAction;
         }
