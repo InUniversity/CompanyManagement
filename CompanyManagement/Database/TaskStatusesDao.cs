@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace CompanyManagement.Database
 {
-    public class TaskStatusDao : BaseDao
+    public class TaskStatusesDao : BaseDao
     {
         public List<TaskStatus> GetAll()
         {
