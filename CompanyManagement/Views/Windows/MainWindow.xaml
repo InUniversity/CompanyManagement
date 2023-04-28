@@ -89,7 +89,7 @@
                             Style="{StaticResource MaterialDesignActionToggleButton}"
                             Height="80"
                             Width="50"
-                            Margin="0 0 0 5"
+                            Margin="0 0 0 50"
                             Background="Transparent"
                             Content="{materialDesign:PackIcon Kind=FormatListBulleted, Size=30}"         
                             Foreground="White"                                                   
@@ -131,16 +131,7 @@
                             Style="{StaticResource MaterialDesignIconButton}"
                             Command="{Binding ShowLeavesViewCommand}"                                       
                             BorderThickness="0">
-                            <materialDesign:PackIcon Kind="EmailEdit" Foreground="White"/>
-                        </Button>
-                        <Button HorizontalAlignment="Right"  
-                            Height="100"
-                            Width="50"
-                            ToolTip="Yêu cầu xin nghỉ"
-                            Style="{StaticResource MaterialDesignIconButton}"
-                            Command="{Binding ShowApproveLeaveRequestListViewCommand}"                                       
-                            BorderThickness="0">
-                            <materialDesign:PackIcon Kind="EmailAlert" Foreground="White"/>
+                            <materialDesign:PackIcon Kind="EmailCheck" Foreground="White"/>
                         </Button>
                         <Button 
                             HorizontalAlignment="Right"  
