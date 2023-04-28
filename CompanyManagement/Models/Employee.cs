@@ -16,7 +16,7 @@ namespace CompanyManagement
         private string email = "";
         private string phoneNumber = "";
         private string address = "";
-        private int salary;
+        private decimal salary;
         private string departmentID = "";
         private string roleID = "";
         private Account account = new Account();
@@ -69,7 +69,7 @@ namespace CompanyManagement
             set => address = value;
         }
         
-        public int Salary
+        public decimal Salary
         {
             get => salary;
             set => salary = value;
@@ -123,7 +123,7 @@ namespace CompanyManagement
                 email = (string)reader[BaseDao.EMPLOYEE_EMAIL];
                 phoneNumber = (string)reader[BaseDao.EMPLOYEE_PHONE_NUMBER];
                 address = (string)reader[BaseDao.EMPLOYEE_ADDRESS];
-                salary = (int)reader[BaseDao.EMPLOYEE_SALARY];
+                salary = reader.GetDecimal(reader.GetOrdinal(BaseDao.EMPLOYEE_SALARY));
                 departmentID = (string)reader[BaseDao.EMPLOYEE_DEPARTMENT_ID];
                 roleID = (string)reader[BaseDao.EMPLOYEE_POSITION_ID];
             }

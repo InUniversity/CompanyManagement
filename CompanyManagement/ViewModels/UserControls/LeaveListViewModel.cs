@@ -151,7 +151,7 @@ namespace CompanyManagement.ViewModels.UserControls
         private LeaveRequest CreateLeave()
         {
             string approveBy = string.Equals(currentEmployee.ID, BaseDao.EMPLOYEE_ROLE_ID) 
-                ? departmentsDao.DepartmentByEmployeeDeptID(currentEmployee.DepartmentID).ManagerID
+                ? departmentsDao.DepartmentByEmployeeDeptID(currentEmployee.DepartmentID).DepartmentHeadID
                 : employeesDao.SearchByPositionID(BaseDao.MANAGER_ROLE_ID).ID;
             return new LeaveRequest(AutoGenerateID(), "", "", "LS2", currentEmployee.ID, approveBy);
         }

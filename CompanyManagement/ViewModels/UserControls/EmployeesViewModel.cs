@@ -20,9 +20,9 @@ namespace CompanyManagement.ViewModels.UserControls
         private string textToSearch = "";
         public string TextToSearch { get => textToSearch; set { textToSearch = value; OnPropertyChanged(); SearchByName(); } }
 
-        public ICommand OpenAddDialogCommand { get; set; }
-        public ICommand DeleteEmployeeCommand { get; set; }
-        public ICommand OpenUpdateDialogCommand { get; set; }
+        public ICommand OpenAddDialogCommand { get; private set; }
+        public ICommand DeleteEmployeeCommand { get; private set; }
+        public ICommand OpenUpdateDialogCommand { get; private set; }
 
         private EmployeesDao employeesDao = new EmployeesDao();
         private AccountsDao accountsDao = new AccountsDao();
