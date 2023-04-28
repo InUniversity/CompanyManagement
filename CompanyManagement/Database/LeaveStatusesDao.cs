@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace CompanyManagement.Database
 {
-    public class LeaveStatusDao : BaseDao
+    public class LeaveStatusesDao : BaseDao
     {
         public List<LeaveStatus> GetAll()
         {
-            string sqlStr = $"SELECT * FROM {LEAVE_STATUS_TABLE}";
+            string sqlStr = $"SELECT * FROM {LEAVE_STATUSES_TABLE}";
             return dbConnection.GetList(sqlStr, reader => new LeaveStatus(reader));
         }
     }

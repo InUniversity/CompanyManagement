@@ -14,7 +14,7 @@ namespace CompanyManagement.Views.UserControls
         public LeaveListUC()
         {
             InitializeComponent();
-            var positionID = CurrentUser.Ins.EmployeeIns.PositionID;
+            var positionID = CurrentUser.Ins.EmployeeIns.RoleID;
             var leaveListStrategy = LeaveListStrategyFactory.Create(positionID);
             DataContext = new LeaveListViewModel(leaveListStrategy);
         }

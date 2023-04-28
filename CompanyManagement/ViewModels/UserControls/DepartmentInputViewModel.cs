@@ -50,7 +50,7 @@ namespace CompanyManagement.ViewModels.UserControls
         {
             ID = department.ID;
             Name = department.Name;
-            managerID = department.ManagerID;
+            managerID = department.DepartmentHeadID;
         }
     }
 }

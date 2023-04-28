@@ -73,32 +73,30 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Database\AccountDao.cs" />
+    <Compile Include="Database\AccountsDao.cs" />
     <Compile Include="Database\Base\BaseDao.cs" />
     <Compile Include="Database\Base\DBConnection.cs" />
-    <Compile Include="Database\CheckInOutDao.cs" />
-    <Compile Include="Database\DepartmentDao.cs" />
-    <Compile Include="Database\EmployeeDao.cs" />
-    <Compile Include="Database\LeaveDao.cs" />
-    <Compile Include="Database\LeaveStatusDao.cs" />
-    <Compile Include="Database\LeaveTypeDao.cs" />
-    <Compile Include="Database\PositionDao.cs" />
-    <Compile Include="Database\ProjectAssignmentDao.cs" />
-    <Compile Include="Database\ProjectDao.cs" />
-    <Compile Include="Database\ProjectStatusDao.cs" />
-    <Compile Include="Database\TaskCheckOutDao.cs" />
-    <Compile Include="Database\TaskInProjectDao.cs" />
-    <Compile Include="Database\TaskStatusDao.cs" />
+    <Compile Include="Database\TimeSheetsDao.cs" />
+    <Compile Include="Database\DepartmentsDao.cs" />
+    <Compile Include="Database\EmployeesDao.cs" />
+    <Compile Include="Database\LeaveRequestsDao.cs" />
+    <Compile Include="Database\LeaveStatusesDao.cs" />
+    <Compile Include="Database\RolesDao.cs" />
+    <Compile Include="Database\ProjectAssignmentsDao.cs" />
+    <Compile Include="Database\ProjectsDao.cs" />
+    <Compile Include="Database\ProjectStatusesDao.cs" />
+    <Compile Include="Database\TaskCheckOutsDao.cs" />
+    <Compile Include="Database\TasksDao.cs" />
+    <Compile Include="Database\TaskStatusesDao.cs" />
     <Compile Include="Helpers\PasswordBoxHelper.cs" />
     <Compile Include="Models\Account.cs" />
-    <Compile Include="Models\CheckInOut.cs" />
+    <Compile Include="Models\TimeSheet.cs" />
     <Compile Include="Models\CurrentUser.cs" />
     <Compile Include="Models\Department.cs" />
     <Compile Include="Models\Employee.cs" />
-    <Compile Include="Models\Leave.cs" />
+    <Compile Include="Models\LeaveRequest.cs" />
     <Compile Include="Models\LeaveStatus.cs" />
-    <Compile Include="Models\LeaveType.cs" />
-    <Compile Include="Models\PositionInCompany.cs" />
+    <Compile Include="Models\Roles.cs" />
     <Compile Include="Models\Project.cs" />
     <Compile Include="Models\ProjectAssignment.cs" />
     <Compile Include="Models\ProjectStatus.cs" />
@@ -135,8 +133,8 @@
     <Compile Include="ViewModels\Dialogs\UpdateTaskViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ApproveLeaveRequestListViewModel.cs" />
     <Compile Include="ViewModels\UserControls\AssignmentViewModel.cs" />
-    <Compile Include="ViewModels\UserControls\CheckInOutInputViewModel.cs" />
-    <Compile Include="ViewModels\UserControls\CheckInOutViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\TimeSheetInputViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\TimeSheetViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\CheckInViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\CheckOutViewModel.cs" />
     <Compile Include="ViewModels\UserControls\DepartmentInputViewModel.cs" />
@@ -200,8 +198,8 @@
     <Compile Include="Views\UserControls\AssignmentUC.xaml.cs">
       <DependentUpon>AssignmentUC.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserControls\CheckInOutUC.xaml.cs">
-      <DependentUpon>CheckInOutUC.xaml</DependentUpon>
+    <Compile Include="Views\UserControls\TimeSheetUC.xaml.cs">
+      <DependentUpon>TimeSheetUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UserControls\DepartmentInputUC.xaml.cs">
       <DependentUpon>DepartmentInputUC.xaml</DependentUpon>
@@ -312,7 +310,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\UserControls\CheckInOutUC.xaml">
+    <Page Include="Views\UserControls\TimeSheetUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

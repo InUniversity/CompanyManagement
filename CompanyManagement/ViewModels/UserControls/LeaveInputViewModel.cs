@@ -6,41 +6,19 @@ using System.Collections.Generic;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
-    public interface ILeaveInput
+    public class LeaveInputViewModel : BaseViewModel
     {
-        string ID { get; set; }
-        string EmployeeID { get; set; }
-        string LeaveTypeID { get; set; }
-        string LeaveReason { get; set; }
-        DateTime Start { get; set; }
-        DateTime End { get; set; }
-        string LeaveStatusID { get; set; }
-        DateTime CreateDate { get; set; }
-        string ApprovedBy { get; set; }
-        string Note { get; set; }
-        string ErrorMessage { get; set; }
-        bool IsReadOnly { get; set; }
-        List<LeaveType> LeaveTypes { get; set; }
-        List<LeaveStatus> LeaveStatuses { get; set; }
-        void TrimAllTexts();
-        public Leave LeaveIns { get; set; }
-    }
+        private LeaveRequest leaveRequest;
+        public LeaveRequest LeaveRequestIns { get => leaveRequest; set => leaveRequest = value; }
 
-    public class LeaveInputViewModel : BaseViewModel, ILeaveInput
-    {
-        private Leave leave;
-        public Leave LeaveIns { get => leave; set => leave = value; }
-
-        public string ID { get => leave.ID; set { leave.ID = value; OnPropertyChanged(); } } 
-        public string EmployeeID { get => leave.EmployeeID; set { leave.EmployeeID = value; OnPropertyChanged(); } }
-        public string LeaveTypeID { get => leave.LeaveTypeID; set { leave.LeaveTypeID = value; OnPropertyChanged(); } }
-        public string LeaveReason { get => leave.LeaveReason; set { leave.LeaveReason = value; OnPropertyChanged(); } }
-        public DateTime Start { get => leave.Start; set { leave.Start = value; OnPropertyChanged(); } }
-        public DateTime End { get => leave.End; set { leave.End = value; OnPropertyChanged(); } }
-        public string LeaveStatusID { get => leave.LeaveStatusID; set { leave.LeaveStatusID = value; OnPropertyChanged(); } }
-        public DateTime CreateDate { get => leave.CreateDate; set { leave.CreateDate = value; OnPropertyChanged(); } }
-        public string ApprovedBy { get => leave.ApprovedBy; set { leave.ApprovedBy = value; OnPropertyChanged(); } }
-        public string Note { get => leave.Note; set { leave.Note = value; OnPropertyChanged(); } }
+        public string ID { get => leaveRequest.ID; set { leaveRequest.ID = value; OnPropertyChanged(); } } 
+        public string EmployeeID { get => leaveRequest.EmployeeID; set { leaveRequest.EmployeeID = value; OnPropertyChanged(); } }
+        public string Reason { get => leaveRequest.Reason; set { leaveRequest.Reason = value; OnPropertyChanged(); } }
+        public string Notes { get => leaveRequest.Notes; set { leaveRequest.Notes = value; OnPropertyChanged(); } }
+        public DateTime StartDate { get => leaveRequest.StartDate; set { leaveRequest.StartDate = value; OnPropertyChanged(); } }
+        public DateTime EndDate { get => leaveRequest.EndDate; set { leaveRequest.EndDate = value; OnPropertyChanged(); } }
+        public DateTime CreateDate { get => leaveRequest.CreatedDate; set { leaveRequest.CreatedDate = value; OnPropertyChanged(); } }
+        public string ApprovedBy { get => leaveRequest.ApproverID; set { leaveRequest.ApproverID = value; OnPropertyChanged(); } }
         
         private string errorMessage = "";
         public string ErrorMessage { get => errorMessage; set { errorMessage = value; OnPropertyChanged(); } }
@@ -48,11 +26,9 @@ namespace CompanyManagement.ViewModels.UserControls
         private bool isReadOnly = false;
         public bool IsReadOnly { get => isReadOnly; set { isReadOnly = value; OnPropertyChanged(); } }
 
-        public List<LeaveType> LeaveTypes { get; set; }
         public List<LeaveStatus> LeaveStatuses { get; set;}
 
-        private LeaveTypeDao leaveTypeDao = new LeaveTypeDao();
-        private LeaveStatusDao leaveStatusDao = new LeaveStatusDao();
+        private LeaveStatusesDao leaveStatusesDao = new LeaveStatusesDao();
 
         public LeaveInputViewModel()
         {
@@ -61,19 +37,16 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void SetAllComboBox()
         {
-            LeaveTypes = leaveTypeDao.GetAll();
-            LeaveStatuses = leaveStatusDao.GetAll();
+            LeaveStatuses = leaveStatusesDao.GetAll();
         }
 
         public void TrimAllTexts()
         {
             ID = ID.Trim();
+            Reason = Reason.Trim();
+            Notes = Notes.Trim();
             EmployeeID = EmployeeID.Trim();
-            LeaveTypeID = LeaveTypeID.Trim();
-            LeaveReason = LeaveReason.Trim();
-            LeaveStatusID = LeaveStatusID.Trim();
             ApprovedBy = ApprovedBy.Trim();
-            Note = Note.Trim();
         }
     }
 }

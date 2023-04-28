@@ -21,17 +21,17 @@ namespace CompanyManagement.ViewModels.UserControls
         public string PhoneNumber { get => employee.PhoneNumber; set { employee.PhoneNumber = value; OnPropertyChanged(); } }
         public string Address { get => employee.Address; set { employee.Address = value; OnPropertyChanged(); } }
         public string DepartmentID { get => employee.DepartmentID; set { employee.DepartmentID = value; OnPropertyChanged(); } }
-        public string PositionID { get => employee.PositionID; set { employee.PositionID = value; OnPropertyChanged(); } }
-        public int Salary { get => employee.Salary; set { employee.Salary = value; OnPropertyChanged(); } }
+        public string RoleID { get => employee.RoleID; set { employee.RoleID = value; OnPropertyChanged(); } }
+        public decimal Salary { get => employee.Salary; set { employee.Salary = value; OnPropertyChanged(); } }
 
         private string errorMessage = "";
         public string ErrorMessage { get => errorMessage; set { errorMessage = value; OnPropertyChanged(); } }
 
-        public List<PositionInCompany> Positions { get; set; }
+        public List<Roles> Roles { get; set; }
         public List<Department> Departments { get; set; }
 
-        private PositionDao positionDao = new PositionDao();
-        private DepartmentDao departmentDao = new DepartmentDao();
+        private RolesDao rolesDao = new RolesDao();
+        private DepartmentsDao departmentsDao = new DepartmentsDao();
         private CheckFormat checker = new CheckFormat();
 
         public EmployeeInputViewModel()
@@ -41,16 +41,17 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void SetAllComboBox()
         {
-            Positions = positionDao.GetAll();
-            Departments = departmentDao.GetAll();
+            Roles = rolesDao.GetAll();
+            Departments = departmentsDao.GetAll();
         }
+        
         public bool CheckAllFields()
         {
             ErrorMessage = "";
             if (string.IsNullOrWhiteSpace(Name) || string.IsNullOrWhiteSpace(Gender) ||
                 string.IsNullOrWhiteSpace(IdentifyCard) || string.IsNullOrWhiteSpace(Email) ||
                 string.IsNullOrWhiteSpace(PhoneNumber) || string.IsNullOrWhiteSpace(Address) ||
-                string.IsNullOrWhiteSpace(DepartmentID) || string.IsNullOrWhiteSpace(PositionID))
+                string.IsNullOrWhiteSpace(DepartmentID) || string.IsNullOrWhiteSpace(RoleID))
             {
                 ErrorMessage = Utils.INVALIDATE_EMPTY_MESSAGE;
                 return false;
@@ -80,15 +81,12 @@ namespace CompanyManagement.ViewModels.UserControls
 
         public void TrimAllTexts()
         {
-            ID = ID.Trim();
             Name = Name.Trim();
             Gender = Gender.Trim();
             IdentifyCard = IdentifyCard.Trim();
             Email = Email.Trim();
             PhoneNumber = PhoneNumber.Trim();
             Address = Address.Trim();
-            DepartmentID = DepartmentID.Trim();
-            PositionID = PositionID.Trim();
         }
     }
 }

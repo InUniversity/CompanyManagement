@@ -21,9 +21,9 @@ namespace CompanyManagement.Views.Dialogs
     /// <summary>
     /// Interaction logic for CheckInDialog.xaml
     /// </summary>
-    public partial class CheckInDialog : Window, IInputDialog<CheckInOut>
+    public partial class CheckInDialog : Window, IInputDialog<TimeSheet>
     {
-        public IInputViewModel<CheckInOut> ViewModel { get; }
+        public IInputViewModel<TimeSheet> ViewModel { get; }
 
         public CheckInDialog()
         {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace CompanyManagement.Database
 {
-    public class EmployeeDao : BaseDao
+    public class EmployeesDao : BaseDao
     {
         public void Add(Employee empl)
         {
@@ -12,7 +12,7 @@ namespace CompanyManagement.Database
                 $"{EMPLOYEE_IDENTIFY_CARD}, {EMPLOYEE_EMAIL}, {EMPLOYEE_PHONE_NUMBER}, {EMPLOYEE_ADDRESS}, " +
                 $"{EMPLOYEE_DEPARTMENT_ID},{EMPLOYEE_POSITION_ID}, {EMPLOYEE_SALARY}) VALUES ('{empl.ID}', " +
                 $"N'{empl.Name}', N'{empl.Gender}', '{empl.Birthday}', '{empl.IdentifyCard}', '{empl.Email}', " +
-                $"'{empl.PhoneNumber}', N'{empl.Address}', '{empl.DepartmentID}', '{empl.PositionID}', '{empl.Salary}')";
+                $"'{empl.PhoneNumber}', N'{empl.Address}', '{empl.DepartmentID}', '{empl.RoleID}', '{empl.Salary}')";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
@@ -29,7 +29,7 @@ namespace CompanyManagement.Database
                 $"{EMPLOYEE_BIRTHDAY}='{empl.Birthday}', {EMPLOYEE_IDENTIFY_CARD}='{empl.IdentifyCard}', " +
                 $"{EMPLOYEE_EMAIL}='{empl.Email}', {EMPLOYEE_PHONE_NUMBER}='{empl.PhoneNumber}', " +
                 $"{EMPLOYEE_ADDRESS}='{empl.Address}', {EMPLOYEE_DEPARTMENT_ID}='{empl.DepartmentID}', " +
-                $"{EMPLOYEE_POSITION_ID}='{empl.PositionID}', {EMPLOYEE_SALARY}='{empl.Salary}' " +
+                $"{EMPLOYEE_POSITION_ID}='{empl.RoleID}', {EMPLOYEE_SALARY}='{empl.Salary}' " +
                 $"WHERE {EMPLOYEE_ID}='{empl.ID}'";
             dbConnection.ExecuteNonQuery(sqlStr);
         }

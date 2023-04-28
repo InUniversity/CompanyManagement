@@ -18,10 +18,16 @@ namespace CompanyManagement.Utilities
 
         public static readonly DateTime EMPTY_DATETIME = new DateTime(2000, 1, 1, 0, 0, 0);
         private const string FORMAT_DATETIME = "yyyy-MM-dd hh:mm:ss";
+        private const string FORMAT_DATE = "yyyy-MM-dd";
 
-        public static string ToFormatSQLServer(DateTime dateTime)
+        public static string ToSQLFormat(DateTime dateTime)
         {
             return dateTime.ToString(FORMAT_DATETIME);
+        }
+
+        public static string ToOnlyDateSQLFormat(DateTime dateTime)
+        {
+            return dateTime.ToString(FORMAT_DATE);
         }
     }
 }

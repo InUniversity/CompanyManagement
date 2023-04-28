@@ -10,7 +10,7 @@ namespace CompanyManagement.ViewModels.Dialogs
 {
     public class UpdateEmployeeViewModel : BaseViewModel, IInputViewModel<Employee>
     {
-        public ICommand UpdateEmployeeCommand { get; }
+        public ICommand UpdateEmployeeCommand { get; private set; }
 
         public EmployeeInputViewModel EmployeeInputDataContext { get; }
         private Action<Employee> submitObjectAction;
@@ -18,6 +18,11 @@ namespace CompanyManagement.ViewModels.Dialogs
         public UpdateEmployeeViewModel()
         {
             EmployeeInputDataContext = new EmployeeInputViewModel();
+            SetCommands();
+        }
+
+        private void SetCommands()
+        {
             UpdateEmployeeCommand = new RelayCommand<Window>(UpdateCommand);
         }
 
@@ -25,15 +30,15 @@ namespace CompanyManagement.ViewModels.Dialogs
         {
             EmployeeInputDataContext.TrimAllTexts();
             if (!CheckAllFields()) return;
-            AlertDialogService dialog = new AlertDialogService(
-               "Cập nhật nhân viên",
-               "Bạn chắc chắn muốn cập nhật nhân viên !",
-               () =>
-               {
-                   Employee empl = EmployeeInputDataContext.EmployeeIns;
-                   submitObjectAction?.Invoke(empl);
-                   inputWindow.Close();
-               }, () => { });
+            var dialog = new AlertDialogService(
+                "Cập nhật nhân viên", 
+                "Bạn chắc chắn muốn cập nhật nhân viên !", 
+                () => 
+                { 
+                    Employee empl = EmployeeInputDataContext.EmployeeIns; 
+                    submitObjectAction?.Invoke(empl); 
+                    inputWindow.Close(); 
+                }, null);
             dialog.Show();              
         }
 
@@ -44,7 +49,7 @@ namespace CompanyManagement.ViewModels.Dialogs
 
         public void ReceiveObject(Employee employee)
         {
-            employee = EmployeeInputDataContext.EmployeeIns;
+            EmployeeInputDataContext.EmployeeIns = employee;
         }
 
         public void ReceiveSubmitAction(Action<Employee> submitObjectAction)

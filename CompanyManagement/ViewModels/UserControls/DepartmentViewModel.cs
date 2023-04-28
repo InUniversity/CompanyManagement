@@ -17,18 +17,18 @@ namespace CompanyManagement.ViewModels.UserControls
         public ICommand DeleteDepartmentCommand { get; set; }
         public ICommand OpenUpdateDialogCommand { get; set; }
 
-        private DepartmentDao departmentDao;
+        private DepartmentsDao departmentsDao;
 
         public DepartmentViewModel()
         {
-            departmentDao = new DepartmentDao();
+            departmentsDao = new DepartmentsDao();
             LoadDepartment();
             SetCommands();
         }
 
         private void LoadDepartment()
         {
-            departments = departmentDao.GetAll();
+            departments = departmentsDao.GetAll();
         }
 
         private void SetCommands()
@@ -44,7 +44,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void ExecuteDeleteCommand(string id)
         {
-            departmentDao.Delete(id);
+            departmentsDao.Delete(id);
             LoadDepartment();
         }
 
@@ -59,7 +59,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         public void UpdateToDB(object department)
         {
-            departmentDao.Update(department as Department);
+            departmentsDao.Update(department as Department);
             LoadDepartment();
         }
 

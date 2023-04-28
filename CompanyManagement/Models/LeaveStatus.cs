@@ -18,7 +18,7 @@ namespace CompanyManagement.Models
             try
             {
                 leaveStatusID = (string)reader[BaseDao.LEAVE_STATUS_ID];
-                leaveStatusName = (string)reader[BaseDao.LEAVE_STATUS_NAME];
+                leaveStatusName = (string)reader[BaseDao.LEAVE_STATUSES_NAME];
             }
             catch (Exception ex)
             {

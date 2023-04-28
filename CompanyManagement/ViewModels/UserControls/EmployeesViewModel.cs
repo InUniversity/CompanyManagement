@@ -20,12 +20,12 @@ namespace CompanyManagement.ViewModels.UserControls
         private string textToSearch = "";
         public string TextToSearch { get => textToSearch; set { textToSearch = value; OnPropertyChanged(); SearchByName(); } }
 
-        public ICommand OpenAddDialogCommand { get; set; }
-        public ICommand DeleteEmployeeCommand { get; set; }
-        public ICommand OpenUpdateDialogCommand { get; set; }
+        public ICommand OpenAddDialogCommand { get; private set; }
+        public ICommand DeleteEmployeeCommand { get; private set; }
+        public ICommand OpenUpdateDialogCommand { get; private set; }
 
-        private EmployeeDao employeeDao = new EmployeeDao();
-        private AccountDao accountDao = new AccountDao();
+        private EmployeesDao employeesDao = new EmployeesDao();
+        private AccountsDao accountsDao = new AccountsDao();
 
         public EmployeesViewModel()
         {
@@ -35,7 +35,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void LoadEmployees()
         {
-            employees = employeeDao.SearchByCurrentID(CurrentUser.Ins.EmployeeIns.ID);
+            employees = employeesDao.SearchByCurrentID(CurrentUser.Ins.EmployeeIns.ID);
             SearchedEmployees = employees;
         }
 
@@ -73,7 +73,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void Add(Employee employee)
         {
-            employeeDao.Add(employee);
+            employeesDao.Add(employee);
             LoadEmployees();
         }
 
@@ -85,7 +85,7 @@ namespace CompanyManagement.ViewModels.UserControls
             {
                 int number = random.Next(10000);
                 employeeID = $"EM{number:0000}";
-            } while (employeeDao.SearchByID(employeeID) != null);
+            } while (employeesDao.SearchByID(employeeID) != null);
             return employeeID;
         }
 
@@ -96,8 +96,8 @@ namespace CompanyManagement.ViewModels.UserControls
               "Bạn chắc chắn muốn xóa nhân viên !",
               () =>
               {
-                  employeeDao.Delete(id);
-                  accountDao.Delete(id); 
+                  employeesDao.Delete(id);
+                  accountsDao.Delete(id); 
                   LoadEmployees();
               }, () => { });
             dialog.Show();
@@ -111,7 +111,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void Update(Employee employee)
         {
-            employeeDao.Update(employee);
+            employeesDao.Update(employee);
             LoadEmployees();
         }
     }

@@ -13,11 +13,11 @@ using System;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
-    public class CheckOutViewModel : BaseViewModel, IInputViewModel<CheckInOut>
+    public class CheckOutViewModel : BaseViewModel, IInputViewModel<TimeSheet>
     {
-        public CheckInOutInputViewModel CheckInOutInputDataContext { get; }
+        public TimeSheetInputViewModel CheckInOutInputDataContext { get; }
 
-        private Action<CheckInOut> submitObjectAction;
+        private Action<TimeSheet> submitObjectAction;
 
         private ObservableCollection<TaskInProject> tasksCheckOut;
         public ObservableCollection<TaskInProject> TasksCheckOut { get => tasksCheckOut; set => tasksCheckOut = value; }
@@ -38,12 +38,12 @@ namespace CompanyManagement.ViewModels.UserControls
         public ICommand GetAllSelectedTasksCommand { get; private set; }
         public ICommand DeleteTaskCompletedCommand { get; private set; }
 
-        private TaskCheckOutDao taskCheckOutDao = new TaskCheckOutDao();
-        private TaskInProjectDao taskInProjectDao = new TaskInProjectDao();
+        private TaskCheckOutsDao taskCheckOutsDao = new TaskCheckOutsDao();
+        private TasksDao tasksDao = new TasksDao();
 
         public CheckOutViewModel()
         {
-            CheckInOutInputDataContext = new CheckInOutInputViewModel();
+            CheckInOutInputDataContext = new TimeSheetInputViewModel();
             TasksCheckOut = new ObservableCollection<TaskInProject>();
             SetCommands();
             LoadTasksCanChoose();
@@ -64,7 +64,7 @@ namespace CompanyManagement.ViewModels.UserControls
                  "Bạn có chắc chắn muốn check out không ?",
                  () =>
                  {
-                     CheckInOut checkOut = CheckInOutInputDataContext.CheckInOutIns;
+                     TimeSheet checkOut = CheckInOutInputDataContext.TimeSheetIns;
                      AddTasksCheckOut();
                      submitObjectAction?.Invoke(checkOut);
                      window.Close();
@@ -99,7 +99,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void LoadTasksCanChoose()
         {
-            TasksCanChoose = taskInProjectDao.SearchCurrentTasksByEmployeeID(CurrentUser.Ins.EmployeeIns.ID);
+            TasksCanChoose = tasksDao.SearchCurrentTasksByEmployeeID(CurrentUser.Ins.EmployeeIns.ID);
             SearchedTasksCanChoose = new ObservableCollection<TaskInProject>(TasksCanChoose);
         }
 
@@ -127,21 +127,21 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void UpdateTaskInProject(TaskInProject task)
         {
-            taskInProjectDao.Update(task);
+            tasksDao.Update(task);
         }
 
         private void AddTaskCheckOut(TaskInProject task)
         {
             TaskCheckOut taskCheckOut = new TaskCheckOut(CheckInOutInputDataContext.ID, task.ID, DateTime.Now, task.Progress, task);
-            taskCheckOutDao.Add(taskCheckOut);
+            taskCheckOutsDao.Add(taskCheckOut);
         }
 
-        public void ReceiveObject(CheckInOut checkInOut)
+        public void ReceiveObject(TimeSheet timeSheet)
         {
-             CheckInOutInputDataContext.CheckInOutIns = checkInOut;
+             CheckInOutInputDataContext.TimeSheetIns = timeSheet;
         }
 
-        public void ReceiveSubmitAction(Action<CheckInOut> submitObjectAction)
+        public void ReceiveSubmitAction(Action<TimeSheet> submitObjectAction)
         {
             this.submitObjectAction = submitObjectAction;
         }

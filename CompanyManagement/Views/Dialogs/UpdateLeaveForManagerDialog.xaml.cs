@@ -9,9 +9,9 @@ namespace CompanyManagement.Views.Dialogs
     /// <summary>
     /// Interaction logic for UpdateLeaveForManagerDialog.xaml
     /// </summary>
-    public partial class UpdateLeaveForManagerDialog : Window, IInputDialog<Leave>
+    public partial class UpdateLeaveForManagerDialog : Window, IInputDialog<LeaveRequest>
     {
-        public IInputViewModel<Leave> ViewModel { get; }
+        public IInputViewModel<LeaveRequest> ViewModel { get; }
 
         public UpdateLeaveForManagerDialog()
         {

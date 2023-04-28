@@ -5,7 +5,7 @@ using CompanyManagement.Utilities;
 
 namespace CompanyManagement.Models
 {
-    public class CheckInOut
+    public class TimeSheet
     {
         private string id = "";
         private string employeeID = "";
@@ -43,9 +43,9 @@ namespace CompanyManagement.Models
             set => taskCheckInID = value;
         }
 
-        public CheckInOut() { }
+        public TimeSheet() { }
 
-        public CheckInOut(string id, string employeeID, DateTime checkInTime, DateTime checkOutTime, string taskCheckInID)
+        public TimeSheet(string id, string employeeID, DateTime checkInTime, DateTime checkOutTime, string taskCheckInID)
         {
             this.id = id;
             this.employeeID = employeeID;
@@ -54,19 +54,19 @@ namespace CompanyManagement.Models
             this.taskCheckInID = taskCheckInID;
         }
 
-        public CheckInOut(IDataRecord reader)
+        public TimeSheet(IDataRecord reader)
         {
             try
             {
-                id = (string)reader[BaseDao.CHECK_IN_OUT_ID];
-                employeeID = (string)reader[BaseDao.CHECK_IN_OUT_EMPLOYEE_ID];
-                checkInTime = reader.GetDateTime(reader.GetOrdinal(BaseDao.CHECK_IN_OUT_CHECK_IN_TIME));
-                checkOutTime = reader.GetDateTime(reader.GetOrdinal(BaseDao.CHECK_IN_OUT_CHECK_OUT_TIME));
-                taskCheckInID = (string)reader[BaseDao.CHECK_IN_OUT_TASK_CHECK_IN_ID];
+                id = (string)reader[BaseDao.TIME_SHEETS_ID];
+                employeeID = (string)reader[BaseDao.TIME_SHEETS_EMPLOYEE_ID];
+                checkInTime = reader.GetDateTime(reader.GetOrdinal(BaseDao.TIME_SHEETS_CHECK_IN_TIME));
+                checkOutTime = reader.GetDateTime(reader.GetOrdinal(BaseDao.TIME_SHEETS_CHECK_OUT_TIME));
+                taskCheckInID = (string)reader[BaseDao.TIME_SHEETS_TASK_CHECK_IN_ID];
             }
             catch (Exception e)
             {
-                Log.Instance.Error(nameof(CheckInOut), "Error: " + e.Message);
+                Log.Instance.Error(nameof(TimeSheet), "Error: " + e.Message);
             }
         }
     }

@@ -19,14 +19,13 @@ namespace CompanyManagement.ViewModels.UserControls
     public class TaskInputViewModel : BaseViewModel, ITaskInput
     {
         private TaskInProject task;
-        public TaskInProject TaskInProjectIns { get => task; set { task = value; Employees = assignmentDao.GetEmployeesInProject(task.ProjectID); SearchByName(); } }
+        public TaskInProject TaskInProjectIns { get => task; set { task = value; Employees = assignmentsDao.GetEmployeesInProject(task.ProjectID); SearchByName(); } }
 
         public string ID { get => task.ID; set { task.ID = value; OnPropertyChanged(); } }
         public string Title { get => task.Title; set { task.Title = value; OnPropertyChanged(); } }
-        public string Description { get => task.Description; set { task.Description = value; OnPropertyChanged(); } }
-        public DateTime AssignDate { get => task.AssignDate; set { task.AssignDate = value; OnPropertyChanged(); } }
+        public string Explanation { get => task.Explanation; set { task.Explanation = value; OnPropertyChanged(); } }
+        public DateTime StartDate { get => task.StartDate; set { task.StartDate = value; OnPropertyChanged(); } }
         public DateTime Deadline { get => task.Deadline; set { task.Deadline = value; OnPropertyChanged(); } }
-        public string CreateBy { get => task.CreateBy; set { task.CreateBy = value; OnPropertyChanged(); } }
         public string Progress { get => task.Progress; set { task.Progress = value; OnPropertyChanged(); } }
         public string EmployeeID { get => task.EmployeeID; set { task.EmployeeID = value; OnPropertyChanged(); } }
         public string ProjectID { get => task.ProjectID; set { task.ProjectID = value; OnPropertyChanged(); } }
@@ -39,7 +38,6 @@ namespace CompanyManagement.ViewModels.UserControls
         public List<Employee> Employees { get => employees; set { employees = value; OnPropertyChanged(); } }
 
         private List<TaskStatus> taskStatuses;
-
         public List<TaskStatus> TaskStatuses { get => taskStatuses; set { taskStatuses = value; OnPropertyChanged(); } }
 
         private List<Employee> searchedEmployeesCanAssign;
@@ -48,16 +46,21 @@ namespace CompanyManagement.ViewModels.UserControls
         private string textToSearch = "";
         public string TextToSearch { get => textToSearch; set { textToSearch = value; OnPropertyChanged(); SearchByName(); } }
 
-        public ICommand AddEmployeeCommand { get; set; }
-        public ICommand GetSelectedEmployeeCommand { get; set; }
+        public ICommand AddEmployeeCommand { get; private set; }
+        public ICommand GetSelectedEmployeeCommand { get; private set; }
 
-        private TaskStatusDao taskStatusDao = new TaskStatusDao();
-        private ProjectAssignmentDao assignmentDao = new ProjectAssignmentDao();
+        private TaskStatusesDao taskStatusesDao = new TaskStatusesDao();
+        private ProjectAssignmentsDao assignmentsDao = new ProjectAssignmentsDao();
 
         public TaskInputViewModel()
         {
-            GetSelectedEmployeeCommand = new RelayCommand<ListView>(ExecuteGetSelectedEmployeeCommand);       
+            SetCommands();
             SetAllComboBox();
+        }
+
+        private void SetCommands()
+        {
+            GetSelectedEmployeeCommand = new RelayCommand<ListView>(ExecuteGetSelectedEmployeeCommand);       
         }
 
         private void ExecuteGetSelectedEmployeeCommand(ListView listView)
@@ -69,7 +72,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void SetAllComboBox()
         {
-            TaskStatuses = taskStatusDao.GetAll();
+            TaskStatuses = taskStatusesDao.GetAll();
         }
 
         public bool CheckAllFields()
@@ -80,7 +83,7 @@ namespace CompanyManagement.ViewModels.UserControls
                 ErrorMessage = "Các thông tin không được để trống!!!";
                 return false;
             }
-            if (Deadline < AssignDate)
+            if (Deadline < StartDate)
             {
                 ErrorMessage = "Thời gian kết thúc không hợp lệ!!!";
                 return false;
@@ -103,7 +106,7 @@ namespace CompanyManagement.ViewModels.UserControls
         public void TrimAllTexts()
         {
             Title = Title.Trim();
-            Description = Description.Trim();
+            Explanation = Explanation.Trim();
             Progress = Progress.Trim(); 
         }
     }

@@ -16,9 +16,9 @@ namespace CompanyManagement
         private string email = "";
         private string phoneNumber = "";
         private string address = "";
+        private decimal salary;
         private string departmentID = "";
-        private string positionID = "";
-        private int salary;
+        private string roleID = "";
         private Account account = new Account();
 
         public string ID
@@ -68,6 +68,12 @@ namespace CompanyManagement
             get => address;
             set => address = value;
         }
+        
+        public decimal Salary
+        {
+            get => salary;
+            set => salary = value;
+        }
 
         public string DepartmentID
         {
@@ -75,16 +81,10 @@ namespace CompanyManagement
             set => departmentID = value;
         }
 
-        public string PositionID
+        public string RoleID
         {
-            get => positionID;
-            set => positionID = value;
-        }
-
-        public int Salary
-        {
-            get => salary;
-            set => salary = value;
+            get => roleID;
+            set => roleID = value;
         }
 
         public Account MyAccount
@@ -96,7 +96,7 @@ namespace CompanyManagement
         public Employee() { }
 
         public Employee(string id, string name, string gender, DateTime birthday, string identifyCard, string email, 
-            string phoneNumber, string address, string departmentID, string positionID, int salary)
+            string phoneNumber, string address, string departmentID, string roleID, decimal salary)
         {
             this.id = id;
             this.name = name;
@@ -107,7 +107,7 @@ namespace CompanyManagement
             this.phoneNumber = phoneNumber;
             this.address = address;
             this.departmentID = departmentID;
-            this.positionID = positionID;
+            this.roleID = roleID;
             this.salary = salary;
         }
         
@@ -123,9 +123,9 @@ namespace CompanyManagement
                 email = (string)reader[BaseDao.EMPLOYEE_EMAIL];
                 phoneNumber = (string)reader[BaseDao.EMPLOYEE_PHONE_NUMBER];
                 address = (string)reader[BaseDao.EMPLOYEE_ADDRESS];
+                salary = reader.GetDecimal(reader.GetOrdinal(BaseDao.EMPLOYEE_SALARY));
                 departmentID = (string)reader[BaseDao.EMPLOYEE_DEPARTMENT_ID];
-                positionID = (string)reader[BaseDao.EMPLOYEE_POSITION_ID];
-                salary = (int)reader[BaseDao.EMPLOYEE_SALARY];
+                roleID = (string)reader[BaseDao.EMPLOYEE_POSITION_ID];
             }
             catch (Exception ex)
             {

@@ -57,10 +57,10 @@ namespace CompanyManagement.ViewModels.UserControls
         private Visibility visibleUpdateButton = Visibility.Collapsed;
         public Visibility VisibleUpdateButton { get => visibleUpdateButton; set { visibleUpdateButton = value; OnPropertyChanged(); } }
 
-        public ICommand OpenProjectInputCommand { get; set; }
-        public ICommand DeleteProjectCommand { get; set; }
-        public ICommand UpdateProjectCommand { get; set; }
-        public ICommand ItemClickCommand { get; set; }
+        public ICommand OpenProjectInputCommand { get; private set; }
+        public ICommand DeleteProjectCommand { get; private set; }
+        public ICommand UpdateProjectCommand { get; private set; }
+        public ICommand ItemClickCommand { get; private set; }
 
         private IProjectsStrategy projectsStrategy;
         public IProjectsStrategy ProjectsStrategy 
@@ -78,8 +78,8 @@ namespace CompanyManagement.ViewModels.UserControls
         public INavigateAssignmentView ParentDataContext { get; set; }
         public IRetrieveProjectID ProjectDetailsDataContext { get; set; }
 
-        private ProjectDao projectDao = new ProjectDao();
-        private ProjectAssignmentDao projectAssignmentDao = new ProjectAssignmentDao();
+        private ProjectsDao projectsDao = new ProjectsDao();
+        private ProjectAssignmentsDao assignmentsDao = new ProjectAssignmentsDao();
         private Employee currentEmployee = CurrentUser.Ins.EmployeeIns;
 
         private List<Department> departmentsBeforeChange;
@@ -94,13 +94,13 @@ namespace CompanyManagement.ViewModels.UserControls
         {
             Projects = projectsStrategy.GetProjects(currentEmployee.ID);
 
-            var listOngoingProjects = Projects.Where(p => p.Progress != BaseDao.COMPLETED && p.End > DateTime.Now).ToList();
+            var listOngoingProjects = Projects.Where(p => p.Progress != BaseDao.COMPLETED && p.EndDate > DateTime.Now).ToList();
             OngoingProjects = new List<Project>(listOngoingProjects);
 
             var listCompletedProjects = Projects.Where(p => p.Progress == BaseDao.COMPLETED).ToList();
             CompletedProjects = new List<Project>(listCompletedProjects);
 
-            var listOverdueProjects = Projects.Where(p => p.End < DateTime.Now && p.Progress != BaseDao.COMPLETED).ToList();
+            var listOverdueProjects = Projects.Where(p => p.EndDate < DateTime.Now && p.Progress != BaseDao.COMPLETED).ToList();
             OverdueProjects = new List<Project>(listOverdueProjects);
         }
 
@@ -121,17 +121,17 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private Project CreateProject()
         {
-            return new Project(AutoGenerateID(), "", DateTime.Now, DateTime.Now, 
-                Utils.EMPTY_DATETIME, "0", "", CurrentUser.Ins.EmployeeIns.ID, 0,
+            return new Project(AutoGenerateID(), "", DateTime.Now, DateTime.Now, DateTime.Now, 
+                Utils.EMPTY_DATETIME, "0", "", currentEmployee.ID, 0,
                 new ObservableCollection<Department>());
         }
 
         private void Add(Project project)
         {
-            projectDao.Add(project);
+            projectsDao.Add(project);
             foreach (var department in project.Departments)
             {
-                projectAssignmentDao.Add(new ProjectAssignment(project.ID, department.ID));
+                assignmentsDao.Add(new ProjectAssignment(project.ID, department.ID));
             }
             LoadProjects();
         }
@@ -144,7 +144,7 @@ namespace CompanyManagement.ViewModels.UserControls
             {
                 int number = random.Next(10000);
                 projectID = $"PRJ{number:0000}";
-            } while (projectDao.SearchByID(projectID) != null);
+            } while (projectsDao.SearchByID(projectID) != null);
             return projectID;
         }
 
@@ -155,7 +155,7 @@ namespace CompanyManagement.ViewModels.UserControls
                 "Bạn chắc chắn muỗn xóa dự án này ?",
                 () =>
                 { 
-                    projectDao.Delete(id); 
+                    projectsDao.Delete(id); 
                     LoadProjects();
                 }, null);
             dialog.Show();
@@ -163,7 +163,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void OpenUpdateProjectDialog(Project project)
         {
-            departmentsBeforeChange = projectAssignmentDao.GetAllDepartmentInProject(project.ID);
+            departmentsBeforeChange = assignmentsDao.GetAllDepartmentInProject(project.ID);
             project.Departments = new ObservableCollection<Department>(departmentsBeforeChange);
             var inputService = new InputDialogService<Project>(new UpdateProjectDialog(), project, Update);
             inputService.Show();
@@ -171,7 +171,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void Update(Project project)
         {
-            projectDao.Update(project);
+            projectsDao.Update(project);
             UpdateProjectAssignment(project.ID, project.Departments);
             LoadProjects();
         }
@@ -181,12 +181,12 @@ namespace CompanyManagement.ViewModels.UserControls
             var deletedDepartments = departmentsBeforeChange.Except(departmentsAfterChange);
             foreach (var department in deletedDepartments)
             {
-                projectAssignmentDao.Delete(new ProjectAssignment(projectID, department.ID));
+                assignmentsDao.Delete(new ProjectAssignment(projectID, department.ID));
             }
             var addedDepartments = departmentsAfterChange.Except(departmentsBeforeChange);
             foreach (var department in addedDepartments)
             {
-                projectAssignmentDao.Add(new ProjectAssignment(projectID, department.ID));
+                assignmentsDao.Add(new ProjectAssignment(projectID, department.ID));
             }
         }
 
