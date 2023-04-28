@@ -30,7 +30,16 @@ namespace CompanyManagement.ViewModels.Dialogs
             EmployeeInputDataContext.TrimAllTexts();
             if (!CheckAllFields()) 
                 return;
-          
+            var dialog = new AlertDialogService(
+                "Thêm nhân viên",
+                "Bạn chắc chắn muốn thêm nhân viên !",
+                () =>
+                {
+                    var employee = EmployeeInputDataContext.EmployeeIns;
+                    submitObjectAction?.Invoke(employee);
+                    inputWindow.Close();
+                }, null);
+            dialog.Show();
         }
 
         private bool CheckAllFields()
@@ -57,7 +66,7 @@ namespace CompanyManagement.ViewModels.Dialogs
 
         public void ReceiveObject(Employee employee)
         {
-            employee = EmployeeInputDataContext.EmployeeIns;
+            EmployeeInputDataContext.EmployeeIns = employee;
         }
 
         public void ReceiveSubmitAction(Action<Employee> submitObjectAction)
