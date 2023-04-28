@@ -41,7 +41,7 @@ CREATE TABLE Employees(
     Email varchar(50),
     PhoneNumber varchar (10),
     EmployeeAddress nvarchar(255),
-    BaseSalary int,
+    BaseSalary DECIMAL(19,4),
     DepartmentID varchar(20),
     RoleID varchar(20) NOT NULL,
 	CONSTRAINT FK_Employees_RoleID FOREIGN KEY(RoleID) REFERENCES Roles(ID)
@@ -143,7 +143,7 @@ CREATE TABLE Projects(
     Progress varchar(4),
     StatusID varchar(10),
     OwnerID varchar(20),
-    BonusSalary int,
+    BonusSalary DECIMAL(19,4),
     CONSTRAINT FK_Projects_StatusID FOREIGN KEY(StatusID) REFERENCES ProjectStatuses(ID),
     CONSTRAINT FK_Projects_OwnerID FOREIGN KEY(OwnerID) REFERENCES Employees(ID)
 );
@@ -363,7 +363,7 @@ GO
 -- salary (store salary of each employee by month)
 CREATE TABLE ProjectBonuses(
     ID varchar(20) PRIMARY KEY,
-    Amount int,
+    Amount DECIMAL(19,4),
     ReceivedDate SMALLDATETIME,
     EmployeeID varchar(20),
     ProjectID varchar(20),
@@ -376,8 +376,8 @@ CREATE TABLE SalaryRecords(
     EmployeeID varchar(20) NOT NULL,
     MonthYear date,
     TotalWorkdays int,
-    TotalBonus int,
-    Income int, --Income = BaseSalary (from Employees) * (TotalWorkdays/30) + Bonus
+    TotalBonus DECIMAL(19,4),
+    Income DECIMAL(19,4), --Income = BaseSalary (from Employees) * (TotalWorkdays/30) + Bonus
     CONSTRAINT FK_SalaryEmployeeID FOREIGN KEY(EmployeeID) REFERENCES Employees(ID)
 );
 GO
