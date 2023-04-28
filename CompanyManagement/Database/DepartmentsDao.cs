@@ -8,7 +8,7 @@ namespace CompanyManagement.Database
     {
         public void Add(Department department)
         {
-            string sqlStr = $"INSERT INTO {DEPARTMENTS_TABLE} ({DEPARTMENTS_ID}, {DEPARTMENTS_NAME}, {DEPARTMENTS_DEPARTMENT_HEAD})" +
+            string sqlStr = $"INSERT INTO {DEPARTMENTS_TABLE} ({DEPARTMENTS_ID}, {DEPARTMENTS_NAME}, {DEPARTMENTS_HEAD})" +
                             $"VALUES ('{department.ID}', '{department.Name}', '{department.ManagerID}')";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
@@ -22,7 +22,7 @@ namespace CompanyManagement.Database
         public void Update(Department department)
         {
             string sqlStr = $"UPDATE {DEPARTMENTS_TABLE} SET {DEPARTMENTS_NAME} = '{department.Name}', " +
-                            $"{DEPARTMENTS_DEPARTMENT_HEAD} = '{department.ManagerID}' WHERE {DEPARTMENTS_ID} = '{department.ID}'";
+                            $"{DEPARTMENTS_HEAD} = '{department.ManagerID}' WHERE {DEPARTMENTS_ID} = '{department.ID}'";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 

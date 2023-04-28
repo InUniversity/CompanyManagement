@@ -15,10 +15,10 @@ namespace CompanyManagement.ViewModels.UserControls
         private bool isToggled;
         public bool IsToggled { get => isToggled; set { isToggled = value; OnPropertyChanged(); } }
 
-        private CheckInOut currentCheckInOut;
+        private TimeSheet currentTimeSheet;
         
-        private ObservableCollection<CheckInOut> checkInOutList;
-        public ObservableCollection<CheckInOut> CheckInOutList { get => checkInOutList; set { checkInOutList = value; } }
+        private ObservableCollection<TimeSheet> checkInOutList;
+        public ObservableCollection<TimeSheet> CheckInOutList { get => checkInOutList; set { checkInOutList = value; } }
 
         private DateTime checkInTime;
         public DateTime CheckInTime { get => checkInTime; set { checkInTime = value; OnPropertyChanged(); } }
@@ -28,8 +28,8 @@ namespace CompanyManagement.ViewModels.UserControls
 
         public ICommand ToggledCommand { get; private set; }
 
-        private CheckInOutDao checkInOutDao = new CheckInOutDao();
-        private TaskCheckOutDao taskCheckOutDao = new TaskCheckOutDao();
+        private TimeSheetsDao timeSheetsDao = new TimeSheetsDao();
+        private TaskCheckOutsDao taskCheckOutsDao = new TaskCheckOutsDao();
         private TasksDao tasksDao = new TasksDao();
 
         public CheckInOutViewModel()
@@ -41,7 +41,7 @@ namespace CompanyManagement.ViewModels.UserControls
         private void LoadCheckInOutList()
         {
             //TODO
-            CheckInOutList = new ObservableCollection<CheckInOut>(checkInOutDao.GetAll());
+            CheckInOutList = new ObservableCollection<TimeSheet>(timeSheetsDao.GetAll());
         }
 
         private void SetCommands()
@@ -53,28 +53,28 @@ namespace CompanyManagement.ViewModels.UserControls
         {
             if (IsToggled) OpenCheckInDialog();
             else OpenCheckOutDialog();
-            if (!string.IsNullOrWhiteSpace(currentCheckInOut.TaskCheckInID))
+            if (!string.IsNullOrWhiteSpace(currentTimeSheet.TaskCheckInID))
                 IsToggled = !IsToggled;
         }
 
         private void OpenCheckInDialog()
         {
             CreateCheckIn();
-            var inputService = new InputDialogService<CheckInOut>(new CheckInDialog(), currentCheckInOut, Add);
+            var inputService = new InputDialogService<TimeSheet>(new CheckInDialog(), currentTimeSheet, Add);
             inputService.Show();
         }
 
-        private void Add(CheckInOut checkInOut)
+        private void Add(TimeSheet timeSheet)
         {
             CheckInTime = DateTime.Now;
             CheckOutTime = new DateTime();
-            checkInOutDao.Add(checkInOut);
+            timeSheetsDao.Add(timeSheet);
             LoadCheckInOutList();
         }
 
         private void CreateCheckIn()
         {
-            currentCheckInOut = new CheckInOut(AutoGenerateID(), CurrentUser.Ins.EmployeeIns.ID,
+            currentTimeSheet = new TimeSheet(AutoGenerateID(), CurrentUser.Ins.EmployeeIns.ID,
                 Utils.EMPTY_DATETIME, Utils.EMPTY_DATETIME, "");
         }
 
@@ -86,20 +86,20 @@ namespace CompanyManagement.ViewModels.UserControls
             {
                 int number = random.Next(999999);
                 checkInOutID = $"CIO{number:000000}";
-            } while (checkInOutDao.SearchByID(checkInOutID) != null);
+            } while (timeSheetsDao.SearchByID(checkInOutID) != null);
             return checkInOutID;
         }
 
         private void OpenCheckOutDialog()
         {
-            var inputService = new InputDialogService<CheckInOut>(new CheckOutDialog(), currentCheckInOut, Update);
+            var inputService = new InputDialogService<TimeSheet>(new CheckOutDialog(), currentTimeSheet, Update);
             inputService.Show();
         }
 
-        private void Update(CheckInOut checkInOut)
+        private void Update(TimeSheet timeSheet)
         {
             CheckOutTime = DateTime.Now;
-            checkInOutDao.Update(checkInOut);
+            timeSheetsDao.Update(timeSheet);
             LoadCheckInOutList();
         }
     }

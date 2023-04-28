@@ -40,14 +40,14 @@ namespace CompanyManagement.Models
         {
             try
             {
-                checkInOutID = (string)reader[BaseDao.TASK_CHECK_OUT_TASK_ID];
-                taskID = (string)reader[BaseDao.TASK_CHECK_OUT_TASK_ID];
-                updateDate = reader.GetDateTime(reader.GetOrdinal(BaseDao.TASK_CHECK_OUT_UPDATE_DATE));
-                progress = (string)reader[BaseDao.TASK_CHECK_OUT_PROGRESS];
+                checkInOutID = (string)reader[BaseDao.TASK_CHECK_OUTS_TASK_ID];
+                taskID = (string)reader[BaseDao.TASK_CHECK_OUTS_TASK_ID];
+                updateDate = reader.GetDateTime(reader.GetOrdinal(BaseDao.TASK_CHECK_OUTS_UPDATE_DATE));
+                progress = (string)reader[BaseDao.TASK_CHECK_OUTS_PROGRESS];
             }
             catch (Exception e)
             {
-                Log.Instance.Error(nameof(CheckInOut), "Error: " + e.Message);
+                Log.Instance.Error(nameof(TimeSheet), "Error: " + e.Message);
             }
         }
     }

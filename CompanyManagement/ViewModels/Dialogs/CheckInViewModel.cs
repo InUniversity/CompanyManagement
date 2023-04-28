@@ -16,11 +16,11 @@ using CompanyManagement.Utilities;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
-    public class CheckInViewModel : BaseViewModel, IInputViewModel<CheckInOut>
+    public class CheckInViewModel : BaseViewModel, IInputViewModel<TimeSheet>
     {
         public CheckInOutInputViewModel CheckInOutInputDataContext { get; }
 
-        private Action<CheckInOut> submitObjectAction;
+        private Action<TimeSheet> submitObjectAction;
 
         private TaskInProject selectedTask ;
         public TaskInProject SelectedTask { get => selectedTask; set => selectedTask = value; }
@@ -103,7 +103,7 @@ namespace CompanyManagement.ViewModels.UserControls
                "Bạn chắc chắn muốn check in không?",
                () =>
                {
-                   CheckInOut checkIn = CheckInOutInputDataContext.CheckInOutIns;
+                   TimeSheet checkIn = CheckInOutInputDataContext.TimeSheetIns;
                    submitObjectAction?.Invoke(checkIn);
                    window.Close();
                }, null);
@@ -128,12 +128,12 @@ namespace CompanyManagement.ViewModels.UserControls
             SearchedTasksCanChoose = new ObservableCollection<TaskInProject>(searchedItems);
         }
 
-        public void ReceiveObject(CheckInOut checkInOut)
+        public void ReceiveObject(TimeSheet timeSheet)
         {
-            CheckInOutInputDataContext.CheckInOutIns = checkInOut;
+            CheckInOutInputDataContext.TimeSheetIns = timeSheet;
         }
 
-        public void ReceiveSubmitAction(Action<CheckInOut> submitObjectAction)
+        public void ReceiveSubmitAction(Action<TimeSheet> submitObjectAction)
         {
             this.submitObjectAction = submitObjectAction;
         }

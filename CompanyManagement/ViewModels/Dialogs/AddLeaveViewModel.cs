@@ -11,14 +11,14 @@ using CompanyManagement.ViewModels.Dialogs.Interfaces;
 
 namespace CompanyManagement.ViewModels.Dialogs
 {
-    public class AddLeaveViewModel : BaseViewModel, IInputViewModel<Leave>
+    public class AddLeaveViewModel : BaseViewModel, IInputViewModel<LeaveRequest>
     {
         public ICommand AddLeaveCommand { get; }
 
         public LeaveInputViewModel LeaveInputDataContext { get; }
-        private Action<Leave> submitObjectAction;
+        private Action<LeaveRequest> submitObjectAction;
 
-        private LeaveDao leaveDao = new LeaveDao();
+        private LeaveRequestsDao leaveRequestsDao = new LeaveRequestsDao();
 
         public AddLeaveViewModel()
         {
@@ -36,8 +36,8 @@ namespace CompanyManagement.ViewModels.Dialogs
                 "Bạn chắc chắn muốn thêm xin nghỉ phép !",
                 () =>
                 {
-                    Leave leave = LeaveInputDataContext.LeaveIns;
-                    submitObjectAction?.Invoke(leave);
+                    LeaveRequest leaveRequest = LeaveInputDataContext.LeaveRequestIns;
+                    submitObjectAction?.Invoke(leaveRequest);
                     inputWindow.Close();
                 }, null);
             dialog.Show();
@@ -48,12 +48,12 @@ namespace CompanyManagement.ViewModels.Dialogs
             return true;
         }
 
-        public void ReceiveObject(Leave leave)
+        public void ReceiveObject(LeaveRequest leaveRequest)
         {
-            LeaveInputDataContext.LeaveIns = leave;
+            LeaveInputDataContext.LeaveRequestIns = leaveRequest;
         }
 
-        public void ReceiveSubmitAction(Action<Leave> submitObjectAction)
+        public void ReceiveSubmitAction(Action<LeaveRequest> submitObjectAction)
         {
             this.submitObjectAction = submitObjectAction;
         }
