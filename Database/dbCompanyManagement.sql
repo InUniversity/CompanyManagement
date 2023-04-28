@@ -135,7 +135,7 @@ GO
 CREATE TABLE Projects(
     ID varchar(20) PRIMARY KEY,
     ProjectName nvarchar(225),
-    CreateDate SMALLDATETIME,
+    CreatedDate SMALLDATETIME,
     StartDate SMALLDATETIME,
     EndDate SMALLDATETIME,
     CompletedDate SMALLDATETIME,
@@ -147,7 +147,7 @@ CREATE TABLE Projects(
     CONSTRAINT FK_Projects_OwnerID FOREIGN KEY(OwnerID) REFERENCES Employees(ID)
 );
 GO
-INSERT INTO Projects(ID, ProjectName, CreateDate, StartDate, EndDate, CompletedDate, Progress, StatusID, OwnerID, BonusSalary)
+INSERT INTO Projects(ID, ProjectName, CreatedDate, StartDate, EndDate, CompletedDate, Progress, StatusID, OwnerID, BonusSalary)
 VALUES
     ('PRJ001', 'Website Development', CONVERT(SMALLDATETIME, '01-01-2023 08:00 AM', 105), CONVERT(SMALLDATETIME, '01-01-2023 08:00 AM', 105), CONVERT(SMALLDATETIME, '30-06-2023 05:00 PM', 105), CONVERT(SMALLDATETIME, '01-01-2000 00:00 AM', 105), '50','PST1', 'EM001', 100000000),
     ('PRJ002', 'Mobile App Development', CONVERT(SMALLDATETIME, '01-02-2023 09:30 AM', 105), CONVERT(SMALLDATETIME, '01-02-2023 09:30 AM', 105), CONVERT(SMALLDATETIME, '31-08-2023 07:00 PM', 105), CONVERT(SMALLDATETIME, '01-01-2000 00:00 AM', 105),'35', 'PST1', 'EM002', 100234000),

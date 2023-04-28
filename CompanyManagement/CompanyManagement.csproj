@@ -87,7 +87,7 @@
     <Compile Include="Database\ProjectsDao.cs" />
     <Compile Include="Database\ProjectStatusesDao.cs" />
     <Compile Include="Database\TaskCheckOutDao.cs" />
-    <Compile Include="Database\TaskInProjectDao.cs" />
+    <Compile Include="Database\TasksDao.cs" />
     <Compile Include="Database\TaskStatusDao.cs" />
     <Compile Include="Helpers\PasswordBoxHelper.cs" />
     <Compile Include="Models\Account.cs" />

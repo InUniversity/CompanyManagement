@@ -39,7 +39,7 @@ namespace CompanyManagement.ViewModels.UserControls
         public ICommand DeleteTaskCompletedCommand { get; private set; }
 
         private TaskCheckOutDao taskCheckOutDao = new TaskCheckOutDao();
-        private TaskInProjectDao taskInProjectDao = new TaskInProjectDao();
+        private TasksDao tasksDao = new TasksDao();
 
         public CheckOutViewModel()
         {
@@ -99,7 +99,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void LoadTasksCanChoose()
         {
-            TasksCanChoose = taskInProjectDao.SearchCurrentTasksByEmployeeID(CurrentUser.Ins.EmployeeIns.ID);
+            TasksCanChoose = tasksDao.SearchCurrentTasksByEmployeeID(CurrentUser.Ins.EmployeeIns.ID);
             SearchedTasksCanChoose = new ObservableCollection<TaskInProject>(TasksCanChoose);
         }
 
@@ -127,7 +127,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void UpdateTaskInProject(TaskInProject task)
         {
-            taskInProjectDao.Update(task);
+            tasksDao.Update(task);
         }
 
         private void AddTaskCheckOut(TaskInProject task)

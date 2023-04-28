@@ -23,10 +23,10 @@ namespace CompanyManagement.ViewModels.UserControls
 
         public string ID { get => task.ID; set { task.ID = value; OnPropertyChanged(); } }
         public string Title { get => task.Title; set { task.Title = value; OnPropertyChanged(); } }
-        public string Description { get => task.Description; set { task.Description = value; OnPropertyChanged(); } }
-        public DateTime AssignDate { get => task.AssignDate; set { task.AssignDate = value; OnPropertyChanged(); } }
+        public string Description { get => task.Explanation; set { task.Explanation = value; OnPropertyChanged(); } }
+        public DateTime AssignDate { get => task.StartDate; set { task.StartDate = value; OnPropertyChanged(); } }
         public DateTime Deadline { get => task.Deadline; set { task.Deadline = value; OnPropertyChanged(); } }
-        public string CreateBy { get => task.CreateBy; set { task.CreateBy = value; OnPropertyChanged(); } }
+        public string CreateBy { get => task.OwnerID; set { task.OwnerID = value; OnPropertyChanged(); } }
         public string Progress { get => task.Progress; set { task.Progress = value; OnPropertyChanged(); } }
         public string EmployeeID { get => task.EmployeeID; set { task.EmployeeID = value; OnPropertyChanged(); } }
         public string ProjectID { get => task.ProjectID; set { task.ProjectID = value; OnPropertyChanged(); } }

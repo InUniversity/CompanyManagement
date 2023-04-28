@@ -9,11 +9,11 @@ namespace CompanyManagement.Models
     {
         private string id;
         private string title;
-        private string description;
-        private DateTime assignDate;
+        private string explanation;
+        private DateTime startDate;
         private DateTime deadline;
         private string progress;
-        private string createBy;
+        private string ownerID;
         private string employeeID;
         private string projectID;
         private string statusID;
@@ -30,16 +30,16 @@ namespace CompanyManagement.Models
             set => title = value;
         }
 
-        public string Description
+        public string Explanation
         {
-            get => description;
-            set => description = value;
+            get => explanation;
+            set => explanation = value;
         }
 
-        public DateTime AssignDate
+        public DateTime StartDate
         {
-            get => assignDate;
-            set => assignDate = value;
+            get => startDate;
+            set => startDate = value;
         }
 
         public DateTime Deadline
@@ -54,10 +54,10 @@ namespace CompanyManagement.Models
             set => progress = value;
         }
 
-        public string CreateBy
+        public string OwnerID
         {
-            get => createBy;
-            set => createBy = value;
+            get => ownerID;
+            set => ownerID = value;
         }
 
         public string EmployeeID
@@ -80,16 +80,16 @@ namespace CompanyManagement.Models
 
         public TaskInProject() { }
 
-        public TaskInProject(string id, string title, string description, DateTime assignDate, DateTime deadline, 
-            string progress, string createBy, string employeeID, string projectID, string statusID)
+        public TaskInProject(string id, string title, string explanation, DateTime startDate, DateTime deadline, 
+            string progress, string ownerID, string employeeID, string projectID, string statusID)
         {
             this.id = id;
             this.title = title;
-            this.description = description;
-            this.assignDate = assignDate;
+            this.explanation = explanation;
+            this.startDate = startDate;
             this.deadline = deadline;
             this.progress = progress;
-            this.createBy = createBy;
+            this.ownerID = ownerID;
             this.employeeID = employeeID;
             this.projectID = projectID;
             this.statusID = statusID;
@@ -101,10 +101,10 @@ namespace CompanyManagement.Models
             {
                 id = (string)reader[BaseDao.TASKS_ID];
                 title = (string)reader[BaseDao.TASKS_TITLE];
-                description = (string)reader[BaseDao.TASKS_DESCRIPTION];
-                assignDate = reader.GetDateTime(reader.GetOrdinal(BaseDao.TASKS_ASSIGN_DATE));
+                explanation = (string)reader[BaseDao.TASKS_EXPLANATION];
+                startDate = reader.GetDateTime(reader.GetOrdinal(BaseDao.TASKS_START_DATE));
                 deadline = reader.GetDateTime(reader.GetOrdinal(BaseDao.TASKS_DEADLINE));
-                createBy = (string)reader[BaseDao.TASKS_CREATE_BY];
+                ownerID = (string)reader[BaseDao.TASKS_OWNER_ID];
                 progress = (string)reader[BaseDao.TASKS_PROGRESS];
                 employeeID = (string)reader[BaseDao.TASKS_EMPLOYEE_ID];
                 projectID = (string)reader[BaseDao.TASKS_PROJECT_ID];

@@ -30,7 +30,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private CheckInOutDao checkInOutDao = new CheckInOutDao();
         private TaskCheckOutDao taskCheckOutDao = new TaskCheckOutDao();
-        private TaskInProjectDao taskInProjectDao = new TaskInProjectDao();
+        private TasksDao tasksDao = new TasksDao();
 
         public CheckInOutViewModel()
         {
