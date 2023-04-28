@@ -26,9 +26,9 @@ namespace CompanyManagement.Models
         {
             try
             {
-                id = (string)reader[BaseDao.DEPARTMENT_ID];
-                name = (string)reader[BaseDao.DEPARTMENT_NAME];
-                managerID = (string)reader[BaseDao.DEPARTMENT_MANAGER_ID];
+                id = (string)reader[BaseDao.DEPARTMENTS_ID];
+                name = (string)reader[BaseDao.DEPARTMENTS_NAME];
+                managerID = (string)reader[BaseDao.DEPARTMENTS_MANAGER_ID];
             }
             catch (Exception ex)
             {

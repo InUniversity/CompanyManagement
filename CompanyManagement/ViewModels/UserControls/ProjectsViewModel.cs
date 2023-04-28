@@ -94,13 +94,13 @@ namespace CompanyManagement.ViewModels.UserControls
         {
             Projects = projectsStrategy.GetProjects(currentEmployee.ID);
 
-            var listOngoingProjects = Projects.Where(p => p.Progress != BaseDao.COMPLETED && p.End > DateTime.Now).ToList();
+            var listOngoingProjects = Projects.Where(p => p.Progress != BaseDao.COMPLETED && p.EndDate > DateTime.Now).ToList();
             OngoingProjects = new List<Project>(listOngoingProjects);
 
             var listCompletedProjects = Projects.Where(p => p.Progress == BaseDao.COMPLETED).ToList();
             CompletedProjects = new List<Project>(listCompletedProjects);
 
-            var listOverdueProjects = Projects.Where(p => p.End < DateTime.Now && p.Progress != BaseDao.COMPLETED).ToList();
+            var listOverdueProjects = Projects.Where(p => p.EndDate < DateTime.Now && p.Progress != BaseDao.COMPLETED).ToList();
             OverdueProjects = new List<Project>(listOverdueProjects);
         }
 

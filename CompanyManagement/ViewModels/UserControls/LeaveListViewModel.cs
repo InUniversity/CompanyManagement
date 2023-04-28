@@ -118,9 +118,9 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private List<Leave> GetLeaveList()
         {
-            if (string.Equals(currentEmployee.PositionID, BaseDao.MANAGER_POS_ID))
+            if (string.Equals(currentEmployee.RoleID, BaseDao.MANAGER_ROLE_ID))
                 return leaveDao.GetAll();
-            if (string.Equals(currentEmployee.PositionID, BaseDao.DEPARTMENT_HEAD_POS_ID))
+            if (string.Equals(currentEmployee.RoleID, BaseDao.DEPARTMENT_HEAD_ROLE_ID))
                 return leaveDao.SearchByApprovedBy(currentEmployee.ID);
             return leaveDao.SearchByEmployeeID(currentEmployee.ID);
         }
@@ -139,9 +139,9 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private Leave CreateLeave()
         {
-            string approveBy = string.Equals(currentEmployee.ID, BaseDao.EMPLOYEE_POS_ID) 
+            string approveBy = string.Equals(currentEmployee.ID, BaseDao.EMPLOYEE_ROLE_ID) 
                 ? departmentDao.DepartmentByEmployeeDeptID(currentEmployee.DepartmentID).ManagerID
-                : employeeDao.SearchByPositionID(BaseDao.MANAGER_POS_ID).ID;
+                : employeeDao.SearchByPositionID(BaseDao.MANAGER_ROLE_ID).ID;
             return new Leave(AutoGenerateID(), currentEmployee.ID, "LS2", "", DateTime.Now, DateTime.Now, "LS2",
                 DateTime.Now, approveBy , "");
         }

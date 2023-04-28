@@ -8,7 +8,7 @@ namespace CompanyManagement.Database
     {
         public List<ProjectStatus> GetAll()
         {
-            string sqlStr = $"SELECT * FROM {PROJECT_STATUS_TABLE}";
+            string sqlStr = $"SELECT * FROM {PROJECT_STATUSES_TABLE}";
             return dbConnection.GetList(sqlStr, reader => new ProjectStatus(reader));
         }
     }

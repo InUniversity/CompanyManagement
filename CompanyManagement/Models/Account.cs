@@ -28,9 +28,9 @@ namespace CompanyManagement.Models
         {
             try
             {
-                username = (string)reader[BaseDao.ACCOUNT_USERNAME];
-                password = (string)reader[BaseDao.ACCOUNT_PASSWORD];
-                employeeID = (string)reader[BaseDao.ACCOUNT_EMPLOYEE_ID];
+                username = (string)reader[BaseDao.ACCOUNTS_USERNAME];
+                password = (string)reader[BaseDao.ACCOUNTS_PASSWORD];
+                employeeID = (string)reader[BaseDao.ACCOUNTS_EMPLOYEE_ID];
             }
             catch (Exception ex)
             {
