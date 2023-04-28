@@ -11,52 +11,90 @@ using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
+using CompanyManagement.Strategies.UserControls.LeaveListView;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
 
     public class LeaveListViewModel : BaseViewModel
     {
+        private List<LeaveRequest> leaveRequestList;
+        public List<LeaveRequest> LeaveRequestList 
+        { get => leaveRequestList; set { leaveRequestList = value; OnPropertyChanged(); } }
 
-        private List<LeaveRequest> leaves;
-        public List<LeaveRequest> Leaves { get => leaves; set { leaves = value; OnPropertyChanged(); } }
+        private List<LeaveRequest> unapprovedLeaveRequestList;
+        public List<LeaveRequest> UnapprovedLeaveRequestList 
+        { get => unapprovedLeaveRequestList; set { unapprovedLeaveRequestList = value; OnPropertyChanged(); } }
 
-        private Visibility visibleAddButton = Visibility.Collapsed;
-        public Visibility VisibleAddButton { get => visibleAddButton; set { visibleAddButton = value; OnPropertyChanged(); } }
+        private List<LeaveRequest> approvedLeaveRequestList;
+        public List<LeaveRequest> ApprovedLeaveRequestList 
+        { get => approvedLeaveRequestList; set { approvedLeaveRequestList = value; OnPropertyChanged(); } }
 
-        private Visibility visibleDeleteButton = Visibility.Collapsed;
-        public Visibility VisibleDeleteButton { get => visibleDeleteButton; set { visibleDeleteButton = value; OnPropertyChanged(); } }
+        private List<LeaveRequest> deniedLeaveRequestList;
+        public List<LeaveRequest>  DeniedLeaveRequestList 
+        { get => deniedLeaveRequestList; set { deniedLeaveRequestList = value; OnPropertyChanged(); } }
+        
+        private Visibility visibleLeaveRequestListExpander = Visibility.Collapsed;
+        public Visibility VisibleLeaveRequestListExpander 
+        { get => visibleUnapprovedLeaveListExpander; set { visibleUnapprovedLeaveListExpander = value; OnPropertyChanged(); } } 
 
-        private Visibility visibleUpdateButton = Visibility.Collapsed;
-        public Visibility VisibleUpdateButton { get => visibleUpdateButton; set { visibleUpdateButton = value; OnPropertyChanged(); } }
+        private Visibility visibleUnapprovedLeaveListExpander = Visibility.Collapsed;
+        public Visibility VisibleUnapprovedLeaveListExpander 
+        { get => visibleUnapprovedLeaveListExpander; set { visibleUnapprovedLeaveListExpander = value; OnPropertyChanged(); } }
 
-        private Visibility visibleApproveButton = Visibility.Collapsed;
-        public Visibility VisibleApproveButton { get => visibleApproveButton; set { visibleApproveButton = value; OnPropertyChanged(); } }
+        private Visibility visibleApprovedLeaveListExpander = Visibility.Collapsed;
+        public Visibility VisibleApprovedLeaveListExpander 
+        { get => visibleApprovedLeaveListExpander; set { visibleApprovedLeaveListExpander = value; OnPropertyChanged(); } }
+
+        private Visibility visibleDeniedLeaveListExpander = Visibility.Collapsed;
+        public Visibility VisibleDeniedLeaveListExpander 
+        { get => visibleDeniedLeaveListExpander; set { visibleDeniedLeaveListExpander = value; OnPropertyChanged(); } }
 
         private DateTime timeCreateLeave = DateTime.Now;
-        public DateTime TimeCreateLeave { get => timeCreateLeave; set { timeCreateLeave = value; OnPropertyChanged(); FilterDate(); } }
+        public DateTime TimeCreateLeave { get => timeCreateLeave; set { timeCreateLeave = value; OnPropertyChanged(); SearchDate(); } }
 
-        public ICommand NextTimeLeaveCreateDate { get; set; }
-        public ICommand BackTimeLeaveCreateDate { get; set; }
-        public ICommand OpenLeaveInputCommand { get; set; }
-        public ICommand DeleteLeaveCommand { get; set; }
-        public ICommand UpdateLeaveCommand { get; set; }
-        public ICommand ApproveLeaveCommand { get; set; }
+        public ICommand BackDateCommand { get; private set; }
+        public ICommand NextDateCommand { get; private set; }
+        public ICommand OpenAddLeaveDialogCommand { get; private set; }
+        public ICommand DeleteLeaveCommand { get; private set; }
+        public ICommand OpenUpdateLeaveDialogCommand { get; private set; }
+        public ICommand ApproveLeaveCommand { get; private set; }
+        
+        private ILeaveListStrategy leaveListStrategy;
+        public ILeaveListStrategy LeaveListStrategy 
+        { 
+            get => leaveListStrategy;
+            set
+            {
+                if (leaveListStrategy == value) return;
+                leaveListStrategy = value;
+                leaveListStrategy.SetVisible(this);
+            }
+        }
 
         public INavigateAssignmentView ParentDataContext { get; set; }
 
-        private LeaveRequestsDao leaveRequestsDao = new LeaveRequestsDao();
-        private DepartmentsDao departmentsDao = new DepartmentsDao();
-        private EmployeesDao employeesDao = new EmployeesDao();
+        private LeaveRequestsDao leaveDao = new LeaveRequestsDao();
+        private DepartmentsDao departmentDao = new DepartmentsDao();
+        private EmployeesDao employeeDao = new EmployeesDao();
 
         private Employee currentEmployee = CurrentUser.Ins.EmployeeIns;
 
-        public LeaveListViewModel()
-        {          
-            SetVisible();
-            FilterDate();
-            NextTimeLeaveCreateDate = new RelayCommand<object>(ExecuteNextTimeLeaveCreateDate);
-            BackTimeLeaveCreateDate = new RelayCommand<object>(ExecuteBackTimeLeaveCreateDate);
+        public LeaveListViewModel(ILeaveListStrategy leaveListStrategy)
+        {
+            LeaveListStrategy = leaveListStrategy;
+            SetCommands();
+            SearchDate();
+        }
+
+        private void SetCommands()
+        {
+            BackDateCommand = new RelayCommand<object>(ExecuteBackTimeLeaveCreateDate);
+            NextDateCommand = new RelayCommand<object>(ExecuteNextTimeLeaveCreateDate);
+            OpenAddLeaveDialogCommand = new RelayCommand<object>(ExecuteAddCommand);
+            DeleteLeaveCommand = new RelayCommand<string>(ExecuteDeleteCommand);
+            OpenUpdateLeaveDialogCommand = new RelayCommand<LeaveRequest>(ExecuteUpdateCommand);
+            ApproveLeaveCommand = new RelayCommand<LeaveRequest>(ExecuteApproveCommand);
         }
 
         private void ExecuteBackTimeLeaveCreateDate(object obj)
@@ -69,90 +107,39 @@ namespace CompanyManagement.ViewModels.UserControls
             TimeCreateLeave = timeCreateLeave.AddDays(1);
         }
 
-        private void LoadLeaveList()
+        private void LoadLeaveRequestList()
         {
-            Leaves = GetLeaveList();
+            LeaveRequestList = leaveDao.SearchByEmployeeID(currentEmployee.ID);
+            
+            var receivedLeaveRequests = leaveDao.SearchByDeptHeaderID(currentEmployee.ID);
+
+            var unapprovedLeaveList = receivedLeaveRequests.Where(p => p.StatusID == BaseDao.APPROVAL).ToList();
+            UnapprovedLeaveRequestList = unapprovedLeaveList;
+
+            var listApprovedLeaves = receivedLeaveRequests.Where(p => p.StatusID == BaseDao.APPROVED).ToList();
+            ApprovedLeaveRequestList = listApprovedLeaves;
+
+            var listUnapprovedLeaves = receivedLeaveRequests.Where(p => p.StatusID == BaseDao.UNAPPROVED).ToList();
+            DeniedLeaveRequestList = listUnapprovedLeaves;
         }
 
-        private List<LeaveRequest> GetLeaveList()
+        private void SearchDate()
         {
-            if (string.Equals(currentEmployee.RoleID, BaseDao.MANAGER_ROLE_ID))
-                return leaveRequestsDao.GetAll();
-            if (string.Equals(currentEmployee.RoleID, BaseDao.DEPARTMENT_HEAD_ROLE_ID))
-                return leaveRequestsDao.SearchByDeptHeaderID(currentEmployee.ID);
-            return leaveRequestsDao.SearchByEmployeeID(currentEmployee.ID);
-        }
-
-        private void SetVisible()
-        {
-            if (string.Equals(currentEmployee.RoleID, BaseDao.MANAGER_ROLE_ID))
-                SetVisibleManager();
-            else if (string.Equals(currentEmployee.RoleID, BaseDao.DEPARTMENT_HEAD_ROLE_ID))
-                SetVisibleDepartmentHead();
-            else
-                SetVisibleEmployee();
-        }
-
-        private void SetVisibleManager()
-        {
-            VisibilityManager();
-            VisibilityManagerCommands();
-        }
-
-        private void SetVisibleDepartmentHead()
-        {
-            VisibilityCRUD();
-            VisibilityManager();
-            VisibilityCRUDCommands();
-            VisibilityManagerCommands();
-        }
-
-        private void SetVisibleEmployee()
-        {
-            VisibilityCRUD();
-            VisibilityCRUDCommands();
-        }
-
-        private void FilterDate()
-        {
-            LoadLeaveList();
-            var allItem = Leaves;
-            allItem = Leaves
+            LoadLeaveRequestList();
+            var allItem = LeaveRequestList;
+            allItem = LeaveRequestList
                     .Where(item => item.CreatedDate.Date == TimeCreateLeave.Date)
                     .ToList();
-            Leaves = new List<LeaveRequest>(allItem);
+            LeaveRequestList = new List<LeaveRequest>(allItem);
+            
             Log.Instance.Information(nameof(LeaveListViewModel), "selected date = " + timeCreateLeave.ToShortDateString());
-        }
-
-        private void VisibilityManager()
-        {
-            visibleApproveButton = Visibility.Visible;
-        }
-
-        private void VisibilityManagerCommands()
-        {
-            ApproveLeaveCommand = new RelayCommand<LeaveRequest>(ExecuteApproveCommand);
-        }    
-
-        private void VisibilityCRUD()
-        {
-            visibleAddButton = Visibility.Visible;
-            visibleDeleteButton = Visibility.Visible;
-            visibleUpdateButton = Visibility.Visible;
-        }
-
-        private void VisibilityCRUDCommands()
-        {
-            OpenLeaveInputCommand = new RelayCommand<object>(ExecuteAddCommand);
-            DeleteLeaveCommand = new RelayCommand<string>(ExecuteDeleteCommand);
-            UpdateLeaveCommand = new RelayCommand<LeaveRequest>(ExecuteUpdateCommand);
         }
 
         private LeaveRequest CreateLeave()
         {
             string approveBy = string.Equals(currentEmployee.ID, BaseDao.EMPLOYEE_ROLE_ID) 
-                ? departmentsDao.DepartmentByEmployeeDeptID(currentEmployee.DepartmentID).DepartmentHeadID
-                : employeesDao.SearchByPositionID(BaseDao.MANAGER_ROLE_ID).ID;
+                ? departmentDao.DepartmentByEmployeeDeptID(currentEmployee.DepartmentID).DepartmentHeadID
+                : employeeDao.SearchByPositionID(BaseDao.MANAGER_ROLE_ID).ID;
             return new LeaveRequest(AutoGenerateID(), "", "", "LS2", currentEmployee.ID, approveBy);
         }
 
@@ -164,20 +151,8 @@ namespace CompanyManagement.ViewModels.UserControls
             {
                 int number = random.Next(10000);
                 leaaveID = $"LEA{number:0000}";
-            } while (leaveRequestsDao.SearchByID(leaaveID) != null);
+            } while (leaveDao.SearchByID(leaaveID) != null);
             return leaaveID;
-        }
-
-        private void Add(LeaveRequest leaveRequest)
-        {
-            leaveRequestsDao.Add(leaveRequest);
-            LoadLeaveList();
-        }
-
-        private void Update(LeaveRequest leaveRequest)
-        {
-            leaveRequestsDao.Update(leaveRequest);
-            LoadLeaveList();
         }
 
         private void ExecuteAddCommand(object p)
@@ -185,33 +160,49 @@ namespace CompanyManagement.ViewModels.UserControls
             var leave = CreateLeave();
             var inputDialogService = new InputDialogService<LeaveRequest>(new AddLeaveDialog(), leave, Add);
             inputDialogService.Show();
-            FilterDate();
+            SearchDate();
+        }
+
+        private void Add(LeaveRequest leave)
+        {
+            leaveDao.Add(leave);
+            LoadLeaveRequestList();
         }
 
         private void ExecuteDeleteCommand(string id)
         {
-            var dialog = new AlertDialogService(
-              "Xóa xin phép nghỉ",
-              "Bạn chắc chắn muốn xóa xin phép nghỉ!",
-              () =>
-              {
-                  leaveRequestsDao.Delete(id);
-                  LoadLeaveList();
-              }, null);
+            var dialog = new AlertDialogService( 
+                "Xóa xin phép nghỉ", 
+                "Bạn chắc chắn muốn xóa xin phép nghỉ!",
+                () =>
+                {
+                    leaveDao.Delete(id); 
+                    LoadLeaveRequestList();
+                }, null); 
             dialog.Show();
-            FilterDate();
+            LoadLeaveRequestList();
         }
 
-        private void ExecuteUpdateCommand(LeaveRequest leaveRequest)
+        private void ExecuteUpdateCommand(LeaveRequest leave)
         {
-            var inputDialogService = new InputDialogService<LeaveRequest>(new UpdateLeaveDialog(), leaveRequest, Update);
+            var inputDialogService = new InputDialogService<LeaveRequest>(new UpdateLeaveDialog(), leave, Update);
             inputDialogService.Show();
         }
-
-        private void ExecuteApproveCommand(LeaveRequest leaveRequest)
+        
+        private void Update(LeaveRequest leave)
         {
-            var inputDialogService = new InputDialogService<LeaveRequest>(new UpdateLeaveForManagerDialog(), leaveRequest, Update);
-            inputDialogService.Show();
+            leaveDao.Update(leave);
+            LoadLeaveRequestList();
+        }
+
+        private void ExecuteApproveCommand(LeaveRequest leave)
+        {
+            Update(leave);
+        }
+
+        private void ExecuteDenyCommand(LeaveRequest leave)
+        {
+            Update(leave);
         }
     }
 }

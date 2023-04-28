@@ -7,9 +7,9 @@ namespace CompanyManagement.Strategies.UserControls.LeaveListView
     {
         private static readonly Dictionary<string, ILeaveListStrategy> strategies = new()
         {
-            {BaseDao.MANAGER_POS_ID, new LeaveListForManager()},
-            {BaseDao.DEPARTMENT_HEAD_POS_ID, new LeaveListForDepartmentHead()},
-            {BaseDao.EMPLOYEE_POS_ID, new LeaveListForEmployee()}
+            {BaseDao.MANAGER_ROLE_ID, new LeaveListForManager()},
+            {BaseDao.DEPARTMENT_HEAD_ROLE_ID, new LeaveListForDepartmentHead()},
+            {BaseDao.EMPLOYEE_ROLE_ID, new LeaveListForEmployee()}
         };
 
         public static ILeaveListStrategy Create(string positionID)
