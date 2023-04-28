@@ -16,7 +16,7 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
         Name="checkInDialog"
-        Height="300" Width="600">
+        Height="350" Width="600">
     <Grid>
         <StackPanel>
             <TextBlock Text="Check in" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Margin="10"></TextBlock>
@@ -147,6 +147,15 @@
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </Grid>
+            <TextBlock 
+                    VerticalAlignment="Bottom"
+                    Height="30"
+                    Margin="10"
+                    Text="{Binding ErrorMessage}"
+                    TextWrapping="Wrap" 
+                    Foreground="#FF0000" 
+                    TextAlignment="Left" 
+                    FontSize="13"/>
             <Button Content="Hoàn thành"
                     VerticalAlignment="Bottom"
                     Margin="10" 

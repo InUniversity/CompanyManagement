@@ -36,6 +36,9 @@ namespace CompanyManagement.ViewModels.UserControls
         private string textToSearch = "";
         public string TextToSearch { get => textToSearch; set { textToSearch = value; OnPropertyChanged(); SearchByName(); } }
 
+        private string errorMessage = "";
+        public string ErrorMessage { get => errorMessage; set { errorMessage = value; OnPropertyChanged();} }
+
         public ICommand CheckInCommand { get; private set; }
         public ICommand ChooseTaskCommand { get; private set; }
         public ICommand DeleteSelectedTaskCommand { get; private set; }
@@ -69,6 +72,7 @@ namespace CompanyManagement.ViewModels.UserControls
         private void ExecuteDeleteSelectedTaskCommand(TaskInProject task)
         {
             StartingTask.Remove(task);
+            selectedTask = null;
         }
 
         private void ExecuteChooseTaskCommand(object obj)
@@ -80,8 +84,20 @@ namespace CompanyManagement.ViewModels.UserControls
             SelectedTask = new TaskInProject();
         }
 
+        private bool CheckTask()
+        {
+            ErrorMessage = "";
+            if (selectedTask == null)
+            {
+                ErrorMessage = Utils.INVALIDATE_TASK_CHECK_IN;
+                return false;
+            }
+            return true;
+        }
+
         private void ExecuteCheckInCommand(Window window)
         {
+            if (!CheckTask()) return;
             var dialog = new AlertDialogService(
                "Check in",
                "Bạn chắc chắn muốn check in không?",
