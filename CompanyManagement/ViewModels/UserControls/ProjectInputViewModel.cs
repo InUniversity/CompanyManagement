@@ -11,31 +11,24 @@ using CompanyManagement.Utilities;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
-    public interface IProjectInput
-    {    
-        bool CheckAllFields();
-        void TrimAllTexts();
-        public Project ProjectIns { get; set; }
-    }
-
-    public class ProjectInputViewModel : BaseViewModel, IProjectInput
+    public class ProjectInputViewModel : BaseViewModel
     {
         private Project project = new Project();
         public Project ProjectIns { get => project; set => project = value; }
 
         public string ID { get => project.ID; set { project.ID = value; OnPropertyChanged(); } }
         public string Name { get => project.Name; set { project.Name = value; OnPropertyChanged(); } }
-        public DateTime Created { get => project.CreatedDate; set { project.CreatedDate = value; OnPropertyChanged(); } }
-        public DateTime Start 
+        public DateTime CreatedDate { get => project.CreatedDate; set { project.CreatedDate = value; OnPropertyChanged(); } }
+        public DateTime StartDate 
         { get => project.StartDate; set { project.StartDate = value; OnPropertyChanged(); LoadDepartmentsCanAssign(); } }
-        public DateTime End 
+        public DateTime EndDate 
         { get => project.EndDate; set { project.EndDate = value; OnPropertyChanged(); LoadDepartmentsCanAssign(); } }
-        public DateTime Completed 
+        public DateTime CompletedDate 
         { get => project.CompletedDate; set { project.CompletedDate = value; OnPropertyChanged(); } }
         public string Progress { get => project.Progress; set { project.Progress = value; OnPropertyChanged(); } }
-        public string ProjectStatusID { get => project.StatusID; set { project.StatusID = value; OnPropertyChanged(); } }
+        public string StatusID { get => project.StatusID; set { project.StatusID = value; OnPropertyChanged(); } }
         public string OwnerID { get => project.OwnerID; set { project.OwnerID = value; OnPropertyChanged(); } }
-        public int BonusSalary { get => project.BonusSalary; set { project.BonusSalary = value; OnPropertyChanged(); } }
+        public decimal BonusSalary { get => project.BonusSalary; set { project.BonusSalary = value; OnPropertyChanged(); } }
         public ObservableCollection<Department> DepartmentsInProject 
         { get => project.Departments; set { project.Departments = value; OnPropertyChanged(); } }
 
@@ -83,7 +76,7 @@ namespace CompanyManagement.ViewModels.UserControls
                 Utils.ToSQLFormat(project.StartDate), Utils.ToSQLFormat(project.EndDate));
             SearchedDepartmentsCanAssign = new ObservableCollection<Department>(departmentsCanAssign);
             
-            Log.Instance.Information(nameof(ProjectInputViewModel), $"Start:{Start}, End:{End}");
+            Log.Instance.Information(nameof(ProjectInputViewModel), $"Start:{StartDate}, End:{EndDate}");
             Log.Instance.Information(nameof(ProjectInputViewModel), $"{project.ID}");
             Log.Instance.Information(nameof(ProjectInputViewModel), $"{departmentsCanAssign.Count}");
         }
@@ -147,7 +140,7 @@ namespace CompanyManagement.ViewModels.UserControls
                 ErrorMessage = Utils.INVALIDATE_EMPTY_MESSAGE;
                 return false;
             }
-            if (!checker.ValidateTimeline(Start, End))
+            if (!checker.ValidateTimeline(StartDate, EndDate))
             {
                 ErrorMessage = Utils.INVALIDATE_TIMELINE;
                 return false;
@@ -157,7 +150,6 @@ namespace CompanyManagement.ViewModels.UserControls
 
         public void TrimAllTexts()
         {
-            ID = ID.Trim();
             Name = Name.Trim();
         }
     }

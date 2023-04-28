@@ -36,7 +36,7 @@ namespace CompanyManagement.Database.Base
         public const string ACCOUNTS_PASSWORD = "PasswordHash";
         public const string ACCOUNTS_EMPLOYEE_ID = "EmployeeID";
         
-        protected const string PROJECT_STATUSES_TABLE = "ProjectStatus";
+        protected const string PROJECT_STATUSES_TABLE = "ProjectStatuses";
         public const string PROJECT_STATUSES_ID = "ID";
         public const string PROJECT_STATUSES_NAME = "StatusName";
 

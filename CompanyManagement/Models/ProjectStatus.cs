@@ -17,7 +17,7 @@ namespace CompanyManagement.Models
         {
             try
             {
-                id = (string)reader[BaseDao.PROJECTS_STATUS_ID];
+                id = (string)reader[BaseDao.PROJECT_STATUSES_ID];
                 name = (string)reader[BaseDao.PROJECT_STATUSES_NAME];
             }
             catch (Exception ex)

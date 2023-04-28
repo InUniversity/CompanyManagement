@@ -45,7 +45,7 @@
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
                 <DatePicker
-                    SelectedDate="{Binding Start, UpdateSourceTrigger=PropertyChanged}"
+                    SelectedDate="{Binding StartDate, UpdateSourceTrigger=PropertyChanged}"
                     Margin="10"
                     Width="320"
                     HorizontalAlignment="Center"
@@ -54,7 +54,7 @@
             </Grid>
             <Grid Grid.Column="1">
                 <materialDesign:TimePicker
-                    SelectedTime="{Binding Start, UpdateSourceTrigger=PropertyChanged}"
+                    SelectedTime="{Binding StartDate, UpdateSourceTrigger=PropertyChanged}"
                     Margin="10"
                     Width="320"
                     HorizontalAlignment="Center"
@@ -71,7 +71,7 @@
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
                 <DatePicker
-                    SelectedDate="{Binding End, UpdateSourceTrigger=PropertyChanged}"
+                    SelectedDate="{Binding EndDate, UpdateSourceTrigger=PropertyChanged}"
                     Margin="10"
                     Width="320"
                     HorizontalAlignment="Center"
@@ -80,7 +80,7 @@
             </Grid>
             <Grid Grid.Column="1">
                 <materialDesign:TimePicker
-                    SelectedTime="{Binding End, UpdateSourceTrigger=PropertyChanged}"
+                    SelectedTime="{Binding EndDate, UpdateSourceTrigger=PropertyChanged}"
                     Margin="10"
                     Width="320"
                     HorizontalAlignment="Center"
@@ -98,7 +98,7 @@
                 <ComboBox
                 Grid.Column="0"
                 ItemsSource="{Binding ProjectStatuses}"
-                SelectedValue="{Binding ProjectStatusID}"
+                SelectedValue="{Binding StatusID}"
                 SelectedValuePath="ID"
                 Margin="10 10"
                 materialDesign:HintAssist.Hint="Trạng thái"
