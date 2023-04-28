@@ -32,6 +32,7 @@ namespace CompanyManagement.ViewModels.Windows
         private SettingsUC settingsUC = new SettingsUC();
         private UserInformationUC userInformationUC = new UserInformationUC();
         private LeaveListUC leavesListUC = new LeaveListUC();
+        private ApproveLeaveRequestListUC approveLeaveRequestListUC = new ApproveLeaveRequestListUC();
 
         private Visibility visibilityAssignmentView;
         public Visibility VisibilityAssignmentView { get => visibilityAssignmentView; set { visibilityAssignmentView = value; OnPropertyChanged();} }
@@ -71,6 +72,7 @@ namespace CompanyManagement.ViewModels.Windows
         public ICommand ShowUserInformationViewCommand { get; set; }
         public ICommand ShowLeavesViewCommand { get; set;}
         public ICommand LogoutCommand { get; set; }
+        public ICommand ShowApproveLeaveRequestListViewCommand { get; set; }
 
         public MainViewModel()
         {
@@ -88,6 +90,12 @@ namespace CompanyManagement.ViewModels.Windows
             ShowUserInformationViewCommand = new RelayCommand<object>(ExecuteShowUserInformationViewCommand);
             ShowLeavesViewCommand = new RelayCommand<object>(ExecuteShowLeavesViewCommand);
             LogoutCommand = new RelayCommand<Window>(ExecuteLogoutCommand);
+            ShowApproveLeaveRequestListViewCommand = new RelayCommand<Window>(ExecuteShowApproveLeaveRequestListView);
+        }
+
+        private void ExecuteShowApproveLeaveRequestListView(Window obj)
+        {
+            CurrentChildView = approveLeaveRequestListUC;
         }
 
         private void ExecuteLogoutCommand(Window window)

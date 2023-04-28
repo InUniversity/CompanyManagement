@@ -40,7 +40,6 @@
                 <Button
                     Visibility="{Binding VisibleAddButton}"
                     ToolTip="Thêm nghỉ phép mới"
-                    Grid.Row="1"
                     Width="200"
                     Margin="20 0"
                     HorizontalAlignment="Right"

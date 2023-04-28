@@ -37,20 +37,6 @@
                         <materialDesign:PackIcon Kind="ChevronRight"  Width="20" Height="20" />
                     </Button>
                 </StackPanel>
-                <Button
-                    Visibility="{Binding VisibleAddButton}"
-                    ToolTip="Thêm nghỉ phép mới"
-                    Grid.Row="1"
-                    Width="200"
-                    Margin="20 0"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Command="{Binding OpenLeaveInputCommand}">
-                    <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="Plus"  Width="20" Height="20" FontWeight="ExtraBold" />
-                        <TextBlock Text="New Leave" FontWeight="ExtraBold"></TextBlock>
-                    </StackPanel>
-                </Button>
             </Grid>
         </materialDesign:ColorZone>
         <ScrollViewer Grid.Row="1">
