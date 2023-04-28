@@ -133,7 +133,6 @@
     <Compile Include="ViewModels\Dialogs\UpdateLeaveViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\UpdateProjectViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\UpdateTaskViewModel.cs" />
-    <Compile Include="ViewModels\Dialogs\UpdateTimeTrackingViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ApproveLeaveRequestListViewModel.cs" />
     <Compile Include="ViewModels\UserControls\AssignmentViewModel.cs" />
     <Compile Include="ViewModels\UserControls\CheckInOutInputViewModel.cs" />
@@ -194,9 +193,6 @@
     </Compile>
     <Compile Include="Views\Dialogs\UpdateTaskDialog.xaml.cs">
       <DependentUpon>UpdateTaskDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Dialogs\UpdateTimeTrackingDialog.xaml.cs">
-      <DependentUpon>UpdateTimeTrackingDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UserControls\ApproveLeaveRequestListUC.xaml.cs">
       <DependentUpon>ApproveLeaveRequestListUC.xaml</DependentUpon>
@@ -305,10 +301,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Dialogs\UpdateTaskDialog.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Dialogs\UpdateTimeTrackingDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
