@@ -10,7 +10,7 @@ namespace CompanyManagement.ViewModels.UserControls
 {
     public class UserInformationViewModel : BaseViewModel 
     {
-        private CheckInOutUC WorkingView = new CheckInOutUC();
+        private TimeSheetUC WorkingView = new TimeSheetUC();
         private EmployeeInputUC MyInformationView = new EmployeeInputUC();
 
         private bool statusWorkingView=false;

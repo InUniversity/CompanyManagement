@@ -6,7 +6,7 @@ using System.Xml.Linq;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
-    public class CheckInOutInputViewModel : BaseViewModel
+    public class TimeSheetInputViewModel : BaseViewModel
     {
         private TimeSheet timeSheet;
         public TimeSheet TimeSheetIns { get => timeSheet; set => timeSheet = value; }
@@ -17,7 +17,7 @@ namespace CompanyManagement.ViewModels.UserControls
         public DateTime CheckOutTime { get => timeSheet.CheckOutTime; set { timeSheet.CheckOutTime = value; OnPropertyChanged(); } }
         public string TaskCheckInID { get => timeSheet.TaskCheckInID; set { timeSheet.TaskCheckInID = value; OnPropertyChanged(); } }
 
-        public CheckInOutInputViewModel()
+        public TimeSheetInputViewModel()
         {
             timeSheet = new TimeSheet();
         }

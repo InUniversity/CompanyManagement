@@ -18,7 +18,7 @@ namespace CompanyManagement.ViewModels.UserControls
 {
     public class CheckInViewModel : BaseViewModel, IInputViewModel<TimeSheet>
     {
-        public CheckInOutInputViewModel CheckInOutInputDataContext { get; }
+        public TimeSheetInputViewModel CheckInOutInputDataContext { get; }
 
         private Action<TimeSheet> submitObjectAction;
 
@@ -49,7 +49,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         public CheckInViewModel()
         {
-            CheckInOutInputDataContext = new CheckInOutInputViewModel();
+            CheckInOutInputDataContext = new TimeSheetInputViewModel();
             StartingTask = new ObservableCollection<TaskInProject>();
             LoadTasksCanChoose();
             SetCommands();
