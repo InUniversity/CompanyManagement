@@ -133,8 +133,8 @@
     <Compile Include="ViewModels\Dialogs\UpdateTaskViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ApproveLeaveRequestListViewModel.cs" />
     <Compile Include="ViewModels\UserControls\AssignmentViewModel.cs" />
-    <Compile Include="ViewModels\UserControls\CheckInOutInputViewModel.cs" />
-    <Compile Include="ViewModels\UserControls\CheckInOutViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\TimeSheetInputViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\TimeSheetViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\CheckInViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\CheckOutViewModel.cs" />
     <Compile Include="ViewModels\UserControls\DepartmentInputViewModel.cs" />
@@ -198,8 +198,8 @@
     <Compile Include="Views\UserControls\AssignmentUC.xaml.cs">
       <DependentUpon>AssignmentUC.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserControls\CheckInOutUC.xaml.cs">
-      <DependentUpon>CheckInOutUC.xaml</DependentUpon>
+    <Compile Include="Views\UserControls\TimeSheetUC.xaml.cs">
+      <DependentUpon>TimeSheetUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UserControls\DepartmentInputUC.xaml.cs">
       <DependentUpon>DepartmentInputUC.xaml</DependentUpon>
@@ -310,7 +310,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\UserControls\CheckInOutUC.xaml">
+    <Page Include="Views\UserControls\TimeSheetUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
