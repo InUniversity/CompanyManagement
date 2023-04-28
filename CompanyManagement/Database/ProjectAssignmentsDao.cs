@@ -5,7 +5,7 @@ using CompanyManagement.Models;
 
 namespace CompanyManagement.Database
 {
-    public class ProjectAssignmentDao : BaseDao
+    public class ProjectAssignmentsDao : BaseDao
     {
         public void Add(ProjectAssignment projectAssignment)
         {

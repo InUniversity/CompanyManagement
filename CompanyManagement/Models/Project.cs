@@ -89,12 +89,13 @@ namespace CompanyManagement
 
         public Project() { }
 
-        public Project(string id, string name, DateTime startDate, DateTime endDate, 
+        public Project(string id, string name, DateTime createdDate, DateTime startDate, DateTime endDate, 
             DateTime completedDate, string progress, string statusID, string ownerID, int bonusSalary,
             ObservableCollection<Department> departments)
         {
             this.id = id;
             this.name = name;
+            this.createdDate = createdDate;
             this.startDate = startDate;
             this.endDate = endDate;
             this.completedDate = completedDate;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace CompanyManagement.Database
 {
-    public class EmployeeDao : BaseDao
+    public class EmployeesDao : BaseDao
     {
         public void Add(Employee empl)
         {
