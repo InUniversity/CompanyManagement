@@ -14,6 +14,7 @@ namespace CompanyManagement.Utilities
         public const string EXIST_ID_MESSAGE = "ID đã tồn tại!!!";
         public const string EXIST_IDENTIFY_CARD_MESSAGE = "CMND/CCCD đã tồn tại!!!";
         public const string EXIST_PHONE_NUMBER_MESSAGE = "Số điện thoại đã tồn tại!!!";
+        public const string INVALIDATE_TASK_CHECK_IN = "Chưa chọn nhiệm vụ để điểm danh!";
 
         public static readonly DateTime EMPTY_DATETIME = new DateTime(2000, 1, 1, 0, 0, 0);
         private const string FORMAT_DATETIME = "yyyy-MM-dd hh:mm:ss";

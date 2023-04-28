@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using CompanyManagement.Database.Base;
 using CompanyManagement.Models;
