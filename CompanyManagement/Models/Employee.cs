@@ -96,7 +96,7 @@ namespace CompanyManagement
         public Employee() { }
 
         public Employee(string id, string name, string gender, DateTime birthday, string identifyCard, string email, 
-            string phoneNumber, string address, string departmentID, string roleID, int salary)
+            string phoneNumber, string address, string departmentID, string roleID, decimal salary)
         {
             this.id = id;
             this.name = name;
