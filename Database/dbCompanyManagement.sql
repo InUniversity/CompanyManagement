@@ -131,7 +131,8 @@ VALUES
     ( 'PST1', N'Đang triển khai'),
     ( 'PST2', N'Hoàn thành'),
     ( 'PST3', N'Quá hạn'),
-    ( 'PST4', N'Đang chờ thanh toán');
+    ( 'PST4', N'Đang chờ thanh toán'),
+    ( 'PST5', N'Lên kế hoạch');
 GO
 CREATE TABLE Projects(
     ID varchar(20) PRIMARY KEY,
