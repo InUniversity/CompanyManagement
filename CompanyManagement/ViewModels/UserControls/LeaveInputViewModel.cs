@@ -34,6 +34,9 @@ namespace CompanyManagement.ViewModels.UserControls
         private string textToSearch = "";
         public string TextToSearch { get => textToSearch; set { textToSearch = value; OnPropertyChanged(); SearchByName(); } }
 
+        private string roleName = "";
+        public string RoleName { get => roleName; set { roleName = value; OnPropertyChanged(); } }
+
         private bool isReadOnly = false;
         public bool IsReadOnly { get => isReadOnly; set { isReadOnly = value; OnPropertyChanged(); } }
 
@@ -51,6 +54,7 @@ namespace CompanyManagement.ViewModels.UserControls
         private LeaveStatusesDao leaveStatusesDao = new LeaveStatusesDao();
         private EmployeesDao employeesDao = new EmployeesDao();
         private DepartmentsDao departmentsDao = new DepartmentsDao();
+        private RolesDao rolesDao = new RolesDao();
 
         private Employee currentEmployee = CurrentUser.Ins.EmployeeIns;
 
@@ -71,6 +75,7 @@ namespace CompanyManagement.ViewModels.UserControls
             if (listView.SelectedItem == null) return;
             var selectedItem = listView.SelectedItem as Employee;
             ApproverID = selectedItem.ID;
+            RoleName = rolesDao.SearchByID(selectedItem.RoleID).Title;
         }
 
         private void SetAllComboBox()

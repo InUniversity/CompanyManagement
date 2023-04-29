@@ -192,7 +192,7 @@
                 </materialDesign:DialogHost.DialogContent>
                 <StackPanel Orientation="Horizontal">
                     <TextBox Margin="10"
-                                 Text="{Binding ApproverID}"
+                                 Text="{Binding RoleName}"
                                  Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                  materialDesign:HintAssist.Hint="Gửi đến"
                                  Width="700"></TextBox>
