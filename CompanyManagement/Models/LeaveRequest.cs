@@ -2,7 +2,9 @@
 using CompanyManagement.Utilities;
 using System;
 using System.Data;
+using CompanyManagement.Database;
 using System.Windows.Media;
+using CompanyManagement.Utilities;
 
 namespace CompanyManagement.Models
 {
@@ -78,6 +80,11 @@ namespace CompanyManagement.Models
                 }
                 approverID = "";
             }
+        }
+
+        public Employee EmployeeRequestIns
+        {
+            get => new EmployeesDao().SearchByID(EmployeeID);
         }
 
         public LeaveRequest() { }

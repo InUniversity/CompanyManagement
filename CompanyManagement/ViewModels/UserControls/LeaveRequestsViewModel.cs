@@ -115,7 +115,7 @@ namespace CompanyManagement.ViewModels.UserControls
                 ? leaveDao.SearchByEmployeeID(currentEmployee.ID)
                 : leaveDao.SearchByDeptHeaderID(currentEmployee.ID);
 
-            var unapprovedLeaveList = receivedLeaveRequests.Where(p => p.StatusID == BaseDao.APPROVAL 
+            var unapprovedLeaveList = receivedLeaveRequests.Where(p => p.StatusID == BaseDao.UNAPPROVED
                                         && p.StartDate > DateTime.Now).ToList();
             UnapprovedLeaveRequests = unapprovedLeaveList;
 
@@ -123,7 +123,7 @@ namespace CompanyManagement.ViewModels.UserControls
             ApprovedLeaveRequests = listApprovedLeaves;
 
             var listUnapprovedLeaves = receivedLeaveRequests.Where(p => p.StatusID == BaseDao.UNAPPROVED 
-                                        || (p.StartDate <= DateTime.Now && p.StatusID == BaseDao.APPROVAL)).ToList();
+                                        || (p.StartDate <= DateTime.Now && p.StatusID == BaseDao.DENIED)).ToList();
             DeniedLeaveRequests = listUnapprovedLeaves;
         }
 
