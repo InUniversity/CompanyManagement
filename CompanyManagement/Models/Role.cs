@@ -5,7 +5,7 @@ using CompanyManagement.Utilities;
 
 namespace CompanyManagement.Models
 {
-    public class Roles
+    public class Role
     {
         private string id;
         private string title;
@@ -13,7 +13,9 @@ namespace CompanyManagement.Models
         public string ID => id;
         public string Title => title;
 
-        public Roles(IDataRecord reader)
+        public Role() { }
+        
+        public Role(IDataRecord reader)
         {
             try
             {
@@ -22,7 +24,7 @@ namespace CompanyManagement.Models
             }
             catch (Exception ex)
             {
-                Log.Instance.Error(nameof(Roles), "CAST ERROR: " + ex.Message);
+                Log.Instance.Error(nameof(Role), "CAST ERROR: " + ex.Message);
             }
         }
     }

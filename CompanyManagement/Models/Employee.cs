@@ -20,6 +20,7 @@ namespace CompanyManagement
         private string departmentID = "";
         private string roleID = "";
         private Account account = new Account();
+        private Role role = new Role();
 
         public string ID
         {
@@ -91,6 +92,12 @@ namespace CompanyManagement
         {
             get => account;
             set => account = value;
+        }
+
+        public Role EmployeeRole
+        {
+            get => role;
+            set => role = value;
         }
 
         public Employee() { }

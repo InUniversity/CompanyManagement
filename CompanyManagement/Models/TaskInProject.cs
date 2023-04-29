@@ -17,6 +17,7 @@ namespace CompanyManagement.Models
         private string employeeID;
         private string projectID;
         private string statusID;
+        private Employee assignedEmployee = new Employee();
 
         public string ID
         {
@@ -78,10 +79,16 @@ namespace CompanyManagement.Models
             set => statusID = value;
         }
 
+        public Employee AssignedEmployee
+        {
+            get => assignedEmployee;
+            set => assignedEmployee = value;
+        }
+
         public TaskInProject() { }
 
         public TaskInProject(string id, string title, string explanation, DateTime startDate, DateTime deadline, 
-            string progress, string ownerID, string employeeID, string projectID, string statusID)
+            string progress, string ownerID, string employeeID, string projectID, string statusID, Employee assignedEmployee)
         {
             this.id = id;
             this.title = title;
@@ -93,6 +100,7 @@ namespace CompanyManagement.Models
             this.employeeID = employeeID;
             this.projectID = projectID;
             this.statusID = statusID;
+            this.assignedEmployee = assignedEmployee;
         }
 
         public TaskInProject(IDataRecord reader)

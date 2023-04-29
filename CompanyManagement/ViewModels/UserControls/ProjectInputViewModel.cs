@@ -18,13 +18,12 @@ namespace CompanyManagement.ViewModels.UserControls
 
         public string ID { get => project.ID; set { project.ID = value; OnPropertyChanged(); } }
         public string Name { get => project.Name; set { project.Name = value; OnPropertyChanged(); } }
+        public string Details { get => project.Details; set { project.Details = value; OnPropertyChanged(); } }
         public DateTime CreatedDate { get => project.CreatedDate; set { project.CreatedDate = value; OnPropertyChanged(); } }
         public DateTime StartDate 
         { get => project.StartDate; set { project.StartDate = value; OnPropertyChanged(); LoadDepartmentsCanAssign(); } }
         public DateTime EndDate 
         { get => project.EndDate; set { project.EndDate = value; OnPropertyChanged(); LoadDepartmentsCanAssign(); } }
-        public DateTime CompletedDate 
-        { get => project.CompletedDate; set { project.CompletedDate = value; OnPropertyChanged(); } }
         public string Progress { get => project.Progress; set { project.Progress = value; OnPropertyChanged(); } }
         public string StatusID { get => project.StatusID; set { project.StatusID = value; OnPropertyChanged(); } }
         public string OwnerID { get => project.OwnerID; set { project.OwnerID = value; OnPropertyChanged(); } }
@@ -32,13 +31,13 @@ namespace CompanyManagement.ViewModels.UserControls
         public ObservableCollection<Department> DepartmentsInProject 
         { get => project.Departments; set { project.Departments = value; OnPropertyChanged(); } }
 
-        private List<Department> departmentsCanAssign;
+        private List<Department> departmentsCanAssign = new();
         
-        private ObservableCollection<Department> searchedDepartmentsCanAssign;
+        private ObservableCollection<Department> searchedDepartmentsCanAssign = new();
         public ObservableCollection<Department> SearchedDepartmentsCanAssign 
         { get => searchedDepartmentsCanAssign; set { searchedDepartmentsCanAssign = value; OnPropertyChanged();} }
 
-        private List<Department> selectedDepartments;
+        private List<Department> selectedDepartments = new();
         public List<Department> SelectedDepartments 
         { get => selectedDepartments; set { selectedDepartments = value; OnPropertyChanged();} }
 

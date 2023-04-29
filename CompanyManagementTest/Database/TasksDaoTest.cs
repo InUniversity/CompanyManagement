@@ -1,4 +1,5 @@
 using System;
+using CompanyManagement;
 using CompanyManagement.Database;
 using CompanyManagement.Models;
 using NUnit.Framework;
@@ -18,7 +19,7 @@ namespace CompanyManagementTest.Database
             task = new TaskInProject("T2352342", "Test Task", "Test Explanation 111", 
                 new DateTime(2023, 4, 30, 0, 0, 0), 
                 new DateTime(2023, 5, 30, 0, 0, 0), 
-                "0", "EM001", "EM007", "PRJ001", "TS1"); 
+                "0", "EM001", "EM007", "PRJ001", "TS1", new Employee()); 
         }
         
         [Test]
@@ -28,7 +29,7 @@ namespace CompanyManagementTest.Database
                 "Thiết kế giao diện website cho khách hàng ABC", 
                 new DateTime(2023, 3, 1, 9, 0, 0), 
                 new DateTime(2023, 4, 15, 0, 0, 0), 
-                "50", "EM002", "EM007", "PRJ001", "TS3");
+                "50", "EM002", "EM007", "PRJ001", "TS3", new Employee());
             var actualSearch = tasksDao.SearchByID(expected.ID);
             
             AssertObject(expected, actualSearch);
@@ -43,7 +44,7 @@ namespace CompanyManagementTest.Database
             
             // update
             var updateObject = new TaskInProject(task.ID, task.Title + "Updated", task.Explanation, task.StartDate, 
-                task.Deadline, task.Progress, task.OwnerID, "EM008", task.ProjectID, task.StatusID);
+                task.Deadline, task.Progress, task.OwnerID, "EM008", task.ProjectID, task.StatusID, new Employee());
             tasksDao.Update(updateObject);
             var updated = tasksDao.SearchByID(task.ID);  
             

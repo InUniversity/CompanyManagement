@@ -30,12 +30,24 @@
                 materialDesign:HintAssist.Hint="Tên dự án" />
             <TextBox
                 Grid.Column="1"
-                Text="{Binding BonusSalary}"
+                Text="{Binding BonusSalary, StringFormat='##,#', UpdateSourceTrigger=PropertyChanged}"
                 Background="White"
                 IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedTextBoxEnabledComboBox}"
                 Margin="10"
                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                materialDesign:HintAssist.Hint="Tiền Bonus" />
+                materialDesign:HintAssist.Hint="Tiền Bonus (VNĐ)" />
+        </Grid>
+        
+        <Grid>
+            <TextBox
+                Grid.Column="0"
+                Text="{Binding Details}"
+                Background="White"
+                Margin="10"
+                IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedTextBoxEnabledComboBox}"
+                Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                TextWrapping="Wrap"
+                materialDesign:HintAssist.Hint="Mô tả chi tiết" />
         </Grid>
 
         <Grid>
@@ -45,7 +57,7 @@
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
                 <DatePicker
-                    SelectedDate="{Binding StartDate, UpdateSourceTrigger=PropertyChanged}"
+                    SelectedDate="{Binding StartDate, StringFormat=dd/MM/yyyy, UpdateSourceTrigger=PropertyChanged}"
                     Margin="10"
                     Width="320"
                     HorizontalAlignment="Center"
@@ -71,7 +83,7 @@
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
                 <DatePicker
-                    SelectedDate="{Binding EndDate, UpdateSourceTrigger=PropertyChanged}"
+                    SelectedDate="{Binding EndDate, StringFormat=dd/MM/yyyy, UpdateSourceTrigger=PropertyChanged}"
                     Margin="10"
                     Width="320"
                     HorizontalAlignment="Center"
