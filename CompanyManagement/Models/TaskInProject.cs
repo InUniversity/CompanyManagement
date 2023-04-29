@@ -104,8 +104,8 @@ namespace CompanyManagement.Models
                 explanation = (string)reader[BaseDao.TASKS_EXPLANATION];
                 startDate = reader.GetDateTime(reader.GetOrdinal(BaseDao.TASKS_START_DATE));
                 deadline = reader.GetDateTime(reader.GetOrdinal(BaseDao.TASKS_DEADLINE));
-                ownerID = (string)reader[BaseDao.TASKS_OWNER_ID];
                 progress = (string)reader[BaseDao.TASKS_PROGRESS];
+                ownerID = (string)reader[BaseDao.TASKS_OWNER_ID];
                 employeeID = (string)reader[BaseDao.TASKS_EMPLOYEE_ID];
                 projectID = (string)reader[BaseDao.TASKS_PROJECT_ID];
                 statusID = (string)reader[BaseDao.TASKS_STATUS_ID];

@@ -46,6 +46,7 @@ namespace CompanyManagement.Database.Base
         protected const string PROJECTS_TABLE = "Projects";
         public const string PROJECTS_ID = "ID";
         public const string PROJECTS_NAME = "ProjectName";
+        public const string PROJECTS_DETAILS = "Details";
         public const string PROJECTS_CREATED = "CreatedDate";
         public const string PROJECTS_START = "StartDate";
         public const string PROJECTS_END = "EndDate";
