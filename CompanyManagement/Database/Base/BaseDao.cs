@@ -21,18 +21,18 @@ namespace CompanyManagement.Database.Base
         public const string ROLES_ID = "ID";
         public const string ROLES_NAME = "Title";
 
-        protected const string EMPLOYEE_TABLE = "Employees";
-        public const string EMPLOYEE_ID = "ID";
-        public const string EMPLOYEE_NAME = "FullName";
-        public const string EMPLOYEE_GENDER = "Gender";
-        public const string EMPLOYEE_BIRTHDAY = "Birthday";
-        public const string EMPLOYEE_IDENTIFY_CARD = "IdentifyCard";
-        public const string EMPLOYEE_EMAIL = "Email";
-        public const string EMPLOYEE_PHONE_NUMBER = "PhoneNumber";
-        public const string EMPLOYEE_ADDRESS = "EmployeeAddress";
-        public const string EMPLOYEE_SALARY = "BaseSalary";
-        public const string EMPLOYEE_DEPARTMENT_ID = "DepartmentID";
-        public const string EMPLOYEE_POSITION_ID = "RoleID";
+        protected const string EMPLOYEES_TABLE = "Employees";
+        public const string EMPLOYEES_ID = "ID";
+        public const string EMPLOYEES_NAME = "FullName";
+        public const string EMPLOYEES_GENDER = "Gender";
+        public const string EMPLOYEES_BIRTHDAY = "Birthday";
+        public const string EMPLOYEES_IDENTIFY_CARD = "IdentifyCard";
+        public const string EMPLOYEES_EMAIL = "Email";
+        public const string EMPLOYEES_PHONE_NUMBER = "PhoneNumber";
+        public const string EMPLOYEES_ADDRESS = "EmployeeAddress";
+        public const string EMPLOYEES_SALARY = "BaseSalary";
+        public const string EMPLOYEES_DEPARTMENT_ID = "DepartmentID";
+        public const string EMPLOYEES_POSITION_ID = "RoleID";
 
         protected const string ACCOUNTS_TABLE = "Accounts";
         public const string ACCOUNTS_USERNAME = "Username";

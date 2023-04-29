@@ -115,16 +115,17 @@ namespace CompanyManagement
         {
             try
             {
-                id = Utils.GetString(reader, BaseDao.EMPLOYEE_ID);
-                gender = Utils.GetString(reader, BaseDao.EMPLOYEE_GENDER);
-                birthday = Utils.GetDateTime(reader, BaseDao.EMPLOYEE_BIRTHDAY);
-                identifyCard = Utils.GetString(reader, BaseDao.EMPLOYEE_IDENTIFY_CARD);
-                email = Utils.GetString(reader, BaseDao.EMPLOYEE_EMAIL);
-                phoneNumber = Utils.GetString(reader, BaseDao.EMPLOYEE_PHONE_NUMBER);
-                address = Utils.GetString(reader, BaseDao.EMPLOYEE_ADDRESS);
-                salary = Utils.GetDecimal(reader, BaseDao.EMPLOYEE_SALARY);
-                departmentID = Utils.GetString(reader, BaseDao.EMPLOYEE_DEPARTMENT_ID);
-                roleID = Utils.GetString(reader, BaseDao.EMPLOYEE_POSITION_ID);
+                id = Utils.GetString(reader, BaseDao.EMPLOYEES_ID);
+                name = Utils.GetString(reader, BaseDao.EMPLOYEES_NAME);
+                gender = Utils.GetString(reader, BaseDao.EMPLOYEES_GENDER);
+                birthday = Utils.GetDateTime(reader, BaseDao.EMPLOYEES_BIRTHDAY);
+                identifyCard = Utils.GetString(reader, BaseDao.EMPLOYEES_IDENTIFY_CARD);
+                email = Utils.GetString(reader, BaseDao.EMPLOYEES_EMAIL);
+                phoneNumber = Utils.GetString(reader, BaseDao.EMPLOYEES_PHONE_NUMBER);
+                address = Utils.GetString(reader, BaseDao.EMPLOYEES_ADDRESS);
+                salary = Utils.GetDecimal(reader, BaseDao.EMPLOYEES_SALARY);
+                departmentID = Utils.GetString(reader, BaseDao.EMPLOYEES_DEPARTMENT_ID);
+                roleID = Utils.GetString(reader, BaseDao.EMPLOYEES_POSITION_ID);
             }
             catch (Exception ex)
             {
