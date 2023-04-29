@@ -49,7 +49,7 @@ namespace CompanyManagement.Utilities
 
         public static decimal GetDecimal(IDataRecord record, string columnName)
         {
-            return GetValueOrDefault(record, columnName, 0);
+            return GetValueOrDefault(record, columnName, (decimal)0);
         }
 
         private static T GetValueOrDefault<T>(IDataRecord record, string columnName, T defaultValue)
