@@ -63,5 +63,11 @@ namespace CompanyManagement.Database
             string sqlStr = $"SELECT * FROM {EMPLOYEES_TABLE} WHERE {EMPLOYEES_POSITION_ID} ='{id}'";
             return (Employee)dbConnection.GetSingleObject(sqlStr, reader => new Employee(reader));
         }
+
+        public List<Employee> GetManagers()
+        {
+            string sqlStr = $"SELECT * FROM {EMPLOYEE_TABLE} WHERE {EMPLOYEE_POSITION_ID} ='{MANAGER_ROLE_ID}'";
+            return dbConnection.GetList<Employee>(sqlStr, reader => new Employee(reader));
+        }
     }
 }
