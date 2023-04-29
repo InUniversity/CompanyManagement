@@ -118,17 +118,17 @@ namespace CompanyManagement
         {
             try
             {
-                id = (string)reader[BaseDao.PROJECTS_ID];
-                name = (string)reader[BaseDao.PROJECTS_NAME];
-                details = (string)reader[BaseDao.PROJECTS_DETAILS];
-                createdDate = reader.GetDateTime(reader.GetOrdinal(BaseDao.PROJECTS_CREATED));
-                startDate = reader.GetDateTime(reader.GetOrdinal(BaseDao.PROJECTS_START));
-                endDate = reader.GetDateTime(reader.GetOrdinal(BaseDao.PROJECTS_END));
-                completedDate = reader.GetDateTime(reader.GetOrdinal(BaseDao.PROJECTS_COMPLETED));
-                progress = (string)reader[BaseDao.PROJECTS_PROPRESS];
-                statusID = (string)reader[BaseDao.PROJECTS_STATUS_ID];
-                ownerID = (string)reader[BaseDao.PROJECTS_OWNER_ID];
-                bonusSalary = reader.GetDecimal(reader.GetOrdinal(BaseDao.PROJECTS_BONUS_SALARY));
+                id = Utils.GetString(reader, BaseDao.PROJECTS_ID);
+                name = Utils.GetString(reader, BaseDao.PROJECTS_NAME);
+                details = Utils.GetString(reader, BaseDao.PROJECTS_DETAILS);
+                createdDate = Utils.GetDateTime(reader, BaseDao.PROJECTS_CREATED);
+                startDate = Utils.GetDateTime(reader, BaseDao.PROJECTS_START);
+                endDate = Utils.GetDateTime(reader, BaseDao.PROJECTS_END);
+                completedDate = Utils.GetDateTime(reader, BaseDao.PROJECTS_COMPLETED);
+                progress = Utils.GetString(reader, BaseDao.PROJECTS_PROPRESS);
+                statusID = Utils.GetString(reader, BaseDao.PROJECTS_STATUS_ID);
+                ownerID = Utils.GetString(reader, BaseDao.PROJECTS_OWNER_ID);
+                bonusSalary = Utils.GetDecimal(reader, BaseDao.PROJECTS_BONUS_SALARY);
             }
             catch (Exception ex)
             {

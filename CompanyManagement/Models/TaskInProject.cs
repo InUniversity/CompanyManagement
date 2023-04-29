@@ -99,16 +99,16 @@ namespace CompanyManagement.Models
         {
             try
             {
-                id = (string)reader[BaseDao.TASKS_ID];
-                title = (string)reader[BaseDao.TASKS_TITLE];
-                explanation = (string)reader[BaseDao.TASKS_EXPLANATION];
-                startDate = reader.GetDateTime(reader.GetOrdinal(BaseDao.TASKS_START_DATE));
-                deadline = reader.GetDateTime(reader.GetOrdinal(BaseDao.TASKS_DEADLINE));
-                progress = (string)reader[BaseDao.TASKS_PROGRESS];
-                ownerID = (string)reader[BaseDao.TASKS_OWNER_ID];
-                employeeID = (string)reader[BaseDao.TASKS_EMPLOYEE_ID];
-                projectID = (string)reader[BaseDao.TASKS_PROJECT_ID];
-                statusID = (string)reader[BaseDao.TASKS_STATUS_ID];
+                id = Utils.GetString(reader, BaseDao.TASKS_ID);
+                title = Utils.GetString(reader, BaseDao.TASKS_TITLE);
+                explanation = Utils.GetString(reader, BaseDao.TASKS_EXPLANATION);
+                startDate = Utils.GetDateTime(reader, BaseDao.TASKS_START_DATE);
+                deadline = Utils.GetDateTime(reader, BaseDao.TASKS_DEADLINE);
+                progress = Utils.GetString(reader, BaseDao.TASKS_PROGRESS);
+                ownerID = Utils.GetString(reader, BaseDao.TASKS_OWNER_ID);
+                employeeID = Utils.GetString(reader, BaseDao.TASKS_EMPLOYEE_ID);
+                projectID = Utils.GetString(reader, BaseDao.TASKS_PROJECT_ID);
+                statusID = Utils.GetString(reader, BaseDao.TASKS_STATUS_ID);
             }
             catch(Exception ex)
             {
