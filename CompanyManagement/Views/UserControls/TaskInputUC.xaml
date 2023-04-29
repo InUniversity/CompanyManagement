@@ -193,7 +193,7 @@
                     </materialDesign:DialogHost.DialogContent>
                     <StackPanel Orientation="Horizontal">
                         <TextBox Margin="10"
-                                 Text="{Binding EmployeeID}"
+                                 Text="{Binding EmployeeName}"
                                  Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                  materialDesign:HintAssist.Hint="Nhân viên"
                                  Width="280"></TextBox>
@@ -233,9 +233,7 @@
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0">
                     <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="10" VerticalAlignment="Bottom">
-                        <TextBlock Text="Tiến trình: "/>
-                        <TextBlock Text="{Binding ElementName=progressSlider, Path=Value}"/>
-                        <TextBlock Text="%"/>
+                        <TextBlock Text="{Binding ElementName=progressSlider, Path=Value, StringFormat=Tiến độ: {0}%}"/>
                     </StackPanel>
                 </Grid>
                 <Grid Grid.Row="1">
