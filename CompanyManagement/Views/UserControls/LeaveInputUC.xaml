@@ -18,7 +18,7 @@
             <ComboBox             
                 Height="50"
                 SelectedValue="{Binding Reason}"
-                SelectedValuePath="ID"
+                SelectedValuePath="Content"
                 Margin="10"
                 materialDesign:HintAssist.Hint="Lý do"
                 Style="{StaticResource MaterialDesignOutlinedComboBox}">

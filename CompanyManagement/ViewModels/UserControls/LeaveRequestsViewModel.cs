@@ -16,39 +16,39 @@ using CompanyManagement.Strategies.UserControls.LeaveListView;
 namespace CompanyManagement.ViewModels.UserControls
 {
 
-    public class LeaveListViewModel : BaseViewModel
+    public class LeaveRequestsViewModel : BaseViewModel
     {
-        private List<LeaveRequest> leaveRequestList;
-        public List<LeaveRequest> LeaveRequestList 
-        { get => leaveRequestList; set { leaveRequestList = value; OnPropertyChanged(); } }
+        private List<LeaveRequest> leaveRequests;
+        public List<LeaveRequest> LeaveRequests 
+        { get => leaveRequests; set { leaveRequests = value; OnPropertyChanged(); } }
 
-        private List<LeaveRequest> unapprovedLeaveRequestList;
-        public List<LeaveRequest> UnapprovedLeaveRequestList 
-        { get => unapprovedLeaveRequestList; set { unapprovedLeaveRequestList = value; OnPropertyChanged(); } }
+        private List<LeaveRequest> unapprovedLeaveRequests;
+        public List<LeaveRequest> UnapprovedLeaveRequests 
+        { get => unapprovedLeaveRequests; set { unapprovedLeaveRequests = value; OnPropertyChanged(); } }
 
-        private List<LeaveRequest> approvedLeaveRequestList;
-        public List<LeaveRequest> ApprovedLeaveRequestList 
-        { get => approvedLeaveRequestList; set { approvedLeaveRequestList = value; OnPropertyChanged(); } }
+        private List<LeaveRequest> approvedLeaveRequests;
+        public List<LeaveRequest> ApprovedLeaveRequests 
+        { get => approvedLeaveRequests; set { approvedLeaveRequests = value; OnPropertyChanged(); } }
 
-        private List<LeaveRequest> deniedLeaveRequestList;
-        public List<LeaveRequest>  DeniedLeaveRequestList 
-        { get => deniedLeaveRequestList; set { deniedLeaveRequestList = value; OnPropertyChanged(); } }
+        private List<LeaveRequest> deniedLeaveRequests;
+        public List<LeaveRequest>  DeniedLeaveRequests 
+        { get => deniedLeaveRequests; set { deniedLeaveRequests = value; OnPropertyChanged(); } }
         
-        private Visibility visibleLeaveRequestListExpander = Visibility.Collapsed;
-        public Visibility VisibleLeaveRequestListExpander 
-        { get => visibleUnapprovedLeaveListExpander; set { visibleUnapprovedLeaveListExpander = value; OnPropertyChanged(); } } 
+        private Visibility visibleLeaveRequestsExpander = Visibility.Collapsed;
+        public Visibility VisibleLeaveRequestsExpander 
+        { get => visibleLeaveRequestsExpander; set { visibleLeaveRequestsExpander = value; OnPropertyChanged(); } } 
 
-        private Visibility visibleUnapprovedLeaveListExpander = Visibility.Collapsed;
+        private Visibility visibleUnapprovedLeaveRequestsExpander = Visibility.Collapsed;
         public Visibility VisibleUnapprovedLeaveListExpander 
-        { get => visibleUnapprovedLeaveListExpander; set { visibleUnapprovedLeaveListExpander = value; OnPropertyChanged(); } }
+        { get => visibleUnapprovedLeaveRequestsExpander; set { visibleUnapprovedLeaveRequestsExpander = value; OnPropertyChanged(); } }
 
-        private Visibility visibleApprovedLeaveListExpander = Visibility.Collapsed;
-        public Visibility VisibleApprovedLeaveListExpander 
-        { get => visibleApprovedLeaveListExpander; set { visibleApprovedLeaveListExpander = value; OnPropertyChanged(); } }
+        private Visibility visibleApprovedLeaveRequesrsExpander = Visibility.Collapsed;
+        public Visibility VisibleApprovedLeaveRequesrsExpander 
+        { get => visibleApprovedLeaveRequesrsExpander; set { visibleApprovedLeaveRequesrsExpander = value; OnPropertyChanged(); } }
 
-        private Visibility visibleDeniedLeaveListExpander = Visibility.Collapsed;
-        public Visibility VisibleDeniedLeaveListExpander 
-        { get => visibleDeniedLeaveListExpander; set { visibleDeniedLeaveListExpander = value; OnPropertyChanged(); } }
+        private Visibility visibleDeniedLeaveRequestsExpander = Visibility.Collapsed;
+        public Visibility VisibleDeniedLeaveRequestsExpander 
+        { get => visibleDeniedLeaveRequestsExpander; set { visibleDeniedLeaveRequestsExpander = value; OnPropertyChanged(); } }
 
         private DateTime timeCreateLeave = DateTime.Now;
         public DateTime TimeCreateLeave { get => timeCreateLeave; set { timeCreateLeave = value; OnPropertyChanged(); SearchDate(); } }
@@ -59,7 +59,7 @@ namespace CompanyManagement.ViewModels.UserControls
         public ICommand DeleteLeaveCommand { get; private set; }
         public ICommand OpenUpdateLeaveDialogCommand { get; private set; }
         public ICommand ApproveLeaveCommand { get; private set; }
-        
+
         private ILeaveListStrategy leaveListStrategy;
         public ILeaveListStrategy LeaveListStrategy 
         { 
@@ -80,7 +80,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private Employee currentEmployee = CurrentUser.Ins.EmployeeIns;
 
-        public LeaveListViewModel(ILeaveListStrategy leaveListStrategy)
+        public LeaveRequestsViewModel(ILeaveListStrategy leaveListStrategy)
         {
             LeaveListStrategy = leaveListStrategy;
             SetCommands();
@@ -109,38 +109,39 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void LoadLeaveRequestList()
         {
-            LeaveRequestList = leaveDao.SearchByEmployeeID(currentEmployee.ID);
-            
-            var receivedLeaveRequests = leaveDao.SearchByDeptHeaderID(currentEmployee.ID);
+            LeaveRequests = leaveDao.SearchByEmployeeID(currentEmployee.ID);
 
-            var unapprovedLeaveList = receivedLeaveRequests.Where(p => p.StatusID == BaseDao.APPROVAL).ToList();
-            UnapprovedLeaveRequestList = unapprovedLeaveList;
+            var receivedLeaveRequests = (currentEmployee.RoleID == BaseDao.EMPLOYEE_ROLE_ID)
+                ? leaveDao.SearchByEmployeeID(currentEmployee.ID)
+                : leaveDao.SearchByDeptHeaderID(currentEmployee.ID);
+
+            var unapprovedLeaveList = receivedLeaveRequests.Where(p => p.StatusID == BaseDao.APPROVAL 
+                                        && p.StartDate > DateTime.Now).ToList();
+            UnapprovedLeaveRequests = unapprovedLeaveList;
 
             var listApprovedLeaves = receivedLeaveRequests.Where(p => p.StatusID == BaseDao.APPROVED).ToList();
-            ApprovedLeaveRequestList = listApprovedLeaves;
+            ApprovedLeaveRequests = listApprovedLeaves;
 
-            var listUnapprovedLeaves = receivedLeaveRequests.Where(p => p.StatusID == BaseDao.UNAPPROVED).ToList();
-            DeniedLeaveRequestList = listUnapprovedLeaves;
+            var listUnapprovedLeaves = receivedLeaveRequests.Where(p => p.StatusID == BaseDao.UNAPPROVED 
+                                        || (p.StartDate <= DateTime.Now && p.StatusID == BaseDao.APPROVAL)).ToList();
+            DeniedLeaveRequests = listUnapprovedLeaves;
         }
 
         private void SearchDate()
         {
             LoadLeaveRequestList();
-            var allItem = LeaveRequestList;
-            allItem = LeaveRequestList
+            var allItem = LeaveRequests;
+            allItem = LeaveRequests
                     .Where(item => item.CreatedDate.Date == TimeCreateLeave.Date)
                     .ToList();
-            LeaveRequestList = new List<LeaveRequest>(allItem);
+            LeaveRequests = new List<LeaveRequest>(allItem);
             
-            Log.Instance.Information(nameof(LeaveListViewModel), "selected date = " + timeCreateLeave.ToShortDateString());
+            Log.Instance.Information(nameof(LeaveRequestsViewModel), "selected date = " + timeCreateLeave.ToShortDateString());
         }
 
         private LeaveRequest CreateLeave()
         {
-            string approveBy = string.Equals(currentEmployee.ID, BaseDao.EMPLOYEE_ROLE_ID) 
-                ? departmentDao.DepartmentByEmployeeDeptID(currentEmployee.DepartmentID).DepartmentHeadID
-                : employeeDao.SearchByPositionID(BaseDao.MANAGER_ROLE_ID).ID;
-            return new LeaveRequest(AutoGenerateID(), "", "", "LS2", currentEmployee.ID, approveBy);
+            return new LeaveRequest(AutoGenerateID(), "", "", "LS2", currentEmployee.ID, "");
         }
 
         private string AutoGenerateID()

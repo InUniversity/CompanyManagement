@@ -5,12 +5,12 @@ namespace CompanyManagement.Strategies.UserControls.LeaveListView
 {
     public class LeaveListForEmployee : ILeaveListStrategy
     {
-        public void SetVisible(LeaveListViewModel viewModel)
+        public void SetVisible(LeaveRequestsViewModel viewModel)
         {
-            viewModel.VisibleLeaveRequestListExpander = Visibility.Visible;
+            viewModel.VisibleLeaveRequestsExpander = Visibility.Visible;
             viewModel.VisibleUnapprovedLeaveListExpander = Visibility.Collapsed;
-            viewModel.VisibleApprovedLeaveListExpander = Visibility.Collapsed;
-            viewModel.VisibleDeniedLeaveListExpander = Visibility.Visible;
+            viewModel.VisibleApprovedLeaveRequesrsExpander = Visibility.Collapsed;
+            viewModel.VisibleDeniedLeaveRequestsExpander = Visibility.Visible;
         }
     }
 }

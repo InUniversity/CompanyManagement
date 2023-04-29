@@ -2,6 +2,7 @@
 using CompanyManagement.Utilities;
 using System;
 using System.Data;
+using System.Windows.Media;
 
 namespace CompanyManagement.Models
 {
@@ -68,7 +69,15 @@ namespace CompanyManagement.Models
         public string ApproverID
         {
             get => approverID;
-            set => approverID = value;
+            set
+            { 
+                if (value != null) 
+                {  
+                    approverID = value;
+                    return;
+                }
+                approverID = "";
+            }
         }
 
         public LeaveRequest() { }

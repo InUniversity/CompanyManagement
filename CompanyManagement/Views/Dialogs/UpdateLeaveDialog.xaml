@@ -15,7 +15,7 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         WindowStartupLocation="CenterScreen"
         mc:Ignorable="d"
-        x:Name="updataLeaveWindow"
+        x:Name="updateLeaveWindow"
         Title="LeaveInputWindow" Height="650" Width="800">
     <Grid>
         <StackPanel>

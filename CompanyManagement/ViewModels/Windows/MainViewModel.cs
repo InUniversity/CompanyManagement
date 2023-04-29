@@ -16,7 +16,7 @@ namespace CompanyManagement.ViewModels.Windows
         private AssignmentUC assignmentUC = new AssignmentUC();
         private EmployeesUC employeesUC = new EmployeesUC();
         private UserInformationUC userInformationUC = new UserInformationUC();
-        private LeaveListUC leavesListUC = new LeaveListUC();
+        private LeaveRequestsUC leavesListUC = new LeaveRequestsUC();
         private ApproveLeaveRequestListUC approveLeaveRequestListUC = new ApproveLeaveRequestListUC();
 
         private Visibility visibilityAssignmentView;

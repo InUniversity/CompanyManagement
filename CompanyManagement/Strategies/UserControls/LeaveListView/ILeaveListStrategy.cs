@@ -4,6 +4,6 @@ namespace CompanyManagement.Strategies.UserControls.LeaveListView
 {
     public interface ILeaveListStrategy
     {
-        void SetVisible(LeaveListViewModel viewModel);
+        void SetVisible(LeaveRequestsViewModel viewModel);
     }
 } 

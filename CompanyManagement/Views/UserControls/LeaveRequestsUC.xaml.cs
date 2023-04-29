@@ -9,14 +9,14 @@ namespace CompanyManagement.Views.UserControls
     /// <summary>
     /// Interaction logic for LeaveUC.xaml
     /// </summary>
-    public partial class LeaveListUC : UserControl
+    public partial class LeaveRequestsUC : UserControl
     {
-        public LeaveListUC()
+        public LeaveRequestsUC()
         {
             InitializeComponent();
             var positionID = CurrentUser.Ins.EmployeeIns.RoleID;
             var leaveListStrategy = LeaveListStrategyFactory.Create(positionID);
-            DataContext = new LeaveListViewModel(leaveListStrategy);
+            DataContext = new LeaveRequestsViewModel(leaveListStrategy);
         }
     }
 }

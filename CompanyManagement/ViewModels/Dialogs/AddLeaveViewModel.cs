@@ -23,14 +23,13 @@ namespace CompanyManagement.ViewModels.Dialogs
         public AddLeaveViewModel()
         {
             LeaveInputDataContext = new LeaveInputViewModel();
-            AddLeaveCommand = new RelayCommand<Window>(AddCommand);
+            AddLeaveCommand = new RelayCommand<Window>(ExecuteAddCommand);
         }
 
-        private void AddCommand(Window inputWindow)
+        private void ExecuteAddCommand(Window inputWindow)
         {
             LeaveInputDataContext.TrimAllTexts();
-            if (!CheckAllFields())
-                return;
+            if (!CheckAllFields()) return;
             AlertDialogService dialog = new AlertDialogService(
                 "Thêm xin nghỉ phép",
                 "Bạn chắc chắn muốn thêm xin nghỉ phép !",
