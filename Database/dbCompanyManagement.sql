@@ -4,9 +4,9 @@ USE CompanyManagement
 GO
 -- department
 CREATE TABLE Departments(
-    ID varchar(20) PRIMARY KEY,
+    ID varchar(20) PRIMARY KEY NOT NULL,
     DepartmentName nvarchar(100),
-    DepartmentHead varchar(20)
+    DepartmentHead varchar(20) DEFAULT ''
 );
 GO
 INSERT INTO Departments (ID, DepartmentName, DepartmentHead)
@@ -20,7 +20,7 @@ GO
 
 -- employee
 CREATE TABLE Roles(
-    ID varchar(20) PRIMARY KEY,
+    ID varchar(20) PRIMARY KEY NOT NULL,
     Title nvarchar(50)
 );
 GO
@@ -33,7 +33,7 @@ VALUES
 GO
 
 CREATE TABLE Employees(
-    ID varchar (20) PRIMARY KEY,
+    ID varchar (20) PRIMARY KEY NOT NULL,
     FullName nvarchar(100),
     Gender nvarchar(10),
     Birthday date,
@@ -42,9 +42,8 @@ CREATE TABLE Employees(
     PhoneNumber varchar (10),
     EmployeeAddress nvarchar(255),
     BaseSalary DECIMAL(19,4),
-    DepartmentID varchar(20),
-    RoleID varchar(20) NOT NULL,
-	CONSTRAINT FK_Employees_RoleID FOREIGN KEY(RoleID) REFERENCES Roles(ID)
+    DepartmentID varchar(20) DEFAULT '',
+    RoleID varchar(20) DEFAULT ''
 );
 GO
 INSERT INTO Employees(ID, FullName, Gender, Birthday, IdentifyCard, Email, PhoneNumber, EmployeeAddress, BaseSalary, DepartmentID, RoleID)
@@ -105,13 +104,10 @@ VALUES
     ('EM054', N'Lương Thị Vân', N'Nữ', CONVERT(DATE, '05-05-1994', 105), '123456789016', 'van.luong@it.company.com', '0567890123', N'Cà Mau', 15000000, 'DPM005', 'ER04'),
     ('EM055', N'Đặng Văn Đức', N'Nam', CONVERT(DATE, '06-06-1993', 105), '123456789017', 'duc.dang@it.company.com', '0678901234', N'Đồng Nai', 15000000, '', 'ER03');
 GO
-ALTER TABLE Departments ADD CONSTRAINT FK_Departments_DepartmentHead FOREIGN KEY(DepartmentHead) REFERENCES Employees(ID)
-GO
 CREATE TABLE Accounts(
     Username varchar(100) NOT NULL UNIQUE,
     PasswordHash varchar(100) NOT NULL,
-    EmployeeID varchar(20) PRIMARY KEY NOT NULL,
-    CONSTRAINT FK_Accounts_EmployeeID FOREIGN KEY(EmployeeID) REFERENCES Employees(ID)
+    EmployeeID varchar(20) PRIMARY KEY
 );
 GO
 INSERT INTO Accounts (Username, PasswordHash, EmployeeID)
@@ -122,7 +118,7 @@ GO
 
 -- projects
 CREATE TABLE ProjectStatuses(
-    ID varchar(10) PRIMARY KEY,
+    ID varchar(10) PRIMARY KEY NOT NULL,
     StatusName nvarchar(50)
 );
 GO
@@ -135,35 +131,32 @@ VALUES
     ( 'PST5', N'Lên kế hoạch');
 GO
 CREATE TABLE Projects(
-    ID varchar(20) PRIMARY KEY,
+    ID varchar(20) PRIMARY KEY NOT NULL,
     ProjectName nvarchar(225),
     Details nvarchar(max),
     CreatedDate SMALLDATETIME,
     StartDate SMALLDATETIME,
     EndDate SMALLDATETIME,
-    CompletedDate SMALLDATETIME,
+    CompletedDate SMALLDATETIME DEFAULT '2000-01-01 00:00:00',
     Progress varchar(4),
     StatusID varchar(10),
     OwnerID varchar(20),
-    BonusSalary DECIMAL(19,4),
-    CONSTRAINT FK_Projects_StatusID FOREIGN KEY(StatusID) REFERENCES ProjectStatuses(ID),
-    CONSTRAINT FK_Projects_OwnerID FOREIGN KEY(OwnerID) REFERENCES Employees(ID)
+    BonusSalary DECIMAL(19,4)
 );
 GO
-INSERT INTO Projects(ID, ProjectName, Details, CreatedDate, StartDate, EndDate, CompletedDate, Progress, StatusID, OwnerID, BonusSalary)
+INSERT INTO Projects(ID, ProjectName, Details, CreatedDate, StartDate, EndDate, Progress, StatusID, OwnerID, BonusSalary)
 VALUES
-    ('PRJ001', 'Website Development', '', CONVERT(SMALLDATETIME, '01-01-2023 08:00 AM', 105), CONVERT(SMALLDATETIME, '01-03-2023 08:00 AM', 105), CONVERT(SMALLDATETIME, '30-06-2023 05:00 PM', 105), CONVERT(SMALLDATETIME, '01-01-2000 00:00 AM', 105), '50','PST1', 'EM001', 100000000),
-    ('PRJ002', 'Mobile App Development', '', CONVERT(SMALLDATETIME, '01-02-2023 09:30 AM', 105), CONVERT(SMALLDATETIME, '01-02-2023 09:30 AM', 105), CONVERT(SMALLDATETIME, '31-08-2023 07:00 PM', 105), CONVERT(SMALLDATETIME, '01-01-2000 00:00 AM', 105),'35', 'PST1', 'EM002', 100234000),
-    ('PRJ003', 'Database Management System', '', CONVERT(SMALLDATETIME, '01-03-2023 10:15 AM', 105), CONVERT(SMALLDATETIME, '01-03-2023 10:15 AM', 105), CONVERT(SMALLDATETIME, '31-10-2023 04:30 PM', 105), CONVERT(SMALLDATETIME, '01-01-2000 00:00 AM', 105),'10', 'PST1', 'EM003', 100056700),
-    ('PRJ004', 'Artificial Intelligence Research', '', CONVERT(SMALLDATETIME, '01-04-2023 01:00 PM', 105), CONVERT(SMALLDATETIME, '01-04-2023 01:00 PM', 105), CONVERT(SMALLDATETIME, '31-03-2024 11:00 AM', 105), CONVERT(SMALLDATETIME, '01-01-2000 00:00 AM', 105),'0', 'PST1', 'EM004', 112300000),
-    ('PRJ005', 'Cloud Computing Migration', '', CONVERT(SMALLDATETIME, '01-05-2023 02:45 PM', 105), CONVERT(SMALLDATETIME, '01-05-2023 02:45 PM', 105), CONVERT(SMALLDATETIME, '30-11-2023 10:30 AM', 105), CONVERT(SMALLDATETIME, '01-01-2000 00:00 AM', 105),'0', 'PST1', 'EM005', 112300456);
+    ('PRJ001', 'Website Development', '', CONVERT(SMALLDATETIME, '01-01-2023 08:00 AM', 105), CONVERT(SMALLDATETIME, '01-03-2023 08:00 AM', 105), CONVERT(SMALLDATETIME, '30-06-2023 05:00 PM', 105), '50','PST1', 'EM001', 100000000),
+    ('PRJ002', 'Mobile App Development', '', CONVERT(SMALLDATETIME, '01-02-2023 09:30 AM', 105), CONVERT(SMALLDATETIME, '01-02-2023 09:30 AM', 105), CONVERT(SMALLDATETIME, '31-08-2023 07:00 PM', 105),'35', 'PST1', 'EM002', 100234000),
+    ('PRJ003', 'Database Management System', '', CONVERT(SMALLDATETIME, '01-03-2023 10:15 AM', 105), CONVERT(SMALLDATETIME, '01-03-2023 10:15 AM', 105), CONVERT(SMALLDATETIME, '31-10-2023 04:30 PM', 105),'10', 'PST1', 'EM003', 100056700),
+    ('PRJ004', 'Artificial Intelligence Research', '', CONVERT(SMALLDATETIME, '01-04-2023 01:00 PM', 105), CONVERT(SMALLDATETIME, '01-04-2023 01:00 PM', 105), CONVERT(SMALLDATETIME, '31-03-2024 11:00 AM', 105),'0', 'PST1', 'EM004', 112300000),
+    ('PRJ005', 'Cloud Computing Migration', '', CONVERT(SMALLDATETIME, '01-05-2023 02:45 PM', 105), CONVERT(SMALLDATETIME, '01-05-2023 02:45 PM', 105), CONVERT(SMALLDATETIME, '30-11-2023 10:30 AM', 105),'0', 'PST1', 'EM005', 112300456);
 GO
+
 CREATE TABLE ProjectAssignments(
-    ProjectID varchar(20) NOT NULL,
-    DepartmentID varchar(20) NOT NULL,
-    CONSTRAINT PK_Assignments PRIMARY KEY(ProjectID, DepartmentID),
-    CONSTRAINT FK_Assignments_ProjectID FOREIGN KEY(ProjectID) REFERENCES Projects(ID),
-    CONSTRAINT FK_Assignments_DepartmentID FOREIGN KEY(DepartmentID) REFERENCES Departments(ID)
+    ProjectID varchar(20),
+    DepartmentID varchar(20),
+    PRIMARY KEY (ProjectID, DepartmentID)
 );
 GO
 INSERT INTO ProjectAssignments (ProjectID, DepartmentID)
@@ -177,7 +170,7 @@ GO
 
 -- tasks
 CREATE TABLE TaskStatuses(
-    ID varchar(10) PRIMARY KEY,
+    ID varchar(10) PRIMARY KEY NOT NULL,
     StatusName nvarchar(50)
 );
 GO
@@ -189,20 +182,16 @@ VALUES
     ( 'TS4', N'Đang xem xét');
 GO
 CREATE TABLE Tasks(
-    ID varchar(20) PRIMARY KEY,
+    ID varchar(20) PRIMARY KEY NOT NULL,
     Title nvarchar(50),
     Explanation nvarchar(255),
     StartDate SMALLDATETIME,
     Deadline SMALLDATETIME,
     Progress varchar(4),
     OwnerID varchar(20),
-    EmployeeID varchar(20),
+    EmployeeID varchar(20) DEFAULT '',
     ProjectID varchar(20),
-    StatusID varchar(10),
-    CONSTRAINT FK_Tasks_OwnerID FOREIGN KEY(OwnerID) REFERENCES Employees(ID),
-    CONSTRAINT FK_Tasks_EmployeeID FOREIGN KEY(EmployeeID) REFERENCES Employees(ID),
-    CONSTRAINT FK_Tasks_ProjectID FOREIGN KEY(ProjectID) REFERENCES Projects(ID),
-    CONSTRAINT FK_Tasks_StatusID FOREIGN KEY(StatusID) REFERENCES TaskStatuses(ID)
+    StatusID varchar(10) DEFAULT ''
 );
 GO
 INSERT INTO Tasks(ID, Title, Explanation, StartDate, Deadline, Progress, OwnerID, EmployeeID, ProjectID, StatusID)
@@ -237,6 +226,111 @@ VALUES
     ('T000024', N'Set up security infrastructure', N'Cài đặt và cấu hình cơ sở hạ tầng bảo mật cho công ty', CONVERT(SMALLDATETIME, '15-05-2023 02:45 PM', 105), CONVERT(SMALLDATETIME, '30-11-2023 10:30 AM', 105), '0', 'EM051', 'EM053', 'PRJ005', 'TS1'),
     ('T000025', N'Implement backup infrastructure', N'Cài đặt và cấu hình cơ sở hạ tầng sao lưu cho công ty', CONVERT(SMALLDATETIME, '20-05-2023 02:45 PM', 105), CONVERT(SMALLDATETIME, '30-11-2023 10:30 AM', 105), '0', 'EM051', 'EM054', 'PRJ005', 'TS1'),
     ('T000026', N'Manage IT infrastructure', N'Quản lý và duy trì cơ sở hạ tầng công nghệ thông tin cho công ty', CONVERT(SMALLDATETIME, '25-05-2023 02:45 PM', 105), CONVERT(SMALLDATETIME, '30-11-2023 10:30 AM', 105), '0', 'EM051', 'EM054', 'PRJ005', 'TS1');
+GO
+
+
+-- leave requests
+CREATE TABLE LeaveStatuses(
+    ID varchar(20) PRIMARY KEY NOT NULL,
+    StatusName nvarchar(50)
+)
+GO
+INSERT INTO LeaveStatuses(ID, StatusName)
+VALUES
+    ('LS1', N'Chấp nhận'),
+    ('LS2', N'Chưa giải quyết'),
+    ('LS3', N'Từ chối');
+GO
+CREATE TABLE LeaveRequests(
+    ID varchar(20) PRIMARY KEY NOT NULL,
+    Reason nvarchar(255),
+    Notes nvarchar(255),
+    CreatedDate date,
+    StartDate date, -- at least 7 days before the creation date
+    EndDate date,
+    StatusID varchar(20),
+    EmployeeID varchar(20),
+    ApproverID varchar(20)
+)
+GO
+INSERT INTO LeaveRequests(ID, EmployeeID, Reason, Notes, CreatedDate, StartDate, EndDate, StatusID, ApproverID)
+VALUES
+    ('LEA0001', 'EM007', N'Nghỉ do bị ốm', N'ghi chú 1', '2023-04-01', '2023-04-08', '2023-04-09', 'LS1', 'EM006'),
+    ('LEA0002', 'EM008', N'Nghỉ đi khám bệnh', N'ghi chú 2', '2023-04-01', '2023-04-10', '2023-04-06', 'LS1', 'EM006');
+GO
+
+-- check-in-out
+CREATE TABLE TimeSheets(
+    ID varchar(20) PRIMARY KEY NOT NULL,
+    CheckInTime SMALLDATETIME NOT NULL,
+    CheckOutTime SMALLDATETIME,
+    EmployeeID varchar(20),
+    TaskCheckInID varchar(20)
+)
+GO
+INSERT INTO TimeSheets(ID, CheckInTime, CheckOutTime, EmployeeID, TaskCheckInID)
+VALUES
+    ('TSH00001', '2023-04-10 08:30:00', '2023-04-10 12:00:00', 'EM007', 'T000001'),
+    ('TSH00002', '2023-04-11 13:30:00', '2023-04-11 16:00:00', 'EM008', 'T000002');
+GO
+CREATE TABLE TaskCheckOuts(
+    UpdateDate SMALLDATETIME NOT NULL,
+    Progress varchar(4) NOT NULL,
+    TimeSheetID varchar(20),
+    TaskID varchar(20),
+    PRIMARY KEY (TimeSheetID, TaskID)
+);
+GO
+INSERT INTO TaskCheckOuts(UpdateDate, Progress, TimeSheetID, TaskID)
+VALUES
+    ('2023-04-10 01:30 PM', '50', 'TSH00001', 'T000001'),
+    ('2023-04-10 11:30 PM', '30', 'TSH00002', 'T000002');
+GO
+
+
+-- set KPI
+-- set by month
+CREATE TABLE KPIs(
+    ID varchar(20) PRIMARY KEY NOT NULL,
+    MonthYear date,
+    RequiredTasksCount int,
+    ActualTasksCount int,
+    EmployeeID varchar(20)
+);
+GO
+INSERT INTO KPIs(ID, MonthYear, RequiredTasksCount, ActualTasksCount, EmployeeID)
+VALUES
+    ('KPI00001', '2023-04-01', 10, 0, 'EM007'),
+    ('KPI00002', '2023-04-01', 5, 0, 'EM008');
+GO
+
+-- salary (store salary of each employee by month)
+CREATE TABLE ProjectBonuses(
+    ID varchar(20) PRIMARY KEY NOT NULL,
+    Amount DECIMAL(19,4),
+    ReceivedDate SMALLDATETIME,
+    EmployeeID varchar(20),
+    ProjectID varchar(20)
+);
+GO
+INSERT INTO ProjectBonuses(ID, Amount, ReceivedDate, EmployeeID, ProjectID)
+VALUES
+    ('PB000001', 10000.00, '2023-3-15', 'EM006', 'PRJ001');
+GO
+GO
+
+CREATE TABLE SalaryRecords(
+    ID varchar(20) PRIMARY KEY NOT NULL,
+    EmployeeID varchar(20) NOT NULL,
+    MonthYear date,
+    TotalWorkdays int,
+    TotalBonus DECIMAL(19,4),
+    Income DECIMAL(19,4) --Income = BaseSalary (from Employees) * (TotalWorkdays/30) + Bonus
+);
+GO
+INSERT INTO SalaryRecords(ID, EmployeeID, MonthYear, TotalWorkdays, TotalBonus, Income)
+VALUES
+    ('SR00001', 'EM006', '2023-3-1', '30', 10000.00, 15010000.00);
 GO
 
 -- -- Project plans
@@ -279,107 +373,82 @@ GO
 --     ('MST0001', 'T000002');
 -- GO
 
--- leave requests
-CREATE TABLE LeaveStatuses(
-    ID varchar(20) PRIMARY KEY,
-    StatusName nvarchar(50)
-)
+-- constrains
+--  <-- comment is not work -->
+
+-- ALTER TABLE Employees ADD CONSTRAINT FK_Employees_DepartmentID FOREIGN KEY(DepartmentID)
+--     REFERENCES Departments(ID) ON DELETE SET DEFAULT
+-- GO
+
+ALTER TABLE Employees ADD CONSTRAINT FK_Employees_RoleID FOREIGN KEY(RoleID)
+    REFERENCES Roles(ID) ON DELETE SET DEFAULT 
 GO
-INSERT INTO LeaveStatuses(ID, StatusName)
-VALUES
-    ('LS1', N'Chấp nhận'),
-    ('LS2', N'Chưa giải quyết'),
-    ('LS3', N'Từ chối');
+ALTER TABLE Departments ADD CONSTRAINT FK_Departments_DepartmentHead
+    FOREIGN KEY(DepartmentHead) REFERENCES Employees(ID) ON DELETE SET DEFAULT 
 GO
-CREATE TABLE LeaveRequests(
-    ID varchar(20) PRIMARY KEY,
-    Reason nvarchar(255),
-    Notes nvarchar(255),
-    CreatedDate date,
-    StartDate date, -- at least 7 days before the creation date
-    EndDate date,
-    StatusID varchar(20),
-    EmployeeID varchar(20),
-    ApproverID varchar(20),
-    CONSTRAINT FK_Leaves_StatusID FOREIGN KEY(StatusID) REFERENCES LeaveStatuses(ID),
-    CONSTRAINT FK_Leaves_EmployeeID FOREIGN KEY(EmployeeID) REFERENCES Employees(ID),
-    CONSTRAINT FK_Leaves_ApproverID FOREIGN KEY(ApproverID) REFERENCES Employees(ID)
-)
+-- 
+ALTER TABLE Accounts ADD CONSTRAINT FK_Accounts_EmployeeID FOREIGN KEY(EmployeeID)
+    REFERENCES Employees(ID) ON DELETE CASCADE
 GO
-INSERT INTO LeaveRequests(ID, EmployeeID, Reason, Notes, CreatedDate, StartDate, EndDate, StatusID, ApproverID)
-VALUES
-    ('LEA0001', 'EM007', N'Nghỉ do bị ốm', N'ghi chú 1', '2023-04-01', '2023-04-08', '2023-04-09', 'LS1', 'EM006'),
-    ('LEA0002', 'EM008', N'Nghỉ đi khám bệnh', N'ghi chú 2', '2023-04-01', '2023-04-10', '2023-04-06', 'LS1', 'EM006');
+-- 
+ALTER TABLE Projects ADD CONSTRAINT FK_Projects_StatusID FOREIGN KEY(StatusID)
+    REFERENCES ProjectStatuses(ID) ON DELETE SET DEFAULT 
+GO
+ALTER TABLE Projects ADD CONSTRAINT FK_Projects_OwnerID FOREIGN KEY(OwnerID)
+    REFERENCES Employees(ID) ON DELETE SET DEFAULT 
+GO
+-- 
+ALTER TABLE ProjectAssignments ADD CONSTRAINT FK_Assignments_ProjectID FOREIGN KEY(ProjectID)
+    REFERENCES Projects(ID) ON DELETE CASCADE
+GO
+ALTER TABLE ProjectAssignments ADD CONSTRAINT FK_Assignments_DepartmentID FOREIGN KEY(DepartmentID)
+    REFERENCES Departments(ID) ON DELETE CASCADE
+GO
+-- 
+ALTER TABLE Tasks ADD CONSTRAINT FK_Tasks_OwnerID FOREIGN KEY(OwnerID) REFERENCES Employees(ID) ON DELETE SET NULL
+GO
+-- ALTER TABLE Tasks ADD CONSTRAINT FK_Tasks_EmployeeID FOREIGN KEY(EmployeeID) REFERENCES Employees(ID) ON DELETE SET NULL
+-- GO
+ALTER TABLE Tasks ADD CONSTRAINT FK_Tasks_ProjectID FOREIGN KEY(ProjectID) REFERENCES Projects(ID) ON DELETE SET NULL
+GO
+ALTER TABLE Tasks ADD CONSTRAINT FK_Tasks_StatusID FOREIGN KEY(StatusID) REFERENCES TaskStatuses(ID) ON DELETE SET NULL
+GO
+-- 
+ALTER TABLE LeaveRequests ADD CONSTRAINT FK_Leaves_StatusID FOREIGN KEY(StatusID)
+    REFERENCES LeaveStatuses(ID) ON DELETE SET NULL
+GO
+ALTER TABLE LeaveRequests ADD CONSTRAINT FK_Leaves_EmployeeID FOREIGN KEY(EmployeeID)
+    REFERENCES Employees(ID) ON DELETE SET NULL
+GO
+-- ALTER TABLE LeaveRequests ADD CONSTRAINT FK_Leaves_ApproverID FOREIGN KEY(ApproverID)
+--     REFERENCES Employees(ID) ON DELETE SET NULL
+-- GO
+
+ALTER TABLE TimeSheets ADD CONSTRAINT FK_CheckInOut_EmployeeID
+    FOREIGN KEY(EmployeeID) REFERENCES Employees(ID) ON DELETE SET NULL
+GO
+ALTER TABLE TimeSheets ADD CONSTRAINT FK_CheckInOut_TaskCheckInID
+    FOREIGN KEY(TaskCheckInID) REFERENCES Tasks(ID) ON DELETE SET NULL
 GO
 
--- check-in-out
-CREATE TABLE TimeSheets(
-    ID varchar(20) PRIMARY KEY,
-    CheckInTime SMALLDATETIME NOT NULL,
-    CheckOutTime SMALLDATETIME,
-    EmployeeID varchar(20) NOT NULL,
-    TaskCheckInID varchar(20),
-    CONSTRAINT FK_CheckInOut_EmployeeID FOREIGN KEY(EmployeeID) REFERENCES Employees(ID),
-    CONSTRAINT FK_CheckInOut_TaskCheckInID FOREIGN KEY(TaskCheckInID) REFERENCES Tasks(ID)
-)
-GO
-INSERT INTO TimeSheets(ID, CheckInTime, CheckOutTime, EmployeeID, TaskCheckInID)
-VALUES
-    ('TSH00001', '2023-04-10 08:30:00', '2023-04-10 12:00:00', 'EM007', 'T000001'),
-    ('TSH00002', '2023-04-11 13:30:00', '2023-04-11 16:00:00', 'EM008', 'T000002');
-GO
-GO
-CREATE TABLE TaskCheckOuts(
-    UpdateDate SMALLDATETIME NOT NULL,
-    Progress varchar(4) NOT NULL,
-    TimeSheetID varchar(20) NOT NULL,
-    TaskID varchar(20) NOT NULL,
-    PRIMARY KEY (TimeSheetID, TaskID),
-    CONSTRAINT FK_TaskCheckOuts_TimeSheetID FOREIGN KEY(TimeSheetID) REFERENCES TimeSheets(ID),
-    CONSTRAINT FK_TaskCheckOuts_TaskID FOREIGN KEY(TaskID) REFERENCES Tasks(ID)
-);
-GO
-INSERT INTO TaskCheckOuts(UpdateDate, Progress, TimeSheetID, TaskID)
-VALUES
-    ('2023-04-10 01:30 PM', '50', 'TSH00001', 'T000001'),
-    ('2023-04-10 11:30 PM', '30', 'TSH00002', 'T000002');
+-- ALTER TABLE TaskCheckOuts ADD CONSTRAINT FK_TaskCheckOuts_TimeSheetID
+--     FOREIGN KEY(TimeSheetID) REFERENCES TimeSheets(ID) ON DELETE SET NULL
+-- GO
+-- ALTER TABLE TaskCheckOuts ADD CONSTRAINT FK_TaskCheckOuts_TaskID
+--     FOREIGN KEY(TaskID) REFERENCES Tasks(ID) ON DELETE SET NULL
+-- GO
+
+ALTER TABLE KPIs ADD CONSTRAINT FK_KPIs_EmployeeID
+    FOREIGN KEY(EmployeeID) REFERENCES Employees(ID) ON DELETE SET NULL ON UPDATE CASCADE
 GO
 
--- set KPI
--- set by month
-CREATE TABLE KPIs(
-    ID varchar(20) PRIMARY KEY,
-    MonthYear date,
-    RequiredTasksCount int,
-    ActualTasksCount int,
-    EmployeeID varchar(20),
-    CONSTRAINT FK_KPIs_EmployeeID FOREIGN KEY(EmployeeID) REFERENCES Employees(ID)
-);
+ALTER TABLE ProjectBonuses ADD CONSTRAINT FK_Bonuses_EmployeeID
+    FOREIGN KEY(EmployeeID) REFERENCES Employees(ID) ON DELETE SET NULL
 GO
-INSERT INTO KPIs(ID, MonthYear, RequiredTasksCount, ActualTasksCount, EmployeeID)
-VALUES
-    ('KPI00001', '2023-04-01', 10, 0, 'EM007'),
-    ('KPI00002', '2023-04-01', 5, 0, 'EM008');
+ALTER TABLE ProjectBonuses ADD CONSTRAINT FK_Bonuses_ProjectID
+    FOREIGN KEY(ProjectID) REFERENCES Projects(ID) ON DELETE SET NULL
 GO
 
--- salary (store salary of each employee by month)
-CREATE TABLE ProjectBonuses(
-    ID varchar(20) PRIMARY KEY,
-    Amount DECIMAL(19,4),
-    ReceivedDate SMALLDATETIME,
-    EmployeeID varchar(20),
-    ProjectID varchar(20),
-    CONSTRAINT FK_Bonuses_EmployeeID FOREIGN KEY(EmployeeID) REFERENCES Employees(ID),
-    CONSTRAINT FK_Bonuses_ProjectID FOREIGN KEY(ProjectID) REFERENCES Projects(ID)
-);
-GO
-CREATE TABLE SalaryRecords(
-    ID varchar(20) PRIMARY KEY,
-    EmployeeID varchar(20) NOT NULL,
-    MonthYear date,
-    TotalWorkdays int,
-    TotalBonus DECIMAL(19,4),
-    Income DECIMAL(19,4), --Income = BaseSalary (from Employees) * (TotalWorkdays/30) + Bonus
-    CONSTRAINT FK_SalaryEmployeeID FOREIGN KEY(EmployeeID) REFERENCES Employees(ID)
-);
-GO
+-- ALTER TABLE SalaryRecords ADD CONSTRAINT FK_SalaryEmployeeID
+--     FOREIGN KEY(EmployeeID) REFERENCES Employees(ID) ON DELETE SET NULL
+-- GO

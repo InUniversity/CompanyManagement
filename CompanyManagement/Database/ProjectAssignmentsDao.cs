@@ -33,7 +33,7 @@ namespace CompanyManagement.Database
 
         public List<Employee> GetEmployeesInProject(string projectID)
         {
-            string sqlStr = $"SELECT * FROM {EMPLOYEE_TABLE} WHERE {EMPLOYEE_DEPARTMENT_ID} IN(" +
+            string sqlStr = $"SELECT * FROM {EMPLOYEES_TABLE} WHERE {EMPLOYEES_DEPARTMENT_ID} IN(" +
                 $"SELECT {PROJECT_ASSIGNMENTS_DEPARTMENT_ID} FROM {PROJECT_ASSIGNMENTS_TABLE} WHERE {PROJECT_ASSIGNMENTS_PROJECT_ID}='{projectID}')";
             return dbConnection.GetList(sqlStr, reader => new Employee(reader));
         }
@@ -53,9 +53,9 @@ namespace CompanyManagement.Database
         public List<Project> SearchProjectByEmployeeID(string employeeID)
         {
             string sqlStr = $"SELECT * FROM {PROJECTS_TABLE} WHERE {PROJECTS_ID} IN " +
-                            $"(SELECT {PROJECT_ASSIGNMENTS_PROJECT_ID} FROM {PROJECT_ASSIGNMENTS_TABLE} PA, {EMPLOYEE_TABLE} E " +
-                            $"WHERE PA.{PROJECT_ASSIGNMENTS_DEPARTMENT_ID}=E.{EMPLOYEE_DEPARTMENT_ID} " +
-                            $"AND E.{EMPLOYEE_ID}='{employeeID}')";
+                            $"(SELECT {PROJECT_ASSIGNMENTS_PROJECT_ID} FROM {PROJECT_ASSIGNMENTS_TABLE} PA, {EMPLOYEES_TABLE} E " +
+                            $"WHERE PA.{PROJECT_ASSIGNMENTS_DEPARTMENT_ID}=E.{EMPLOYEES_DEPARTMENT_ID} " +
+                            $"AND E.{EMPLOYEES_ID}='{employeeID}')";
             return dbConnection.GetList(sqlStr, reader => new Project(reader));
         }
 

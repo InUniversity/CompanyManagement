@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace CompanyManagement.Utilities
 {
@@ -28,6 +30,31 @@ namespace CompanyManagement.Utilities
         public static string ToOnlyDateSQLFormat(DateTime dateTime)
         {
             return dateTime.ToString(FORMAT_DATE);
+        }
+
+        public static int GetInt(IDataRecord record, string columnName)
+        {
+            return GetValueOrDefault(record, columnName, 0);
+        }
+
+        public static string GetString(IDataRecord record, string columnName)
+        {
+            return GetValueOrDefault(record, columnName, string.Empty);
+        }
+        
+        public static DateTime GetDateTime(IDataRecord record, string columnName)
+        {
+            return GetValueOrDefault(record, columnName, EMPTY_DATETIME);
+        }
+
+        public static decimal GetDecimal(IDataRecord record, string columnName)
+        {
+            return GetValueOrDefault(record, columnName, (decimal)0);
+        }
+
+        private static T GetValueOrDefault<T>(IDataRecord record, string columnName, T defaultValue)
+        {
+            return record[columnName] == DBNull.Value ? defaultValue : (T)record[columnName];
         }
     }
 }

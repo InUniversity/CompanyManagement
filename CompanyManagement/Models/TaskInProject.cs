@@ -17,6 +17,7 @@ namespace CompanyManagement.Models
         private string employeeID;
         private string projectID;
         private string statusID;
+        private Employee assignedEmployee = new Employee();
 
         public string ID
         {
@@ -78,10 +79,16 @@ namespace CompanyManagement.Models
             set => statusID = value;
         }
 
+        public Employee AssignedEmployee
+        {
+            get => assignedEmployee;
+            set => assignedEmployee = value;
+        }
+
         public TaskInProject() { }
 
         public TaskInProject(string id, string title, string explanation, DateTime startDate, DateTime deadline, 
-            string progress, string ownerID, string employeeID, string projectID, string statusID)
+            string progress, string ownerID, string employeeID, string projectID, string statusID, Employee assignedEmployee)
         {
             this.id = id;
             this.title = title;
@@ -93,22 +100,23 @@ namespace CompanyManagement.Models
             this.employeeID = employeeID;
             this.projectID = projectID;
             this.statusID = statusID;
+            this.assignedEmployee = assignedEmployee;
         }
 
         public TaskInProject(IDataRecord reader)
         {
             try
             {
-                id = (string)reader[BaseDao.TASKS_ID];
-                title = (string)reader[BaseDao.TASKS_TITLE];
-                explanation = (string)reader[BaseDao.TASKS_EXPLANATION];
-                startDate = reader.GetDateTime(reader.GetOrdinal(BaseDao.TASKS_START_DATE));
-                deadline = reader.GetDateTime(reader.GetOrdinal(BaseDao.TASKS_DEADLINE));
-                ownerID = (string)reader[BaseDao.TASKS_OWNER_ID];
-                progress = (string)reader[BaseDao.TASKS_PROGRESS];
-                employeeID = (string)reader[BaseDao.TASKS_EMPLOYEE_ID];
-                projectID = (string)reader[BaseDao.TASKS_PROJECT_ID];
-                statusID = (string)reader[BaseDao.TASKS_STATUS_ID];
+                id = Utils.GetString(reader, BaseDao.TASKS_ID);
+                title = Utils.GetString(reader, BaseDao.TASKS_TITLE);
+                explanation = Utils.GetString(reader, BaseDao.TASKS_EXPLANATION);
+                startDate = Utils.GetDateTime(reader, BaseDao.TASKS_START_DATE);
+                deadline = Utils.GetDateTime(reader, BaseDao.TASKS_DEADLINE);
+                progress = Utils.GetString(reader, BaseDao.TASKS_PROGRESS);
+                ownerID = Utils.GetString(reader, BaseDao.TASKS_OWNER_ID);
+                employeeID = Utils.GetString(reader, BaseDao.TASKS_EMPLOYEE_ID);
+                projectID = Utils.GetString(reader, BaseDao.TASKS_PROJECT_ID);
+                statusID = Utils.GetString(reader, BaseDao.TASKS_STATUS_ID);
             }
             catch(Exception ex)
             {

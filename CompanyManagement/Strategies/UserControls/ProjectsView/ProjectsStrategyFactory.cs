@@ -12,9 +12,9 @@ namespace CompanyManagement.Strategies.UserControls.ProjectsView
             {BaseDao.EMPLOYEE_ROLE_ID, new ProjectsForEmployee()}
         };
 
-        public static IProjectsStrategy Create(string positionID)
+        public static IProjectsStrategy Create(string roleID)
         {
-            return strategies.TryGetValue(positionID, out var projectsStrategy) ? projectsStrategy : null;
+            return strategies.TryGetValue(roleID, out var projectsStrategy) ? projectsStrategy : null;
         }
     }
 }

@@ -21,34 +21,41 @@ namespace CompanyManagement.ViewModels.UserControls
     public class TasksInProjectViewModel : BaseViewModel, IRetrieveProjectID
     {
         private List<TaskInProject> tasksInProject;
-        public List<TaskInProject> TasksInProject { get => tasksInProject; set { tasksInProject = value; OnPropertyChanged(); } }
+        public List<TaskInProject> TasksInProject 
+        { get => tasksInProject; set { tasksInProject = value; OnPropertyChanged(); } }
 
         private List<TaskInProject> ongoingTasksInProject;
-        public List<TaskInProject> OngoingTasksInProject { get => ongoingTasksInProject; set { ongoingTasksInProject = value; OnPropertyChanged(); } }
+        public List<TaskInProject> OngoingTasksInProject 
+        { get => ongoingTasksInProject; set { ongoingTasksInProject = value; OnPropertyChanged(); } }
 
         private List<TaskInProject> completedTasksInProject;
-        public List<TaskInProject> CompletedTasksInProject { get => completedTasksInProject; set { completedTasksInProject = value; OnPropertyChanged(); } }
+        public List<TaskInProject> CompletedTasksInProject 
+        { get => completedTasksInProject; set { completedTasksInProject = value; OnPropertyChanged(); } }
 
         private List<TaskInProject> overdueTasksInProject;
-        public List<TaskInProject> OverdueTasksInProject { get => overdueTasksInProject; set { overdueTasksInProject = value; OnPropertyChanged(); } }
+        public List<TaskInProject> OverdueTasksInProject 
+        { get => overdueTasksInProject; set { overdueTasksInProject = value; OnPropertyChanged(); } }
 
         private Visibility visibleAddButton = Visibility.Collapsed;
-        public Visibility VisibleAddButton { get => visibleAddButton; set { visibleAddButton = value; OnPropertyChanged(); } }
+        public Visibility VisibleAddButton 
+        { get => visibleAddButton; set { visibleAddButton = value; OnPropertyChanged(); } }
 
         private Visibility visibleDeleteButton = Visibility.Collapsed;
-        public Visibility VisibleDeleteButton { get => visibleDeleteButton; set { visibleDeleteButton = value; OnPropertyChanged(); } }
+        public Visibility VisibleDeleteButton 
+        { get => visibleDeleteButton; set { visibleDeleteButton = value; OnPropertyChanged(); } }
 
         private Visibility visibleUpdateButton = Visibility.Visible;
-        public Visibility VisibleUpdateButton { get => visibleUpdateButton; set { visibleUpdateButton = value; OnPropertyChanged(); } }
+        public Visibility VisibleUpdateButton 
+        { get => visibleUpdateButton; set { visibleUpdateButton = value; OnPropertyChanged(); } }
 
         public ICommand OpenTaskInProjectInputCommand { get; set; }
         public ICommand DeleteTaskInProjectCommand { get; set; }
         public ICommand UpdateTaskInProjectCommand { get; set; }
 
         private TasksDao tasksDao = new TasksDao();
+        private EmployeesDao employeesDao = new EmployeesDao();
 
         private string projectID = "";
-
         private Employee currentEmployee = CurrentUser.Ins.EmployeeIns;
 
         public TasksInProjectViewModel()
@@ -60,18 +67,19 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void LoadTaskInProjects()
         {
-
             TasksInProject = string.Equals(currentEmployee.RoleID, BaseDao.EMPLOYEE_ROLE_ID)
                ? tasksDao.SearchByEmployeeID(projectID, currentEmployee.ID)
                : tasksDao.SearchByProjectID(projectID);
 
-            var listOngoingTasks = TasksInProject.Where(p => p.Progress != BaseDao.COMPLETED && p.Deadline > DateTime.Now).ToList();
+            var listOngoingTasks = TasksInProject
+                .Where(p => p.Progress != BaseDao.COMPLETED && p.Deadline > DateTime.Now).ToList();
             OngoingTasksInProject = new List<TaskInProject>(listOngoingTasks);
 
             var listCompletedTasks = TasksInProject.Where(p => p.Progress == BaseDao.COMPLETED).ToList();
             CompletedTasksInProject = new List<TaskInProject>(listCompletedTasks);
 
-            var listOverdueTasks = TasksInProject.Where(p => p.Deadline < DateTime.Now && p.Progress != BaseDao.COMPLETED).ToList();
+            var listOverdueTasks = TasksInProject
+                .Where(p => p.Deadline < DateTime.Now && p.Progress != BaseDao.COMPLETED).ToList();
             OverdueTasksInProject = new List<TaskInProject>(listOverdueTasks);
         }
 
@@ -126,25 +134,26 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private TaskInProject CreateTaskInProjectInstance()
         {
-            return new TaskInProject(AutoGenerateID(), "", "", DateTime.Now , DateTime.Now , 
-                "", CurrentUser.Ins.EmployeeIns.ID, "", projectID, "1");
+            return new TaskInProject(AutoGenerateID(), "", "", DateTime.Now , DateTime.Now, 
+                "0", currentEmployee.ID, "", projectID, "", new Employee());
         }
 
         private void ExecuteDeleteCommand(string id)
         {
-            AlertDialogService dialog = new AlertDialogService(
+            var dialog = new AlertDialogService(
              "Xóa nhiệm vụ",
              "Bạn chắc chắn muốn xóa nhiệm vụ !",
              () =>
              {
                  tasksDao.Delete(id); 
                  LoadTaskInProjects();       
-             }, () => { });
+             }, null);
             dialog.Show();
         }
 
         private void OpenUpdateDialog(TaskInProject task)
         {
+            task.AssignedEmployee = employeesDao.SearchByID(task.EmployeeID);
             var inputService = new InputDialogService<TaskInProject>(new UpdateTaskDialog(), task, Update);
             inputService.Show();
         }

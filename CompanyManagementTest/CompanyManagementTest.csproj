@@ -42,7 +42,9 @@
         </Reference>
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="Database\ProjectsDaoTest.cs" />
         <Compile Include="Database\ProjectStatusesDaoTest.cs" />
+        <Compile Include="Database\TasksDaoTest.cs" />
         <Compile Include="Database\TaskStatusesDaoTest.cs" />
         <Compile Include="Tests.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />

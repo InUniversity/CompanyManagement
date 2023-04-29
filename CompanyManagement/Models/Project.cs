@@ -11,6 +11,7 @@ namespace CompanyManagement
     {
         private string id;
         private string name;
+        private string details;
         private DateTime createdDate;
         private DateTime startDate;
         private DateTime endDate;
@@ -33,6 +34,12 @@ namespace CompanyManagement
             set => name = value;
         }
 
+        public string Details
+        {
+            get => details;
+            set => details = value;
+        }
+            
         public DateTime CreatedDate
         {
             get => createdDate;
@@ -89,12 +96,13 @@ namespace CompanyManagement
 
         public Project() { }
 
-        public Project(string id, string name, DateTime createdDate, DateTime startDate, DateTime endDate, 
-            DateTime completedDate, string progress, string statusID, string ownerID, decimal bonusSalary,
-            ObservableCollection<Department> departments)
+        public Project(string id, string name, string details, DateTime createdDate, DateTime startDate, 
+            DateTime endDate, DateTime completedDate, string progress, string statusID, string ownerID, 
+            decimal bonusSalary, ObservableCollection<Department> departments)
         {
             this.id = id;
             this.name = name;
+            this.details = details;
             this.createdDate = createdDate;
             this.startDate = startDate;
             this.endDate = endDate;
@@ -110,16 +118,17 @@ namespace CompanyManagement
         {
             try
             {
-                id = (string)reader[BaseDao.PROJECTS_ID];
-                name = (string)reader[BaseDao.PROJECTS_NAME];
-                createdDate = reader.GetDateTime(reader.GetOrdinal(BaseDao.PROJECTS_CREATED));
-                startDate = reader.GetDateTime(reader.GetOrdinal(BaseDao.PROJECTS_START));
-                endDate = reader.GetDateTime(reader.GetOrdinal(BaseDao.PROJECTS_END));
-                completedDate = reader.GetDateTime(reader.GetOrdinal(BaseDao.PROJECTS_COMPLETED));
-                progress = (string)reader[BaseDao.PROJECTS_PROPRESS];
-                statusID = (string)reader[BaseDao.PROJECTS_STATUS_ID];
-                ownerID = (string)reader[BaseDao.PROJECTS_OWNER_ID];
-                bonusSalary = reader.GetDecimal(reader.GetOrdinal(BaseDao.PROJECTS_BONUS_SALARY));
+                id = Utils.GetString(reader, BaseDao.PROJECTS_ID);
+                name = Utils.GetString(reader, BaseDao.PROJECTS_NAME);
+                details = Utils.GetString(reader, BaseDao.PROJECTS_DETAILS);
+                createdDate = Utils.GetDateTime(reader, BaseDao.PROJECTS_CREATED);
+                startDate = Utils.GetDateTime(reader, BaseDao.PROJECTS_START);
+                endDate = Utils.GetDateTime(reader, BaseDao.PROJECTS_END);
+                completedDate = Utils.GetDateTime(reader, BaseDao.PROJECTS_COMPLETED);
+                progress = Utils.GetString(reader, BaseDao.PROJECTS_PROPRESS);
+                statusID = Utils.GetString(reader, BaseDao.PROJECTS_STATUS_ID);
+                ownerID = Utils.GetString(reader, BaseDao.PROJECTS_OWNER_ID);
+                bonusSalary = Utils.GetDecimal(reader, BaseDao.PROJECTS_BONUS_SALARY);
             }
             catch (Exception ex)
             {

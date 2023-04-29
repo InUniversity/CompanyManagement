@@ -12,8 +12,9 @@ namespace CompanyManagement.Database
         {
             string sqlStr = $"INSERT INTO {TASKS_TABLE}({TASKS_ID}, {TASKS_TITLE}, {TASKS_EXPLANATION}, " +
                             $"{TASKS_START_DATE}, {TASKS_DEADLINE}, {TASKS_OWNER_ID}, {TASKS_PROGRESS}, " +
-                            $"{TASKS_EMPLOYEE_ID}, {TASKS_PROJECT_ID}, {TASKS_STATUS_ID}) VALUES ('{task.ID}', N'{task.Title}', " +
-                            $"N'{task.Explanation}', '{task.StartDate}', '{task.Deadline}', '{task.OwnerID}', " +
+                            $"{TASKS_EMPLOYEE_ID}, {TASKS_PROJECT_ID}, {TASKS_STATUS_ID}) " +
+                            $"VALUES ('{task.ID}', N'{task.Title}', N'{task.Explanation}', " +
+                            $"'{task.StartDate}', '{task.Deadline}', '{task.OwnerID}', " +
                             $"'{task.Progress}', '{task.EmployeeID}', '{task.ProjectID}', '{task.StatusID}')";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
@@ -30,7 +31,8 @@ namespace CompanyManagement.Database
                             $"{TASKS_EXPLANATION}=N'{task.Explanation}', {TASKS_START_DATE}='{task.StartDate}', " +
                             $"{TASKS_DEADLINE}='{task.Deadline}', {TASKS_OWNER_ID}='{task.OwnerID}', " +
                             $"{TASKS_PROGRESS}='{task.Progress}', {TASKS_EMPLOYEE_ID}='{task.EmployeeID}', " +
-                            $"{TASKS_PROJECT_ID}='{task.ProjectID}', {TASKS_STATUS_ID}='{task.StatusID}' WHERE {TASKS_ID}='{task.ID}'";
+                            $"{TASKS_PROJECT_ID}='{task.ProjectID}', {TASKS_STATUS_ID}='{task.StatusID}' " +
+                            $"WHERE {TASKS_ID}='{task.ID}'";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 

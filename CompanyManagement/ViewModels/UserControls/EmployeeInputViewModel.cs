@@ -27,7 +27,7 @@ namespace CompanyManagement.ViewModels.UserControls
         private string errorMessage = "";
         public string ErrorMessage { get => errorMessage; set { errorMessage = value; OnPropertyChanged(); } }
 
-        public List<Roles> Roles { get; set; }
+        public List<Role> Roles { get; set; }
         public List<Department> Departments { get; set; }
 
         private RolesDao rolesDao = new RolesDao();
