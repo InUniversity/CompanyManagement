@@ -31,12 +31,12 @@
                     materialDesign:HintAssist.Hint="Tiêu đề nhiệm vụ" />
                 <TextBox
                     Grid.Column="1"
-                    Text="{Binding ID}"
+                    IsReadOnly="True"
+                    Text="{Binding Owner.Name}"
                     Background="White"
                     Margin="10"
-                    IsEnabled="False"
                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                    materialDesign:HintAssist.Hint="Mã nhiệm vụ" />
+                    materialDesign:HintAssist.Hint="Người giao việc" />
             </Grid>
             <TextBox
                 Text="{Binding Explanation}"
@@ -124,7 +124,7 @@
                             </Grid>
                             <ListView Height="350" Margin="5" 
                                       Name="listEmployee"
-                                      SelectedValue="{Binding ElementName=taskInputUC, Path=DataContext.SelectedEmployee, UpdateSourceTrigger=PropertyChanged}"
+                                      SelectedValue="{Binding ElementName=taskInputUC, Path=DataContext.AssignedEmployee, UpdateSourceTrigger=PropertyChanged}"
                                       SelectionMode="Single"
                                       ItemsSource="{Binding ElementName=taskInputUC,Path=DataContext.SearchedEmployeesCanAssign, UpdateSourceTrigger=PropertyChanged}">
                                 <b:Interaction.Triggers>
@@ -158,7 +158,7 @@
                                                     </DataTemplate>
                                                 </GridViewColumn.CellTemplate>
                                             </GridViewColumn>
-                                            <GridViewColumn Width="100">
+                                            <GridViewColumn Width="200">
                                                 <GridViewColumn.Header>
                                                     <TextBlock Text="Chức vụ" FontWeight="ExtraBold"></TextBlock>
                                                 </GridViewColumn.Header>

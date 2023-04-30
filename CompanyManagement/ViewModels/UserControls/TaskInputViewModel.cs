@@ -36,8 +36,29 @@ namespace CompanyManagement.ViewModels.UserControls
         public DateTime StartDate { get => task.StartDate; set { task.StartDate = value; OnPropertyChanged(); } }
         public DateTime Deadline { get => task.Deadline; set { task.Deadline = value; OnPropertyChanged(); } }
         public string Progress { get => task.Progress; set { task.Progress = value; OnPropertyChanged(); } }
-        public Employee AssignedEmployee 
-        { get => task.AssignedEmployee; set { task.AssignedEmployee = value; OnPropertyChanged(); } }
+
+        public Employee Owner
+        {
+            get => task.Owner;
+            set
+            {
+                task.Owner = value;
+                task.OwnerID = task.Owner.ID;
+                OnPropertyChanged();
+            }
+        }
+
+        public Employee AssignedEmployee
+        {
+            get => task.AssignedEmployee;
+            set
+            {
+                task.AssignedEmployee = value;
+                task.EmployeeID = task.AssignedEmployee.ID;
+                OnPropertyChanged();
+            }
+        }
+        
         public string ProjectID { get => task.ProjectID; set { task.ProjectID = value; OnPropertyChanged(); } }
         public string StatusID { get => task.StatusID; set { task.StatusID = value; OnPropertyChanged(); } }
 
@@ -71,6 +92,10 @@ namespace CompanyManagement.ViewModels.UserControls
         private void LoadEmployeeCanAssign()
         {
             employees = assignmentsDao.GetEmployeesInProject(task.ProjectID);
+            foreach (var employee in employees)
+            {
+                employee.EmployeeRole = roleDao.SearchByID(employee.RoleID);
+            }
         }
 
         private void SetCommands()
@@ -115,10 +140,6 @@ namespace CompanyManagement.ViewModels.UserControls
                     .ToList();
             }       
             SearchedEmployeesCanAssign = new List<Employee>(searchedItems);
-            foreach (var employee in SearchedEmployeesCanAssign)
-            {
-                employee.EmployeeRole = roleDao.SearchByID(employee.RoleID);
-            }
         }
 
         public void TrimAllTexts()

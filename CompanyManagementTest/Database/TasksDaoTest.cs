@@ -29,7 +29,8 @@ namespace CompanyManagementTest.Database
                 "Thiết kế giao diện website cho khách hàng ABC", 
                 new DateTime(2023, 3, 1, 9, 0, 0), 
                 new DateTime(2023, 4, 15, 0, 0, 0), 
-                "50", "EM002", "EM007", "PRJ001", "TS3", new Employee());
+                "50", "EM002", "EM007", "PRJ001", 
+                "TS3", new Employee());
             var actualSearch = tasksDao.SearchByID(expected.ID);
             
             AssertObject(expected, actualSearch);
@@ -43,8 +44,9 @@ namespace CompanyManagementTest.Database
             var added = tasksDao.SearchByID(task.ID);
             
             // update
-            var updateObject = new TaskInProject(task.ID, task.Title + "Updated", task.Explanation, task.StartDate, 
-                task.Deadline, task.Progress, task.OwnerID, "EM008", task.ProjectID, task.StatusID, new Employee());
+            var updateObject = new TaskInProject(task.ID, task.Title + "Updated", task.Explanation, 
+                task.StartDate, task.Deadline, task.Progress, task.OwnerID, "EM008", task.ProjectID, 
+                task.StatusID, new Employee());
             tasksDao.Update(updateObject);
             var updated = tasksDao.SearchByID(task.ID);  
             

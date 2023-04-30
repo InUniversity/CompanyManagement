@@ -8,13 +8,7 @@ using CompanyManagement.ViewModels.Base;
 using System.Windows;
 using CompanyManagement.Database.Base;
 using CompanyManagement.Services;
-using CompanyManagement.Utilities;
-using CompanyManagement.Strategies.UserControls.ProjectsView;
-using CompanyManagement.Views.UserControls;
 using System.Linq;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Collections.ObjectModel;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
@@ -44,13 +38,9 @@ namespace CompanyManagement.ViewModels.UserControls
         public Visibility VisibleDeleteButton 
         { get => visibleDeleteButton; set { visibleDeleteButton = value; OnPropertyChanged(); } }
 
-        private Visibility visibleUpdateButton = Visibility.Visible;
-        public Visibility VisibleUpdateButton 
-        { get => visibleUpdateButton; set { visibleUpdateButton = value; OnPropertyChanged(); } }
-
-        public ICommand OpenTaskInProjectInputCommand { get; set; }
-        public ICommand DeleteTaskInProjectCommand { get; set; }
-        public ICommand UpdateTaskInProjectCommand { get; set; }
+        public ICommand OpenTaskInProjectInputCommand { get; private set; }
+        public ICommand DeleteTaskInProjectCommand { get; private set; }
+        public ICommand UpdateTaskInProjectCommand { get; private set; }
 
         private TasksDao tasksDao = new TasksDao();
         private EmployeesDao employeesDao = new EmployeesDao();
@@ -70,6 +60,11 @@ namespace CompanyManagement.ViewModels.UserControls
             TasksInProject = string.Equals(currentEmployee.RoleID, BaseDao.EMPLOYEE_ROLE_ID)
                ? tasksDao.SearchByEmployeeID(projectID, currentEmployee.ID)
                : tasksDao.SearchByProjectID(projectID);
+            foreach (var task in TasksInProject)
+            {
+                task.AssignedEmployee = employeesDao.SearchByID(task.EmployeeID);
+                task.Owner = employeesDao.SearchByID(task.OwnerID);
+            }
 
             var listOngoingTasks = TasksInProject
                 .Where(p => p.Progress != BaseDao.COMPLETED && p.Deadline > DateTime.Now).ToList();
@@ -87,32 +82,27 @@ namespace CompanyManagement.ViewModels.UserControls
         {
             if (!string.Equals(currentEmployee.RoleID, BaseDao.EMPLOYEE_ROLE_ID))
             {
-                VisibilityCRUD();
-                VisibilityCRUDCommands();
+                visibleAddButton = Visibility.Visible;
+                visibleDeleteButton = Visibility.Visible;
             }
-        }
-
-        private void VisibilityCRUD()
-        {
-            visibleAddButton = Visibility.Visible;
-            visibleDeleteButton = Visibility.Visible;
-        }
-
-        private void VisibilityCRUDCommands()
-        {
-            OpenTaskInProjectInputCommand = new RelayCommand<object>(OpenAddDialog);
-            DeleteTaskInProjectCommand = new RelayCommand<string>(ExecuteDeleteCommand);
+            else
+            {
+                visibleAddButton = Visibility.Collapsed;
+                visibleDeleteButton = Visibility.Collapsed;
+            }
         }
 
         private void SetCommands()
         {
+            OpenTaskInProjectInputCommand = new RelayCommand<object>(OpenAddDialog);
+            DeleteTaskInProjectCommand = new RelayCommand<string>(ExecuteDeleteCommand);
             UpdateTaskInProjectCommand = new RelayCommand<TaskInProject>(OpenUpdateDialog);
         }
 
         public void ReceiveProjectID(string projectID)
         {
             this.projectID = projectID;
-            List<TaskInProject> tasks = string.Equals(CurrentUser.Ins.EmployeeIns.RoleID, BaseDao.EMPLOYEE_ROLE_ID)
+            var tasks = string.Equals(currentEmployee.RoleID, BaseDao.EMPLOYEE_ROLE_ID)
                 ? tasksDao.SearchByEmployeeID(projectID, currentEmployee.ID)
                 : tasksDao.SearchByProjectID(projectID);
             TasksInProject = tasks;
@@ -135,7 +125,7 @@ namespace CompanyManagement.ViewModels.UserControls
         private TaskInProject CreateTaskInProjectInstance()
         {
             return new TaskInProject(AutoGenerateID(), "", "", DateTime.Now , DateTime.Now, 
-                "0", currentEmployee.ID, "", projectID, "", new Employee());
+                "0", currentEmployee.ID, "", projectID, "", currentEmployee);
         }
 
         private void ExecuteDeleteCommand(string id)
@@ -153,6 +143,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void OpenUpdateDialog(TaskInProject task)
         {
+            task.Owner = employeesDao.SearchByID(task.OwnerID);
             task.AssignedEmployee = employeesDao.SearchByID(task.EmployeeID);
             var inputService = new InputDialogService<TaskInProject>(new UpdateTaskDialog(), task, Update);
             inputService.Show();
