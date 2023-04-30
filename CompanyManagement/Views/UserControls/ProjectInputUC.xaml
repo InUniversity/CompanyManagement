@@ -126,10 +126,8 @@
             </Grid>
             <Grid Grid.Column="1">
                 <Canvas Height="40">
-                    <StackPanel Orientation="Horizontal" Margin="20 5" VerticalAlignment="Bottom">
-                        <TextBlock Text="Tiến độ: " />
-                        <TextBlock Text="{Binding Progress}" />
-                        <TextBlock Text="%" />
+                    <StackPanel Orientation="Horizontal" Margin="20 10" VerticalAlignment="Bottom">
+                        <TextBlock Text="{Binding Progress, StringFormat=Tiến độ: {0}%}"/>
                     </StackPanel>
                 </Canvas>
             </Grid>

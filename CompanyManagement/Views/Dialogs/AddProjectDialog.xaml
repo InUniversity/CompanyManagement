@@ -14,7 +14,7 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         x:Name="addProjectDialog"
-        mc:Ignorable="d" Width="700" Height="650">
+        mc:Ignorable="d" Width="700" Height="720">
     <Grid>
         <StackPanel>
             <TextBlock Text="Thêm dự án mới" 
