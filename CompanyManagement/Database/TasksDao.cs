@@ -54,7 +54,7 @@ namespace CompanyManagement.Database
             return dbConnection.GetList(sqlStr, reader => new TaskInProject(reader));
         }
 
-        public List<TaskInProject> SearchByRequesterID(string projectID, string employeeID)
+        public List<TaskInProject> SearchByEmployeeID(string projectID, string employeeID)
         {
             string sqlStr = $"SELECT * FROM {TASKS_TABLE} WHERE {TASKS_EMPLOYEE_ID} = '{employeeID}' AND {TASKS_PROJECT_ID} = '{projectID}'";
             return dbConnection.GetList(sqlStr, reader => new TaskInProject(reader));
