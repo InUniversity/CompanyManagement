@@ -146,7 +146,7 @@
                                             </GridViewColumn.Header>
                                             <GridViewColumn.CellTemplate>
                                                 <DataTemplate>
-                                                    <TextBlock  Height="40" Text="{Binding ID}" />
+                                                    <TextBlock  Height="40" Text="{Binding EmployeeRole.Title}" />
                                                 </DataTemplate>
                                             </GridViewColumn.CellTemplate>
                                         </GridViewColumn>

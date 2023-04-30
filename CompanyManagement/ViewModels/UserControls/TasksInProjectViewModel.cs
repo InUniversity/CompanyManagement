@@ -67,9 +67,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void LoadTaskInProjects()
         {
-            TasksInProject = string.Equals(currentEmployee.RoleID, BaseDao.EMPLOYEE_ROLE_ID)
-               ? tasksDao.SearchByEmployeeID(projectID, currentEmployee.ID)
-               : tasksDao.SearchByProjectID(projectID);
+            TasksInProject = tasksDao.SearchByRequesterID(projectID, currentEmployee.ID);
 
             var listOngoingTasks = TasksInProject
                 .Where(p => p.Progress != BaseDao.COMPLETED && p.Deadline > DateTime.Now).ToList();
@@ -113,7 +111,7 @@ namespace CompanyManagement.ViewModels.UserControls
         {
             this.projectID = projectID;
             List<TaskInProject> tasks = string.Equals(CurrentUser.Ins.EmployeeIns.RoleID, BaseDao.EMPLOYEE_ROLE_ID)
-                ? tasksDao.SearchByEmployeeID(projectID, currentEmployee.ID)
+                ? tasksDao.SearchByRequesterID(projectID, currentEmployee.ID)
                 : tasksDao.SearchByProjectID(projectID);
             TasksInProject = tasks;
             LoadTaskInProjects();

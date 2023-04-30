@@ -90,7 +90,7 @@ namespace CompanyManagement.ViewModels.UserControls
         private void LoadLeaveRequestList()
         {
 
-            ReceivedLeaveRequests = leaveDao.SearchByDeptHeaderID(currentEmployee.ID);
+            ReceivedLeaveRequests = leaveDao.SearchByApproverID(currentEmployee.ID);
     
             var listUnapprovedLeaves = ReceivedLeaveRequests.Where(p => p.StatusID == BaseDao.UNAPPROVED).ToList();
             UnapprovedLeaveRequests = listUnapprovedLeaves;

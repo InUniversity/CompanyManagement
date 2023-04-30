@@ -132,7 +132,7 @@ namespace CompanyManagement
                 address = Utils.GetString(reader, BaseDao.EMPLOYEES_ADDRESS);
                 salary = Utils.GetDecimal(reader, BaseDao.EMPLOYEES_SALARY);
                 departmentID = Utils.GetString(reader, BaseDao.EMPLOYEES_DEPARTMENT_ID);
-                roleID = Utils.GetString(reader, BaseDao.EMPLOYEES_POSITION_ID);
+                roleID = Utils.GetString(reader, BaseDao.EMPLOYEES_ROLE_ID);
             }
             catch (Exception ex)
             {

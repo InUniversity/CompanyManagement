@@ -32,7 +32,7 @@ namespace CompanyManagement.Database.Base
         public const string EMPLOYEES_ADDRESS = "EmployeeAddress";
         public const string EMPLOYEES_SALARY = "BaseSalary";
         public const string EMPLOYEES_DEPARTMENT_ID = "DepartmentID";
-        public const string EMPLOYEES_POSITION_ID = "RoleID";
+        public const string EMPLOYEES_ROLE_ID = "RoleID";
 
         protected const string ACCOUNTS_TABLE = "Accounts";
         public const string ACCOUNTS_USERNAME = "Username";

@@ -75,7 +75,7 @@ namespace CompanyManagement.ViewModels.UserControls
             if (listView.SelectedItem == null) return;
             var selectedItem = listView.SelectedItem as Employee;
             ApproverID = selectedItem.ID;
-            RoleName = rolesDao.SearchByID(selectedItem.RoleID).Title;
+            RoleName = selectedItem.EmployeeRole.Title;
         }
 
         private void SetAllComboBox()
@@ -91,6 +91,10 @@ namespace CompanyManagement.ViewModels.UserControls
             SearchedApprovers = string.Equals(currentEmployee.RoleID,BaseDao.DEPARTMENT_HEAD_ROLE_ID)
                 ? Approvers
                 : Approvers.Concat(new List<Employee>() { headerApprover }).ToList();
+            foreach(Employee emp in SearchedApprovers)
+            {
+                emp.EmployeeRole = rolesDao.SearchByID(emp.RoleID);
+            }    
         }
 
         private void SearchByName()

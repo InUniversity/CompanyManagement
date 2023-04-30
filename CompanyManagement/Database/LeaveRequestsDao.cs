@@ -54,7 +54,7 @@ namespace CompanyManagement.Database
             return dbConnection.GetList(sqlStr, reader => new LeaveRequest(reader));
         }
 
-        public List<LeaveRequest> SearchByDeptHeaderID(string id)
+        public List<LeaveRequest> SearchByApproverID(string id)
         {
             string sqlStr = $"SELECT * FROM {LEAVE_TABLE} WHERE {LEAVE_APPROVER_ID}='{id}'";
             return dbConnection.GetList(sqlStr, reader => new LeaveRequest(reader));
