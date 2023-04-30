@@ -63,18 +63,22 @@ namespace CompanyManagement.ViewModels.UserControls
             RestoreLeaveCommand = new RelayCommand<LeaveRequest>(ExecuteRestoreLeaveCommand);
         }
 
-        private void ExecuteRestoreLeaveCommand(LeaveRequest obj)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void ExecuteDenyLeaveCommand(LeaveRequest obj)
-        {
-            throw new NotImplementedException();
-        }
         private void ExecuteApproveCommand(LeaveRequest leave)
         {
-            throw new NotImplementedException();
+            leave.StatusID = BaseDao.APPROVED;
+            Update(leave);
+        }
+
+        private void ExecuteDenyLeaveCommand(LeaveRequest leave)
+        {
+            leave.StatusID = BaseDao.DENIED;
+            Update(leave);
+        }
+
+        private void ExecuteRestoreLeaveCommand(LeaveRequest leave)
+        {
+            leave.StatusID = BaseDao.UNAPPROVED;
+            Update(leave);
         }
 
         private void ExecuteBackTimeLeaveCreateDate(object obj)
@@ -114,6 +118,10 @@ namespace CompanyManagement.ViewModels.UserControls
             Log.Instance.Information(nameof(LeaveRequestsViewModel), "selected date = " + timeCreateLeave.ToShortDateString());
         }
 
-  
+        private void Update(LeaveRequest leave)
+        {
+            leaveDao.Update(leave);
+            LoadLeaveRequestList();
+        }
     }
 }

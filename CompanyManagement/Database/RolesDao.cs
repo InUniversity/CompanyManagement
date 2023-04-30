@@ -17,11 +17,5 @@ namespace CompanyManagement.Database
             string sqlStr = $"SELECT * FROM {ROLES_TABLE} WHERE {ROLES_ID}='{roleID}'";
             return (Role)dbConnection.GetSingleObject(sqlStr, reader => new Role(reader));
         }
-
-        public Roles SearchByID(string id)
-        {
-            string sqlStr = $"SELECT * FROM {ROLES_TABLE} WHERE {ROLES_ID}='{id}'";
-            return (Roles)dbConnection.GetSingleObject(sqlStr, reader => new Roles(reader));
-        }
     }
 }
