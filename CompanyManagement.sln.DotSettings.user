@@ -1,9 +1,11 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=779bb17d_002Dba20_002D46ea_002Da235_002D5496df38943e/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="All tests from &amp;lt;CompanyManagementTest&amp;gt;" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=779bb17d_002Dba20_002D46ea_002Da235_002D5496df38943e/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests from &amp;lt;CompanyManagementTest&amp;gt;" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::07570CB6-F510-4B9A-A6C2-4200270FC3BB::.NETFramework,Version=v4.8::CompanyManagementTest.Database.ProjectsDaoTest.Projects_Dao_Search_By_ID&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::07570CB6-F510-4B9A-A6C2-4200270FC3BB::.NETFramework,Version=v4.8::CompanyManagementTest.Database.ProjectsDaoTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::07570CB6-F510-4B9A-A6C2-4200270FC3BB::.NETFramework,Version=v4.8::CompanyManagementTest.Database.LeaveRequestsDaoTest.Leave_Requests_Dao_Search_By_ID_Success&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::07570CB6-F510-4B9A-A6C2-4200270FC3BB::.NETFramework,Version=v4.8::CompanyManagementTest.Database.LeaveRequestsDaoTest.Leave_Requests_Dao_Add_Update_Delete&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=c38ff6a5_002D699c_002D4972_002D9bd7_002Da4352868262b/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Task_Statuses_Dao_Get_All" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;Project Location="F:\CodeExample\WPF\CompanyManagement\CompanyManagementTest" Presentation="&amp;lt;CompanyManagementTest&amp;gt;" /&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=c38ff6a5_002D699c_002D4972_002D9bd7_002Da4352868262b/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Task_Statuses_Dao_Get_All" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;Project Location="F:\CodeExample\WPF\ReviewCode\CompanyManagement\CompanyManagementTest" Presentation="&amp;lt;CompanyManagementTest&amp;gt;" /&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

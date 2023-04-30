@@ -42,6 +42,7 @@
         </Reference>
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="Database\LeaveRequestsDaoTest.cs" />
         <Compile Include="Database\ProjectsDaoTest.cs" />
         <Compile Include="Database\ProjectStatusesDaoTest.cs" />
         <Compile Include="Database\TasksDaoTest.cs" />
