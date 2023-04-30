@@ -5,6 +5,8 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System;
 using CompanyManagement.Services;
+using CompanyManagement.Models;
+using CompanyManagement.Database.Base;
 
 namespace CompanyManagement.ViewModels.Windows
 {
@@ -13,20 +15,17 @@ namespace CompanyManagement.ViewModels.Windows
         private ContentControl currentChildView;
         public ContentControl CurrentChildView { get => currentChildView; set { currentChildView = value; OnPropertyChanged(); } }
 
+        private UserInformationUC userInformationUC = new UserInformationUC();
         private AssignmentUC assignmentUC = new AssignmentUC();
         private EmployeesUC employeesUC = new EmployeesUC();
-        private UserInformationUC userInformationUC = new UserInformationUC();
         private LeaveRequestsUC leavesListUC = new LeaveRequestsUC();
-        private ApproveLeaveRequestListUC approveLeaveRequestListUC = new ApproveLeaveRequestListUC();
+        private ApproveLeaveRequestListUC approveLeaveRequestsUC = new ApproveLeaveRequestListUC();
 
         private Visibility visibilityAssignmentView;
         public Visibility VisibilityAssignmentView { get => visibilityAssignmentView; set { visibilityAssignmentView = value; OnPropertyChanged();} }
 
         private Visibility visibilityEmployeesView;
         public Visibility VisibilityEmployeesView { get => visibilityEmployeesView; set { visibilityEmployeesView = value; OnPropertyChanged(); } }
-        
-        private Visibility visibilityWorkScheduleView;
-        public Visibility VisibilityWorkScheduleView { get => visibilityWorkScheduleView; set { visibilityWorkScheduleView = value; OnPropertyChanged(); } }
 
         private bool statusEmployeesView = false;
         public bool StatusEmployeesView { get => statusEmployeesView; set { statusEmployeesView = value; OnPropertyChanged(); } }
@@ -40,12 +39,12 @@ namespace CompanyManagement.ViewModels.Windows
         private bool statusLeavesView = false;
         public bool StatusLeavesView { get => statusLeavesView; set { statusLeavesView = value; OnPropertyChanged(); } }
 
-        public ICommand ShowAssignmentViewCommand { get; set; }
-        public ICommand ShowEmployeesViewCommand { get; set; }
-        public ICommand ShowUserInformationViewCommand { get; set; }
-        public ICommand ShowLeavesViewCommand { get; set;}
-        public ICommand LogoutCommand { get; set; }
-        public ICommand ShowApproveLeaveRequestListViewCommand { get; set; }
+        public ICommand ShowUserInformationViewCommand { get; private set; }
+        public ICommand ShowAssignmentViewCommand { get; private set; }
+        public ICommand ShowEmployeesViewCommand { get; private set; }
+        public ICommand ShowLeavesViewCommand { get; private set;}
+        public ICommand ShowApproveLeaveRequestsViewCommand { get; private set; }
+        public ICommand LogOutCommand { get; private set; }
 
         public MainViewModel()
         {
@@ -55,35 +54,12 @@ namespace CompanyManagement.ViewModels.Windows
 
         private void SetCommands()
         {
+            ShowUserInformationViewCommand = new RelayCommand<object>(ExecuteShowUserInformationViewCommand);
             ShowAssignmentViewCommand = new RelayCommand<object>(ExecuteShowAssignmentView);
             ShowEmployeesViewCommand = new RelayCommand<object>(ExecuteShowEmployeesView);
-            ShowUserInformationViewCommand = new RelayCommand<object>(ExecuteShowUserInformationViewCommand);
             ShowLeavesViewCommand = new RelayCommand<object>(ExecuteShowLeavesViewCommand);
-            LogoutCommand = new RelayCommand<Window>(ExecuteLogoutCommand);
-            ShowApproveLeaveRequestListViewCommand = new RelayCommand<Window>(ExecuteShowApproveLeaveRequestListView);
-        }
-
-        private void ExecuteShowApproveLeaveRequestListView(Window obj)
-        {
-            CurrentChildView = approveLeaveRequestListUC;
-        }
-
-        private void ExecuteLogoutCommand(Window window)
-        {
-            AlertDialogService dialog = new AlertDialogService(
-              "Đăng xuất",
-              "Bạn chắc chắn đăng xuất khỏi tài khoản!",
-              () =>
-              {
-                  window.Close();
-              }, null);
-            dialog.Show();          
-        }
-
-        private void ExecuteShowLeavesViewCommand(object obj)
-        {
-            CurrentChildView = leavesListUC;
-            StatusLeavesView = true;
+            ShowApproveLeaveRequestsViewCommand = new RelayCommand<Window>(ExecuteShowApproveLeaveRequestListView);
+            LogOutCommand = new RelayCommand<Window>(ExecuteLogOutCommand);
         }
 
         private void ExecuteShowUserInformationViewCommand(object obj)
@@ -104,7 +80,30 @@ namespace CompanyManagement.ViewModels.Windows
         private void ExecuteShowEmployeesView(object obj)
         {
             CurrentChildView = employeesUC;
-            StatusEmployeesView = true; 
+            StatusEmployeesView = true;
+        }
+
+        private void ExecuteShowLeavesViewCommand(object obj)
+        {
+            CurrentChildView = leavesListUC;
+            StatusLeavesView = true;
+        }
+
+        private void ExecuteShowApproveLeaveRequestListView(Window obj)
+        {
+            CurrentChildView = approveLeaveRequestsUC;
+        }
+
+        private void ExecuteLogOutCommand(Window window)
+        {
+            AlertDialogService dialog = new AlertDialogService(
+              "Đăng xuất",
+              "Bạn chắc chắn đăng xuất khỏi tài khoản!",
+              () =>
+              {
+                  window.Close();
+              }, null);
+            dialog.Show();
         }
     }
 }

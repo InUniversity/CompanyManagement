@@ -114,6 +114,10 @@ namespace CompanyManagement.ViewModels.UserControls
             var receivedLeaveRequests = (currentEmployee.RoleID == BaseDao.EMPLOYEE_ROLE_ID)
                 ? leaveDao.SearchByEmployeeID(currentEmployee.ID)
                 : leaveDao.SearchByApproverID(currentEmployee.ID);
+            foreach(LeaveRequest leave in receivedLeaveRequests)
+            {
+                leave.Approver = employeeDao.SearchByID(leave.ApproverID);
+            }    
 
             var unapprovedLeaveList = receivedLeaveRequests.Where(p => p.StatusID == BaseDao.UNAPPROVED
                                         && p.StartDate > DateTime.Now).OrderByDescending(p => p.CreatedDate).ToList();

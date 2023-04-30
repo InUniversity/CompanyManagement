@@ -4,7 +4,6 @@ using System;
 using System.Data;
 using CompanyManagement.Database;
 using System.Windows.Media;
-using CompanyManagement.Utilities;
 
 namespace CompanyManagement.Models
 {
@@ -19,6 +18,7 @@ namespace CompanyManagement.Models
         private string statusID = "";
         private string employeeID = "";
         private string approverID = "";
+        private Employee approver = new Employee();
 
         public string ID
         {
@@ -82,9 +82,10 @@ namespace CompanyManagement.Models
             }
         }
 
-        public Employee EmployeeRequestIns
+        public Employee Approver
         {
-            get => new EmployeesDao().SearchByID(EmployeeID);
+            get => approver;
+            set => approver = value;
         }
 
         public LeaveRequest() { }

@@ -51,23 +51,6 @@
                     Style="{StaticResource MaterialDesignOutlinedDatePicker}"/>
                 </Grid>
                 <Grid Grid.Column="1">
-                    <materialDesign:TimePicker
-                    SelectedTime="{Binding StartDate, UpdateSourceTrigger=PropertyChanged}"
-                    Margin="10"
-                    Width="360"
-                    HorizontalAlignment="Center"
-                    materialDesign:HintAssist.Hint="Giờ bắt đầu"
-                    Is24Hours="True"
-                    Style="{StaticResource MaterialDesignOutlinedTimePicker}" />
-                </Grid>
-
-            </Grid>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <Grid Grid.Column="0">
                     <DatePicker
                     SelectedDate="{Binding EndDate, UpdateSourceTrigger=PropertyChanged}"
                     Margin="10"
@@ -76,17 +59,8 @@
                     materialDesign:HintAssist.Hint="Ngày kết thúc"
                     Style="{StaticResource MaterialDesignOutlinedDatePicker}"/>
                 </Grid>
-                <Grid Grid.Column="1">
-                    <materialDesign:TimePicker
-                    SelectedTime="{Binding EndDate, UpdateSourceTrigger=PropertyChanged}"
-                    Margin="10"
-                    Width="360"
-                    HorizontalAlignment="Center"
-                    materialDesign:HintAssist.Hint="Giờ kết thúc"
-                    Is24Hours="True"
-                    Style="{StaticResource MaterialDesignOutlinedTimePicker}" />
-                </Grid>
             </Grid>
+            
             <materialDesign:DialogHost CloseOnClickAway="True">
                 <materialDesign:DialogHost.DialogContent>
                     <StackPanel Width="500" Height="500">
