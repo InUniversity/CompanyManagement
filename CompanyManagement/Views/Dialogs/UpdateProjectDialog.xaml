@@ -14,7 +14,7 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         WindowStartupLocation="CenterScreen"
         x:Name="updateProjectDialog"
-        mc:Ignorable="d" Width="700" Height="650">
+        mc:Ignorable="d" Width="700" Height="720">
     <Grid>
         <StackPanel>
             <TextBlock Text="Cập nhật dự án" 
