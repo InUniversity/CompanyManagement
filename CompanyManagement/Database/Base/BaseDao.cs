@@ -8,9 +8,9 @@ namespace CompanyManagement.Database.Base
         public const string EMPLOYEE_ROLE_ID = "ER04";
 
         public const string COMPLETED = "100";
-        public const string APPROVAL = "LS2";
-        public const string APPROVED = "LS1";
-        public const string UNAPPROVED = "LS3";
+        public const string LEAVE_REQUEST_UNAPPROVED = "LS2";
+        public const string LEAVE_REQUEST_APPROVED = "LS1";
+        public const string LEAVE_REQUEST_DENIED = "LS3";
 
         protected const string DEPARTMENTS_TABLE = "Departments";
         public const string DEPARTMENTS_ID = "ID";
@@ -32,7 +32,7 @@ namespace CompanyManagement.Database.Base
         public const string EMPLOYEES_ADDRESS = "EmployeeAddress";
         public const string EMPLOYEES_SALARY = "BaseSalary";
         public const string EMPLOYEES_DEPARTMENT_ID = "DepartmentID";
-        public const string EMPLOYEES_POSITION_ID = "RoleID";
+        public const string EMPLOYEES_ROLE_ID = "RoleID";
 
         protected const string ACCOUNTS_TABLE = "Accounts";
         public const string ACCOUNTS_USERNAME = "Username";
@@ -80,16 +80,16 @@ namespace CompanyManagement.Database.Base
         public const string LEAVE_STATUSES_ID = "ID";
         public const string LEAVE_STATUSES_NAME = "StatusName";
         
-        protected const string LEAVE_TABLE = "LeaveRequests";
-        public const string LEAVE_ID = "ID";
-        public const string LEAVE_REASON = "Reason";
-        public const string LEAVE_NOTES = "Notes";
-        public const string LEAVE_CREATED_DATE = "CreatedDate";
-        public const string LEAVE_START_DATE = "StartDate";
-        public const string LEAVE_END_DATE = "EndDate";
-        public const string LEAVE_STATUS_ID = "StatusID";
-        public const string LEAVE_EMPLOYEE_ID = "EmployeeID";
-        public const string LEAVE_APPROVER_ID = "ApproverID";
+        protected const string LEAVES_TABLE = "LeaveRequests";
+        public const string LEAVES_ID = "ID";
+        public const string LEAVES_REASON = "Reason";
+        public const string LEAVES_NOTES = "Notes";
+        public const string LEAVES_CREATED_DATE = "CreatedDate";
+        public const string LEAVES_START_DATE = "StartDate";
+        public const string LEAVES_END_DATE = "EndDate";
+        public const string LEAVES_STATUS_ID = "StatusID";
+        public const string LEAVES_EMPLOYEE_ID = "EmployeeID";
+        public const string LEAVES_APPROVER_ID = "ApproverID";
         
         protected const string TIME_SHEETS_TABLE = "TimeSheets";
         public const string TIME_SHEETS_ID = "ID";

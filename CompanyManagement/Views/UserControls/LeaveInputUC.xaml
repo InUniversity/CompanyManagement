@@ -3,14 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:local="clr-namespace:CompanyManagement.Views.UserControls"
-              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              TextElement.FontWeight="Regular"
              TextElement.FontSize="13"
              TextOptions.TextFormattingMode="Ideal"
              TextOptions.TextRenderingMode="Auto"
              Background="White"
+             Name="leaveInputUC"
              FontFamily="{DynamicResource MaterialDesignFont}"
              mc:Ignorable="d" >
     <Grid>
@@ -18,14 +20,14 @@
             <ComboBox             
                 Height="50"
                 SelectedValue="{Binding Reason}"
-                SelectedValuePath="ID"
+                SelectedValuePath="Content"
                 Margin="10"
                 materialDesign:HintAssist.Hint="Lý do"
                 Style="{StaticResource MaterialDesignOutlinedComboBox}">
-                    <ComboBoxItem Content="Vấn đề sức khỏe" />
-                    <ComboBoxItem Content="Vấn đề gia đình" />
-                    <ComboBoxItem Content="Du lịch, thư giãn" />
-                    <ComboBoxItem Content="Khác" />            
+                <ComboBoxItem Content="Vấn đề sức khỏe" />
+                <ComboBoxItem Content="Vấn đề gia đình" />
+                <ComboBoxItem Content="Du lịch, thư giãn" />
+                <ComboBoxItem Content="Khác" />
             </ComboBox>
             <TextBox
                 Height="50"
@@ -49,23 +51,6 @@
                     Style="{StaticResource MaterialDesignOutlinedDatePicker}"/>
                 </Grid>
                 <Grid Grid.Column="1">
-                    <materialDesign:TimePicker
-                    SelectedTime="{Binding StartDate, UpdateSourceTrigger=PropertyChanged}"
-                    Margin="10"
-                    Width="360"
-                    HorizontalAlignment="Center"
-                    materialDesign:HintAssist.Hint="Giờ bắt đầu"
-                    Is24Hours="True"
-                    Style="{StaticResource MaterialDesignOutlinedTimePicker}" />
-                </Grid>
-
-            </Grid>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <Grid Grid.Column="0">
                     <DatePicker
                     SelectedDate="{Binding EndDate, UpdateSourceTrigger=PropertyChanged}"
                     Margin="10"
@@ -74,22 +59,112 @@
                     materialDesign:HintAssist.Hint="Ngày kết thúc"
                     Style="{StaticResource MaterialDesignOutlinedDatePicker}"/>
                 </Grid>
-                <Grid Grid.Column="1">
-                    <materialDesign:TimePicker
-                    SelectedTime="{Binding EndDate, UpdateSourceTrigger=PropertyChanged}"
-                    Margin="10"
-                    Width="360"
-                    HorizontalAlignment="Center"
-                    materialDesign:HintAssist.Hint="Giờ kết thúc"
-                    Is24Hours="True"
-                    Style="{StaticResource MaterialDesignOutlinedTimePicker}" />
-                </Grid>
             </Grid>
-            <TextBlock Text="{Binding ErrorMessage}" 
-                       Height="40"
-                       HorizontalAlignment="Center" 
-                       VerticalAlignment="Center"
-                       Foreground="Red" />
+            
+            <materialDesign:DialogHost CloseOnClickAway="True">
+                <materialDesign:DialogHost.DialogContent>
+                    <StackPanel Width="500" Height="500">
+                        <Grid Height="60" Margin="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="80" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Column="0"
+                                Margin="10 5"
+                                Style="{StaticResource MaterialDesignIconButton}">
+                                <materialDesign:PackIcon Kind="Magnify" />
+                            </Button>
+                            <TextBox Grid.Column="1"
+                                 Margin="20 5"
+                                 Text="{Binding ElementName=leaveInputUC,Path=DataContext.TextToSearch, UpdateSourceTrigger=PropertyChanged}"
+                                 Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+                        </Grid>
+                        <ListView Height="350" Margin="5" 
+                                      Name="approvers"
+                                      SelectionMode="Single"
+                                      ItemsSource="{Binding ElementName=leaveInputUC,Path=DataContext.SearchedApprovers , UpdateSourceTrigger=PropertyChanged}">
+                            <b:Interaction.Triggers>
+                                <b:EventTrigger EventName="SelectionChanged">
+                                    <b:InvokeCommandAction Command="{Binding  GetSelectedApproverCommand}"
+                                                   CommandParameter="{Binding ElementName= approvers}" />
+                                </b:EventTrigger>
+                            </b:Interaction.Triggers>
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="{x:Type ListViewItem}">
+                                    <Setter Property="Foreground" Value="Black" />
+                                    <Setter Property="Background" Value="White" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}"
+                                             Value="True">
+                                            <Setter Property="Background" Value="#e1f5fe" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                            <ListView.View>
+                                <GridView>
+                                    <GridView.Columns>
+                                        <GridViewColumn Width="250">
+                                            <GridViewColumn.Header>
+                                                <TextBlock Text="Tên" FontWeight="ExtraBold"></TextBlock>
+                                            </GridViewColumn.Header>
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock  Height="40" Text="{Binding Name}" />
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn Width="100">
+                                            <GridViewColumn.Header>
+                                                <TextBlock Text="ID" FontWeight="ExtraBold"></TextBlock>
+                                            </GridViewColumn.Header>
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock  Height="40" Text="{Binding EmployeeRole.Title}" />
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn Width="100">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <ToggleButton
+                                                          Margin="20 0" 
+                                                          IsEnabled="False"   
+                                                          Background="Transparent"
+                                                          IsChecked="{Binding IsSelected, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}}"
+                                                          Style="{StaticResource MaterialDesignActionLightToggleButton}"/>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                    </GridView.Columns>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                        <Grid Margin="10">
+                            <Button Width="200"
+                                    Content="Hoàn tất"
+                                    Foreground="White"
+                                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"/>
+                        </Grid>
+                    </StackPanel>
+                </materialDesign:DialogHost.DialogContent>
+                <StackPanel Orientation="Horizontal">
+                    <TextBox Margin="10"
+                                 Text="{Binding RoleName}"
+                                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                 materialDesign:HintAssist.Hint="Gửi đến"
+                                 Width="700"></TextBox>
+                    <Button Width="20" 
+                                Style="{StaticResource MaterialDesignIconButton}"
+                                Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
+                                ToolTip="Thay đổi người gửi">
+                        <Button.Effect>
+                            <DropShadowEffect BlurRadius="1" ShadowDepth="1"></DropShadowEffect>
+                        </Button.Effect>
+                        <materialDesign:PackIcon Kind="AccountPlus" Width="20"/>
+                    </Button>
+                </StackPanel>
+            </materialDesign:DialogHost>
         </StackPanel>
     </Grid>
 </UserControl>

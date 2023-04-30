@@ -19,10 +19,10 @@ namespace CompanyManagement.ViewModels.Dialogs
         public UpdateLeaveViewModel()
         {
             LeaveInputDataContext = new LeaveInputViewModel();
-            UpdateLeaveCommand = new RelayCommand<Window>(UpdateCommand);
+            UpdateLeaveCommand = new RelayCommand<Window>(ExecuteUpdateCommand);
         }
 
-        private void UpdateCommand(Window inputWindow)
+        private void ExecuteUpdateCommand(Window inputWindow)
         {
             LeaveInputDataContext.TrimAllTexts();
             if (!CheckAllFields()) return;
@@ -31,7 +31,8 @@ namespace CompanyManagement.ViewModels.Dialogs
                 "Bạn chắc chắn muốn cập nhật xin phép nghỉ !",
                 () =>
                 {
-                    LeaveRequest empl = LeaveInputDataContext.LeaveRequestIns;
+                    LeaveRequest leaveRequest = LeaveInputDataContext.LeaveRequestIns;
+                    submitObjectAction?.Invoke(leaveRequest);
                     inputWindow.Close();
                 }, () => { });
             dialog.Show();

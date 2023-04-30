@@ -10,7 +10,7 @@ namespace CompanyManagement.Database
             string sqlStr =
                 $"INSERT INTO {EMPLOYEES_TABLE} ({EMPLOYEES_ID}, {EMPLOYEES_NAME}, {EMPLOYEES_GENDER}, {EMPLOYEES_BIRTHDAY}, " +
                 $"{EMPLOYEES_IDENTIFY_CARD}, {EMPLOYEES_EMAIL}, {EMPLOYEES_PHONE_NUMBER}, {EMPLOYEES_ADDRESS}, " +
-                $"{EMPLOYEES_DEPARTMENT_ID},{EMPLOYEES_POSITION_ID}, {EMPLOYEES_SALARY}) VALUES ('{empl.ID}', " +
+                $"{EMPLOYEES_DEPARTMENT_ID},{EMPLOYEES_ROLE_ID}, {EMPLOYEES_SALARY}) VALUES ('{empl.ID}', " +
                 $"N'{empl.Name}', N'{empl.Gender}', '{empl.Birthday}', '{empl.IdentifyCard}', '{empl.Email}', " +
                 $"'{empl.PhoneNumber}', N'{empl.Address}', '{empl.DepartmentID}', '{empl.RoleID}', '{empl.Salary}')";
             dbConnection.ExecuteNonQuery(sqlStr);
@@ -29,7 +29,7 @@ namespace CompanyManagement.Database
                 $"{EMPLOYEES_BIRTHDAY}='{empl.Birthday}', {EMPLOYEES_IDENTIFY_CARD}='{empl.IdentifyCard}', " +
                 $"{EMPLOYEES_EMAIL}='{empl.Email}', {EMPLOYEES_PHONE_NUMBER}='{empl.PhoneNumber}', " +
                 $"{EMPLOYEES_ADDRESS}='{empl.Address}', {EMPLOYEES_DEPARTMENT_ID}='{empl.DepartmentID}', " +
-                $"{EMPLOYEES_POSITION_ID}='{empl.RoleID}', {EMPLOYEES_SALARY}='{empl.Salary}' " +
+                $"{EMPLOYEES_ROLE_ID}='{empl.RoleID}', {EMPLOYEES_SALARY}='{empl.Salary}' " +
                 $"WHERE {EMPLOYEES_ID}='{empl.ID}'";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
@@ -60,8 +60,14 @@ namespace CompanyManagement.Database
 
         public Employee SearchByPositionID(string id)
         {
-            string sqlStr = $"SELECT * FROM {EMPLOYEES_TABLE} WHERE {EMPLOYEES_POSITION_ID} ='{id}'";
+            string sqlStr = $"SELECT * FROM {EMPLOYEES_TABLE} WHERE {EMPLOYEES_ROLE_ID} ='{id}'";
             return (Employee)dbConnection.GetSingleObject(sqlStr, reader => new Employee(reader));
+        }
+
+        public List<Employee> GetManagers()
+        {
+            string sqlStr = $"SELECT * FROM {EMPLOYEES_TABLE} WHERE {EMPLOYEES_ROLE_ID} ='{MANAGER_ROLE_ID}'";
+            return dbConnection.GetList<Employee>(sqlStr, reader => new Employee(reader));
         }
     }
 }

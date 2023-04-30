@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="CompanyManagement.Views.UserControls.LeaveListUC"
+﻿<UserControl x:Class="CompanyManagement.Views.UserControls.LeaveRequestsUC"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -13,7 +13,7 @@
              TextOptions.TextRenderingMode="Auto"
              Background="White"
              FontFamily="{DynamicResource MaterialDesignFont}"
-             Name="leaveUC"
+             Name="leaveRequestUC"
              mc:Ignorable="d" >
     <Grid MinHeight="600" MinWidth="1100">
         <Grid.RowDefinitions>
@@ -30,7 +30,7 @@
                     <DatePicker
                       BorderBrush="Teal"
                       Width="80"                
-                      SelectedDate="{Binding ElementName=leaveUC,Path=DataContext.TimeCreateLeave,UpdateSourceTrigger=PropertyChanged}"
+                      SelectedDate="{Binding ElementName=leaveRequestUC,Path=DataContext.TimeCreateLeave,UpdateSourceTrigger=PropertyChanged}"
                       FlowDirection="RightToLeft" />
                     <Button Command="{Binding NextDateCommand}" 
                         Style="{StaticResource MaterialDesignIconButton}">
@@ -60,7 +60,6 @@
                     <RowDefinition Height="auto"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Expander Grid.Row="0" 
-                    Visibility="{Binding DataContext.VisibleApprovalLeavesExpander, ElementName=leaveUC}"
                     Background="#f3e5f5"  
                     Foreground="#4a148c"
                     Margin="10 5"
@@ -83,60 +82,58 @@
                                 </materialDesign:Badged>
                             </StackPanel>
                         </Expander.Header>
-                        <DataGrid                                                 
+                    <DataGrid         
+                            CanUserResizeColumns="False"
+                            Name="dgNeedApprove"
                             CanUserAddRows="False"
                             AutoGenerateColumns="False"
                             Background="White"
-                            ItemsSource="{Binding Leaves}"
+                            ItemsSource="{Binding UnapprovedLeaveRequests}"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Top">
-                            <DataGrid.Columns>
-                                <DataGridTemplateColumn Header="Operations" 
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="Operations" 
                                                     CanUserResize="False" 
                                                     IsReadOnly="True"
                                                     Width="auto">
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <StackPanel Orientation="Horizontal">
-                                                <Button
-                                                     Style="{StaticResource MaterialDesignIconButton}"
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Button
+                                                    Style="{StaticResource MaterialDesignIconButton}"
                                                     Background="#6a1b9a"
                                                     Foreground="White"
-                                                     Height="30" Width="30"
+                                                    Height="30" Width="30"
                                                     Margin="5 0"                                               
-                                                    Command="{Binding DataContext.OpenUpdateLeaveDialogCommand, ElementName=leaveUC}"
+                                                    Command="{Binding DataContext.OpenUpdateLeaveDialogCommand, ElementName=leaveRequestUC}"
                                                     CommandParameter="{Binding}">
-                                                    <materialDesign:PackIcon Kind="PencilOutline" Height="15" Width="15"/>
-                                                </Button>
-                                                <Button 
-                                                     Style="{StaticResource MaterialDesignIconButton}"
+                                                <materialDesign:PackIcon Kind="PencilOutline" Height="15" Width="15"/>
+                                            </Button>
+                                            <Button 
+                                                    Style="{StaticResource MaterialDesignIconButton}"
                                                     Margin="5 0"           
                                                     Height="30" Width="30"
                                                     BorderThickness="0"
                                                     Foreground="White"
                                                     Background="#bf360c"
-                                                    Command="{Binding DataContext.DeleteLeaveCommand, ElementName=leaveUC}"
+                                                    Command="{Binding DataContext.DeleteLeaveCommand, ElementName=leaveRequestUC}"
                                                     CommandParameter="{Binding ID}">
-                                                    <materialDesign:PackIcon Kind="DeleteOutline" Height="15" Width="15" />
-                                                </Button>
-                                            </StackPanel>
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
-                                <DataGridTextColumn Width="125" Header="Mã xin nghỉ" IsReadOnly="True" Binding="{Binding ID}" />
-                                <DataGridTextColumn Width="125" Header="Mã nhân viên" IsReadOnly="True" Binding="{Binding EmployeeID}" />
-                                <DataGridTextColumn Width="125" Header="Mã loại nghỉ phép" IsReadOnly="True" Binding="{Binding LeaveTypeID}" />
-                                <DataGridTextColumn Width="125" Header="Lý do" IsReadOnly="True" Binding="{Binding LeaveReason}" />
-                                <DataGridTextColumn Width="150" Header="Ngày bắt đầu" IsReadOnly="True" Binding="{Binding Start, StringFormat='dd/MM/yyyy HH:ss tt'}" />
-                                <DataGridTextColumn Width="150" Header="Ngày kết thúc" IsReadOnly="True" Binding="{Binding End, StringFormat='dd/MM/yyyy HH:ss tt'}" />
-                                <DataGridTextColumn Width="120" Header="Mã loại trạng thái" IsReadOnly="True" Binding="{Binding LeaveStatusID}" />
-                                <DataGridTextColumn Width="150" Header="Ngày tạo" IsReadOnly="True" Binding="{Binding CreateDate, StringFormat='dd/MM/yyyy HH:ss tt'}" />
-                                <DataGridTextColumn Width="120" Header="Chú thích" IsReadOnly="True" Binding="{Binding Note}" />
+                                                <materialDesign:PackIcon Kind="DeleteOutline" Height="15" Width="15" />
+                                            </Button>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                                <DataGridTextColumn Width="150" Header="Lý do" IsReadOnly="True" Binding="{Binding Reason}"/>
+                                <DataGridTextColumn Width="200" Header="Chú thích" IsReadOnly="True" Binding="{Binding Notes}" />
+                                <DataGridTextColumn Width="Auto" Header="Ngày bắt đầu" IsReadOnly="True" Binding="{Binding StartDate, StringFormat='dd/MM/yyyy'}" />
+                                <DataGridTextColumn Width="Auto" Header="Ngày kết thúc" IsReadOnly="True" Binding="{Binding EndDate, StringFormat='dd/MM/yyyy'}" />
+                                <DataGridTextColumn Width="Auto" Header="Ngày tạo" IsReadOnly="True" Binding="{Binding CreatedDate, StringFormat='dd/MM/yyyy'}" />
+                                <DataGridTextColumn Width="150" Header="Người duyệt" IsReadOnly="True" Binding="{Binding Approver.Name}" />
                             </DataGrid.Columns>
                         </DataGrid>
                     </Expander>
                     <Expander Grid.Row="1"  
-                    Visibility="{Binding DataContext.VisibleApprovedLeavesExpander, ElementName=leaveUC}"
                     Background="#f1f8e9"  
                     Foreground="#33691e"
                     Margin="10 5"
@@ -164,45 +161,20 @@
                         CanUserAddRows="False"
                         AutoGenerateColumns="False"
                         Background="White"
-                        ItemsSource="{Binding ApprovedLeaves}"
+                        ItemsSource="{Binding ApprovedLeaveRequests}"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center">
                         <DataGrid.Columns>
-                            <DataGridTemplateColumn Header="Operations" 
-                                                CanUserResize="False" 
-                                                IsReadOnly="True"
-                                                Width="auto">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Orientation="Horizontal">
-                                            <Button
-                                              Height="30" Width="30"
-                                            Margin="5 0" 
-                                             Foreground="White"
-                                            Style="{StaticResource MaterialDesignIconButton}"
-                                            Background="#bf360c"
-                                            Command="{Binding DataContext.DenyLeaveCommand, ElementName=leaveUC}"
-                                            CommandParameter="{Binding}">
-                                                <materialDesign:PackIcon Kind="CloseOctagon" Height="15" Width="15"/>
-                                            </Button>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                            <DataGridTextColumn Width="125" Header="Mã xin nghỉ" IsReadOnly="True" Binding="{Binding ID}" />
-                            <DataGridTextColumn Width="125" Header="Mã nhân viên" IsReadOnly="True" Binding="{Binding EmployeeID}" />
-                            <DataGridTextColumn Width="125" Header="Mã loại nghỉ phép" IsReadOnly="True" Binding="{Binding LeaveTypeID}" />
-                            <DataGridTextColumn Width="125" Header="Lý do" IsReadOnly="True" Binding="{Binding LeaveReason}" />
-                            <DataGridTextColumn Width="150" Header="Ngày bắt đầu" IsReadOnly="True" Binding="{Binding Start, StringFormat='dd/MM/yyyy HH:ss tt'}" />
-                            <DataGridTextColumn Width="150" Header="Ngày kết thúc" IsReadOnly="True" Binding="{Binding End, StringFormat='dd/MM/yyyy HH:ss tt'}" />
-                            <DataGridTextColumn Width="120" Header="Mã loại trạng thái" IsReadOnly="True" Binding="{Binding LeaveStatusID}" />
-                            <DataGridTextColumn Width="150" Header="Ngày tạo" IsReadOnly="True" Binding="{Binding CreateDate, StringFormat='dd/MM/yyyy HH:ss tt'}" />
-                            <DataGridTextColumn Width="120" Header="Chú thích" IsReadOnly="True" Binding="{Binding Note}" />
+                            <DataGridTextColumn Width="150" Header="Lý do" IsReadOnly="True" Binding="{Binding Reason}"/>
+                            <DataGridTextColumn Width="200" Header="Chú thích" IsReadOnly="True" Binding="{Binding Notes}" />
+                            <DataGridTextColumn Width="Auto" Header="Ngày bắt đầu" IsReadOnly="True" Binding="{Binding StartDate, StringFormat='dd/MM/yyyy'}" />
+                            <DataGridTextColumn Width="Auto" Header="Ngày kết thúc" IsReadOnly="True" Binding="{Binding EndDate, StringFormat='dd/MM/yyyy'}" />
+                            <DataGridTextColumn Width="Auto" Header="Ngày tạo" IsReadOnly="True" Binding="{Binding CreatedDate, StringFormat='dd/MM/yyyy'}" />
+                            <DataGridTextColumn Width="150" Header="Người duyệt" IsReadOnly="True" Binding="{Binding Approver.Name}" />
                         </DataGrid.Columns>
                     </DataGrid>
                 </Expander>
                 <Expander Grid.Row="2"  
-                    Visibility="{Binding DataContext.VisibleUnapprovedLeavesExpander, ElementName=leaveUC}"
                     Background="#fbe9e7"  
                     Foreground="#bf360c"
                     Margin="10 5"
@@ -230,41 +202,36 @@
                         CanUserAddRows="False"
                         AutoGenerateColumns="False"
                         Background="White"
-                        ItemsSource="{Binding UnapprovedLeaves}"
+                        ItemsSource="{Binding DeniedLeaveRequests}"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center">
                         <DataGrid.Columns>
                             <DataGridTemplateColumn Header="Operations" 
-                                                CanUserResize="False" 
-                                                IsReadOnly="True"
-                                                Width="auto">
+                                                    CanUserResize="False" 
+                                                    IsReadOnly="True"
+                                                    Width="auto">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <StackPanel Orientation="Horizontal">
-                                            <Button
-                                              Height="30" Width="30"
-                                              Foreground="White"
-                                             Margin="5 0"
-                                             Background="Teal"
-                                             Style="{StaticResource MaterialDesignIconButton}"
-                                            Visibility="{Binding DataContext.VisibleApproveButton, ElementName=leaveUC}"
-                                            Command="{Binding DataContext.ApproveLeaveCommand, ElementName=leaveUC}"
-                                            CommandParameter="{Binding}">
-                                                <materialDesign:PackIcon Kind="Approve" Height="15" Width="15"/>
-                                            </Button>
-                                        </StackPanel>
+                                        <Button 
+                                            Style="{StaticResource MaterialDesignIconButton}"
+                                            Margin="5"           
+                                            Height="30" Width="30"
+                                            BorderThickness="0"
+                                            Foreground="White"
+                                            Background="#bf360c"
+                                            Command="{Binding DataContext.DeleteLeaveCommand, ElementName=leaveRequestUC}"
+                                            CommandParameter="{Binding ID}">
+                                            <materialDesign:PackIcon Kind="DeleteOutline" Height="15" Width="15" />
+                                        </Button>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTextColumn Width="125" Header="Mã xin nghỉ" IsReadOnly="True" Binding="{Binding ID}" />
-                            <DataGridTextColumn Width="125" Header="Mã nhân viên" IsReadOnly="True" Binding="{Binding EmployeeID}" />
-                            <DataGridTextColumn Width="125" Header="Mã loại nghỉ phép" IsReadOnly="True" Binding="{Binding LeaveTypeID}" />
-                            <DataGridTextColumn Width="125" Header="Lý do" IsReadOnly="True" Binding="{Binding LeaveReason}" />
-                            <DataGridTextColumn Width="150" Header="Ngày bắt đầu" IsReadOnly="True" Binding="{Binding Start, StringFormat='dd/MM/yyyy HH:ss tt'}" />
-                            <DataGridTextColumn Width="150" Header="Ngày kết thúc" IsReadOnly="True" Binding="{Binding End, StringFormat='dd/MM/yyyy HH:ss tt'}" />
-                            <DataGridTextColumn Width="120" Header="Mã loại trạng thái" IsReadOnly="True" Binding="{Binding LeaveStatusID}" />
-                            <DataGridTextColumn Width="150" Header="Ngày tạo" IsReadOnly="True" Binding="{Binding CreateDate, StringFormat='dd/MM/yyyy HH:ss tt'}" />
-                            <DataGridTextColumn Width="120" Header="Chú thích" IsReadOnly="True" Binding="{Binding Note}" />
+                            <DataGridTextColumn Width="150" Header="Lý do" IsReadOnly="True" Binding="{Binding Reason}"/>
+                            <DataGridTextColumn Width="200" Header="Chú thích" IsReadOnly="True" Binding="{Binding Notes}" />
+                            <DataGridTextColumn Width="Auto" Header="Ngày bắt đầu" IsReadOnly="True" Binding="{Binding StartDate, StringFormat='dd/MM/yyyy'}" />
+                            <DataGridTextColumn Width="Auto" Header="Ngày kết thúc" IsReadOnly="True" Binding="{Binding EndDate, StringFormat='dd/MM/yyyy'}" />
+                            <DataGridTextColumn Width="Auto" Header="Ngày tạo" IsReadOnly="True" Binding="{Binding CreatedDate, StringFormat='dd/MM/yyyy'}" />
+                            <DataGridTextColumn Width="150" Header="Người duyệt" IsReadOnly="True" Binding="{Binding Approver.Name}" />
                         </DataGrid.Columns>
                     </DataGrid>
                 </Expander>

@@ -138,7 +138,7 @@
                             Width="50"
                             ToolTip="Yêu cầu xin nghỉ"
                             Style="{StaticResource MaterialDesignIconButton}"
-                            Command="{Binding ShowApproveLeaveRequestListViewCommand}"                                       
+                            Command="{Binding ShowApproveLeaveRequestsViewCommand}"                                       
                             BorderThickness="0">
                             <materialDesign:PackIcon Kind="EmailAlert" Foreground="White"/>
                         </Button>
@@ -148,7 +148,7 @@
                             Width="50"
                             ToolTip="Đăng xuất"
                             Style="{StaticResource MaterialDesignIconButton}"
-                            Command="{Binding LogoutCommand}"      
+                            Command="{Binding LogOutCommand}"      
                             CommandParameter="{Binding ElementName=mainWindow}"
                             BorderThickness="0">
                             <materialDesign:PackIcon Kind="Logout" Foreground="White"/>

@@ -2,6 +2,8 @@
 using CompanyManagement.Utilities;
 using System;
 using System.Data;
+using CompanyManagement.Database;
+using System.Windows.Media;
 
 namespace CompanyManagement.Models
 {
@@ -16,6 +18,7 @@ namespace CompanyManagement.Models
         private string statusID = "";
         private string employeeID = "";
         private string approverID = "";
+        private Employee approver = new Employee();
 
         public string ID
         {
@@ -68,7 +71,21 @@ namespace CompanyManagement.Models
         public string ApproverID
         {
             get => approverID;
-            set => approverID = value;
+            set
+            { 
+                if (value != null) 
+                {  
+                    approverID = value;
+                    return;
+                }
+                approverID = "";
+            }
+        }
+
+        public Employee Approver
+        {
+            get => approver;
+            set => approver = value;
         }
 
         public LeaveRequest() { }
@@ -87,15 +104,15 @@ namespace CompanyManagement.Models
         {
             try
             {
-                id = (string)reader[BaseDao.LEAVE_ID];
-                reason = (string)reader[BaseDao.LEAVE_REASON];
-                notes = (string)reader[BaseDao.LEAVE_NOTES];
-                createdDate = reader.GetDateTime(reader.GetOrdinal(BaseDao.LEAVE_CREATED_DATE));
-                startDate = reader.GetDateTime(reader.GetOrdinal(BaseDao.LEAVE_START_DATE));
-                endDate = reader.GetDateTime(reader.GetOrdinal(BaseDao.LEAVE_END_DATE));
-                statusID = (string)reader[BaseDao.LEAVE_STATUS_ID];
-                employeeID = (string)reader[BaseDao.LEAVE_EMPLOYEE_ID];
-                approverID = (string)reader[BaseDao.LEAVE_APPROVER_ID];
+                id = Utils.GetString(reader, BaseDao.LEAVES_ID);
+                reason = Utils.GetString(reader, BaseDao.LEAVES_REASON);
+                notes = Utils.GetString(reader, BaseDao.LEAVES_NOTES);
+                createdDate = Utils.GetDateTime(reader, BaseDao.LEAVES_CREATED_DATE);
+                startDate = Utils.GetDateTime(reader, BaseDao.LEAVES_START_DATE);
+                endDate = Utils.GetDateTime(reader, BaseDao.LEAVES_END_DATE);
+                statusID = Utils.GetString(reader, BaseDao.LEAVES_STATUS_ID);
+                employeeID = Utils.GetString(reader, BaseDao.LEAVES_EMPLOYEE_ID);
+                approverID = Utils.GetString(reader, BaseDao.LEAVES_APPROVER_ID);
             }
             catch (Exception ex)
             {
