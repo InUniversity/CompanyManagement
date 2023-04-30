@@ -10,7 +10,7 @@ using System.Windows.Input;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
-    public class ApproveLeaveRequestListViewModel : BaseViewModel
+    public class ApproveLeaveRequestsViewModel : BaseViewModel
     {
         private List<LeaveRequest> ReceivedLeaveRequests;
 
@@ -41,7 +41,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private Employee currentEmployee = CurrentUser.Ins.EmployeeIns;
 
-        public ApproveLeaveRequestListViewModel()
+        public ApproveLeaveRequestsViewModel()
         {
             SetCommands();
             LoadLeaveRequestList();

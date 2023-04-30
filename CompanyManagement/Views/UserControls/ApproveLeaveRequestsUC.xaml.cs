@@ -6,12 +6,12 @@ namespace CompanyManagement.Views.UserControls
     /// <summary>
     /// Interaction logic for ApproveLeaveRequestListUC.xaml
     /// </summary>
-    public partial class ApproveLeaveRequestListUC : UserControl
+    public partial class ApproveLeaveRequestsUC : UserControl
     {
-        public ApproveLeaveRequestListUC()
+        public ApproveLeaveRequestsUC()
         {
             InitializeComponent();
-            DataContext = new ApproveLeaveRequestListViewModel();
+            DataContext = new ApproveLeaveRequestsViewModel();
         }
     }
 }

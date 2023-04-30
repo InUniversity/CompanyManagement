@@ -19,7 +19,7 @@ namespace CompanyManagement.ViewModels.Windows
         private AssignmentUC assignmentUC = new AssignmentUC();
         private EmployeesUC employeesUC = new EmployeesUC();
         private LeaveRequestsUC leavesListUC = new LeaveRequestsUC();
-        private ApproveLeaveRequestListUC approveLeaveRequestsUC = new ApproveLeaveRequestListUC();
+        private ApproveLeaveRequestsUC approveLeaveRequestsUC = new ApproveLeaveRequestsUC();
 
         private Visibility visibilityAssignmentView;
         public Visibility VisibilityAssignmentView { get => visibilityAssignmentView; set { visibilityAssignmentView = value; OnPropertyChanged();} }

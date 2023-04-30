@@ -126,7 +126,7 @@
     <Compile Include="ViewModels\Dialogs\UpdateLeaveViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\UpdateProjectViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\UpdateTaskViewModel.cs" />
-    <Compile Include="ViewModels\UserControls\ApproveLeaveRequestListViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\ApproveLeaveRequestsViewModel.cs" />
     <Compile Include="ViewModels\UserControls\AssignmentViewModel.cs" />
     <Compile Include="ViewModels\UserControls\TimeSheetInputViewModel.cs" />
     <Compile Include="ViewModels\UserControls\TimeSheetViewModel.cs" />
@@ -187,8 +187,8 @@
     <Compile Include="Views\Dialogs\UpdateTaskDialog.xaml.cs">
       <DependentUpon>UpdateTaskDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserControls\ApproveLeaveRequestListUC.xaml.cs">
-      <DependentUpon>ApproveLeaveRequestListUC.xaml</DependentUpon>
+    <Compile Include="Views\UserControls\ApproveLeaveRequestsUC.xaml.cs">
+      <DependentUpon>ApproveLeaveRequestsUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UserControls\AssignmentUC.xaml.cs">
       <DependentUpon>AssignmentUC.xaml</DependentUpon>
@@ -297,7 +297,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\UserControls\ApproveLeaveRequestListUC.xaml">
+    <Page Include="Views\UserControls\ApproveLeaveRequestsUC.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
