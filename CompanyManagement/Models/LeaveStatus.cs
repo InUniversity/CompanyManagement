@@ -7,18 +7,18 @@ namespace CompanyManagement.Models
 {
     public class LeaveStatus
     {
-        private string leaveStatusID = "";
-        private string leaveStatusName = "";
+        private string id = "";
+        private string statusName = "";
 
-        public string LeaveStatusID => leaveStatusID;
-        public string LeaveStatusName => leaveStatusName;
+        public string ID => id;
+        public string StatusName => statusName;
 
         public LeaveStatus(IDataRecord reader)
         {
             try
             {
-                leaveStatusID = (string)reader[BaseDao.LEAVE_STATUS_ID];
-                leaveStatusName = (string)reader[BaseDao.LEAVE_STATUSES_NAME];
+                id = Utils.GetString(reader, BaseDao.LEAVE_STATUSES_ID);
+                statusName = Utils.GetString(reader, BaseDao.LEAVE_STATUSES_NAME);
             }
             catch (Exception ex)
             {

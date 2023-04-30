@@ -80,16 +80,16 @@ namespace CompanyManagement.Database.Base
         public const string LEAVE_STATUSES_ID = "ID";
         public const string LEAVE_STATUSES_NAME = "StatusName";
         
-        protected const string LEAVE_TABLE = "LeaveRequests";
-        public const string LEAVE_ID = "ID";
-        public const string LEAVE_REASON = "Reason";
-        public const string LEAVE_NOTES = "Notes";
-        public const string LEAVE_CREATED_DATE = "CreatedDate";
-        public const string LEAVE_START_DATE = "StartDate";
-        public const string LEAVE_END_DATE = "EndDate";
-        public const string LEAVE_STATUS_ID = "StatusID";
-        public const string LEAVE_EMPLOYEE_ID = "EmployeeID";
-        public const string LEAVE_APPROVER_ID = "ApproverID";
+        protected const string LEAVES_TABLE = "LeaveRequests";
+        public const string LEAVES_ID = "ID";
+        public const string LEAVES_REASON = "Reason";
+        public const string LEAVES_NOTES = "Notes";
+        public const string LEAVES_CREATED_DATE = "CreatedDate";
+        public const string LEAVES_START_DATE = "StartDate";
+        public const string LEAVES_END_DATE = "EndDate";
+        public const string LEAVES_STATUS_ID = "StatusID";
+        public const string LEAVES_EMPLOYEE_ID = "EmployeeID";
+        public const string LEAVES_APPROVER_ID = "ApproverID";
         
         protected const string TIME_SHEETS_TABLE = "TimeSheets";
         public const string TIME_SHEETS_ID = "ID";
