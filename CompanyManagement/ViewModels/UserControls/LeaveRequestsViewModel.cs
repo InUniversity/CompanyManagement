@@ -5,13 +5,11 @@ using CompanyManagement.Services;
 using CompanyManagement.Utilities;
 using CompanyManagement.ViewModels.Base;
 using CompanyManagement.Views.Dialogs;
-using CompanyManagement.Views.Dialogs.Interfaces;
 using System.Linq;
 using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
-using CompanyManagement.Strategies.UserControls.LeaveListView;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
@@ -42,9 +40,9 @@ namespace CompanyManagement.ViewModels.UserControls
         public Visibility VisibleUnapprovedLeaveListExpander 
         { get => visibleUnapprovedLeaveRequestsExpander; set { visibleUnapprovedLeaveRequestsExpander = value; OnPropertyChanged(); } }
 
-        private Visibility visibleApprovedLeaveRequesrsExpander = Visibility.Collapsed;
-        public Visibility VisibleApprovedLeaveRequesrsExpander 
-        { get => visibleApprovedLeaveRequesrsExpander; set { visibleApprovedLeaveRequesrsExpander = value; OnPropertyChanged(); } }
+        private Visibility visibleApprovedLeaveRequestsExpander = Visibility.Collapsed;
+        public Visibility VisibleApprovedLeaveRequestsExpander 
+        { get => visibleApprovedLeaveRequestsExpander; set { visibleApprovedLeaveRequestsExpander = value; OnPropertyChanged(); } }
 
         private Visibility visibleDeniedLeaveRequestsExpander = Visibility.Collapsed;
         public Visibility VisibleDeniedLeaveRequestsExpander 
@@ -60,29 +58,13 @@ namespace CompanyManagement.ViewModels.UserControls
         public ICommand OpenUpdateLeaveDialogCommand { get; private set; }
         public ICommand ApproveLeaveCommand { get; private set; }
 
-        private ILeaveListStrategy leaveListStrategy;
-        public ILeaveListStrategy LeaveListStrategy 
-        { 
-            get => leaveListStrategy;
-            set
-            {
-                if (leaveListStrategy == value) return;
-                leaveListStrategy = value;
-                leaveListStrategy.SetVisible(this);
-            }
-        }
-
-        public INavigateAssignmentView ParentDataContext { get; set; }
-
         private LeaveRequestsDao leaveDao = new LeaveRequestsDao();
-        private DepartmentsDao departmentDao = new DepartmentsDao();
         private EmployeesDao employeeDao = new EmployeesDao();
 
         private Employee currentEmployee = CurrentUser.Ins.EmployeeIns;
 
-        public LeaveRequestsViewModel(ILeaveListStrategy leaveListStrategy)
+        public LeaveRequestsViewModel()
         {
-            LeaveListStrategy = leaveListStrategy;
             SetCommands();
             SearchDate();
         }
@@ -111,7 +93,7 @@ namespace CompanyManagement.ViewModels.UserControls
         {
             LeaveRequests = leaveDao.SearchByEmployeeID(currentEmployee.ID);
 
-            var receivedLeaveRequests = (currentEmployee.RoleID == BaseDao.EMPLOYEE_ROLE_ID)
+            var receivedLeaveRequests = currentEmployee.RoleID == BaseDao.EMPLOYEE_ROLE_ID
                 ? leaveDao.SearchByEmployeeID(currentEmployee.ID)
                 : leaveDao.SearchByApproverID(currentEmployee.ID);
             foreach(LeaveRequest leave in receivedLeaveRequests)
@@ -119,16 +101,17 @@ namespace CompanyManagement.ViewModels.UserControls
                 leave.Approver = employeeDao.SearchByID(leave.ApproverID);
             }    
 
-            var unapprovedLeaveList = receivedLeaveRequests.Where(p => p.StatusID == BaseDao.UNAPPROVED
-                                        && p.StartDate > DateTime.Now).OrderByDescending(p => p.CreatedDate).ToList();
+            var unapprovedLeaveList = receivedLeaveRequests
+                .Where(p => p.StatusID == BaseDao.LEAVE_REQUEST_UNAPPROVED && p.StartDate > DateTime.Now)
+                .OrderByDescending(p => p.CreatedDate).ToList();
             UnapprovedLeaveRequests = unapprovedLeaveList;
 
-            var listApprovedLeaves = receivedLeaveRequests.Where(p => p.StatusID == BaseDao.APPROVED)
+            var listApprovedLeaves = receivedLeaveRequests.Where(p => p.StatusID == BaseDao.LEAVE_REQUEST_APPROVED)
                                         .OrderByDescending(p => p.CreatedDate).ToList();
             ApprovedLeaveRequests = listApprovedLeaves;
 
-            var listUnapprovedLeaves = receivedLeaveRequests.Where(p => p.StatusID == BaseDao.UNAPPROVED 
-                                        || (p.StartDate <= DateTime.Now && p.StatusID == BaseDao.DENIED))
+            var listUnapprovedLeaves = receivedLeaveRequests.Where(p => p.StatusID == BaseDao.LEAVE_REQUEST_UNAPPROVED 
+                                        || (p.StartDate <= DateTime.Now && p.StatusID == BaseDao.LEAVE_REQUEST_DENIED))
                                         .OrderByDescending(p => p.CreatedDate).ToList();
             DeniedLeaveRequests = listUnapprovedLeaves;
         }
@@ -147,7 +130,8 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private LeaveRequest CreateLeave()
         {
-            return new LeaveRequest(AutoGenerateID(), "", "", "LS2", currentEmployee.ID, "");
+            return new LeaveRequest(AutoGenerateID(), "", "", 
+                BaseDao.LEAVE_REQUEST_UNAPPROVED, currentEmployee.ID, "");
         }
 
         private string AutoGenerateID()
@@ -187,7 +171,6 @@ namespace CompanyManagement.ViewModels.UserControls
                     LoadLeaveRequestList();
                 }, null); 
             dialog.Show();
-            LoadLeaveRequestList();
         }
 
         private void ExecuteUpdateCommand(LeaveRequest leave)
@@ -203,11 +186,6 @@ namespace CompanyManagement.ViewModels.UserControls
         }
 
         private void ExecuteApproveCommand(LeaveRequest leave)
-        {
-            Update(leave);
-        }
-
-        private void ExecuteDenyCommand(LeaveRequest leave)
         {
             Update(leave);
         }

@@ -1,7 +1,4 @@
 ﻿using System.Windows.Controls;
-using CompanyManagement.Models;
-using CompanyManagement.Strategies.UserControls.LeaveListView;
-using CompanyManagement.Strategies.UserControls.ProjectsView;
 using CompanyManagement.ViewModels.UserControls;
 
 namespace CompanyManagement.Views.UserControls
@@ -14,9 +11,7 @@ namespace CompanyManagement.Views.UserControls
         public LeaveRequestsUC()
         {
             InitializeComponent();
-            var positionID = CurrentUser.Ins.EmployeeIns.RoleID;
-            var leaveListStrategy = LeaveListStrategyFactory.Create(positionID);
-            DataContext = new LeaveRequestsViewModel(leaveListStrategy);
+            DataContext = new LeaveRequestsViewModel();
         }
     }
 }

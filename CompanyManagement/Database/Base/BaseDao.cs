@@ -8,9 +8,9 @@ namespace CompanyManagement.Database.Base
         public const string EMPLOYEE_ROLE_ID = "ER04";
 
         public const string COMPLETED = "100";
-        public const string UNAPPROVED = "LS2";
-        public const string APPROVED = "LS1";
-        public const string DENIED = "LS3";
+        public const string LEAVE_REQUEST_UNAPPROVED = "LS2";
+        public const string LEAVE_REQUEST_APPROVED = "LS1";
+        public const string LEAVE_REQUEST_DENIED = "LS3";
 
         protected const string DEPARTMENTS_TABLE = "Departments";
         public const string DEPARTMENTS_ID = "ID";
