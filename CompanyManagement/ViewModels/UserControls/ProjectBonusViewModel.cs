@@ -209,8 +209,7 @@ namespace CompanyManagement.ViewModels.UserControls
                 "Bạn chắc chắn muốn lưu các thao tác chia tiền thưởng!",
                 () =>
                 {
-                    AddShareBonusToDBCommand(bonusNormalList);
-                    AddShareBonusToDBCommand(bonusSpecial);
+                    CommitShareBonnus();
                 }, null);
             dialog.Show();
         }
@@ -226,6 +225,15 @@ namespace CompanyManagement.ViewModels.UserControls
                 return false;
             }
             return true;
+        }
+
+        private void CommitShareBonnus()
+        {
+            projectBonusesDao.DeleteByProjectID(projectID);
+            AddShareBonusToDBCommand(bonusNormalList);
+            AddShareBonusToDBCommand(bonusSpecial);
+            currentProject.ID = BaseDao.projCompletedID;
+            projectsDao.Update(currentProject);
         }
 
         private void AddShareBonusToDBCommand(ObservableCollection<ProjectBonus> list)
