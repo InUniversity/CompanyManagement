@@ -9,6 +9,8 @@ using CompanyManagement.Services;
 using System.Windows.Documents;
 using System.Collections.Generic;
 using System.Windows;
+using CompanyManagement.Utilities;
+using System.ComponentModel;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
@@ -28,7 +30,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private string projectID = "";
         private decimal BonusSalary = 0;
-        private int percentRemaining = 100;
+        private int percentRemaining = 0;
 
         private ProjectAssignmentsDao projectAssignmentDao = new ProjectAssignmentsDao();
         private ProjectsDao projectsDao = new ProjectsDao();
@@ -59,7 +61,8 @@ namespace CompanyManagement.ViewModels.UserControls
         private void SetProjectBonuese()
         {
             BonusNormalList = new ObservableCollection<ProjectBonuses>(CreateItemInNormal());
-            LoadAmountInNormal();
+            percentRemaining = LoadNextPercentRemaining(); 
+            LoadAmountInBonuses();
         }
 
         private List<ProjectBonuses> CreateItemInNormal()
@@ -77,19 +80,43 @@ namespace CompanyManagement.ViewModels.UserControls
             return createList;
         }
 
-        private void LoadAmountInNormal()
+        private void LoadAmountInBonuses()
         {
+            if (bonusSpecial.Count == 0) return;
+            BonusSpecial = new ObservableCollection<ProjectBonuses>(UpdateAmountInSpecical());
+
             if (bonusNormalList.Count == 0) return;
             BonusNormalList = new ObservableCollection<ProjectBonuses>(UpdateAmountInNormal());
+        }
+
+        private int LoadNextPercentRemaining()
+        {
+            int totalPercent = 100;
+            foreach (ProjectBonuses projectBonuses in BonusSpecial)
+            {
+                totalPercent -= projectBonuses.Percent;
+            }
+            return totalPercent;
         }
 
         private List<ProjectBonuses> UpdateAmountInNormal()
         {
             List<ProjectBonuses> updateList = new List<ProjectBonuses>();
+            MessageBox.Show(percentRemaining.ToString());
             decimal amount = (decimal)(percentRemaining / BonusNormalList.Count()) * BonusSalary;
             foreach (ProjectBonuses projectBonuses in BonusNormalList)
             {
                 projectBonuses.Amount = amount;
+                updateList.Add(projectBonuses);
+            }
+            return updateList;
+        }
+
+        private List<ProjectBonuses> UpdateAmountInSpecical()
+        {
+            List<ProjectBonuses> updateList = new List<ProjectBonuses>();
+            foreach (ProjectBonuses projectBonuses in BonusSpecial)
+            {
                 updateList.Add(projectBonuses);
             }
             return updateList;
@@ -112,37 +139,42 @@ namespace CompanyManagement.ViewModels.UserControls
             bonusNormalList.Remove(projectBonus);
             projectBonus.Amount = 0;
             bonusSpecial.Add(projectBonus);
-            LoadAmountInNormal();
+            LoadAmountInBonuses();
         }
 
         private void ExecuteAddNonBonusCommand(ProjectBonuses projectBonus)
         {
             nonBonusList.Add(projectBonus);
             bonusNormalList.Remove(projectBonus);
-            LoadAmountInNormal();
+            LoadAmountInBonuses();
         }
 
         private void ExecuteCalculateShareBonusCommand(ProjectBonuses projectBonus)
         {
-            if (!ValidatePercent(projectBonus.Percent)) return;
-            projectBonus.Amount = (decimal)(projectBonus.Percent * BonusSalary)/100;
-            percentRemaining -= projectBonus.Percent;
-            UpdateAmountInNormal();
+            if (!ValidatePercent(projectBonus)) return;
+            MessageBox.Show(projectBonus.Percent.ToString());
+            projectBonus.Amount = (decimal)(projectBonus.Percent * BonusSalary) / 100;
+            LoadAmountInBonuses();
         }
 
-        private bool ValidatePercent(int percent)
+        private bool ValidatePercent(ProjectBonuses projectBonus)
         {
-            if (percent > percentRemaining)
+            int newPercent = LoadNextPercentRemaining();
+            if (newPercent < 0)
+            {
+                projectBonus.Percent = 0;
                 return false;
+            }
+            percentRemaining = newPercent;
             return true;
         }
 
         private void ExecuteRestoreBonusCommand(ProjectBonuses projectBonus)
         {
-            percentRemaining += projectBonus.Percent;
             bonusNormalList.Add(projectBonus);
             bonusSpecial.Remove(projectBonus);
-            LoadAmountInNormal();
+            percentRemaining = LoadNextPercentRemaining();
+            LoadAmountInBonuses();
         }
 
         private void ExecuteRestoreNonBonusCommand(ProjectBonuses projectBonus)
@@ -150,7 +182,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
             bonusNormalList.Add(projectBonus);
             nonBonusList.Remove(projectBonus);
-            LoadAmountInNormal();
+            LoadAmountInBonuses();
         }
 
         private void ExecuteAddShareBonusToDBCommand(object obj)

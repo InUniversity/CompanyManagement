@@ -172,9 +172,6 @@
       <DependentUpon>CheckOutDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Dialogs\Interfaces\IInputDialog.cs" />
-    <Compile Include="Views\Dialogs\ProjectBonusesDialog.xaml.cs">
-      <DependentUpon>ProjectBonusesDialog.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Dialogs\UpdateDepartmentDialog.xaml.cs">
       <DependentUpon>UpdateDepartmentDialog.xaml</DependentUpon>
     </Compile>
@@ -279,10 +276,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Dialogs\CheckOutDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Dialogs\ProjectBonusesDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
