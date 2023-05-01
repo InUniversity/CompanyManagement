@@ -6,10 +6,10 @@ namespace CompanyManagement.Database
 {
     public class DepartmentsDao : BaseDao
     {
-        public void Add(Department department)
+        public void Add(Department dept)
         {
             string sqlStr = $"INSERT INTO {deptTbl} ({deptID}, {deptName}, {deptHead})" +
-                            $"VALUES ('{department.ID}', '{department.Name}', '{department.DepartmentHeadID}')";
+                            $"VALUES ('{dept.ID}', '{dept.Name}', '{dept.DeptHeadID}')";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
@@ -19,10 +19,10 @@ namespace CompanyManagement.Database
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
-        public void Update(Department department)
+        public void Update(Department dept)
         {
-            string sqlStr = $"UPDATE {deptTbl} SET {deptName} = '{department.Name}', " +
-                            $"{deptHead} = '{department.DepartmentHeadID}' WHERE {deptID} = '{department.ID}'";
+            string sqlStr = $"UPDATE {deptTbl} SET {deptName} = '{dept.Name}', " +
+                            $"{deptHead} = '{dept.DeptHeadID}' WHERE {deptID} = '{dept.ID}'";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 

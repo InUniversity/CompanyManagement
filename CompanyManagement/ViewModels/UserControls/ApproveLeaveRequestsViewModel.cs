@@ -104,7 +104,7 @@ namespace CompanyManagement.ViewModels.UserControls
             LoadLeaveRequestList();
             var allItem = ReceivedLeaveRequests;
             allItem = ReceivedLeaveRequests
-                    .Where(item => item.CreatedDate.Date == TimeCreateLeave.Date)
+                    .Where(item => item.Created.Date == TimeCreateLeave.Date)
                     .ToList();
             ReceivedLeaveRequests = new List<LeaveRequest>(allItem);
 

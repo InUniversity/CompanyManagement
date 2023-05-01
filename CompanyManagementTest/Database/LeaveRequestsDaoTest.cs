@@ -20,11 +20,11 @@ namespace CompanyManagementTest.Database
             leaveRequest.ID = "LEA12341";
             leaveRequest.Reason = "Vấn đề sức khỏe";
             leaveRequest.Notes = "Bệnh nặng";
-            leaveRequest.StartDate = new DateTime(2023, 4, 15).Date;
-            leaveRequest.EndDate = new DateTime(2023, 4, 25).Date;
-            leaveRequest.CreatedDate = new DateTime(2023, 4, 27).Date;
+            leaveRequest.Start = new DateTime(2023, 4, 15).Date;
+            leaveRequest.End = new DateTime(2023, 4, 25).Date;
+            leaveRequest.Created = new DateTime(2023, 4, 27).Date;
             leaveRequest.StatusID = "LS2";
-            leaveRequest.EmployeeID = "EM007";
+            leaveRequest.RequesterID = "EM007";
             leaveRequest.ApproverID = "EM006";
         }
 
@@ -35,11 +35,11 @@ namespace CompanyManagementTest.Database
             expected.ID = "LEA0001";
             expected.Reason = "Nghỉ do bị ốm";
             expected.Notes = "ghi chú 1";
-            expected.CreatedDate = new DateTime(2023, 4, 1).Date;
-            expected.StartDate = new DateTime(2023, 4, 8).Date;
-            expected.EndDate = new DateTime(2023, 4, 9).Date;
+            expected.Created = new DateTime(2023, 4, 1).Date;
+            expected.Start = new DateTime(2023, 4, 8).Date;
+            expected.End = new DateTime(2023, 4, 9).Date;
             expected.StatusID = "LS1";
-            expected.EmployeeID = "EM007";
+            expected.RequesterID = "EM007";
             expected.ApproverID = "EM006";
             var actualSearch = leaveRequestsDao.SearchByID(expected.ID);
             
@@ -58,11 +58,11 @@ namespace CompanyManagementTest.Database
             updateObject.ID = leaveRequest.ID;
             updateObject.Reason = leaveRequest.Reason + " Test 01";
             updateObject.Notes = leaveRequest.Notes + " Hello";
-            updateObject.StartDate = leaveRequest.StartDate;
-            updateObject.EndDate = leaveRequest.EndDate;
-            updateObject.CreatedDate = leaveRequest.CreatedDate;
+            updateObject.Start = leaveRequest.Start;
+            updateObject.End = leaveRequest.End;
+            updateObject.Created = leaveRequest.Created;
             updateObject.StatusID = "LS3";
-            updateObject.EmployeeID = leaveRequest.EmployeeID;
+            updateObject.RequesterID = leaveRequest.RequesterID;
             updateObject.ApproverID = leaveRequest.ApproverID;
             leaveRequestsDao.Update(updateObject);
             var updated = leaveRequestsDao.SearchByID(leaveRequest.ID);  
@@ -88,10 +88,10 @@ namespace CompanyManagementTest.Database
             Assert.AreEqual(expected.ID, actual.ID);
             Assert.AreEqual(expected.Reason, actual.Reason);
             Assert.AreEqual(expected.Notes, actual.Notes);
-            Assert.AreEqual(expected.StartDate, actual.StartDate);
-            Assert.AreEqual(expected.EndDate, actual.EndDate);
-            Assert.AreEqual(expected.CreatedDate, actual.CreatedDate);
-            Assert.AreEqual(expected.EmployeeID, actual.EmployeeID);
+            Assert.AreEqual(expected.Start, actual.Start);
+            Assert.AreEqual(expected.End, actual.End);
+            Assert.AreEqual(expected.Created, actual.Created);
+            Assert.AreEqual(expected.RequesterID, actual.RequesterID);
             Assert.AreEqual(expected.ApproverID, actual.ApproverID);
         }
     }

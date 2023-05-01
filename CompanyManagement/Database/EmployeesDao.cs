@@ -34,9 +34,9 @@ namespace CompanyManagement.Database
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
-        public List<Employee> SearchByCurrentID(string employeeID)
+        public List<Employee> SearchByCurrentID(string emplID)
         {
-            string sqlStr = $"SELECT * FROM {emplTbl} E WHERE E.{emplID} NOT LIKE '{employeeID}'";
+            string sqlStr = $"SELECT * FROM {emplTbl} E WHERE E.{BaseDao.emplID} NOT LIKE '{emplID}'";
             return dbConnection.GetList(sqlStr, reader => new Employee(reader));
         }
 
@@ -46,21 +46,15 @@ namespace CompanyManagement.Database
             return (Employee)dbConnection.GetSingleObject(sqlStr, reader => new Employee(reader));
         }
 
-        public Employee SearchByIdentifyCard(string identifyCard)
+        public Employee SearchByIdentifyCard(string identCard)
         {
-            string sqlStr = $"SELECT * FROM {emplTbl} WHERE {emplIdentCard}='{identifyCard}'";
+            string sqlStr = $"SELECT * FROM {emplTbl} WHERE {emplIdentCard}='{identCard}'";
             return (Employee)dbConnection.GetSingleObject(sqlStr, reader => new Employee(reader));
         }
 
-        public Employee SearchByPhoneNumber(string phoneNumber)
+        public Employee SearchByPhoneNumber(string phoneNo)
         {
-            string sqlStr = $"SELECT * FROM {emplTbl} WHERE {emplPhoneNo}='{phoneNumber}'";
-            return (Employee)dbConnection.GetSingleObject(sqlStr, reader => new Employee(reader));
-        }
-
-        public Employee SearchByPositionID(string id)
-        {
-            string sqlStr = $"SELECT * FROM {emplTbl} WHERE {emplRoleID} ='{id}'";
+            string sqlStr = $"SELECT * FROM {emplTbl} WHERE {emplPhoneNo}='{phoneNo}'";
             return (Employee)dbConnection.GetSingleObject(sqlStr, reader => new Employee(reader));
         }
 

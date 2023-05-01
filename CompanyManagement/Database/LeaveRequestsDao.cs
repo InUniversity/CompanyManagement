@@ -10,11 +10,11 @@ namespace CompanyManagement.Database
         public void Add(LeaveRequest request)
         {
             string sqlStr = $"INSERT INTO {leavTbl}({leavID},{leavReason},{leavNotes},{leavCreated}," +
-                            $"{leavStart},{leavEnd},{leavStatusID},{leavEmplID}, " +
-                            $"{leavApproverID}) VALUES ('{request.ID}',N'{request.Reason}',N'{request.Notes}'," +
-                            $"'{Utils.ToSQLFormat(request.CreatedDate)}','{Utils.ToSQLFormat(request.StartDate)}'," +
-                            $"'{Utils.ToSQLFormat(request.EndDate)}','{request.StatusID}'," +
-                            $"'{request.EmployeeID}','{request.ApproverID}')";
+                            $"{leavStart},{leavEnd},{leavStatusID},{leavEmplID}, " + $"{leavApproverID}) " +
+                            $"VALUES ('{request.ID}',N'{request.Reason}',N'{request.Notes}'," +
+                            $"'{Utils.ToSQLFormat(request.Created)}','{Utils.ToSQLFormat(request.Start)}'," +
+                            $"'{Utils.ToSQLFormat(request.End)}','{request.StatusID}'," +
+                            $"'{request.RequesterID}','{request.ApproverID}')";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
@@ -28,10 +28,10 @@ namespace CompanyManagement.Database
         {
             string sqlStr = $"UPDATE {leavTbl} SET " +
                             $"{leavReason}=N'{request.Reason}', {leavNotes}=N'{request.Notes}', " +
-                            $"{leavCreated}='{Utils.ToSQLFormat(request.CreatedDate)}', " +
-                            $"{leavStart}='{Utils.ToSQLFormat(request.StartDate)}', " +
-                            $"{leavEnd}='{Utils.ToSQLFormat(request.EndDate)}', " +
-                            $"{leavStatusID}='{request.StatusID}', {leavEmplID}='{request.EmployeeID}', " +
+                            $"{leavCreated}='{Utils.ToSQLFormat(request.Created)}', " +
+                            $"{leavStart}='{Utils.ToSQLFormat(request.Start)}', " +
+                            $"{leavEnd}='{Utils.ToSQLFormat(request.End)}', " +
+                            $"{leavStatusID}='{request.StatusID}', {leavEmplID}='{request.RequesterID}', " +
                             $"{leavApproverID}='{request.ApproverID}' WHERE {leavID} = '{request.ID}'";
             dbConnection.ExecuteNonQuery(sqlStr);
         }

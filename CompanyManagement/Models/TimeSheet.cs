@@ -8,7 +8,7 @@ namespace CompanyManagement.Models
     public class TimeSheet
     {
         private string id = "";
-        private string employeeID = "";
+        private string emplID = "";
         private DateTime checkInTime = Utils.emptyDate;
         private DateTime checkOutTime = Utils.emptyDate;
         private string taskCheckInID = "";
@@ -21,8 +21,8 @@ namespace CompanyManagement.Models
 
         public string EmployeeID
         {
-            get => employeeID;
-            set => employeeID = value;
+            get => emplID;
+            set => emplID = value;
         }
 
         public DateTime CheckInTime
@@ -45,10 +45,10 @@ namespace CompanyManagement.Models
 
         public TimeSheet() { }
 
-        public TimeSheet(string id, string employeeID, DateTime checkInTime, DateTime checkOutTime, string taskCheckInID)
+        public TimeSheet(string id, string emplID, DateTime checkInTime, DateTime checkOutTime, string taskCheckInID)
         {
             this.id = id;
-            this.employeeID = employeeID;
+            this.emplID = emplID;
             this.checkInTime = checkInTime;
             this.checkOutTime = checkOutTime;
             this.taskCheckInID = taskCheckInID;
@@ -59,7 +59,7 @@ namespace CompanyManagement.Models
             try
             {
                 id = (string)reader[BaseDao.timeShtID];
-                employeeID = (string)reader[BaseDao.timeShtEmplID];
+                emplID = (string)reader[BaseDao.timeShtEmplID];
                 checkInTime = reader.GetDateTime(reader.GetOrdinal(BaseDao.timeShtInTime));
                 checkOutTime = reader.GetDateTime(reader.GetOrdinal(BaseDao.timeShtOutTime));
                 taskCheckInID = (string)reader[BaseDao.timeShtTaskInID];

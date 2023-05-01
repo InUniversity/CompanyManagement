@@ -5,15 +5,15 @@ namespace CompanyManagement.Database
 {
     public class ProjectsDao : BaseDao
     {
-        public void Add(Project project)
+        public void Add(Project proj)
         {
             string sqlStr = $"INSERT INTO {projTbl}({projID}, {projName}, {projDetails}, " +
                             $"{projCreated}, {projStart}, {projEnd}, {projCompleted}, " +
                             $"{projProgress}, {projStatusID}, {projOwnerID}, {projBonus}) " +
-                            $"VALUES ('{project.ID}', N'{project.Name}', N'{project.Details}', " +
-                            $"'{Utils.ToSQLFormat(project.CreatedDate)}','{Utils.ToSQLFormat(project.StartDate)}', " +
-                            $"'{Utils.ToSQLFormat(project.EndDate)}', '{Utils.ToSQLFormat(project.CompletedDate)}', " +
-                            $"'{project.Progress}', '{project.StatusID}', '{project.OwnerID}', '{project.BonusSalary}')";
+                            $"VALUES ('{proj.ID}', N'{proj.Name}', N'{proj.Details}', " +
+                            $"'{Utils.ToSQLFormat(proj.CreatedDate)}','{Utils.ToSQLFormat(proj.StartDate)}', " +
+                            $"'{Utils.ToSQLFormat(proj.EndDate)}', '{Utils.ToSQLFormat(proj.CompletedDate)}', " +
+                            $"'{proj.Progress}', '{proj.StatusID}', '{proj.OwnerID}', '{proj.BonusSalary}')";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
@@ -23,16 +23,16 @@ namespace CompanyManagement.Database
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
-        public void Update(Project project)
+        public void Update(Project proj)
         {
             string sqlStr = $"UPDATE {projTbl} SET " +
-                            $"{projName}=N'{project.Name}', {projDetails}=N'{project.Details}', " +
-                            $"{projCreated}='{Utils.ToSQLFormat(project.CreatedDate)}', " +
-                            $"{projStart}='{Utils.ToSQLFormat(project.StartDate)}', " +
-                            $"{projEnd}='{Utils.ToSQLFormat(project.EndDate)}', " +
-                            $"{projCompleted}='{Utils.ToSQLFormat(project.CompletedDate)}'," +
-                            $"{projProgress}='{project.Progress}', " + $"{projStatusID}='{project.StatusID}', " +
-                            $"{projBonus}='{project.BonusSalary}' WHERE {projID}='{project.ID}'";
+                            $"{projName}=N'{proj.Name}', {projDetails}=N'{proj.Details}', " +
+                            $"{projCreated}='{Utils.ToSQLFormat(proj.CreatedDate)}', " +
+                            $"{projStart}='{Utils.ToSQLFormat(proj.StartDate)}', " +
+                            $"{projEnd}='{Utils.ToSQLFormat(proj.EndDate)}', " +
+                            $"{projCompleted}='{Utils.ToSQLFormat(proj.CompletedDate)}'," +
+                            $"{projProgress}='{proj.Progress}', " + $"{projStatusID}='{proj.StatusID}', " +
+                            $"{projBonus}='{proj.BonusSalary}' WHERE {projID}='{proj.ID}'";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 

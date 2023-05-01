@@ -88,13 +88,13 @@ namespace CompanyManagement
             set => roleID = value;
         }
 
-        public Account MyAccount
+        public Account Acc
         {
             get => account;
             set => account = value;
         }
 
-        public Role EmployeeRole
+        public Role EmplRole
         {
             get => role;
             set => role = value;

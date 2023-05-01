@@ -7,33 +7,33 @@ namespace CompanyManagement.Models
 {
     public class ProjectAssignment
     {
-        private string projectID;
-        private string deparmentID;
+        private string projID;
+        private string deptID;
 
-        public string ProjectID
+        public string ProjID
         {
-            get => projectID;
-            set => projectID = value;
+            get => projID;
+            set => projID = value;
         }
 
         public string DeparmentID
         {
-            get => deparmentID;
-            set => deparmentID = value;
+            get => deptID;
+            set => deptID = value;
         }
 
-        public ProjectAssignment(string projectID, string deparmentID)
+        public ProjectAssignment(string projID, string deptID)
         {
-            this.projectID = projectID;
-            this.deparmentID = deparmentID;
+            this.projID = projID;
+            this.deptID = deptID;
         }
         
         public ProjectAssignment(IDataRecord reader)
         {
             try
             {
-                projectID = (string)reader[BaseDao.projAssignID];
-                deparmentID = (string)reader[BaseDao.projAssignDeptID];
+                projID = (string)reader[BaseDao.projAssignID];
+                deptID = (string)reader[BaseDao.projAssignDeptID];
             }
             catch(Exception ex)
             {

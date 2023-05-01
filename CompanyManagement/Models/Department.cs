@@ -9,17 +9,17 @@ namespace CompanyManagement.Models
     {
         private string id;
         private string name;
-        private string departmentHeadID;
+        private string deptHeadID;
 
         public string ID => id;
         public string Name => name;
-        public string DepartmentHeadID => departmentHeadID;
+        public string DeptHeadID => deptHeadID;
 
-        public Department(string id, string name, string departmentHeadID)
+        public Department(string id, string name, string deptHeadID)
         {
             this.id = id;
             this.name = name;
-            this.departmentHeadID = departmentHeadID;
+            this.deptHeadID = deptHeadID;
         }
         
         public Department(IDataRecord reader)
@@ -28,7 +28,7 @@ namespace CompanyManagement.Models
             {
                 id = (string)reader[BaseDao.deptID];
                 name = (string)reader[BaseDao.deptName];
-                departmentHeadID = (string)reader[BaseDao.deptHead];
+                deptHeadID = (string)reader[BaseDao.deptHead];
             }
             catch (Exception ex)
             {

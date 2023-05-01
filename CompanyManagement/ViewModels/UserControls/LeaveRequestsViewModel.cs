@@ -102,17 +102,17 @@ namespace CompanyManagement.ViewModels.UserControls
             }    
 
             var unapprovedLeaveList = receivedLeaveRequests
-                .Where(p => p.StatusID == BaseDao.leavRequestUpapproved && p.StartDate > DateTime.Now)
-                .OrderByDescending(p => p.CreatedDate).ToList();
+                .Where(p => p.StatusID == BaseDao.leavRequestUpapproved && p.Start > DateTime.Now)
+                .OrderByDescending(p => p.Created).ToList();
             UnapprovedLeaveRequests = unapprovedLeaveList;
 
             var listApprovedLeaves = receivedLeaveRequests.Where(p => p.StatusID == BaseDao.leavRequesApproved)
-                                        .OrderByDescending(p => p.CreatedDate).ToList();
+                                        .OrderByDescending(p => p.Created).ToList();
             ApprovedLeaveRequests = listApprovedLeaves;
 
             var listUnapprovedLeaves = receivedLeaveRequests.Where(p => p.StatusID == BaseDao.leavRequestUpapproved 
-                                        || (p.StartDate <= DateTime.Now && p.StatusID == BaseDao.leavRequesDenied))
-                                        .OrderByDescending(p => p.CreatedDate).ToList();
+                                        || (p.Start <= DateTime.Now && p.StatusID == BaseDao.leavRequesDenied))
+                                        .OrderByDescending(p => p.Created).ToList();
             DeniedLeaveRequests = listUnapprovedLeaves;
         }
 
@@ -121,7 +121,7 @@ namespace CompanyManagement.ViewModels.UserControls
             LoadLeaveRequestList();
             var allItem = LeaveRequests;
             allItem = LeaveRequests
-                    .Where(item => item.CreatedDate.Date == TimeCreateLeave.Date)
+                    .Where(item => item.Created.Date == TimeCreateLeave.Date)
                     .ToList();
             LeaveRequests = new List<LeaveRequest>(allItem);
             
