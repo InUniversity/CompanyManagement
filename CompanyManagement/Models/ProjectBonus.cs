@@ -5,7 +5,7 @@ using CompanyManagement.Utilities;
 
 namespace CompanyManagement.Models
 {
-    public class ProjectBonuses
+    public class ProjectBonus
     {
         private string id;
         private decimal amount;
@@ -57,9 +57,9 @@ namespace CompanyManagement.Models
             set => percent = value;
         }
 
-        public ProjectBonuses(){}
+        public ProjectBonus(){}
 
-        public ProjectBonuses(string id, decimal amount, DateTime receivedDate, string employeeID, string projectID)
+        public ProjectBonus(string id, decimal amount, DateTime receivedDate, string employeeID, string projectID)
         {
             this.id = id;
             this.amount = amount;
@@ -68,7 +68,7 @@ namespace CompanyManagement.Models
             this.projectID = projectID;
         }
         
-        public ProjectBonuses(IDataRecord reader)
+        public ProjectBonus(IDataRecord reader)
         {
             try
             {

@@ -11,22 +11,27 @@ using System.Collections.Generic;
 using System.Windows;
 using CompanyManagement.Utilities;
 using System.ComponentModel;
+using CompanyManagement.Views.Dialogs;
+using CompanyManagement.Database.Base;
+using CompanyManagement.Views.UserControls;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
     public class ProjectBonusViewModel : BaseViewModel, IRetrieveProjectID
     {
-        private ObservableCollection<ProjectBonuses> bonusNormalList = new ObservableCollection<ProjectBonuses>();
-        public ObservableCollection<ProjectBonuses> BonusNormalList
+        private ObservableCollection<ProjectBonus> bonusNormalList = new ObservableCollection<ProjectBonus>();
+        public ObservableCollection<ProjectBonus> BonusNormalList
         { get => bonusNormalList; set { bonusNormalList = value; OnPropertyChanged(); } }
 
-        private ObservableCollection<ProjectBonuses> nonBonusList = new ObservableCollection<ProjectBonuses>();
-        public ObservableCollection<ProjectBonuses> NonBonusList 
+        private ObservableCollection<ProjectBonus> nonBonusList = new ObservableCollection<ProjectBonus>();
+        public ObservableCollection<ProjectBonus> NonBonusList 
         { get => nonBonusList; set { nonBonusList = value; OnPropertyChanged(); } }
 
-        private ObservableCollection<ProjectBonuses> bonusSpecial = new ObservableCollection<ProjectBonuses>();
-        public ObservableCollection<ProjectBonuses> BonusSpecial 
+        private ObservableCollection<ProjectBonus> bonusSpecial = new ObservableCollection<ProjectBonus>();
+        public ObservableCollection<ProjectBonus> BonusSpecial 
         { get => bonusSpecial; set { bonusSpecial = value; OnPropertyChanged(); } }
+
+        private Project currentProject;
 
         private string projectID = "";
         private decimal BonusSalary = 0;
@@ -50,29 +55,28 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void SetCommands()
         {
-            AddBonusCommand = new RelayCommand<ProjectBonuses>(ExecuteAddBonusCommand);
-            AddNonBonusCommand = new RelayCommand<ProjectBonuses>(ExecuteAddNonBonusCommand);
-            AddCalculateShareBonusCommand = new RelayCommand<ProjectBonuses>(ExecuteCalculateShareBonusCommand);
-            RestoreBonusCommand = new RelayCommand<ProjectBonuses>(ExecuteRestoreBonusCommand);
-            RestoreNonBonusCommand = new RelayCommand<ProjectBonuses>(ExecuteRestoreNonBonusCommand);
+            AddBonusCommand = new RelayCommand<ProjectBonus>(ExecuteAddBonusCommand);
+            AddNonBonusCommand = new RelayCommand<ProjectBonus>(ExecuteAddNonBonusCommand);
+            AddCalculateShareBonusCommand = new RelayCommand<ProjectBonus>(ExecuteCalculateShareBonusCommand);
+            RestoreBonusCommand = new RelayCommand<ProjectBonus>(ExecuteRestoreBonusCommand);
+            RestoreNonBonusCommand = new RelayCommand<ProjectBonus>(ExecuteRestoreNonBonusCommand);
             SaveShareBonusToDBCommand = new RelayCommand<object>(ExecuteAddShareBonusToDBCommand);
         }
 
-        private void SetProjectBonuese()
+        private void SetProjectBonuses()
         {
-            BonusNormalList = new ObservableCollection<ProjectBonuses>(CreateItemInNormal());
+            BonusNormalList = new ObservableCollection<ProjectBonus>(CreateItemInNormal());
             percentRemaining = LoadNextPercentRemaining(); 
             LoadAmountInBonuses();
         }
 
-        private List<ProjectBonuses> CreateItemInNormal()
+        private List<ProjectBonus> CreateItemInNormal()
         {
             var employeesInProject = projectAssignmentDao.GetEmployeesInProject(projectID);
-            List<ProjectBonuses> createList = new List<ProjectBonuses>();
+            List<ProjectBonus> createList = new List<ProjectBonus>();
             foreach (Employee emp in employeesInProject)
             {
-                //Random đại do chưa có add cái nào trong db nên ko dùng AutoGenerateID được
-                ProjectBonuses projectBonuses = new ProjectBonuses((new Random()).Next(999).ToString(),
+                ProjectBonus projectBonuses = new ProjectBonus((new Random()).Next(999).ToString(),
                     0, DateTime.Now, emp.ID, projectID);
                 projectBonuses.Receiver = emp;
                 createList.Add(projectBonuses);
@@ -82,29 +86,28 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void LoadAmountInBonuses()
         {
-            if (bonusSpecial.Count == 0) return;
-            BonusSpecial = new ObservableCollection<ProjectBonuses>(UpdateAmountInSpecical());
+            if (bonusSpecial.Count != 0)
+            BonusSpecial = new ObservableCollection<ProjectBonus>(UpdateAmountInSpecical());
 
-            if (bonusNormalList.Count == 0) return;
-            BonusNormalList = new ObservableCollection<ProjectBonuses>(UpdateAmountInNormal());
+            if (bonusNormalList.Count != 0)
+            BonusNormalList = new ObservableCollection<ProjectBonus>(UpdateAmountInNormal());
         }
 
-        private int LoadNextPercentRemaining()
+        private List<ProjectBonus> UpdateAmountInSpecical()
         {
-            int totalPercent = 100;
-            foreach (ProjectBonuses projectBonuses in BonusSpecial)
+            List<ProjectBonus> updateList = new List<ProjectBonus>();
+            foreach (ProjectBonus projectBonuses in BonusSpecial)
             {
-                totalPercent -= projectBonuses.Percent;
+                updateList.Add(projectBonuses);
             }
-            return totalPercent;
+            return updateList;
         }
 
-        private List<ProjectBonuses> UpdateAmountInNormal()
+        private List<ProjectBonus> UpdateAmountInNormal()
         {
-            List<ProjectBonuses> updateList = new List<ProjectBonuses>();
-            MessageBox.Show(percentRemaining.ToString());
-            decimal amount = (decimal)(percentRemaining / BonusNormalList.Count()) * BonusSalary;
-            foreach (ProjectBonuses projectBonuses in BonusNormalList)
+            List<ProjectBonus> updateList = new List<ProjectBonus>();
+            decimal amount = CalculateEachAmountOfList(bonusNormalList.Count());
+            foreach (ProjectBonus projectBonuses in BonusNormalList)
             {
                 projectBonuses.Amount = amount;
                 updateList.Add(projectBonuses);
@@ -112,14 +115,9 @@ namespace CompanyManagement.ViewModels.UserControls
             return updateList;
         }
 
-        private List<ProjectBonuses> UpdateAmountInSpecical()
+        private decimal CalculateEachAmountOfList(int count)
         {
-            List<ProjectBonuses> updateList = new List<ProjectBonuses>();
-            foreach (ProjectBonuses projectBonuses in BonusSpecial)
-            {
-                updateList.Add(projectBonuses);
-            }
-            return updateList;
+            return (decimal)(percentRemaining / count) * BonusSalary;
         }
 
         private string AutoGenerateID()
@@ -134,7 +132,7 @@ namespace CompanyManagement.ViewModels.UserControls
             return projectBonusID;
         }
 
-        private void ExecuteAddBonusCommand(ProjectBonuses projectBonus)
+        private void ExecuteAddBonusCommand(ProjectBonus projectBonus)
         {
             bonusNormalList.Remove(projectBonus);
             projectBonus.Amount = 0;
@@ -142,34 +140,52 @@ namespace CompanyManagement.ViewModels.UserControls
             LoadAmountInBonuses();
         }
 
-        private void ExecuteAddNonBonusCommand(ProjectBonuses projectBonus)
+        private void ExecuteAddNonBonusCommand(ProjectBonus projectBonus)
         {
             nonBonusList.Add(projectBonus);
             bonusNormalList.Remove(projectBonus);
             LoadAmountInBonuses();
         }
 
-        private void ExecuteCalculateShareBonusCommand(ProjectBonuses projectBonus)
+        private void ExecuteCalculateShareBonusCommand(ProjectBonus projectBonus)
         {
             if (!ValidatePercent(projectBonus)) return;
-            MessageBox.Show(projectBonus.Percent.ToString());
-            projectBonus.Amount = (decimal)(projectBonus.Percent * BonusSalary) / 100;
+            projectBonus.Amount = CalculateAmountOfProject(projectBonus.Percent);
             LoadAmountInBonuses();
         }
 
-        private bool ValidatePercent(ProjectBonuses projectBonus)
+        private decimal CalculateAmountOfProject(int percent)
+        {
+            return (decimal)(percent * BonusSalary) / 100;
+        }
+
+        private int LoadNextPercentRemaining()
+        {
+            int totalPercent = 100;
+            foreach (ProjectBonus projectBonuses in BonusSpecial)
+            {
+                totalPercent -= projectBonuses.Percent;
+            }
+            return totalPercent;
+        }
+
+        private bool ValidatePercent(ProjectBonus projectBonus)
         {
             int newPercent = LoadNextPercentRemaining();
             if (newPercent < 0)
             {
                 projectBonus.Percent = 0;
+                var dialog = new AlertDialogService(
+                "Nhập liệu sai",
+                "Tổng mức thưởng thiết lập quá 100%", null, null);
+                dialog.Show();
                 return false;
             }
             percentRemaining = newPercent;
             return true;
         }
 
-        private void ExecuteRestoreBonusCommand(ProjectBonuses projectBonus)
+        private void ExecuteRestoreBonusCommand(ProjectBonus projectBonus)
         {
             bonusNormalList.Add(projectBonus);
             bonusSpecial.Remove(projectBonus);
@@ -177,7 +193,7 @@ namespace CompanyManagement.ViewModels.UserControls
             LoadAmountInBonuses();
         }
 
-        private void ExecuteRestoreNonBonusCommand(ProjectBonuses projectBonus)
+        private void ExecuteRestoreNonBonusCommand(ProjectBonus projectBonus)
         {
 
             bonusNormalList.Add(projectBonus);
@@ -187,6 +203,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void ExecuteAddShareBonusToDBCommand(object obj)
         {
+            if (!ValidateShareBonus()) return;
             var dialog = new AlertDialogService(
                 "Chia tiền thưởng",
                 "Bạn chắc chắn muốn lưu các thao tác chia tiền thưởng!",
@@ -198,10 +215,23 @@ namespace CompanyManagement.ViewModels.UserControls
             dialog.Show();
         }
 
-        private void AddShareBonusToDBCommand(ObservableCollection<ProjectBonuses> list)
+        private bool ValidateShareBonus()
+        {
+            if (currentProject.StatusID != BaseDao.projPendingPayID)
+            {
+                var dialog = new AlertDialogService(
+                    "Thông báo",
+                    "Trạng thái của dự án chưa thể chia tiền thưởng", null, null);
+                dialog.Show();
+                return false;
+            }
+            return true;
+        }
+
+        private void AddShareBonusToDBCommand(ObservableCollection<ProjectBonus> list)
         {
             if (list.Count == 0) return;
-            foreach(ProjectBonuses projectBonuses in list)
+            foreach(ProjectBonus projectBonuses in list)
             {
                 projectBonuses.ID = AutoGenerateID();
                 projectBonusesDao.Add(projectBonuses);
@@ -211,8 +241,9 @@ namespace CompanyManagement.ViewModels.UserControls
         public void ReceiveProjectID(string projectID)
         {
             this.projectID = projectID;
-            BonusSalary = projectsDao.SearchByID(projectID).BonusSalary;
-            SetProjectBonuese();
+            this.currentProject = projectsDao.SearchByID(projectID);
+            this.BonusSalary = currentProject.BonusSalary;
+            SetProjectBonuses();
         }
     }
 }

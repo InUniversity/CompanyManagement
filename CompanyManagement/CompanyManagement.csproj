@@ -91,7 +91,7 @@
     <Compile Include="Database\TaskStatusesDao.cs" />
     <Compile Include="Helpers\PasswordBoxHelper.cs" />
     <Compile Include="Models\Account.cs" />
-    <Compile Include="Models\ProjectBonuses.cs" />
+    <Compile Include="Models\ProjectBonus.cs" />
     <Compile Include="Models\TimeSheet.cs" />
     <Compile Include="Models\CurrentUser.cs" />
     <Compile Include="Models\Department.cs" />

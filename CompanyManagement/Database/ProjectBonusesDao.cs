@@ -11,7 +11,7 @@ namespace CompanyManagement.Database
 {
     public class ProjectBonusesDao : BaseDao 
     {
-        public void Add(ProjectBonuses projectBonuses)
+        public void Add(ProjectBonus projectBonuses)
         {
             string sqlStr = $"INSERT INTO {projBonusTbl} ({projBonusID}, " +
                             $"{projBonusAmount}, {projBonusReceiveDate}, " +
@@ -28,7 +28,7 @@ namespace CompanyManagement.Database
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
-        public void Update(ProjectBonuses projectBonuses)
+        public void Update(ProjectBonus projectBonuses)
         {
             string sqlStr = $"UPDATE {projBonusTbl} " +
                             $"SET {projBonusAmount} = '{projectBonuses.Amount}', " +
@@ -39,22 +39,28 @@ namespace CompanyManagement.Database
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
-        public List<ProjectBonuses> SearchByID(string id)
+        public List<ProjectBonus> SearchByID(string id)
         {
             string sqlStr = $"SELECT * FROM {projBonusTbl} WHERE {projBonusID} = '{id}'";
-            return dbConnection.GetList<ProjectBonuses>(sqlStr, reader => new ProjectBonuses(reader));
+            return dbConnection.GetList<ProjectBonus>(sqlStr, reader => new ProjectBonus(reader));
         }
 
-        public List<ProjectBonuses> SearchByProjectID(string id)
+        public List<ProjectBonus> SearchByProjectID(string id)
         {
             string sqlStr = $"SELECT * FROM {projBonusTbl} WHERE {projBonusProjID} = '{id}'";
-            return dbConnection.GetList<ProjectBonuses>(sqlStr, reader => new ProjectBonuses(reader));
+            return dbConnection.GetList<ProjectBonus>(sqlStr, reader => new ProjectBonus(reader));
         }
 
-        public List<ProjectBonuses> SearchByEmployeeID(string id)
+        public List<ProjectBonus> SearchByEmployeeID(string id)
         {
             string sqlStr = $"SELECT * FROM {projBonusTbl} WHERE {projBonusEmplID} = '{id}'";
-            return dbConnection.GetList<ProjectBonuses>(sqlStr, reader => new ProjectBonuses(reader));
+            return dbConnection.GetList<ProjectBonus>(sqlStr, reader => new ProjectBonus(reader));
+        }
+
+        public void DeleteByProjectID(string id)
+        {
+            string sqlStr = $"DELETE FROM {projBonusTbl} WHERE {projBonusProjID} = '{id}'";
+            dbConnection.ExecuteNonQuery(sqlStr);
         }
     }
 }
