@@ -32,8 +32,8 @@ namespace CompanyManagement.Models
         {
             try
             {
-                projectID = (string)reader[BaseDao.PROJECT_ASSIGNMENTS_PROJECT_ID];
-                deparmentID = (string)reader[BaseDao.PROJECT_ASSIGNMENTS_DEPARTMENT_ID];
+                projectID = (string)reader[BaseDao.projAssignID];
+                deparmentID = (string)reader[BaseDao.projAssignDeptID];
             }
             catch(Exception ex)
             {

@@ -8,33 +8,33 @@ namespace CompanyManagement.Database
     {
         public void Add(Department department)
         {
-            string sqlStr = $"INSERT INTO {DEPARTMENTS_TABLE} ({DEPARTMENTS_ID}, {DEPARTMENTS_NAME}, {DEPARTMENTS_HEAD})" +
+            string sqlStr = $"INSERT INTO {deptTbl} ({deptID}, {deptName}, {deptHead})" +
                             $"VALUES ('{department.ID}', '{department.Name}', '{department.DepartmentHeadID}')";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
         public void Delete(string id)
         {
-            string sqlStr = $"DELETE FROM {DEPARTMENTS_TABLE} WHERE {DEPARTMENTS_ID} = '{id}'";
+            string sqlStr = $"DELETE FROM {deptTbl} WHERE {deptID} = '{id}'";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
         public void Update(Department department)
         {
-            string sqlStr = $"UPDATE {DEPARTMENTS_TABLE} SET {DEPARTMENTS_NAME} = '{department.Name}', " +
-                            $"{DEPARTMENTS_HEAD} = '{department.DepartmentHeadID}' WHERE {DEPARTMENTS_ID} = '{department.ID}'";
+            string sqlStr = $"UPDATE {deptTbl} SET {deptName} = '{department.Name}', " +
+                            $"{deptHead} = '{department.DepartmentHeadID}' WHERE {deptID} = '{department.ID}'";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
         public List<Department> GetAll()
         {
-            string sqlStr = $"SELECT * FROM {DEPARTMENTS_TABLE}";
+            string sqlStr = $"SELECT * FROM {deptTbl}";
             return dbConnection.GetList(sqlStr, reader => new Department(reader));
         }
 
         public Department DepartmentByEmployeeDeptID(string dptID)
         {
-            string sqlStr = $"SELECT * FROM {DEPARTMENTS_TABLE} WHERE {DEPARTMENTS_ID} = '{dptID}'";
+            string sqlStr = $"SELECT * FROM {deptTbl} WHERE {deptID} = '{dptID}'";
             return (Department)dbConnection.GetSingleObject(sqlStr, reader => new Department(reader));
         }
     }

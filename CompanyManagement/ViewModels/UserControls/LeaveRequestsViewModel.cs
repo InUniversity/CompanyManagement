@@ -93,7 +93,7 @@ namespace CompanyManagement.ViewModels.UserControls
         {
             LeaveRequests = leaveDao.SearchByEmployeeID(currentEmployee.ID);
 
-            var receivedLeaveRequests = currentEmployee.RoleID == BaseDao.EMPLOYEE_ROLE_ID
+            var receivedLeaveRequests = currentEmployee.RoleID == BaseDao.regularEmplRole
                 ? leaveDao.SearchByEmployeeID(currentEmployee.ID)
                 : leaveDao.SearchByApproverID(currentEmployee.ID);
             foreach(LeaveRequest leave in receivedLeaveRequests)
@@ -102,16 +102,16 @@ namespace CompanyManagement.ViewModels.UserControls
             }    
 
             var unapprovedLeaveList = receivedLeaveRequests
-                .Where(p => p.StatusID == BaseDao.LEAVE_REQUEST_UNAPPROVED && p.StartDate > DateTime.Now)
+                .Where(p => p.StatusID == BaseDao.leavRequestUpapproved && p.StartDate > DateTime.Now)
                 .OrderByDescending(p => p.CreatedDate).ToList();
             UnapprovedLeaveRequests = unapprovedLeaveList;
 
-            var listApprovedLeaves = receivedLeaveRequests.Where(p => p.StatusID == BaseDao.LEAVE_REQUEST_APPROVED)
+            var listApprovedLeaves = receivedLeaveRequests.Where(p => p.StatusID == BaseDao.leavRequesApproved)
                                         .OrderByDescending(p => p.CreatedDate).ToList();
             ApprovedLeaveRequests = listApprovedLeaves;
 
-            var listUnapprovedLeaves = receivedLeaveRequests.Where(p => p.StatusID == BaseDao.LEAVE_REQUEST_UNAPPROVED 
-                                        || (p.StartDate <= DateTime.Now && p.StatusID == BaseDao.LEAVE_REQUEST_DENIED))
+            var listUnapprovedLeaves = receivedLeaveRequests.Where(p => p.StatusID == BaseDao.leavRequestUpapproved 
+                                        || (p.StartDate <= DateTime.Now && p.StatusID == BaseDao.leavRequesDenied))
                                         .OrderByDescending(p => p.CreatedDate).ToList();
             DeniedLeaveRequests = listUnapprovedLeaves;
         }
@@ -131,7 +131,7 @@ namespace CompanyManagement.ViewModels.UserControls
         private LeaveRequest CreateLeave()
         {
             return new LeaveRequest(AutoGenerateID(), "", "", 
-                BaseDao.LEAVE_REQUEST_UNAPPROVED, currentEmployee.ID, "");
+                BaseDao.leavRequestUpapproved, currentEmployee.ID, "");
         }
 
         private string AutoGenerateID()

@@ -6,55 +6,53 @@ namespace CompanyManagement.Utilities
 {
     public class Utils
     {
-        public const string INVALIDATE_USERNAME_PASSWORD_MESSAGE = "Tên đăng nhập hoặc mật khẩu không đúng!";
-        public const string INVALIDATE_EMAIL_MESSAGE = "Email không hợp lệ!!!";
-        public const string INVALIDATE_PHONE_NUMBER_MESSAGE = "Số điện thoại không hợp lệ!!!";
-        public const string INVALIDATE_BIRTHDAY_MESSAGE = "Ngày sinh không hợp lệ!!!";
-        public const string INVALIDATE_IDENTIFY_CARD_MESSAGE = "CMND/CCCD không hợp lệ!!!";
-        public const string INVALIDATE_EMPTY_MESSAGE = "Các thông tin có dấu (*) không được để trống!!!";
-        public const string INVALIDATE_TIMELINE = "Ngày bắt đầu phải lớn hơn ngày hiện tại và thời gian kết thúc phải lớn hơn ngày bắt đầu!!!";
-        public const string EXIST_ID_MESSAGE = "ID đã tồn tại!!!";
-        public const string EXIST_IDENTIFY_CARD_MESSAGE = "CMND/CCCD đã tồn tại!!!";
-        public const string EXIST_PHONE_NUMBER_MESSAGE = "Số điện thoại đã tồn tại!!!";
-        public const string INVALIDATE_TASK_CHECK_IN = "Chưa chọn nhiệm vụ để điểm danh!";
+        public const string invalidAccMess = "Tên đăng nhập hoặc mật khẩu không đúng!";
+        public const string invalidEmailMess = "Email không hợp lệ!!!";
+        public const string invalidPhoneNoMess = "Số điện thoại không hợp lệ!!!";
+        public const string invalidBirthdayMess = "Ngày sinh không hợp lệ!!!";
+        public const string invalidIdentCardMess = "CMND/CCCD không hợp lệ!!!";
+        public const string invalidEmptyMess = "Các thông tin có dấu không được để trống!!!";
+        public const string invalidTimeline = "Ngày bắt đầu phải lớn hơn ngày hiện tại và thời gian kết thúc phải lớn hơn ngày bắt đầu!!!";
+        public const string invalidIDMess = "ID đã tồn tại!!!";
+        public const string invalidCheckInMess = "Chưa chọn nhiệm vụ để điểm danh!";
 
-        public static readonly DateTime EMPTY_DATETIME = new DateTime(2000, 1, 1, 0, 0, 0);
-        private const string FORMAT_DATETIME = "yyyy-MM-dd hh:mm:ss";
-        private const string FORMAT_DATE = "yyyy-MM-dd";
+        public static readonly DateTime emptyDate = new DateTime(2000, 1, 1, 0, 0, 0);
+        private const string formatDateTime = "yyyy-MM-dd hh:mm:ss";
+        private const string formatDate = "yyyy-MM-dd";
 
-        public static string ToSQLFormat(DateTime dateTime)
+        public static string ToSQLFormat(DateTime dt)
         {
-            return dateTime.ToString(FORMAT_DATETIME);
+            return dt.ToString(formatDateTime);
         }
 
-        public static string ToOnlyDateSQLFormat(DateTime dateTime)
+        public static string ToOnlyDateSQLFormat(DateTime dt)
         {
-            return dateTime.ToString(FORMAT_DATE);
+            return dt.ToString(formatDate);
         }
 
-        public static int GetInt(IDataRecord record, string columnName)
+        public static int GetInt(IDataRecord record, string colName)
         {
-            return GetValueOrDefault(record, columnName, 0);
+            return GetValueOrDefault(record, colName, 0);
         }
 
-        public static string GetString(IDataRecord record, string columnName)
+        public static string GetString(IDataRecord record, string colName)
         {
-            return GetValueOrDefault(record, columnName, string.Empty);
+            return GetValueOrDefault(record, colName, string.Empty);
         }
         
-        public static DateTime GetDateTime(IDataRecord record, string columnName)
+        public static DateTime GetDateTime(IDataRecord record, string colName)
         {
-            return GetValueOrDefault(record, columnName, EMPTY_DATETIME);
+            return GetValueOrDefault(record, colName, emptyDate);
         }
 
-        public static decimal GetDecimal(IDataRecord record, string columnName)
+        public static decimal GetDecimal(IDataRecord record, string colName)
         {
-            return GetValueOrDefault(record, columnName, (decimal)0);
+            return GetValueOrDefault(record, colName, (decimal)0);
         }
 
-        private static T GetValueOrDefault<T>(IDataRecord record, string columnName, T defaultValue)
+        private static T GetValueOrDefault<T>(IDataRecord record, string colName, T defaultVal)
         {
-            return record[columnName] == DBNull.Value ? defaultValue : (T)record[columnName];
+            return record[colName] == DBNull.Value ? defaultVal : (T)record[colName];
         }
     }
 }

@@ -19,8 +19,8 @@ namespace CompanyManagement.Models
         {
             try
             {
-                id = (string)reader[BaseDao.ROLES_ID];
-                title = (string)reader[BaseDao.ROLES_NAME];
+                id = (string)reader[BaseDao.roleID];
+                title = (string)reader[BaseDao.roleName];
             }
             catch (Exception ex)
             {

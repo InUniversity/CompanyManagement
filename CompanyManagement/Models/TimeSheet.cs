@@ -9,8 +9,8 @@ namespace CompanyManagement.Models
     {
         private string id = "";
         private string employeeID = "";
-        private DateTime checkInTime = Utils.EMPTY_DATETIME;
-        private DateTime checkOutTime = Utils.EMPTY_DATETIME;
+        private DateTime checkInTime = Utils.emptyDate;
+        private DateTime checkOutTime = Utils.emptyDate;
         private string taskCheckInID = "";
 
         public string ID
@@ -58,11 +58,11 @@ namespace CompanyManagement.Models
         {
             try
             {
-                id = (string)reader[BaseDao.TIME_SHEETS_ID];
-                employeeID = (string)reader[BaseDao.TIME_SHEETS_EMPLOYEE_ID];
-                checkInTime = reader.GetDateTime(reader.GetOrdinal(BaseDao.TIME_SHEETS_CHECK_IN_TIME));
-                checkOutTime = reader.GetDateTime(reader.GetOrdinal(BaseDao.TIME_SHEETS_CHECK_OUT_TIME));
-                taskCheckInID = (string)reader[BaseDao.TIME_SHEETS_TASK_CHECK_IN_ID];
+                id = (string)reader[BaseDao.timeShtID];
+                employeeID = (string)reader[BaseDao.timeShtEmplID];
+                checkInTime = reader.GetDateTime(reader.GetOrdinal(BaseDao.timeShtInTime));
+                checkOutTime = reader.GetDateTime(reader.GetOrdinal(BaseDao.timeShtOutTime));
+                taskCheckInID = (string)reader[BaseDao.timeShtTaskInID];
             }
             catch (Exception e)
             {

@@ -88,7 +88,7 @@ namespace CompanyManagement.ViewModels.UserControls
             approvers = employeesDao.GetManagers();
             string headerDeptID = departmentsDao.DepartmentByEmployeeDeptID(CurrentUser.Ins.EmployeeIns.DepartmentID)?.DepartmentHeadID ?? "";
             Employee headerApprover = employeesDao.SearchByID(headerDeptID);
-            SearchedApprovers = string.Equals(currentEmployee.RoleID,BaseDao.DEPARTMENT_HEAD_ROLE_ID)
+            SearchedApprovers = string.Equals(currentEmployee.RoleID,BaseDao.deptHeadRole)
                 ? Approvers
                 : Approvers.Concat(new List<Employee>() { headerApprover }).ToList();
             foreach(Employee emp in SearchedApprovers)

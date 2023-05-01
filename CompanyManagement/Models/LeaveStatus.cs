@@ -17,8 +17,8 @@ namespace CompanyManagement.Models
         {
             try
             {
-                id = Utils.GetString(reader, BaseDao.LEAVE_STATUSES_ID);
-                statusName = Utils.GetString(reader, BaseDao.LEAVE_STATUSES_NAME);
+                id = Utils.GetString(reader, BaseDao.leavStasID);
+                statusName = Utils.GetString(reader, BaseDao.leavStasName);
             }
             catch (Exception ex)
             {

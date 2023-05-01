@@ -136,12 +136,12 @@ namespace CompanyManagement.ViewModels.UserControls
             ErrorMessage = "";
             if (string.IsNullOrWhiteSpace(Name))
             {
-                ErrorMessage = Utils.INVALIDATE_EMPTY_MESSAGE;
+                ErrorMessage = Utils.invalidEmptyMess;
                 return false;
             }
             if (!checker.ValidateTimeline(StartDate, EndDate))
             {
-                ErrorMessage = Utils.INVALIDATE_TIMELINE;
+                ErrorMessage = Utils.invalidTimeline;
                 return false;
             }
             return true;

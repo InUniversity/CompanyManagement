@@ -41,7 +41,7 @@ namespace CompanyManagement.ViewModels.Windows
             var account = accountsDao.SearchByUsername(Username);
             if (account == null || !string.Equals(password, account.Password))
             {
-                MessageBox.Show(Utils.INVALIDATE_USERNAME_PASSWORD_MESSAGE);
+                MessageBox.Show(Utils.invalidAccMess);
                 return;
             }
             RefreshAllText();

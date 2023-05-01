@@ -57,7 +57,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void LoadTaskInProjects()
         {
-            TasksInProject = string.Equals(currentEmployee.RoleID, BaseDao.EMPLOYEE_ROLE_ID)
+            TasksInProject = string.Equals(currentEmployee.RoleID, BaseDao.regularEmplRole)
                ? tasksDao.SearchByEmployeeID(projectID, currentEmployee.ID)
                : tasksDao.SearchByProjectID(projectID);
             foreach (var task in TasksInProject)
@@ -67,20 +67,20 @@ namespace CompanyManagement.ViewModels.UserControls
             }
 
             var listOngoingTasks = TasksInProject
-                .Where(p => p.Progress != BaseDao.COMPLETED && p.Deadline > DateTime.Now).ToList();
+                .Where(p => p.Progress != BaseDao.completed && p.Deadline > DateTime.Now).ToList();
             OngoingTasksInProject = new List<TaskInProject>(listOngoingTasks);
 
-            var listCompletedTasks = TasksInProject.Where(p => p.Progress == BaseDao.COMPLETED).ToList();
+            var listCompletedTasks = TasksInProject.Where(p => p.Progress == BaseDao.completed).ToList();
             CompletedTasksInProject = new List<TaskInProject>(listCompletedTasks);
 
             var listOverdueTasks = TasksInProject
-                .Where(p => p.Deadline < DateTime.Now && p.Progress != BaseDao.COMPLETED).ToList();
+                .Where(p => p.Deadline < DateTime.Now && p.Progress != BaseDao.completed).ToList();
             OverdueTasksInProject = new List<TaskInProject>(listOverdueTasks);
         }
 
         private void SetVisible()
         {
-            if (!string.Equals(currentEmployee.RoleID, BaseDao.EMPLOYEE_ROLE_ID))
+            if (!string.Equals(currentEmployee.RoleID, BaseDao.regularEmplRole))
             {
                 visibleAddButton = Visibility.Visible;
                 visibleDeleteButton = Visibility.Visible;
@@ -102,7 +102,7 @@ namespace CompanyManagement.ViewModels.UserControls
         public void ReceiveProjectID(string projectID)
         {
             this.projectID = projectID;
-            var tasks = string.Equals(currentEmployee.RoleID, BaseDao.EMPLOYEE_ROLE_ID)
+            var tasks = string.Equals(currentEmployee.RoleID, BaseDao.regularEmplRole)
                 ? tasksDao.SearchByEmployeeID(projectID, currentEmployee.ID)
                 : tasksDao.SearchByProjectID(projectID);
             TasksInProject = tasks;

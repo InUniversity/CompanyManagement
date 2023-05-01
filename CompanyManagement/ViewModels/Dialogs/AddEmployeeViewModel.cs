@@ -48,17 +48,17 @@ namespace CompanyManagement.ViewModels.Dialogs
                 return false;
             if (employeesDao.SearchByID(EmployeeInputDataContext.ID) != null)
             {
-                EmployeeInputDataContext.ErrorMessage = Utils.EXIST_ID_MESSAGE;
+                EmployeeInputDataContext.ErrorMessage = Utils.invalidIDMess;
                 return false;
             }
             if (employeesDao.SearchByIdentifyCard(EmployeeInputDataContext.IdentifyCard) != null)
             {
-                EmployeeInputDataContext.ErrorMessage = Utils.EXIST_IDENTIFY_CARD_MESSAGE;
+                EmployeeInputDataContext.ErrorMessage = Utils.invalidIdentCardMess;
                 return false;
             }
             if (employeesDao.SearchByPhoneNumber(EmployeeInputDataContext.PhoneNumber) != null)
             {
-                EmployeeInputDataContext.ErrorMessage = Utils.EXIST_PHONE_NUMBER_MESSAGE;
+                EmployeeInputDataContext.ErrorMessage = Utils.invalidPhoneNoMess;
                 return false;
             }
             return true;

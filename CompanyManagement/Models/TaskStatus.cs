@@ -17,8 +17,8 @@ namespace CompanyManagement.Models
         {
             try
             {
-                id = (string)reader[BaseDao.TASK_STATUSES_ID];
-                name = (string)reader[BaseDao.TASK_STATUSES_NAME];
+                id = (string)reader[BaseDao.taskStasID];
+                name = (string)reader[BaseDao.taskStasName];
             }
             catch (Exception ex)
             {

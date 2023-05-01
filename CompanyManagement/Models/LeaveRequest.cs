@@ -104,15 +104,15 @@ namespace CompanyManagement.Models
         {
             try
             {
-                id = Utils.GetString(reader, BaseDao.LEAVES_ID);
-                reason = Utils.GetString(reader, BaseDao.LEAVES_REASON);
-                notes = Utils.GetString(reader, BaseDao.LEAVES_NOTES);
-                createdDate = Utils.GetDateTime(reader, BaseDao.LEAVES_CREATED_DATE);
-                startDate = Utils.GetDateTime(reader, BaseDao.LEAVES_START_DATE);
-                endDate = Utils.GetDateTime(reader, BaseDao.LEAVES_END_DATE);
-                statusID = Utils.GetString(reader, BaseDao.LEAVES_STATUS_ID);
-                employeeID = Utils.GetString(reader, BaseDao.LEAVES_EMPLOYEE_ID);
-                approverID = Utils.GetString(reader, BaseDao.LEAVES_APPROVER_ID);
+                id = Utils.GetString(reader, BaseDao.leavID);
+                reason = Utils.GetString(reader, BaseDao.leavReason);
+                notes = Utils.GetString(reader, BaseDao.leavNotes);
+                createdDate = Utils.GetDateTime(reader, BaseDao.leavCreated);
+                startDate = Utils.GetDateTime(reader, BaseDao.leavStart);
+                endDate = Utils.GetDateTime(reader, BaseDao.leavEnd);
+                statusID = Utils.GetString(reader, BaseDao.leavStatusID);
+                employeeID = Utils.GetString(reader, BaseDao.leavEmplID);
+                approverID = Utils.GetString(reader, BaseDao.leavApproverID);
             }
             catch (Exception ex)
             {

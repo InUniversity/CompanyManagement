@@ -53,27 +53,27 @@ namespace CompanyManagement.ViewModels.UserControls
                 string.IsNullOrWhiteSpace(PhoneNumber) || string.IsNullOrWhiteSpace(Address) ||
                 string.IsNullOrWhiteSpace(DepartmentID) || string.IsNullOrWhiteSpace(RoleID))
             {
-                ErrorMessage = Utils.INVALIDATE_EMPTY_MESSAGE;
+                ErrorMessage = Utils.invalidEmptyMess;
                 return false;
             }
             if (!checker.ValidateBirthday(Birthday))
             {
-                ErrorMessage = Utils.INVALIDATE_BIRTHDAY_MESSAGE;
+                ErrorMessage = Utils.invalidBirthdayMess;
                 return false;
             }
             if (!checker.ValidateEmail(Email))
             {
-                ErrorMessage = Utils.INVALIDATE_EMAIL_MESSAGE;
+                ErrorMessage = Utils.invalidEmailMess;
                 return false;
             }
             if (!checker.ValidatePhoneNumber(PhoneNumber))
             {
-                ErrorMessage = Utils.INVALIDATE_PHONE_NUMBER_MESSAGE;
+                ErrorMessage = Utils.invalidPhoneNoMess;
                 return false;
             }
             if (!checker.ValidateIdentifyCard(IdentifyCard))
             {
-                ErrorMessage = Utils.INVALIDATE_IDENTIFY_CARD_MESSAGE;
+                ErrorMessage = Utils.invalidIdentCardMess;
                 return false;
             }
             return true;

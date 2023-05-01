@@ -8,9 +8,9 @@ namespace CompanyManagement.Database
         public void Add(Employee empl)
         {
             string sqlStr =
-                $"INSERT INTO {EMPLOYEES_TABLE} ({EMPLOYEES_ID}, {EMPLOYEES_NAME}, {EMPLOYEES_GENDER}, {EMPLOYEES_BIRTHDAY}, " +
-                $"{EMPLOYEES_IDENTIFY_CARD}, {EMPLOYEES_EMAIL}, {EMPLOYEES_PHONE_NUMBER}, {EMPLOYEES_ADDRESS}, " +
-                $"{EMPLOYEES_DEPARTMENT_ID},{EMPLOYEES_ROLE_ID}, {EMPLOYEES_SALARY}) VALUES ('{empl.ID}', " +
+                $"INSERT INTO {emplTbl} ({emplID}, {emplName}, {emplGender}, {emplBirthday}, " +
+                $"{emplIdentCard}, {emplEmail}, {emplPhoneNo}, {emplAddress}, " +
+                $"{emplDeptID},{emplRoleID}, {emplSalary}) VALUES ('{empl.ID}', " +
                 $"N'{empl.Name}', N'{empl.Gender}', '{empl.Birthday}', '{empl.IdentifyCard}', '{empl.Email}', " +
                 $"'{empl.PhoneNumber}', N'{empl.Address}', '{empl.DepartmentID}', '{empl.RoleID}', '{empl.Salary}')";
             dbConnection.ExecuteNonQuery(sqlStr);
@@ -18,55 +18,55 @@ namespace CompanyManagement.Database
 
         public void Delete(string id)
         {
-            string sqlStr = $"DELETE FROM {EMPLOYEES_TABLE} WHERE {EMPLOYEES_ID}='{id}'";
+            string sqlStr = $"DELETE FROM {emplTbl} WHERE {emplID}='{id}'";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
         public void Update(Employee empl)
         {
-            string sqlStr = $"UPDATE {EMPLOYEES_TABLE} " +
-                $"SET {EMPLOYEES_NAME}=N'{empl.Name}', {EMPLOYEES_GENDER}=N'{empl.Gender}', " +
-                $"{EMPLOYEES_BIRTHDAY}='{empl.Birthday}', {EMPLOYEES_IDENTIFY_CARD}='{empl.IdentifyCard}', " +
-                $"{EMPLOYEES_EMAIL}='{empl.Email}', {EMPLOYEES_PHONE_NUMBER}='{empl.PhoneNumber}', " +
-                $"{EMPLOYEES_ADDRESS}='{empl.Address}', {EMPLOYEES_DEPARTMENT_ID}='{empl.DepartmentID}', " +
-                $"{EMPLOYEES_ROLE_ID}='{empl.RoleID}', {EMPLOYEES_SALARY}='{empl.Salary}' " +
-                $"WHERE {EMPLOYEES_ID}='{empl.ID}'";
+            string sqlStr = $"UPDATE {emplTbl} " +
+                $"SET {emplName}=N'{empl.Name}', {emplGender}=N'{empl.Gender}', " +
+                $"{emplBirthday}='{empl.Birthday}', {emplIdentCard}='{empl.IdentifyCard}', " +
+                $"{emplEmail}='{empl.Email}', {emplPhoneNo}='{empl.PhoneNumber}', " +
+                $"{emplAddress}='{empl.Address}', {emplDeptID}='{empl.DepartmentID}', " +
+                $"{emplRoleID}='{empl.RoleID}', {emplSalary}='{empl.Salary}' " +
+                $"WHERE {emplID}='{empl.ID}'";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
         public List<Employee> SearchByCurrentID(string employeeID)
         {
-            string sqlStr = $"SELECT * FROM {EMPLOYEES_TABLE} E WHERE E.{EMPLOYEES_ID} NOT LIKE '{employeeID}'";
+            string sqlStr = $"SELECT * FROM {emplTbl} E WHERE E.{emplID} NOT LIKE '{employeeID}'";
             return dbConnection.GetList(sqlStr, reader => new Employee(reader));
         }
 
         public Employee SearchByID(string id)
         {
-            string sqlStr = $"SELECT * FROM {EMPLOYEES_TABLE} WHERE {EMPLOYEES_ID}='{id}'";
+            string sqlStr = $"SELECT * FROM {emplTbl} WHERE {emplID}='{id}'";
             return (Employee)dbConnection.GetSingleObject(sqlStr, reader => new Employee(reader));
         }
 
         public Employee SearchByIdentifyCard(string identifyCard)
         {
-            string sqlStr = $"SELECT * FROM {EMPLOYEES_TABLE} WHERE {EMPLOYEES_IDENTIFY_CARD}='{identifyCard}'";
+            string sqlStr = $"SELECT * FROM {emplTbl} WHERE {emplIdentCard}='{identifyCard}'";
             return (Employee)dbConnection.GetSingleObject(sqlStr, reader => new Employee(reader));
         }
 
         public Employee SearchByPhoneNumber(string phoneNumber)
         {
-            string sqlStr = $"SELECT * FROM {EMPLOYEES_TABLE} WHERE {EMPLOYEES_PHONE_NUMBER}='{phoneNumber}'";
+            string sqlStr = $"SELECT * FROM {emplTbl} WHERE {emplPhoneNo}='{phoneNumber}'";
             return (Employee)dbConnection.GetSingleObject(sqlStr, reader => new Employee(reader));
         }
 
         public Employee SearchByPositionID(string id)
         {
-            string sqlStr = $"SELECT * FROM {EMPLOYEES_TABLE} WHERE {EMPLOYEES_ROLE_ID} ='{id}'";
+            string sqlStr = $"SELECT * FROM {emplTbl} WHERE {emplRoleID} ='{id}'";
             return (Employee)dbConnection.GetSingleObject(sqlStr, reader => new Employee(reader));
         }
 
         public List<Employee> GetManagers()
         {
-            string sqlStr = $"SELECT * FROM {EMPLOYEES_TABLE} WHERE {EMPLOYEES_ROLE_ID} ='{MANAGER_ROLE_ID}'";
+            string sqlStr = $"SELECT * FROM {emplTbl} WHERE {emplRoleID} ='{managerRole}'";
             return dbConnection.GetList<Employee>(sqlStr, reader => new Employee(reader));
         }
     }
