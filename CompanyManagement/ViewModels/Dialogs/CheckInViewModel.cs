@@ -89,7 +89,7 @@ namespace CompanyManagement.ViewModels.UserControls
             ErrorMessage = "";
             if (selectedTask == null)
             {
-                ErrorMessage = Utils.INVALIDATE_TASK_CHECK_IN;
+                ErrorMessage = Utils.invalidCheckInMess;
                 return false;
             }
             return true;

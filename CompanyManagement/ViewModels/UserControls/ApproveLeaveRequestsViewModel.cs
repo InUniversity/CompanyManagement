@@ -58,19 +58,19 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void ExecuteApproveCommand(LeaveRequest leave)
         {
-            leave.StatusID = BaseDao.LEAVE_REQUEST_APPROVED;
+            leave.StatusID = BaseDao.leavRequesApproved;
             Update(leave);
         }
 
         private void ExecuteDenyLeaveCommand(LeaveRequest leave)
         {
-            leave.StatusID = BaseDao.LEAVE_REQUEST_DENIED;
+            leave.StatusID = BaseDao.leavRequesDenied;
             Update(leave);
         }
 
         private void ExecuteRestoreLeaveCommand(LeaveRequest leave)
         {
-            leave.StatusID = BaseDao.LEAVE_REQUEST_UNAPPROVED;
+            leave.StatusID = BaseDao.leavRequestUpapproved;
             Update(leave);
         }
 
@@ -89,13 +89,13 @@ namespace CompanyManagement.ViewModels.UserControls
 
             ReceivedLeaveRequests = leaveDao.SearchByApproverID(currentEmployee.ID);
     
-            var listUnapprovedLeaves = ReceivedLeaveRequests.Where(p => p.StatusID == BaseDao.LEAVE_REQUEST_UNAPPROVED).ToList();
+            var listUnapprovedLeaves = ReceivedLeaveRequests.Where(p => p.StatusID == BaseDao.leavRequestUpapproved).ToList();
             UnapprovedLeaveRequests = listUnapprovedLeaves;
 
-            var listApprovedLeaves = ReceivedLeaveRequests.Where(p => p.StatusID == BaseDao.LEAVE_REQUEST_APPROVED).ToList();
+            var listApprovedLeaves = ReceivedLeaveRequests.Where(p => p.StatusID == BaseDao.leavRequesApproved).ToList();
             ApprovedLeaveRequests = listApprovedLeaves;
 
-            var listDeniedLeaveRequests = ReceivedLeaveRequests.Where(p => p.StatusID == BaseDao.LEAVE_REQUEST_DENIED).ToList();
+            var listDeniedLeaveRequests = ReceivedLeaveRequests.Where(p => p.StatusID == BaseDao.leavRequesDenied).ToList();
             DeniedLeaveRequests = listDeniedLeaveRequests;
         }
 
@@ -104,7 +104,7 @@ namespace CompanyManagement.ViewModels.UserControls
             LoadLeaveRequestList();
             var allItem = ReceivedLeaveRequests;
             allItem = ReceivedLeaveRequests
-                    .Where(item => item.CreatedDate.Date == TimeCreateLeave.Date)
+                    .Where(item => item.Created.Date == TimeCreateLeave.Date)
                     .ToList();
             ReceivedLeaveRequests = new List<LeaveRequest>(allItem);
 

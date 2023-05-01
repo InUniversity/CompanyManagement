@@ -94,7 +94,7 @@ namespace CompanyManagement.ViewModels.UserControls
             employees = assignmentsDao.GetEmployeesInProject(task.ProjectID);
             foreach (var employee in employees)
             {
-                employee.EmployeeRole = roleDao.SearchByID(employee.RoleID);
+                employee.EmplRole = roleDao.SearchByID(employee.RoleID);
             }
         }
 

@@ -2,128 +2,128 @@ namespace CompanyManagement.Database.Base
 {
     public abstract class BaseDao
     {
-        public const string MANAGER_ROLE_ID = "ER01";
-        public const string DEPARTMENT_HEAD_ROLE_ID = "ER02";
-        public const string HR_ROLE_ID = "ER03";
-        public const string EMPLOYEE_ROLE_ID = "ER04";
+        public const string managerRole = "ER01";
+        public const string deptHeadRole = "ER02";
+        public const string hrRole = "ER03";
+        public const string regularEmplRole = "ER04";
 
-        public const string COMPLETED = "100";
-        public const string LEAVE_REQUEST_UNAPPROVED = "LS2";
-        public const string LEAVE_REQUEST_APPROVED = "LS1";
-        public const string LEAVE_REQUEST_DENIED = "LS3";
+        public const string completed = "100";
+        public const string leavRequestUpapproved = "LS2";
+        public const string leavRequesApproved = "LS1";
+        public const string leavRequesDenied = "LS3";
 
-        protected const string DEPARTMENTS_TABLE = "Departments";
-        public const string DEPARTMENTS_ID = "ID";
-        public const string DEPARTMENTS_NAME = "DepartmentName";
-        public const string DEPARTMENTS_HEAD = "DepartmentHead";
+        protected const string deptTbl = "Departments";
+        public const string deptID = "ID";
+        public const string deptName = "DepartmentName";
+        public const string deptHead = "DepartmentHead";
 
-        protected const string ROLES_TABLE = "Roles";
-        public const string ROLES_ID = "ID";
-        public const string ROLES_NAME = "Title";
+        protected const string roleTbl = "Roles";
+        public const string roleID = "ID";
+        public const string roleName = "Title";
 
-        protected const string EMPLOYEES_TABLE = "Employees";
-        public const string EMPLOYEES_ID = "ID";
-        public const string EMPLOYEES_NAME = "FullName";
-        public const string EMPLOYEES_GENDER = "Gender";
-        public const string EMPLOYEES_BIRTHDAY = "Birthday";
-        public const string EMPLOYEES_IDENTIFY_CARD = "IdentifyCard";
-        public const string EMPLOYEES_EMAIL = "Email";
-        public const string EMPLOYEES_PHONE_NUMBER = "PhoneNumber";
-        public const string EMPLOYEES_ADDRESS = "EmployeeAddress";
-        public const string EMPLOYEES_SALARY = "BaseSalary";
-        public const string EMPLOYEES_DEPARTMENT_ID = "DepartmentID";
-        public const string EMPLOYEES_ROLE_ID = "RoleID";
+        protected const string emplTbl = "Employees";
+        public const string emplID = "ID";
+        public const string emplName = "FullName";
+        public const string emplGender = "Gender";
+        public const string emplBirthday = "Birthday";
+        public const string emplIdentCard = "IdentifyCard";
+        public const string emplEmail = "Email";
+        public const string emplPhoneNo = "PhoneNumber";
+        public const string emplAddress = "EmployeeAddress";
+        public const string emplSalary = "BaseSalary";
+        public const string emplDeptID = "DepartmentID";
+        public const string emplRoleID = "RoleID";
 
-        protected const string ACCOUNTS_TABLE = "Accounts";
-        public const string ACCOUNTS_USERNAME = "Username";
-        public const string ACCOUNTS_PASSWORD = "PasswordHash";
-        public const string ACCOUNTS_EMPLOYEE_ID = "EmployeeID";
+        protected const string accTbl = "Accounts";
+        public const string accName = "Username";
+        public const string accPass = "PasswordHash";
+        public const string accEmplID = "EmployeeID";
         
-        protected const string PROJECT_STATUSES_TABLE = "ProjectStatuses";
-        public const string PROJECT_STATUSES_ID = "ID";
-        public const string PROJECT_STATUSES_NAME = "StatusName";
+        protected const string projStasTbl = "ProjectStatuses";
+        public const string projStasID = "ID";
+        public const string projStasName = "StatusName";
 
-        protected const string PROJECTS_TABLE = "Projects";
-        public const string PROJECTS_ID = "ID";
-        public const string PROJECTS_NAME = "ProjectName";
-        public const string PROJECTS_DETAILS = "Details";
-        public const string PROJECTS_CREATED = "CreatedDate";
-        public const string PROJECTS_START = "StartDate";
-        public const string PROJECTS_END = "EndDate";
-        public const string PROJECTS_COMPLETED = "CompletedDate";
-        public const string PROJECTS_PROPRESS = "Progress";
-        public const string PROJECTS_STATUS_ID = "StatusID";
-        public const string PROJECTS_OWNER_ID = "OwnerID";
-        public const string PROJECTS_BONUS_SALARY = "BonusSalary";
+        protected const string projTbl = "Projects";
+        public const string projID = "ID";
+        public const string projName = "ProjectName";
+        public const string projDetails = "Details";
+        public const string projCreated = "CreatedDate";
+        public const string projStart = "StartDate";
+        public const string projEnd = "EndDate";
+        public const string projCompleted = "CompletedDate";
+        public const string projProgress = "Progress";
+        public const string projStatusID = "StatusID";
+        public const string projOwnerID = "OwnerID";
+        public const string projBonus = "BonusSalary";
 
-        protected const string PROJECT_ASSIGNMENTS_TABLE = "ProjectAssignments";
-        public const string PROJECT_ASSIGNMENTS_PROJECT_ID = "ProjectID";
-        public const string PROJECT_ASSIGNMENTS_DEPARTMENT_ID = "DepartmentID";
+        protected const string projAssignTbl = "ProjectAssignments";
+        public const string projAssignID = "ProjectID";
+        public const string projAssignDeptID = "DepartmentID";
 
-        protected const string TASK_STATUSES_TABLE = "TaskStatuses";
-        public const string TASK_STATUSES_ID = "ID";
-        public const string TASK_STATUSES_NAME = "StatusName";
+        protected const string taskStasTbl = "TaskStatuses";
+        public const string taskStasID = "ID";
+        public const string taskStasName = "StatusName";
 
-        protected const string TASKS_TABLE = "Tasks";
-        public const string TASKS_ID = "ID";
-        public const string TASKS_TITLE = "Title";
-        public const string TASKS_EXPLANATION = "Explanation";
-        public const string TASKS_START_DATE = "StartDate";
-        public const string TASKS_DEADLINE = "Deadline";
-        public const string TASKS_PROGRESS = "Progress";
-        public const string TASKS_OWNER_ID = "OwnerID";
-        public const string TASKS_EMPLOYEE_ID = "EmployeeID";
-        public const string TASKS_PROJECT_ID = "ProjectID";
-        public const string TASKS_STATUS_ID = "StatusID";
+        protected const string taskTbl = "Tasks";
+        public const string taskID = "ID";
+        public const string taskTitle = "Title";
+        public const string taskExplanation = "Explanation";
+        public const string taskStart = "StartDate";
+        public const string taskDeadline = "Deadline";
+        public const string taskProgress = "Progress";
+        public const string taskOwnerID = "OwnerID";
+        public const string taskEmplID = "EmployeeID";
+        public const string taskProjID = "ProjectID";
+        public const string taskStatusID = "StatusID";
 
-        protected const string LEAVE_STATUSES_TABLE = "LeaveStatuses";
-        public const string LEAVE_STATUSES_ID = "ID";
-        public const string LEAVE_STATUSES_NAME = "StatusName";
+        protected const string leavStasTbl = "LeaveStatuses";
+        public const string leavStasID = "ID";
+        public const string leavStasName = "StatusName";
         
-        protected const string LEAVES_TABLE = "LeaveRequests";
-        public const string LEAVES_ID = "ID";
-        public const string LEAVES_REASON = "Reason";
-        public const string LEAVES_NOTES = "Notes";
-        public const string LEAVES_CREATED_DATE = "CreatedDate";
-        public const string LEAVES_START_DATE = "StartDate";
-        public const string LEAVES_END_DATE = "EndDate";
-        public const string LEAVES_STATUS_ID = "StatusID";
-        public const string LEAVES_EMPLOYEE_ID = "EmployeeID";
-        public const string LEAVES_APPROVER_ID = "ApproverID";
+        protected const string leavTbl = "LeaveRequests";
+        public const string leavID = "ID";
+        public const string leavReason = "Reason";
+        public const string leavNotes = "Notes";
+        public const string leavCreated = "CreatedDate";
+        public const string leavStart = "StartDate";
+        public const string leavEnd = "EndDate";
+        public const string leavStatusID = "StatusID";
+        public const string leavEmplID = "EmployeeID";
+        public const string leavApproverID = "ApproverID";
         
-        protected const string TIME_SHEETS_TABLE = "TimeSheets";
-        public const string TIME_SHEETS_ID = "ID";
-        public const string TIME_SHEETS_CHECK_IN_TIME = "CheckInTime";
-        public const string TIME_SHEETS_CHECK_OUT_TIME = "CheckOutTime";
-        public const string TIME_SHEETS_EMPLOYEE_ID = "EmployeeID";
-        public const string TIME_SHEETS_TASK_CHECK_IN_ID = "TaskCheckInID";
+        protected const string timeShtTbl = "TimeSheets";
+        public const string timeShtID = "ID";
+        public const string timeShtInTime = "CheckInTime";
+        public const string timeShtOutTime = "CheckOutTime";
+        public const string timeShtEmplID = "EmployeeID";
+        public const string timeShtTaskInID = "TaskCheckInID";
         
-        protected const string TASK_CHECK_OUTS_TABLE = "TaskCheckOuts";
-        public const string TASK_CHECK_OUTS_UPDATE_DATE = "UpdateDate";
-        public const string TASK_CHECK_OUTS_PROGRESS = "Progress";
-        public const string TASK_CHECK_OUTS_TIME_SHEET_ID = "TimeSheetID";
-        public const string TASK_CHECK_OUTS_TASK_ID = "TaskID";
+        protected const string taskOutTbl = "TaskCheckOuts";
+        public const string taskOutUpdate = "UpdateDate";
+        public const string taskOutProgress = "Progress";
+        public const string taskOutTimeShtID = "TimeSheetID";
+        public const string taskOutTaskID = "TaskID";
 
-        protected const string KPIS_TABLE = "KPIs";
-        public const string KPIS_ID = "ID";
-        public const string KPIS_MONTH_YEAR = "MonthYear";
-        public const string KPIS_REQUIRED_TASKS_COUNT = "RequiredTasksCount";
-        public const string KPIS_ACTUAL_TASKS_COUNT = "ActualTasksCount";
-        public const string KPIS_EMPLOYEE_ID = "EmployeeID";
+        protected const string kpiTbl = "KPIs";
+        public const string kpiID = "ID";
+        public const string kpiMonthYear = "MonthYear";
+        public const string kpiRequireTaskCnt = "RequiredTasksCount";
+        public const string kpiActualTaskCnt = "ActualTasksCount";
+        public const string kpiEmplID = "EmployeeID";
 
-        protected const string PROJECT_BONUSES_TABLE = "ProjectBonuses";
-        public const string PROJECT_BONUSES_ID = "ID";
-        public const string PROJECT_BONUSES_AMOUNT = "Amount";
-        public const string PROJECT_BONUSES_RECEIVED_DATE = "ReceivedDate";
-        public const string PROJECT_BONUSES_EMPLOYEE_ID = "EmployeeID";
-        public const string PROJECT_BONUSES_PROJECT_ID = "ProjectID";
+        protected const string projBonusTbl = "ProjectBonuses";
+        public const string projBonusID = "ID";
+        public const string projBonusAmount = "Amount";
+        public const string projBonusReceiveDate = "ReceivedDate";
+        public const string projBonusEmplID = "EmployeeID";
+        public const string projBonusProjID = "ProjectID";
 
-        protected const string SALARY_TABLE = "SalaryRecords";
-        public const string SALARY_EMPLOYEE_ID = "EmployeeID";
-        public const string SALARY_MONTH_YEAR = "MonthYear";
-        public const string SALARY_TOTAL_WORK_DAYS = "TotalWorkdays";
-        public const string SALARY_TOTAL_BONUS = "TotalBonus";
-        public const string SALARY_INCOME = "Income";
+        protected const string salaryTbl = "SalaryRecords";
+        public const string salaryEmplID = "EmployeeID";
+        public const string salaryMonthYear = "MonthYear";
+        public const string salaryWorkdays = "TotalWorkdays";
+        public const string salaryBonus = "TotalBonus";
+        public const string salaryIncome = "Income";
         
         protected DBConnection dbConnection = new DBConnection();
     }

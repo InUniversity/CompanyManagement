@@ -88,13 +88,13 @@ namespace CompanyManagement
             set => roleID = value;
         }
 
-        public Account MyAccount
+        public Account Acc
         {
             get => account;
             set => account = value;
         }
 
-        public Role EmployeeRole
+        public Role EmplRole
         {
             get => role;
             set => role = value;
@@ -122,17 +122,17 @@ namespace CompanyManagement
         {
             try
             {
-                id = Utils.GetString(reader, BaseDao.EMPLOYEES_ID);
-                name = Utils.GetString(reader, BaseDao.EMPLOYEES_NAME);
-                gender = Utils.GetString(reader, BaseDao.EMPLOYEES_GENDER);
-                birthday = Utils.GetDateTime(reader, BaseDao.EMPLOYEES_BIRTHDAY);
-                identifyCard = Utils.GetString(reader, BaseDao.EMPLOYEES_IDENTIFY_CARD);
-                email = Utils.GetString(reader, BaseDao.EMPLOYEES_EMAIL);
-                phoneNumber = Utils.GetString(reader, BaseDao.EMPLOYEES_PHONE_NUMBER);
-                address = Utils.GetString(reader, BaseDao.EMPLOYEES_ADDRESS);
-                salary = Utils.GetDecimal(reader, BaseDao.EMPLOYEES_SALARY);
-                departmentID = Utils.GetString(reader, BaseDao.EMPLOYEES_DEPARTMENT_ID);
-                roleID = Utils.GetString(reader, BaseDao.EMPLOYEES_ROLE_ID);
+                id = Utils.GetString(reader, BaseDao.emplID);
+                name = Utils.GetString(reader, BaseDao.emplName);
+                gender = Utils.GetString(reader, BaseDao.emplGender);
+                birthday = Utils.GetDateTime(reader, BaseDao.emplBirthday);
+                identifyCard = Utils.GetString(reader, BaseDao.emplIdentCard);
+                email = Utils.GetString(reader, BaseDao.emplEmail);
+                phoneNumber = Utils.GetString(reader, BaseDao.emplPhoneNo);
+                address = Utils.GetString(reader, BaseDao.emplAddress);
+                salary = Utils.GetDecimal(reader, BaseDao.emplSalary);
+                departmentID = Utils.GetString(reader, BaseDao.emplDeptID);
+                roleID = Utils.GetString(reader, BaseDao.emplRoleID);
             }
             catch (Exception ex)
             {

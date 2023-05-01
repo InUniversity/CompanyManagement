@@ -8,9 +8,9 @@ namespace CompanyManagement.Models
     public class TimeSheet
     {
         private string id = "";
-        private string employeeID = "";
-        private DateTime checkInTime = Utils.EMPTY_DATETIME;
-        private DateTime checkOutTime = Utils.EMPTY_DATETIME;
+        private string emplID = "";
+        private DateTime checkInTime = Utils.emptyDate;
+        private DateTime checkOutTime = Utils.emptyDate;
         private string taskCheckInID = "";
 
         public string ID
@@ -21,8 +21,8 @@ namespace CompanyManagement.Models
 
         public string EmployeeID
         {
-            get => employeeID;
-            set => employeeID = value;
+            get => emplID;
+            set => emplID = value;
         }
 
         public DateTime CheckInTime
@@ -45,10 +45,10 @@ namespace CompanyManagement.Models
 
         public TimeSheet() { }
 
-        public TimeSheet(string id, string employeeID, DateTime checkInTime, DateTime checkOutTime, string taskCheckInID)
+        public TimeSheet(string id, string emplID, DateTime checkInTime, DateTime checkOutTime, string taskCheckInID)
         {
             this.id = id;
-            this.employeeID = employeeID;
+            this.emplID = emplID;
             this.checkInTime = checkInTime;
             this.checkOutTime = checkOutTime;
             this.taskCheckInID = taskCheckInID;
@@ -58,11 +58,11 @@ namespace CompanyManagement.Models
         {
             try
             {
-                id = (string)reader[BaseDao.TIME_SHEETS_ID];
-                employeeID = (string)reader[BaseDao.TIME_SHEETS_EMPLOYEE_ID];
-                checkInTime = reader.GetDateTime(reader.GetOrdinal(BaseDao.TIME_SHEETS_CHECK_IN_TIME));
-                checkOutTime = reader.GetDateTime(reader.GetOrdinal(BaseDao.TIME_SHEETS_CHECK_OUT_TIME));
-                taskCheckInID = (string)reader[BaseDao.TIME_SHEETS_TASK_CHECK_IN_ID];
+                id = (string)reader[BaseDao.timeShtID];
+                emplID = (string)reader[BaseDao.timeShtEmplID];
+                checkInTime = reader.GetDateTime(reader.GetOrdinal(BaseDao.timeShtInTime));
+                checkOutTime = reader.GetDateTime(reader.GetOrdinal(BaseDao.timeShtOutTime));
+                taskCheckInID = (string)reader[BaseDao.timeShtTaskInID];
             }
             catch (Exception e)
             {

@@ -5,29 +5,29 @@ namespace CompanyManagement.Database
 {
     public class AccountsDao : BaseDao
     {
-        public void Add(Account account)
+        public void Add(Account acc)
         {
-            string sqlStr = $"INSERT INTO {ACCOUNTS_TABLE} ({ACCOUNTS_USERNAME}, {ACCOUNTS_USERNAME}, {ACCOUNTS_EMPLOYEE_ID})" +
-                            $"VALUES ({account.Username}, {account.Password}, {account.EmployeeID})";
+            string sqlStr = $"INSERT INTO {accTbl} ({accName}, {accPass}, {accEmplID})" +
+                            $"VALUES ({acc.Username}, {acc.Password}, {acc.EmployeeID})";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
-        public void Delete(string employeeID)
+        public void Delete(string emplID)
         {
-            string sqlStr = $"DELETE FROM {ACCOUNTS_TABLE} WHERE {ACCOUNTS_EMPLOYEE_ID}='{employeeID}'";
+            string sqlStr = $"DELETE FROM {accTbl} WHERE {accEmplID}='{emplID}'";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
-        public void Update(Account account)
+        public void Update(Account acc)
         {
-            string sqlStr = $"UPDATE {ACCOUNTS_TABLE} SET {ACCOUNTS_USERNAME}='{account.Username}', " +
-                            $"{ACCOUNTS_PASSWORD}='{account.Password}' WHERE {ACCOUNTS_EMPLOYEE_ID}='{account.EmployeeID}'";
+            string sqlStr = $"UPDATE {accTbl} SET {accName}='{acc.Username}', " +
+                            $"{accPass}='{acc.Password}' WHERE {accEmplID}='{acc.EmployeeID}'";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
-        public Account SearchByUsername(string userName)
+        public Account SearchByUsername(string username)
         {
-            string sqlStr = $"SELECT * FROM {ACCOUNTS_TABLE} WHERE {ACCOUNTS_USERNAME}='{userName}'";
+            string sqlStr = $"SELECT * FROM {accTbl} WHERE {accName}='{username}'";
             return (Account)dbConnection.GetSingleObject(sqlStr, reader => new Account(reader));
         }
     }

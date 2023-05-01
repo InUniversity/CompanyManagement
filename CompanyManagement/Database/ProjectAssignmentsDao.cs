@@ -7,61 +7,58 @@ namespace CompanyManagement.Database
 {
     public class ProjectAssignmentsDao : BaseDao
     {
-        public void Add(ProjectAssignment projectAssignment)
+        public void Add(ProjectAssignment assign)
         {
-            string sqlStr = $"INSERT INTO {PROJECT_ASSIGNMENTS_TABLE} ({PROJECT_ASSIGNMENTS_PROJECT_ID}, " +
-                            $"{PROJECT_ASSIGNMENTS_DEPARTMENT_ID}) VALUES ('{projectAssignment.ProjectID}', " +
-                            $"'{projectAssignment.DeparmentID}')";
+            string sqlStr = $"INSERT INTO {projAssignTbl} ({projAssignID}, " + $"{projAssignDeptID}) " +
+                            $"VALUES ('{assign.ProjID}', '{assign.DeparmentID}')";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
-        public void Delete(ProjectAssignment projectAssignment)
+        public void Delete(ProjectAssignment assign)
         {
-            string sqlStr = $"DELETE FROM {PROJECT_ASSIGNMENTS_TABLE} " +
-                            $"WHERE {PROJECT_ASSIGNMENTS_PROJECT_ID}='{projectAssignment.ProjectID}' AND " +
-                            $"{PROJECT_ASSIGNMENTS_DEPARTMENT_ID}='{projectAssignment.DeparmentID}'";
+            string sqlStr = $"DELETE FROM {projAssignTbl} WHERE {projAssignID}='{assign.ProjID}' AND " +
+                            $"{projAssignDeptID}='{assign.DeparmentID}'";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
-        public List<Department> GetAllDepartmentInProject(string projectID)
+        public List<Department> GetAllDepartmentInProject(string projID)
         {
-            string sqlStr = $"SELECT D.* FROM {DEPARTMENTS_TABLE} D INNER JOIN {PROJECT_ASSIGNMENTS_TABLE} PA ON " +
-                            $"D.{DEPARTMENTS_ID}=PA.{PROJECT_ASSIGNMENTS_DEPARTMENT_ID} " +
-                            $"WHERE PA.{PROJECT_ASSIGNMENTS_PROJECT_ID}='{projectID}'";
+            string sqlStr = $"SELECT D.* FROM {deptTbl} D INNER JOIN {projAssignTbl} PA ON " +
+                            $"D.{deptID}=PA.{projAssignDeptID} WHERE PA.{projAssignID}='{projID}'";
             return dbConnection.GetList(sqlStr, reader => new Department(reader));
         }
 
-        public List<Employee> GetEmployeesInProject(string projectID)
+        public List<Employee> GetEmployeesInProject(string projID)
         {
-            string sqlStr = $"SELECT * FROM {EMPLOYEES_TABLE} WHERE {EMPLOYEES_DEPARTMENT_ID} IN(" +
-                $"SELECT {PROJECT_ASSIGNMENTS_DEPARTMENT_ID} FROM {PROJECT_ASSIGNMENTS_TABLE} WHERE {PROJECT_ASSIGNMENTS_PROJECT_ID}='{projectID}')";
+            string sqlStr = $"SELECT * FROM {emplTbl} WHERE {emplDeptID} IN(" +
+                $"SELECT {projAssignDeptID} FROM {projAssignTbl} WHERE {projAssignID}='{projID}')";
             return dbConnection.GetList(sqlStr, reader => new Employee(reader));
         }
 
-        public List<Department> GetDepartmentsCanAssignWork(string projectID, string startDateTime, string endDateTime)
+        public List<Department> GetDepartmentsCanAssignWork(string projID, string startDateTime, string endDateTime)
         {
-            string sqlStr = $"SELECT * FROM {DEPARTMENTS_TABLE} WHERE {DEPARTMENTS_ID} NOT IN (" +
-                            $"SELECT {PROJECT_ASSIGNMENTS_DEPARTMENT_ID} FROM {PROJECT_ASSIGNMENTS_TABLE} " +
-                            $"WHERE {PROJECT_ASSIGNMENTS_PROJECT_ID} IN (SELECT {PROJECTS_ID} FROM {PROJECTS_TABLE} " +
-                            $"WHERE {PROJECTS_ID} NOT LIKE '{projectID}' AND {PROJECTS_PROPRESS} NOT LIKE '100'" +
-                            $"AND {PROJECTS_START} <= '{endDateTime}'" +
-                            $"AND {PROJECTS_END} >= '{startDateTime}')) EXCEPT (SELECT D.* FROM {DEPARTMENTS_TABLE} D INNER JOIN {PROJECT_ASSIGNMENTS_TABLE} PA ON D.{DEPARTMENTS_ID}=PA.{PROJECT_ASSIGNMENTS_DEPARTMENT_ID} WHERE PA.{PROJECT_ASSIGNMENTS_PROJECT_ID}='{projectID}')";
+            string sqlStr = $"SELECT * FROM {deptTbl} WHERE {deptID} NOT IN (" +
+                            $"SELECT {projAssignDeptID} FROM {projAssignTbl} " +
+                            $"WHERE {projAssignID} IN (SELECT {BaseDao.projID} FROM {projTbl} " +
+                            $"WHERE {BaseDao.projID} NOT LIKE '{projID}' AND {projProgress} NOT LIKE '100'" +
+                            $"AND {projStart} <= '{endDateTime}'" +
+                            $"AND {projEnd} >= '{startDateTime}')) EXCEPT (SELECT D.* FROM {deptTbl} D INNER JOIN {projAssignTbl} PA ON D.{deptID}=PA.{projAssignDeptID} WHERE PA.{projAssignID}='{projID}')";
             // TODO
             return dbConnection.GetList(sqlStr, reader => new Department(reader));
         }
 
-        public List<Project> SearchProjectByEmployeeID(string employeeID)
+        public List<Project> SearchProjectByEmployeeID(string emplID)
         {
-            string sqlStr = $"SELECT * FROM {PROJECTS_TABLE} WHERE {PROJECTS_ID} IN " +
-                            $"(SELECT {PROJECT_ASSIGNMENTS_PROJECT_ID} FROM {PROJECT_ASSIGNMENTS_TABLE} PA, {EMPLOYEES_TABLE} E " +
-                            $"WHERE PA.{PROJECT_ASSIGNMENTS_DEPARTMENT_ID}=E.{EMPLOYEES_DEPARTMENT_ID} " +
-                            $"AND E.{EMPLOYEES_ID}='{employeeID}')";
+            string sqlStr = $"SELECT * FROM {projTbl} WHERE {projID} IN " +
+                            $"(SELECT {projAssignID} FROM {projAssignTbl} PA, {emplTbl} E " +
+                            $"WHERE PA.{projAssignDeptID}=E.{emplDeptID} " +
+                            $"AND E.{BaseDao.emplID}='{emplID}')";
             return dbConnection.GetList(sqlStr, reader => new Project(reader));
         }
 
-        public List<Project> SearchProjectByCreatorID(string managerID)
+        public List<Project> SearchProjectByCreatorID(string mgrID)
         {
-            string sqlStr = $"SELECT * FROM {PROJECTS_TABLE} P WHERE P.{PROJECTS_OWNER_ID}='{managerID}'";
+            string sqlStr = $"SELECT * FROM {projTbl} P WHERE P.{projOwnerID}='{mgrID}'";
             return dbConnection.GetList(sqlStr, reader => new Project(reader));
         }
     }

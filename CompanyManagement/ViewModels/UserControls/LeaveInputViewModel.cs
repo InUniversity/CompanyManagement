@@ -21,11 +21,11 @@ namespace CompanyManagement.ViewModels.UserControls
         public string ID { get => leaveRequest.ID; set { leaveRequest.ID = value; OnPropertyChanged(); } } 
         public string Reason { get => leaveRequest.Reason; set { leaveRequest.Reason = value; OnPropertyChanged(); } }
         public string Notes { get => leaveRequest.Notes; set { leaveRequest.Notes = value; OnPropertyChanged(); } }
-        public DateTime CreatedDate { get => leaveRequest.CreatedDate; set { leaveRequest.CreatedDate = value; OnPropertyChanged(); } }
-        public DateTime StartDate { get => leaveRequest.StartDate; set { leaveRequest.StartDate = value; OnPropertyChanged(); } }
-        public DateTime EndDate { get => leaveRequest.EndDate; set { leaveRequest.EndDate = value; OnPropertyChanged(); } }
+        public DateTime CreatedDate { get => leaveRequest.Created; set { leaveRequest.Created = value; OnPropertyChanged(); } }
+        public DateTime StartDate { get => leaveRequest.Start; set { leaveRequest.Start = value; OnPropertyChanged(); } }
+        public DateTime EndDate { get => leaveRequest.End; set { leaveRequest.End = value; OnPropertyChanged(); } }
         public string StatusID { get => leaveRequest.StatusID; set { leaveRequest.StatusID = value; OnPropertyChanged(); } }
-        public string EmployeeID { get => leaveRequest.EmployeeID; set { leaveRequest.EmployeeID = value; OnPropertyChanged(); } }
+        public string EmployeeID { get => leaveRequest.RequesterID; set { leaveRequest.RequesterID = value; OnPropertyChanged(); } }
         public string ApproverID { get => leaveRequest.ApproverID; set { leaveRequest.ApproverID = value; OnPropertyChanged(); } }
         
         private string errorMessage = "";
@@ -75,7 +75,7 @@ namespace CompanyManagement.ViewModels.UserControls
             if (listView.SelectedItem == null) return;
             var selectedItem = listView.SelectedItem as Employee;
             ApproverID = selectedItem.ID;
-            RoleName = selectedItem.EmployeeRole.Title;
+            RoleName = selectedItem.EmplRole.Title;
         }
 
         private void SetAllComboBox()
@@ -86,14 +86,14 @@ namespace CompanyManagement.ViewModels.UserControls
         private void LoadApprovers()
         {
             approvers = employeesDao.GetManagers();
-            string headerDeptID = departmentsDao.DepartmentByEmployeeDeptID(CurrentUser.Ins.EmployeeIns.DepartmentID)?.DepartmentHeadID ?? "";
+            string headerDeptID = departmentsDao.DepartmentByEmployeeDeptID(currentEmployee.DepartmentID)?.DeptHeadID ?? "";
             Employee headerApprover = employeesDao.SearchByID(headerDeptID);
-            SearchedApprovers = string.Equals(currentEmployee.RoleID,BaseDao.DEPARTMENT_HEAD_ROLE_ID)
+            SearchedApprovers = string.Equals(currentEmployee.RoleID,BaseDao.deptHeadRole)
                 ? Approvers
                 : Approvers.Concat(new List<Employee>() { headerApprover }).ToList();
             foreach(Employee emp in SearchedApprovers)
             {
-                emp.EmployeeRole = rolesDao.SearchByID(emp.RoleID);
+                emp.EmplRole = rolesDao.SearchByID(emp.RoleID);
             }    
         }
 

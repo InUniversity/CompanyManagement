@@ -6,35 +6,35 @@ namespace CompanyManagement.Database
 {
     public class DepartmentsDao : BaseDao
     {
-        public void Add(Department department)
+        public void Add(Department dept)
         {
-            string sqlStr = $"INSERT INTO {DEPARTMENTS_TABLE} ({DEPARTMENTS_ID}, {DEPARTMENTS_NAME}, {DEPARTMENTS_HEAD})" +
-                            $"VALUES ('{department.ID}', '{department.Name}', '{department.DepartmentHeadID}')";
+            string sqlStr = $"INSERT INTO {deptTbl} ({deptID}, {deptName}, {deptHead})" +
+                            $"VALUES ('{dept.ID}', '{dept.Name}', '{dept.DeptHeadID}')";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
         public void Delete(string id)
         {
-            string sqlStr = $"DELETE FROM {DEPARTMENTS_TABLE} WHERE {DEPARTMENTS_ID} = '{id}'";
+            string sqlStr = $"DELETE FROM {deptTbl} WHERE {deptID} = '{id}'";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
-        public void Update(Department department)
+        public void Update(Department dept)
         {
-            string sqlStr = $"UPDATE {DEPARTMENTS_TABLE} SET {DEPARTMENTS_NAME} = '{department.Name}', " +
-                            $"{DEPARTMENTS_HEAD} = '{department.DepartmentHeadID}' WHERE {DEPARTMENTS_ID} = '{department.ID}'";
+            string sqlStr = $"UPDATE {deptTbl} SET {deptName} = '{dept.Name}', " +
+                            $"{deptHead} = '{dept.DeptHeadID}' WHERE {deptID} = '{dept.ID}'";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
         public List<Department> GetAll()
         {
-            string sqlStr = $"SELECT * FROM {DEPARTMENTS_TABLE}";
+            string sqlStr = $"SELECT * FROM {deptTbl}";
             return dbConnection.GetList(sqlStr, reader => new Department(reader));
         }
 
         public Department DepartmentByEmployeeDeptID(string dptID)
         {
-            string sqlStr = $"SELECT * FROM {DEPARTMENTS_TABLE} WHERE {DEPARTMENTS_ID} = '{dptID}'";
+            string sqlStr = $"SELECT * FROM {deptTbl} WHERE {deptID} = '{dptID}'";
             return (Department)dbConnection.GetSingleObject(sqlStr, reader => new Department(reader));
         }
     }

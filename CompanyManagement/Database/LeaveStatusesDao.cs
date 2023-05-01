@@ -13,7 +13,7 @@ namespace CompanyManagement.Database
     {
         public List<LeaveStatus> GetAll()
         {
-            string sqlStr = $"SELECT * FROM {LEAVE_STATUSES_TABLE}";
+            string sqlStr = $"SELECT * FROM {leavStasTbl}";
             return dbConnection.GetList(sqlStr, reader => new LeaveStatus(reader));
         }
     }

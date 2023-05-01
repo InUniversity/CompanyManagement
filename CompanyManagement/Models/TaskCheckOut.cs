@@ -9,7 +9,7 @@ namespace CompanyManagement.Models
     {
         private string checkInOutID = "";
         private string taskID = "";
-        private DateTime updateDate = Utils.EMPTY_DATETIME;
+        private DateTime updateDate = Utils.emptyDate;
         private string progress;
         private TaskInProject task = new TaskInProject();
 
@@ -40,10 +40,10 @@ namespace CompanyManagement.Models
         {
             try
             {
-                checkInOutID = (string)reader[BaseDao.TASK_CHECK_OUTS_TASK_ID];
-                taskID = (string)reader[BaseDao.TASK_CHECK_OUTS_TASK_ID];
-                updateDate = reader.GetDateTime(reader.GetOrdinal(BaseDao.TASK_CHECK_OUTS_UPDATE_DATE));
-                progress = (string)reader[BaseDao.TASK_CHECK_OUTS_PROGRESS];
+                checkInOutID = (string)reader[BaseDao.taskOutTaskID];
+                taskID = (string)reader[BaseDao.taskOutTaskID];
+                updateDate = reader.GetDateTime(reader.GetOrdinal(BaseDao.taskOutUpdate));
+                progress = (string)reader[BaseDao.taskOutProgress];
             }
             catch (Exception e)
             {

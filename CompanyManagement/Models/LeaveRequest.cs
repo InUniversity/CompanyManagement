@@ -12,11 +12,11 @@ namespace CompanyManagement.Models
         private string id = "";
         private string reason = "";
         private string notes = "";
-        private DateTime createdDate = DateTime.Now;
-        private DateTime startDate = DateTime.Now;
-        private DateTime endDate = DateTime.Now;
+        private DateTime created = DateTime.Now;
+        private DateTime start = DateTime.Now;
+        private DateTime end = DateTime.Now;
         private string statusID = "";
-        private string employeeID = "";
+        private string requesterID = "";
         private string approverID = "";
         private Employee approver = new Employee();
 
@@ -38,22 +38,22 @@ namespace CompanyManagement.Models
             set => notes = value;
         }
 
-        public DateTime CreatedDate
+        public DateTime Created
         {
-            get => createdDate;
-            set => createdDate = value;
+            get => created;
+            set => created = value;
         }
 
-        public DateTime StartDate
+        public DateTime Start
         {
-            get => startDate;
-            set => startDate = value;
+            get => start;
+            set => start = value;
         }
 
-        public DateTime EndDate
+        public DateTime End
         {
-            get => endDate;
-            set => endDate = value;
+            get => end;
+            set => end = value;
         }
 
         public string StatusID
@@ -62,10 +62,10 @@ namespace CompanyManagement.Models
             set => statusID = value;
         }
 
-        public string EmployeeID
+        public string RequesterID
         {
-            get => employeeID;
-            set => employeeID = value;
+            get => requesterID;
+            set => requesterID = value;
         }
 
         public string ApproverID
@@ -90,13 +90,13 @@ namespace CompanyManagement.Models
 
         public LeaveRequest() { }
 
-        public LeaveRequest(string id, string reason, string notes, string statusID, string employeeID, string approverID)
+        public LeaveRequest(string id, string reason, string notes, string statusID, string requesterID, string approverID)
         {
             this.id = id;
             this.reason = reason;
             this.notes = notes;
             this.statusID = statusID;
-            this.employeeID = employeeID;
+            this.requesterID = requesterID;
             this.approverID = approverID;
         }
 
@@ -104,15 +104,15 @@ namespace CompanyManagement.Models
         {
             try
             {
-                id = Utils.GetString(reader, BaseDao.LEAVES_ID);
-                reason = Utils.GetString(reader, BaseDao.LEAVES_REASON);
-                notes = Utils.GetString(reader, BaseDao.LEAVES_NOTES);
-                createdDate = Utils.GetDateTime(reader, BaseDao.LEAVES_CREATED_DATE);
-                startDate = Utils.GetDateTime(reader, BaseDao.LEAVES_START_DATE);
-                endDate = Utils.GetDateTime(reader, BaseDao.LEAVES_END_DATE);
-                statusID = Utils.GetString(reader, BaseDao.LEAVES_STATUS_ID);
-                employeeID = Utils.GetString(reader, BaseDao.LEAVES_EMPLOYEE_ID);
-                approverID = Utils.GetString(reader, BaseDao.LEAVES_APPROVER_ID);
+                id = Utils.GetString(reader, BaseDao.leavID);
+                reason = Utils.GetString(reader, BaseDao.leavReason);
+                notes = Utils.GetString(reader, BaseDao.leavNotes);
+                created = Utils.GetDateTime(reader, BaseDao.leavCreated);
+                start = Utils.GetDateTime(reader, BaseDao.leavStart);
+                end = Utils.GetDateTime(reader, BaseDao.leavEnd);
+                statusID = Utils.GetString(reader, BaseDao.leavStatusID);
+                requesterID = Utils.GetString(reader, BaseDao.leavEmplID);
+                approverID = Utils.GetString(reader, BaseDao.leavApproverID);
             }
             catch (Exception ex)
             {
