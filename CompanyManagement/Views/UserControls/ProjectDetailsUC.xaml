@@ -46,7 +46,9 @@
                 </RadioButton>
                 <RadioButton
                             Height="40"
-                            Margin="4"         
+                            Margin="4"     
+                            IsChecked="{Binding ElementName=projectDetailsUC, Path=DataContext.StatusProjectBonusesView}"
+                            Command="{Binding ElementName=projectDetailsUC, Path=DataContext.ShowProjectBonusesCommand}"
                             BorderBrush="{DynamicResource PrimaryHueMidBrush}"
                             Style="{StaticResource MaterialDesignTabRadioButtonBottom}" >
                     <TextBlock Text="Tiền thưởng dự án" Margin="30 0"></TextBlock>

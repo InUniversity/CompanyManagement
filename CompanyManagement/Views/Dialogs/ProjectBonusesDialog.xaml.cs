@@ -10,17 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CompanyManagement.Views.UserControls
+namespace CompanyManagement.Views.Dialogs
 {
     /// <summary>
-    /// Interaction logic for ProjectSalaryBonusUC.xaml
+    /// Interaction logic for ProjectBonusesDialog.xaml
     /// </summary>
-    public partial class ProjectSalaryBonusUC : UserControl
+    public partial class ProjectBonusesDialog : Window
     {
-        public ProjectSalaryBonusUC()
+        public ProjectBonusesDialog()
         {
             InitializeComponent();
         }

@@ -76,6 +76,7 @@
     <Compile Include="Database\AccountsDao.cs" />
     <Compile Include="Database\Base\BaseDao.cs" />
     <Compile Include="Database\Base\DBConnection.cs" />
+    <Compile Include="Database\ProjectBonusesDao.cs" />
     <Compile Include="Database\TimeSheetsDao.cs" />
     <Compile Include="Database\DepartmentsDao.cs" />
     <Compile Include="Database\EmployeesDao.cs" />
@@ -90,6 +91,7 @@
     <Compile Include="Database\TaskStatusesDao.cs" />
     <Compile Include="Helpers\PasswordBoxHelper.cs" />
     <Compile Include="Models\Account.cs" />
+    <Compile Include="Models\ProjectBonuses.cs" />
     <Compile Include="Models\TimeSheet.cs" />
     <Compile Include="Models\CurrentUser.cs" />
     <Compile Include="Models\Department.cs" />
@@ -128,6 +130,7 @@
     <Compile Include="ViewModels\Dialogs\UpdateTaskViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ApproveLeaveRequestsViewModel.cs" />
     <Compile Include="ViewModels\UserControls\AssignmentViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\ProjectBonusViewModel.cs" />
     <Compile Include="ViewModels\UserControls\TimeSheetInputViewModel.cs" />
     <Compile Include="ViewModels\UserControls\TimeSheetViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\CheckInViewModel.cs" />
@@ -169,6 +172,9 @@
       <DependentUpon>CheckOutDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Dialogs\Interfaces\IInputDialog.cs" />
+    <Compile Include="Views\Dialogs\ProjectBonusesDialog.xaml.cs">
+      <DependentUpon>ProjectBonusesDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Dialogs\UpdateDepartmentDialog.xaml.cs">
       <DependentUpon>UpdateDepartmentDialog.xaml</DependentUpon>
     </Compile>
@@ -192,6 +198,9 @@
     </Compile>
     <Compile Include="Views\UserControls\AssignmentUC.xaml.cs">
       <DependentUpon>AssignmentUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\ProjectBonusUC.xaml.cs">
+      <DependentUpon>ProjectBonusUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UserControls\TimeSheetUC.xaml.cs">
       <DependentUpon>TimeSheetUC.xaml</DependentUpon>
@@ -273,6 +282,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Dialogs\ProjectBonusesDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Dialogs\UpdateDepartmentDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -304,6 +317,10 @@
     <Page Include="Views\UserControls\AssignmentUC.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\UserControls\ProjectBonusUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\UserControls\TimeSheetUC.xaml">
       <SubType>Designer</SubType>
