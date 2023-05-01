@@ -187,11 +187,17 @@
     <Compile Include="Views\Dialogs\UpdateTaskDialog.xaml.cs">
       <DependentUpon>UpdateTaskDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Dialogs\ViewDetailsSalaryRecordDialog.xaml.cs">
+      <DependentUpon>ViewDetailsSalaryRecordDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserControls\ApproveLeaveRequestsUC.xaml.cs">
       <DependentUpon>ApproveLeaveRequestsUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UserControls\AssignmentUC.xaml.cs">
       <DependentUpon>AssignmentUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\SalaryRecordsUC.xaml.cs">
+      <DependentUpon>SalaryRecordsUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UserControls\TimeSheetUC.xaml.cs">
       <DependentUpon>TimeSheetUC.xaml</DependentUpon>
@@ -297,6 +303,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\Dialogs\ViewDetailsSalaryRecordDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\UserControls\ApproveLeaveRequestsUC.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -304,6 +314,10 @@
     <Page Include="Views\UserControls\AssignmentUC.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\UserControls\SalaryRecordsUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\UserControls\TimeSheetUC.xaml">
       <SubType>Designer</SubType>
