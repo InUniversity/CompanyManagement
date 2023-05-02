@@ -334,44 +334,41 @@ VALUES
 GO
 
 -- -- Project plans
--- GO
--- CREATE TABLE MilestoneStatuses(
---     ID varchar(10) PRIMARY KEY,
---     StatusName nvarchar(50) NOT NULL,
--- )
--- GO
--- INSERT INTO MilestoneStatuses(ID, StatusName)
--- VALUES
---     ( 'MS1', N'Đang thực hiện'),
---     ( 'MS2', N'Đúng tiến độ'),
---     ( 'MS3', N'Trễ tiến độ');
--- GO
--- CREATE TABLE Milestones(
---     ID varchar(20) PRIMARY KEY,
---     StartDate SMALLDATETIME,
---     EndDate SMALLDATETIME,
---     Explanation nvarchar(255),
---     ProjectID varchar(20) NOT NULL,
---     CONSTRAINT FK_Milestones_ProjectID FOREIGN KEY(ProjectID) REFERENCES Projects(ID)
--- );
--- GO
--- CREATE TABLE MilestoneTasks(
---     MilestoneID varchar(20) NOT NULL,
---     TaskID varchar(20) NOT NULL, -- task in ProjectID of Milestones table
---     PRIMARY KEY (MilestoneID, TaskID),
---     CONSTRAINT FK_MilestoneTasks_MilestoneID FOREIGN KEY(MilestoneID) REFERENCES Milestones(ID),
---     CONSTRAINT FK_MilestoneTasks_TaskID FOREIGN KEY(TaskID) REFERENCES Tasks(ID)
--- )
--- GO
--- INSERT INTO Milestones(ID, StartDate, EndDate, Explanation, ProjectID)
--- VALUES
---     ('MST0001', CONVERT(SMALLDATETIME, '01-01-2023 08:00 AM', 105), CONVERT(SMALLDATETIME, '01-04-2023 05:00 PM', 105), N'Chưa kịp do không hiểu vấn đề', 'PRJ001');
--- GO
--- INSERT INTO MilestoneTasks(MilestoneID, TaskID)
--- VALUES
---     ('MST0001', 'T000001'),
---     ('MST0001', 'T000002');
--- GO
+GO
+CREATE TABLE MileStatuses(
+    ID varchar(10) PRIMARY KEY,
+    StatusName nvarchar(50) NOT NULL,
+)
+GO
+INSERT INTO MileStatuses(ID, StatusName)
+VALUES
+    ( 'MS1', N'Đang thực hiện'),
+    ( 'MS2', N'Đúng tiến độ'),
+    ( 'MS3', N'Trễ tiến độ');
+GO
+CREATE TABLE Milestones(
+    ID varchar(20) PRIMARY KEY,
+    StartDate SMALLDATETIME,
+    EndDate SMALLDATETIME,
+    Explanation nvarchar(255),
+    ProjectID varchar(20) NOT NULL
+);
+GO
+CREATE TABLE MileTasks(
+    ID varchar(20) NOT NULL,
+    TaskID varchar(20) NOT NULL, -- task in ProjectID of Milestones table
+    PRIMARY KEY (ID, TaskID)
+)
+GO
+INSERT INTO Milestones(ID, StartDate, EndDate, Explanation, ProjectID)
+VALUES
+    ('MST0001', CONVERT(SMALLDATETIME, '01-01-2023 08:00 AM', 105), CONVERT(SMALLDATETIME, '01-04-2023 05:00 PM', 105), N'Chưa kịp do không hiểu vấn đề', 'PRJ001');
+GO
+INSERT INTO MileTasks(ID, TaskID)
+VALUES
+    ('MST0001', 'T000001'),
+    ('MST0001', 'T000002');
+GO
 
 -- constrains
 --  <-- comment is not work -->
@@ -405,50 +402,55 @@ ALTER TABLE ProjectAssignments ADD CONSTRAINT FK_Assignments_DepartmentID FOREIG
     REFERENCES Departments(ID) ON DELETE CASCADE
 GO
 -- 
-ALTER TABLE Tasks ADD CONSTRAINT FK_Tasks_OwnerID FOREIGN KEY(OwnerID) REFERENCES Employees(ID) ON DELETE SET NULL
+ALTER TABLE Tasks ADD CONSTRAINT FK_Tasks_OwnerID FOREIGN KEY(OwnerID) REFERENCES Employees(ID) ON DELETE SET DEFAULT
 GO
--- ALTER TABLE Tasks ADD CONSTRAINT FK_Tasks_EmployeeID FOREIGN KEY(EmployeeID) REFERENCES Employees(ID) ON DELETE SET NULL
+-- ALTER TABLE Tasks ADD CONSTRAINT FK_Tasks_EmployeeID FOREIGN KEY(EmployeeID) REFERENCES Employees(ID) ON DELETE SET DEFAULT
 -- GO
-ALTER TABLE Tasks ADD CONSTRAINT FK_Tasks_ProjectID FOREIGN KEY(ProjectID) REFERENCES Projects(ID) ON DELETE SET NULL
+ALTER TABLE Tasks ADD CONSTRAINT FK_Tasks_ProjectID FOREIGN KEY(ProjectID) REFERENCES Projects(ID) ON DELETE SET DEFAULT
 GO
-ALTER TABLE Tasks ADD CONSTRAINT FK_Tasks_StatusID FOREIGN KEY(StatusID) REFERENCES TaskStatuses(ID) ON DELETE SET NULL
+ALTER TABLE Tasks ADD CONSTRAINT FK_Tasks_StatusID FOREIGN KEY(StatusID) REFERENCES TaskStatuses(ID) ON DELETE SET DEFAULT
 GO
 -- 
 ALTER TABLE LeaveRequests ADD CONSTRAINT FK_Leaves_StatusID FOREIGN KEY(StatusID)
-    REFERENCES LeaveStatuses(ID) ON DELETE SET NULL
+    REFERENCES LeaveStatuses(ID) ON DELETE SET DEFAULT
 GO
 ALTER TABLE LeaveRequests ADD CONSTRAINT FK_Leaves_EmployeeID FOREIGN KEY(EmployeeID)
-    REFERENCES Employees(ID) ON DELETE SET NULL
+    REFERENCES Employees(ID) ON DELETE SET DEFAULT
 GO
 -- ALTER TABLE LeaveRequests ADD CONSTRAINT FK_Leaves_ApproverID FOREIGN KEY(ApproverID)
---     REFERENCES Employees(ID) ON DELETE SET NULL
+--     REFERENCES Employees(ID) ON DELETE SET DEFAULT
 -- GO
 
 ALTER TABLE TimeSheets ADD CONSTRAINT FK_CheckInOut_EmployeeID
-    FOREIGN KEY(EmployeeID) REFERENCES Employees(ID) ON DELETE SET NULL
+    FOREIGN KEY(EmployeeID) REFERENCES Employees(ID) ON DELETE SET DEFAULT
 GO
 ALTER TABLE TimeSheets ADD CONSTRAINT FK_CheckInOut_TaskCheckInID
-    FOREIGN KEY(TaskCheckInID) REFERENCES Tasks(ID) ON DELETE SET NULL
+    FOREIGN KEY(TaskCheckInID) REFERENCES Tasks(ID) ON DELETE SET DEFAULT
 GO
 
 -- ALTER TABLE TaskCheckOuts ADD CONSTRAINT FK_TaskCheckOuts_TimeSheetID
---     FOREIGN KEY(TimeSheetID) REFERENCES TimeSheets(ID) ON DELETE SET NULL
+--     FOREIGN KEY(TimeSheetID) REFERENCES TimeSheets(ID) ON DELETE SET DEFAULT
 -- GO
 -- ALTER TABLE TaskCheckOuts ADD CONSTRAINT FK_TaskCheckOuts_TaskID
---     FOREIGN KEY(TaskID) REFERENCES Tasks(ID) ON DELETE SET NULL
+--     FOREIGN KEY(TaskID) REFERENCES Tasks(ID) ON DELETE SET DEFAULT
 -- GO
 
 ALTER TABLE KPIs ADD CONSTRAINT FK_KPIs_EmployeeID
-    FOREIGN KEY(EmployeeID) REFERENCES Employees(ID) ON DELETE SET NULL ON UPDATE CASCADE
+    FOREIGN KEY(EmployeeID) REFERENCES Employees(ID) ON DELETE SET DEFAULT
 GO
 
 ALTER TABLE ProjectBonuses ADD CONSTRAINT FK_Bonuses_EmployeeID
-    FOREIGN KEY(EmployeeID) REFERENCES Employees(ID) ON DELETE SET NULL
+    FOREIGN KEY(EmployeeID) REFERENCES Employees(ID) ON DELETE SET DEFAULT
 GO
 ALTER TABLE ProjectBonuses ADD CONSTRAINT FK_Bonuses_ProjectID
-    FOREIGN KEY(ProjectID) REFERENCES Projects(ID) ON DELETE SET NULL
+    FOREIGN KEY(ProjectID) REFERENCES Projects(ID) ON DELETE SET DEFAULT
 GO
 
 -- ALTER TABLE SalaryRecords ADD CONSTRAINT FK_SalaryEmployeeID
 --     FOREIGN KEY(EmployeeID) REFERENCES Employees(ID) ON DELETE SET NULL
 -- GO
+
+--     ALTER TABLE Milestones ADD CONSTRAINT FK_Milestones_ProjectID FOREIGN KEY(ProjectID) REFERENCES Projects(ID)
+
+--     ALTER TABLE MileTasks ADD CONSTRAINT FK_MileTasks_MilestoneID FOREIGN KEY(MilestoneID) REFERENCES Milestones(ID)
+--     ALTER TABLE MileTasks ADD CONSTRAINT FK_MileTasks_TaskID FOREIGN KEY(TaskID) REFERENCES Tasks(ID)
