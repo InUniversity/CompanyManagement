@@ -11,6 +11,11 @@ namespace CompanyManagement.Database.Base
         public const string leavRequestUpapproved = "LS2";
         public const string leavRequesApproved = "LS1";
         public const string leavRequesDenied = "LS3";
+        public const string projRunningID = "PST1";
+        public const string projCompletedID = "PST2";
+        public const string projOverdueID = "PST3";
+        public const string projPendingPayID = "PST4";
+        public const string projInProgressID = "PST5";
 
         protected const string deptTbl = "Departments";
         public const string deptID = "ID";
