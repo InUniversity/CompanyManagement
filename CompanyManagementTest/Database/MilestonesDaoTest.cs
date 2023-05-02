@@ -1,8 +1,8 @@
 using System;
-using CompanyManagement;
 using CompanyManagement.Database;
 using CompanyManagement.Database.Base;
 using CompanyManagement.Models;
+using CompanyManagement.Utilities;
 using NUnit.Framework;
 
 namespace CompanyManagementTest.Database
@@ -10,57 +10,53 @@ namespace CompanyManagementTest.Database
     [TestFixture]
     public class MilestonesDaoTest
     {
-        private MileTasksDao milestonesDao;
+        private MilestonesDao milestonesDao;
         private Milestone mile;
         
         [SetUp]
         public void SetUp()
         {
-            milestonesDao = new MileTasksDao();
+            milestonesDao = new MilestonesDao();
             mile = new Milestone("MIL12342", "Test Project", "Test Details",
                 new DateTime(2023, 1, 1, 1, 0, 0),
                 new DateTime(2023, 1, 1, 1, 0, 0),
-                new DateTime(2020, 1, 1, 0, 0, 0),
-                "EM006", "PROJ001");
+                Utils.emptyDate, "EM006", "PROJ001");
         }
         
         [Test]
         public void Projects_Dao_Search_By_ID_Success()
         {
-            var actualSearch = Search(mile.ID);
+            var actual = Search("MST0001");
             
-            Assert.AreEqual("PRJ001", actualSearch.ID);
-            Assert.AreEqual("Website Development", actualSearch.Name);
-            Assert.AreEqual("", actualSearch.Details);
-            Assert.AreEqual(new DateTime(2023, 1, 1, 8, 0, 0), actualSearch.CreatedDate);
-            Assert.AreEqual(new DateTime(2023, 3, 1, 8, 0, 0), actualSearch.StartDate);
-            Assert.AreEqual(new DateTime(2023, 6, 30, 17, 0, 0), actualSearch.EndDate);
-            Assert.AreEqual(new DateTime(2000, 1, 1, 0, 0, 0), actualSearch.CompletedDate);
-            Assert.AreEqual("50", actualSearch.Progress);
-            Assert.AreEqual("PST1", actualSearch.StatusID);
-            Assert.AreEqual("EM001", actualSearch.OwnerID);
-            Assert.AreEqual(100000000.0000, actualSearch.BonusSalary);
+            Assert.IsNotNull(actual);
+            Assert.AreEqual("MST0001", actual.ID);
+            Assert.AreEqual("Thiết kế giải pháp", actual.Title);
+            Assert.AreEqual("Giao đoạn quan trọng", actual.Explanation);
+            Assert.AreEqual(new DateTime(2023, 1, 1, 8, 0, 0), actual.Start);
+            Assert.AreEqual(new DateTime(2023, 4, 1, 17, 0, 0), actual.End);
+            Assert.AreEqual(new DateTime(2000, 1, 1, 0, 0, 0), actual.Completed);
+            Assert.AreEqual("EM006", actual.OwnerID);
+            Assert.AreEqual("PRJ001", actual.ProjID);
         }
 
         [Test]
         public void Projects_Dao_Add_Update_Delete()
         {
-            var initial = milestonesDao.SearchByID(mile.ID);
+            var initial = Search(mile.ID);
             
             // add
             milestonesDao.Add(mile); 
-            var added = milestonesDao.SearchByID(mile.ID);
+            var added = Search(mile.ID);
             
             // update
-            var updateProject = new Project(mile.ID, mile.Name + "Updated", mile.Details + "more details", 
-                mile.CreatedDate, mile.StartDate, mile.EndDate, mile.CompletedDate, mile.Progress, 
-                mile.StatusID, mile.OwnerID, (decimal)123123123.5000, mile.Departments);
+            var updateProject = new Milestone(mile.ID, mile.Title + " Xin chào", mile.Explanation + " Thêm", 
+                mile.Start, mile.End, mile.Completed, mile.OwnerID, mile.ProjID);
             milestonesDao.Update(updateProject);
-            var updated = milestonesDao.SearchByID(mile.ID);  
+            var updated = Search(mile.ID);  
             
             // delete
             milestonesDao.Delete(mile.ID);
-            var afterDelete = milestonesDao.SearchByID(mile.ID);
+            var afterDelete = Search(mile.ID);
             
             // assert initial
             Assert.IsNull(initial);

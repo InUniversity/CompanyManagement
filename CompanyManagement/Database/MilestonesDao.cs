@@ -11,7 +11,7 @@ namespace CompanyManagement.Database
             string sqlStr = $"INSERT INTO {mileTbl} ({mileID}, {mileTitle}, {mileExplanation}, {mileStart}, " +
                             $"{mileEnd}, {mileCompleted}, {mileOwnerID}, {mileProjID}) " +
                             $"VALUES ('{mile.ID}', N'{mile.Title}', N'{mile.Explanation}', " +
-                            $"'{Utils.ToSQLFormat(mile.Start)}', " + $"'{Utils.ToSQLFormat(mile.End)}', " +
+                            $"'{Utils.ToSQLFormat(mile.Start)}', '{Utils.ToSQLFormat(mile.End)}', " +
                             $"'{Utils.ToSQLFormat(mile.Completed)}', '{mile.OwnerID}', '{mile.ProjID}')";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
@@ -25,8 +25,8 @@ namespace CompanyManagement.Database
         public void Update(Milestone mile)
         {
             string sqlStr = $"UPDATE {mileTbl} SET {mileTitle}=N'{mile.Title}', " +
-                            $"{mileExplanation}=N'{mileExplanation}', {mileStart}='{Utils.ToSQLFormat(mile.Start)}', " +
-                            $"{mileEnd}='{Utils.ToSQLFormat(mile.End)}', {mileCompleted}='{mile.Completed}', " +
+                            $"{mileExplanation}=N'{mile.Explanation}', {mileStart}='{Utils.ToSQLFormat(mile.Start)}', " +
+                            $"{mileEnd}='{Utils.ToSQLFormat(mile.End)}', {mileCompleted}='{Utils.ToSQLFormat(mile.Completed)}', " +
                             $"{mileOwnerID}='{mile.OwnerID}' WHERE {mileID} = '{mile.ID}'";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
