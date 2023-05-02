@@ -76,6 +76,8 @@
     <Compile Include="Database\AccountsDao.cs" />
     <Compile Include="Database\Base\BaseDao.cs" />
     <Compile Include="Database\Base\DBConnection.cs" />
+    <Compile Include="Database\MilestonesDao.cs" />
+    <Compile Include="Database\MileTasksDao.cs" />
     <Compile Include="Database\ProjectBonusesDao.cs" />
     <Compile Include="Database\TimeSheetsDao.cs" />
     <Compile Include="Database\DepartmentsDao.cs" />
@@ -91,6 +93,8 @@
     <Compile Include="Database\TaskStatusesDao.cs" />
     <Compile Include="Helpers\PasswordBoxHelper.cs" />
     <Compile Include="Models\Account.cs" />
+    <Compile Include="Models\Milestone.cs" />
+    <Compile Include="Models\MileTask.cs" />
     <Compile Include="Models\ProjectBonus.cs" />
     <Compile Include="Models\TimeSheet.cs" />
     <Compile Include="Models\CurrentUser.cs" />

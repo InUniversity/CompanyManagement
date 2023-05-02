@@ -16,7 +16,7 @@ namespace CompanyManagement.Utilities
         public const string invalidIDMess = "ID đã tồn tại!!!";
         public const string invalidCheckInMess = "Chưa chọn nhiệm vụ để điểm danh!";
 
-        public static readonly DateTime emptyDate = new DateTime(2000, 1, 1, 0, 0, 0);
+        public static readonly DateTime emptyDate = new DateTime(2000, 1, 1, 7, 0, 0);
         private const string formatDateTime = "yyyy-MM-dd hh:mm:ss";
         private const string formatDate = "yyyy-MM-dd";
 

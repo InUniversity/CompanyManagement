@@ -130,6 +130,20 @@ namespace CompanyManagement.Database.Base
         public const string salaryBonus = "TotalBonus";
         public const string salaryIncome = "Income";
         
+        protected const string mileTbl = "Milestones";
+        public const string mileID = "ID";
+        public const string mileTitle = "Title";
+        public const string mileExplanation = "Explanation";
+        public const string mileStart = "StartDate";
+        public const string mileEnd = "EndDate";
+        public const string mileCompleted = "CompletedDate";
+        public const string mileOwnerID = "OwnerID";
+        public const string mileProjID = "ProjectID";
+        
+        protected const string mileTsksTbl = "MileTasks";
+        public const string mileTskID = "ID";
+        public const string mileTskTskID = "TaskID";
+        
         protected DBConnection dbConnection = new DBConnection();
     }
 }
