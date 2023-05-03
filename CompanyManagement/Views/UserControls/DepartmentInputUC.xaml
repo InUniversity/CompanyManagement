@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              TextElement.FontWeight="Regular"
              TextElement.FontSize="13"
@@ -12,32 +13,39 @@
              Background="White"
              FontFamily="{DynamicResource MaterialDesignFont}"
              mc:Ignorable="d"
-             x:Name="departmentInputUC"
-             Height="292" Width="580">
-    <Grid>
-        <StackPanel>
+             x:Name="deptInputUC"
+              Height="300" Width="300">
+    <StackPanel>
+        <Grid>
             <TextBox
-                Text="{Binding ID, UpdateSourceTrigger=PropertyChanged}"
+                Grid.Column="0"
+                Text="{Binding Name}"
                 Background="White"
-                Margin="20 10"
+                Margin="10"
                 IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedTextBoxEnabledComboBox}"
-            materialDesign:HintAssist.Hint="Mã phòng ban" />
+                Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                materialDesign:HintAssist.Hint="Tên phòng" />
+        </Grid>
+        
+        <Grid>
             <TextBox
-                Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
+                Grid.Column="0"
+                Text="{Binding Name}"
                 Background="White"
-                Margin="20 10"
+                Margin="10"
                 IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedTextBoxEnabledComboBox}"
-                materialDesign:HintAssist.Hint="Tên phòng ban" />
-            <TextBox
-                Text="{Binding ManagerID, UpdateSourceTrigger=PropertyChanged}"
-                Background="White"
-                Margin="20 10"
-                IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedTextBoxEnabledComboBox}"
-                materialDesign:HintAssist.Hint="Mã trưởng phòng" />
-            <TextBlock Text="{Binding ErrorMessage}" 
-                       HorizontalAlignment="Center" 
-                       VerticalAlignment="Center"
-                       Foreground="Red" />
-        </StackPanel>
-    </Grid>
+                Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                materialDesign:HintAssist.Hint="Tên phòng" />
+        </Grid>
+        
+        <Grid>
+            <TextBlock 
+                Margin="10"
+                Text="{Binding ErrorMessage}" 
+                TextWrapping="Wrap" 
+                Foreground="#FF0000" 
+                TextAlignment="Left" 
+                FontSize="13"/>
+        </Grid>
+    </StackPanel>
 </UserControl>

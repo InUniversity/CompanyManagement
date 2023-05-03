@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Data;
 using CompanyManagement.Database.Base;
 using CompanyManagement.Utilities;
@@ -10,10 +11,33 @@ namespace CompanyManagement.Models
         private string id;
         private string name;
         private string deptHeadID;
+        private ObservableCollection<Employee> empls = new ObservableCollection<Employee>();
 
-        public string ID => id;
-        public string Name => name;
-        public string DeptHeadID => deptHeadID;
+        public string ID
+        {
+            get => id;
+            set => id = value;
+        }
+
+        public string Name
+        {
+            get => name;
+            set => name = value;
+        }
+
+        public string DeptHeadID
+        {
+            get => deptHeadID;
+            set => deptHeadID = value;
+        }
+
+        public ObservableCollection<Employee> Empls
+        {
+            get => empls;
+            set => empls = value;
+        }
+        
+        public Department() { }
 
         public Department(string id, string name, string deptHeadID)
         {
@@ -26,6 +50,10 @@ namespace CompanyManagement.Models
         {
             try
             {
+                id = Utils.GetString(reader, BaseDao.deptID);
+                name = Utils.GetString(reader, BaseDao.deptName);
+                deptHeadID = Utils.GetString(reader, BaseDao.deptHead);
+                
                 id = (string)reader[BaseDao.deptID];
                 name = (string)reader[BaseDao.deptName];
                 deptHeadID = (string)reader[BaseDao.deptHead];

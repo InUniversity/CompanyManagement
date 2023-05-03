@@ -1,5 +1,4 @@
-﻿using CompanyManagement.Models;
-using CompanyManagement.ViewModels.Base;
+﻿using CompanyManagement.ViewModels.Base;
 using CompanyManagement.ViewModels.UserControls;
 using System.Windows.Input;
 using System.Windows;
@@ -8,28 +7,21 @@ namespace CompanyManagement.ViewModels.Dialogs
 {
     public class UpdateDepartmentViewModel : BaseViewModel
     {
+        public ICommand UpdateDeptCommand { get; set; }
 
-        public ICommand UpdateDepartmentCommand { get; set; }
-
-        public IDepartmentInput DepartmentInputDataContext { get; set; }
+        public DepartmentInputViewModel DeptInputVM { get; set; }
 
         public UpdateDepartmentViewModel()
         {
-            DepartmentInputDataContext = new DepartmentInputViewModel();
-            UpdateDepartmentCommand = new RelayCommand<Window>(UpdateCommand);
+            DeptInputVM = new DepartmentInputViewModel();
+            UpdateDeptCommand = new RelayCommand<Window>(ExecuteUpdateDept);
         }
 
-        private void UpdateCommand(Window inputWindow)
+        private void ExecuteUpdateDept(Window inputWindow)
         {
-            DepartmentInputDataContext.TrimAllTexts();
-            Department department = DepartmentInputDataContext.CreateDepartmentInstance();
-            // ParentDataContext.UpdateToDB(department);
+            DeptInputVM.TrimAllTexts();
+            var department = DeptInputVM.DeptIns;
             inputWindow.Close();
-        }
-
-        public void Retrieve(object department)
-        {
-            DepartmentInputDataContext.Receive(department as Department);
         }
     }
 }

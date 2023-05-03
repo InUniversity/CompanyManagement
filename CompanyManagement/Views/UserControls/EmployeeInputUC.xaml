@@ -157,6 +157,7 @@
                                         <TextBlock Text="{Binding Name}" />
                                     </DataTemplate>
                                 </ComboBox.ItemTemplate>
+                                <ComboBoxItem Content="Khác" />
                             </ComboBox>
 
                             <ComboBox
@@ -178,8 +179,8 @@
                         Grid.Row="4"
                         Grid.Column="1"
                         Margin="5 5 5 20"
-                        materialDesign:HintAssist.Hint="Lương cơ bản"
-                        Text="{Binding Salary}"
+                        materialDesign:HintAssist.Hint="Lương cơ bản (VNĐ)"
+                        Text="{Binding Salary, StringFormat='##,#', UpdateSourceTrigger=PropertyChanged}"
                         AcceptsReturn="False"
                         IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedTextBoxEnabledComboBox}"
                         Style="{StaticResource MaterialDesignOutlinedTextBox}"

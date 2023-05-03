@@ -150,7 +150,7 @@
     <Compile Include="ViewModels\Dialogs\CheckInViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\CheckOutViewModel.cs" />
     <Compile Include="ViewModels\UserControls\DepartmentInputViewModel.cs" />
-    <Compile Include="ViewModels\UserControls\DepartmentViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\DepartmentsViewModel.cs" />
     <Compile Include="ViewModels\UserControls\EmployeeInputViewModel.cs" />
     <Compile Include="ViewModels\UserControls\EmployeesViewModel.cs" />
     <Compile Include="ViewModels\UserControls\LeaveInputViewModel.cs" />

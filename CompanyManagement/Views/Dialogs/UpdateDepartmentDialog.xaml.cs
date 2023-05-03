@@ -11,7 +11,7 @@ namespace CompanyManagement.Views.Dialogs
         public UpdateDepartmentDialog()
         {
             InitializeComponent(); 
-            DataContext = new UpdateDepartmentViewModel();
+            // DataContext = new UpdateDepartmentViewModel();
         }
     }
 }
