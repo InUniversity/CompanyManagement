@@ -80,7 +80,6 @@
       <DependentUpon>CompanyManagement.edmx</DependentUpon>
     </Compile>
     <Compile Include="Database\AccountsDao.cs" />
-    <Compile Include="Database\BaseDao.cs" />
     <Compile Include="Database\DepartmentsDao.cs" />
     <Compile Include="Database\LeaveRequestsDao.cs" />
     <Compile Include="Database\MilestonesDao.cs" />
@@ -92,6 +91,7 @@
     <Compile Include="Database\TaskCheckOutsDao.cs" />
     <Compile Include="Database\TasksDao.cs" />
     <Compile Include="Database\TimeSheetsDao.cs" />
+    <Compile Include="Database\BaseDao.cs" />
     <Compile Include="Project.cs" />
     <Compile Include="ProjectAssignment.cs" />
     <Compile Include="ProjectBonus.cs" />
