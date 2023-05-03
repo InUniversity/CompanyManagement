@@ -4,6 +4,7 @@ using System;
 using CompanyManagement.Database;
 using CompanyManagement.Utilities;
 using CompanyManagement.ViewModels.Base;
+using System.Linq;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
@@ -43,6 +44,7 @@ namespace CompanyManagement.ViewModels.UserControls
         {
             Roles = rolesDao.GetAll();
             Departments = departmentsDao.GetAll();
+            Departments.Add(new Department("", "Chưa có", ""));
         }
         
         public bool CheckAllFields()
