@@ -17,7 +17,7 @@ namespace CompanyManagement.Database
                             $"{projBonusAmount}, {projBonusReceiveDate}, " +
                             $"{projBonusEmplID}, {projBonusProjID}) " +
                             $"VALUES ('{projectBonuses.ID}', '{projectBonuses.Amount}', " +
-                            $"'{Utils.ToOnlyDateSQLFormat(projectBonuses.ReceivedDate)}', " +
+                            $"'{Utils.ToSQLFormat(projectBonuses.ReceivedDate)}', " +
                             $"'{projectBonuses.EmployeeID}', '{projectBonuses.ProjectID}')";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
@@ -32,7 +32,7 @@ namespace CompanyManagement.Database
         {
             string sqlStr = $"UPDATE {projBonusTbl} " +
                             $"SET {projBonusAmount} = '{projectBonuses.Amount}', " +
-                            $"{projBonusReceiveDate} = '{Utils.ToOnlyDateSQLFormat(projectBonuses.ReceivedDate)}', " +
+                            $"{projBonusReceiveDate} = '{Utils.ToSQLFormat(projectBonuses.ReceivedDate)}', " +
                             $"{projBonusEmplID} = '{projectBonuses.EmployeeID}', " +
                             $"{projBonusProjID} = '{projectBonuses.ProjectID}' " +
                             $"WHERE {projBonusID} = '{projectBonuses.ID}'";
@@ -42,13 +42,13 @@ namespace CompanyManagement.Database
         public List<ProjectBonus> SearchByID(string id)
         {
             string sqlStr = $"SELECT * FROM {projBonusTbl} WHERE {projBonusID} = '{id}'";
-            return dbConnection.GetList<ProjectBonus>(sqlStr, reader => new ProjectBonus(reader));
+            return dbConnection.GetList(sqlStr, reader => new ProjectBonus(reader));
         }
 
         public List<ProjectBonus> SearchByProjectID(string id)
         {
             string sqlStr = $"SELECT * FROM {projBonusTbl} WHERE {projBonusProjID} = '{id}'";
-            return dbConnection.GetList<ProjectBonus>(sqlStr, reader => new ProjectBonus(reader));
+            return dbConnection.GetList(sqlStr, reader => new ProjectBonus(reader));
         }
 
         public List<ProjectBonus> SearchByEmployeeID(string id)

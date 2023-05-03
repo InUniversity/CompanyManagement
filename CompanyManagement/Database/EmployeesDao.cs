@@ -12,7 +12,7 @@ namespace CompanyManagement.Database
                 $"INSERT INTO {emplTbl} ({emplID}, {emplName}, {emplGender}, {emplBirthday}, " +
                 $"{emplIdentCard}, {emplEmail}, {emplPhoneNo}, {emplAddress}, {emplDeptID}, {emplRoleID}, " +
                 $"{emplSalary}) VALUES ('{empl.ID}', N'{empl.Name}', N'{empl.Gender}', " +
-                $"'{Utils.ToOnlyDateSQLFormat(empl.Birthday)}', '{empl.IdentifyCard}', '{empl.Email}', " +
+                $"'{Utils.ToSQLFormat(empl.Birthday)}', '{empl.IdentifyCard}', '{empl.Email}', " +
                 $"'{empl.PhoneNumber}', N'{empl.Address}', '{empl.DepartmentID}', '{empl.RoleID}', '{empl.Salary}')";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
@@ -27,7 +27,7 @@ namespace CompanyManagement.Database
         {
             string sqlStr = $"UPDATE {emplTbl} " +
                 $"SET {emplName}=N'{empl.Name}', {emplGender}=N'{empl.Gender}', " +
-                $"{emplBirthday}='{Utils.ToOnlyDateSQLFormat(empl.Birthday)}', " +
+                $"{emplBirthday}='{Utils.ToSQLFormat(empl.Birthday)}', " +
                 $"{emplIdentCard}='{empl.IdentifyCard}', {emplEmail}='{empl.Email}', " +
                 $"{emplPhoneNo}='{empl.PhoneNumber}', {emplAddress}=N'{empl.Address}', " +
                 $"{emplDeptID}='{empl.DepartmentID}', {emplRoleID}='{empl.RoleID}', " +
