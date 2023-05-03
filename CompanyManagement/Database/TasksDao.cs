@@ -54,7 +54,7 @@ namespace CompanyManagement.Database
             return dbConnection.GetList(sqlStr, reader => new TaskInProject(reader));
         }
 
-        public List<TaskInProject> SearchCurrentTasksByEmployeeID(string emplID, DateTime curDate)
+        public List<TaskInProject> SearchTasksCheckOut(string emplID, DateTime curDate)
         {
             string sqlStr = $"SELECT * FROM {taskTbl} WHERE {taskEmplID} = '{emplID}'" +
                             $"AND {taskDeadline} >= '{Utils.ToSQLFormat(curDate)}' AND {taskStart} <= '{Utils.ToSQLFormat(curDate)}' " +
