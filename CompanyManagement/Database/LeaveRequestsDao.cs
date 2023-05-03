@@ -36,27 +36,21 @@ namespace CompanyManagement.Database
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
-        public List<LeaveRequest> GetAll()
-        {
-            string sqlStr = $"SELECT * FROM {leavTbl}";
-            return dbConnection.GetList(sqlStr, reader => new LeaveRequest(reader));
-        }
-
         public LeaveRequest SearchByID(string id)
         {
             string sqlStr = $"SELECT * FROM {leavTbl} WHERE {leavID}='{id}'";
             return (LeaveRequest)dbConnection.GetSingleObject(sqlStr, reader => new LeaveRequest(reader));
         }
 
-        public List<LeaveRequest> SearchByEmployeeID(string id)
+        public List<LeaveRequest> GetMyRequests(string emplID)
         {
-            string sqlStr = $"SELECT * FROM {leavTbl} WHERE {leavEmplID}='{id}'";
+            string sqlStr = $"SELECT * FROM {leavTbl} WHERE {leavEmplID}='{emplID}'";
             return dbConnection.GetList(sqlStr, reader => new LeaveRequest(reader));
         }
 
-        public List<LeaveRequest> SearchByApproverID(string id)
+        public List<LeaveRequest> SearchByApproverID(string emplID)
         {
-            string sqlStr = $"SELECT * FROM {leavTbl} WHERE {leavApproverID}='{id}'";
+            string sqlStr = $"SELECT * FROM {leavTbl} WHERE {leavApproverID}='{emplID}'";
             return dbConnection.GetList(sqlStr, reader => new LeaveRequest(reader));
         }
     }

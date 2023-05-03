@@ -9,27 +9,29 @@ namespace CompanyManagementTest.Database
     [TestFixture]
     public class LeaveRequestsDaoTest
     {
-        private LeaveRequestsDao leaveRequestsDao;
+        private LeaveRequestsDao myDao;
         private LeaveRequest leaveRequest;
 
         [SetUp]
         public void SetUp()
         {
-            leaveRequestsDao = new LeaveRequestsDao();
-            leaveRequest = new LeaveRequest();
-            leaveRequest.ID = "LEA12341";
-            leaveRequest.Reason = "Vấn đề sức khỏe";
-            leaveRequest.Notes = "Bệnh nặng";
-            leaveRequest.Start = new DateTime(2023, 4, 15).Date;
-            leaveRequest.End = new DateTime(2023, 4, 25).Date;
-            leaveRequest.Created = new DateTime(2023, 4, 27).Date;
-            leaveRequest.StatusID = "LS2";
-            leaveRequest.RequesterID = "EM007";
-            leaveRequest.ApproverID = "EM006";
+            myDao = new LeaveRequestsDao();
+            leaveRequest = new LeaveRequest
+            {
+                ID = "LEA12341",
+                Reason = "Vấn đề sức khỏe",
+                Notes = "Bệnh nặng",
+                Start = new DateTime(2023, 4, 15).Date,
+                End = new DateTime(2023, 4, 25).Date,
+                Created = new DateTime(2023, 4, 27).Date,
+                StatusID = "LS2",
+                RequesterID = "EM007",
+                ApproverID = "EM006"
+            };
         }
 
         [Test]
-        public void Leave_Requests_Dao_Search_By_ID_Success()
+        public void Search_By_ID_Success()
         {
             var expected = new LeaveRequest();
             expected.ID = "LEA0001";
@@ -41,17 +43,31 @@ namespace CompanyManagementTest.Database
             expected.StatusID = "LS1";
             expected.RequesterID = "EM007";
             expected.ApproverID = "EM006";
-            var actualSearch = leaveRequestsDao.SearchByID(expected.ID);
+            var actualSearch = myDao.SearchByID(expected.ID);
             
             AssertObject(expected, actualSearch);
         }
+        
+        [Test]
+        public void GetMyRequests_Found()
+        {
+            var list = myDao.GetMyRequests("EM007");
+            Assert.AreEqual(1, list.Count);
+        }
+        
+        [Test]
+        public void SearchByApproverID_Found()
+        {
+            var list = myDao.SearchByApproverID("EM006");
+            Assert.AreEqual(2, list.Count);
+        }
 
         [Test]
-        public void Leave_Requests_Dao_Add_Update_Delete()
+        public void Add_Update_Delete()
         {
             // add
-            leaveRequestsDao.Add(leaveRequest); 
-            var added = leaveRequestsDao.SearchByID(leaveRequest.ID);
+            myDao.Add(leaveRequest); 
+            var added = myDao.SearchByID(leaveRequest.ID);
             
             // update
             var updateObject = new LeaveRequest();
@@ -64,12 +80,12 @@ namespace CompanyManagementTest.Database
             updateObject.StatusID = "LS3";
             updateObject.RequesterID = leaveRequest.RequesterID;
             updateObject.ApproverID = leaveRequest.ApproverID;
-            leaveRequestsDao.Update(updateObject);
-            var updated = leaveRequestsDao.SearchByID(leaveRequest.ID);  
+            myDao.Update(updateObject);
+            var updated = myDao.SearchByID(leaveRequest.ID);  
             
             // add
-            leaveRequestsDao.Delete(leaveRequest.ID);
-            var afterDelete = leaveRequestsDao.SearchByID(leaveRequest.ID);
+            myDao.Delete(leaveRequest.ID);
+            var afterDelete = myDao.SearchByID(leaveRequest.ID);
             
             // assert added
             Assert.IsNotNull(added);
@@ -81,6 +97,8 @@ namespace CompanyManagementTest.Database
             // assert deleted
             Assert.IsNull(afterDelete); 
         }
+        
+        
         
         private void AssertObject(LeaveRequest expected, LeaveRequest actual)
         {
