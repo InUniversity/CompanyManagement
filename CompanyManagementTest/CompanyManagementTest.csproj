@@ -50,6 +50,7 @@
         <Compile Include="Database\ProjectAssignmentsDaoTest.cs" />
         <Compile Include="Database\ProjectsDaoTest.cs" />
         <Compile Include="Database\ProjectStatusesDaoTest.cs" />
+        <Compile Include="Database\TaskCheckOutsDaoTest.cs" />
         <Compile Include="Database\TasksDaoTest.cs" />
         <Compile Include="Database\TaskStatusesDaoTest.cs" />
         <Compile Include="Tests.cs" />
