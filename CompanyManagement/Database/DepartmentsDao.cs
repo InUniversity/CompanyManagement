@@ -32,7 +32,7 @@ namespace CompanyManagement.Database
             return dbConnection.GetList(sqlStr, reader => new Department(reader));
         }
 
-        public Department DepartmentByEmployeeDeptID(string dptID)
+        public Department SearchByID(string dptID)
         {
             string sqlStr = $"SELECT * FROM {deptTbl} WHERE {deptID} = '{dptID}'";
             return (Department)dbConnection.GetSingleObject(sqlStr, reader => new Department(reader));

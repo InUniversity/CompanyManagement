@@ -9,50 +9,50 @@ namespace CompanyManagementTest.Database
     [TestFixture]
     public class TasksDaoTest
     {
-        private TasksDao tasksDao;
-        private TaskInProject task;
+        private TasksDao myDao;
         
         [SetUp]
         public void SetUp()
         {
-            tasksDao = new TasksDao();
-            task = new TaskInProject("T2352342", "Test Task", "Test Explanation 111", 
-                new DateTime(2023, 4, 30, 0, 0, 0), 
-                new DateTime(2023, 5, 30, 0, 0, 0), 
-                "0", "EM001", "EM007", "PRJ001", "TS1", new Employee()); 
+            myDao = new TasksDao();
         }
         
         [Test]
-        public void Tasks_Dao_Search_By_ID_Success()
+        public void SearchByID_Found()
         {
             var expected = new TaskInProject("T000001", "Website Development - Design", 
                 "Thiết kế giao diện website cho khách hàng ABC", 
                 new DateTime(2023, 3, 1, 9, 0, 0), 
-                new DateTime(2023, 4, 15, 0, 0, 0), 
+                new DateTime(2023, 3, 15, 17, 0, 0), 
                 "50", "EM002", "EM007", "PRJ001", 
                 "TS3", new Employee());
-            var actualSearch = tasksDao.SearchByID(expected.ID);
+            var actualSearch = myDao.SearchByID(expected.ID);
             
             AssertObject(expected, actualSearch);
         }
 
         [Test]
-        public void Tasks_Dao_Add_Update_Delete()
+        public void Add_Update_Delete_Success()
         {
+            var task = new TaskInProject("T2352342", "Test Task", "Test Explanation 111", 
+                new DateTime(2023, 4, 30, 0, 0, 0), 
+                new DateTime(2023, 5, 30, 0, 0, 0), 
+                "0", "EM001", "EM007", "PRJ001", "TS1", new Employee());  
+            
             // add
-            tasksDao.Add(task); 
-            var added = tasksDao.SearchByID(task.ID);
+            myDao.Add(task); 
+            var added = myDao.SearchByID(task.ID);
             
             // update
             var updateObject = new TaskInProject(task.ID, task.Title + "Updated", task.Explanation, 
                 task.StartDate, task.Deadline, task.Progress, task.OwnerID, "EM008", task.ProjectID, 
                 task.StatusID, new Employee());
-            tasksDao.Update(updateObject);
-            var updated = tasksDao.SearchByID(task.ID);  
+            myDao.Update(updateObject);
+            var updated = myDao.SearchByID(task.ID);  
             
             // add
-            tasksDao.Delete(task.ID);
-            var afterDelete = tasksDao.SearchByID(task.ID);
+            myDao.Delete(task.ID);
+            var afterDelete = myDao.SearchByID(task.ID);
             
             // assert added
             Assert.IsNotNull(added);
@@ -63,6 +63,27 @@ namespace CompanyManagementTest.Database
             
             // assert deleted
             Assert.IsNull(afterDelete); 
+        }
+
+        [Test]
+        public void SearchByProjectID_Found()
+        {
+            var list = myDao.SearchByProjectID("PRJ001");
+            Assert.AreEqual(5, list.Count);
+        }
+        
+        [Test]
+        public void SearchByEmployeeID_Found()
+        {
+            var list = myDao.SearchByEmployeeID("PRJ001", "EM007");
+            Assert.AreEqual(3, list.Count);
+        }
+        
+        [Test]
+        public void SearchCurrentTasksByEmployeeID_Found()
+        {
+            var list = myDao.SearchTasksCheckOut("EM007", new DateTime(2023, 3, 2, 0, 0, 0));
+            Assert.AreEqual(1, list.Count);
         }
         
         private void AssertObject(TaskInProject expected, TaskInProject actual)
