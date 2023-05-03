@@ -1,5 +1,6 @@
 ﻿using CompanyManagement.Database.Base;
 using System.Collections.Generic;
+using CompanyManagement.Utilities;
 
 namespace CompanyManagement.Database
 {
@@ -9,9 +10,9 @@ namespace CompanyManagement.Database
         {
             string sqlStr =
                 $"INSERT INTO {emplTbl} ({emplID}, {emplName}, {emplGender}, {emplBirthday}, " +
-                $"{emplIdentCard}, {emplEmail}, {emplPhoneNo}, {emplAddress}, " +
-                $"{emplDeptID},{emplRoleID}, {emplSalary}) VALUES ('{empl.ID}', " +
-                $"N'{empl.Name}', N'{empl.Gender}', '{empl.Birthday}', '{empl.IdentifyCard}', '{empl.Email}', " +
+                $"{emplIdentCard}, {emplEmail}, {emplPhoneNo}, {emplAddress}, {emplDeptID}, {emplRoleID}, " +
+                $"{emplSalary}) VALUES ('{empl.ID}', N'{empl.Name}', N'{empl.Gender}', " +
+                $"'{Utils.ToOnlyDateSQLFormat(empl.Birthday)}', '{empl.IdentifyCard}', '{empl.Email}', " +
                 $"'{empl.PhoneNumber}', N'{empl.Address}', '{empl.DepartmentID}', '{empl.RoleID}', '{empl.Salary}')";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
@@ -26,17 +27,17 @@ namespace CompanyManagement.Database
         {
             string sqlStr = $"UPDATE {emplTbl} " +
                 $"SET {emplName}=N'{empl.Name}', {emplGender}=N'{empl.Gender}', " +
-                $"{emplBirthday}='{empl.Birthday}', {emplIdentCard}='{empl.IdentifyCard}', " +
-                $"{emplEmail}='{empl.Email}', {emplPhoneNo}='{empl.PhoneNumber}', " +
-                $"{emplAddress}='{empl.Address}', {emplDeptID}='{empl.DepartmentID}', " +
-                $"{emplRoleID}='{empl.RoleID}', {emplSalary}='{empl.Salary}' " +
-                $"WHERE {emplID}='{empl.ID}'";
+                $"{emplBirthday}='{Utils.ToOnlyDateSQLFormat(empl.Birthday)}', " +
+                $"{emplIdentCard}='{empl.IdentifyCard}', {emplEmail}='{empl.Email}', " +
+                $"{emplPhoneNo}='{empl.PhoneNumber}', {emplAddress}=N'{empl.Address}', " +
+                $"{emplDeptID}='{empl.DepartmentID}', {emplRoleID}='{empl.RoleID}', " +
+                $"{emplSalary}='{empl.Salary}' WHERE {emplID}='{empl.ID}'";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
-        public List<Employee> SearchByCurrentID(string emplID)
+        public List<Employee> GetAllWithoutManagers()
         {
-            string sqlStr = $"SELECT * FROM {emplTbl} E WHERE E.{BaseDao.emplID} NOT LIKE '{emplID}'";
+            string sqlStr = $"SELECT * FROM {emplTbl} WHERE {emplRoleID} NOT LIKE '{managerRole}'";
             return dbConnection.GetList(sqlStr, reader => new Employee(reader));
         }
 
@@ -61,7 +62,7 @@ namespace CompanyManagement.Database
         public List<Employee> GetManagers()
         {
             string sqlStr = $"SELECT * FROM {emplTbl} WHERE {emplRoleID} ='{managerRole}'";
-            return dbConnection.GetList<Employee>(sqlStr, reader => new Employee(reader));
+            return dbConnection.GetList(sqlStr, reader => new Employee(reader));
         }
     }
 }
