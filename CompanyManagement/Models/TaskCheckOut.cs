@@ -7,17 +7,17 @@ namespace CompanyManagement.Models
 {
     public class TaskCheckOut
     {
-        private string checkInOutID = "";
+        private string timeShtID = "";
         private string taskID = "";
-        private DateTime updateDate = Utils.emptyDate;
+        private DateTime update = Utils.emptyDate;
         private string progress;
         private TaskInProject task = new TaskInProject();
 
-        public string CheckInOutID => checkInOutID;
+        public string TimeShtID => timeShtID;
         
         public string TaskID => taskID;
         
-        public DateTime UpdateDate => updateDate;
+        public DateTime Update => update;
         
         public string Progress => progress;
 
@@ -27,23 +27,23 @@ namespace CompanyManagement.Models
             set => task = value;
         }
 
-        public TaskCheckOut(string checkInOutID, string taskID, DateTime updateDate, string progress, TaskInProject task)
+        public TaskCheckOut(string timeShtID, string taskID, DateTime update, string progress, TaskInProject task)
         {
-            this.checkInOutID = checkInOutID;
+            this.timeShtID = timeShtID;
             this.taskID = taskID;
-            this.updateDate = updateDate;
+            this.update = update;
             this.progress = progress;
             this.task = task;
         }
         
-        public TaskCheckOut(IDataRecord reader)
+        public TaskCheckOut(IDataRecord record)
         {
             try
             {
-                checkInOutID = (string)reader[BaseDao.taskOutTaskID];
-                taskID = (string)reader[BaseDao.taskOutTaskID];
-                updateDate = reader.GetDateTime(reader.GetOrdinal(BaseDao.taskOutUpdate));
-                progress = (string)reader[BaseDao.taskOutProgress];
+                timeShtID = Utils.GetString(record, BaseDao.taskOutTimeShtID);
+                taskID = Utils.GetString(record, BaseDao.taskOutTaskID);
+                update = Utils.GetDateTime(record, BaseDao.taskOutUpdate);
+                progress = Utils.GetString(record, BaseDao.taskOutProgress);
             }
             catch (Exception e)
             {

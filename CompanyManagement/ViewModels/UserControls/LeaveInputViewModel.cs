@@ -86,7 +86,7 @@ namespace CompanyManagement.ViewModels.UserControls
         private void LoadApprovers()
         {
             approvers = employeesDao.GetManagers();
-            string headerDeptID = departmentsDao.DepartmentByEmployeeDeptID(currentEmployee.DepartmentID)?.DeptHeadID ?? "";
+            string headerDeptID = departmentsDao.SearchByID(currentEmployee.DepartmentID)?.DeptHeadID ?? "";
             Employee headerApprover = employeesDao.SearchByID(headerDeptID);
             SearchedApprovers = string.Equals(currentEmployee.RoleID,BaseDao.deptHeadRole)
                 ? Approvers

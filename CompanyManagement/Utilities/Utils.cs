@@ -25,11 +25,6 @@ namespace CompanyManagement.Utilities
             return dt.ToString(formatDateTime);
         }
 
-        public static string ToOnlyDateSQLFormat(DateTime dt)
-        {
-            return dt.ToString(formatDate);
-        }
-
         public static int GetInt(IDataRecord record, string colName)
         {
             return GetValueOrDefault(record, colName, 0);

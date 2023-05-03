@@ -9,8 +9,8 @@ namespace CompanyManagement.Database
         public void Add(TaskCheckOut tskCheckOut)
         {
             string sqlStr = $"INSERT INTO {taskOutTbl} ({taskOutTimeShtID}, {taskOutTaskID}, {taskOutUpdate}, " +
-                            $"{taskOutProgress}) VALUES ('{tskCheckOut.CheckInOutID}', '{tskCheckOut.TaskID}', " +
-                            $"'{tskCheckOut.UpdateDate}', '{tskCheckOut.Progress}')";
+                            $"{taskOutProgress}) VALUES ('{tskCheckOut.TimeShtID}', '{tskCheckOut.TaskID}', " +
+                            $"'{tskCheckOut.Update}', '{tskCheckOut.Progress}')";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 

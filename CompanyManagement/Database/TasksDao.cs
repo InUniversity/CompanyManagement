@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using CompanyManagement.Database.Base;
 using CompanyManagement.Models;
+using CompanyManagement.Utilities;
 
 namespace CompanyManagement.Database
 {
@@ -35,12 +36,6 @@ namespace CompanyManagement.Database
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
-        public void UpdateProgress(string tskID, string progress)
-        {
-            string sqlStr = $"UPDATE {taskTbl} SET {taskProgress}='{progress}' WHERE {BaseDao.taskID}='{tskID}'";
-            dbConnection.ExecuteNonQuery(sqlStr);
-        }
-
         public TaskInProject SearchByID(string id)
         {
             string sqlStr = $"SELECT * FROM {taskTbl} WHERE {taskID}='{id}'";           
@@ -59,10 +54,10 @@ namespace CompanyManagement.Database
             return dbConnection.GetList(sqlStr, reader => new TaskInProject(reader));
         }
 
-        public List<TaskInProject> SearchCurrentTasksByEmployeeID(string emplID)
+        public List<TaskInProject> SearchTasksCheckOut(string emplID, DateTime curDate)
         {
             string sqlStr = $"SELECT * FROM {taskTbl} WHERE {taskEmplID} = '{emplID}'" +
-                            $"AND {taskDeadline} >= '{DateTime.Now}' AND {taskStart} <= '{DateTime.Now}' " +
+                            $"AND {taskDeadline} >= '{Utils.ToSQLFormat(curDate)}' AND {taskStart} <= '{Utils.ToSQLFormat(curDate)}' " +
                             $"AND {taskProgress} != '{completed}'";
             return dbConnection.GetList(sqlStr, reader => new TaskInProject(reader));
         }

@@ -63,7 +63,7 @@ namespace CompanyManagement.ViewModels.UserControls
         {
             Log.Instance.Information(nameof(TimeTrackingViewModel), $"Selected Date: {SelectedDate}");
             SearchedTasksCheckOut = originalTaskCheckOutList
-                .Where(item => item.UpdateDate.Date == SelectedDate.Date)
+                .Where(item => item.Update.Date == SelectedDate.Date)
                 .ToList();
         }
 

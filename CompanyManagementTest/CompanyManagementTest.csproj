@@ -42,11 +42,15 @@
         </Reference>
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="Database\DepartmentsDaoTest.cs" />
+        <Compile Include="Database\EmployeesDaoTest.cs" />
         <Compile Include="Database\LeaveRequestsDaoTest.cs" />
         <Compile Include="Database\MilestonesDaoTest.cs" />
         <Compile Include="Database\MileTasksDaoTest.cs" />
+        <Compile Include="Database\ProjectAssignmentsDaoTest.cs" />
         <Compile Include="Database\ProjectsDaoTest.cs" />
         <Compile Include="Database\ProjectStatusesDaoTest.cs" />
+        <Compile Include="Database\TaskCheckOutsDaoTest.cs" />
         <Compile Include="Database\TasksDaoTest.cs" />
         <Compile Include="Database\TaskStatusesDaoTest.cs" />
         <Compile Include="Tests.cs" />

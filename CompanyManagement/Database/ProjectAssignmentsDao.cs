@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System;
+using System.Collections.Generic;
 using CompanyManagement.Database.Base;
 using CompanyManagement.Models;
+using CompanyManagement.Utilities;
 
 namespace CompanyManagement.Database
 {
@@ -10,14 +11,14 @@ namespace CompanyManagement.Database
         public void Add(ProjectAssignment assign)
         {
             string sqlStr = $"INSERT INTO {projAssignTbl} ({projAssignID}, " + $"{projAssignDeptID}) " +
-                            $"VALUES ('{assign.ProjID}', '{assign.DeparmentID}')";
+                            $"VALUES ('{assign.ProjID}', '{assign.DeptID}')";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
         public void Delete(ProjectAssignment assign)
         {
             string sqlStr = $"DELETE FROM {projAssignTbl} WHERE {projAssignID}='{assign.ProjID}' AND " +
-                            $"{projAssignDeptID}='{assign.DeparmentID}'";
+                            $"{projAssignDeptID}='{assign.DeptID}'";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
@@ -35,15 +36,16 @@ namespace CompanyManagement.Database
             return dbConnection.GetList(sqlStr, reader => new Employee(reader));
         }
 
-        public List<Department> GetDepartmentsCanAssignWork(string projID, string startDateTime, string endDateTime)
+        public List<Department> GetDepartmentsCanAssignWork(string projID, DateTime start, DateTime end)
         {
             string sqlStr = $"SELECT * FROM {deptTbl} WHERE {deptID} NOT IN (" +
                             $"SELECT {projAssignDeptID} FROM {projAssignTbl} " +
                             $"WHERE {projAssignID} IN (SELECT {BaseDao.projID} FROM {projTbl} " +
-                            $"WHERE {BaseDao.projID} NOT LIKE '{projID}' AND {projProgress} NOT LIKE '100'" +
-                            $"AND {projStart} <= '{endDateTime}'" +
-                            $"AND {projEnd} >= '{startDateTime}')) EXCEPT (SELECT D.* FROM {deptTbl} D INNER JOIN {projAssignTbl} PA ON D.{deptID}=PA.{projAssignDeptID} WHERE PA.{projAssignID}='{projID}')";
-            // TODO
+                            $"WHERE {BaseDao.projID} NOT LIKE '{projID}' AND {projProgress} NOT LIKE '{completed}'" +
+                            $"AND {projStart} <= '{Utils.ToSQLFormat(end)}' " +
+                            $"AND {projEnd} >= '{Utils.ToSQLFormat(start)}')) EXCEPT " +
+                            $"(SELECT D.* FROM {deptTbl} D INNER JOIN {projAssignTbl} PA ON " +
+                            $"D.{deptID}=PA.{projAssignDeptID} WHERE PA.{projAssignID}='{projID}')";
             return dbConnection.GetList(sqlStr, reader => new Department(reader));
         }
 

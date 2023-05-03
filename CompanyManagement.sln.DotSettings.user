@@ -9,13 +9,21 @@
     &lt;TestId&gt;NUnit3x::07570CB6-F510-4B9A-A6C2-4200270FC3BB::.NETFramework,Version=v4.8::CompanyManagementTest.UtilitiesTest.UtilsTest&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=c2623131_002Dee02_002D4abd_002D9890_002Da8ca20b06bcc/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="UtilsTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;Project Location="F:\CodeExample\WPF\ReviewCode\CompanyManagement\CompanyManagementTest" Presentation="&amp;lt;CompanyManagementTest&amp;gt;" /&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=c2623131_002Dee02_002D4abd_002D9890_002Da8ca20b06bcc/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="UtilsTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::07570CB6-F510-4B9A-A6C2-4200270FC3BB::.NETFramework,Version=v4.8::CompanyManagementTest.Database.TasksDaoTest&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=c38ff6a5_002D699c_002D4972_002D9bd7_002Da4352868262b/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Task_Statuses_Dao_Get_All" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=c38ff6a5_002D699c_002D4972_002D9bd7_002Da4352868262b/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Task_Statuses_Dao_Get_All" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;NUnit3x::07570CB6-F510-4B9A-A6C2-4200270FC3BB::.NETFramework,Version=v4.8::CompanyManagementTest.Database.ProjectsDaoTest&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;NUnit3x::07570CB6-F510-4B9A-A6C2-4200270FC3BB::.NETFramework,Version=v4.8::CompanyManagementTest.Database.LeaveRequestsDaoTest&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;NUnit3x::07570CB6-F510-4B9A-A6C2-4200270FC3BB::.NETFramework,Version=v4.8::CompanyManagementTest.Database.MileTasksDaoTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::07570CB6-F510-4B9A-A6C2-4200270FC3BB::.NETFramework,Version=v4.8::CompanyManagementTest.Database.TasksDaoTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::07570CB6-F510-4B9A-A6C2-4200270FC3BB::.NETFramework,Version=v4.8::CompanyManagementTest.Database.DepartmentsDaoTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::07570CB6-F510-4B9A-A6C2-4200270FC3BB::.NETFramework,Version=v4.8::CompanyManagementTest.Database.EmployeesDaoTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::07570CB6-F510-4B9A-A6C2-4200270FC3BB::.NETFramework,Version=v4.8::CompanyManagementTest.Database.MilestonesDaoTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::07570CB6-F510-4B9A-A6C2-4200270FC3BB::.NETFramework,Version=v4.8::CompanyManagementTest.Database.ProjectAssignmentsDaoTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::07570CB6-F510-4B9A-A6C2-4200270FC3BB::.NETFramework,Version=v4.8::CompanyManagementTest.Database.TaskCheckOutsDaoTest&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
