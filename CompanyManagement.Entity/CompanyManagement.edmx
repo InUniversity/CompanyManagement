@@ -1,0 +1,652 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="CompanyManagementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Accounts">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+          </Key>
+          <Property Name="Username" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="PasswordHash" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="EmployeeID" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Departments">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="DepartmentName" Type="nvarchar" MaxLength="100" />
+          <Property Name="DepartmentHead" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Employees">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="100" />
+          <Property Name="Gender" Type="nvarchar" MaxLength="10" />
+          <Property Name="Birthday" Type="date" />
+          <Property Name="IdentifyCard" Type="varchar" MaxLength="12" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="PhoneNumber" Type="varchar" MaxLength="10" />
+          <Property Name="EmployeeAddress" Type="nvarchar" MaxLength="255" />
+          <Property Name="BaseSalary" Type="decimal" Precision="19" Scale="4" />
+          <Property Name="DepartmentID" Type="varchar" MaxLength="20" />
+          <Property Name="RoleID" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="KPIs">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="MonthYear" Type="date" />
+          <Property Name="RequiredTasksCount" Type="int" />
+          <Property Name="ActualTasksCount" Type="int" />
+          <Property Name="EmployeeID" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="LeaveRequests">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Reason" Type="nvarchar" MaxLength="255" />
+          <Property Name="Notes" Type="nvarchar" MaxLength="255" />
+          <Property Name="CreatedDate" Type="date" />
+          <Property Name="StartDate" Type="date" />
+          <Property Name="EndDate" Type="date" />
+          <Property Name="StatusID" Type="varchar" MaxLength="20" />
+          <Property Name="EmployeeID" Type="varchar" MaxLength="20" />
+          <Property Name="ApproverID" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="LeaveStatuses">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="StatusName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Milestones">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="255" />
+          <Property Name="Explanation" Type="nvarchar" MaxLength="1500" />
+          <Property Name="StartDate" Type="smalldatetime" />
+          <Property Name="EndDate" Type="smalldatetime" />
+          <Property Name="CompletedDate" Type="smalldatetime" />
+          <Property Name="OwnerID" Type="varchar" MaxLength="20" />
+          <Property Name="ProjectID" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="MileTasks">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="TaskID" />
+          </Key>
+          <Property Name="ID" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="TaskID" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProjectAssignments">
+          <Key>
+            <PropertyRef Name="ProjectID" />
+            <PropertyRef Name="DepartmentID" />
+          </Key>
+          <Property Name="ProjectID" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="DepartmentID" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProjectBonuses">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Amount" Type="decimal" Precision="19" Scale="4" />
+          <Property Name="ReceivedDate" Type="smalldatetime" />
+          <Property Name="EmployeeID" Type="varchar" MaxLength="20" />
+          <Property Name="ProjectID" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Projects">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="ProjectName" Type="nvarchar" MaxLength="225" />
+          <Property Name="Details" Type="nvarchar" MaxLength="1500" />
+          <Property Name="CreatedDate" Type="smalldatetime" />
+          <Property Name="StartDate" Type="smalldatetime" />
+          <Property Name="EndDate" Type="smalldatetime" />
+          <Property Name="CompletedDate" Type="smalldatetime" />
+          <Property Name="Progress" Type="varchar" MaxLength="4" />
+          <Property Name="StatusID" Type="varchar" MaxLength="10" />
+          <Property Name="OwnerID" Type="varchar" MaxLength="20" />
+          <Property Name="BonusSalary" Type="decimal" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="ProjectStatuses">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="StatusName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="SalaryRecords">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="EmployeeID" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="MonthYear" Type="date" />
+          <Property Name="TotalWorkdays" Type="int" />
+          <Property Name="TotalBonus" Type="decimal" Precision="19" Scale="4" />
+          <Property Name="Income" Type="decimal" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="TaskCheckOuts">
+          <Key>
+            <PropertyRef Name="TimeSheetID" />
+            <PropertyRef Name="TaskID" />
+          </Key>
+          <Property Name="UpdateDate" Type="smalldatetime" Nullable="false" />
+          <Property Name="Progress" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="TimeSheetID" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="TaskID" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tasks">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" />
+          <Property Name="Explanation" Type="nvarchar" MaxLength="255" />
+          <Property Name="StartDate" Type="smalldatetime" />
+          <Property Name="Deadline" Type="smalldatetime" />
+          <Property Name="Progress" Type="varchar" MaxLength="4" />
+          <Property Name="OwnerID" Type="varchar" MaxLength="20" />
+          <Property Name="EmployeeID" Type="varchar" MaxLength="20" />
+          <Property Name="ProjectID" Type="varchar" MaxLength="20" />
+          <Property Name="StatusID" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="TaskStatuses">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="StatusName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TimeSheets">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="CheckInTime" Type="smalldatetime" Nullable="false" />
+          <Property Name="CheckOutTime" Type="smalldatetime" />
+          <Property Name="EmployeeID" Type="varchar" MaxLength="20" />
+          <Property Name="TaskCheckInID" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityContainer Name="CompanyManagementModelStoreContainer">
+          <EntitySet Name="Accounts" EntityType="Self.Accounts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Departments" EntityType="Self.Departments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KPIs" EntityType="Self.KPIs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LeaveRequests" EntityType="Self.LeaveRequests" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LeaveStatuses" EntityType="Self.LeaveStatuses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Milestones" EntityType="Self.Milestones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MileTasks" EntityType="Self.MileTasks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProjectAssignments" EntityType="Self.ProjectAssignments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProjectBonuses" EntityType="Self.ProjectBonuses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Projects" EntityType="Self.Projects" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProjectStatuses" EntityType="Self.ProjectStatuses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SalaryRecords" EntityType="Self.SalaryRecords" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TaskCheckOuts" EntityType="Self.TaskCheckOuts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tasks" EntityType="Self.Tasks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TaskStatuses" EntityType="Self.TaskStatuses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TimeSheets" EntityType="Self.TimeSheets" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CompanyManagementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+          </Key>
+          <Property Name="Username" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EmployeeID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DepartmentName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DepartmentHead" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FullName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Birthday" Type="DateTime" Precision="0" />
+          <Property Name="IdentifyCard" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeeAddress" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="BaseSalary" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="DepartmentID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="RoleID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="KPI">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MonthYear" Type="DateTime" Precision="0" />
+          <Property Name="RequiredTasksCount" Type="Int32" />
+          <Property Name="ActualTasksCount" Type="Int32" />
+          <Property Name="EmployeeID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="LeaveRequest">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Reason" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Notes" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+          <Property Name="StartDate" Type="DateTime" Precision="0" />
+          <Property Name="EndDate" Type="DateTime" Precision="0" />
+          <Property Name="StatusID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeeID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ApproverID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="LeaveStatus">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StatusName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Milestone">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Explanation" Type="String" MaxLength="1500" FixedLength="false" Unicode="true" />
+          <Property Name="StartDate" Type="DateTime" Precision="0" />
+          <Property Name="EndDate" Type="DateTime" Precision="0" />
+          <Property Name="CompletedDate" Type="DateTime" Precision="0" />
+          <Property Name="OwnerID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ProjectID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="MileTask">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="TaskID" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TaskID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProjectAssignment">
+          <Key>
+            <PropertyRef Name="ProjectID" />
+            <PropertyRef Name="DepartmentID" />
+          </Key>
+          <Property Name="ProjectID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DepartmentID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProjectBonus">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Amount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="ReceivedDate" Type="DateTime" Precision="0" />
+          <Property Name="EmployeeID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ProjectID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ProjectName" Type="String" MaxLength="225" FixedLength="false" Unicode="true" />
+          <Property Name="Details" Type="String" MaxLength="1500" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+          <Property Name="StartDate" Type="DateTime" Precision="0" />
+          <Property Name="EndDate" Type="DateTime" Precision="0" />
+          <Property Name="CompletedDate" Type="DateTime" Precision="0" />
+          <Property Name="Progress" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="StatusID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="OwnerID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="BonusSalary" Type="Decimal" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="ProjectStatus">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StatusName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="SalaryRecord">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EmployeeID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MonthYear" Type="DateTime" Precision="0" />
+          <Property Name="TotalWorkdays" Type="Int32" />
+          <Property Name="TotalBonus" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Income" Type="Decimal" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="TaskCheckOut">
+          <Key>
+            <PropertyRef Name="TimeSheetID" />
+            <PropertyRef Name="TaskID" />
+          </Key>
+          <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Progress" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TimeSheetID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TaskID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Task">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Explanation" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="StartDate" Type="DateTime" Precision="0" />
+          <Property Name="Deadline" Type="DateTime" Precision="0" />
+          <Property Name="Progress" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="OwnerID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeeID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ProjectID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="StatusID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TaskStatus">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StatusName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="TimeSheet">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CheckInTime" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CheckOutTime" Type="DateTime" Precision="0" />
+          <Property Name="EmployeeID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="TaskCheckInID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="CompanyManagementContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Accounts" EntityType="Self.Account" />
+          <EntitySet Name="Departments" EntityType="Self.Department" />
+          <EntitySet Name="Employees" EntityType="Self.Employee" />
+          <EntitySet Name="KPIs" EntityType="Self.KPI" />
+          <EntitySet Name="LeaveRequests" EntityType="Self.LeaveRequest" />
+          <EntitySet Name="LeaveStatuses" EntityType="Self.LeaveStatus" />
+          <EntitySet Name="Milestones" EntityType="Self.Milestone" />
+          <EntitySet Name="MileTasks" EntityType="Self.MileTask" />
+          <EntitySet Name="ProjectAssignments" EntityType="Self.ProjectAssignment" />
+          <EntitySet Name="ProjectBonuses" EntityType="Self.ProjectBonus" />
+          <EntitySet Name="Projects" EntityType="Self.Project" />
+          <EntitySet Name="ProjectStatuses" EntityType="Self.ProjectStatus" />
+          <EntitySet Name="Roles" EntityType="Self.Role" />
+          <EntitySet Name="SalaryRecords" EntityType="Self.SalaryRecord" />
+          <EntitySet Name="TaskCheckOuts" EntityType="Self.TaskCheckOut" />
+          <EntitySet Name="Tasks" EntityType="Self.Task" />
+          <EntitySet Name="TaskStatuses" EntityType="Self.TaskStatus" />
+          <EntitySet Name="TimeSheets" EntityType="Self.TimeSheet" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CompanyManagementModelStoreContainer" CdmEntityContainer="CompanyManagementContext">
+          <EntitySetMapping Name="Accounts">
+            <EntityTypeMapping TypeName="CompanyManagementModel.Account">
+              <MappingFragment StoreEntitySet="Accounts">
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Departments">
+            <EntityTypeMapping TypeName="CompanyManagementModel.Department">
+              <MappingFragment StoreEntitySet="Departments">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
+                <ScalarProperty Name="DepartmentHead" ColumnName="DepartmentHead" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="CompanyManagementModel.Employee">
+              <MappingFragment StoreEntitySet="Employees">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="IdentifyCard" ColumnName="IdentifyCard" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="EmployeeAddress" ColumnName="EmployeeAddress" />
+                <ScalarProperty Name="BaseSalary" ColumnName="BaseSalary" />
+                <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KPIs">
+            <EntityTypeMapping TypeName="CompanyManagementModel.KPI">
+              <MappingFragment StoreEntitySet="KPIs">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="MonthYear" ColumnName="MonthYear" />
+                <ScalarProperty Name="RequiredTasksCount" ColumnName="RequiredTasksCount" />
+                <ScalarProperty Name="ActualTasksCount" ColumnName="ActualTasksCount" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LeaveRequests">
+            <EntityTypeMapping TypeName="CompanyManagementModel.LeaveRequest">
+              <MappingFragment StoreEntitySet="LeaveRequests">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Reason" ColumnName="Reason" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="ApproverID" ColumnName="ApproverID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LeaveStatuses">
+            <EntityTypeMapping TypeName="CompanyManagementModel.LeaveStatus">
+              <MappingFragment StoreEntitySet="LeaveStatuses">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Milestones">
+            <EntityTypeMapping TypeName="CompanyManagementModel.Milestone">
+              <MappingFragment StoreEntitySet="Milestones">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Explanation" ColumnName="Explanation" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="CompletedDate" ColumnName="CompletedDate" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MileTasks">
+            <EntityTypeMapping TypeName="CompanyManagementModel.MileTask">
+              <MappingFragment StoreEntitySet="MileTasks">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="TaskID" ColumnName="TaskID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProjectAssignments">
+            <EntityTypeMapping TypeName="CompanyManagementModel.ProjectAssignment">
+              <MappingFragment StoreEntitySet="ProjectAssignments">
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProjectBonuses">
+            <EntityTypeMapping TypeName="CompanyManagementModel.ProjectBonus">
+              <MappingFragment StoreEntitySet="ProjectBonuses">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="ReceivedDate" ColumnName="ReceivedDate" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Projects">
+            <EntityTypeMapping TypeName="CompanyManagementModel.Project">
+              <MappingFragment StoreEntitySet="Projects">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="Details" ColumnName="Details" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="CompletedDate" ColumnName="CompletedDate" />
+                <ScalarProperty Name="Progress" ColumnName="Progress" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+                <ScalarProperty Name="BonusSalary" ColumnName="BonusSalary" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProjectStatuses">
+            <EntityTypeMapping TypeName="CompanyManagementModel.ProjectStatus">
+              <MappingFragment StoreEntitySet="ProjectStatuses">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="CompanyManagementModel.Role">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SalaryRecords">
+            <EntityTypeMapping TypeName="CompanyManagementModel.SalaryRecord">
+              <MappingFragment StoreEntitySet="SalaryRecords">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="MonthYear" ColumnName="MonthYear" />
+                <ScalarProperty Name="TotalWorkdays" ColumnName="TotalWorkdays" />
+                <ScalarProperty Name="TotalBonus" ColumnName="TotalBonus" />
+                <ScalarProperty Name="Income" ColumnName="Income" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TaskCheckOuts">
+            <EntityTypeMapping TypeName="CompanyManagementModel.TaskCheckOut">
+              <MappingFragment StoreEntitySet="TaskCheckOuts">
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="Progress" ColumnName="Progress" />
+                <ScalarProperty Name="TimeSheetID" ColumnName="TimeSheetID" />
+                <ScalarProperty Name="TaskID" ColumnName="TaskID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tasks">
+            <EntityTypeMapping TypeName="CompanyManagementModel.Task">
+              <MappingFragment StoreEntitySet="Tasks">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Explanation" ColumnName="Explanation" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="Deadline" ColumnName="Deadline" />
+                <ScalarProperty Name="Progress" ColumnName="Progress" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TaskStatuses">
+            <EntityTypeMapping TypeName="CompanyManagementModel.TaskStatus">
+              <MappingFragment StoreEntitySet="TaskStatuses">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TimeSheets">
+            <EntityTypeMapping TypeName="CompanyManagementModel.TimeSheet">
+              <MappingFragment StoreEntitySet="TimeSheets">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CheckInTime" ColumnName="CheckInTime" />
+                <ScalarProperty Name="CheckOutTime" ColumnName="CheckOutTime" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="TaskCheckInID" ColumnName="TaskCheckInID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
