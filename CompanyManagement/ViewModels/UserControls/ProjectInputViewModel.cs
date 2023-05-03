@@ -71,8 +71,8 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void LoadDepartmentsCanAssign()
         {
-            departmentsCanAssign = assignmentsDao.GetDepartmentsCanAssignWork(project.ID, 
-                Utils.ToSQLFormat(project.StartDate), Utils.ToSQLFormat(project.EndDate));
+            departmentsCanAssign = assignmentsDao
+                .GetDepartmentsCanAssignWork(project.ID, project.StartDate, project.EndDate);
             SearchedDepartmentsCanAssign = new ObservableCollection<Department>(departmentsCanAssign);
             
             Log.Instance.Information(nameof(ProjectInputViewModel), $"Start:{StartDate}, End:{EndDate}");

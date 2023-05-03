@@ -16,7 +16,7 @@ namespace CompanyManagement.Models
             set => projID = value;
         }
 
-        public string DeparmentID
+        public string DeptID
         {
             get => deptID;
             set => deptID = value;
