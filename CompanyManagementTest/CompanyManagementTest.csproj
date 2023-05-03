@@ -43,6 +43,7 @@
     </ItemGroup>
     <ItemGroup>
         <Compile Include="Database\DepartmentsDaoTest.cs" />
+        <Compile Include="Database\EmployeesDaoTest.cs" />
         <Compile Include="Database\LeaveRequestsDaoTest.cs" />
         <Compile Include="Database\MilestonesDaoTest.cs" />
         <Compile Include="Database\MileTasksDaoTest.cs" />

@@ -21,5 +21,6 @@
     &lt;TestId&gt;NUnit3x::07570CB6-F510-4B9A-A6C2-4200270FC3BB::.NETFramework,Version=v4.8::CompanyManagementTest.Database.MileTasksDaoTest&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;NUnit3x::07570CB6-F510-4B9A-A6C2-4200270FC3BB::.NETFramework,Version=v4.8::CompanyManagementTest.Database.TasksDaoTest&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;NUnit3x::07570CB6-F510-4B9A-A6C2-4200270FC3BB::.NETFramework,Version=v4.8::CompanyManagementTest.Database.DepartmentsDaoTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::07570CB6-F510-4B9A-A6C2-4200270FC3BB::.NETFramework,Version=v4.8::CompanyManagementTest.Database.EmployeesDaoTest&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
