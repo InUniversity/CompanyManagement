@@ -1,0 +1,125 @@
+﻿<UserControl x:Class="CompanyManagement.Views.UserControls.WidgetsUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CompanyManagement.Views.UserControls"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:livecharts="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.FontWeight="Regular"
+             TextElement.FontSize="13"
+             TextOptions.TextFormattingMode="Ideal"
+             TextOptions.TextRenderingMode="Auto"
+             Background="{DynamicResource MaterialDesignPaper}"
+             FontFamily="{DynamicResource MaterialDesignFont}"
+             Name="widgetsUC"
+             mc:Ignorable="d" >
+    <ScrollViewer MinHeight="550" MinWidth="1100">
+        <StackPanel Background="WhiteSmoke">
+            <Grid Height="500" Background="White" Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal"  Grid.Row="0">
+                    <Button Margin="10 0"  Style="{StaticResource MaterialDesignIconForegroundButton}">
+                        <materialDesign:PackIcon Kind="ChartArc" />
+                    </Button>
+                    <TextBlock Text="Task Status" FontSize="15" FontWeight="Bold" VerticalAlignment="Center"></TextBlock>
+                </StackPanel>
+                <livecharts:PieChart Grid.Row="1" Series="{Binding SeriesTaskStatusViews}" LegendLocation="Left" Hoverable="True" InnerRadius="50" Margin="200 30">
+                    <livecharts:PieChart.ChartLegend>
+                        <livecharts:DefaultLegend BulletSize="30" FontSize="15" FontWeight="Bold"></livecharts:DefaultLegend>
+                    </livecharts:PieChart.ChartLegend>
+                    <livecharts:PieChart.DataTooltip>
+                        <livecharts:DefaultTooltip BulletSize="25"></livecharts:DefaultTooltip>
+                    </livecharts:PieChart.DataTooltip>
+                </livecharts:PieChart>
+            </Grid>
+            <Grid Height="500" Background="White" Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal" Grid.Row="0">
+                    <Button Margin="10 0"  Style="{StaticResource MaterialDesignIconForegroundButton}">
+                        <materialDesign:PackIcon Kind="ChartBar" />
+                    </Button>
+                    <TextBlock Text="Task Progress" FontSize="15" FontWeight="Bold" VerticalAlignment="Center"></TextBlock>
+                </StackPanel>
+                <livecharts:CartesianChart Grid.Row="1" Series="{Binding SeriesTaskProgressViews}" Margin="10">
+                    <livecharts:CartesianChart.AxisX>
+                        <livecharts:Axis Title="Completion Percentage" Labels="{Binding LabelsTaskProgressPercent}"></livecharts:Axis>
+                    </livecharts:CartesianChart.AxisX>
+                    <livecharts:CartesianChart.AxisY>
+                        <livecharts:Axis Title="Task Count" LabelFormatter="{Binding FormateLabelsTaskProgress}"></livecharts:Axis>
+                    </livecharts:CartesianChart.AxisY>
+                    <livecharts:CartesianChart.DataTooltip>
+                        <livecharts:DefaultTooltip BulletSize="25"></livecharts:DefaultTooltip>
+                    </livecharts:CartesianChart.DataTooltip>
+                </livecharts:CartesianChart>
+            </Grid>
+            <Grid Height="500" Background="White" Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal"  Grid.Row="0">
+                    <Button Margin="10 0"  Style="{StaticResource MaterialDesignIconForegroundButton}">
+                        <materialDesign:PackIcon Kind="HomeAnalytics" />
+                    </Button>
+                    <TextBlock Text="Team Status" FontSize="15" FontWeight="Bold" VerticalAlignment="Center"></TextBlock>
+                </StackPanel>
+                <DataGrid Grid.Row="1"
+                          Margin="10"
+                          AutoGenerateColumns="False"
+                          Background="White"
+                          ItemsSource="{Binding ListStatusTeam}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Width="400" Header="Team" IsReadOnly="True" Binding="{Binding Name}" />
+                        <DataGridTextColumn Width="150" Header="Completed" IsReadOnly="True" Binding="{Binding Completed}" />
+                        <DataGridTextColumn Width="150" Header="Overdue" IsReadOnly="True" Binding="{Binding Overdue}" />
+                        <DataGridTextColumn Width="150" Header="All Open" IsReadOnly="True" Binding="{Binding AllOpen}" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+            <Grid Height="500" Background="White" Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal"  Grid.Row="0">
+                    <Button Margin="10 0"  Style="{StaticResource MaterialDesignIconForegroundButton}">
+                        <materialDesign:PackIcon Kind="ChartGantt" />
+                    </Button>
+                    <TextBlock Text="Overdue Work Items" FontSize="15" FontWeight="Bold" VerticalAlignment="Center"></TextBlock>
+                </StackPanel>
+                <DataGrid Grid.Row="1"
+                          Margin="10"
+                          AutoGenerateColumns="False"
+                          Background="White"
+                          ItemsSource="{Binding ListOverdueWorkItem}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Width="500" Header="Tile" IsReadOnly="True" Binding="{Binding Tile}" />
+                        <DataGridTemplateColumn Width="500" Header="Overdue Time">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal" >
+                                        <Button Margin="10 0" IsEnabled="False"  VerticalAlignment="Center" Style="{StaticResource MaterialDesignIconForegroundButton}">
+                                            <materialDesign:PackIcon Kind="Alert" Width="15" Height="15" Foreground="Red"/>
+                                        </Button>
+                                        <TextBlock Margin="5 0" VerticalAlignment="Center" Text="Late by" Foreground="Red"/>
+                                        <TextBlock Text="{Binding OverdueTime}" VerticalAlignment="Center"  Foreground="Red"></TextBlock>
+                                        <TextBlock Margin="5 0" Text="Days" VerticalAlignment="Center"  Foreground="Red"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>
