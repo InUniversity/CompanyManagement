@@ -132,7 +132,7 @@
                 CommandParameter="{Binding ElementName = viewDetailsSalaryRecordDialog}"
                 ToolTip="Thêm"
                 IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType = Window}}"
-                Margin="135,10,135,10" Grid.ColumnSpan="2" Click="Button_Click">
+                Margin="135,10,135,10" Grid.ColumnSpan="2" >
                 <materialDesign:PackIcon Kind="Close" Height="35" Width="35"/>
             </Button>
         </Grid>

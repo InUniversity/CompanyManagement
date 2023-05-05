@@ -14,7 +14,7 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         x:Name="updateMilestoneDialog"
-        mc:Ignorable="d" Width="700" Height="750">
+        mc:Ignorable="d" Width="700" Height="720">
     <Grid>
         <StackPanel>
             <TextBlock Text="Cập Nhật Tiến Độ" 
