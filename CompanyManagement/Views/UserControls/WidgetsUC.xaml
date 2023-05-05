@@ -27,7 +27,7 @@
                     <Button Margin="10 0"  Style="{StaticResource MaterialDesignIconForegroundButton}">
                         <materialDesign:PackIcon Kind="ChartArc" />
                     </Button>
-                    <TextBlock Text="Task Status" FontSize="15" FontWeight="Bold" VerticalAlignment="Center"></TextBlock>
+                    <TextBlock Text="Trạng Thái Tác Vụ" FontSize="15" FontWeight="Bold" VerticalAlignment="Center"></TextBlock>
                 </StackPanel>
                 <livecharts:PieChart Grid.Row="1" Series="{Binding SeriesTaskStatusViews}" LegendLocation="Left" Hoverable="True" InnerRadius="50" Margin="200 30">
                     <livecharts:PieChart.ChartLegend>
@@ -47,21 +47,18 @@
                     <Button Margin="10 0"  Style="{StaticResource MaterialDesignIconForegroundButton}">
                         <materialDesign:PackIcon Kind="ChartBar" />
                     </Button>
-                    <TextBlock Text="Task Progress" FontSize="15" FontWeight="Bold" VerticalAlignment="Center"></TextBlock>
+                    <TextBlock Text="Tiến Độ Tác Vụ" FontSize="15" FontWeight="Bold" VerticalAlignment="Center"></TextBlock>
                 </StackPanel>
-                <livecharts:CartesianChart Grid.Row="1" Series="{Binding SeriesTaskProgressViews}" Margin="10">
+                <livecharts:CartesianChart Grid.Row="1"  Series="{Binding SeriesTaskProgressViews}" Margin="10" DataTooltip="{x:Null}">
                     <livecharts:CartesianChart.AxisX>
-                        <livecharts:Axis Title="Completion Percentage" Labels="{Binding LabelsTaskProgressPercent}"></livecharts:Axis>
+                        <livecharts:Axis Title="Tiến Độ ( % )" Labels="{Binding LabelsTaskProgressPercent}" ></livecharts:Axis>
                     </livecharts:CartesianChart.AxisX>
                     <livecharts:CartesianChart.AxisY>
-                        <livecharts:Axis Title="Task Count" LabelFormatter="{Binding FormateLabelsTaskProgress}"></livecharts:Axis>
+                        <livecharts:Axis Title="Số Lượng Tác Vụ" LabelFormatter="{Binding LabelFormate}" ></livecharts:Axis>
                     </livecharts:CartesianChart.AxisY>
-                    <livecharts:CartesianChart.DataTooltip>
-                        <livecharts:DefaultTooltip BulletSize="25"></livecharts:DefaultTooltip>
-                    </livecharts:CartesianChart.DataTooltip>
                 </livecharts:CartesianChart>
             </Grid>
-            <Grid Height="500" Background="White" Margin="10">
+            <Grid Background="White" Margin="10">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50"></RowDefinition>
                     <RowDefinition></RowDefinition>
@@ -70,7 +67,7 @@
                     <Button Margin="10 0"  Style="{StaticResource MaterialDesignIconForegroundButton}">
                         <materialDesign:PackIcon Kind="HomeAnalytics" />
                     </Button>
-                    <TextBlock Text="Team Status" FontSize="15" FontWeight="Bold" VerticalAlignment="Center"></TextBlock>
+                    <TextBlock Text="Trạng Thái Team" FontSize="15" FontWeight="Bold" VerticalAlignment="Center"></TextBlock>
                 </StackPanel>
                 <DataGrid Grid.Row="1"
                           Margin="10"
@@ -78,14 +75,16 @@
                           Background="White"
                           ItemsSource="{Binding ListStatusTeam}">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Width="400" Header="Team" IsReadOnly="True" Binding="{Binding Name}" />
-                        <DataGridTextColumn Width="150" Header="Completed" IsReadOnly="True" Binding="{Binding Completed}" />
-                        <DataGridTextColumn Width="150" Header="Overdue" IsReadOnly="True" Binding="{Binding Overdue}" />
-                        <DataGridTextColumn Width="150" Header="All Open" IsReadOnly="True" Binding="{Binding AllOpen}" />
+                        <DataGridTextColumn Width="400" Header="Team" IsReadOnly="True" Binding="{Binding TeamName}" />
+                        <DataGridTextColumn Width="100" Header="Mở" IsReadOnly="True" Binding="{Binding NumberAllTaskOpenTasks}" />
+                        <DataGridTextColumn Width="100" Header="Hoàn thành" IsReadOnly="True" Binding="{Binding NumberCompletedTasks}" />
+                        <DataGridTextColumn Width="100" Header="Quá hạn" IsReadOnly="True" Binding="{Binding NumberOverdueTasks}" />
+                        <DataGridTextColumn Width="150" Header="Đang thực hiện" IsReadOnly="True" Binding="{Binding NumberOngoingTasks}" />
+                        <DataGridTextColumn Width="150" Header="Đang xem xét" IsReadOnly="True" Binding="{Binding NumberUnderConsiderableTasks}" />
                     </DataGrid.Columns>
-                </DataGrid>
+                </DataGrid>        
             </Grid>
-            <Grid Height="500" Background="White" Margin="10">
+            <Grid Background="White" Margin="10">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50"></RowDefinition>
                     <RowDefinition></RowDefinition>
@@ -94,7 +93,7 @@
                     <Button Margin="10 0"  Style="{StaticResource MaterialDesignIconForegroundButton}">
                         <materialDesign:PackIcon Kind="ChartGantt" />
                     </Button>
-                    <TextBlock Text="Overdue Work Items" FontSize="15" FontWeight="Bold" VerticalAlignment="Center"></TextBlock>
+                    <TextBlock Text="Công Việc Quá Hạn" FontSize="15" FontWeight="Bold" VerticalAlignment="Center"></TextBlock>
                 </StackPanel>
                 <DataGrid Grid.Row="1"
                           Margin="10"
@@ -102,17 +101,17 @@
                           Background="White"
                           ItemsSource="{Binding ListOverdueWorkItem}">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Width="500" Header="Tile" IsReadOnly="True" Binding="{Binding Tile}" />
-                        <DataGridTemplateColumn Width="500" Header="Overdue Time">
+                        <DataGridTextColumn Width="500" Header="Tựa" IsReadOnly="True" Binding="{Binding Tile}" />
+                        <DataGridTemplateColumn Width="500" Header="Thời gian quá hạn">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal" >
                                         <Button Margin="10 0" IsEnabled="False"  VerticalAlignment="Center" Style="{StaticResource MaterialDesignIconForegroundButton}">
                                             <materialDesign:PackIcon Kind="Alert" Width="15" Height="15" Foreground="Red"/>
                                         </Button>
-                                        <TextBlock Margin="5 0" VerticalAlignment="Center" Text="Late by" Foreground="Red"/>
+                                        <TextBlock Margin="5 0" VerticalAlignment="Center" Text="Quá hạn" Foreground="Red"/>
                                         <TextBlock Text="{Binding OverdueTime}" VerticalAlignment="Center"  Foreground="Red"></TextBlock>
-                                        <TextBlock Margin="5 0" Text="Days" VerticalAlignment="Center"  Foreground="Red"/>
+                                        <TextBlock Margin="5 0" Text="ngày" VerticalAlignment="Center"  Foreground="Red"/>
                                     </StackPanel>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>

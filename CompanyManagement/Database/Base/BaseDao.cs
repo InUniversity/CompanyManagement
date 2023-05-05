@@ -12,6 +12,11 @@ namespace CompanyManagement.Database.Base
         public const string leavRequesApproved = "LS1";
         public const string leavRequesDenied = "LS3";
 
+        public const string completedTask = "TS2";
+        public const string overdueTask = "TS3";
+        public const string underConsiderableTask = "TS4";
+        public const string ongoingTask = "TS1";
+
         protected const string deptTbl = "Departments";
         public const string deptID = "ID";
         public const string deptName = "DepartmentName";
