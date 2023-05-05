@@ -13,27 +13,87 @@
              TextOptions.TextRenderingMode="Auto"
              Background="White"
              FontFamily="{DynamicResource MaterialDesignFont}"
-             Name="approveLeaveRequestListUC"
+             Name="milestonesUC"
              mc:Ignorable="d">
     <Grid  MinHeight="600" MinWidth="1100">
         <Grid.RowDefinitions>
             <RowDefinition Height="70"></RowDefinition>    
             <RowDefinition Height="Auto"></RowDefinition>    
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center">
-            <Button
-                    Visibility="{Binding VisibleAddButton}"
-                    ToolTip="Thêm cột mốc"
-                    Width="200"
-                    Margin="20 0"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Command="{Binding OpenAddMilistoneCommand}">
-                <StackPanel Orientation="Horizontal">
-                    <materialDesign:PackIcon Kind="Plus"  Width="20" Height="20" FontWeight="ExtraBold" />
-                    <TextBlock Text="New Leave" FontWeight="ExtraBold"></TextBlock>
-                </StackPanel>
-            </Button>
-        </StackPanel>
+        <Grid Grid.Row="0">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="20 0">
+                <Button
+                        Visibility="{Binding VisibleAddButton}"
+                        ToolTip="Thêm cột mốc"
+                        Width="220"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Command="{Binding OpenAddMilistoneCommand}">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Plus"  Width="20" Height="20" FontWeight="ExtraBold" />
+                        <TextBlock Text="Thêm Cột Mốc" FontWeight="ExtraBold"></TextBlock>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="1">
+            <DataGrid         
+                            CanUserResizeColumns="False"
+                            Name="dgNeedApprove"
+                            CanUserAddRows="False"
+                            AutoGenerateColumns="False"
+                            Background="White"
+                            ItemsSource="{Binding }"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Header="Operations" 
+                                                    CanUserResize="False" 
+                                                    IsReadOnly="True"
+                                                    Width="auto">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button
+                                            Visibility="{Binding DataContext.VisibleUpdateButton, ElementName=milestonesUC}"
+                                            Margin="10 5"
+                                            VerticalAlignment="Center"
+                                            Background="#e0f7fa"
+                                            Foreground="#00bfe5"
+                                            Command="{Binding ElementName=milestonesUC,Path=DataContext.UpdateMilestoneCommand}"
+                                            CommandParameter="{Binding}"
+                                            IsEnabled="{Binding ControlsEnabled}"
+                                            Style="{StaticResource MaterialDesignIconForegroundButton}"
+                                            ToolTip="Edit">
+                                        <materialDesign:PackIcon Kind="PencilPlus" Height="20" Width="20"/>
+                                    </Button>
+                                    <Button
+                                            Visibility="{Binding DataContext.VisibleDeleteButton, ElementName=milestonesUC}"
+                                            Margin="10 5"
+                                            VerticalAlignment="Center"
+                                            Background="#fff3e0"
+                                            Foreground="#ef6c00"
+                                            Command="{Binding ElementName=milestonesUC,Path=DataContext.DeleteMilestoneCommand}"
+                                            CommandParameter="{Binding ID}"
+                                            IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                            Style="{StaticResource MaterialDesignIconForegroundButton}"
+                                            ToolTip="Delete">
+                                        <materialDesign:PackIcon Kind="DeleteForever"  Height="20" Width="20"/>
+                                    </Button>
+                                    <TextBlock Margin="30 5" VerticalAlignment="Center"
+                                           Text="{Binding Name}" FontSize="20" Foreground="Black" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Width="200" Header="Tiêu Đề" IsReadOnly="True" Binding="{Binding }"/>
+                    <DataGridTextColumn Width="200" Header="Phần Trăm Hoàn Thành" IsReadOnly="True" Binding="{Binding }" />
+                    <DataGridTextColumn Width="Auto" Header="Người Tạo" IsReadOnly="True" Binding="{Binding }" />
+                    <DataGridTextColumn Width="Auto" Header="Ngày Bắt Đầu" IsReadOnly="True" Binding="{Binding }" />
+                    <DataGridTextColumn Width="Auto" Header="Ngày Kết Thúc" IsReadOnly="True" Binding="{Binding }" />
+                    <DataGridTextColumn Width="250" Header="Chú Thích" IsReadOnly="True" Binding="{Binding }" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
     </Grid>
 </UserControl>

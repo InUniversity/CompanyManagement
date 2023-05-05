@@ -176,6 +176,9 @@
       <DependentUpon>CheckOutDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Dialogs\Interfaces\IInputDialog.cs" />
+    <Compile Include="Views\Dialogs\MilestoneInputDialog.xaml.cs">
+      <DependentUpon>MilestoneInputDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Dialogs\UpdateDepartmentDialog.xaml.cs">
       <DependentUpon>UpdateDepartmentDialog.xaml</DependentUpon>
     </Compile>
@@ -199,6 +202,9 @@
     </Compile>
     <Compile Include="Views\UserControls\AssignmentUC.xaml.cs">
       <DependentUpon>AssignmentUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\MilestonesUC.xaml.cs">
+      <DependentUpon>MilestonesUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UserControls\ProjectBonusUC.xaml.cs">
       <DependentUpon>ProjectBonusUC.xaml</DependentUpon>
@@ -283,6 +289,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Dialogs\MilestoneInputDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Dialogs\UpdateDepartmentDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -314,6 +324,10 @@
     <Page Include="Views\UserControls\AssignmentUC.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\UserControls\MilestonesUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\UserControls\ProjectBonusUC.xaml">
       <SubType>Designer</SubType>
