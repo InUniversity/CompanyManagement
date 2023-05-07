@@ -4,14 +4,14 @@ using System.Windows.Controls;
 namespace CompanyManagement.Views.UserControls
 {
     /// <summary>
-    /// Interaction logic for MilestonesUC.xaml
+    /// Interaction logic for MilestoneInputUC.xaml
     /// </summary>
-    public partial class MilestonesUC : UserControl
+    public partial class MilestoneInputUC : UserControl
     {
-        public MilestonesUC()
+        public MilestoneInputUC()
         {
             InitializeComponent();
-            DataContext = new MilestonesViewModel();
+            DataContext = new MilestoneInputViewModel();
         }
     }
 }

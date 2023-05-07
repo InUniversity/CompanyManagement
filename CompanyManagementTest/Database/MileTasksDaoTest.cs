@@ -43,14 +43,14 @@ namespace CompanyManagementTest.Database
         private MileTask Search(MileTask mileTsk)
         {
             DBConnection dbConnection = new DBConnection();
-            string sql = $"SELECT * FROM MileTasks WHERE ID='{mileTsk.ID}' AND TaskID='{mileTsk.TskID}'";
+            string sql = $"SELECT * FROM MileTasks WHERE ID='{mileTsk.MileID}' AND TaskID='{mileTsk.TskID}'";
             return (MileTask)dbConnection.GetSingleObject(sql, reader => new MileTask(reader));
         }
 
         private void AssertObj(MileTask expected, MileTask actual)
         {
             Assert.NotNull(actual);
-            Assert.AreEqual(expected.ID, actual.ID);
+            Assert.AreEqual(expected.MileID, actual.MileID);
             Assert.AreEqual(expected.TskID, actual.TskID);
         } 
     }

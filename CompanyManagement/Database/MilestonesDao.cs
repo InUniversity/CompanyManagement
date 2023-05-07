@@ -32,6 +32,11 @@ namespace CompanyManagement.Database
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
+        public Milestone SearchByID(string id)
+        {
+            string sqlStr = $"SELECT * FROM {mileTbl} WHERE {mileID} = '{id}'";
+            return (Milestone)dbConnection.GetSingleObject<Milestone>(sqlStr, reader => new Milestone(reader));
+        }
         public List<Milestone> SearchByProjectID(string projID)
         {
             string sqlStr = $"SELECT * FROM {mileTbl} WHERE {mileProjID} = '{projID}'";
