@@ -17,7 +17,7 @@ namespace CompanyManagementTest.Database
         }
 
         [Test]
-        public void Product_Repository_Add_Delete_Update_Test()
+        public void MileTasks_Dao_Add_Delete_Update_Test()
         {
             var addTarget = new MileTask("MIL123132", "T1231244");
             myDao.Add(addTarget);
@@ -31,6 +31,13 @@ namespace CompanyManagementTest.Database
             
             // test delete
             Assert.Null(deleteResult);
+        }
+
+        [Test]
+        public void MileTasks_Dao_Search_By_MileID_Test()
+        {
+            var list = myDao.SearchByMileID("MST0001");
+            Assert.AreEqual(2, list.Count);
         }
 
         private MileTask Search(MileTask mileTsk)
