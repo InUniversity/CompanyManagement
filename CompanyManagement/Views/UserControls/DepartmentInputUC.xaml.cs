@@ -11,7 +11,7 @@ namespace CompanyManagement.Views.UserControls
         public DepartmentInputUC()
         {
             InitializeComponent();
-            // DataContext = new DepartmentInputViewModel();
+            DataContext = new DepartmentInputViewModel();
         }
     }
 }

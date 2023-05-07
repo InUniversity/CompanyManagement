@@ -127,6 +127,7 @@
     <Compile Include="Utilities\Utils.cs" />
     <Compile Include="ViewModels\Base\BaseViewModel.cs" />
     <Compile Include="ViewModels\Base\RelayCommand.cs" />
+    <Compile Include="ViewModels\Dialogs\AddDepartmentViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\AddEmployeeViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\AddLeaveViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\AddMilestoneViewModel.cs" />
@@ -167,6 +168,9 @@
     <Compile Include="ViewModels\UserControls\WidgetsViewModel.cs" />
     <Compile Include="ViewModels\Windows\LoginViewModel.cs" />
     <Compile Include="ViewModels\Windows\MainViewModel.cs" />
+    <Compile Include="Views\Dialogs\AddDepartmentDialog.xaml.cs">
+      <DependentUpon>AddDepartmentDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Dialogs\AddEmployeeDialog.xaml.cs">
       <DependentUpon>AddEmployeeDialog.xaml</DependentUpon>
     </Compile>
@@ -294,6 +298,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\Dialogs\AddDepartmentDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Dialogs\AddEmployeeDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

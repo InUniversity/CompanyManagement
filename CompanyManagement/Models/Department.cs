@@ -11,6 +11,7 @@ namespace CompanyManagement.Models
         private string id;
         private string name;
         private string deptHeadID;
+        private Employee deptHead = new Employee();
         private ObservableCollection<Employee> empls = new ObservableCollection<Employee>();
 
         public string ID
@@ -29,6 +30,12 @@ namespace CompanyManagement.Models
         {
             get => deptHeadID;
             set => deptHeadID = value;
+        }
+
+        public Employee DeptHead
+        {
+            get => deptHead; 
+            set => deptHead = value;
         }
 
         public ObservableCollection<Employee> Empls
