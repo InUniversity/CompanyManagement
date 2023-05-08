@@ -4,7 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             Name="employeeInputUC"
              xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d">
     <Grid Width="1000">
@@ -179,8 +178,8 @@
                         Grid.Row="4"
                         Grid.Column="1"
                         Margin="5 5 5 20"
-                        materialDesign:HintAssist.Hint="Lương cơ bản (VNĐ)"
-                        Text="{Binding Salary, StringFormat='##,#', UpdateSourceTrigger=PropertyChanged}"
+                        materialDesign:HintAssist.Hint="Lương cơ bản"
+                        Text="{Binding Salary}"
                         AcceptsReturn="False"
                         IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedTextBoxEnabledComboBox}"
                         Style="{StaticResource MaterialDesignOutlinedTextBox}"

@@ -7,13 +7,13 @@ namespace CompanyManagement.Models
 {
     public class MileTask
     {
-        private string mileID;
+        private string id;
         private string taskID;
 
-        public string MileID
+        public string ID
         {
-            get => mileID;
-            set => mileID = value;
+            get => id;
+            set => id = value;
         }
 
         public string TskID
@@ -24,7 +24,7 @@ namespace CompanyManagement.Models
 
         public MileTask(string id, string taskID)
         {
-            this.mileID = id;
+            this.id = id;
             this.taskID = taskID;
         }
 
@@ -32,7 +32,7 @@ namespace CompanyManagement.Models
         {
             try
             {
-                mileID = Utils.GetString(record, BaseDao.mileTskID);
+                id = Utils.GetString(record, BaseDao.mileTskID);
                 taskID = Utils.GetString(record, BaseDao.mileTskTskID);
             }
             catch (Exception ex)

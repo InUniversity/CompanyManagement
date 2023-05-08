@@ -38,12 +38,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="LiveCharts, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
-      <HintPath>..\packages\LiveCharts.0.9.7\lib\net45\LiveCharts.dll</HintPath>
-    </Reference>
-    <Reference Include="LiveCharts.Wpf, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
-      <HintPath>..\packages\LiveCharts.Wpf.0.9.7\lib\net45\LiveCharts.Wpf.dll</HintPath>
-    </Reference>
     <Reference Include="MaterialDesignColors, Version=2.1.2.0, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignColors.2.1.2\lib\net462\MaterialDesignColors.dll</HintPath>
     </Reference>
@@ -129,10 +123,8 @@
     <Compile Include="Utilities\Utils.cs" />
     <Compile Include="ViewModels\Base\BaseViewModel.cs" />
     <Compile Include="ViewModels\Base\RelayCommand.cs" />
-    <Compile Include="ViewModels\Dialogs\AddDepartmentViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\AddEmployeeViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\AddLeaveViewModel.cs" />
-    <Compile Include="ViewModels\Dialogs\AddMilestoneViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\AddProjectViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\AddTaskViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\AlertDialogViewModel.cs" />
@@ -140,15 +132,10 @@
     <Compile Include="ViewModels\Dialogs\UpdateDepartmentViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\UpdateEmployeeViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\UpdateLeaveViewModel.cs" />
-    <Compile Include="ViewModels\Dialogs\UpdateMilesViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\UpdateProjectViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\UpdateTaskViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ApproveLeaveRequestsViewModel.cs" />
     <Compile Include="ViewModels\UserControls\AssignmentViewModel.cs" />
-    <Compile Include="ViewModels\UserControls\MilestoneInputViewModel.cs" />
-    <Compile Include="ViewModels\UserControls\MilestonesViewModel.cs" />
-    <Compile Include="ViewModels\UserControls\EmployeesInDepartmentViewModel.cs" />
-    <Compile Include="ViewModels\UserControls\OrganizationViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ProjectBonusViewModel.cs" />
     <Compile Include="ViewModels\UserControls\SalaryDetailViewModel.cs" />
     <Compile Include="ViewModels\UserControls\SalaryRecordsViewModel.cs" />
@@ -157,7 +144,7 @@
     <Compile Include="ViewModels\Dialogs\CheckInViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\CheckOutViewModel.cs" />
     <Compile Include="ViewModels\UserControls\DepartmentInputViewModel.cs" />
-    <Compile Include="ViewModels\UserControls\DepartmentsViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\DepartmentViewModel.cs" />
     <Compile Include="ViewModels\UserControls\EmployeeInputViewModel.cs" />
     <Compile Include="ViewModels\UserControls\EmployeesViewModel.cs" />
     <Compile Include="ViewModels\UserControls\LeaveInputViewModel.cs" />
@@ -169,12 +156,8 @@
     <Compile Include="ViewModels\UserControls\TasksInProjectViewModel.cs" />
     <Compile Include="ViewModels\UserControls\TimeTrackingViewModel.cs" />
     <Compile Include="ViewModels\UserControls\UserInformationViewModel.cs" />
-    <Compile Include="ViewModels\UserControls\WidgetsViewModel.cs" />
     <Compile Include="ViewModels\Windows\LoginViewModel.cs" />
     <Compile Include="ViewModels\Windows\MainViewModel.cs" />
-    <Compile Include="Views\Dialogs\AddDepartmentDialog.xaml.cs">
-      <DependentUpon>AddDepartmentDialog.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Dialogs\AddEmployeeDialog.xaml.cs">
       <DependentUpon>AddEmployeeDialog.xaml</DependentUpon>
     </Compile>
@@ -200,9 +183,6 @@
     <Compile Include="Views\Dialogs\SalaryDetailsDialog.xaml.cs">
       <DependentUpon>SalaryDetailsDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Dialogs\AddMilestoneDialog.xaml.cs">
-      <DependentUpon>AddMilestoneDialog.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Dialogs\UpdateDepartmentDialog.xaml.cs">
       <DependentUpon>UpdateDepartmentDialog.xaml</DependentUpon>
     </Compile>
@@ -215,9 +195,6 @@
     <Compile Include="Views\Dialogs\UpdateLeaveForManagerDialog.xaml.cs">
       <DependentUpon>UpdateLeaveForManagerDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Dialogs\UpdateMilestoneDialog.xaml.cs">
-      <DependentUpon>UpdateMilestoneDialog.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Dialogs\UpdateProjectDialog.xaml.cs">
       <DependentUpon>UpdateProjectDialog.xaml</DependentUpon>
     </Compile>
@@ -229,21 +206,6 @@
     </Compile>
     <Compile Include="Views\UserControls\AssignmentUC.xaml.cs">
       <DependentUpon>AssignmentUC.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\UserControls\MilestoneInputUC.xaml.cs">
-      <DependentUpon>MilestoneInputUC.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\UserControls\MilestonesUC.xaml.cs">
-      <DependentUpon>MilestonesUC.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\UserControls\DepartmentsUC.xaml.cs">
-      <DependentUpon>DepartmentsUC.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\UserControls\EmployeesInDepartmentUC.xaml.cs">
-      <DependentUpon>EmployeesInDepartmentUC.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\UserControls\OrganizationUC.xaml.cs">
-      <DependentUpon>OrganizationUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UserControls\ProjectBonusUC.xaml.cs">
       <DependentUpon>ProjectBonusUC.xaml</DependentUpon>
@@ -293,9 +255,6 @@
     <Compile Include="Views\UserControls\UserInformationUC.xaml.cs">
       <DependentUpon>UserInformationUC.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserControls\WidgetsUC.xaml.cs">
-      <DependentUpon>WidgetsUC.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Windows\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
@@ -306,10 +265,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\Dialogs\AddDepartmentDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\Dialogs\AddEmployeeDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -339,12 +294,8 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Dialogs\SalaryDetailsDialog.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Dialogs\AddMilestoneDialog.xaml">
       <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Dialogs\UpdateDepartmentDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -359,10 +310,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Dialogs\UpdateLeaveForManagerDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Dialogs\UpdateMilestoneDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -382,33 +329,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\UserControls\MilestoneInputUC.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\UserControls\MilestonesUC.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\UserControls\DepartmentsUC.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\UserControls\EmployeesInDepartmentUC.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\UserControls\OrganizationUC.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\UserControls\ProjectBonusUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\UserControls\SalaryRecordsUC.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\UserControls\TimeSheetUC.xaml">
       <SubType>Designer</SubType>
@@ -465,10 +392,6 @@
     <Page Include="Views\UserControls\UserInformationUC.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\UserControls\WidgetsUC.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Windows\LoginWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

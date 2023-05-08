@@ -15,7 +15,6 @@ namespace CompanyManagement.ViewModels.UserControls
     public class EmployeesViewModel : BaseViewModel
     {
         private List<Employee> employees;
-        public List<Employee> Employees { get => employees; set => employees = value; }
 
         private List<Employee> searchedEmployees;
         public List<Employee> SearchedEmployees { get => searchedEmployees; set { searchedEmployees = value; OnPropertyChanged(); } }
@@ -57,10 +56,10 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void SearchByName()
         {
-            var searchedItems = Employees;
+            var searchedItems = employees;
             if (!string.IsNullOrEmpty(textToSearch))
             {
-                searchedItems = Employees
+                searchedItems = employees
                     .Where(item => item.Name.ToLower().Contains(textToSearch.ToLower()))
                     .ToList();
             }

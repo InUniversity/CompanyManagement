@@ -76,8 +76,15 @@
                 </Grid>
                 <Grid Grid.Row="4">
                     <Button
-                        Width="250"
-                        HorizontalAlignment="Center"
+                        Command="{Binding ForgotPasswordCommand}"
+                        HorizontalAlignment="Left"
+                        Width="225"
+                        materialDesign:ButtonAssist.CornerRadius="25"
+                        Content="Quên mật khẩu"
+                        Style="{StaticResource MaterialDesignPaperDarkButton}" />
+                    <Button
+                        Width="225"
+                        HorizontalAlignment="Right"
                         Content="Thoát"
                         materialDesign:ButtonAssist.CornerRadius="25"
                         Style="{StaticResource MaterialDesignPaperButton}"

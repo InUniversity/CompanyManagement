@@ -32,20 +32,24 @@
                         Margin="20 0 0 0"
                         HorizontalAlignment="Left"
                         Command="{Binding OpenAddDialogCommand}"
-                        Background="ForestGreen"                      
+                        Background="ForestGreen"
+                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                         Style="{StaticResource MaterialDesignFlatMidBgButton}"
                         ToolTip="Hiển thị màn hình thêm nhân viên mới">
                         <materialDesign:PackIcon Kind="AccountPlusOutline" />
                     </Button>
                 </Grid>
                 <Grid Grid.Column="1" HorizontalAlignment="Right">
-                    <TextBox Grid.Column="2"
-                         Margin="20 5"
-                         materialDesign:TextFieldAssist.PrefixText="Tên: "
-                         Text="{Binding TextToSearch , Mode=TwoWay , UpdateSourceTrigger=PropertyChanged}"
-                         materialDesign:HintAssist.Hint="Tìm kiếm nhân viên"
-                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                         Width="200"/>
+                    <StackPanel Orientation="Horizontal" Margin="0,10,20,0">
+                        <TextBox
+                            Margin="0,0,0,3"
+                            Text="{Binding TextToSearch, UpdateSourceTrigger=PropertyChanged}"
+                            FontSize="13"
+                            materialDesign:HintAssist.Hint="Tìm Theo Tên"
+                            materialDesign:TextFieldAssist.CharacterCounterVisibility="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedTextBoxTextCountComboBox, Converter={StaticResource BooleanToVisibilityConverter}}"
+                            Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                            TextWrapping="Wrap" HorizontalAlignment="Center" Width="500" Height="50" VerticalAlignment="Bottom" />
+                    </StackPanel>
                 </Grid>
             </Grid>
         </Border>
@@ -66,21 +70,15 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <Button Margin="10 0 0 0"
-                                            ToolTip="Chỉnh sửa"
-                                            Width="50" Height="30"
-                                        Style="{StaticResource MaterialDesignIconButton}"
-                                        Command="{Binding DataContext.OpenUpdateDialogCommand, ElementName=employeesUC}"
-                                        CommandParameter="{Binding}">
-                                        <materialDesign:PackIcon Kind="AccountEditOutline" Foreground="#00826b" Width="15" Height="15"/>
+                                    <Button Margin="5 0 0 0"
+                                            Command="{Binding DataContext.OpenUpdateDialogCommand, ElementName=employeesUC}"
+                                            CommandParameter="{Binding}">
+                                        <materialDesign:PackIcon Kind="AccountEditOutline" />
                                     </Button>
-                                    <Button Margin="10 0 0 0"
-                                            ToolTip="Xóa"
-                                             Width="50" Height="30"
-                                        Style="{StaticResource MaterialDesignIconButton}"
-                                        Command="{Binding DataContext.DeleteEmployeeCommand, ElementName=employeesUC}"
-                                        CommandParameter="{Binding ID}">
-                                        <materialDesign:PackIcon Kind="DeleteOutline" Foreground="#d50000" Width="15" Height="15" />
+                                    <Button Margin="5 0 0 0"
+                                            Command="{Binding DataContext.DeleteEmployeeCommand, ElementName=employeesUC}"
+                                            CommandParameter="{Binding ID}">
+                                        <materialDesign:PackIcon Kind="DeleteOutline" />
                                     </Button>
                                 </StackPanel>
                             </DataTemplate>
@@ -88,7 +86,6 @@
                     </DataGridTemplateColumn>
                     <DataGridTextColumn Header="Mã nhân viên" IsReadOnly="True" Binding="{Binding ID}" />
                     <DataGridTextColumn Header="Họ và tên" IsReadOnly="True" Binding="{Binding Name}" />
-                    <DataGridTextColumn Header="Vị trí công việc" IsReadOnly="True" Binding="{Binding EmplRole.Title}" />
                     <DataGridTextColumn Header="Giới tính" IsReadOnly="True" Binding="{Binding Gender}" />
                     <DataGridTextColumn Header="Ngày sinh" IsReadOnly="True" Binding="{Binding Birthday, StringFormat='dd/MM/yyyy'}" />
                     <DataGridTextColumn Header="Chứng minh nhân dân" IsReadOnly="True" Binding="{Binding IdentifyCard}" />
@@ -96,6 +93,7 @@
                     <DataGridTextColumn Header="Số điện thoại" IsReadOnly="True" Binding="{Binding PhoneNumber}" />
                     <DataGridTextColumn Header="Địa chỉ" IsReadOnly="True" Binding="{Binding Address}" />
                     <DataGridTextColumn Header="Mã Phòng Ban" IsReadOnly="True" Binding="{Binding DepartmentID}" />
+                    <DataGridTextColumn Header="Mã vị trí công việc" IsReadOnly="True" Binding="{Binding RoleID}" />
                     <DataGridTextColumn Header="Lương" IsReadOnly="True" Binding="{Binding Salary}" />
                 </DataGrid.Columns>
             </DataGrid>

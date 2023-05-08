@@ -1,6 +1,5 @@
 using System;
 using System.Data;
-using CompanyManagement.Database;
 using CompanyManagement.Database.Base;
 using CompanyManagement.Models;
 using CompanyManagement.Utilities;

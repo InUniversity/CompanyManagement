@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using CompanyManagement.Database.Base;
 using CompanyManagement.Models;
 using CompanyManagement.Utilities;
@@ -30,17 +29,6 @@ namespace CompanyManagement.Database
                             $"{mileEnd}='{Utils.ToSQLFormat(mile.End)}', {mileCompleted}='{Utils.ToSQLFormat(mile.Completed)}', " +
                             $"{mileOwnerID}='{mile.OwnerID}' WHERE {mileID} = '{mile.ID}'";
             dbConnection.ExecuteNonQuery(sqlStr);
-        }
-
-        public Milestone SearchByID(string id)
-        {
-            string sqlStr = $"SELECT * FROM {mileTbl} WHERE {mileID} = '{id}'";
-            return (Milestone)dbConnection.GetSingleObject<Milestone>(sqlStr, reader => new Milestone(reader));
-        }
-        public List<Milestone> SearchByProjectID(string projID)
-        {
-            string sqlStr = $"SELECT * FROM {mileTbl} WHERE {mileProjID} = '{projID}'";
-            return dbConnection.GetList(sqlStr, reader => new Milestone(reader));
         }
     }
 }

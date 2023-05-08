@@ -14,7 +14,8 @@ using CompanyManagement.ViewModels.Base;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
-    public class DepartmentInputViewModel : BaseViewModel 
+
+    public interface IDepartmentInput
     {
         private Department dept = new Department();
         public Department DeptIns
@@ -30,16 +31,8 @@ namespace CompanyManagement.ViewModels.UserControls
             }
         }
 
-        public Employee DeptHead
-        {
-            get => dept.DeptHead;
-            set
-            {
-                dept.DeptHead = value;
-                dept.DeptHeadID = dept.DeptHead.ID;
-                OnPropertyChanged();
-            }
-        }
+    public class DepartmentInputViewModel : BaseViewModel, IDepartmentInput
+    {
 
         public string ID { get => dept.ID; set { dept.ID = value; OnPropertyChanged(); } }
         public string Name { get => dept.Name; set { dept.Name = value; OnPropertyChanged(); } }
@@ -47,8 +40,8 @@ namespace CompanyManagement.ViewModels.UserControls
         public ObservableCollection<Employee> EmplsInDept 
         { get => dept.Empls; set { dept.Empls = value; OnPropertyChanged(); } }
 
-        public string errorMessage;
-        public string ErrorMessage { get => errorMessage; set { errorMessage = value; OnPropertyChanged(); } }
+        private string name = "";
+        public string Name { get => name; set { name = value; OnPropertyChanged(); } }
 
         private List<Employee> employeesCanbeDeptHead;
 
@@ -86,7 +79,7 @@ namespace CompanyManagement.ViewModels.UserControls
             SetCommands();
         }
 
-        private void SetCommands()
+        public Department CreateDepartmentInstance()
         {
             GetSelectedDeptHeadCommand = new RelayCommand<ListView>(ExecuteGetSelectedDeptHeadCommand);
             GetAllSelectedEmployeesCommand = new RelayCommand<ListView>(ExecuteGetAllSelectedEmployeesCommand);
@@ -190,24 +183,16 @@ namespace CompanyManagement.ViewModels.UserControls
 
         public void TrimAllTexts()
         {
-            Name = Name.Trim();
+            id = id.Trim();
+            name = name.Trim();
+            managerID = managerID.Trim();
         }
 
-        public bool CheckAllFields()
+        public void Receive(Department department)
         {
-
-            ErrorMessage = "";
-            if (string.IsNullOrWhiteSpace(Name))
-            {
-                ErrorMessage = "Các thông tin không được để trống!!!";
-                return false;
-            }
-            if (DeptHead == null)
-            {
-                ErrorMessage = "Phải có trưởng phòng!!!";
-                return false;
-            }
-            return true;
+            ID = department.ID;
+            Name = department.Name;
+            managerID = department.DeptHeadID;
         }
     }
 }

@@ -346,9 +346,9 @@ CREATE TABLE Milestones(
 );
 GO
 CREATE TABLE MileTasks(
-    MileID varchar(20),
+    ID varchar(20),
     TaskID varchar(20), -- task in ProjectID of Milestones table
-    PRIMARY KEY (MileID, TaskID)
+    PRIMARY KEY (ID, TaskID)
 )
 GO
 
@@ -356,7 +356,7 @@ INSERT INTO Milestones(ID, Title, Explanation, StartDate, EndDate, CompletedDate
 VALUES
     ('MST0001', N'Thiết kế giải pháp', N'Giao đoạn quan trọng', CONVERT(SMALLDATETIME, '01-01-2023 08:00 AM', 105), CONVERT(SMALLDATETIME, '01-04-2023 05:00 PM', 105), '2000-01-01 00:00:00', 'EM006', 'PRJ001');
 GO
-INSERT INTO MileTasks(MileID, TaskID)
+INSERT INTO MileTasks(ID, TaskID)
 VALUES
     ('MST0001', 'T000001'),
     ('MST0001', 'T000002');

@@ -70,11 +70,5 @@ namespace CompanyManagement.Database
             string sqlStr = $"SELECT * FROM {emplTbl} WHERE {emplRoleID} ='{managerRole}'";
             return dbConnection.GetList(sqlStr, reader => new Employee(reader));
         }
-
-        public List<Employee> SearchByDepartmentID(string deptID)
-        {
-            string sqlStr = $"SELECT * FROM {emplTbl} WHERE {emplDeptID}='{deptID}'";
-            return dbConnection.GetList(sqlStr, reader => new Employee(reader));
-        }
     }
 }

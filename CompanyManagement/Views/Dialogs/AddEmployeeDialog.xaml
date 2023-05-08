@@ -10,8 +10,17 @@
         Title="EmployeeInputWindow" Height="550" Width="1100" MinHeight="550" MinWidth="1100">
     <Grid Margin="10">
         <StackPanel>
-            <uc:EmployeeInputUC DataContext="{Binding EmployeeInputDataContext}" Margin="20" />
-            <Button
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+            </Grid>
+            <Grid>
+                <uc:EmployeeInputUC DataContext="{Binding EmployeeInputDataContext}" Margin="20" />
+            </Grid>
+            <Grid>
+                <Button
                     Content="Thêm"
                     Command="{Binding AddEmployeeCommand}"
                     CommandParameter="{Binding ElementName=addEmployeeWindow}"
@@ -21,6 +30,7 @@
                     IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                     Style="{StaticResource MaterialDesignFlatMidBgButton}"
                     ToolTip="Thêm nhân viên mới" />
+            </Grid>
         </StackPanel>
     </Grid>
 </Window>

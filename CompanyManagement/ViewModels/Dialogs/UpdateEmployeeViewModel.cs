@@ -13,7 +13,6 @@ namespace CompanyManagement.ViewModels.Dialogs
         public ICommand UpdateEmployeeCommand { get; private set; }
 
         public EmployeeInputViewModel EmployeeInputDataContext { get; }
-
         private Action<Employee> submitObjectAction;
 
         public UpdateEmployeeViewModel()
