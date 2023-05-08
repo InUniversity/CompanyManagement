@@ -18,7 +18,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="80"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="550"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="10" VerticalAlignment="Center" HorizontalAlignment="Left">
@@ -29,11 +29,6 @@
                         SelectedValue ="{Binding Year}"
                         materialDesign:HintAssist.Hint="Năm"
                         Style="{StaticResource MaterialDesignOutlinedComboBox}">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding}" />
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
                 </ComboBox>
                 <ComboBox
                         Margin="5"
@@ -59,7 +54,7 @@
                         Margin="5"
                         Width="220"
                         ItemsSource="{Binding Departments}"
-                        SelectedValue="{Binding ID}"
+                        SelectedValue="{Binding DepartmentID}"
                         SelectedValuePath="ID"
                         materialDesign:HintAssist.Hint="Phòng ban"
                         Style="{StaticResource MaterialDesignOutlinedComboBox}">
@@ -71,6 +66,16 @@
                 </ComboBox>
             </StackPanel>
             <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="10" VerticalAlignment="Center" HorizontalAlignment="Right">
+                <TextBlock Text="{Binding MessageTimeRemain}" Foreground="Red" Width="auto" VerticalAlignment="Center" Margin="10"/>
+                <Button
+                    Visibility="{Binding VisibleRestoreButton}"
+                    Content="Hoàn Tác"
+                    Height="30" Width="120"
+                    Foreground="White"
+                    Margin="5 0"
+                    Background="#ff5fa022"
+                    Command="{Binding DataContext.RestorePayRollCommand, ElementName=salaryRecordsUC}"
+                    CommandParameter="{Binding}"/>
                 <Button
                     Content="Thống Kê"
                     Height="30" Width="120"
@@ -89,8 +94,8 @@
                     CommandParameter="{Binding}"/>
             </StackPanel>
         </Grid>
-        <Grid Grid.Row="1">
-            <DataGrid   
+            <Grid Grid.Row="1">
+                <DataGrid   
                         Height="550"
                         Margin="5 0 5 0"
                         CanUserAddRows="False"
@@ -99,15 +104,15 @@
                         ItemsSource="{Binding SalaryRecords}"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center">
-                <DataGrid.Columns>
-                    <DataGridTemplateColumn Header="Operations" 
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn Header="Operations" 
                                                     CanUserResize="False" 
                                                     IsReadOnly="True"
                                                     Width="auto">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
-                                    <Button
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button
                                                     Style="{StaticResource MaterialDesignIconButton}"
                                                     Background="#33691e"
                                                     Foreground="White"
@@ -115,45 +120,23 @@
                                                     Margin="5 0"                                               
                                                     Command="{Binding DataContext.OpenSalaryDetailsDialogCommand, ElementName=salaryRecordsUC}"
                                                     CommandParameter="{Binding}">
-                                        <materialDesign:PackIcon Kind="OpenInNew" Height="15" Width="15"/>
-                                    </Button>
-                                </StackPanel>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTextColumn Width="Auto" Header="Thời Gian" IsReadOnly="True" Binding="{Binding MonthYear, StringFormat='MM/yyyy'}" />
-                    <DataGridTextColumn Width="Auto" Header="Phòng Ban" IsReadOnly="True" Binding="{Binding WorkerDepartment.Name}"/>
-                    <DataGridTextColumn Width="Auto" Header="Mã Nhân Viên" IsReadOnly="False" Binding="{Binding EmployeeID}"/>
-                    <DataGridTextColumn Width="Auto" Header="Tên Nhân Viên" IsReadOnly="True" Binding="{Binding Worker.Name}" />
-                    <DataGridTextColumn Width="Auto" Header="Chức vụ" IsReadOnly="True" Binding="{Binding WorkerRole.Title}" />
-                    <DataGridTextColumn Width="Auto" Header="Tổng Ngày Làm" IsReadOnly="True" Binding="{Binding TotalWorkDays}" />
-                    <DataGridTextColumn Width="Auto" Header="Tổng Ngày Nghỉ" IsReadOnly="True" Binding="{Binding TotalOffDays}" />
-                    <DataGridTextColumn Width="Auto" Header="Tổng Tiền Thưởng" IsReadOnly="True" Binding="{Binding TotalBonuses}" />
-                    <DataGridTextColumn Width="Auto" Header="Lương Nhận" IsReadOnly="True" Binding="{Binding Income}" />
-                </DataGrid.Columns>
-            </DataGrid>
-            <!--<materialDesign:Snackbar
-                Height="50"
-                HorizontalAlignment="Stretch" 
-                Margin="10"
-                MessageQueue="{Binding MessageRestore}"
-                />-->
-            <materialDesign:DialogHost>
-                <materialDesign:Snackbar 
-                        MessageQueue="{Binding MessageRestore}" 
-                        x:Name="mySnackbar"
-                        Width="200"
-                        Height="50" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <materialDesign:SnackbarMessage Content="{Binding MessageRestoreContent}" ActionContent="Hoàn Tác" ActionCommand="{Binding RestorePayRollCommand}"/>
-                </materialDesign:Snackbar>
-            </materialDesign:DialogHost>
-            <!--<materialDesign:DialogHost>
-                <materialDesign:Snackbar 
-                    MessageQueue="{Binding MessageRestore}" 
-                    x:Name="mySnackbar">
-                    <materialDesign:SnackbarMessage Content="{Binding MessageRestoreContent, UpdateSourceTrigger=PropertyChanged}" ActionContent="Hoàn Tác" ActionCommand="{Binding RestorePayRollCommand}"/>
-                </materialDesign:Snackbar>
-            </materialDesign:DialogHost>-->
-        </Grid>
+                                            <materialDesign:PackIcon Kind="OpenInNew" Height="15" Width="15"/>
+                                        </Button>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Width="Auto" Header="Thời Gian" IsReadOnly="True" Binding="{Binding MonthYear, StringFormat='MM/yyyy'}" />
+                        <DataGridTextColumn Width="Auto" Header="Phòng Ban" IsReadOnly="True" Binding="{Binding WorkerDepartment.Name}"/>
+                        <DataGridTextColumn Width="Auto" Header="Mã Nhân Viên" IsReadOnly="False" Binding="{Binding EmployeeID}"/>
+                        <DataGridTextColumn Width="Auto" Header="Tên Nhân Viên" IsReadOnly="True" Binding="{Binding Worker.Name}" />
+                        <DataGridTextColumn Width="Auto" Header="Chức vụ" IsReadOnly="True" Binding="{Binding WorkerRole.Title}" />
+                        <DataGridTextColumn Width="Auto" Header="Tổng Ngày Làm" IsReadOnly="True" Binding="{Binding TotalWorkDays}" />
+                        <DataGridTextColumn Width="Auto" Header="Tổng Ngày Nghỉ" IsReadOnly="True" Binding="{Binding TotalOffDays}" />
+                        <DataGridTextColumn Width="Auto" Header="Tổng Tiền Thưởng" IsReadOnly="True" Binding="{Binding TotalBonuses}" />
+                        <DataGridTextColumn Width="Auto" Header="Lương Nhận" IsReadOnly="True" Binding="{Binding Income}" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
     </Grid>
 </UserControl>

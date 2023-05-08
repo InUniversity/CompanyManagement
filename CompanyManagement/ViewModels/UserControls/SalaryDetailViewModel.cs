@@ -27,8 +27,7 @@ namespace CompanyManagement.ViewModels.UserControls
         public Role WorkerRole { get => salaryRecordIns.WorkerRole; }
         public Department WorkerDepartment { get => salaryRecordIns.WorkerDepartment; }
 
-        //    public List<DateTime> OffDays = new List<DateTime>();
-
+        public List<DateTime> OffDays = new List<DateTime>();
         public List<ProjectBonus> ProjectsCompleted = new List<ProjectBonus>();
 
         private ProjectBonusesDao projectBonusesDao = new ProjectBonusesDao();

@@ -54,5 +54,13 @@ namespace CompanyManagement.Database
                             $"AND YEAR({salaryMonthYear}) = '{year}'";
             return dbConnection.GetList<SalaryRecord>(sqlStr, reader => new SalaryRecord(reader));
         }
+
+        public List<SalaryRecord> GetByDepartmentID(string departmentID, int month, int year)
+        {
+            string sqlStr = $"SELECT * FROM {salaryTbl} WHERE MONTH({salaryMonthYear}) = '{month}' " +
+                            $"AND YEAR({salaryMonthYear}) = '{year}' AND {salaryEmplID} " +
+                            $"IN (SELECT {emplID} FROM {emplTbl} WHERE {emplDeptID} = '{departmentID}' OR '{departmentID}' = 'ALL')";
+            return dbConnection.GetList<SalaryRecord>(sqlStr, reader => new SalaryRecord(reader));
+        }
     }
 }

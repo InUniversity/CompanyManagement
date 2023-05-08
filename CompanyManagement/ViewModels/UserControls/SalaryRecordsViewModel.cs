@@ -16,6 +16,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
@@ -25,9 +26,8 @@ namespace CompanyManagement.ViewModels.UserControls
         public ObservableCollection<SalaryRecord> SalaryRecords { get => salaryRecords; set { salaryRecords = value; OnPropertyChanged(); }  }
 
         private List<SalaryRecord> listSalaryRecord = new List<SalaryRecord>();
-
-        public List<int> Years = new List<int>();
-        public List<Department> Departments = new List<Department>();
+        public List<int> Years { get; private set; }
+        public List<Department> Departments { get; private set; }
 
         private int month = DateTime.Now.Month - 1;
         public int Month { get => month; set { month = value; OnPropertyChanged(); LoadSalaryRecords(); } }
@@ -35,16 +35,17 @@ namespace CompanyManagement.ViewModels.UserControls
         private int year = DateTime.Now.Year;
         public int Year { get => year; set { year = value; OnPropertyChanged(); LoadSalaryRecords(); } }
 
-        private SnackbarMessageQueue messageRestore = new SnackbarMessageQueue();
-        public SnackbarMessageQueue MessageRestore { get => messageRestore; set { messageRestore = new(TimeSpan.FromSeconds(15)); } }
+        private string departmentID = "ALL";
+        public string DepartmentID { get => departmentID; set { departmentID = value; OnPropertyChanged(); LoadSalaryRecords(); } }
 
-        private string messageRestoreContent = "";
-        public string MessageRestoreContent { get => messageRestoreContent; set { messageRestoreContent = value; OnPropertyChanged(); } }
+        private Visibility visibleRestoreButton = Visibility.Hidden;
+        public Visibility VisibleRestoreButton { get => visibleRestoreButton; set { visibleRestoreButton = value; OnPropertyChanged(); } }
 
-        private int timeRemaining;
-        public int TimeRemaining { get => timeRemaining; set { timeRemaining = value; OnPropertyChanged(); } }
+        private int timer = 0;
+        public int Timer { get => timer; set { timer = value; OnPropertyChanged(); LoadMessageRemain(); } }
 
-        public string DepartmentID { get; set; }
+        public string messageTimeRemain = "";
+        public string MessageTimeRemain { get => messageTimeRemain; set { messageTimeRemain = value; OnPropertyChanged(); } }
 
         private SalaryRecordsDao salaryRecordsDao = new SalaryRecordsDao();
         private DepartmentsDao departmentsDao = new DepartmentsDao();
@@ -74,7 +75,9 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void LoadSalaryRecords()
         {
-            listSalaryRecord = salaryRecordsDao.GetByTime(Month, Year);
+            listSalaryRecord = (departmentID == "") 
+                ? salaryRecordsDao.GetByTime(Month, Year) 
+                : salaryRecordsDao.GetByDepartmentID(DepartmentID, Month, Year);
             foreach(SalaryRecord salaryRecord in listSalaryRecord)
             {
                 salaryRecord.Worker = employeesDao.SearchByID(salaryRecord.EmployeeID);
@@ -82,21 +85,13 @@ namespace CompanyManagement.ViewModels.UserControls
             }
             SalaryRecords = new ObservableCollection<SalaryRecord>(listSalaryRecord);
         }
-
+            
         private void SetComboBox()
         {
-            SetYears();
-            Departments = departmentsDao.GetAll();
-        }
-
-        private void SetYears()
-        {
-            int start = 2000;
-            while(start<=DateTime.Now.Year)
-            {
-                Years.Add(start++);
-            }
-            MessageBox.Show(Years.Count.ToString());
+            Departments = new List<Department>();
+            Departments.Add(new Department("ALL", "Tất Cả", ""));
+            Departments.AddRange(departmentsDao.GetAll());
+            Years = Enumerable.Range(2000, DateTime.Now.Year - 1999).OrderByDescending(year => year).ToList();
         }
 
         private void ExcuteCalculateSalary(object obj)
@@ -120,7 +115,15 @@ namespace CompanyManagement.ViewModels.UserControls
             {
                 var dialog = new AlertDialogService(
                     "Thông báo",
-                    "Chưa đến ngày tính lương", null, null);
+                    "Chưa đến ngày tính lương!", null, null);
+                dialog.Show();
+                return false;
+            }
+            if (SalaryRecords.Count != 0)
+            {
+                var dialog = new AlertDialogService(
+                    "Thông báo",
+                    "Lương đã được tính trong quá khứ!", null, null);
                 dialog.Show();
                 return false;
             }
@@ -179,23 +182,10 @@ namespace CompanyManagement.ViewModels.UserControls
                 salaryRecord.ID = AutoGenerateID();
                 salaryRecordsDao.Add(salaryRecord);
             }
-            ShowRestoreSnackbar();
-        }
-
-        private void ShowRestoreSnackbar()
-        {
-            TimeRemaining = 15;
-            MessageRestoreContent = "Còn " + TimeRemaining + " giây để hoàn tác";
-            MessageRestore.Enqueue(new SnackbarMessage { Content = messageRestoreContent });
-
-            var timer = new Timer(state =>
+            if (salaryRecordsDao.GetByTime(month, year).Count != 0)
             {
-                if (TimeRemaining > 0)
-                {
-                    TimeRemaining--;
-                    MessageRestoreContent = "Còn " + TimeRemaining + " giây để hoàn tác";
-                }
-            }, null, TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1));
+                RestoreButton();
+            }
         }
 
         private string AutoGenerateID()
@@ -220,7 +210,6 @@ namespace CompanyManagement.ViewModels.UserControls
                 dialog.Show();
                 return false;
             }
-
             if (SalaryRecords.Count == 0)
             {
                 var dialog = new AlertDialogService(
@@ -229,13 +218,49 @@ namespace CompanyManagement.ViewModels.UserControls
                 dialog.Show();
                 return false;
             }
-
             return true;
         }
 
-        public void ExcuteRestorePayRoll(object obj)
+        private void RestoreButton()
+        {
+            VisibleRestoreButton = Visibility.Visible; 
+            Timer = 15;
+            StartTimer();
+        }
+
+        private async void StartTimer()
+        {
+            await Task.Delay(TimeSpan.FromSeconds(1));
+            Timer--;
+            if (Timer > 0)
+                StartTimer();
+            else
+                VisibleRestoreButton = Visibility.Hidden;
+        }
+
+        private void LoadMessageRemain()
+        {
+            MessageTimeRemain = "";
+            if (timer > 0)
+                MessageTimeRemain = "Còn " + timer + " giây để hoàn tác!";
+        }
+
+        private void ExcuteRestorePayRoll(object obj)
+        {
+            var dialog = new AlertDialogService(
+               "Hoàn tác",
+               "Bạn chắc chắn muốn hoàn tác việc phát lương cho nhân viên?",
+               () =>
+               {
+                   DeleteFromDB();
+               }, null);
+            dialog.Show();
+        }
+
+        private void DeleteFromDB()
         {
             salaryRecordsDao.DeleteByMonthYear(month, year);
+            LoadSalaryRecords();
         }
 
         private void ExcuteOpenSalaryDetailsDialog(SalaryRecord salaryRecord)
