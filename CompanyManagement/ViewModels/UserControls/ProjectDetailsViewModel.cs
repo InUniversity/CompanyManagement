@@ -26,11 +26,13 @@ namespace CompanyManagement.ViewModels.UserControls
         public ICommand ShowTimeKeepingCommand { get; private set; }
         public ICommand ShowProjectBonusesCommand { get; private set; }
         public ICommand ShowMilestonesCommand { get; private set; }
+        public ICommand ShowWidgetsViewCommand { get; private set; }
 
         private TasksInProjectUC tasksInProjectUC = new TasksInProjectUC();
         private TimeTrackingUC timeTrackingUC = new TimeTrackingUC();
         private ProjectBonusUC projectBonusUC = new ProjectBonusUC();
         private MilestonesUC milestonesUC = new MilestonesUC();
+        private WidgetsUC widgetsUC = new WidgetsUC();
 
         private bool statusTasksView = false;
         public bool StatusTasksView { get => statusTasksView; set { statusTasksView = value; OnPropertyChanged(); } }
@@ -43,6 +45,9 @@ namespace CompanyManagement.ViewModels.UserControls
         
         private bool statusMilestonesView = false;
         public bool StatusMilestonesView { get => statusMilestonesView; set { statusMilestonesView = value; OnPropertyChanged(); } }
+        
+        private bool statusWidgetsView = false;
+        public bool StatusWidgetsView { get => statusWidgetsView; set { statusWidgetsView = value; OnPropertyChanged(); } }
 
         public INavigateAssignmentView ParentDataContext { get; set; }
 
@@ -58,6 +63,14 @@ namespace CompanyManagement.ViewModels.UserControls
             ShowTimeKeepingCommand = new RelayCommand<object>(ExecuteShowTimeKeepingView);
             ShowProjectBonusesCommand = new RelayCommand<object>(ExecuteShowProjectBonusesView);
             ShowMilestonesCommand = new RelayCommand<object>(ExecuteShowMilestonesView);
+            ShowWidgetsViewCommand = new RelayCommand<object>(ExecuteShowWidgetsViewCommand);
+        }
+
+        private void ExecuteShowWidgetsViewCommand(object obj)
+        {
+            ((WidgetsViewModel)widgetsUC.DataContext).LoadLiveChartViews();
+            CurrentChildView = widgetsUC;
+            StatusWidgetsView = true;
         }
 
         private void ExecuteShowProjectsView(object obj)
@@ -99,6 +112,7 @@ namespace CompanyManagement.ViewModels.UserControls
                 ((IRetrieveProjectID)timeTrackingUC.DataContext).ReceiveProjectID(projectID);
                 ((IRetrieveProjectID)projectBonusUC.DataContext).ReceiveProjectID(projectID);
                 ((IRetrieveProjectID)milestonesUC.DataContext).ReceiveProjectID(projectID);
+                ((IRetrieveProjectID)widgetsUC.DataContext).ReceiveProjectID(projectID);
             }
             catch 
             {

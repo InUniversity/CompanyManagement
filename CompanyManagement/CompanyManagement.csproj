@@ -38,6 +38,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="LiveCharts, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveCharts.0.9.7\lib\net45\LiveCharts.dll</HintPath>
+    </Reference>
+    <Reference Include="LiveCharts.Wpf, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveCharts.Wpf.0.9.7\lib\net45\LiveCharts.Wpf.dll</HintPath>
+    </Reference>
     <Reference Include="MaterialDesignColors, Version=2.1.2.0, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignColors.2.1.2\lib\net462\MaterialDesignColors.dll</HintPath>
     </Reference>
@@ -156,6 +162,7 @@
     <Compile Include="ViewModels\UserControls\TasksInProjectViewModel.cs" />
     <Compile Include="ViewModels\UserControls\TimeTrackingViewModel.cs" />
     <Compile Include="ViewModels\UserControls\UserInformationViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\WidgetsViewModel.cs" />
     <Compile Include="ViewModels\Windows\LoginViewModel.cs" />
     <Compile Include="ViewModels\Windows\MainViewModel.cs" />
     <Compile Include="Views\Dialogs\AddEmployeeDialog.xaml.cs">
@@ -261,6 +268,9 @@
     </Compile>
     <Compile Include="Views\UserControls\UserInformationUC.xaml.cs">
       <DependentUpon>UserInformationUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\WidgetsUC.xaml.cs">
+      <DependentUpon>WidgetsUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Windows\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
@@ -408,6 +418,10 @@
     <Page Include="Views\UserControls\UserInformationUC.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\UserControls\WidgetsUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Windows\LoginWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
