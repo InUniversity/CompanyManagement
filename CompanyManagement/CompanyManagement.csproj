@@ -193,7 +193,9 @@
       <DependentUpon>CheckOutDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Dialogs\Interfaces\IInputDialog.cs" />
-    <Compile Include="Views\Dialogs\SalaryDetailsDialog.xaml.cs" />
+    <Compile Include="Views\Dialogs\SalaryDetailsDialog.xaml.cs">
+      <DependentUpon>SalaryDetailsDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Dialogs\AddMilestoneDialog.xaml.cs">
       <DependentUpon>AddMilestoneDialog.xaml</DependentUpon>
     </Compile>
@@ -242,7 +244,9 @@
     <Compile Include="Views\UserControls\ProjectBonusUC.xaml.cs">
       <DependentUpon>ProjectBonusUC.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserControls\SalaryRecordsUC.xaml.cs" />
+    <Compile Include="Views\UserControls\SalaryRecordsUC.xaml.cs">
+      <DependentUpon>SalaryRecordsUC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserControls\TimeSheetUC.xaml.cs">
       <DependentUpon>TimeSheetUC.xaml</DependentUpon>
     </Compile>
@@ -330,7 +334,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Dialogs\SalaryDetailsDialog.xaml" />
+    <Page Include="Views\Dialogs\SalaryDetailsDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Dialogs\AddMilestoneDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -395,7 +402,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\UserControls\SalaryRecordsUC.xaml" />
+    <Page Include="Views\UserControls\SalaryRecordsUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\UserControls\TimeSheetUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
