@@ -15,7 +15,7 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         Name="addDepartmentDialog"
-        mc:Ignorable="d" Width="500" Height="500">
+        mc:Ignorable="d" Width="800" Height="600">
     <Border BorderBrush="Teal" BorderThickness="1">
         <Grid Margin="10">
             <StackPanel>

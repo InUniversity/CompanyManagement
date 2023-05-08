@@ -48,11 +48,16 @@
                          materialDesign:HintAssist.Hint="Tìm kiếm nhân viên"
                          Style="{StaticResource MaterialDesignOutlinedTextBox}"
                          Width="200"/>
-                <Button Grid.Column="3" 
-                        Command="{Binding OpenAddDialogCommand}"
-                        Width="100" 
-                        Margin="20 5">
-                    <materialDesign:PackIcon Kind="AccountPlusOutline" />
+                <Button Background="Teal" Grid.Column="3"
+                    Foreground="White"
+                    Command="{Binding OpenAddDialogCommand}"
+                    Width="200" 
+                    Margin="20 5">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Plus" Margin="5 0"/>
+                        <TextBlock Text="Nhân viên mới"
+                           VerticalAlignment="Center"></TextBlock>
+                    </StackPanel>
                 </Button>
             </Grid>
             <DataGrid Grid.Row="1"    

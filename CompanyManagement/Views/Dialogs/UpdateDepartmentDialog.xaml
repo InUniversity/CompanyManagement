@@ -16,7 +16,7 @@
         WindowStyle="None"
         mc:Ignorable="d"
         x:Name="updateDepartmentWindow"
-        Height="500" Width="500">
+        Height="600" Width="800">
     <Border BorderBrush="Teal" BorderThickness="1">
         <Grid Margin="10">
             <StackPanel>

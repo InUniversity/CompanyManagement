@@ -6,6 +6,7 @@ using CompanyManagement.ViewModels.Base;
 using CompanyManagement.Views.Dialogs;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
 
@@ -25,6 +26,7 @@ namespace CompanyManagement.ViewModels.UserControls
         public ICommand ItemClickCommand { get; private set; }
 
         private DepartmentsDao departmentsDao = new DepartmentsDao();
+        private EmployeesDao employeesDao = new EmployeesDao();
 
         public IOrganization ParentDataContext { get;set; }
 
@@ -37,6 +39,8 @@ namespace CompanyManagement.ViewModels.UserControls
         private void LoadDepartment()
         {
             Departments = departmentsDao.GetAll();
+            GetDeptHeadForListDepartments(Departments);
+            GetEmployeesForListDepartments(Departments);
         }
 
         private void SetCommands()
@@ -45,6 +49,18 @@ namespace CompanyManagement.ViewModels.UserControls
             DeleteDepartmentCommand = new RelayCommand<string>(Delete);
             OpenUpdateDialogCommand = new RelayCommand<Department>(ExecuteOpenUpdateDialogCommand);
             ItemClickCommand = new RelayCommand<object>(ExecuteItemClickCommand);
+        }
+
+        private void GetDeptHeadForListDepartments(List<Department> depts)
+        {
+            foreach (Department dept in depts)
+                dept.DeptHead = employeesDao.SearchByID(dept.DeptHeadID);
+        }
+
+        private void GetEmployeesForListDepartments(List<Department> depts)
+        {
+            foreach (Department dept in depts)
+                dept.Empls = new ObservableCollection<Employee>( employeesDao.SearchByDepartmentID(dept.ID));
         }
 
         private void ExecuteOpenUpdateDialogCommand(Department dept)

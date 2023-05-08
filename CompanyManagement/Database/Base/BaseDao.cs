@@ -22,6 +22,8 @@ namespace CompanyManagement.Database.Base
         public const string underConsiderableTask = "TS4";
         public const string ongoingTask = "TS1";
 
+        public const string isEmpty = "";
+
         protected const string deptTbl = "Departments";
         public const string deptID = "ID";
         public const string deptName = "DepartmentName";
