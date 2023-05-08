@@ -45,7 +45,6 @@
                     <TextBlock Text="Theo dõi tiến độ" Margin="30 0"></TextBlock>
                 </RadioButton>
                 <RadioButton
-                            Height="40"
                             Margin="4"     
                             IsChecked="{Binding ElementName=projectDetailsUC, Path=DataContext.StatusProjectBonusesView}"
                             Command="{Binding ElementName=projectDetailsUC, Path=DataContext.ShowProjectBonusesCommand}"
@@ -61,6 +60,15 @@
                             BorderBrush="{DynamicResource PrimaryHueMidBrush}"
                             Style="{StaticResource MaterialDesignTabRadioButtonBottom}" >
                     <TextBlock Text="Mốc Tiến Độ Dự Án" Margin="30 0"></TextBlock>
+                </RadioButton>
+                <RadioButton
+                            Height="40"
+                            Margin="4"         
+                            IsChecked="{Binding ElementName=projectDetailsUC, Path=DataContext.StatusWidgetsView}"
+                            Command="{Binding ElementName=projectDetailsUC, Path=DataContext.ShowWidgetsViewCommand}"
+                            BorderBrush="{DynamicResource PrimaryHueMidBrush}"
+                            Style="{StaticResource MaterialDesignTabRadioButtonBottom}" >
+                    <TextBlock Text="Thống kê" Margin="30 0"></TextBlock>
                 </RadioButton>
             </StackPanel>
         </Border>
