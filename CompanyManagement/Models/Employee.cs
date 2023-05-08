@@ -1,5 +1,6 @@
 using System;
 using System.Data;
+using CompanyManagement.Database;
 using CompanyManagement.Database.Base;
 using CompanyManagement.Models;
 using CompanyManagement.Utilities;
@@ -96,7 +97,7 @@ namespace CompanyManagement
 
         public Role EmplRole
         {
-            get => role;
+            get => new RolesDao().SearchByID(RoleID);
             set => role = value;
         }
 

@@ -144,6 +144,8 @@
     <Compile Include="ViewModels\UserControls\AssignmentViewModel.cs" />
     <Compile Include="ViewModels\UserControls\MilestoneInputViewModel.cs" />
     <Compile Include="ViewModels\UserControls\MilestonesViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\EmployeesInDepartmentViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\OrganizationViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ProjectBonusViewModel.cs" />
     <Compile Include="ViewModels\UserControls\TimeSheetInputViewModel.cs" />
     <Compile Include="ViewModels\UserControls\TimeSheetViewModel.cs" />
@@ -224,9 +226,19 @@
     <Compile Include="Views\UserControls\MilestonesUC.xaml.cs">
       <DependentUpon>MilestonesUC.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\UserControls\DepartmentsUC.xaml.cs">
+      <DependentUpon>DepartmentsUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\EmployeesInDepartmentUC.xaml.cs">
+      <DependentUpon>EmployeesInDepartmentUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\OrganizationUC.xaml.cs">
+      <DependentUpon>OrganizationUC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserControls\ProjectBonusUC.xaml.cs">
       <DependentUpon>ProjectBonusUC.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\UserControls\SalaryRecordsUC.xaml.cs" />
     <Compile Include="Views\UserControls\TimeSheetUC.xaml.cs">
       <DependentUpon>TimeSheetUC.xaml</DependentUpon>
     </Compile>
@@ -359,10 +371,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\UserControls\DepartmentsUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\EmployeesInDepartmentUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\OrganizationUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\UserControls\ProjectBonusUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\UserControls\SalaryRecordsUC.xaml" />
     <Page Include="Views\UserControls\TimeSheetUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

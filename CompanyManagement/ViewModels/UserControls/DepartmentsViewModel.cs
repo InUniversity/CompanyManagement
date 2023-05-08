@@ -9,13 +9,19 @@ namespace CompanyManagement.ViewModels.UserControls
 {
     public class DepartmentsViewModel : BaseViewModel
     {
-        private List<Department> departments = new List<Department>();
+        private List<Department> departments;
         public List<Department> Departments { get => departments; set { departments = value; OnPropertyChanged(); } }
 
-        public ICommand DeleteDepartmentCommand { get; set; }
-        public ICommand OpenUpdateDialogCommand { get; set; }
+        private Department selectedDepartment;
+        public Department SelectedDepartment { get => selectedDepartment; set { selectedDepartment = value; OnPropertyChanged(); } }
+
+        public ICommand DeleteDepartmentCommand { get; private set; }
+        public ICommand OpenUpdateDialogCommand { get; private set; }
+        public ICommand ItemClickCommand { get; private set; }
 
         private DepartmentsDao departmentsDao = new DepartmentsDao();
+
+        public IOrganization ParentDataContext { get;set; }
 
         public DepartmentsViewModel()
         {
@@ -32,16 +38,25 @@ namespace CompanyManagement.ViewModels.UserControls
         {
             DeleteDepartmentCommand = new RelayCommand<string>(ExecuteDeleteCommand);
             OpenUpdateDialogCommand = new RelayCommand<Department>(ExecuteUpdateCommand);
+            ItemClickCommand = new RelayCommand<Department>(ExecuteItemClickCommand);
         }
 
-        private void ExecuteDeleteCommand(string id)
+        private void ExecuteItemClickCommand(Department obj)
         {
-            departmentsDao.Delete(id);
+            ParentDataContext.MoveToEmployeesInDepartmentView(selectedDepartment);
+        }
+
+        private void ExecuteDeleteCommand(string departmentID)
+        {
+            departmentsDao.Delete(departmentID);
             LoadDepartment();
         }
 
         private void ExecuteUpdateCommand(Department department)
         {
+
         }
+
+       
     }
 }

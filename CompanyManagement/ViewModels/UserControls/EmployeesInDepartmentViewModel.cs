@@ -1,19 +1,25 @@
-﻿using System;
+﻿using CompanyManagement.Database;
+using CompanyManagement.Models;
+using CompanyManagement.Services;
+using CompanyManagement.ViewModels.Base;
+using CompanyManagement.ViewModels.Dialogs;
+using CompanyManagement.Views.Dialogs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Input;
-using CompanyManagement.Database;
-using CompanyManagement.Views.Dialogs;
-using CompanyManagement.ViewModels.Base;
-using CompanyManagement.Services;
-using CompanyManagement.Models;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
-    public class EmployeesViewModel : BaseViewModel
+    public class EmployeesInDepartmentViewModel : BaseViewModel
     {
         private List<Employee> employees;
         public List<Employee> Employees { get => employees; set => employees = value; }
+
+        private Department department;
+        public Department Department { get => department; set { department = value; OnPropertyChanged(); } }
 
         private List<Employee> searchedEmployees;
         public List<Employee> SearchedEmployees { get => searchedEmployees; set { searchedEmployees = value; OnPropertyChanged(); } }
@@ -21,6 +27,7 @@ namespace CompanyManagement.ViewModels.UserControls
         private string textToSearch = "";
         public string TextToSearch { get => textToSearch; set { textToSearch = value; OnPropertyChanged(); SearchByName(); } }
 
+        public ICommand BackDepartmentViewCommand { get; private set; }
         public ICommand OpenAddDialogCommand { get; private set; }
         public ICommand DeleteEmployeeCommand { get; private set; }
         public ICommand OpenUpdateDialogCommand { get; private set; }
@@ -28,16 +35,22 @@ namespace CompanyManagement.ViewModels.UserControls
         private EmployeesDao employeesDao = new EmployeesDao();
         private AccountsDao accountsDao = new AccountsDao();
 
-        public EmployeesViewModel()
+        public IOrganization ParentDataContext { get; set; }
+
+        public EmployeesInDepartmentViewModel()
         {
-            LoadEmployees();
             SetCommands();
         }
 
-        private void LoadEmployees()
+        private void ExecuteBackDepartmentViewCommand(object obj)
         {
-            employees = employeesDao.GetAllWithoutManagers();
-            SearchedEmployees = employees;
+            ParentDataContext.MoveToDepartmentsView();
+        }
+
+        public void LoadEmployees()
+        {
+            Employees = employeesDao.SearchByDepartmentID(department.ID);
+            SearchedEmployees = Employees;
         }
 
         private void SetCommands()
@@ -45,6 +58,7 @@ namespace CompanyManagement.ViewModels.UserControls
             OpenAddDialogCommand = new RelayCommand<object>(OpenAddEmployeeDialog);
             DeleteEmployeeCommand = new RelayCommand<string>(DeleteEmployee);
             OpenUpdateDialogCommand = new RelayCommand<Employee>(OpenUpdateEmployeeDialog);
+            BackDepartmentViewCommand = new RelayCommand<object>(ExecuteBackDepartmentViewCommand);
         }
 
         private void SearchByName()
@@ -62,6 +76,7 @@ namespace CompanyManagement.ViewModels.UserControls
         private void OpenAddEmployeeDialog(object obj)
         {
             var employee = CreateEmployee();
+            employee.DepartmentID = Department.ID;
             var inputService = new InputDialogService<Employee>(new AddEmployeeDialog(), employee, Add);
             inputService.Show();
         }
@@ -98,7 +113,7 @@ namespace CompanyManagement.ViewModels.UserControls
               () =>
               {
                   employeesDao.Delete(id);
-                  accountsDao.Delete(id); 
+                  accountsDao.Delete(id);
                   LoadEmployees();
               }, () => { });
             dialog.Show();
