@@ -1,5 +1,6 @@
 using System;
 using System.Data;
+using CompanyManagement.Database;
 using CompanyManagement.Database.Base;
 using CompanyManagement.Models;
 using CompanyManagement.Utilities;
@@ -21,6 +22,7 @@ namespace CompanyManagement
         private string roleID = "";
         private Account account = new Account();
         private Role role = new Role();
+        private RolesDao rolesDao = new RolesDao();
 
         public string ID
         {
@@ -96,7 +98,7 @@ namespace CompanyManagement
 
         public Role EmplRole
         {
-            get => role;
+            get => rolesDao.SearchByID(RoleID);
             set => role = value;
         }
 

@@ -14,7 +14,7 @@ namespace CompanyManagement.ViewModels.Dialogs
     {
         public ICommand AddEmployeeCommand { get; }
 
-        public EmployeeInputViewModel EmployeeInputDataContext { get; }
+        public EmployeeInputViewModel EmployeeInputDataContext { get; set; }
         private Action<Employee> submitObjectAction;
 
         private EmployeesDao employeesDao = new EmployeesDao();
