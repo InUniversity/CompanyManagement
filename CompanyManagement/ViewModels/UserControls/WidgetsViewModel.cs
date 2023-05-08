@@ -17,7 +17,6 @@ namespace CompanyManagement.ViewModels.UserControls
 {
     public class WidgetsViewModel : BaseViewModel, IRetrieveProjectID
     {
-        #region Properties
         private SeriesCollection seriesTaskStatusViews; 
         public SeriesCollection SeriesTaskStatusViews { get => seriesTaskStatusViews; set { seriesTaskStatusViews = value; OnPropertyChanged(); } }
 
@@ -41,7 +40,6 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private TasksDao tasksDao = new TasksDao();
         private ProjectAssignmentsDao projectAssignmentsDao = new ProjectAssignmentsDao();
-        #endregion
 
         public WidgetsViewModel() { }
        
@@ -56,7 +54,6 @@ namespace CompanyManagement.ViewModels.UserControls
             LoadOverdueWorkItem();
         }
 
-        #region Set Series 
         private void SetSeriesTaskProgress()
         {
             SeriesTaskProgressViews = new SeriesCollection();
@@ -137,9 +134,7 @@ namespace CompanyManagement.ViewModels.UserControls
                 }
             };
         }
-        #endregion
 
-        #region Load
         private void LoadOverdueWorkItem()
         {
             var items = from task in TasksInProject
@@ -198,9 +193,7 @@ namespace CompanyManagement.ViewModels.UserControls
                 Log.Instance.Information(nameof(WidgetsViewModel), nameof(ListStatusTeam) + " = " + ListStatusTeam.Count);
             }
         }
-        #endregion
 
-        #region Get List Number Task Of Team
         private List<NumberTaskStatusOfTeam> GetListNumberTaskByStatusOfTeam(string StatusID)
         {
             var listItem = (from employee in EmployeesInProject
@@ -219,9 +212,7 @@ namespace CompanyManagement.ViewModels.UserControls
                             select new { TeamID = team.ID, TaskID = task.ID }).GroupBy(g => g.TeamID).Select(p => new NumberTaskStatusOfTeam (){ TeamID = p.Key, Number = p.Count() });
             return new List<NumberTaskStatusOfTeam>(listItem);
         }
-        #endregion
 
-        #region Create Object 
         private class NumberTaskStatusOfTeam
         {
             public string TeamID { get; set; }
@@ -257,7 +248,6 @@ namespace CompanyManagement.ViewModels.UserControls
             }
             public TeamStatusItem() { }
         }
-        #endregion
 
 
         private double GetPercent(int quantity, int totalQuantity)
