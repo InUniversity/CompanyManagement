@@ -4,37 +4,56 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:uc="clr-namespace:CompanyManagement.Views.UserControls"
+        xmlns:local="clr-namespace:CompanyManagement.Views.Dialogs"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="White"           
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
         mc:Ignorable="d"
         x:Name="updateDepartmentWindow"
-        Title="DepartmentInputWindow" Height="432" Width="600">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="100"/>
-        </Grid.RowDefinitions>
-        <TextBlock 
-                Grid.Row="0"
-                FontWeight="Bold"
-                FontSize="25"
-                VerticalAlignment="Center"
-                HorizontalAlignment="Center"
-                Text="Cập nhật phòng ban"/>
-        <Grid Grid.Row="1">
-            <uc:DepartmentInputUC x:Name="departmentInputUC"/>
+        Height="500" Width="500">
+    <Border BorderBrush="Teal" BorderThickness="1">
+        <Grid Margin="10">
+            <StackPanel>
+                <Button 
+                    Margin="10"
+                    HorizontalAlignment="Right"
+                    Command="{Binding CloseDialogCommand}"
+                    CommandParameter="{Binding ElementName=updateDepartmentWindow}"
+                    Height="30"
+                    Width="30"
+                    Foreground="Teal"
+                    Style="{StaticResource MaterialDesignIconButton}"
+                    ToolTip="Thoát" >
+                    <materialDesign:PackIcon Kind="Close" Width="20" Height="20"/>
+                </Button>
+                <TextBlock Margin="20 10" 
+                           FontSize="20"
+                           FontWeight="Bold"
+                           Foreground="Teal"
+                           HorizontalAlignment="Center"
+                           Text="Cập nhật Phòng Ban"/>
+                <uc:DepartmentInputUC DataContext="{Binding DeptInputDataContext}"
+                                      HorizontalAlignment="Center"
+                                      Margin="20 10" />
+                <Button Grid.Column="0"
+                    Margin="10"
+                    HorizontalAlignment="Center"
+                    Content="Cập nhật"
+                    Command="{Binding UpdateDeptCommand}"
+                    CommandParameter="{Binding ElementName=updateDepartmentWindow}"
+                    Height="50"
+                    Width="200"
+                    Background="Teal"
+                    Style="{StaticResource MaterialDesignFlatMidBgButton}"
+                    ToolTip="Cập nhật phòng mới" />
+
+            </StackPanel>
         </Grid>
-        <Button
-            Grid.Row="2"
-            Margin="20"
-            Content="Lưu"
-            Command="{Binding UpdateDepartmentCommand}"
-            CommandParameter="{Binding ElementName=updataDepartmentWindow}"
-            Width="300"
-            Height="50"
-            Background="ForestGreen"
-            VerticalAlignment="Center"
-            IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-            Style="{StaticResource MaterialDesignFlatMidBgButton}"
-            ToolTip="Lưu bảng phòng ban" />
-    </Grid>
+    </Border>
 </Window>

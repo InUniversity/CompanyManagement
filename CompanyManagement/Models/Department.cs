@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
+using System.Windows.Documents;
+using CompanyManagement.Database;
 using CompanyManagement.Database.Base;
 using CompanyManagement.Utilities;
 
@@ -12,8 +15,8 @@ namespace CompanyManagement.Models
         private string name;
         private string deptHeadID;
         private Employee deptHead = new Employee();
-        private ObservableCollection<Employee> empls = new ObservableCollection<Employee>();
-
+        private List<Employee> empls = new List<Employee>();
+        private EmployeesDao emplsDao = new EmployeesDao();
         public string ID
         {
             get => id;
@@ -34,16 +37,16 @@ namespace CompanyManagement.Models
 
         public Employee DeptHead
         {
-            get => deptHead; 
+            get => emplsDao.SearchByID(DeptHeadID); 
             set => deptHead = value;
         }
 
-        public ObservableCollection<Employee> Empls
+        public List<Employee> Empls
         {
-            get => empls;
+            get => emplsDao.SearchByDepartmentID(ID);
             set => empls = value;
         }
-        
+      
         public Department() { }
 
         public Department(string id, string name, string deptHeadID)

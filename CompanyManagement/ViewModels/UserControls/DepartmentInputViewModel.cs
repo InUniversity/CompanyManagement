@@ -34,7 +34,6 @@ namespace CompanyManagement.ViewModels.UserControls
             {
                 dept.DeptHead = value;
                 dept.DeptHeadID = dept.DeptHead.ID;
-                LoadEmployeesCanBeDeptHead();
                 OnPropertyChanged();
             }
         }
@@ -42,7 +41,7 @@ namespace CompanyManagement.ViewModels.UserControls
         public string ID { get => dept.ID; set { dept.ID = value; OnPropertyChanged(); } }
         public string Name { get => dept.Name; set { dept.Name = value; OnPropertyChanged(); } }
         public string DeptHeadID { get => dept.DeptHeadID; set { dept.DeptHeadID = value; OnPropertyChanged(); } }
-        public ObservableCollection<Employee> EmplsInDept 
+        public List<Employee> EmplsInDept 
         { get => dept.Empls; set { dept.Empls = value; OnPropertyChanged(); } }
 
         public string errorMessage;
@@ -81,7 +80,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void LoadEmployeesCanBeDeptHead() 
         {
-            var listallempl = employeesDao.SearchByCurrentID(CurrentUser.Ins.EmployeeIns.ID);
+            var listallempl = employeesDao.GetAllWithoutManagers();
             var listDeptHead = from empl in listallempl where empl.RoleID == BaseDao.deptHeadRole select empl;
             employees = new List<Employee>(listDeptHead.ToList());
         }
@@ -89,7 +88,7 @@ namespace CompanyManagement.ViewModels.UserControls
         private void LoadEmployeeInDepartment()
         {
             var list = employeesDao.SearchByDepartmentID(dept.ID);
-            EmplsInDept = new ObservableCollection<Employee>(list);
+            EmplsInDept = new List<Employee>(list);
         }
 
         private void SearchByName()

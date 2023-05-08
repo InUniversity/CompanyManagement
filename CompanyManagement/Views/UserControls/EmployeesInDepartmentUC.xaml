@@ -64,8 +64,7 @@
                 <DataGrid.Columns>
                     <DataGridTemplateColumn Header="Operations" 
                                         CanUserResize="False" 
-                                        IsReadOnly="True"
-                                        Width="300">
+                                        IsReadOnly="True">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
@@ -85,65 +84,20 @@
                                         CommandParameter="{Binding ID}">
                                         <materialDesign:PackIcon Kind="DeleteOutline" Foreground="#d50000" Width="15" Height="15" />
                                     </Button>
-                                    <Button Margin="10 0 0 0"                                        
-                                             Width="50" Height="30"
-                                        Style="{StaticResource MaterialDesignIconButton}">
-                                        <Button.Content>
-                                            <materialDesign:PackIcon Kind="Eye" Foreground="Gray" Width="15" Height="15" />
-                                        </Button.Content>
-                                        <Button.ToolTip>
-                                            <ToolTip Background="Transparent">
-                                                <Grid>
-                                                    <Grid.RowDefinitions>
-                                                        <RowDefinition Height="auto"></RowDefinition>
-                                                        <RowDefinition Height="*"></RowDefinition>
-                                                    </Grid.RowDefinitions>
-                                                    <Path 
-                                                        Grid.Row="0"
-                                                        Margin="0 0 0 -12"
-                                                        Stroke="Gray"
-                                                        StrokeThickness="0.3"
-                                                        Fill="White"                                                         
-                                                        Data="M 0,0 L 10, 10 L 20, 0 L 0,0" 
-                                                        VerticalAlignment="Bottom"
-                                                        HorizontalAlignment="Center">
-                                                        <Path.RenderTransform>
-                                                            <RotateTransform Angle="180"></RotateTransform>
-                                                        </Path.RenderTransform>
-                                                    </Path>
-                                                    <Border BorderBrush="Gray"
-                                                            BorderThickness="0.3"
-                                                            Grid.Row="1"
-                                                            Background="White" 
-                                                            CornerRadius="30">
-                                                        <Border.Effect>
-                                                            <DropShadowEffect BlurRadius="5" ShadowDepth="5"/>
-                                                        </Border.Effect>
-                                                        <StackPanel Margin="20">
-                                                            <TextBox Foreground="Black" materialDesign:TextFieldAssist.PrefixText="Mã nhân viên: " Text="{Binding ID,Mode=OneWay}"/>
-                                                            <TextBox Foreground="Black" materialDesign:TextFieldAssist.PrefixText="Tên: " Text="{Binding Name,Mode=OneWay}"></TextBox>
-                                                            <TextBox Foreground="Black" materialDesign:TextFieldAssist.PrefixText="Vị trí: " Text="{Binding EmplRole.Title,Mode=OneWay}"/>
-                                                            <TextBox Foreground="Black" materialDesign:TextFieldAssist.PrefixText="Giới tính: " Text="{Binding Gender,Mode=OneWay}"/>
-                                                            <TextBox Foreground="Black" materialDesign:TextFieldAssist.PrefixText="Ngày sinh: " Text="{Binding Birthday, StringFormat='dd/MM/yyyy',Mode=OneWay}"/>
-                                                            <TextBox Foreground="Black" materialDesign:TextFieldAssist.PrefixText="CCCD: " Text="{Binding IdentifyCard,Mode=OneWay}"/>
-                                                            <TextBox Foreground="Black" materialDesign:TextFieldAssist.PrefixText="Điện thoai: " Text="{Binding PhoneNumber,Mode=OneWay}"/>
-                                                            <TextBox Foreground="Black" materialDesign:TextFieldAssist.PrefixText="Email: " Text="{Binding Email,Mode=OneWay}"/>
-                                                            <TextBox Foreground="Black" materialDesign:TextFieldAssist.PrefixText="Địa chỉ: " Text="{Binding Address,Mode=OneWay}"/>
-                                                            <TextBox Foreground="Black" materialDesign:TextFieldAssist.PrefixText="Lương: " Text="{Binding Salary,Mode=OneWay}"/>
-                                                            <TextBox Foreground="Black" materialDesign:TextFieldAssist.PrefixText="Phòng: " Text="{Binding Department.Name,Mode=OneWay}"/>
-                                                        </StackPanel>
-                                                    </Border>
-                                                </Grid>
-                                            </ToolTip>
-                                        </Button.ToolTip>
-                                    </Button>
                                 </StackPanel>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTextColumn MinWidth="200" Header="Mã nhân viên" IsReadOnly="True" Binding="{Binding ID}" />
-                    <DataGridTextColumn MinWidth="250" Header="Họ và tên" IsReadOnly="True" Binding="{Binding Name}" />
-                    <DataGridTextColumn MinWidth="200" Header="Vị trí công việc" IsReadOnly="True" Binding="{Binding EmplRole.Title}" />
+                    <DataGridTextColumn Header="Mã nhân viên" IsReadOnly="True" Binding="{Binding ID}" />
+                    <DataGridTextColumn Header="Họ và tên" IsReadOnly="True" Binding="{Binding Name}" />
+                    <DataGridTextColumn Header="Vị trí công việc" IsReadOnly="True" Binding="{Binding EmplRole.Title}" />
+                    <DataGridTextColumn Header="Giới tính" IsReadOnly="True" Binding="{Binding Gender}" />
+                    <DataGridTextColumn Header="Ngày sinh" IsReadOnly="True" Binding="{Binding Birthday, StringFormat='dd/MM/yyyy'}" />
+                    <DataGridTextColumn Header="Chứng minh nhân dân" IsReadOnly="True" Binding="{Binding IdentifyCard}" />
+                    <DataGridTextColumn Header="Email" IsReadOnly="True" Binding="{Binding Email}" />
+                    <DataGridTextColumn Header="Số điện thoại" IsReadOnly="True" Binding="{Binding PhoneNumber}" />
+                    <DataGridTextColumn Header="Địa chỉ" IsReadOnly="True" Binding="{Binding Address}" />
+                    <DataGridTextColumn Header="Lương" IsReadOnly="True" Binding="{Binding Salary}" />
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>

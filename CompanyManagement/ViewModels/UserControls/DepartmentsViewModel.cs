@@ -1,10 +1,12 @@
 ﻿using CompanyManagement.Database;
 using CompanyManagement.Models;
 using CompanyManagement.Services;
+using CompanyManagement.Utilities;
 using CompanyManagement.ViewModels.Base;
 using CompanyManagement.Views.Dialogs;
 using System;
 using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Input;
 
 namespace CompanyManagement.ViewModels.UserControls
@@ -34,7 +36,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void LoadDepartment()
         {
-            departments = departmentsDao.GetAll();
+            Departments = departmentsDao.GetAll();
         }
 
         private void SetCommands()
@@ -45,9 +47,11 @@ namespace CompanyManagement.ViewModels.UserControls
             ItemClickCommand = new RelayCommand<object>(ExecuteItemClickCommand);
         }
 
-        private void ExecuteOpenUpdateDialogCommand(Department obj)
+        private void ExecuteOpenUpdateDialogCommand(Department dept)
         {
-            throw new NotImplementedException();
+            Log.Instance.Information(nameof(DepartmentsViewModel),"Selected Department: "+dept.Name);
+            var inputService = new InputDialogService<Department>(new UpdateDepartmentDialog(), dept, Update);
+            inputService.Show();
         }
 
         private void ExecuteOpenAddDialogCommand(string obj)
@@ -70,7 +74,7 @@ namespace CompanyManagement.ViewModels.UserControls
             {
                 int number = random.Next(10000);
                 deptID = $"EM{number:0000}";
-            } while (departmentsDao.DepartmentByEmployeeDeptID(deptID) != null);
+            } while (departmentsDao.SearchByID(deptID) != null);
             return deptID;
         }
 
@@ -81,8 +85,15 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void Delete(string departmentID)
         {
-            departmentsDao.Delete(departmentID);
-            LoadDepartment();
+            var dialog = new AlertDialogService(
+               "Xóa phòng ban",
+               "Bạn chắc chắn muốn Xóa phòng ban !",
+               () =>
+               {
+                   departmentsDao.Delete(departmentID);
+                   LoadDepartment();
+               }, null);
+            dialog.Show();        
         }
 
         private void Add(Department department)

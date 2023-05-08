@@ -70,7 +70,7 @@
                                             ToolTip="Chỉnh sửa"
                                             Width="50" Height="30"
                                         Style="{StaticResource MaterialDesignIconButton}"
-                                        Command="{Binding DataContext.OpenUpdateDialogCommand, ElementName=employeesInDepartmentUC}"
+                                        Command="{Binding DataContext.OpenUpdateDialogCommand, ElementName=employeesUC}"
                                         CommandParameter="{Binding}">
                                         <materialDesign:PackIcon Kind="AccountEditOutline" Foreground="#00826b" Width="15" Height="15"/>
                                     </Button>
@@ -78,7 +78,7 @@
                                             ToolTip="Xóa"
                                              Width="50" Height="30"
                                         Style="{StaticResource MaterialDesignIconButton}"
-                                        Command="{Binding DataContext.DeleteEmployeeCommand, ElementName=employeesInDepartmentUC}"
+                                        Command="{Binding DataContext.DeleteEmployeeCommand, ElementName=employeesUC}"
                                         CommandParameter="{Binding ID}">
                                         <materialDesign:PackIcon Kind="DeleteOutline" Foreground="#d50000" Width="15" Height="15" />
                                     </Button>
@@ -88,7 +88,7 @@
                     </DataGridTemplateColumn>
                     <DataGridTextColumn Header="Mã nhân viên" IsReadOnly="True" Binding="{Binding ID}" />
                     <DataGridTextColumn Header="Họ và tên" IsReadOnly="True" Binding="{Binding Name}" />
-                    <DataGridTextColumn Header="Mã vị trí công việc" IsReadOnly="True" Binding="{Binding EmplRole.Title}" />
+                    <DataGridTextColumn Header="Vị trí công việc" IsReadOnly="True" Binding="{Binding EmplRole.Title}" />
                     <DataGridTextColumn Header="Giới tính" IsReadOnly="True" Binding="{Binding Gender}" />
                     <DataGridTextColumn Header="Ngày sinh" IsReadOnly="True" Binding="{Binding Birthday, StringFormat='dd/MM/yyyy'}" />
                     <DataGridTextColumn Header="Chứng minh nhân dân" IsReadOnly="True" Binding="{Binding IdentifyCard}" />

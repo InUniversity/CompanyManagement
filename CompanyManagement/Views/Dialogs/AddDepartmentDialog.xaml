@@ -50,7 +50,7 @@
                     Width="200"
                     Background="Teal"
                     Style="{StaticResource MaterialDesignFlatMidBgButton}"
-                    ToolTip="Thêm nhân phòng mới" />
+                    ToolTip="Thêm phòng mới" />
             
             </StackPanel>
         </Grid>

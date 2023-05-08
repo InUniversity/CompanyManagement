@@ -71,7 +71,7 @@ namespace CompanyManagement.ViewModels.Dialogs
         {
             if (!DepartmentInputDataContext.CheckAllFields())
                 return false;
-            if (departmentsDao.DepartmentByEmployeeDeptID(DepartmentInputDataContext.ID) != null)
+            if (departmentsDao.SearchByID(DepartmentInputDataContext.ID) != null)
             {
                 DepartmentInputDataContext.ErrorMessage = Utils.invalidIDMess;
                 return false;

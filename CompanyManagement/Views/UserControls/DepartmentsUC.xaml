@@ -13,6 +13,7 @@
              TextOptions.TextRenderingMode="Auto"
              Background="{DynamicResource MaterialDesignPaper}"
              FontFamily="{DynamicResource MaterialDesignFont}"
+             Name="departmentsUC"
              mc:Ignorable="d">
     <Grid>
         <Grid.RowDefinitions>
@@ -48,9 +49,8 @@
                                 VerticalAlignment="Center"
                                 Background="#e0f7fa"
                                 Foreground="#00bfe5"
-                                Command="{Binding OpenUpdateDialogCommand}"
+                                Command="{Binding ElementName=departmentsUC,Path=DataContext.OpenUpdateDialogCommand}"
                                 CommandParameter="{Binding}"
-                                IsEnabled="{Binding ControlsEnabled}"
                                 Style="{StaticResource MaterialDesignIconForegroundButton}"
                                 ToolTip="Edit">
                                 <materialDesign:PackIcon Kind="PencilPlus" Height="20" Width="20"/>
@@ -60,11 +60,55 @@
                                 VerticalAlignment="Center"
                                 Background="#fff3e0"
                                 Foreground="#ef6c00"
-                                Command="{Binding DeleteDepartmentCommand}"
+                                Command="{Binding ElementName=departmentsUC,Path=DataContext.DeleteDepartmentCommand}"
                                 CommandParameter="{Binding ID}"   
                                 Style="{StaticResource MaterialDesignIconForegroundButton}"
                                 ToolTip="Delete">
                                 <materialDesign:PackIcon Kind="DeleteForever"  Height="20" Width="20"/>
+                            </Button>
+                            <Button Margin="10 5"                                       
+                                        Style="{StaticResource MaterialDesignIconButton}">
+                                <Button.Content>
+                                    <materialDesign:PackIcon Kind="Eye" Foreground="Gray"/>
+                                </Button.Content>
+                                <Button.ToolTip>
+                                    <ToolTip Background="Transparent">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto"></RowDefinition>
+                                                <RowDefinition Height="*"></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <Path 
+                                                        Grid.Row="0"
+                                                        Margin="0 0 0 -12"
+                                                        Stroke="Teal"
+                                                        StrokeThickness="0.5"
+                                                        Fill="White"                                                         
+                                                        Data="M 0,0 L 10, 10 L 20, 0 L 0,0" 
+                                                        VerticalAlignment="Bottom"
+                                                        HorizontalAlignment="Center">
+                                                <Path.RenderTransform>
+                                                    <RotateTransform Angle="180"></RotateTransform>
+                                                </Path.RenderTransform>
+                                            </Path>
+                                            <Border BorderBrush="Teal"
+                                                            BorderThickness="0.5"
+                                                            Grid.Row="1"
+                                                            Background="White" 
+                                                            CornerRadius="30">
+                                                <Border.Effect>
+                                                    <DropShadowEffect BlurRadius="5" ShadowDepth="5"/>
+                                                </Border.Effect>
+                                                <StackPanel Margin="20">
+                                                    <TextBox Foreground="Black" materialDesign:TextFieldAssist.PrefixText="Mã phòng: " Text="{Binding ID,Mode=OneWay}"/>
+                                                    <TextBox Foreground="Black" materialDesign:TextFieldAssist.PrefixText="Tên phòng: " Text="{Binding Name,Mode=OneWay}"></TextBox>
+                                                    <TextBox Foreground="Black" materialDesign:TextFieldAssist.PrefixText="Trưởng phòng: " Text="{Binding DeptHead.Name,Mode=OneWay}"/>
+                                                    <TextBox Foreground="Black" materialDesign:TextFieldAssist.PrefixText="Số lượng nhân viên: " Text="{Binding Empls.Count,Mode=OneWay}"/>
+                                                </StackPanel>
+                                            </Border>
+                                        </Grid>
+                                    </ToolTip>
+                                </Button.ToolTip>
                             </Button>
                             <TextBlock Margin="30 5" VerticalAlignment="Center"
                                            Text="{Binding Name}" FontSize="20" Foreground="Black" />
@@ -75,7 +119,7 @@
         </ScrollViewer>
         <Button Grid.Row="1" 
                 Margin="20 10"
-                Command="{Binding OpenAddDialogCommand}"
+                Command="{Binding  ElementName=departmentsUC,Path=DataContext.OpenAddDialogCommand}"
                 Style="{StaticResource MaterialDesignFloatingActionButton}" 
                 HorizontalAlignment="Right">
             <materialDesign:PackIcon Kind="Plus"/>

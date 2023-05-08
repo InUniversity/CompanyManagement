@@ -16,11 +16,11 @@
              x:Name="deptInputUC">
     <StackPanel>
         <TextBox
+                IsEnabled="False"
                 Grid.Column="0"
                 Text="{Binding ID}"
                 Background="White"
                 Margin="10"
-                IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedTextBoxEnabledComboBox}"
                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
                 materialDesign:HintAssist.Hint="Mã phòng" />
         <TextBox
@@ -28,7 +28,6 @@
                 Text="{Binding Name}"
                 Background="White"
                 Margin="10"
-                IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedTextBoxEnabledComboBox}"
                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
                 materialDesign:HintAssist.Hint="Tên phòng" />
         <materialDesign:DialogHost CloseOnClickAway="True" Margin="10">
