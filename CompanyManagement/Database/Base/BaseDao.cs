@@ -141,7 +141,7 @@ namespace CompanyManagement.Database.Base
         public const string mileProjID = "ProjectID";
         
         protected const string mileTsksTbl = "MileTasks";
-        public const string mileTskID = "ID";
+        public const string mileTskID = "MileID";
         public const string mileTskTskID = "TaskID";
         
         protected DBConnection dbConnection = new DBConnection();

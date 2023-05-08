@@ -11,20 +11,15 @@ namespace CompanyManagementTest.Database
     public class MilestonesDaoTest
     {
         private MilestonesDao milestonesDao;
-        private Milestone mile;
         
         [SetUp]
         public void SetUp()
         {
             milestonesDao = new MilestonesDao();
-            mile = new Milestone("MIL12342", "Test Project", "Test Details",
-                new DateTime(2023, 1, 1, 1, 0, 0),
-                new DateTime(2023, 1, 1, 1, 0, 0),
-                Utils.emptyDate, "EM006", "PROJ001");
         }
         
         [Test]
-        public void Projects_Dao_Search_By_ID_Success()
+        public void Milestones_Dao_Search_By_ID_Success()
         {
             var actual = Search("MST0001");
             
@@ -40,8 +35,12 @@ namespace CompanyManagementTest.Database
         }
 
         [Test]
-        public void Projects_Dao_Add_Update_Delete()
+        public void Milestones_Dao_Add_Update_Delete()
         {
+            var mile = new Milestone("MIL12342", "Test Project", "Test Details",
+                new DateTime(2023, 1, 1, 1, 0, 0),
+                new DateTime(2023, 1, 1, 1, 0, 0),
+                Utils.emptyDate, "EM006", "PROJ001");
             var initial = Search(mile.ID);
             
             // add
@@ -63,13 +62,20 @@ namespace CompanyManagementTest.Database
             
             // assert added
             Assert.IsNotNull(added);
-            AssertProject(mile, added);
+            AssertObj(mile, added);
             
             // assert updated
-            AssertProject(updateProject, updated);
+            AssertObj(updateProject, updated);
             
             // assert deleted
             Assert.IsNull(afterDelete); 
+        }
+
+        [Test]
+        public void Milestones_Dao_Search_By_ProjectID()
+        {
+            var list = milestonesDao.SearchByProjectID("PRJ001");
+            Assert.AreEqual(1, list.Count);
         }
 
         private Milestone Search(string id)
@@ -79,7 +85,7 @@ namespace CompanyManagementTest.Database
             return (Milestone)dbConnection.GetSingleObject(sql, reader => new Milestone(reader)); 
         }
         
-        private void AssertProject(Milestone expected, Milestone actual)
+        private void AssertObj(Milestone expected, Milestone actual)
         {
             Assert.IsNotNull(actual);
             Assert.AreEqual(expected.ID, actual.ID);

@@ -1,0 +1,114 @@
+﻿<UserControl x:Class="CompanyManagement.Views.UserControls.MilestonesUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CompanyManagement.Views.UserControls"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.FontWeight="Regular"
+             TextElement.FontSize="13"
+             TextOptions.TextFormattingMode="Ideal"
+             TextOptions.TextRenderingMode="Auto"
+             Background="White"
+             FontFamily="{DynamicResource MaterialDesignFont}"
+             Name="milestonesUC"
+             mc:Ignorable="d">
+    <Grid  MinHeight="600" MinWidth="1100">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"></RowDefinition>    
+            <RowDefinition Height="Auto"></RowDefinition>    
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="20 0">
+                <Button
+                        Visibility="{Binding VisibleAddButton}"
+                        ToolTip="Thêm cột mốc"
+                        Width="220"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Command="{Binding OpenAddMilestoneDialogCommand}">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Plus"  Width="20" Height="20" FontWeight="ExtraBold" />
+                        <TextBlock Text="Thêm Cột Mốc" FontWeight="ExtraBold"></TextBlock>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="1">
+            <DataGrid         
+                            CanUserResizeColumns="False"
+                            CanUserAddRows="False"
+                            AutoGenerateColumns="False"
+                            Background="White"
+                            ItemsSource="{Binding Milestones}"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Header="Operations" 
+                                                    CanUserResize="False" 
+                                                    IsReadOnly="True"
+                                                    Width="Auto">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button
+                                            Height="30"
+                                            Width="30"
+                                            Margin="10 5"
+                                            VerticalAlignment="Center"
+                                            Background="#e0f7fa"
+                                            Foreground="#00bfe5"
+                                            Command="{Binding ElementName=milestonesUC,Path=DataContext.OpenUpdateMilestoneDialogCommand}"
+                                            CommandParameter="{Binding}"
+                                            IsEnabled="{Binding ControlsEnabled}"
+                                            Style="{StaticResource MaterialDesignIconForegroundButton}"
+                                            ToolTip="Edit">
+                                        <materialDesign:PackIcon Kind="PencilPlus" Height="15" Width="15"/>
+                                    </Button>
+                                    <Button
+                                            Height="30"
+                                            Width="30"
+                                            Margin="10 5"
+                                            VerticalAlignment="Center"
+                                            Background="#fff3e0"
+                                            Foreground="#ef6c00"
+                                            Command="{Binding ElementName=milestonesUC,Path=DataContext.DeleteMilestoneCommand}"
+                                            CommandParameter="{Binding ID}"
+                                            IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                            Style="{StaticResource MaterialDesignIconForegroundButton}"
+                                            ToolTip="Delete">
+                                        <materialDesign:PackIcon Kind="DeleteForever"  Height="15" Width="15"/>
+                                    </Button>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Width="200" Header="Tiêu Đề" IsReadOnly="True" Binding="{Binding Title}"/>
+                    <DataGridTemplateColumn Header="Phần Trăm Hoàn Thành" Width="Auto">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock Text="{Binding Progress, StringFormat='{}{0}%'}"/>
+                                    <ProgressBar Minimum="0" Maximum="100" Value="{Binding Progress}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Width="Auto" Header="Người Tạo" IsReadOnly="True" Binding="{Binding Owner.Name}" />
+                    <DataGridTextColumn Width="Auto" Header="Ngày Bắt Đầu" IsReadOnly="True" Binding="{Binding Start}" />
+                    <DataGridTextColumn Width="Auto" Header="Ngày Kết Thúc" IsReadOnly="True">
+                        <DataGridTextColumn.Binding>
+                            <MultiBinding StringFormat="{}{0} (cách {1} ngày)">
+                                <Binding Path="End"/>
+                                <Binding Path="TimeUntilDl"/>
+                            </MultiBinding>
+                        </DataGridTextColumn.Binding>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Width="250" Header="Chú Thích" IsReadOnly="True" Binding="{Binding Explanation}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </Grid>
+</UserControl>
