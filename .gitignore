@@ -5,3 +5,5 @@ obj/
 
 # Ignore Rider files
 .idea/
+
+*.htm
