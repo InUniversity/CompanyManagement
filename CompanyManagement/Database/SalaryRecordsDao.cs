@@ -35,10 +35,10 @@ namespace CompanyManagement.Database
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
-        public void DeleteByMonthYear(SalaryRecord salaryRecord)
+        public void DeleteByMonthYear(int month, int year)
         {
-            string sqlStr = $"DELETE FROM {salaryTbl} WHERE MONTH({salaryMonthYear}) = '{salaryRecord.MonthYear.Month}' " +
-                            $"AND YEAR({salaryMonthYear}) = '{salaryRecord.MonthYear.Year}'";
+            string sqlStr = $"DELETE FROM {salaryTbl} WHERE MONTH({salaryMonthYear}) = '{month}' " +
+                            $"AND YEAR({salaryMonthYear}) = '{year}'";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 

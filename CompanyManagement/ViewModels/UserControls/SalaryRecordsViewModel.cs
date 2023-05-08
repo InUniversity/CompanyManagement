@@ -5,11 +5,14 @@ using CompanyManagement.Services;
 using CompanyManagement.Utilities;
 using CompanyManagement.ViewModels.Base;
 using CompanyManagement.Views.Dialogs;
+using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -26,11 +29,20 @@ namespace CompanyManagement.ViewModels.UserControls
         public List<int> Years = new List<int>();
         public List<Department> Departments = new List<Department>();
 
-        private int month = DateTime.Now.Month;
+        private int month = DateTime.Now.Month - 1;
         public int Month { get => month; set { month = value; OnPropertyChanged(); LoadSalaryRecords(); } }
 
         private int year = DateTime.Now.Year;
         public int Year { get => year; set { year = value; OnPropertyChanged(); LoadSalaryRecords(); } }
+
+        private SnackbarMessageQueue messageRestore = new SnackbarMessageQueue();
+        public SnackbarMessageQueue MessageRestore { get => messageRestore; set { messageRestore = new(TimeSpan.FromSeconds(15)); } }
+
+        private string messageRestoreContent = "";
+        public string MessageRestoreContent { get => messageRestoreContent; set { messageRestoreContent = value; OnPropertyChanged(); } }
+
+        private int timeRemaining;
+        public int TimeRemaining { get => timeRemaining; set { timeRemaining = value; OnPropertyChanged(); } }
 
         public string DepartmentID { get; set; }
 
@@ -43,6 +55,7 @@ namespace CompanyManagement.ViewModels.UserControls
         public ICommand CalculateSalaryCommand { get; private set; }
         public ICommand DistributeSalaryCommand { get; private set; }
         public ICommand OpenSalaryDetailsDialogCommand { get; private set; }
+        public ICommand RestorePayRollCommand { get; private set; }
 
         public SalaryRecordsViewModel()
         {
@@ -56,6 +69,7 @@ namespace CompanyManagement.ViewModels.UserControls
             CalculateSalaryCommand = new RelayCommand<object>(ExcuteCalculateSalary);
             DistributeSalaryCommand = new RelayCommand<object>(ExcuteDistributeSalary);
             OpenSalaryDetailsDialogCommand = new RelayCommand<SalaryRecord>(ExcuteOpenSalaryDetailsDialog);
+            RestorePayRollCommand = new RelayCommand<object>(ExcuteRestorePayRoll);
         }
 
         private void LoadSalaryRecords()
@@ -102,7 +116,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private bool ValidateCalculateSalary()
         {
-            if (DateTime.Now.Year == Year && DateTime.Now.Month < Month)
+            if (DateTime.Now.Year == Year && DateTime.Now.Month <= Month)
             {
                 var dialog = new AlertDialogService(
                     "Thông báo",
@@ -165,6 +179,23 @@ namespace CompanyManagement.ViewModels.UserControls
                 salaryRecord.ID = AutoGenerateID();
                 salaryRecordsDao.Add(salaryRecord);
             }
+            ShowRestoreSnackbar();
+        }
+
+        private void ShowRestoreSnackbar()
+        {
+            TimeRemaining = 15;
+            MessageRestoreContent = "Còn " + TimeRemaining + " giây để hoàn tác";
+            MessageRestore.Enqueue(new SnackbarMessage { Content = messageRestoreContent });
+
+            var timer = new Timer(state =>
+            {
+                if (TimeRemaining > 0)
+                {
+                    TimeRemaining--;
+                    MessageRestoreContent = "Còn " + TimeRemaining + " giây để hoàn tác";
+                }
+            }, null, TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1));
         }
 
         private string AutoGenerateID()
@@ -200,6 +231,11 @@ namespace CompanyManagement.ViewModels.UserControls
             }
 
             return true;
+        }
+
+        public void ExcuteRestorePayRoll(object obj)
+        {
+            salaryRecordsDao.DeleteByMonthYear(month, year);
         }
 
         private void ExcuteOpenSalaryDetailsDialog(SalaryRecord salaryRecord)
