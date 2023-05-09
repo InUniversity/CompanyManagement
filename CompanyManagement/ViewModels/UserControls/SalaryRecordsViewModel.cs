@@ -3,6 +3,7 @@ using CompanyManagement.Models;
 using CompanyManagement.Services;
 using CompanyManagement.Utilities;
 using CompanyManagement.ViewModels.Base;
+using CompanyManagement.ViewModels.Dialogs;
 using CompanyManagement.Views.Dialogs;
 using System;
 using System.Collections.Generic;

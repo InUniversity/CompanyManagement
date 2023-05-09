@@ -161,7 +161,7 @@
     <Compile Include="ViewModels\UserControls\EmployeesInDepartmentViewModel.cs" />
     <Compile Include="ViewModels\UserControls\OrganizationViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ProjectBonusViewModel.cs" />
-    <Compile Include="ViewModels\UserControls\SalaryDetailViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\SalaryDetailViewModel.cs" />
     <Compile Include="ViewModels\UserControls\SalaryRecordsViewModel.cs" />
     <Compile Include="ViewModels\UserControls\TimeSheetInputViewModel.cs" />
     <Compile Include="ViewModels\UserControls\TimeSheetViewModel.cs" />

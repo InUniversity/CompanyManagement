@@ -13,6 +13,8 @@ namespace CompanyManagement.Models
         public string ID => id;
         public string Name => name;
 
+        public LeaveStatus() { }
+
         public LeaveStatus(IDataRecord reader)
         {
             try

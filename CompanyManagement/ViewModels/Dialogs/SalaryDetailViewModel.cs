@@ -2,11 +2,12 @@
 using CompanyManagement.Models;
 using CompanyManagement.ViewModels.Base;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
 
-namespace CompanyManagement.ViewModels.UserControls
+namespace CompanyManagement.ViewModels.Dialogs
 {
     public class SalaryDetailViewModel : BaseViewModel
     {
@@ -22,10 +23,18 @@ namespace CompanyManagement.ViewModels.UserControls
         public Role WorkerRole { get => salaryRecordIns.WorkerRole; }
         public Department WorkerDepartment { get => salaryRecordIns.WorkerDepartment; }
 
+        //public DateTime StartDate { get => MonthYear; }
+        //public DateTime EndDate { get => MonthYear.AddMonths(1); }
+
+        private List<LeaveRequest> leaveRequests;
+        public List<LeaveRequest> LeaveRequests { get => leaveRequests; set { leaveRequests = value; OnPropertyChanged(); } }
+
         public List<DateTime> OffDays = new List<DateTime>();
         public List<ProjectBonus> ProjectsCompleted = new List<ProjectBonus>();
 
         private ProjectBonusesDao projectBonusesDao = new ProjectBonusesDao();
+        private LeaveRequestsDao leaveRequestsDao = new LeaveRequestsDao();
+        private LeaveStatusesDao leaveStatusesDao = new LeaveStatusesDao();
         
         public ICommand CloseViewCommand { get; private set; }
 
@@ -33,6 +42,7 @@ namespace CompanyManagement.ViewModels.UserControls
         {
             SetList();
             SetCommad();
+            LoadLeaveRequests();
         }
 
         private void SetList()
@@ -40,6 +50,20 @@ namespace CompanyManagement.ViewModels.UserControls
             ProjectsCompleted = projectBonusesDao.GetOfEmployeeByTime(EmployeeID, MonthYear.Month, MonthYear.Year);
             //TODO
             //OffDays = 
+        }
+
+        private void LoadLeaveRequests()
+        {
+            var listRequests = leaveRequestsDao.GetMyRequests(EmployeeID);
+            var listItem = from request in listRequests /*where request.Start.Month == MonthYear.Month*/  select request;
+            GetStatusForListLeaveRequest(listItem.ToList());
+            LeaveRequests = listItem.ToList();
+        }
+
+        private void GetStatusForListLeaveRequest(List<LeaveRequest>leaveRequests)
+        {
+            foreach (var leaveRequest in leaveRequests)
+                leaveRequest.Status = leaveStatusesDao.SearchByID(leaveRequest.ID);
         }
 
         private void SetCommad()
