@@ -7,6 +7,7 @@ using System;
 using CompanyManagement.Services;
 using CompanyManagement.Models;
 using CompanyManagement.Database.Base;
+using System.Data.SqlClient;
 
 namespace CompanyManagement.ViewModels.Windows
 {
@@ -20,6 +21,7 @@ namespace CompanyManagement.ViewModels.Windows
         private OrganizationUC organizationUC = new OrganizationUC();
         private LeaveRequestsUC leavesListUC = new LeaveRequestsUC();
         private ApproveLeaveRequestsUC approveLeaveRequestsUC = new ApproveLeaveRequestsUC();
+        private SalaryRecordsUC salaryRecordsUC = new SalaryRecordsUC();
 
         private Visibility visibilityAssignmentView;
         public Visibility VisibilityAssignmentView { get => visibilityAssignmentView; set { visibilityAssignmentView = value; OnPropertyChanged();} }
@@ -39,11 +41,15 @@ namespace CompanyManagement.ViewModels.Windows
         private bool statusLeavesView = false;
         public bool StatusLeavesView { get => statusLeavesView; set { statusLeavesView = value; OnPropertyChanged(); } }
 
+        private bool statusSalaryRecordsView = false;
+        public bool StatusSalaryRecordsView { get => statusSalaryRecordsView; set { statusSalaryRecordsView = value; OnPropertyChanged(); } }
+
         public ICommand ShowUserInformationViewCommand { get; private set; }
         public ICommand ShowAssignmentViewCommand { get; private set; }
         public ICommand ShowOrganizationViewCommand { get; private set; }
         public ICommand ShowLeavesViewCommand { get; private set;}
         public ICommand ShowApproveLeaveRequestsViewCommand { get; private set; }
+        public ICommand ShowSalaryRecordsViewCommand { get; private set; }
         public ICommand LogOutCommand { get; private set; }
 
         public MainViewModel()
@@ -59,6 +65,7 @@ namespace CompanyManagement.ViewModels.Windows
             ShowOrganizationViewCommand = new RelayCommand<object>(ExecuteShowOrganizationView);
             ShowLeavesViewCommand = new RelayCommand<object>(ExecuteShowLeavesViewCommand);
             ShowApproveLeaveRequestsViewCommand = new RelayCommand<Window>(ExecuteShowApproveLeaveRequestListView);
+            ShowSalaryRecordsViewCommand = new RelayCommand<object>(ExecuteShowSalaryRecordsView);
             LogOutCommand = new RelayCommand<Window>(ExecuteLogOutCommand);
         }
 
@@ -92,6 +99,12 @@ namespace CompanyManagement.ViewModels.Windows
         private void ExecuteShowApproveLeaveRequestListView(Window obj)
         {
             CurrentChildView = approveLeaveRequestsUC;
+        }
+
+        private void ExecuteShowSalaryRecordsView(object obj)
+        {
+            CurrentChildView = salaryRecordsUC;
+            StatusSalaryRecordsView = true;
         }
 
         private void ExecuteLogOutCommand(Window window)

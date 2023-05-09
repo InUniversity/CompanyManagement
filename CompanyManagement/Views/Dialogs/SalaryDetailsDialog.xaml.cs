@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CompanyManagement.ViewModels.UserControls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,11 +18,12 @@ namespace CompanyManagement.Views.Dialogs
     /// <summary>
     /// Interaction logic for ViewDetailsSalaryRecordDialog.xaml
     /// </summary>
-    public partial class ViewDetailsSalaryRecordDialog : Window
+    public partial class SalaryDetailsDialog : Window
     {
-        public ViewDetailsSalaryRecordDialog()
+        public SalaryDetailsDialog()
         {
             InitializeComponent();
+            DataContext = new SalaryDetailViewModel();
         }
     }
 }

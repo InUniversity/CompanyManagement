@@ -64,5 +64,29 @@ namespace CompanyManagement.Database.Base
             }
             return list;
         }
+
+        public decimal GetDecimal(string sqlStr)
+        {
+            decimal variable = 0;
+            try
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(sqlStr, conn);
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
+                    variable = (decimal)reader[0];
+                cmd.Dispose();
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                Log.Instance.Error(nameof(DBConnection), ex.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return variable;
+        }
     }
 }

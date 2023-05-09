@@ -129,6 +129,7 @@ namespace CompanyManagement.Database.Base
         public const string projBonusProjID = "ProjectID";
 
         protected const string salaryTbl = "SalaryRecords";
+        public const string salaryID = "ID";
         public const string salaryEmplID = "EmployeeID";
         public const string salaryMonthYear = "MonthYear";
         public const string salaryWorkdays = "TotalWorkdays";

@@ -31,7 +31,7 @@ namespace CompanyManagement.Database
         public List<Department> GetAll()
         {
             string sqlStr = $"SELECT * FROM {deptTbl}";
-            return dbConnection.GetList(sqlStr, reader => new Department(reader));
+            return dbConnection.GetList<Department>(sqlStr, reader => new Department(reader));
         }
 
         public Department SearchByID(string dptID)
