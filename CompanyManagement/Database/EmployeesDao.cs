@@ -35,12 +35,6 @@ namespace CompanyManagement.Database
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
-        public List<Employee> GetAll()
-        {
-            string sqlStr = $"SELECT * FROM {emplTbl}";
-            return dbConnection.GetList(sqlStr, reader => new Employee(reader));
-        }
-
         public List<Employee> GetAllWithoutManagers()
         {
             string sqlStr = $"SELECT * FROM {emplTbl} WHERE {emplRoleID} NOT LIKE '{managerRole}'";

@@ -97,16 +97,17 @@ namespace CompanyManagement.ViewModels.UserControls
         private void ExcuteCalculateSalary(object obj)
         {
             if (!ValidateCalculateSalary()) return;
-            var employees = employeesDao.GetAll();
-            listSalaryRecord.Clear();
-            foreach(Employee employee in employees)
-            {
-                SalaryRecord salaryRecord = CreateSalaryRecord(employee);
-                salaryRecord.Worker = employee;
-                CalculateIcome(salaryRecord);
-                listSalaryRecord.Add(salaryRecord);
-            }
-            SalaryRecords = new ObservableCollection<SalaryRecord>(listSalaryRecord);
+            throw new NotImplementedException();
+            // var employees = employeesDao.GetAll();
+            // listSalaryRecord.Clear();
+            // foreach(Employee employee in employees)
+            // {
+            //     SalaryRecord salaryRecord = CreateSalaryRecord(employee);
+            //     salaryRecord.Worker = employee;
+            //     CalculateIcome(salaryRecord);
+            //     listSalaryRecord.Add(salaryRecord);
+            // }
+            // SalaryRecords = new ObservableCollection<SalaryRecord>(listSalaryRecord);
         }
 
         private bool ValidateCalculateSalary()
