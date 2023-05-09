@@ -7,4 +7,7 @@ obj/
 .idea/
 
 *.htm
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of 4600d69... Revert "Merge branch 'develop' into salary-v2"

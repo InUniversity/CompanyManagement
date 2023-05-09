@@ -11,7 +11,6 @@ namespace CompanyManagement.Views.Windows
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new MainViewModel();
         }
     }
 }

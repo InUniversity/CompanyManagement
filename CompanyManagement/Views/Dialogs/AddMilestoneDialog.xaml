@@ -1,0 +1,39 @@
+﻿<Window x:Class="CompanyManagement.Views.Dialogs.AddMilestoneDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:uc="clr-namespace:CompanyManagement.Views.UserControls"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        WindowStartupLocation="CenterScreen"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        x:Name="addMilestoneDialog"
+        mc:Ignorable="d" Width="700" Height="720">
+    <Grid>
+        <StackPanel>
+            <TextBlock Text="Thêm Tiến Độ" 
+                       FontSize="25" 
+                       HorizontalAlignment="Center" 
+                       VerticalAlignment="Center"
+                       Margin="10"
+                       FontWeight="ExtraBold" />
+            <uc:MilestoneInputUC DataContext="{Binding MilestoneInputDataContext}" />
+            <Button Style="{StaticResource MaterialDesignFlatSecondaryMidBgButton}"
+                    Height="50"
+                    Command="{Binding AddMilestoneCommand}"
+                    CommandParameter="{Binding ElementName=addMilestoneDialog}"
+                    ToolTip="Thêm"
+                    IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                    Margin="100 10">
+                <materialDesign:PackIcon Kind="Plus" />
+            </Button>
+        </StackPanel>
+    </Grid>
+</Window>

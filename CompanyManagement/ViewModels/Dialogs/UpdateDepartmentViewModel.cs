@@ -37,7 +37,7 @@ namespace CompanyManagement.ViewModels.Dialogs
                 }, null);
             dialog.Show();
         }
-
+    
 
         private void ExecuteUpdateDeptCommand(Window inputWindow)
         {

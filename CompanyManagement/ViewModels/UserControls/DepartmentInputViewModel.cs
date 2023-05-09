@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -14,14 +14,14 @@ using CompanyManagement.ViewModels.Base;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
-    public class DepartmentInputViewModel : BaseViewModel
+    public class DepartmentInputViewModel : BaseViewModel 
     {
         private Department dept = new Department();
         public Department DeptIns
         {
             get => dept;
-            set
-            {
+            set 
+            { 
                 dept = value;
                 LoadEmployeesCanBeDeptHead();
                 LoadEmployeesCanAddInDept();
@@ -44,7 +44,7 @@ namespace CompanyManagement.ViewModels.UserControls
         public string ID { get => dept.ID; set { dept.ID = value; OnPropertyChanged(); } }
         public string Name { get => dept.Name; set { dept.Name = value; OnPropertyChanged(); } }
         public string DeptHeadID { get => dept.DeptHeadID; set { dept.DeptHeadID = value; OnPropertyChanged(); } }
-        public ObservableCollection<Employee> EmplsInDept
+        public ObservableCollection<Employee> EmplsInDept 
         { get => dept.Empls; set { dept.Empls = value; OnPropertyChanged(); } }
 
         public string errorMessage;
@@ -124,17 +124,17 @@ namespace CompanyManagement.ViewModels.UserControls
             selectedEmployees = selectedItems;
         }
 
-        private void ExecuteGetSelectedDeptHeadCommand(ListView listView)
+        private void ExecuteGetSelectedDeptHeadCommand(ListView listView) 
         {
             if (listView.SelectedItem == null) return;
             DeptHead = listView.SelectedItem as Employee;
         }
 
-        private void LoadEmployeesCanBeDeptHead()
+        private void LoadEmployeesCanBeDeptHead() 
         {
             var listallempl = employeesDao.GetAllWithoutManagers();
-            var listDeptHead = from empl in listallempl
-                               where empl.RoleID == BaseDao.deptHeadRole
+            var listDeptHead = from empl in listallempl 
+                               where empl.RoleID == BaseDao.deptHeadRole 
                                select empl;
             GetRoleForListEmployees(listDeptHead.ToList());
             employeesCanbeDeptHead = new List<Employee>(listDeptHead.ToList());
@@ -143,8 +143,8 @@ namespace CompanyManagement.ViewModels.UserControls
         private void LoadEmployeesCanAddInDept()
         {
             var listallempl = employeesDao.GetAllWithoutManagers();
-            var listempl = from empl in listallempl
-                           where empl.RoleID != BaseDao.hrRole && empl.DepartmentID == ""
+            var listempl = from empl in listallempl 
+                           where empl.RoleID != BaseDao.hrRole && empl.DepartmentID == "" 
                            select empl;
             GetRoleForListEmployees(listempl.ToList());
             employeesCanAddInDept = new List<Employee>(listempl.ToList());
@@ -155,7 +155,7 @@ namespace CompanyManagement.ViewModels.UserControls
         {
             var list = employeesDao.SearchByDepartmentID(dept.ID);
             GetRoleForListEmployees(list);
-            EmplsInDept = new ObservableCollection<Employee>(list);
+            EmplsInDept = new ObservableCollection<Employee>(list);         
         }
 
         private void GetRoleForListEmployees(List<Employee> employees)
@@ -199,12 +199,12 @@ namespace CompanyManagement.ViewModels.UserControls
             ErrorMessage = "";
             if (string.IsNullOrWhiteSpace(Name))
             {
-                ErrorMessage = "C�c th�ng tin kh�ng ???c ?? tr?ng!!!";
+                ErrorMessage = "Các thông tin không được để trống!!!";
                 return false;
             }
             if (DeptHead == null)
             {
-                ErrorMessage = "Ph?i c� tr??ng ph�ng!!!";
+                ErrorMessage = "Phải có trưởng phòng!!!";
                 return false;
             }
             return true;

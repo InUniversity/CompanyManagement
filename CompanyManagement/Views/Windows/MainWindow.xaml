@@ -65,13 +65,13 @@
                         <RadioButton
                             Height="50"
                             Margin="4"         
-                            IsChecked="{Binding StatusEmployeesView}"
-                            Command="{Binding ShowEmployeesViewCommand}"
+                            IsChecked="{Binding StatusOrganizationView}"
+                            Command="{Binding ShowOrganizationViewCommand}"
                             BorderBrush="{DynamicResource PrimaryHueMidBrush}"
                             Style="{StaticResource MaterialDesignTabRadioButtonRight}" >
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="AccountGroup" />
-                                <TextBlock Text="Nhân sự" Margin="30 0"></TextBlock>
+                                <TextBlock Text="Tổ chức" Margin="30 0"></TextBlock>
                             </StackPanel>
                         </RadioButton>
                     </StackPanel>
@@ -120,7 +120,7 @@
                             Width="50"     
                             ToolTip="Nhân sự"
                             Style="{StaticResource MaterialDesignIconButton}"
-                            Command="{Binding ShowEmployeesViewCommand}"                                                               
+                            Command="{Binding ShowOrganizationViewCommand}"                                                      
                             BorderThickness="0">
                             <materialDesign:PackIcon Kind="AccountGroup" Foreground="White" />
                         </Button>

@@ -1,11 +1,12 @@
 using System;
+using System.Collections.ObjectModel;
 using System.Data;
 using CompanyManagement.Database.Base;
 using CompanyManagement.Utilities;
 
 namespace CompanyManagement.Models
 {
-    public class Milestone
+    public class Milestone 
     {
         private string id;
         private string title;
@@ -15,6 +16,10 @@ namespace CompanyManagement.Models
         private DateTime completed;
         private string ownerID;
         private string projID;
+        private int progress;
+        private int timeUntilDl;
+        private Employee owner = new Employee();
+        private ObservableCollection<TaskInProject> taskInMile = new ObservableCollection<TaskInProject>();
 
         public string ID
         {
@@ -63,7 +68,31 @@ namespace CompanyManagement.Models
             get => projID;
             set => projID = value;
         }
-        
+
+        public int Progress
+        {
+            get => progress;
+            set => progress = value;
+        }
+
+        public int TimeUntilDl
+        {
+            get => timeUntilDl;
+            set => timeUntilDl = value;
+        }
+
+        public Employee Owner
+        {
+            get => owner;
+            set => owner = value;
+        }
+
+        public ObservableCollection<TaskInProject> TasksInMile
+        {
+            get => taskInMile;
+            set => taskInMile = value;
+        }
+
         public Milestone() { }
 
         public Milestone(string id, string title, string explanation, DateTime start, DateTime end, 

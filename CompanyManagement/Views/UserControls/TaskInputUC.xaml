@@ -164,7 +164,7 @@
                                                 </GridViewColumn.Header>
                                                 <GridViewColumn.CellTemplate>
                                                     <DataTemplate>
-                                                        <TextBlock  Height="40" Text="{Binding EmployeeRole.Title}" />
+                                                        <TextBlock  Height="40" Text="{Binding EmplRole.Title}" />
                                                     </DataTemplate>
                                                 </GridViewColumn.CellTemplate>
                                             </GridViewColumn>

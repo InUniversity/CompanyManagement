@@ -17,7 +17,7 @@ namespace CompanyManagementTest.Database
         }
 
         [Test]
-        public void Product_Repository_Add_Delete_Update_Test()
+        public void MileTasks_Dao_Add_Delete_Update_Test()
         {
             var addTarget = new MileTask("MIL123132", "T1231244");
             myDao.Add(addTarget);
@@ -33,17 +33,24 @@ namespace CompanyManagementTest.Database
             Assert.Null(deleteResult);
         }
 
+        [Test]
+        public void MileTasks_Dao_Search_By_MileID_Test()
+        {
+            var list = myDao.SearchByMileID("MST0001");
+            Assert.AreEqual(2, list.Count);
+        }
+
         private MileTask Search(MileTask mileTsk)
         {
             DBConnection dbConnection = new DBConnection();
-            string sql = $"SELECT * FROM MileTasks WHERE ID='{mileTsk.ID}' AND TaskID='{mileTsk.TskID}'";
+            string sql = $"SELECT * FROM MileTasks WHERE ID='{mileTsk.MileID}' AND TaskID='{mileTsk.TskID}'";
             return (MileTask)dbConnection.GetSingleObject(sql, reader => new MileTask(reader));
         }
 
         private void AssertObj(MileTask expected, MileTask actual)
         {
             Assert.NotNull(actual);
-            Assert.AreEqual(expected.ID, actual.ID);
+            Assert.AreEqual(expected.MileID, actual.MileID);
             Assert.AreEqual(expected.TskID, actual.TskID);
         } 
     }

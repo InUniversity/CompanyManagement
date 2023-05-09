@@ -63,10 +63,6 @@ namespace CompanyManagement.Models
                 id = Utils.GetString(reader, BaseDao.deptID);
                 name = Utils.GetString(reader, BaseDao.deptName);
                 deptHeadID = Utils.GetString(reader, BaseDao.deptHead);
-
-                id = (string)reader[BaseDao.deptID];
-                name = (string)reader[BaseDao.deptName];
-                deptHeadID = (string)reader[BaseDao.deptHead];
             }
             catch (Exception ex)
             {
