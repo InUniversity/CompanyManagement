@@ -41,10 +41,10 @@ namespace CompanyManagement.Database
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
-        public ProjectBonus SearchByID(string id)
+        public List<ProjectBonus> SearchByID(string id)
         {
             string sqlStr = $"SELECT * FROM {projBonusTbl} WHERE {projBonusID} = '{id}'";
-            return (ProjectBonus)dbConnection.GetSingleObject(sqlStr, reader => new ProjectBonus(reader));
+            return dbConnection.GetList(sqlStr, reader => new ProjectBonus(reader));
         }
 
         public List<ProjectBonus> SearchByProjectID(string id)
