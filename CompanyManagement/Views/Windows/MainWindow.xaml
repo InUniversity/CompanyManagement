@@ -65,8 +65,8 @@
                         <RadioButton
                             Height="50"
                             Margin="4"         
-                            IsChecked="{Binding StatusEmployeesView}"
-                            Command="{Binding ShowEmployeesViewCommand}"
+                            IsChecked="{Binding StatusOrganizationView}"
+                            Command="{Binding ShowOrganizationViewCommand}"
                             BorderBrush="{DynamicResource PrimaryHueMidBrush}"
                             Style="{StaticResource MaterialDesignTabRadioButtonRight}" >
                             <StackPanel Orientation="Horizontal">
