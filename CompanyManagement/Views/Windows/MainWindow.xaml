@@ -71,7 +71,43 @@
                             Style="{StaticResource MaterialDesignTabRadioButtonRight}" >
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="AccountGroup" />
-                                <TextBlock Text="Tổ chức" Margin="30 0"></TextBlock>
+                                <TextBlock Text="Nhân sự" Margin="30 0"></TextBlock>
+                            </StackPanel>
+                        </RadioButton>
+                        <RadioButton
+                            Height="50"
+                            Margin="4"         
+                            IsChecked="{Binding StatusLeavesView}"
+                            Command="{Binding ShowLeavesViewCommand}"
+                            BorderBrush="{DynamicResource PrimaryHueMidBrush}"
+                            Style="{StaticResource MaterialDesignTabRadioButtonRight}" >
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="EmailEdit" />
+                                <TextBlock Text="Xin nghỉ phép" Margin="30 0"></TextBlock>
+                            </StackPanel>
+                        </RadioButton>
+                        <RadioButton
+                            Height="50"
+                            Margin="4"         
+                            IsChecked="{Binding StatusApproveLeavesView}"
+                            Command="{Binding ShowApproveLeaveRequestsViewCommand}"
+                            BorderBrush="{DynamicResource PrimaryHueMidBrush}"
+                            Style="{StaticResource MaterialDesignTabRadioButtonRight}" >
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="EmailAlert" />
+                                <TextBlock Text="Yêu cầu xin nghỉ" Margin="30 0"></TextBlock>
+                            </StackPanel>
+                        </RadioButton>
+                        <RadioButton
+                            Height="50"
+                            Margin="4"         
+                            IsChecked="{Binding StatusSalaryRecordsView}"
+                            Command="{Binding ShowSalaryRecordsViewCommand}"
+                            BorderBrush="{DynamicResource PrimaryHueMidBrush}"
+                            Style="{StaticResource MaterialDesignTabRadioButtonRight}">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="Money" />
+                                <TextBlock Text="Bảng Lương" Margin="30 0"></TextBlock>
                             </StackPanel>
                         </RadioButton>
                     </StackPanel>
@@ -114,33 +150,6 @@
                             Command="{Binding ShowAssignmentViewCommand}"                                       
                             BorderThickness="0">
                             <materialDesign:PackIcon Kind="Briefcase" Foreground="White" />
-                        </Button>
-                        <Button HorizontalAlignment="Right"          
-                            Height="100"
-                            Width="50"     
-                            ToolTip="Nhân sự"
-                            Style="{StaticResource MaterialDesignIconButton}"
-                            Command="{Binding ShowOrganizationViewCommand}"                                                      
-                            BorderThickness="0">
-                            <materialDesign:PackIcon Kind="AccountGroup" Foreground="White" />
-                        </Button>
-                        <Button HorizontalAlignment="Right"  
-                            Height="100"
-                            Width="50"
-                            ToolTip="Xin nghỉ phép"
-                            Style="{StaticResource MaterialDesignIconButton}"
-                            Command="{Binding ShowLeavesViewCommand}"                                       
-                            BorderThickness="0">
-                            <materialDesign:PackIcon Kind="EmailEdit" Foreground="White"/>
-                        </Button>
-                        <Button HorizontalAlignment="Right"  
-                            Height="100"
-                            Width="50"
-                            ToolTip="Yêu cầu xin nghỉ"
-                            Style="{StaticResource MaterialDesignIconButton}"
-                            Command="{Binding ShowApproveLeaveRequestsViewCommand}"                                       
-                            BorderThickness="0">
-                            <materialDesign:PackIcon Kind="EmailAlert" Foreground="White"/>
                         </Button>
                         <Button HorizontalAlignment="Right"  
                             Height="100"
