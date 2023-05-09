@@ -40,5 +40,11 @@ namespace CompanyManagement.Database
             string sqlStr = $"SELECT * FROM {timeShtTbl} WHERE {timeShtID}='{id}'";
             return (TimeSheet)dbConnection.GetSingleObject(sqlStr, reader => new TimeSheet(reader));
         }
+
+        public List<TimeSheet> SearchByEmployeeID(string employeeID)
+        {
+            string sqlStr = $"SELECT * FROM {timeShtTbl} WHERE {timeShtEmplID} = '{employeeID}'";
+            return dbConnection.GetList(sqlStr, reader => new TimeSheet(reader));
+        }
     }
 }

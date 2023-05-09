@@ -17,30 +17,24 @@
              d:DesignHeight="600" d:DesignWidth="1100">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="70"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="80"></RowDefinition>
+            <RowDefinition Height="550"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="10" VerticalAlignment="Center" HorizontalAlignment="Left">
                 <ComboBox
-                        Margin="0 0 10 0"
-                        Width="220"
-                        Height="45"
+                        Margin="10 5 5 5"
+                        Width="150"
                         ItemsSource="{Binding Years}"
-                        SelectedValuePath="ID"
+                        SelectedValue ="{Binding Year}"
                         materialDesign:HintAssist.Hint="Năm"
                         Style="{StaticResource MaterialDesignOutlinedComboBox}">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Name}" />
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
                 </ComboBox>
                 <ComboBox
-                        Margin="0 0 10 0"
-                        Width="220"
-                        Height="45"
-                        SelectedValuePath="ID"
+                        Margin="5"
+                        Width="150"
+                        SelectedValue ="{Binding Month}"
+                        SelectedValuePath="Content"
                         materialDesign:HintAssist.Hint="Tháng"
                         Style="{StaticResource MaterialDesignOutlinedComboBox}">
                     <ComboBoxItem Content="1"></ComboBoxItem>
@@ -57,9 +51,8 @@
                     <ComboBoxItem Content="12"></ComboBoxItem>
                 </ComboBox>
                 <ComboBox
-                        Margin="0 0 10 0"
+                        Margin="5"
                         Width="220"
-                        Height="45"
                         ItemsSource="{Binding Departments}"
                         SelectedValue="{Binding DepartmentID}"
                         SelectedValuePath="ID"
@@ -73,13 +66,23 @@
                 </ComboBox>
             </StackPanel>
             <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="10" VerticalAlignment="Center" HorizontalAlignment="Right">
+                <TextBlock Text="{Binding MessageTimeRemain}" Foreground="Red" Width="auto" VerticalAlignment="Center" Margin="10"/>
+                <Button
+                    Visibility="{Binding VisibleRestoreButton}"
+                    Content="Hoàn Tác"
+                    Height="30" Width="120"
+                    Foreground="White"
+                    Margin="5 0"
+                    Background="#ff5fa022"
+                    Command="{Binding DataContext.RestorePayRollCommand, ElementName=salaryRecordsUC}"
+                    CommandParameter="{Binding}"/>
                 <Button
                     Content="Thống Kê"
                     Height="30" Width="120"
                     Foreground="White"
                     Margin="5 0"
                     Background="#ff5fa022"
-                    Command="{Binding DataContext.RestoreBonusCommand, ElementName=projectBonusUC}"
+                    Command="{Binding DataContext.CalculateSalaryCommand, ElementName=salaryRecordsUC}"
                     CommandParameter="{Binding}"/>
                 <Button
                     Content="Phát Lương"
@@ -87,53 +90,53 @@
                     Foreground="White"
                     Margin="5 0"
                     Background="#ff5fa022"
-                    Command="{Binding DataContext.RestoreBonusCommand, ElementName=projectBonusUC}"
+                    Command="{Binding DataContext.DistributeSalaryCommand, ElementName=salaryRecordsUC}"
                     CommandParameter="{Binding}"/>
             </StackPanel>
         </Grid>
-        <Grid Grid.Row="1">
-            <DataGrid   
-                        Height="250"
+            <Grid Grid.Row="1">
+                <DataGrid   
+                        Height="550"
                         Margin="5 0 5 0"
                         CanUserAddRows="False"
                         AutoGenerateColumns="False"
                         Background="White"
-                        ItemsSource="{Binding BonusSpecial}"
+                        ItemsSource="{Binding SalaryRecords}"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center">
-                <DataGrid.Columns>
-                    <DataGridTemplateColumn Header="Operations" 
-                                                CanUserResize="False" 
-                                                IsReadOnly="True"
-                                                Width="auto">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
-                                    <Button
-                                        Height="30" Width="30"
-                                        Foreground="White"
-                                        Margin="5 0"
-                                        Background="#ff5fa022"
-                                        Style="{StaticResource MaterialDesignIconButton}"
-                                        Command="{Binding DataContext.RestoreBonusCommand, ElementName=projectBonusUC}"
-                                        CommandParameter="{Binding}">
-                                        <materialDesign:PackIcon Kind="Details" Height="15" Width="15"/>
-                                    </Button>
-                                </StackPanel>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTextColumn Width="Auto" Header="Thời Gian" IsReadOnly="True" Binding="{Binding }" />
-                    <DataGridTextColumn Width="Auto" Header="Phòng Ban" IsReadOnly="True" Binding="{Binding }"/>
-                    <DataGridTextColumn Width="Auto" Header="Mã Nhân Viên" IsReadOnly="False" Binding="{Binding }"/>
-                    <DataGridTextColumn Width="Auto" Header="Tên Nhân Viên" IsReadOnly="True" Binding="{Binding }" />
-                    <DataGridTextColumn Width="Auto" Header="Chức vụ" IsReadOnly="True" Binding="{Binding }" />
-                    <DataGridTextColumn Width="Auto" Header="Tổng Ngày Làm" IsReadOnly="True" Binding="{Binding }" />
-                    <DataGridTextColumn Width="Auto" Header="Tổng Ngày Nghỉ" IsReadOnly="True" Binding="{Binding }" />
-                    <DataGridTextColumn Width="Auto" Header="Tổng Tiền Thưởng" IsReadOnly="True" Binding="{Binding }" />
-                    <DataGridTextColumn Width="Auto" Header="Lương Nhận" IsReadOnly="True" Binding="{Binding }" />
-                </DataGrid.Columns>
-            </DataGrid>
-        </Grid>
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn Header="Operations" 
+                                                    CanUserResize="False" 
+                                                    IsReadOnly="True"
+                                                    Width="auto">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button
+                                                    Style="{StaticResource MaterialDesignIconButton}"
+                                                    Background="#33691e"
+                                                    Foreground="White"
+                                                    Height="30" Width="30"
+                                                    Margin="5 0"                                               
+                                                    Command="{Binding DataContext.OpenSalaryDetailsDialogCommand, ElementName=salaryRecordsUC}"
+                                                    CommandParameter="{Binding}">
+                                            <materialDesign:PackIcon Kind="OpenInNew" Height="15" Width="15"/>
+                                        </Button>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Width="Auto" Header="Thời Gian" IsReadOnly="True" Binding="{Binding MonthYear, StringFormat='MM/yyyy'}" />
+                        <DataGridTextColumn Width="Auto" Header="Phòng Ban" IsReadOnly="True" Binding="{Binding WorkerDepartment.Name}"/>
+                        <DataGridTextColumn Width="Auto" Header="Mã Nhân Viên" IsReadOnly="False" Binding="{Binding EmployeeID}"/>
+                        <DataGridTextColumn Width="Auto" Header="Tên Nhân Viên" IsReadOnly="True" Binding="{Binding Worker.Name}" />
+                        <DataGridTextColumn Width="Auto" Header="Chức vụ" IsReadOnly="True" Binding="{Binding WorkerRole.Title}" />
+                        <DataGridTextColumn Width="Auto" Header="Tổng Ngày Làm" IsReadOnly="True" Binding="{Binding TotalWorkDays}" />
+                        <DataGridTextColumn Width="Auto" Header="Tổng Ngày Nghỉ" IsReadOnly="True" Binding="{Binding TotalOffDays}" />
+                        <DataGridTextColumn Width="Auto" Header="Tổng Tiền Thưởng" IsReadOnly="True" Binding="{Binding TotalBonuses}" />
+                        <DataGridTextColumn Width="Auto" Header="Lương Nhận" IsReadOnly="True" Binding="{Binding Income}" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
     </Grid>
 </UserControl>

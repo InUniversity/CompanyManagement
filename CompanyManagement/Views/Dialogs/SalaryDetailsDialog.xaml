@@ -1,4 +1,4 @@
-﻿<Window x:Class="CompanyManagement.Views.Dialogs.ViewDetailsSalaryRecordDialog"
+﻿<Window x:Class="CompanyManagement.Views.Dialogs.SalaryDetailsDialog"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -13,15 +13,15 @@
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         WindowStartupLocation="CenterScreen"
-        x:Name="viewDetailsSalaryRecordDialog"
+        x:Name="salaryDetailsDialog"
         mc:Ignorable="d"
-        Height="450" Width="1100">
+        Height="500" Width="1100">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="500"></ColumnDefinition>
             <ColumnDefinition Width="600"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Grid Grid.Column="0">
+        <Grid Grid.Column="0" Background="#f1f8e9">
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
@@ -36,28 +36,33 @@
             </Grid.ColumnDefinitions>
 
             <TextBlock
-                Grid.Row="0"
-                Margin="10" 
-                Text="{Binding ElementName=MonthYear, Path=Value, StringFormat=Thông tin lương chi tiết: MM/yyyy}" 
+                Width="Auto"
+                Margin="10 0 0 0" 
                 FontSize="25" 
                 HorizontalAlignment="Center" 
                 VerticalAlignment="Center"
-                FontWeight="ExtraBold" />
+                FontWeight="ExtraBold" Grid.ColumnSpan="2" Height="52" >
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="Thông tin lương chi tiết: {0}/{1}" >
+                        <Binding Path="MonthYear.Month"/>
+                        <Binding Path="MonthYear.Year"/>
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
             <TextBox
                 Grid.Row="1"
                 Grid.Column="0"
                 Height="50"
-                Text="{Binding DepartmentName, UpdateSourceTrigger=PropertyChanged}"
+                Text="{Binding WorkerDepartment.Name, Mode=OneWay}"
                 Background="White"
                 Margin="10"      
-                IsReadOnly="True"
                 materialDesign:HintAssist.Hint= "Tên Phòng Ban" 
                 Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
             <TextBox
                 Grid.Row="1"
                 Grid.Column="1"
                 Height="50"
-                Text="{Binding EmployeeName, UpdateSourceTrigger=PropertyChanged}"
+                Text="{Binding Worker.Name, Mode=OneWay}"
                 Background="White"
                 Margin="10"      
                 IsReadOnly="True"
@@ -67,7 +72,7 @@
                 Grid.Row="2"
                 Grid.Column="0"
                 Height="50"
-                Text="{Binding RoleTitle, UpdateSourceTrigger=PropertyChanged}"
+                Text="{Binding WorkerRole.Title, Mode=OneWay}"
                 Background="White"
                 Margin="10"      
                 IsReadOnly="True"
@@ -77,7 +82,7 @@
                 Grid.Row="2"
                 Grid.Column="1"
                 Height="50"
-                Text="{Binding SalaryBase, UpdateSourceTrigger=PropertyChanged}"
+                Text="{Binding Worker.Salary, Mode=OneWay}"
                 Background="White"
                 Margin="10"      
                 IsReadOnly="True"
@@ -87,7 +92,7 @@
                 Grid.Row="3"
                 Grid.Column="0"
                 Height="50"
-                Text="{Binding TotalDayWork, UpdateSourceTrigger=PropertyChanged}"
+                Text="{Binding TotalWorkDays, UpdateSourceTrigger=PropertyChanged}"
                 Background="White"
                 Margin="10"      
                 IsReadOnly="True"
@@ -97,7 +102,7 @@
                 Grid.Row="3"
                 Grid.Column="1"
                 Height="50"
-                Text="{Binding TotalDayOff, UpdateSourceTrigger=PropertyChanged}"
+                Text="{Binding TotalOffDays, UpdateSourceTrigger=PropertyChanged}"
                 Background="White"
                 Margin="10"      
                 IsReadOnly="True"
@@ -107,7 +112,7 @@
                 Grid.Row="4"
                 Grid.Column="0"
                 Height="50"
-                Text="{Binding SalaryBonus, UpdateSourceTrigger=PropertyChanged}"
+                Text="{Binding TotalBonuses, UpdateSourceTrigger=PropertyChanged}"
                 Background="White"
                 Margin="10"      
                 IsReadOnly="True"
@@ -129,10 +134,10 @@
                 Style="{StaticResource MaterialDesignFlatSecondaryMidBgButton}"
                 Height="50"
                 Command="{Binding CloseViewCommand}"
-                CommandParameter="{Binding ElementName = viewDetailsSalaryRecordDialog}"
+                CommandParameter="{Binding ElementName = salaryDetailsDialog}"
                 ToolTip="Thêm"
                 IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType = Window}}"
-                Margin="135,10,135,10" Grid.ColumnSpan="2" >
+                Margin="135,10,135,10" Grid.ColumnSpan="2">
                 <materialDesign:PackIcon Kind="Close" Height="35" Width="35"/>
             </Button>
         </Grid>
@@ -167,7 +172,7 @@
                     CanUserAddRows="False"
                     AutoGenerateColumns="False"
                     Background="White"
-                    ItemsSource="{Binding UnapprovedLeaveRequests}"
+                    ItemsSource="{Binding OffDays}"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Top">
                     <DataGrid.Columns>
@@ -185,7 +190,7 @@
                         Margin="10 5"
                         ExpandDirection="Down">
                 <Expander.Header>
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal" Margin="10,0,-10,0">
                         <materialDesign:PackIcon 
                             VerticalAlignment="Center" 
                             Margin="10 0" Kind="ListBox"  
@@ -204,15 +209,15 @@
                     CanUserAddRows="False"
                     AutoGenerateColumns="False"
                     Background="White"
-                    ItemsSource="{Binding UnapprovedLeaveRequests}"
+                    ItemsSource="{Binding ProjectsCompleted}"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Top">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Width="Auto" Header="Mã Dự Án" IsReadOnly="True" Binding="{Binding }" />
-                        <DataGridTextColumn Width="Auto" Header="Tên Dự Án" IsReadOnly="True" Binding="{Binding }" />
-                        <DataGridTextColumn Width="Auto" Header="Kết Thúc" IsReadOnly="True" Binding="{Binding }" />
-                        <DataGridTextColumn Width="Auto" Header="Ngày Thanh Toán" IsReadOnly="True" Binding="{Binding }" />
-                        <DataGridTextColumn Width="Auto" Header="Tiền Thưởng" IsReadOnly="True" Binding="{Binding }" />
+                        <DataGridTextColumn Width="Auto" Header="Mã Dự Án" IsReadOnly="True" Binding="{Binding ProjectID}" />
+                        <DataGridTextColumn Width="Auto" Header="Tên Dự Án" IsReadOnly="True" Binding="{Binding Project.Name}" />
+                        <DataGridTextColumn Width="Auto" Header="Kết Thúc" IsReadOnly="True" Binding="{Binding Project.CompletedDate}" />
+                        <DataGridTextColumn Width="Auto" Header="Ngày Thanh Toán" IsReadOnly="True" Binding="{Binding ReceivedDate}" />
+                        <DataGridTextColumn Width="Auto" Header="Tiền Thưởng" IsReadOnly="True" Binding="{Binding Amount}" />
                     </DataGrid.Columns>
                 </DataGrid>
             </Expander>

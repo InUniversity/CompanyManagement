@@ -142,6 +142,15 @@
                             BorderThickness="0">
                             <materialDesign:PackIcon Kind="EmailAlert" Foreground="White"/>
                         </Button>
+                        <Button HorizontalAlignment="Right"  
+                            Height="100"
+                            Width="50"
+                            ToolTip="Bảng Lương"
+                            Style="{StaticResource MaterialDesignIconButton}"
+                            Command="{Binding ShowSalaryRecordsViewCommand}"                                       
+                            BorderThickness="0">
+                            <materialDesign:PackIcon Kind="Money" Foreground="White"/>
+                        </Button>
                         <Button 
                             HorizontalAlignment="Right"  
                             Height="100"

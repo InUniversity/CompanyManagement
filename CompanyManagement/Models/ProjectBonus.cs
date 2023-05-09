@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using CompanyManagement.Database;
 using CompanyManagement.Database.Base;
 using CompanyManagement.Utilities;
 
@@ -13,6 +14,7 @@ namespace CompanyManagement.Models
         private string employeeID;
         private string projectID;
         private Employee receiver;
+        private Project project;
         private int percent = 0;
 
         public string ID
@@ -49,6 +51,11 @@ namespace CompanyManagement.Models
         {
             get => receiver;
             set => receiver = value;
+        }
+
+        public Project Project
+        {
+            get => (new ProjectsDao()).SearchByID(ProjectID);
         }
 
         public int Percent

@@ -4,8 +4,10 @@ using CompanyManagement.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace CompanyManagement.Database
 {
@@ -61,6 +63,23 @@ namespace CompanyManagement.Database
         {
             string sqlStr = $"DELETE FROM {projBonusTbl} WHERE {projBonusProjID} = '{id}'";
             dbConnection.ExecuteNonQuery(sqlStr);
+        }
+
+        public decimal ToTalBonusesOfEmployeeByTime(string employeeID, int month, int year)
+        {
+            string sqlStr = $"SELECT SUM() FROM {projBonusTbl} WHERE {projBonusEmplID} = '{employeeID}' " +
+                            $"AND MONTH({projBonusReceiveDate}) = '{month}' " +
+                            $"AND YEAR({projBonusReceiveDate}) = '{year}'";
+            return dbConnection.GetDecimal(sqlStr);
+        }
+
+
+        public List<ProjectBonus> GetOfEmployeeByTime(string employeeID, int month, int year)
+        {
+            string sqlStr = $"SELECT * FROM {projBonusTbl} WHERE {projBonusEmplID} = '{employeeID}'" +
+                            $"AND MONTH({projBonusReceiveDate}) = '{month}' " +
+                            $"AND YEAR({projBonusReceiveDate}) = '{year}'";
+            return dbConnection.GetList<ProjectBonus>(sqlStr, reader => new ProjectBonus(reader));
         }
     }
 }

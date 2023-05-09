@@ -73,7 +73,7 @@ namespace CompanyManagement
         
         public decimal Salary
         {
-            get => salary;
+            get => Decimal.Round(salary, 0);
             set => salary = value;
         }
 
