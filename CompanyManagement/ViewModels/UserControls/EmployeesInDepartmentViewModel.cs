@@ -34,6 +34,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private EmployeesDao employeesDao = new EmployeesDao();
         private AccountsDao accountsDao = new AccountsDao();
+        private RolesDao rolesDao = new RolesDao();
 
         public IOrganization ParentDataContext { get; set; }
 
@@ -50,6 +51,7 @@ namespace CompanyManagement.ViewModels.UserControls
         public void LoadEmployees()
         {
             Employees = employeesDao.SearchByDepartmentID(department.ID);
+            GetRoleForListEmployees(Employees);
             SearchedEmployees = Employees;
         }
 
@@ -59,6 +61,12 @@ namespace CompanyManagement.ViewModels.UserControls
             DeleteEmployeeCommand = new RelayCommand<string>(DeleteEmployee);
             OpenUpdateDialogCommand = new RelayCommand<Employee>(OpenUpdateEmployeeDialog);
             BackDepartmentViewCommand = new RelayCommand<object>(ExecuteBackDepartmentViewCommand);
+        }
+
+        private void GetRoleForListEmployees(List<Employee> employees)
+        {
+            foreach (Employee empl in employees)
+                empl.EmplRole = rolesDao.SearchByID(empl.RoleID);
         }
 
         private void SearchByName()

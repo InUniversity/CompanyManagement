@@ -22,7 +22,6 @@ namespace CompanyManagement
         private string roleID = "";
         private Account account = new Account();
         private Role role = new Role();
-        private RolesDao rolesDao = new RolesDao();
 
         public string ID
         {
@@ -98,7 +97,7 @@ namespace CompanyManagement
 
         public Role EmplRole
         {
-            get => rolesDao.SearchByID(RoleID);
+            get => role;
             set => role = value;
         }
 

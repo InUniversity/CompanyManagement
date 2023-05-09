@@ -15,8 +15,8 @@ namespace CompanyManagement.Models
         private string name;
         private string deptHeadID;
         private Employee deptHead = new Employee();
-        private List<Employee> empls = new List<Employee>();
-        private EmployeesDao emplsDao = new EmployeesDao();
+        private ObservableCollection<Employee> empls = new ObservableCollection<Employee>();
+
         public string ID
         {
             get => id;
@@ -37,13 +37,13 @@ namespace CompanyManagement.Models
 
         public Employee DeptHead
         {
-            get => emplsDao.SearchByID(DeptHeadID); 
+            get => deptHead; 
             set => deptHead = value;
         }
 
-        public List<Employee> Empls
+        public ObservableCollection<Employee> Empls
         {
-            get => emplsDao.SearchByDepartmentID(ID);
+            get => empls;
             set => empls = value;
         }
       

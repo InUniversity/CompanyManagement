@@ -7,6 +7,8 @@ using CompanyManagement.Views.Dialogs;
 using CompanyManagement.ViewModels.Base;
 using CompanyManagement.Services;
 using CompanyManagement.Models;
+using CompanyManagement.Database.Base;
+using CompanyManagement.Views.UserControls;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
@@ -27,6 +29,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private EmployeesDao employeesDao = new EmployeesDao();
         private AccountsDao accountsDao = new AccountsDao();
+        private RolesDao rolesDao = new RolesDao();
 
         public EmployeesViewModel()
         {
@@ -36,7 +39,12 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void LoadEmployees()
         {
-            employees = employeesDao.GetAllWithoutManagers();
+            var listAllEmpl = employeesDao.GetAllWithoutManagers();
+            var listItem = from empl in listAllEmpl 
+                           where empl.DepartmentID == "" && empl.RoleID != BaseDao.hrRole 
+                           select empl;
+            GetRoleForListEmployees(listItem.ToList());
+            employees = listItem.ToList();
             SearchedEmployees = employees;
         }
 
@@ -57,6 +65,12 @@ namespace CompanyManagement.ViewModels.UserControls
                     .ToList();
             }
             SearchedEmployees = searchedItems;
+        }
+
+        private void GetRoleForListEmployees(List<Employee> employees)
+        {
+            foreach (Employee empl in employees)
+                empl.EmplRole = rolesDao.SearchByID(empl.RoleID);
         }
 
         private void OpenAddEmployeeDialog(object obj)

@@ -8,6 +8,7 @@ namespace CompanyManagement.Database
     {
         public void Add(Department dept)
         {
+            //TODO
             string sqlStr = $"INSERT INTO {deptTbl} ({deptID}, {deptName}, {deptHead})" +
                             $"VALUES ('{dept.ID}', '{dept.Name}', '{dept.DeptHeadID}')";
             dbConnection.ExecuteNonQuery(sqlStr);
@@ -21,6 +22,7 @@ namespace CompanyManagement.Database
 
         public void Update(Department dept)
         {
+            //TODO
             string sqlStr = $"UPDATE {deptTbl} SET {deptName} = '{dept.Name}', " +
                             $"{deptHead} = '{dept.DeptHeadID}' WHERE {deptID} = '{dept.ID}'";
             dbConnection.ExecuteNonQuery(sqlStr);
