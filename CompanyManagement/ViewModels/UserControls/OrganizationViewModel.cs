@@ -1,23 +1,21 @@
-﻿using CompanyManagement.Database;
+﻿using System;
+using CompanyManagement.Database;
 using CompanyManagement.Models;
 using CompanyManagement.ViewModels.Base;
 using CompanyManagement.Views.UserControls;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using CompanyManagement.Strategies.UserControls.DeptsView;
+using CompanyManagement.Utilities;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
     public interface IOrganization
     {
-        void MoveToEmployeesInDepartmentView(Department dempartment);
+        void MoveToEmployeesInDepartmentView(Department department);
         void MoveToDepartmentsView();
     }
+    
     public class OrganizationViewModel : BaseViewModel , IOrganization
     {
         private ContentControl currentChildView;
@@ -40,8 +38,26 @@ namespace CompanyManagement.ViewModels.UserControls
 
         public OrganizationViewModel()
         {
+            InitDeptStrategy();
             ExecuteShowDepartmentsView(null);
             SetCommand();
+        }
+
+        private void InitDeptStrategy()
+        {
+            try
+            {
+                var deptStrategy = DeptStrategyFactory.Create(CurrentUser.Ins.EmployeeIns.RoleID);
+                var viewModel = new DepartmentsViewModel(deptStrategy)
+                {
+                    ParentDataContext = this
+                };
+                departmentsView.DataContext = viewModel;
+            }
+            catch (Exception ex)
+            {
+                Log.Instance.Error(nameof(OrganizationViewModel), ex.Message);
+            }
         }
 
         private void SetCommand()
@@ -58,14 +74,13 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void ExecuteShowDepartmentsView(object obj)
         {
-            ((DepartmentsViewModel)departmentsView.DataContext).ParentDataContext = this;
             CurrentChildView = departmentsView;
             StatusDepartmentsView = true;
         }
 
-        public void MoveToEmployeesInDepartmentView(Department dempartment)
+        public void MoveToEmployeesInDepartmentView(Department department)
         {
-            ((EmployeesInDepartmentViewModel)employeesInDepartmentView.DataContext).Department = dempartment;
+            ((EmployeesInDepartmentViewModel)employeesInDepartmentView.DataContext).Department = department;
             ((EmployeesInDepartmentViewModel)employeesInDepartmentView.DataContext).ParentDataContext = this;
             ((EmployeesInDepartmentViewModel)employeesInDepartmentView.DataContext).LoadEmployees();
             CurrentChildView = employeesInDepartmentView;

@@ -119,6 +119,11 @@
     <Compile Include="Models\TaskStatus.cs" />
     <Compile Include="Services\AlertDialogService.cs" />
     <Compile Include="Services\InputDialogService.cs" />
+    <Compile Include="Strategies\UserControls\DeptsView\DeptForDeptHead.cs" />
+    <Compile Include="Strategies\UserControls\DeptsView\DeptForHR.cs" />
+    <Compile Include="Strategies\UserControls\DeptsView\DeptForManager.cs" />
+    <Compile Include="Strategies\UserControls\DeptsView\DeptStrategyFactory.cs" />
+    <Compile Include="Strategies\UserControls\DeptsView\IDeptStrategy.cs" />
     <Compile Include="Strategies\UserControls\ProjectsView\IProjectsStrategy.cs" />
     <Compile Include="Strategies\UserControls\ProjectsView\ProjectsForDepartmentHead.cs" />
     <Compile Include="Strategies\UserControls\ProjectsView\ProjectsForEmployee.cs" />
@@ -504,6 +509,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.8.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.8.0\build\MaterialDesignThemes.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
