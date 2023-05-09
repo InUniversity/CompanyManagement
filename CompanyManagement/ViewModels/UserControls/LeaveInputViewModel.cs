@@ -10,6 +10,8 @@ using System.Runtime.Remoting.Messaging;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using CompanyManagement.Utilities;
+using Microsoft.Expression.Interactivity.Layout;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
@@ -55,6 +57,7 @@ namespace CompanyManagement.ViewModels.UserControls
         private EmployeesDao employeesDao = new EmployeesDao();
         private DepartmentsDao departmentsDao = new DepartmentsDao();
         private RolesDao rolesDao = new RolesDao();
+        private CheckFormat checker = new CheckFormat();
 
         private Employee currentEmployee = CurrentUser.Ins.EmployeeIns;
 
@@ -88,9 +91,9 @@ namespace CompanyManagement.ViewModels.UserControls
             approvers = employeesDao.GetManagers();
             string headerDeptID = departmentsDao.SearchByID(currentEmployee.DepartmentID)?.DeptHeadID ?? "";
             Employee headerApprover = employeesDao.SearchByID(headerDeptID);
-            SearchedApprovers = string.Equals(currentEmployee.RoleID,BaseDao.deptHeadRole)
+            SearchedApprovers = string.Equals(currentEmployee.RoleID, BaseDao.deptHeadRole)
                 ? Approvers
-                : Approvers.Concat(new List<Employee>() { headerApprover }).ToList();
+                : Approvers.Concat(new List<Employee> { headerApprover }).ToList();
             foreach(Employee emp in SearchedApprovers)
             {
                 emp.EmplRole = rolesDao.SearchByID(emp.RoleID);
@@ -107,6 +110,22 @@ namespace CompanyManagement.ViewModels.UserControls
                     .ToList();
             }
             SearchedApprovers = new List<Employee>(searchedItems);
+        }
+
+        public bool CheckAllFields()
+        {
+            ErrorMessage = "";
+            if (string.IsNullOrWhiteSpace(Reason) || string.IsNullOrWhiteSpace(ApproverID))
+            {
+                ErrorMessage = Utils.invalidEmptyMess;
+                return false;
+            }
+            if (!checker.ValidateTimeline(StartDate, EndDate))
+            {
+                ErrorMessage = Utils.invalidTimeline;
+                return false;
+            }
+            return true;
         }
 
         public void TrimAllTexts()

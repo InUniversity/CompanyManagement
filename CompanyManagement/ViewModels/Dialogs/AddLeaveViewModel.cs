@@ -13,16 +13,22 @@ namespace CompanyManagement.ViewModels.Dialogs
 {
     public class AddLeaveViewModel : BaseViewModel, IInputViewModel<LeaveRequest>
     {
-        public ICommand AddLeaveCommand { get; }
+        public ICommand AddLeaveCommand { get; private set; }
 
-        public LeaveInputViewModel LeaveInputDataContext { get; }
+        public LeaveInputViewModel LeaveInputDataContext { get; private set; }
         private Action<LeaveRequest> submitObjectAction;
 
         private LeaveRequestsDao leaveRequestsDao = new LeaveRequestsDao();
+        private CheckFormat checker = new CheckFormat();
 
         public AddLeaveViewModel()
         {
             LeaveInputDataContext = new LeaveInputViewModel();
+            SetCommands();
+        }
+
+        private void SetCommands()
+        {
             AddLeaveCommand = new RelayCommand<Window>(ExecuteAddCommand);
         }
 
@@ -30,7 +36,7 @@ namespace CompanyManagement.ViewModels.Dialogs
         {
             LeaveInputDataContext.TrimAllTexts();
             if (!CheckAllFields()) return;
-            AlertDialogService dialog = new AlertDialogService(
+            var dialog = new AlertDialogService(
                 "Thêm xin nghỉ phép",
                 "Bạn chắc chắn muốn thêm xin nghỉ phép !",
                 () =>
@@ -44,7 +50,7 @@ namespace CompanyManagement.ViewModels.Dialogs
 
         private bool CheckAllFields()
         {
-            return true;
+            return LeaveInputDataContext.CheckAllFields();
         }
 
         public void ReceiveObject(LeaveRequest leaveRequest)

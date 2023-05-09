@@ -26,7 +26,7 @@ namespace CompanyManagement.ViewModels.Dialogs
         {
             LeaveInputDataContext.TrimAllTexts();
             if (!CheckAllFields()) return;
-            AlertDialogService dialog = new AlertDialogService(
+            var dialog = new AlertDialogService(
                 "Cập nhật xin phép nghỉ",
                 "Bạn chắc chắn muốn cập nhật xin phép nghỉ !",
                 () =>
@@ -40,7 +40,7 @@ namespace CompanyManagement.ViewModels.Dialogs
 
         private bool CheckAllFields()
         {
-            return true;
+            return LeaveInputDataContext.CheckAllFields();
         }
 
         public void ReceiveObject(LeaveRequest leaveRequest)
