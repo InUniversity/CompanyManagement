@@ -41,7 +41,7 @@ namespace CompanyManagement.ViewModels.UserControls
         {
             var listAllEmpl = employeesDao.GetAllWithoutManagers();
             var listItem = from empl in listAllEmpl 
-                           where empl.DepartmentID == BaseDao.isEmpty && empl.RoleID != BaseDao.hrRole 
+                           where empl.DepartmentID == "" && empl.RoleID != BaseDao.hrRole 
                            select empl;
             GetRoleForListEmployees(listItem.ToList());
             employees = listItem.ToList();

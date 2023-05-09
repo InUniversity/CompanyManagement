@@ -144,7 +144,7 @@ namespace CompanyManagement.ViewModels.UserControls
         {
             var listallempl = employeesDao.GetAllWithoutManagers();
             var listempl = from empl in listallempl 
-                           where empl.RoleID != BaseDao.hrRole && empl.DepartmentID == BaseDao.isEmpty 
+                           where empl.RoleID != BaseDao.hrRole && empl.DepartmentID == "" 
                            select empl;
             GetRoleForListEmployees(listempl.ToList());
             employeesCanAddInDept = new List<Employee>(listempl.ToList());
