@@ -76,9 +76,8 @@
                           ItemsSource="{Binding ListStatusTeam}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Width="400" Header="Team" IsReadOnly="True" Binding="{Binding TeamName}" />
-                        <DataGridTextColumn Width="100" Header="Mở" IsReadOnly="True" Binding="{Binding NumberAllTaskOpenTasks}" />
-                        <DataGridTextColumn Width="100" Header="Hoàn thành" IsReadOnly="True" Binding="{Binding NumberCompletedTasks}" />
-                        <DataGridTextColumn Width="100" Header="Quá hạn" IsReadOnly="True" Binding="{Binding NumberOverdueTasks}" />
+                        <DataGridTextColumn Width="150" Header="Hoàn thành" IsReadOnly="True" Binding="{Binding NumberCompletedTasks}" />
+                        <DataGridTextColumn Width="150" Header="Quá hạn" IsReadOnly="True" Binding="{Binding NumberOverdueTasks}" />
                         <DataGridTextColumn Width="150" Header="Đang thực hiện" IsReadOnly="True" Binding="{Binding NumberOngoingTasks}" />
                         <DataGridTextColumn Width="150" Header="Đang xem xét" IsReadOnly="True" Binding="{Binding NumberUnderConsiderableTasks}" />
                     </DataGrid.Columns>

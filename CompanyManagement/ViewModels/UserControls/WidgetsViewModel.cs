@@ -134,8 +134,6 @@ namespace CompanyManagement.ViewModels.UserControls
 
             var listNumberUnderConsiderableTasks = GetListNumberTaskByStatusOfTeam(BaseDao.underConsiderableTask);
 
-            var listNumberAllTaskOpen = GetListNumberAllTaskOfTeam();
-
             foreach (TeamStatusItem team in ListStatusTeam)
             {
                 var numberOverdueTask = listNumberOverdueTasks.FirstOrDefault(overdue => overdue.TeamID == team.TeamID);
@@ -161,13 +159,6 @@ namespace CompanyManagement.ViewModels.UserControls
                 {
                     team.NumberUnderConsiderableTasks = numberUnderConsiderableTask.Number;
                 }
-
-                var numberAllTaskOpen = listNumberAllTaskOpen.FirstOrDefault(open => open.TeamID == team.TeamID);
-                if (numberAllTaskOpen != null)
-                {
-                    team.NumberAllTaskOpenTasks = numberAllTaskOpen.Number;
-                }
-                Log.Instance.Information(nameof(WidgetsViewModel), nameof(ListStatusTeam) + " = " + ListStatusTeam.Count);
             }
         }
 
@@ -208,7 +199,6 @@ namespace CompanyManagement.ViewModels.UserControls
             public string TeamID { get; set; }
             public string TeamName { get; set; }
             public int NumberOverdueTasks { get; set; }
-            public int NumberAllTaskOpenTasks { get; set; }
             public int NumberCompletedTasks { get; set; }
             public int NumberUnderConsiderableTasks { get; set; }
             public int NumberOngoingTasks { get; set; }
@@ -218,7 +208,6 @@ namespace CompanyManagement.ViewModels.UserControls
                 TeamID = id;
                 TeamName = name;
                 NumberOverdueTasks = numberOverdueTasks;
-                NumberAllTaskOpenTasks = numberAllTaskOpenTasks;
                 NumberCompletedTasks = numberCompletedTasks;
                 NumberUnderConsiderableTasks = numberUnderConsiderableTasks;
                 NumberOngoingTasks = numberOngoingTasks;
