@@ -1,6 +1,7 @@
 ﻿using CompanyManagement.Database;
 using CompanyManagement.Models;
 using CompanyManagement.Services;
+using CompanyManagement.Utilities;
 using CompanyManagement.ViewModels.Base;
 using CompanyManagement.Views.Dialogs;
 using System;
@@ -23,10 +24,13 @@ namespace CompanyManagement.ViewModels.UserControls
         public List<Department> Departments { get; private set; }
 
         private int month = DateTime.Now.Month - 1;
-        public int Month { get => month; set { month = value; OnPropertyChanged(); LoadSalaryRecords(); } }
+        public int Month { get => month; set { month = value; OnPropertyChanged(); LoadSalaryRecords(); LoadToTalDay(); } }
 
         private int year = DateTime.Now.Year;
-        public int Year { get => year; set { year = value; OnPropertyChanged(); LoadSalaryRecords(); } }
+        public int Year { get => year; set { year = value; OnPropertyChanged(); LoadSalaryRecords(); LoadToTalDay(); } }
+
+        private int totalDayByTime = 0;
+        private int totalDayWeekend = 0;
 
         private string departmentID = "ALL";
         public string DepartmentID { get => departmentID; set { departmentID = value; OnPropertyChanged(); LoadSalaryRecords(); } }
@@ -55,7 +59,8 @@ namespace CompanyManagement.ViewModels.UserControls
         {
             SetComboBox();
             SetCommands();
-            LoadSalaryRecords();
+            LoadToTalDay();
+            LoadSalaryRecords(); 
         }
 
         private void SetCommands()
@@ -71,10 +76,6 @@ namespace CompanyManagement.ViewModels.UserControls
             listSalaryRecord = (departmentID == "") 
                 ? salaryRecordsDao.GetByTime(Month, Year) 
                 : salaryRecordsDao.GetByDepartmentID(DepartmentID, Month, Year);
-            foreach(SalaryRecord salaryRecord in listSalaryRecord)
-            {
-                salaryRecord.TotalOffDays = GetToTalDayOfMonth() - salaryRecord.TotalWorkDays;
-            }
             SalaryRecords = new ObservableCollection<SalaryRecord>(listSalaryRecord);
         }
             
@@ -103,14 +104,14 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private bool ValidateCalculateSalary()
         {
-            if (DateTime.Now.Year == Year && DateTime.Now.Month <= Month)
-            {
-                var dialog = new AlertDialogService(
-                    "Thông báo",
-                    "Chưa đến ngày tính lương!", null, null);
-                dialog.Show();
-                return false;
-            }
+            //if (DateTime.Now.Year == Year && DateTime.Now.Month <= Month)
+            //{
+            //    var dialog = new AlertDialogService(
+            //        "Thông báo",
+            //        "Chưa đến ngày tính lương!", null, null);
+            //    dialog.Show();
+            //    return false;
+            //}
             if (SalaryRecords.Count != 0)
             {
                 var dialog = new AlertDialogService(
@@ -125,33 +126,36 @@ namespace CompanyManagement.ViewModels.UserControls
         private SalaryRecord CreateSalaryRecord(Employee employee)
         {
             DateTime monthYear = new DateTime(year, month, 1);
-            int totalWorkDays = timeSheetsDao.SearchByEmployeeID(employee.ID).Count + CountWeekendDays();
-            int totalOffDays = GetToTalDayOfMonth() - totalWorkDays;
+            int totalWorkDays = timeSheetsDao.ToTalWorksDayByEmployeeID(employee.ID) + totalDayWeekend;
             decimal totalBonuses = projectBonusesDao.ToTalBonusesOfEmployeeByTime(employee.ID, month, year);
-            return new SalaryRecord("", employee.ID, monthYear, totalWorkDays, totalOffDays, totalBonuses, 0);
+            return new SalaryRecord("", employee.ID, monthYear, totalWorkDays, totalBonuses, 0);
         }
 
         private void CalculateIcome(SalaryRecord salaryRecord)
         {
-            salaryRecord.Income = (decimal)((salaryRecord.TotalWorkDays * salaryRecord.Worker.Salary)/ GetToTalDayOfMonth() + salaryRecord.TotalBonuses);
+            salaryRecord.Income = (decimal)((salaryRecord.TotalWorkDays * salaryRecord.Worker.Salary)/ totalDayByTime + salaryRecord.TotalBonuses);
         }
 
-        private int GetToTalDayOfMonth()
+        private void LoadToTalDay()
         {
-            return DateTime.DaysInMonth(year,month);
+            LoadToTalDayOfMonth();
+            CountWeekendDays();
+        }    
+
+        private void LoadToTalDayOfMonth()
+        {
+            totalDayByTime = DateTime.DaysInMonth(year,month);
         }
 
-        private int CountWeekendDays()
+        private void CountWeekendDays()
         {
-            int number = 0;
-            int days = GetToTalDayOfMonth();
-            for(int day = 1; day <= days; day++)
+            totalDayWeekend = 0;
+            for(int day = 1; day <= totalDayByTime; day++)
             {
                 DateTime date = new DateTime(year, month, day);
                 if (date.DayOfWeek == DayOfWeek.Sunday || date.DayOfWeek == DayOfWeek.Saturday)
-                    number++;
+                    totalDayWeekend++;
             }
-            return number;
         }
 
         private void ExecuteDistributeSalary(object obj)

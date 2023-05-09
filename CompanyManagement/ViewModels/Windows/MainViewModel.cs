@@ -7,7 +7,6 @@ using System;
 using CompanyManagement.Services;
 using CompanyManagement.Models;
 using CompanyManagement.Database.Base;
-using System.Data.SqlClient;
 
 namespace CompanyManagement.ViewModels.Windows
 {
@@ -19,15 +18,9 @@ namespace CompanyManagement.ViewModels.Windows
         private UserInformationUC userInformationUC = new UserInformationUC();
         private AssignmentUC assignmentUC = new AssignmentUC();
         private OrganizationUC organizationUC = new OrganizationUC();
-        private LeaveRequestsUC leavesListUC = new LeaveRequestsUC();
-        private ApproveLeaveRequestsUC approveLeaveRequestsUC = new ApproveLeaveRequestsUC();
+        private LeaveRequestsUC leavesUC = new LeaveRequestsUC();
+        private ApproveLeaveRequestsUC approveLeavesUC = new ApproveLeaveRequestsUC();
         private SalaryRecordsUC salaryRecordsUC = new SalaryRecordsUC();
-
-        private Visibility visibilityAssignmentView;
-        public Visibility VisibilityAssignmentView { get => visibilityAssignmentView; set { visibilityAssignmentView = value; OnPropertyChanged();} }
-
-        private Visibility visibilityEmployeesView;
-        public Visibility VisibilityEmployeesView { get => visibilityEmployeesView; set { visibilityEmployeesView = value; OnPropertyChanged(); } }
 
         private bool statusOrganizationView = false;
         public bool StatusOrganizationView { get => statusOrganizationView; set { statusOrganizationView = value; OnPropertyChanged(); } }
@@ -41,13 +34,28 @@ namespace CompanyManagement.ViewModels.Windows
         private bool statusLeavesView = false;
         public bool StatusLeavesView { get => statusLeavesView; set { statusLeavesView = value; OnPropertyChanged(); } }
 
+        private bool statusApproveLeavesView = false;
+        public bool StatusApproveLeavesView { get => statusApproveLeavesView; set { statusApproveLeavesView = value; OnPropertyChanged(); } }
+
         private bool statusSalaryRecordsView = false;
         public bool StatusSalaryRecordsView { get => statusSalaryRecordsView; set { statusSalaryRecordsView = value; OnPropertyChanged(); } }
+
+        private Visibility visibilityAssignment;
+        public Visibility VisibilityAssignment { get => visibilityAssignment; set { visibilityAssignment = value; OnPropertyChanged(); } }
+
+        private Visibility visibilityOrganization;
+        public Visibility VisibilityOrganization { get => visibilityOrganization; set { visibilityOrganization = value; OnPropertyChanged(); } }
+
+        private Visibility visibilityApproveLeaves;
+        public Visibility VisibilityApproveLeaves { get => visibilityApproveLeaves; set { visibilityApproveLeaves = value; OnPropertyChanged(); } }
+
+        private Visibility visibilitySalaryRecords;
+        public Visibility VisibilitySalaryRecords { get => visibilitySalaryRecords; set { visibilitySalaryRecords = value; OnPropertyChanged(); } }
 
         public ICommand ShowUserInformationViewCommand { get; private set; }
         public ICommand ShowAssignmentViewCommand { get; private set; }
         public ICommand ShowOrganizationViewCommand { get; private set; }
-        public ICommand ShowLeavesViewCommand { get; private set;}
+        public ICommand ShowLeavesViewCommand { get; private set; }
         public ICommand ShowApproveLeaveRequestsViewCommand { get; private set; }
         public ICommand ShowSalaryRecordsViewCommand { get; private set; }
         public ICommand LogOutCommand { get; private set; }
@@ -71,6 +79,9 @@ namespace CompanyManagement.ViewModels.Windows
 
         private void ExecuteShowUserInformationViewCommand(object obj)
         {
+            // TODO
+            // To refresh history salary with HR
+            userInformationUC = new UserInformationUC();
             CurrentChildView = userInformationUC;
             StatusUserInformationView = true;
         }
@@ -92,13 +103,14 @@ namespace CompanyManagement.ViewModels.Windows
 
         private void ExecuteShowLeavesViewCommand(object obj)
         {
-            CurrentChildView = leavesListUC;
+            CurrentChildView = leavesUC;
             StatusLeavesView = true;
         }
 
         private void ExecuteShowApproveLeaveRequestListView(Window obj)
         {
-            CurrentChildView = approveLeaveRequestsUC;
+            CurrentChildView = approveLeavesUC;
+            StatusApproveLeavesView = true;
         }
 
         private void ExecuteShowSalaryRecordsView(object obj)
@@ -109,13 +121,10 @@ namespace CompanyManagement.ViewModels.Windows
 
         private void ExecuteLogOutCommand(Window window)
         {
-            AlertDialogService dialog = new AlertDialogService(
-              "Đăng xuất",
-              "Bạn chắc chắn đăng xuất khỏi tài khoản!",
-              () =>
-              {
-                  window.Close();
-              }, null);
+            var dialog = new AlertDialogService(
+                "Đăng xuất",
+                "Bạn chắc chắn đăng xuất khỏi tài khoản!",
+                window.Close, null);
             dialog.Show();
         }
     }

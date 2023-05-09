@@ -63,5 +63,12 @@ namespace CompanyManagement.Database
                             $"OR ('{departmentID}' = 'MNG' AND {emplDeptID} = '') OR '{departmentID}' = 'ALL')";
             return dbConnection.GetList<SalaryRecord>(sqlStr, reader => new SalaryRecord(reader));
         }
+
+        public List<SalaryRecord> GetByEmployeeID(string employeeID)
+        {
+            string sqlStr = $"SELECT * FROM {salaryTbl} " +
+                            $"WHERE {salaryEmplID} = '{employeeID}'";
+            return dbConnection.GetList<SalaryRecord>(sqlStr, reader => new SalaryRecord(reader));
+        }
     }
 }
