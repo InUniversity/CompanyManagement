@@ -179,7 +179,8 @@ VALUES
     ( 'TS1', N'Đang thực hiện'),
     ( 'TS2', N'Đã hoàn thành'),
     ( 'TS3', N'Quá hạn'),
-    ( 'TS4', N'Đang xem xét');
+    ( 'TS4', N'Đang xem xét'),
+    ( 'TS5', N'Đóng');
 GO
 CREATE TABLE Tasks(
     ID varchar(20) PRIMARY KEY NOT NULL,
