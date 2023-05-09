@@ -168,6 +168,7 @@
     <Compile Include="ViewModels\UserControls\TaskInputViewModel.cs" />
     <Compile Include="ViewModels\UserControls\TasksInProjectViewModel.cs" />
     <Compile Include="ViewModels\UserControls\UserInformationViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\PersonalSalaryViewModel.cs" />
     <Compile Include="ViewModels\UserControls\WidgetsViewModel.cs" />
     <Compile Include="ViewModels\Windows\LoginViewModel.cs" />
     <Compile Include="ViewModels\Windows\MainViewModel.cs" />
@@ -288,6 +289,9 @@
     </Compile>
     <Compile Include="Views\UserControls\UserInformationUC.xaml.cs">
       <DependentUpon>UserInformationUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\PersonalSalaryUC.xaml.cs">
+      <DependentUpon>PersonalSalaryUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UserControls\WidgetsUC.xaml.cs">
       <DependentUpon>WidgetsUC.xaml</DependentUpon>
@@ -457,6 +461,10 @@
     <Page Include="Views\UserControls\UserInformationUC.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\UserControls\PersonalSalaryUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\UserControls\WidgetsUC.xaml">
       <SubType>Designer</SubType>

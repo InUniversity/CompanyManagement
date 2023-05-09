@@ -67,7 +67,7 @@ namespace CompanyManagement.Database
 
         public decimal ToTalBonusesOfEmployeeByTime(string employeeID, int month, int year)
         {
-            string sqlStr = $"SELECT SUM() FROM {projBonusTbl} WHERE {projBonusEmplID} = '{employeeID}' " +
+            string sqlStr = $"SELECT SUM({projBonusAmount}) FROM {projBonusTbl} WHERE {projBonusEmplID} = '{employeeID}' " +
                             $"AND MONTH({projBonusReceiveDate}) = '{month}' " +
                             $"AND YEAR({projBonusReceiveDate}) = '{year}'";
             return dbConnection.GetDecimal(sqlStr);

@@ -38,6 +38,15 @@
                             Style="{StaticResource MaterialDesignTabRadioButtonBottom}" >
                     <TextBlock Text="Trạng thái làm việc" Margin="30 0"></TextBlock>
                 </RadioButton>
+                <RadioButton
+                            Height="40"
+                            Margin="4"         
+                            Command="{Binding ShowPersonalSalaryView}"
+                            IsChecked="{Binding StatusPersonalSalaryView}"                         
+                            BorderBrush="{DynamicResource PrimaryHueMidBrush}"
+                            Style="{StaticResource MaterialDesignTabRadioButtonBottom}" >
+                    <TextBlock Text="Lịch Sử Nhận Lương" Margin="30 0"></TextBlock>
+                </RadioButton>
             </StackPanel>
 
         </Border>

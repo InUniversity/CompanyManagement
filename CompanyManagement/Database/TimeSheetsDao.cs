@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using CompanyManagement.Database.Base;
 using CompanyManagement.Models;
@@ -46,5 +47,13 @@ namespace CompanyManagement.Database
             string sqlStr = $"SELECT * FROM {timeShtTbl} WHERE {timeShtEmplID} = '{employeeID}'";
             return dbConnection.GetList(sqlStr, reader => new TimeSheet(reader));
         }
+
+        public int ToTalWorksDayByEmployeeID(string employeeID)
+        {
+            string sqlStr = $"SELECT COUNT(*) FROM {timeShtTbl} WHERE {timeShtEmplID} = '{employeeID}'";
+            return Convert.ToInt32(dbConnection.GetDecimal(sqlStr));
+        }
+
+        
     }
 }
