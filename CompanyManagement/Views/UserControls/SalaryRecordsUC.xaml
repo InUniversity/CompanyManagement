@@ -54,7 +54,7 @@
                         Margin="5"
                         Width="220"
                         ItemsSource="{Binding Departments}"
-                        SelectedValue="{Binding ID}"
+                        SelectedValue="{Binding DepartmentID}"
                         SelectedValuePath="ID"
                         materialDesign:HintAssist.Hint="Phòng ban"
                         Style="{StaticResource MaterialDesignOutlinedComboBox}">
