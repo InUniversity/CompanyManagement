@@ -1,35 +1,76 @@
-﻿using CompanyManagement.Models;
-using CompanyManagement.ViewModels.Base;
+﻿using CompanyManagement.ViewModels.Base;
 using CompanyManagement.ViewModels.UserControls;
 using System.Windows.Input;
 using System.Windows;
+using CompanyManagement.ViewModels.Dialogs.Interfaces;
+using CompanyManagement.Models;
+using System;
+using CompanyManagement.Services;
+using CompanyManagement.Utilities;
 
 namespace CompanyManagement.ViewModels.Dialogs
 {
-    public class UpdateDepartmentViewModel : BaseViewModel
+    public class UpdateDepartmentViewModel : BaseViewModel, IInputViewModel<Department>
     {
+        public ICommand UpdateDeptCommand { get; private set; }
+        public ICommand CloseDialogCommand { get; private set; }
 
-        public ICommand UpdateDepartmentCommand { get; set; }
+        public DepartmentInputViewModel DeptInputDataContext { get; }
 
-        public IDepartmentInput DepartmentInputDataContext { get; set; }
+        private Action<Department> submitObjectAction;
 
         public UpdateDepartmentViewModel()
         {
-            DepartmentInputDataContext = new DepartmentInputViewModel();
-            UpdateDepartmentCommand = new RelayCommand<Window>(UpdateCommand);
+            DeptInputDataContext = new DepartmentInputViewModel();
+            UpdateDeptCommand = new RelayCommand<Window>(ExecuteUpdateDeptCommand);
+            CloseDialogCommand = new RelayCommand<Window>(ExecuteCloseDialogCommand);
         }
 
-        private void UpdateCommand(Window inputWindow)
+        private void ExecuteCloseDialogCommand(Window window)
         {
-            DepartmentInputDataContext.TrimAllTexts();
-            Department department = DepartmentInputDataContext.CreateDepartmentInstance();
-            // ParentDataContext.UpdateToDB(department);
-            inputWindow.Close();
+            var dialog = new AlertDialogService(
+                "Cập nhât phòng ban",
+                "Bạn chắc chắn muốn thoát !",
+                () =>
+                {
+                    window.Close();
+                }, null);
+            dialog.Show();
         }
 
-        public void Retrieve(object department)
+
+        private void ExecuteUpdateDeptCommand(Window inputWindow)
         {
-            DepartmentInputDataContext.Receive(department as Department);
+            DeptInputDataContext.TrimAllTexts();
+            if (!CheckAllFields()) return;
+            var dialog = new AlertDialogService(
+                "Cập nhật phòng ban",
+                "Bạn chắc chắn muốn cập nhật phòng ban!",
+                () =>
+                {
+                    Log.Instance.Information(nameof(UpdateDepartmentViewModel), "Update Department: " + DeptInputDataContext.DeptIns.Name);
+                    var department = DeptInputDataContext.DeptIns;
+                    submitObjectAction?.Invoke(department);
+                    inputWindow.Close();
+                }, null);
+            dialog.Show();
+        }
+
+
+        private bool CheckAllFields()
+        {
+            return DeptInputDataContext.CheckAllFields();
+        }
+
+
+        public void ReceiveObject(Department department)
+        {
+            DeptInputDataContext.DeptIns = department;
+        }
+
+        public void ReceiveSubmitAction(Action<Department> submitObjectAction)
+        {
+            this.submitObjectAction = submitObjectAction;
         }
     }
 }

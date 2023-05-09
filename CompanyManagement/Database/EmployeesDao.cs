@@ -35,6 +35,12 @@ namespace CompanyManagement.Database
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
+        public List<Employee> GetAll()
+        {
+            string sqlStr = $"SELECT * FROM {emplTbl}";
+            return dbConnection.GetList(sqlStr, reader => new Employee(reader));
+        }
+
         public List<Employee> GetAllWithoutManagers()
         {
             string sqlStr = $"SELECT * FROM {emplTbl} WHERE {emplRoleID} NOT LIKE '{managerRole}'";
@@ -62,6 +68,12 @@ namespace CompanyManagement.Database
         public List<Employee> GetManagers()
         {
             string sqlStr = $"SELECT * FROM {emplTbl} WHERE {emplRoleID} ='{managerRole}'";
+            return dbConnection.GetList(sqlStr, reader => new Employee(reader));
+        }
+
+        public List<Employee> SearchByDepartmentID(string deptID)
+        {
+            string sqlStr = $"SELECT * FROM {emplTbl} WHERE {emplDeptID}='{deptID}'";
             return dbConnection.GetList(sqlStr, reader => new Employee(reader));
         }
     }

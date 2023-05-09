@@ -1,5 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
+using System.Windows.Documents;
+using CompanyManagement.Database;
 using CompanyManagement.Database.Base;
 using CompanyManagement.Utilities;
 
@@ -33,7 +37,7 @@ namespace CompanyManagement.Models
 
         public Employee DeptHead
         {
-            get => deptHead; 
+            get => deptHead;
             set => deptHead = value;
         }
 
@@ -42,7 +46,7 @@ namespace CompanyManagement.Models
             get => empls;
             set => empls = value;
         }
-      
+
         public Department() { }
 
         public Department(string id, string name, string deptHeadID)
@@ -51,7 +55,7 @@ namespace CompanyManagement.Models
             this.name = name;
             this.deptHeadID = deptHeadID;
         }
-        
+
         public Department(IDataRecord reader)
         {
             try
@@ -59,6 +63,10 @@ namespace CompanyManagement.Models
                 id = Utils.GetString(reader, BaseDao.deptID);
                 name = Utils.GetString(reader, BaseDao.deptName);
                 deptHeadID = Utils.GetString(reader, BaseDao.deptHead);
+
+                id = (string)reader[BaseDao.deptID];
+                name = (string)reader[BaseDao.deptName];
+                deptHeadID = (string)reader[BaseDao.deptHead];
             }
             catch (Exception ex)
             {
