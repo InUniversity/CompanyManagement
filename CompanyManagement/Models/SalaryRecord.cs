@@ -22,7 +22,6 @@ namespace CompanyManagement.Models
         private int totalOffDays;
         private decimal totalBonuses;
         private decimal income;
-        private Employee worker;
 
         public string ID
         {
@@ -56,20 +55,19 @@ namespace CompanyManagement.Models
 
         public decimal TotalBonuses
         {
-            get => totalBonuses;
-            set => totalBonuses = Decimal.Round(value,0);
+            get => Decimal.Round(totalBonuses, 0);
+            set => totalBonuses = value;
         }
 
         public decimal Income
         {
-            get => income;
-            set => income = Decimal.Round(value, 0);
+            get => Decimal.Round(income, 0);
+            set => income = value;
         }
 
         public Employee Worker
         {
-            get => worker;
-            set => worker = value;
+            get => (new EmployeesDao()).SearchByID(employeeID);
         }
 
         public Role WorkerRole

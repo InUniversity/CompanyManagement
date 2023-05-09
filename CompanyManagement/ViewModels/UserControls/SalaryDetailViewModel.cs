@@ -1,15 +1,10 @@
 ﻿using CompanyManagement.Database;
 using CompanyManagement.Models;
 using CompanyManagement.ViewModels.Base;
-using CompanyManagement.Views.UserControls;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
@@ -23,7 +18,7 @@ namespace CompanyManagement.ViewModels.UserControls
         public int TotalOffDays { get => salaryRecordIns.TotalOffDays; set { salaryRecordIns.TotalOffDays = value; OnPropertyChanged(); } }
         public decimal TotalBonuses { get => salaryRecordIns.TotalBonuses; set { salaryRecordIns.TotalBonuses = value; OnPropertyChanged(); } }
         public decimal Income { get => salaryRecordIns.Income; set { salaryRecordIns.Income = value; OnPropertyChanged(); } }
-        public Employee Worker { get => salaryRecordIns.Worker; set { salaryRecordIns.Worker = value; OnPropertyChanged(); } }
+        public Employee Worker { get => salaryRecordIns.Worker; }
         public Role WorkerRole { get => salaryRecordIns.WorkerRole; }
         public Department WorkerDepartment { get => salaryRecordIns.WorkerDepartment; }
 
@@ -40,17 +35,19 @@ namespace CompanyManagement.ViewModels.UserControls
             SetCommad();
         }
 
-        public void SetList()
+        private void SetList()
         {
             ProjectsCompleted = projectBonusesDao.GetOfEmployeeByTime(EmployeeID, MonthYear.Month, MonthYear.Year);
+            //TODO
+            //OffDays = 
         }
 
-        public void SetCommad()
+        private void SetCommad()
         {
-            CloseViewCommand = new RelayCommand<Window>(ExcuteCloseView);
+            CloseViewCommand = new RelayCommand<Window>(ExecuteCloseView);
         }
 
-        private void ExcuteCloseView(Window viewWindow)
+        private void ExecuteCloseView(Window viewWindow)
         {
             viewWindow.Close();
         }

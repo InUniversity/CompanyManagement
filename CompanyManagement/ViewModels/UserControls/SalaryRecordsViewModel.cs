@@ -1,22 +1,15 @@
 ﻿using CompanyManagement.Database;
-using CompanyManagement.Database.Base;
 using CompanyManagement.Models;
 using CompanyManagement.Services;
-using CompanyManagement.Utilities;
 using CompanyManagement.ViewModels.Base;
 using CompanyManagement.Views.Dialogs;
-using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Threading;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
@@ -65,12 +58,12 @@ namespace CompanyManagement.ViewModels.UserControls
             LoadSalaryRecords();
         }
 
-        public void SetCommands()
+        private void SetCommands()
         {
-            CalculateSalaryCommand = new RelayCommand<object>(ExcuteCalculateSalary);
-            DistributeSalaryCommand = new RelayCommand<object>(ExcuteDistributeSalary);
-            OpenSalaryDetailsDialogCommand = new RelayCommand<SalaryRecord>(ExcuteOpenSalaryDetailsDialog);
-            RestorePayRollCommand = new RelayCommand<object>(ExcuteRestorePayRoll);
+            CalculateSalaryCommand = new RelayCommand<object>(ExecuteCalculateSalary);
+            DistributeSalaryCommand = new RelayCommand<object>(ExecuteDistributeSalary);
+            OpenSalaryDetailsDialogCommand = new RelayCommand<SalaryRecord>(ExecuteOpenSalaryDetailsDialog);
+            RestorePayRollCommand = new RelayCommand<object>(ExecuteRestorePayRoll);
         }
 
         private void LoadSalaryRecords()
@@ -80,7 +73,6 @@ namespace CompanyManagement.ViewModels.UserControls
                 : salaryRecordsDao.GetByDepartmentID(DepartmentID, Month, Year);
             foreach(SalaryRecord salaryRecord in listSalaryRecord)
             {
-                salaryRecord.Worker = employeesDao.SearchByID(salaryRecord.EmployeeID);
                 salaryRecord.TotalOffDays = GetToTalDayOfMonth() - salaryRecord.TotalWorkDays;
             }
             SalaryRecords = new ObservableCollection<SalaryRecord>(listSalaryRecord);
@@ -90,24 +82,23 @@ namespace CompanyManagement.ViewModels.UserControls
         {
             Departments = new List<Department>();
             Departments.Add(new Department("ALL", "Tất Cả", ""));
+            Departments.Add(new Department("MNG", "Management", ""));
             Departments.AddRange(departmentsDao.GetAll());
             Years = Enumerable.Range(2000, DateTime.Now.Year - 1999).OrderByDescending(year => year).ToList();
         }
 
-        private void ExcuteCalculateSalary(object obj)
+        private void ExecuteCalculateSalary(object obj)
         {
             if (!ValidateCalculateSalary()) return;
-            throw new NotImplementedException();
-            // var employees = employeesDao.GetAll();
-            // listSalaryRecord.Clear();
-            // foreach(Employee employee in employees)
-            // {
-            //     SalaryRecord salaryRecord = CreateSalaryRecord(employee);
-            //     salaryRecord.Worker = employee;
-            //     CalculateIcome(salaryRecord);
-            //     listSalaryRecord.Add(salaryRecord);
-            // }
-            // SalaryRecords = new ObservableCollection<SalaryRecord>(listSalaryRecord);
+            var employees = employeesDao.GetAll();
+            listSalaryRecord.Clear();
+            foreach(Employee employee in employees)
+            {
+                SalaryRecord salaryRecord = CreateSalaryRecord(employee);
+                CalculateIcome(salaryRecord);
+                listSalaryRecord.Add(salaryRecord);
+            }
+            SalaryRecords = new ObservableCollection<SalaryRecord>(listSalaryRecord);
         }
 
         private bool ValidateCalculateSalary()
@@ -163,7 +154,7 @@ namespace CompanyManagement.ViewModels.UserControls
             return number;
         }
 
-        private void ExcuteDistributeSalary(object obj)
+        private void ExecuteDistributeSalary(object obj)
         {
             if (!ValidateDistributeSalary()) return;
             var dialog = new AlertDialogService(
@@ -171,12 +162,12 @@ namespace CompanyManagement.ViewModels.UserControls
                "Bạn chắc chắn muốn phát lương cho nhân viên?",
                () =>
                {
-                   AddToDB();
+                   AddToDatabase();
                }, null);
             dialog.Show();
         }
 
-        private void AddToDB()
+        private void AddToDatabase()
         {
             foreach (SalaryRecord salaryRecord in SalaryRecords)
             {
@@ -255,32 +246,32 @@ namespace CompanyManagement.ViewModels.UserControls
                 MessageTimeRemain = "Còn " + timer + " giây để hoàn tác!";
         }
 
-        private void ExcuteRestorePayRoll(object obj)
+        private void ExecuteRestorePayRoll(object obj)
         {
             var dialog = new AlertDialogService(
                "Hoàn tác",
                "Bạn chắc chắn muốn hoàn tác việc phát lương cho nhân viên?",
                () =>
                {
-                   DeleteFromDB();
+                   DeleteFromDatabase();
                }, null);
             dialog.Show();
         }
 
-        private void DeleteFromDB()
+        private void DeleteFromDatabase()
         {
             salaryRecordsDao.DeleteByMonthYear(month, year);
             LoadSalaryRecords();
             HideRestoreButton();
         }
 
-        private void ExcuteOpenSalaryDetailsDialog(SalaryRecord salaryRecord)
+        private void ExecuteOpenSalaryDetailsDialog(SalaryRecord salaryRecord)
         {
-            SalaryDetailsDialog SalaryDetailDiaLog = new SalaryDetailsDialog();
+            SalaryDetailsDialog salaryDetailDiaLog = new SalaryDetailsDialog();
             SalaryDetailViewModel salaryDetailViewModel = new SalaryDetailViewModel();
             salaryDetailViewModel.salaryRecordIns = salaryRecord;
-            SalaryDetailDiaLog.DataContext = salaryDetailViewModel;
-            SalaryDetailDiaLog.Show();
+            salaryDetailDiaLog.DataContext = salaryDetailViewModel;
+            salaryDetailDiaLog.Show();
         }
     }
 }
