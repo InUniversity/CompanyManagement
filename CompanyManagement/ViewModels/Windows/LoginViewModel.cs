@@ -35,6 +35,8 @@ namespace CompanyManagement.ViewModels.Windows
 
         private void ExecuteLoginCommand(Window window)
         {
+            Username = "EM0010101";
+            Password = "@1234567";
             var account = accountsDao.SearchByUsername(Username);
             if (account == null || !string.Equals(password, account.Password))
             {
