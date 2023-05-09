@@ -79,6 +79,9 @@ namespace CompanyManagement.ViewModels.Windows
 
         private void ExecuteShowUserInformationViewCommand(object obj)
         {
+            // TODO
+            // To refresh history salary with HR
+            userInformationUC = new UserInformationUC();
             CurrentChildView = userInformationUC;
             StatusUserInformationView = true;
         }

@@ -10,6 +10,7 @@ using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace CompanyManagement.Models
 {
@@ -17,7 +18,7 @@ namespace CompanyManagement.Models
     {
         private string id;
         private string employeeID;
-        private DateTime monthYear;
+        private DateTime monthYear = Utils.emptyDate;
         private int totalWorkDays;
         private int totalOffDays;
         private decimal totalBonuses;
@@ -49,8 +50,11 @@ namespace CompanyManagement.Models
 
         public int TotalOffDays
         {
-            get => totalOffDays;
-            set => totalOffDays = value;
+            get { 
+                if(monthYear != Utils.emptyDate)
+                    return DateTime.DaysInMonth(monthYear.Year, monthYear.Month) - totalWorkDays;
+                return 0;
+            }
         }
 
         public decimal TotalBonuses
@@ -82,13 +86,12 @@ namespace CompanyManagement.Models
 
         public SalaryRecord() { }
 
-        public SalaryRecord(string id, string employeeID, DateTime monthYear, int totalWorkDays, int totalOffDays, decimal totalBonuses, decimal income)
+        public SalaryRecord(string id, string employeeID, DateTime monthYear, int totalWorkDays, decimal totalBonuses, decimal income)
         {
             this.id = id;
             this.employeeID = employeeID;
             this.monthYear = monthYear;
             this.totalWorkDays = totalWorkDays;
-            this.totalOffDays = totalOffDays;
             this.totalBonuses = totalBonuses;
             this.income = income;
         }
