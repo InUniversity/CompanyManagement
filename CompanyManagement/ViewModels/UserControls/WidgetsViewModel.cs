@@ -26,11 +26,8 @@ namespace CompanyManagement.ViewModels.UserControls
         private List<TeamStatusItem> listStatusTeam;
         public List<TeamStatusItem> ListStatusTeam { get => listStatusTeam; set { listStatusTeam = value; OnPropertyChanged(); } }
 
-        private List<object> listOverdueWorkItem;
-        public List<object> ListOverdueWorkItem { get => listOverdueWorkItem; set { listOverdueWorkItem = value; OnPropertyChanged(); } }
-
         public List<string> LabelsTaskProgressPercent { get; set; }
-        public Func<int,string> LabelFormate { get; set; }
+        public Func<int, string> LabelFormat { get; set; }
 
         private List<TaskInProject> TasksInProject;
         private List<Department> TeamsInProject;
@@ -51,7 +48,6 @@ namespace CompanyManagement.ViewModels.UserControls
             SetSeriesTaskStatus();
             SetSeriesTaskProgress();
             LoadStatusTeam();
-            LoadOverdueWorkItem();
         }
 
         private void SetSeriesTaskProgress()
@@ -78,19 +74,8 @@ namespace CompanyManagement.ViewModels.UserControls
                        }                       
                    );
 
-            SeriesTaskProgressViews.Add
-                   (
-                       new LineSeries()
-                       {
-                           Values = new ChartValues<int>(numberTasksInPercent.Values),
-                           Stroke = Brushes.Red,
-                           StrokeThickness = 0.5,
-                           Fill = Brushes.Transparent, 
-                       }
-                   );   
-            
             LabelsTaskProgressPercent = new List<string>(numberTasksInPercent.Keys);
-            LabelFormate = value => ((int)value).ToString();
+            LabelFormat = value => ((int)value).ToString();
         }     
 
         private void SetSeriesTaskStatus()
@@ -135,14 +120,6 @@ namespace CompanyManagement.ViewModels.UserControls
             };
         }
 
-        private void LoadOverdueWorkItem()
-        {
-            var items = from task in TasksInProject
-                        where task.StatusID == BaseDao.overdueTask
-                        select new { Tile = task.Title, OverdueTime = (DateTime.Now.Date.Subtract(task.Deadline.Date)).Days };
-            ListOverdueWorkItem = new List<object>(items.ToList());
-        }
-
         private void LoadStatusTeam()
         {
             ListStatusTeam = new List<TeamStatusItem>();
@@ -156,8 +133,6 @@ namespace CompanyManagement.ViewModels.UserControls
             var listNumberOngoingTasks = GetListNumberTaskByStatusOfTeam(BaseDao.ongoingTask);
 
             var listNumberUnderConsiderableTasks = GetListNumberTaskByStatusOfTeam(BaseDao.underConsiderableTask);
-
-            var listNumberAllTaskOpen = GetListNumberAllTaskOfTeam();
 
             foreach (TeamStatusItem team in ListStatusTeam)
             {
@@ -184,13 +159,6 @@ namespace CompanyManagement.ViewModels.UserControls
                 {
                     team.NumberUnderConsiderableTasks = numberUnderConsiderableTask.Number;
                 }
-
-                var numberAllTaskOpen = listNumberAllTaskOpen.FirstOrDefault(open => open.TeamID == team.TeamID);
-                if (numberAllTaskOpen != null)
-                {
-                    team.NumberAllTaskOpenTasks = numberAllTaskOpen.Number;
-                }
-                Log.Instance.Information(nameof(WidgetsViewModel), nameof(ListStatusTeam) + " = " + ListStatusTeam.Count);
             }
         }
 
@@ -231,7 +199,6 @@ namespace CompanyManagement.ViewModels.UserControls
             public string TeamID { get; set; }
             public string TeamName { get; set; }
             public int NumberOverdueTasks { get; set; }
-            public int NumberAllTaskOpenTasks { get; set; }
             public int NumberCompletedTasks { get; set; }
             public int NumberUnderConsiderableTasks { get; set; }
             public int NumberOngoingTasks { get; set; }
@@ -241,12 +208,10 @@ namespace CompanyManagement.ViewModels.UserControls
                 TeamID = id;
                 TeamName = name;
                 NumberOverdueTasks = numberOverdueTasks;
-                NumberAllTaskOpenTasks = numberAllTaskOpenTasks;
                 NumberCompletedTasks = numberCompletedTasks;
                 NumberUnderConsiderableTasks = numberUnderConsiderableTasks;
                 NumberOngoingTasks = numberOngoingTasks;
             }
-            public TeamStatusItem() { }
         }
 
 
