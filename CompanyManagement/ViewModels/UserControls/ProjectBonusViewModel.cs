@@ -76,8 +76,7 @@ namespace CompanyManagement.ViewModels.UserControls
             List<ProjectBonus> createList = new List<ProjectBonus>();
             foreach (Employee emp in employeesInProject)
             {
-                ProjectBonus projectBonuses = new ProjectBonus((new Random()).Next(999).ToString(),
-                    0, DateTime.Now, emp.ID, projectID);
+                ProjectBonus projectBonuses = new ProjectBonus("", 0, DateTime.Now, emp.ID, projectID);
                 projectBonuses.Receiver = emp;
                 createList.Add(projectBonuses);
             }
@@ -128,7 +127,7 @@ namespace CompanyManagement.ViewModels.UserControls
             {
                 int number = random.Next(100000);
                 projectBonusID = $"PB{number:00000}";
-            } while (projectBonusesDao.SearchByID(projectBonusID) == null);
+            } while (projectBonusesDao.SearchByID(projectBonusID) != null);
             return projectBonusID;
         }
 
@@ -232,7 +231,7 @@ namespace CompanyManagement.ViewModels.UserControls
             projectBonusesDao.DeleteByProjectID(projectID);
             AddShareBonusToDBCommand(bonusNormalList);
             AddShareBonusToDBCommand(bonusSpecial);
-            currentProject.ID = BaseDao.projCompletedID;
+            currentProject.StatusID = BaseDao.projCompletedID;
             projectsDao.Update(currentProject);
         }
 
