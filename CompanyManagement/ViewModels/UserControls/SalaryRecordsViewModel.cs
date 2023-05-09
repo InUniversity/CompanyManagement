@@ -183,10 +183,7 @@ namespace CompanyManagement.ViewModels.UserControls
                 salaryRecordsDao.Add(salaryRecord);
             }
             if (salaryRecordsDao.GetByTime(month, year).Count != 0)
-            {
                 RestoreButton();
-                HideRestoreButton();
-            }
         }
 
         private string AutoGenerateID()
@@ -224,14 +221,20 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void RestoreButton()
         {
-            VisibleRestoreButton = Visibility.Visible; 
-            Timer = 15;
+            ShowRestoreButton();
             StartTimer();
+        }
+
+        private void ShowRestoreButton()
+        {
+            VisibleRestoreButton = Visibility.Visible;
+            Timer = 15;
         }
 
         private void HideRestoreButton()
         {
-            
+            VisibleRestoreButton = Visibility.Hidden;
+            Timer = 0;
         }
 
         private async void StartTimer()
@@ -241,7 +244,7 @@ namespace CompanyManagement.ViewModels.UserControls
             if (Timer > 0)
                 StartTimer();
             else
-                VisibleRestoreButton = Visibility.Hidden;
+                HideRestoreButton();
         }
 
         private void LoadMessageRemain()
@@ -267,6 +270,7 @@ namespace CompanyManagement.ViewModels.UserControls
         {
             salaryRecordsDao.DeleteByMonthYear(month, year);
             LoadSalaryRecords();
+            HideRestoreButton();
         }
 
         private void ExcuteOpenSalaryDetailsDialog(SalaryRecord salaryRecord)
