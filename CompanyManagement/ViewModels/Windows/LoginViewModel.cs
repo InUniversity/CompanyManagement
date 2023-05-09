@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using CompanyManagement.Database;
 using CompanyManagement.Models;
+using CompanyManagement.Strategies.Windows.MainView;
 using CompanyManagement.Utilities;
 using CompanyManagement.ViewModels.Base;
 using CompanyManagement.Views.Windows;
@@ -46,14 +47,22 @@ namespace CompanyManagement.ViewModels.Windows
             employee.Acc = account;
             CurrentUser.Ins.EmployeeIns = employee;
             window.Hide();
-            ShowMainWindow();
+            ShowMainWindow(employee.RoleID);
             window.Show();
         }
 
-        private void ShowMainWindow()
+        private void ShowMainWindow(string roleID)
         {
-            MainWindow nextWindow = new MainWindow { DataContext = new MainViewModel() };
-            nextWindow.ShowDialog();
+            try
+            {
+                var mainStrategy = MainStrategyFactory.Create(roleID);
+                var nextWindow = new MainWindow { DataContext = new MainViewModel(mainStrategy) };
+                nextWindow.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                Log.Instance.Error(nameof(LoginViewModel), ex.Message);
+            }
         }
 
         private void RefreshAllText()

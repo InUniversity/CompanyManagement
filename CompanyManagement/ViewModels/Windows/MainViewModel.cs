@@ -7,6 +7,7 @@ using System;
 using CompanyManagement.Services;
 using CompanyManagement.Models;
 using CompanyManagement.Database.Base;
+using CompanyManagement.Strategies.Windows.MainView;
 
 namespace CompanyManagement.ViewModels.Windows
 {
@@ -60,8 +61,20 @@ namespace CompanyManagement.ViewModels.Windows
         public ICommand ShowSalaryRecordsViewCommand { get; private set; }
         public ICommand LogOutCommand { get; private set; }
 
-        public MainViewModel()
+        private IMainStrategy mainStrategy;
+        public IMainStrategy MainStrategy
         {
+            get => mainStrategy;
+            set
+            {
+                mainStrategy = value; 
+                mainStrategy.SetVisible(this);
+            }
+        }
+
+        public MainViewModel(IMainStrategy mainStrategy)
+        {
+            MainStrategy = mainStrategy;
             ExecuteShowUserInformationViewCommand(null);
             SetCommands();
         }
