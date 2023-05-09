@@ -167,7 +167,6 @@
     <Compile Include="ViewModels\UserControls\ProjectsViewModel.cs" />
     <Compile Include="ViewModels\UserControls\TaskInputViewModel.cs" />
     <Compile Include="ViewModels\UserControls\TasksInProjectViewModel.cs" />
-    <Compile Include="ViewModels\UserControls\TimeTrackingViewModel.cs" />
     <Compile Include="ViewModels\UserControls\UserInformationViewModel.cs" />
     <Compile Include="ViewModels\UserControls\WidgetsViewModel.cs" />
     <Compile Include="ViewModels\Windows\LoginViewModel.cs" />
@@ -286,9 +285,6 @@
     </Compile>
     <Compile Include="Views\UserControls\TasksInProjectUC.xaml.cs">
       <DependentUpon>TasksInProjectUC.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\UserControls\TimeTrackingUC.xaml.cs">
-      <DependentUpon>TimeTrackingUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UserControls\UserInformationUC.xaml.cs">
       <DependentUpon>UserInformationUC.xaml</DependentUpon>
@@ -455,10 +451,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\UserControls\TasksInProjectUC.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\UserControls\TimeTrackingUC.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

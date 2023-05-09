@@ -36,21 +36,12 @@
                     <TextBlock Text="Nhiệm vụ" Margin="30 0"></TextBlock>
                 </RadioButton>
                 <RadioButton
-                            Height="40"
-                            Margin="4"         
-                            IsChecked="{Binding ElementName=projectDetailsUC, Path=DataContext.StatusTimeKeepingView}"
-                            Command="{Binding ElementName=projectDetailsUC, Path=DataContext.ShowTimeKeepingCommand}"
-                            BorderBrush="{DynamicResource PrimaryHueMidBrush}"
-                            Style="{StaticResource MaterialDesignTabRadioButtonBottom}" >
-                    <TextBlock Text="Theo dõi tiến độ" Margin="30 0"></TextBlock>
-                </RadioButton>
-                <RadioButton
                             Margin="4"     
                             IsChecked="{Binding ElementName=projectDetailsUC, Path=DataContext.StatusProjectBonusesView}"
                             Command="{Binding ElementName=projectDetailsUC, Path=DataContext.ShowProjectBonusesCommand}"
                             BorderBrush="{DynamicResource PrimaryHueMidBrush}"
                             Style="{StaticResource MaterialDesignTabRadioButtonBottom}" >
-                    <TextBlock Text="Tiền thưởng dự án" Margin="30 0"></TextBlock>
+                    <TextBlock Text="Tiền thưởng" Margin="30 0"></TextBlock>
                 </RadioButton>
                 <RadioButton
                             Height="40"
@@ -59,7 +50,7 @@
                             Command="{Binding ElementName=projectDetailsUC, Path=DataContext.ShowMilestonesCommand}"
                             BorderBrush="{DynamicResource PrimaryHueMidBrush}"
                             Style="{StaticResource MaterialDesignTabRadioButtonBottom}" >
-                    <TextBlock Text="Mốc Tiến Độ Dự Án" Margin="30 0"></TextBlock>
+                    <TextBlock Text="Các mốc dự án" Margin="30 0"></TextBlock>
                 </RadioButton>
                 <RadioButton
                             Height="40"

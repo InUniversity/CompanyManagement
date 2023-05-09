@@ -29,16 +29,12 @@ namespace CompanyManagement.ViewModels.UserControls
         public ICommand ShowWidgetsViewCommand { get; private set; }
 
         private TasksInProjectUC tasksInProjectUC = new TasksInProjectUC();
-        private TimeTrackingUC timeTrackingUC = new TimeTrackingUC();
         private ProjectBonusUC projectBonusUC = new ProjectBonusUC();
         private MilestonesUC milestonesUC = new MilestonesUC();
         private WidgetsUC widgetsUC = new WidgetsUC();
 
         private bool statusTasksView = false;
         public bool StatusTasksView { get => statusTasksView; set { statusTasksView = value; OnPropertyChanged(); } }
-
-        private bool statusTimeKeepingView = false;
-        public bool StatusTimeKeepingView { get => statusTimeKeepingView; set { statusTimeKeepingView = value; OnPropertyChanged(); } }
 
         private bool statusProjectBonusesView = false;
         public bool StatusProjectBonusesView { get => statusProjectBonusesView; set { statusProjectBonusesView = value; OnPropertyChanged(); } }
@@ -60,7 +56,6 @@ namespace CompanyManagement.ViewModels.UserControls
         {
             BackProjectsViewCommand = new RelayCommand<object>(ExecuteShowProjectsView);
             ShowTasksViewCommand = new RelayCommand<object>(_ => ShowTasksView());
-            ShowTimeKeepingCommand = new RelayCommand<object>(ExecuteShowTimeKeepingView);
             ShowProjectBonusesCommand = new RelayCommand<object>(ExecuteShowProjectBonusesView);
             ShowMilestonesCommand = new RelayCommand<object>(ExecuteShowMilestonesView);
             ShowWidgetsViewCommand = new RelayCommand<object>(ExecuteShowWidgetsViewCommand);
@@ -85,12 +80,6 @@ namespace CompanyManagement.ViewModels.UserControls
             StatusTasksView = true;
         }
 
-        private void ExecuteShowTimeKeepingView(object obj)
-        {
-            CurrentChildView = timeTrackingUC;
-            StatusTimeKeepingView = true;
-        }
-
         private void ExecuteShowProjectBonusesView(object obj)
         {
             CurrentChildView = projectBonusUC;
@@ -109,7 +98,6 @@ namespace CompanyManagement.ViewModels.UserControls
             try
             {
                 ((IRetrieveProjectID)tasksInProjectUC.DataContext).ReceiveProjectID(projectID);
-                ((IRetrieveProjectID)timeTrackingUC.DataContext).ReceiveProjectID(projectID);
                 ((IRetrieveProjectID)projectBonusUC.DataContext).ReceiveProjectID(projectID);
                 ((IRetrieveProjectID)milestonesUC.DataContext).ReceiveProjectID(projectID);
                 ((IRetrieveProjectID)widgetsUC.DataContext).ReceiveProjectID(projectID);
