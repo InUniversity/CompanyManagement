@@ -185,6 +185,7 @@ namespace CompanyManagement.ViewModels.UserControls
             if (salaryRecordsDao.GetByTime(month, year).Count != 0)
             {
                 RestoreButton();
+                HideRestoreButton();
             }
         }
 
@@ -226,6 +227,11 @@ namespace CompanyManagement.ViewModels.UserControls
             VisibleRestoreButton = Visibility.Visible; 
             Timer = 15;
             StartTimer();
+        }
+
+        private void HideRestoreButton()
+        {
+            
         }
 
         private async void StartTimer()
