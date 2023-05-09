@@ -26,11 +26,8 @@ namespace CompanyManagement.ViewModels.UserControls
         private List<TeamStatusItem> listStatusTeam;
         public List<TeamStatusItem> ListStatusTeam { get => listStatusTeam; set { listStatusTeam = value; OnPropertyChanged(); } }
 
-        private List<object> listOverdueWorkItem;
-        public List<object> ListOverdueWorkItem { get => listOverdueWorkItem; set { listOverdueWorkItem = value; OnPropertyChanged(); } }
-
         public List<string> LabelsTaskProgressPercent { get; set; }
-        public Func<int,string> LabelFormate { get; set; }
+        public Func<int, string> LabelFormat { get; set; }
 
         private List<TaskInProject> TasksInProject;
         private List<Department> TeamsInProject;
@@ -51,7 +48,6 @@ namespace CompanyManagement.ViewModels.UserControls
             SetSeriesTaskStatus();
             SetSeriesTaskProgress();
             LoadStatusTeam();
-            LoadOverdueWorkItem();
         }
 
         private void SetSeriesTaskProgress()
@@ -78,19 +74,8 @@ namespace CompanyManagement.ViewModels.UserControls
                        }                       
                    );
 
-            SeriesTaskProgressViews.Add
-                   (
-                       new LineSeries()
-                       {
-                           Values = new ChartValues<int>(numberTasksInPercent.Values),
-                           Stroke = Brushes.Red,
-                           StrokeThickness = 0.5,
-                           Fill = Brushes.Transparent, 
-                       }
-                   );   
-            
             LabelsTaskProgressPercent = new List<string>(numberTasksInPercent.Keys);
-            LabelFormate = value => ((int)value).ToString();
+            LabelFormat = value => ((int)value).ToString();
         }     
 
         private void SetSeriesTaskStatus()
@@ -133,14 +118,6 @@ namespace CompanyManagement.ViewModels.UserControls
                     DataLabels= true
                 }
             };
-        }
-
-        private void LoadOverdueWorkItem()
-        {
-            var items = from task in TasksInProject
-                        where task.StatusID == BaseDao.overdueTask
-                        select new { Tile = task.Title, OverdueTime = (DateTime.Now.Date.Subtract(task.Deadline.Date)).Days };
-            ListOverdueWorkItem = new List<object>(items.ToList());
         }
 
         private void LoadStatusTeam()
@@ -246,7 +223,6 @@ namespace CompanyManagement.ViewModels.UserControls
                 NumberUnderConsiderableTasks = numberUnderConsiderableTasks;
                 NumberOngoingTasks = numberOngoingTasks;
             }
-            public TeamStatusItem() { }
         }
 
 
