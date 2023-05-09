@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
+using CompanyManagement.Strategies.UserControls.DeptsView;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
@@ -20,18 +21,36 @@ namespace CompanyManagement.ViewModels.UserControls
         private Department selectedDepartment;
         public Department SelectedDepartment { get => selectedDepartment; set { selectedDepartment = value; OnPropertyChanged(); } }
 
+        private Visibility visibleAddButton;
+        public Visibility VisibleAddButton { get => visibleAddButton; set { visibleAddButton = value; OnPropertyChanged(); } }
+
+        private Visibility visibleDeleteButton;
+        public Visibility VisibleDeleteButton { get => visibleDeleteButton; set { visibleDeleteButton = value; OnPropertyChanged(); } }
+
         public ICommand OpenAddDialogCommand { get; private set; }
         public ICommand DeleteDepartmentCommand { get; private set; }
         public ICommand OpenUpdateDialogCommand { get; private set; }
         public ICommand ItemClickCommand { get; private set; }
 
+        private IDeptStrategy deptStrategy;
+        public IDeptStrategy DeptStrategy
+        {
+            get => deptStrategy;
+            set
+            {
+                deptStrategy = value;
+                deptStrategy.SetVisible(this);
+            }
+        }
+        
         private DepartmentsDao departmentsDao = new DepartmentsDao();
         private EmployeesDao employeesDao = new EmployeesDao();
 
         public IOrganization ParentDataContext { get;set; }
 
-        public DepartmentsViewModel()
+        public DepartmentsViewModel(IDeptStrategy deptStrategy)
         {
+            DeptStrategy = deptStrategy;
             LoadDepartment();
             SetCommands();
         }
