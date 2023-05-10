@@ -16,11 +16,11 @@
              mc:Ignorable="d"
              d:DesignHeight="600" d:DesignWidth="1100">
     <Grid>
-        <Border Margin="10" BorderBrush="Teal" BorderThickness="1.5" MinWidth="1060">
+        <Border Margin="10"  MinWidth="1060">
             <StackPanel>
-                <materialDesign:ColorZone Height="50"
+                <materialDesign:Card Height="50"
                                           Margin="15"
-                                          BorderBrush="Teal"
+                                          BorderBrush="Gray"
                                           BorderThickness="1"
                                           Background="White">
                     <Canvas>
@@ -115,9 +115,9 @@
                             <materialDesign:PackIcon Kind="DotsVertical" />
                         </Button>
                     </Canvas>
-                </materialDesign:ColorZone>
+                </materialDesign:Card>
                 <TextBlock Text="Lịch sử :" FontSize="15" Margin="15 5" FontWeight="Bold" />
-                <Border BorderBrush="Gray" BorderThickness="0.5" Margin="10">
+                <materialDesign:Card Margin="10">
                     <ListView MinHeight="450" ItemsSource="{Binding TimeSheetList}">
                         <ListView.View>
                             <GridView>
@@ -156,7 +156,7 @@
                             </GridView>
                         </ListView.View>
                     </ListView>
-                </Border>
+                </materialDesign:Card>
             </StackPanel>
         </Border>
     </Grid>

@@ -114,7 +114,7 @@ namespace CompanyManagement.ViewModels.UserControls
             if (!CheckTask()) return;
             var dialog = new AlertDialogService(
                "Check in",
-               "Bạn chắc chắn muốn check in không !",
+               "Bạn chắc chắn muốn check in !",
                () =>
                {
                    TimeSheet checkIn = CheckInOutInputDataContext.TimeSheetIns;
