@@ -12,6 +12,7 @@ namespace CompanyManagement.ViewModels.Dialogs
     public class UpdateTaskViewModel : BaseViewModel, IInputViewModel<TaskInProject>
     {
         public ICommand UpdateTaskCommand { get; set; }
+        public ICommand CloseDialogCommand { get; set; }
 
         public ITaskInput TaskInputDataContext { get; set; }
         private Action<TaskInProject> submitObjectAction;
@@ -25,6 +26,19 @@ namespace CompanyManagement.ViewModels.Dialogs
         private void SetCommands()
         {
             UpdateTaskCommand = new RelayCommand<Window>(UpdateCommand);
+            CloseDialogCommand = new RelayCommand<Window>(CloseCommand);
+        }
+
+        private void CloseCommand(Window window)
+        {
+            AlertDialogService dialog = new AlertDialogService(
+                "Cập nhật nhiệm vụ",
+                "Bạn chắc chắn muốn thoát !",
+                () =>
+                {
+                    window.Close();
+                }, () => { });
+            dialog.Show();
         }
 
         private void UpdateCommand(Window inputWindow)
