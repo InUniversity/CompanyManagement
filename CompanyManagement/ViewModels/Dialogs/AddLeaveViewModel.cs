@@ -14,6 +14,7 @@ namespace CompanyManagement.ViewModels.Dialogs
     public class AddLeaveViewModel : BaseViewModel, IInputViewModel<LeaveRequest>
     {
         public ICommand AddLeaveCommand { get; private set; }
+        public ICommand CloseDialogCommand { get; private set; }
 
         public LeaveInputViewModel LeaveInputDataContext { get; private set; }
         private Action<LeaveRequest> submitObjectAction;
@@ -30,6 +31,19 @@ namespace CompanyManagement.ViewModels.Dialogs
         private void SetCommands()
         {
             AddLeaveCommand = new RelayCommand<Window>(ExecuteAddCommand);
+            CloseDialogCommand = new RelayCommand<Window>(CloseCommand);
+        }
+
+        private void CloseCommand(Window window)
+        {
+            var dialog = new AlertDialogService(
+                 "Thêm nhân viên",
+                 "Bạn chắc chắn muốn thoát !",
+                 () =>
+                 {
+                     window.Close();
+                 }, null);
+            dialog.Show();
         }
 
         private void ExecuteAddCommand(Window inputWindow)

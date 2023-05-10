@@ -44,7 +44,7 @@
                     <DatePicker
                         SelectedDate="{Binding StartDate,UpdateSourceTrigger=PropertyChanged}"
                         Margin="10"
-                        Width="360"
+                        Width="340"
                         HorizontalAlignment="Center"
                         materialDesign:HintAssist.Hint="Ngày bắt đầu"
                         Style="{StaticResource MaterialDesignOutlinedDatePicker}" />
@@ -53,7 +53,7 @@
                     <DatePicker
                         SelectedDate="{Binding EndDate, UpdateSourceTrigger=PropertyChanged}"
                         Margin="10"
-                        Width="360"
+                        Width="340"
                         HorizontalAlignment="Center"
                         materialDesign:HintAssist.Hint="Ngày kết thúc"
                         Style="{StaticResource MaterialDesignOutlinedDatePicker}" />
@@ -114,7 +114,7 @@
                                                 </DataTemplate>
                                             </GridViewColumn.CellTemplate>
                                         </GridViewColumn>
-                                        <GridViewColumn Width="200">
+                                        <GridViewColumn Width="100">
                                             <GridViewColumn.Header>
                                                 <TextBlock Text="Chức Vụ" FontWeight="ExtraBold" />
                                             </GridViewColumn.Header>
@@ -153,7 +153,7 @@
                              Text="{Binding RoleName}"
                              Style="{StaticResource MaterialDesignOutlinedTextBox}"
                              materialDesign:HintAssist.Hint="Gửi đến"
-                             Width="700" />
+                             Width="650" />
                     <Button Width="20"
                             Style="{StaticResource MaterialDesignIconButton}"
                             Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
