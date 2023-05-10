@@ -114,13 +114,13 @@
                                                 </DataTemplate>
                                             </GridViewColumn.CellTemplate>
                                         </GridViewColumn>
-                                        <GridViewColumn Width="100">
+                                        <GridViewColumn Width="200">
                                             <GridViewColumn.Header>
-                                                <TextBlock Text="ID" FontWeight="ExtraBold" />
+                                                <TextBlock Text="Chức Vụ" FontWeight="ExtraBold" />
                                             </GridViewColumn.Header>
                                             <GridViewColumn.CellTemplate>
                                                 <DataTemplate>
-                                                    <TextBlock Height="40" Text="{Binding EmployeeRole.Title}" />
+                                                    <TextBlock Height="40" Text="{Binding EmplRole.Title}" />
                                                 </DataTemplate>
                                             </GridViewColumn.CellTemplate>
                                         </GridViewColumn>

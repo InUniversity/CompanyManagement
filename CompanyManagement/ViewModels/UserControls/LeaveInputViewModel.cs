@@ -88,16 +88,12 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void LoadApprovers()
         {
-            approvers = employeesDao.GetManagers();
-            string headerDeptID = departmentsDao.SearchByID(currentEmployee.DepartmentID)?.DeptHeadID ?? "";
-            Employee headerApprover = employeesDao.SearchByID(headerDeptID);
-            SearchedApprovers = string.Equals(currentEmployee.RoleID, BaseDao.deptHeadRole)
-                ? Approvers
-                : Approvers.Concat(new List<Employee> { headerApprover }).ToList();
-            foreach(Employee emp in SearchedApprovers)
+            approvers = employeesDao.GetHeaderDepts();
+            foreach(Employee header in approvers)
             {
-                emp.EmplRole = rolesDao.SearchByID(emp.RoleID);
-            }    
+                header.EmplRole = rolesDao.SearchByID(header.RoleID);
+            }
+            SearchedApprovers = new List<Employee>(approvers);
         }
 
         private void SearchByName()

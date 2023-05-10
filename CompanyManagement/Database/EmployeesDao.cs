@@ -65,9 +65,9 @@ namespace CompanyManagement.Database
             return (Employee)dbConnection.GetSingleObject(sqlStr, reader => new Employee(reader));
         }
 
-        public List<Employee> GetManagers()
+        public List<Employee> GetHeaderDepts()
         {
-            string sqlStr = $"SELECT * FROM {emplTbl} WHERE {emplRoleID} ='{managerRole}'";
+            string sqlStr = $"SELECT * FROM {emplTbl} WHERE {emplRoleID} ='{hrRole}'";
             return dbConnection.GetList(sqlStr, reader => new Employee(reader));
         }
 

@@ -91,10 +91,10 @@ namespace CompanyManagement.ViewModels.UserControls
         {
             LeaveRequests = leaveDao.GetMyRequests(currentEmployee.ID);
 
-            var receivedLeaveRequests = currentEmployee.RoleID == BaseDao.regularEmplRole
-                ? leaveDao.GetMyRequests(currentEmployee.ID)
-                : leaveDao.SearchByApproverID(currentEmployee.ID);
-            foreach(LeaveRequest leave in receivedLeaveRequests)
+            var receivedLeaveRequests = (currentEmployee.RoleID == BaseDao.hrRole)
+                ? leaveDao.SearchByApproverID(currentEmployee.ID)
+                : leaveDao.GetMyRequests(currentEmployee.ID);
+            foreach (LeaveRequest leave in receivedLeaveRequests)
             {
                 leave.Approver = employeeDao.SearchByID(leave.ApproverID);
             }    

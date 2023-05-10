@@ -6,6 +6,7 @@ using System.Windows;
 using CompanyManagement.Models;
 using CompanyManagement.ViewModels.Dialogs.Interfaces;
 using System;
+using CompanyManagement.Database;
 
 namespace CompanyManagement.ViewModels.Dialogs
 {
@@ -46,6 +47,7 @@ namespace CompanyManagement.ViewModels.Dialogs
         public void ReceiveObject(LeaveRequest leaveRequest)
         {
             LeaveInputDataContext.LeaveRequestIns = leaveRequest;
+            LeaveInputDataContext.RoleName = (new RolesDao()).SearchByID(leaveRequest.Approver.RoleID).Title;
         }
 
         public void ReceiveSubmitAction(Action<LeaveRequest> submitObjectAction)
