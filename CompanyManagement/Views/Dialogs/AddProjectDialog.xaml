@@ -51,7 +51,6 @@
                     Background="Teal"
                     Style="{StaticResource MaterialDesignFlatMidBgButton}"
                     ToolTip="Thêm dự án mới" />
-
             </StackPanel>
         </Grid>
     </Border>
