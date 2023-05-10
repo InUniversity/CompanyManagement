@@ -260,7 +260,6 @@
                 Background="#e3f2fd"
                 FontWeight="ExtraBold"
                 BorderThickness="0"
-                Visibility="{Binding DataContext.VisibleAddButton, ElementName=tasksInProjectUC}"
                 ToolTip="Thêm nhiệm vụ mới"
                 Foreground="#0277bd"
                 Command="{Binding OpenTaskInProjectInputCommand}">

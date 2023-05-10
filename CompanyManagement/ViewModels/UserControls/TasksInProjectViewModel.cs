@@ -30,10 +30,6 @@ namespace CompanyManagement.ViewModels.UserControls
         public List<TaskInProject> OverdueTasksInProject 
         { get => overdueTasksInProject; set { overdueTasksInProject = value; OnPropertyChanged(); } }
 
-        private Visibility visibleAddButton = Visibility.Collapsed;
-        public Visibility VisibleAddButton 
-        { get => visibleAddButton; set { visibleAddButton = value; OnPropertyChanged(); } }
-
         private Visibility visibleDeleteButton = Visibility.Collapsed;
         public Visibility VisibleDeleteButton 
         { get => visibleDeleteButton; set { visibleDeleteButton = value; OnPropertyChanged(); } }
@@ -82,12 +78,10 @@ namespace CompanyManagement.ViewModels.UserControls
         {
             if (!string.Equals(currentEmployee.RoleID, BaseDao.regularEmplRole))
             {
-                visibleAddButton = Visibility.Visible;
                 visibleDeleteButton = Visibility.Visible;
             }
             else
             {
-                visibleAddButton = Visibility.Collapsed;
                 visibleDeleteButton = Visibility.Collapsed;
             }
         }
