@@ -13,6 +13,7 @@
         Background="White"           
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
+        ResizeMode="NoResize"
         mc:Ignorable="d"
         x:Name="addEmployeeWindow"
        Height="600" Width="1000">

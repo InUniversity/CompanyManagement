@@ -12,6 +12,7 @@
         Background="White"           
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
+        ResizeMode="NoResize"
         mc:Ignorable="d"
         xmlns:uc="clr-namespace:CompanyManagement.Views.UserControls"
         x:Name="updateEmployeeWindow"

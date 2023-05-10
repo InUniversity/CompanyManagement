@@ -11,6 +11,7 @@ namespace CompanyManagement.ViewModels.Dialogs
     public class UpdateProjectViewModel : BaseViewModel, IInputViewModel<Project>
     {
         public ICommand UpdateProjectCommand { get; }
+        public ICommand CloseDialogCommand { get; }
 
         public ProjectInputViewModel ProjectInputDataContext { get; }
         private Action<Project> submitObjectAction;
@@ -19,6 +20,19 @@ namespace CompanyManagement.ViewModels.Dialogs
         {
             ProjectInputDataContext = new ProjectInputViewModel();
             UpdateProjectCommand = new RelayCommand<Window>(ExecuteUpdateCommand);
+            CloseDialogCommand = new RelayCommand<Window>(ExecuteCloseCommand);
+        }
+
+        private void ExecuteCloseCommand(Window window)
+        {
+            AlertDialogService dialog = new AlertDialogService(
+                 "Cập nhật dự án",
+                 "Bạn chắc chắn muốn thoát !",
+                 () =>
+                 {
+                     window.Close();
+                 }, () => { });
+            dialog.Show();
         }
 
         private void ExecuteUpdateCommand(Window inputWindow)

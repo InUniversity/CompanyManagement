@@ -13,6 +13,7 @@
         TextOptions.TextRenderingMode="Auto"
         Background="White"           
         WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
         WindowStyle="None"
         mc:Ignorable="d"
         x:Name="updateDepartmentWindow"
