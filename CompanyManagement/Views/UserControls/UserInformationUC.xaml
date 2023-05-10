@@ -45,7 +45,7 @@
                             IsChecked="{Binding StatusPersonalSalaryView}"                         
                             BorderBrush="{DynamicResource PrimaryHueMidBrush}"
                             Style="{StaticResource MaterialDesignTabRadioButtonBottom}" >
-                    <TextBlock Text="Lịch Sử Nhận Lương" Margin="30 0"></TextBlock>
+                    <TextBlock Text="Lịch Sử nhận lương" Margin="30 0"></TextBlock>
                 </RadioButton>
             </StackPanel>
 

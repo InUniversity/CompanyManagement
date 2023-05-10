@@ -105,14 +105,15 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private bool ValidateCalculateSalary()
         {
-            //if (DateTime.Now.Year == Year && DateTime.Now.Month <= Month)
-            //{
-            //    var dialog = new AlertDialogService(
-            //        "Thông báo",
-            //        "Chưa đến ngày tính lương!", null, null);
-            //    dialog.Show();
-            //    return false;
-            //}
+            if (DateTime.Now.Year == Year && DateTime.Now.Month <= Month)
+            {
+                var dialog = new AlertDialogService(
+                    "Thông báo",
+                    "Chưa đến ngày tính lương!", null, null);
+                dialog.Show();
+                return false;
+            }
+
             if (SalaryRecords.Count != 0)
             {
                 var dialog = new AlertDialogService(
