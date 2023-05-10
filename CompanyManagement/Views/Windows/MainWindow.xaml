@@ -16,7 +16,7 @@
         WindowStartupLocation="CenterScreen"
         Height="700" Width="1200" MinHeight="600" MinWidth="600">
     <Grid>
-        <materialDesign:DrawerHost>
+        <materialDesign:DrawerHost >
             <materialDesign:DrawerHost.LeftDrawerContent>
                 <Border CornerRadius="30" BorderThickness="1">
                     <StackPanel Width="200">
@@ -47,7 +47,7 @@
                             Style="{StaticResource MaterialDesignTabRadioButtonRight}">
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="AccountCircle" />
-                                <TextBlock Text="Tôi" Margin="47 0" />
+                                <TextBlock Text="Tôi" Margin="58 0" />
                             </StackPanel>
                         </RadioButton>
                         <RadioButton
@@ -60,7 +60,7 @@
                             Style="{StaticResource MaterialDesignTabRadioButtonRight}">
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="Briefcase" />
-                                <TextBlock Text="Dự án" Margin="38 0" />
+                                <TextBlock Text="Dự án" Margin="50 0" />
                             </StackPanel>
                         </RadioButton>
                         <RadioButton
@@ -72,7 +72,7 @@
                             Style="{StaticResource MaterialDesignTabRadioButtonRight}">
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="AccountGroup" />
-                                <TextBlock Text="Nhân sự" Margin="30 0" />
+                                <TextBlock Text="Nhân sự" Margin="42 0" />
                             </StackPanel>
                         </RadioButton>
                         <RadioButton
@@ -84,7 +84,7 @@
                             Style="{StaticResource MaterialDesignTabRadioButtonRight}">
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="EmailEdit" />
-                                <TextBlock Text="Xin nghỉ phép" Margin="30 0" />
+                                <TextBlock Text="Xin nghỉ phép" Margin="26 0" />
                             </StackPanel>
                         </RadioButton>
                         <RadioButton
@@ -97,7 +97,7 @@
                             Style="{StaticResource MaterialDesignTabRadioButtonRight}">
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="EmailAlert" />
-                                <TextBlock Text="Duyệt xin nghỉ" Margin="30 0" />
+                                <TextBlock Text="Duyệt xin nghỉ" Margin="23 0" />
                             </StackPanel>
                         </RadioButton>
                         <RadioButton

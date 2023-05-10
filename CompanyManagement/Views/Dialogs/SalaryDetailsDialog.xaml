@@ -102,7 +102,7 @@
                 Grid.Row="3"
                 Grid.Column="1"
                 Height="50"
-                Text="{Binding TotalOffDays, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                Text="{Binding TotalOffDays, Mode=OneWay}"
                 Background="White"
                 Margin="10"      
                 IsReadOnly="True"
@@ -112,7 +112,7 @@
                 Grid.Row="4"
                 Grid.Column="0"
                 Height="50"
-                Text="{Binding TotalBonuses, UpdateSourceTrigger=PropertyChanged}"
+                Text="{Binding TotalBonuses, Mode=OneWay}"
                 Background="White"
                 Margin="10"      
                 IsReadOnly="True"
@@ -122,24 +122,12 @@
                 Grid.Row="4"
                 Grid.Column="1"
                 Height="50"
-                Text="{Binding Income, UpdateSourceTrigger=PropertyChanged}"
+                Text="{Binding Income, Mode=OneWay}"
                 Background="White"
                 Margin="10"      
                 IsReadOnly="True"
                 materialDesign:HintAssist.Hint= "Tổng Lương Thực" 
                 Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
-            <Button Grid.Row="5"
-                Background="#ff5fa022"
-                Foreground="White"
-                Style="{StaticResource MaterialDesignFlatSecondaryMidBgButton}"
-                Height="50"
-                Command="{Binding CloseViewCommand}"
-                CommandParameter="{Binding ElementName = salaryDetailsDialog}"
-                ToolTip="Thêm"
-                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType = Window}}"
-                Margin="135,10,135,10" Grid.ColumnSpan="2">
-                <materialDesign:PackIcon Kind="Close" Height="35" Width="35"/>
-            </Button>
         </Grid>
         <ScrollViewer Grid.Column="1">
             <Grid >

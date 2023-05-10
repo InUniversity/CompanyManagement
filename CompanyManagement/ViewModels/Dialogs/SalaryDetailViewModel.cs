@@ -23,33 +23,24 @@ namespace CompanyManagement.ViewModels.Dialogs
         public Role WorkerRole { get => salaryRecordIns.WorkerRole; }
         public Department WorkerDepartment { get => salaryRecordIns.WorkerDepartment; }
 
-        //public DateTime StartDate { get => MonthYear; }
-        //public DateTime EndDate { get => MonthYear.AddMonths(1); }
-
         private List<LeaveRequest> leaveRequests;
         public List<LeaveRequest> LeaveRequests { get => leaveRequests; set { leaveRequests = value; OnPropertyChanged(); } }
 
-        public List<DateTime> OffDays = new List<DateTime>();
         public List<ProjectBonus> ProjectsCompleted = new List<ProjectBonus>();
 
         private ProjectBonusesDao projectBonusesDao = new ProjectBonusesDao();
         private LeaveRequestsDao leaveRequestsDao = new LeaveRequestsDao();
         private LeaveStatusesDao leaveStatusesDao = new LeaveStatusesDao();
-        
-        public ICommand CloseViewCommand { get; private set; }
 
         public SalaryDetailViewModel()
         {
-            SetList();
-            SetCommad();
+            LoadCompletedProject();
             LoadLeaveRequests();
         }
 
-        private void SetList()
+        private void LoadCompletedProject()
         {
             ProjectsCompleted = projectBonusesDao.GetOfEmployeeByTime(EmployeeID, MonthYear.Month, MonthYear.Year);
-            //TODO
-            //OffDays = 
         }
 
         private void LoadLeaveRequests()
@@ -64,16 +55,6 @@ namespace CompanyManagement.ViewModels.Dialogs
         {
             foreach (var leaveRequest in leaveRequests)
                 leaveRequest.Status = leaveStatusesDao.SearchByID(leaveRequest.ID);
-        }
-
-        private void SetCommad()
-        {
-            CloseViewCommand = new RelayCommand<Window>(ExecuteCloseView);
-        }
-
-        private void ExecuteCloseView(Window viewWindow)
-        {
-            viewWindow.Close();
         }
     }
 }
