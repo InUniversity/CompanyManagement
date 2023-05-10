@@ -56,7 +56,6 @@ namespace CompanyManagement.ViewModels.UserControls
         public ICommand OpenAddLeaveDialogCommand { get; private set; }
         public ICommand DeleteLeaveCommand { get; private set; }
         public ICommand OpenUpdateLeaveDialogCommand { get; private set; }
-        public ICommand ApproveLeaveCommand { get; private set; }
 
         private LeaveRequestsDao leaveDao = new LeaveRequestsDao();
         private EmployeesDao employeeDao = new EmployeesDao();
@@ -76,7 +75,6 @@ namespace CompanyManagement.ViewModels.UserControls
             OpenAddLeaveDialogCommand = new RelayCommand<object>(ExecuteAddCommand);
             DeleteLeaveCommand = new RelayCommand<string>(ExecuteDeleteCommand);
             OpenUpdateLeaveDialogCommand = new RelayCommand<LeaveRequest>(ExecuteUpdateCommand);
-            ApproveLeaveCommand = new RelayCommand<LeaveRequest>(ExecuteApproveCommand);
         }
 
         private void ExecuteBackTimeLeaveCreateDate(object obj)
@@ -102,7 +100,7 @@ namespace CompanyManagement.ViewModels.UserControls
             }    
 
             var unapprovedLeaveList = receivedLeaveRequests
-                .Where(p => p.StatusID == BaseDao.leavRequestUpapproved && p.Start > DateTime.Now)
+                .Where(p => p.StatusID == BaseDao.leavRequestUpapproved)
                 .OrderByDescending(p => p.Created).ToList();
             UnapprovedLeaveRequests = unapprovedLeaveList;
 
@@ -110,8 +108,7 @@ namespace CompanyManagement.ViewModels.UserControls
                                         .OrderByDescending(p => p.Created).ToList();
             ApprovedLeaveRequests = listApprovedLeaves;
 
-            var listUnapprovedLeaves = receivedLeaveRequests.Where(p => p.StatusID == BaseDao.leavRequestUpapproved 
-                                        || (p.Start <= DateTime.Now && p.StatusID == BaseDao.leavRequesDenied))
+            var listUnapprovedLeaves = receivedLeaveRequests.Where(p => p.StatusID == BaseDao.leavRequesDenied)
                                         .OrderByDescending(p => p.Created).ToList();
             DeniedLeaveRequests = listUnapprovedLeaves;
         }
@@ -183,11 +180,6 @@ namespace CompanyManagement.ViewModels.UserControls
         {
             leaveDao.Update(leave);
             LoadLeaveRequestList();
-        }
-
-        private void ExecuteApproveCommand(LeaveRequest leave)
-        {
-            Update(leave);
         }
     }
 }

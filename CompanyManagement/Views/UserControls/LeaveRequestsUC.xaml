@@ -5,7 +5,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CompanyManagement.Views.UserControls"
               xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              TextElement.FontWeight="Regular"
              TextElement.FontSize="13"
@@ -126,9 +125,9 @@
                             </DataGridTemplateColumn>
                                 <DataGridTextColumn Width="150" Header="Lý do" IsReadOnly="True" Binding="{Binding Reason}"/>
                                 <DataGridTextColumn Width="200" Header="Chú thích" IsReadOnly="True" Binding="{Binding Notes}" />
-                                <DataGridTextColumn Width="Auto" Header="Ngày bắt đầu" IsReadOnly="True" Binding="{Binding StartDate, StringFormat='dd/MM/yyyy'}" />
-                                <DataGridTextColumn Width="Auto" Header="Ngày kết thúc" IsReadOnly="True" Binding="{Binding EndDate, StringFormat='dd/MM/yyyy'}" />
-                                <DataGridTextColumn Width="Auto" Header="Ngày tạo" IsReadOnly="True" Binding="{Binding CreatedDate, StringFormat='dd/MM/yyyy'}" />
+                                <DataGridTextColumn Width="Auto" Header="Ngày bắt đầu" IsReadOnly="True" Binding="{Binding Start, StringFormat='dd/MM/yyyy'}" />
+                                <DataGridTextColumn Width="Auto" Header="Ngày kết thúc" IsReadOnly="True" Binding="{Binding End, StringFormat='dd/MM/yyyy'}" />
+                                <DataGridTextColumn Width="Auto" Header="Ngày tạo" IsReadOnly="True" Binding="{Binding Created, StringFormat='dd/MM/yyyy'}" />
                                 <DataGridTextColumn Width="150" Header="Người duyệt" IsReadOnly="True" Binding="{Binding Approver.Name}" />
                             </DataGrid.Columns>
                         </DataGrid>
@@ -167,9 +166,9 @@
                         <DataGrid.Columns>
                             <DataGridTextColumn Width="150" Header="Lý do" IsReadOnly="True" Binding="{Binding Reason}"/>
                             <DataGridTextColumn Width="200" Header="Chú thích" IsReadOnly="True" Binding="{Binding Notes}" />
-                            <DataGridTextColumn Width="Auto" Header="Ngày bắt đầu" IsReadOnly="True" Binding="{Binding StartDate, StringFormat='dd/MM/yyyy'}" />
-                            <DataGridTextColumn Width="Auto" Header="Ngày kết thúc" IsReadOnly="True" Binding="{Binding EndDate, StringFormat='dd/MM/yyyy'}" />
-                            <DataGridTextColumn Width="Auto" Header="Ngày tạo" IsReadOnly="True" Binding="{Binding CreatedDate, StringFormat='dd/MM/yyyy'}" />
+                            <DataGridTextColumn Width="Auto" Header="Ngày bắt đầu" IsReadOnly="True" Binding="{Binding Start, StringFormat='dd/MM/yyyy'}" />
+                            <DataGridTextColumn Width="Auto" Header="Ngày kết thúc" IsReadOnly="True" Binding="{Binding End, StringFormat='dd/MM/yyyy'}" />
+                            <DataGridTextColumn Width="Auto" Header="Ngày tạo" IsReadOnly="True" Binding="{Binding Created, StringFormat='dd/MM/yyyy'}" />
                             <DataGridTextColumn Width="150" Header="Người duyệt" IsReadOnly="True" Binding="{Binding Approver.Name}" />
                         </DataGrid.Columns>
                     </DataGrid>
@@ -228,9 +227,9 @@
                             </DataGridTemplateColumn>
                             <DataGridTextColumn Width="150" Header="Lý do" IsReadOnly="True" Binding="{Binding Reason}"/>
                             <DataGridTextColumn Width="200" Header="Chú thích" IsReadOnly="True" Binding="{Binding Notes}" />
-                            <DataGridTextColumn Width="Auto" Header="Ngày bắt đầu" IsReadOnly="True" Binding="{Binding StartDate, StringFormat='dd/MM/yyyy'}" />
-                            <DataGridTextColumn Width="Auto" Header="Ngày kết thúc" IsReadOnly="True" Binding="{Binding EndDate, StringFormat='dd/MM/yyyy'}" />
-                            <DataGridTextColumn Width="Auto" Header="Ngày tạo" IsReadOnly="True" Binding="{Binding CreatedDate, StringFormat='dd/MM/yyyy'}" />
+                            <DataGridTextColumn Width="Auto" Header="Ngày bắt đầu" IsReadOnly="True" Binding="{Binding Start, StringFormat='dd/MM/yyyy'}" />
+                            <DataGridTextColumn Width="Auto" Header="Ngày kết thúc" IsReadOnly="True" Binding="{Binding End, StringFormat='dd/MM/yyyy'}" />
+                            <DataGridTextColumn Width="Auto" Header="Ngày tạo" IsReadOnly="True" Binding="{Binding Created, StringFormat='dd/MM/yyyy'}" />
                             <DataGridTextColumn Width="150" Header="Người duyệt" IsReadOnly="True" Binding="{Binding Approver.Name}" />
                         </DataGrid.Columns>
                     </DataGrid>
