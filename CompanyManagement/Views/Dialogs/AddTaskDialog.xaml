@@ -11,29 +11,48 @@
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
+        WindowStyle="None"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         x:Name="addTaskDialog"
         mc:Ignorable="d"
-        Title="AddTaskDialog" Height="650" Width="700">
-    <Grid>
-        <StackPanel>
-            <TextBlock Text="Thêm nhiệm vụ mới" 
-                       FontSize="25" 
-                       Margin="10"
-                       HorizontalAlignment="Center" 
-                       VerticalAlignment="Center"
-                       FontWeight="ExtraBold" />
-            <uc:TaskInputUC Margin="10" DataContext="{Binding TaskInputDataContext}" />
-            <Button Style="{StaticResource MaterialDesignFlatSecondaryMidBgButton}"
-                    Height="50"
+        Title="AddTaskDialog" Height="660" Width="800">
+    <Border Background="White" BorderBrush="Teal" BorderThickness="1">
+        <Grid Margin="10">
+            <StackPanel>
+                <Button 
+                    Margin="10"
+                    HorizontalAlignment="Right"
+                    Command="{Binding CloseDialogCommand}"
+                    CommandParameter="{Binding ElementName=addTaskDialog}"
+                    Height="30"
+                    Width="30"
+                    Foreground="Teal"
+                    Style="{StaticResource MaterialDesignIconButton}"
+                    ToolTip="Thoát" >
+                    <materialDesign:PackIcon Kind="Close" Width="20" Height="20"/>
+                </Button>
+                <TextBlock Margin="20 10" 
+                           FontSize="20"
+                           FontWeight="Bold"
+                           Foreground="Teal"
+                           HorizontalAlignment="Center"
+                           Text="Thêm Nhiệm Vụ"/>
+                <uc:TaskInputUC DataContext="{Binding TaskInputDataContext}"
+                                      HorizontalAlignment="Center"
+                                      Margin="20 10" />
+                <Button Grid.Column="0"
+                    Margin="10"
+                    HorizontalAlignment="Center"
+                    Content="Thêm"
                     Command="{Binding AddTaskCommand}"
                     CommandParameter="{Binding ElementName = addTaskDialog}"
-                    ToolTip="Thêm"
-                    IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType = Window}}"
-                    Margin="100 10">
-                <materialDesign:PackIcon Kind="Plus" />
-            </Button>
-        </StackPanel>
-    </Grid>
+                    Height="50"
+                    Width="200"
+                    Background="Teal"
+                    Style="{StaticResource MaterialDesignFlatMidBgButton}"
+                    ToolTip="Thêm nhiệm vụ mới" />
+            </StackPanel>
+        </Grid>
+    </Border>
 </Window>

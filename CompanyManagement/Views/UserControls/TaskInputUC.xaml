@@ -41,6 +41,8 @@
             <TextBox
                 Text="{Binding Explanation}"
                 Background="White"
+                AcceptsReturn="True"
+                TextWrapping="Wrap"
                 Margin="10"
                 IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedTextBoxEnabledComboBox}"
                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
