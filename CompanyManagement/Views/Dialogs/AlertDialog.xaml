@@ -23,9 +23,7 @@
             Width="350" 
             VerticalAlignment="Top"
             HorizontalAlignment="Left"
-            Background="#3979a4" 
-            BorderThickness="1" 
-            BorderBrush="Black">
+            Background="Teal">
         <Border.Effect>
             <DropShadowEffect BlurRadius="10" ShadowDepth="5"></DropShadowEffect>
         </Border.Effect>
@@ -35,25 +33,18 @@
                 <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="50"></RowDefinition>
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" 
+            <TextBlock Grid.Row="0" 
                            Text="{Binding Title}" 
                            Margin="20 0"
-                           FontSize="20"
+                           FontSize="17"
                            Foreground="White"
                            FontWeight="Bold"
                            HorizontalAlignment="Left" 
-                           VerticalAlignment="Center"></TextBlock>
-            </Grid>
+                           VerticalAlignment="Center"/>
             <Border Grid.Row="1" 
                     Background="White" 
                     Margin="10 5" 
-                    BorderBrush="Black" 
-                    CornerRadius="10"
-                    BorderThickness="0.5">
+                    CornerRadius="10">
                 <TextBlock Text="{Binding Message}"  FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap"></TextBlock>
             </Border>
             <Grid Grid.Row="2">
@@ -64,25 +55,21 @@
                 <Button Grid.Column="0" 
                         Background="White" 
                         HorizontalAlignment="Right" 
-                        BorderBrush="Black"
                         Width="100"
                         Content="Yes"
                         Command="{Binding YesCommand}"
                         CommandParameter="{Binding ElementName=alertDialog}"
                         Margin="20 0"
-                        Foreground="Black"
-                        BorderThickness="0.5">
+                        Foreground="Black">
                 </Button>
                 <Button Grid.Column="1" 
                         Background="White" 
-                        HorizontalAlignment="Left" 
-                        BorderBrush="Black"
+                        HorizontalAlignment="Left"     
                         Width="100"
                         Content="No"
                         Command="{Binding NoCommand}"
                         Margin="20 0"
-                        Foreground="Black"
-                        BorderThickness="0.5">
+                        Foreground="Black">
                 </Button>
             </Grid>
         </Grid>
