@@ -42,7 +42,7 @@
                 </Grid.ColumnDefinitions>
                 <Grid Grid.Column="0">
                     <DatePicker
-                        SelectedDate="{Binding StartDate,UpdateSourceTrigger=PropertyChanged}"
+                        SelectedDate="{Binding StartDate, StringFormat='dd/MM/yyyy', UpdateSourceTrigger=PropertyChanged}"
                         Margin="10"
                         Width="340"
                         HorizontalAlignment="Center"
@@ -51,7 +51,7 @@
                 </Grid>
                 <Grid Grid.Column="1">
                     <DatePicker
-                        SelectedDate="{Binding EndDate, UpdateSourceTrigger=PropertyChanged}"
+                        SelectedDate="{Binding EndDate, StringFormat='##,#', UpdateSourceTrigger=PropertyChanged}"
                         Margin="10"
                         Width="340"
                         HorizontalAlignment="Center"

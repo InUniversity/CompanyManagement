@@ -77,7 +77,7 @@
                                 <DataGridTextColumn Width="Auto" Header="Mã Nhân Viên" IsReadOnly="True" Binding="{Binding Receiver.ID}" />
                                 <DataGridTextColumn Width="Auto" Header="Tên nhân viên" IsReadOnly="True" Binding="{Binding Receiver.Name}"/>
                                 <DataGridTextColumn Width="Auto" Header="Thưởng(%)" IsReadOnly="False" Binding="{Binding Percent,UpdateSourceTrigger=PropertyChanged}"/>
-                                <DataGridTextColumn Width="Auto" Header="Tiền thưởng(VNĐ)" IsReadOnly="True" Binding="{Binding Amount,UpdateSourceTrigger=PropertyChanged}" />
+                                <DataGridTextColumn Width="Auto" Header="Tiền thưởng(VNĐ)" IsReadOnly="True" Binding="{Binding Amount, StringFormat='##,#',UpdateSourceTrigger=PropertyChanged}" />
                                 <DataGridTextColumn Width="Auto" Header="Chức vụ" IsReadOnly="True" Binding="{Binding Receiver.RoleID}" />
                             </DataGrid.Columns>
                         </DataGrid>
@@ -177,7 +177,7 @@
                             </DataGridTemplateColumn>
                             <DataGridTextColumn Width="Auto" Header="Mã Nhân Viên" IsReadOnly="True" Binding="{Binding Receiver.ID}" />
                             <DataGridTextColumn Width="Auto" Header="Tên nhân viên" IsReadOnly="True" Binding="{Binding Receiver.Name}" />
-                            <DataGridTextColumn Width="Auto" Header="Tiền thưởng(VNĐ)" IsReadOnly="True" Binding="{Binding Amount}" />
+                            <DataGridTextColumn Width="Auto" Header="Tiền thưởng(VNĐ)" IsReadOnly="True" Binding="{Binding Amount, StringFormat='##,#'}" />
                             <DataGridTextColumn Width="Auto" Header="Chức vụ" IsReadOnly="True" Binding="{Binding Receiver.RoleID}" />
                         </DataGrid.Columns>
                     </DataGrid>
