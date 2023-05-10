@@ -66,7 +66,6 @@ namespace CompanyManagement.ViewModels.UserControls
             SetCommands();
             SetAllComboBox();
             LoadApprovers();
-            roleName = rolesDao.SearchByID(BaseDao.deptHead).Title;
         }
 
         private void SetCommands()
