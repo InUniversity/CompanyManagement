@@ -1,4 +1,4 @@
-﻿using CompanyManagement.ViewModels.UserControls;
+﻿using CompanyManagement.ViewModels.Dialogs;
 using System.Windows;
 
 namespace CompanyManagement.Views.Dialogs

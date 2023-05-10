@@ -1,6 +1,7 @@
 ﻿using CompanyManagement.Database;
 using CompanyManagement.Models;
 using CompanyManagement.ViewModels.Base;
+using CompanyManagement.ViewModels.Dialogs;
 using CompanyManagement.Views.Dialogs;
 using System;
 using System.Collections.Generic;

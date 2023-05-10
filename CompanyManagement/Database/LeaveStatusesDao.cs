@@ -16,5 +16,11 @@ namespace CompanyManagement.Database
             string sqlStr = $"SELECT * FROM {leavStasTbl}";
             return dbConnection.GetList(sqlStr, reader => new LeaveStatus(reader));
         }
+
+        public LeaveStatus SearchByID(string statusID)
+        {
+            string sqlStr = $"SELECT * FROM {leavStasTbl} WHERE {leavStatusID}='{statusID}'";
+            return (LeaveStatus)dbConnection.GetSingleObject(sqlStr, reader => new LeaveStatus(reader));
+        }
     }
 }

@@ -102,7 +102,7 @@
                 Grid.Row="3"
                 Grid.Column="1"
                 Height="50"
-                Text="{Binding TotalOffDays, UpdateSourceTrigger=PropertyChanged}"
+                Text="{Binding TotalOffDays, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                 Background="White"
                 Margin="10"      
                 IsReadOnly="True"
@@ -141,86 +141,101 @@
                 <materialDesign:PackIcon Kind="Close" Height="35" Width="35"/>
             </Button>
         </Grid>
-        <Grid Grid.Column="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-            </Grid.RowDefinitions>
-            <Expander Grid.Row="0" 
-                        Background="#f1f8e9"  
-                        Foreground="#33691e"
-                        Margin="10 5"
-                        ExpandDirection="Down">
-                <Expander.Header>
-                    <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon 
-                            VerticalAlignment="Center" 
-                            Margin="10 0" Kind="History"  
-                            Foreground="#33691e"/>
-                        <TextBlock                     
-                                FontWeight="Bold"  
-                                Margin="5"
-                                Text="Lịch Sử Xin Nghỉ"                           
-                                FontSize="20"></TextBlock>
-                    </StackPanel>
-                </Expander.Header>
-                <DataGrid      
-                    Height="295"
-                    Margin="10 0 10 0"
-                    CanUserResizeColumns="False"
-                    Name="dgNeedApprove"
-                    CanUserAddRows="False"
-                    AutoGenerateColumns="False"
-                    Background="White"
-                    ItemsSource="{Binding OffDays}"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Top">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Width="Auto" Header="Ngày" IsReadOnly="True" Binding="{Binding }" />
-                        <DataGridTextColumn Width="Auto" Header="Giờ Check In" IsReadOnly="True" Binding="{Binding }" />
-                        <DataGridTextColumn Width="Auto" Header="Giờ Check Out" IsReadOnly="True" Binding="{Binding }" />
-                        <DataGridTextColumn Width="Auto" Header="Nhiệm Vụ Hoàn Thành" IsReadOnly="True" Binding="{Binding }" />
-                        <DataGridTextColumn Width="Auto" Header="Trạng Thái" IsReadOnly="True" Binding="{Binding }" />
-                    </DataGrid.Columns>
-                </DataGrid>
-            </Expander>
-            <Expander Grid.Row="1" 
-                        Background="#f1f8e9"  
-                        Foreground="#33691e"
-                        Margin="10 5"
-                        ExpandDirection="Down">
-                <Expander.Header>
-                    <StackPanel Orientation="Horizontal" Margin="10,0,-10,0">
-                        <materialDesign:PackIcon 
-                            VerticalAlignment="Center" 
-                            Margin="10 0" Kind="ListBox"  
-                            Foreground="#33691e"/>
-                        <TextBlock                     
-                                FontWeight="Bold"  
-                                Margin="5"
-                                Text="Các Dự Án Hoàn Thành Trong Tháng"                           
-                                FontSize="20"></TextBlock>
-                    </StackPanel>
-                </Expander.Header>
-                <DataGrid      
-                    Height="295"
-                    Margin="10 0 10 0"
-                    CanUserResizeColumns="False"
-                    CanUserAddRows="False"
-                    AutoGenerateColumns="False"
-                    Background="White"
-                    ItemsSource="{Binding ProjectsCompleted}"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Top">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Width="Auto" Header="Mã Dự Án" IsReadOnly="True" Binding="{Binding ProjectID}" />
-                        <DataGridTextColumn Width="Auto" Header="Tên Dự Án" IsReadOnly="True" Binding="{Binding Project.Name}" />
-                        <DataGridTextColumn Width="Auto" Header="Kết Thúc" IsReadOnly="True" Binding="{Binding Project.CompletedDate}" />
-                        <DataGridTextColumn Width="Auto" Header="Ngày Thanh Toán" IsReadOnly="True" Binding="{Binding ReceivedDate}" />
-                        <DataGridTextColumn Width="Auto" Header="Tiền Thưởng" IsReadOnly="True" Binding="{Binding Amount}" />
-                    </DataGrid.Columns>
-                </DataGrid>
-            </Expander>
-        </Grid>
+        <ScrollViewer Grid.Column="1">
+            <Grid >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Expander Grid.Row="0" 
+                            Background="#f1f8e9"  
+                            Foreground="#33691e"
+                            Margin="10 5"
+                            ExpandDirection="Down">
+                    <Expander.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon 
+                                VerticalAlignment="Center" 
+                                Margin="10 0" Kind="History"  
+                                Foreground="#33691e"/>
+                            <TextBlock                     
+                                    FontWeight="Bold"  
+                                    Margin="5"
+                                    Text="Lịch Sử Xin Nghỉ"                           
+                                    FontSize="20"></TextBlock>
+                        </StackPanel>
+                    </Expander.Header>
+                    <!--<Border>
+                        <Calendar   
+                            Margin="50 5" 
+                            SelectionMode="MultipleRange"
+                            FirstDayOfWeek="Monday"
+                            IsTodayHighlighted="False"
+                            DisplayDateStart="{Binding StartDate, Mode=OneWay}"
+                            DisplayDateEnd="{Binding EndDate, Mode=OneWay}"
+                            Style="{StaticResource MaterialDesignCalendarPortraitForeground}" >
+                            
+                        </Calendar>
+                    </Border>-->
+                    <DataGrid      
+                        Height="295"
+                        Margin="10 0 10 0"
+                        CanUserResizeColumns="False"
+                        Name="dgLeaveHistory"
+                        CanUserAddRows="False"
+                        AutoGenerateColumns="False"
+                        Background="White"
+                        ItemsSource="{Binding ElementName=salaryDetailsDialog, Path=DataContext.LeaveRequests, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Top">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Width="Auto" Header="Trạng thái" IsReadOnly="True" Binding="{Binding Status.Name}" />
+                            <DataGridTextColumn Width="Auto" Header="Ngày tạo" IsReadOnly="True" Binding="{Binding Created}" />
+                            <DataGridTextColumn Width="Auto" Header="Bắt đầu" IsReadOnly="True" Binding="{Binding Start}" />
+                            <DataGridTextColumn Width="Auto" Header="Kết thúc" IsReadOnly="True" Binding="{Binding End}" />
+                            <DataGridTextColumn Width="Auto" Header="Lí do" IsReadOnly="True" Binding="{Binding Reason}" />
+                            <DataGridTextColumn Width="Auto" Header="Note" IsReadOnly="True" Binding="{Binding Notes}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Expander>
+                <Expander Grid.Row="1" 
+                            Background="#f1f8e9"  
+                            Foreground="#33691e"
+                            Margin="10 5"
+                            ExpandDirection="Down">
+                    <Expander.Header>
+                        <StackPanel Orientation="Horizontal" Margin="10,0,-10,0">
+                            <materialDesign:PackIcon 
+                                VerticalAlignment="Center" 
+                                Margin="10 0" Kind="ListBox"  
+                                Foreground="#33691e"/>
+                            <TextBlock                     
+                                    FontWeight="Bold"  
+                                    Margin="5"
+                                    Text="Các Dự Án Hoàn Thành Trong Tháng"                           
+                                    FontSize="20"></TextBlock>
+                        </StackPanel>
+                    </Expander.Header>
+                    <DataGrid      
+                        Height="295"
+                        Margin="10 0 10 0"
+                        CanUserResizeColumns="False"
+                        CanUserAddRows="False"
+                        AutoGenerateColumns="False"
+                        Background="White"
+                        ItemsSource="{Binding ProjectsCompleted}"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Top">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Width="Auto" Header="Mã Dự Án" IsReadOnly="True" Binding="{Binding ProjectID}" />
+                            <DataGridTextColumn Width="Auto" Header="Tên Dự Án" IsReadOnly="True" Binding="{Binding Project.Name}" />
+                            <DataGridTextColumn Width="Auto" Header="Kết Thúc" IsReadOnly="True" Binding="{Binding Project.CompletedDate}" />
+                            <DataGridTextColumn Width="Auto" Header="Ngày Thanh Toán" IsReadOnly="True" Binding="{Binding ReceivedDate}" />
+                            <DataGridTextColumn Width="Auto" Header="Tiền Thưởng" IsReadOnly="True" Binding="{Binding Amount}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Expander>
+            </Grid>
+        </ScrollViewer>
     </Grid>
 </Window>
