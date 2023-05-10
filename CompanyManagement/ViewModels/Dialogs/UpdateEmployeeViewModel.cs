@@ -11,6 +11,7 @@ namespace CompanyManagement.ViewModels.Dialogs
     public class UpdateEmployeeViewModel : BaseViewModel, IInputViewModel<Employee>
     {
         public ICommand UpdateEmployeeCommand { get; private set; }
+        public ICommand CloseDialogCommand { get; private set; }
 
         public EmployeeInputViewModel EmployeeInputDataContext { get; }
 
@@ -25,6 +26,19 @@ namespace CompanyManagement.ViewModels.Dialogs
         private void SetCommands()
         {
             UpdateEmployeeCommand = new RelayCommand<Window>(UpdateCommand);
+            CloseDialogCommand = new RelayCommand<Window>(CloseCommand);
+        }
+
+        private void CloseCommand(Window window)
+        {
+            var dialog = new AlertDialogService(
+                "Cập nhật nhân viên",
+                "Bạn chắc chắn muốn thoát !",
+                () =>
+                {
+                    window.Close();
+                }, null);
+            dialog.Show();
         }
 
         private void UpdateCommand(Window inputWindow)

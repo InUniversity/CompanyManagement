@@ -12,157 +12,186 @@
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
         WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        ResizeMode="NoResize"
         Background="White"
         FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
         Name="checkInDialog"
-        Height="350" Width="600">
-    <Grid>
-        <StackPanel>
-            <TextBlock Text="Check in" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Margin="10"></TextBlock>
-            <materialDesign:DialogHost CornerRadius="20" CloseOnClickAway="True">
-                <materialDesign:DialogHost.DialogContent>
-                    <StackPanel Width="500" Height="500">
-                        <Grid Height="60" Margin="5">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="80" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Button Grid.Column="0"
-                                Margin="10 5"
-                                Style="{StaticResource MaterialDesignIconButton}">
-                                <materialDesign:PackIcon Kind="Magnify" />
-                            </Button>
-                            <TextBox Grid.Column="1"
-                                 Margin="20 5"
-                                 Text="{Binding ElementName=checkInDialog, Path=DataContext.TextToSearch, UpdateSourceTrigger=PropertyChanged}"
-                                 Style="{StaticResource MaterialDesignOutlinedTextBox}" />
-                        </Grid>
-                        <ListView Height="350" Margin="5" 
-                                      Name="listTasks"
-                                      SelectionMode="Single"
-                                      ItemsSource="{Binding ElementName=checkInDialog,Path=DataContext.SearchedTasksCanChoose , UpdateSourceTrigger=PropertyChanged}">
-                            <b:Interaction.Triggers>
-                                <b:EventTrigger EventName="SelectionChanged">
-                                    <b:InvokeCommandAction Command="{Binding  GetSelectedTaskCommand}"
-                                                   CommandParameter="{Binding ElementName= listTasks}" />
-                                </b:EventTrigger>
-                            </b:Interaction.Triggers>
-                            <ListView.ItemContainerStyle>
-                                <Style TargetType="{x:Type ListViewItem}">
-                                    <Setter Property="Foreground" Value="Black" />
-                                    <Setter Property="Background" Value="White" />
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}"
-                                             Value="True">
-                                            <Setter Property="Background" Value="#e1f5fe" />
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </ListView.ItemContainerStyle>
-                            <ListView.View>
-                                <GridView>
-                                    <GridView.Columns>
-                                        <GridViewColumn Width="250">
-                                            <GridViewColumn.Header>
-                                                <TextBlock Text="Title" FontWeight="ExtraBold"></TextBlock>
-                                            </GridViewColumn.Header>
-                                            <GridViewColumn.CellTemplate>
-                                                <DataTemplate>
-                                                    <TextBlock  Height="40" Text="{Binding Title}" />
-                                                </DataTemplate>
-                                            </GridViewColumn.CellTemplate>
-                                        </GridViewColumn>
-                                        <GridViewColumn Width="100">
-                                            <GridViewColumn.Header>
-                                                <TextBlock Text="ID" FontWeight="ExtraBold"></TextBlock>
-                                            </GridViewColumn.Header>
-                                            <GridViewColumn.CellTemplate>
-                                                <DataTemplate>
-                                                    <TextBlock  Height="40" Text="{Binding ID}" />
-                                                </DataTemplate>
-                                            </GridViewColumn.CellTemplate>
-                                        </GridViewColumn>
-                                        <GridViewColumn Width="100">
-                                            <GridViewColumn.CellTemplate>
-                                                <DataTemplate>
-                                                    <ToggleButton
-                                                          Margin="20 0" 
-                                                          IsEnabled="False"   
-                                                          Background="Transparent"
-                                                          IsChecked="{Binding IsSelected, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}}"
-                                                          Style="{StaticResource MaterialDesignActionLightToggleButton}"/>
-                                                </DataTemplate>
-                                            </GridViewColumn.CellTemplate>
-                                        </GridViewColumn>
-                                    </GridView.Columns>
-                                </GridView>
-                            </ListView.View>
-                        </ListView>
-                        <Grid Margin="5">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-                            <Button Width="100"
-                                Content="Chọn"
-                                Grid.Column="0"
-                                Command="{Binding ElementName=checkInDialog, Path=DataContext.ChooseTaskCommand}"
-                                Style="{StaticResource MaterialDesignIconButton}" />
-                            <Button Width="100"
-                                Content="Hoàn tất"
-                                Grid.Column="1"
-                                Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
-                                Style="{StaticResource MaterialDesignIconButton}" />
-                        </Grid>
-
-                    </StackPanel>
-                </materialDesign:DialogHost.DialogContent>
-                <Canvas Height="40">
-                    <TextBlock Text="Nhiệm vụ khởi đầu:" FontWeight="Bold" Margin="10" />
-                    <Button Style="{StaticResource MaterialDesignIconButton}"
-                        Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" Canvas.Right="5">
-                        <materialDesign:PackIcon Kind="PlaylistPlus" />
-                    </Button>
-                </Canvas>
-            </materialDesign:DialogHost>
-            <Grid Height="100" Margin="10">
-                <ItemsControl
-                    ItemsSource="{Binding ElementName=checkInDialog, Path=DataContext.StartingTask}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Border Width="500" Height="50" CornerRadius="10" BorderBrush="Black"
-                                            BorderThickness="0.5"  Margin="20 30" HorizontalAlignment="Center">
-                                <Canvas>
-                                    <TextBlock Margin="15" Text="{Binding Title}" />
-                                    <Button Style="{StaticResource MaterialDesignIconButton}"
-                                                    Canvas.Right="0"
-                                                    Command="{Binding ElementName=checkInDialog, Path=DataContext.DeleteSelectedTaskCommand}"
-                                                    CommandParameter="{Binding }">
-                                        <materialDesign:PackIcon Kind="Close" Foreground="Black" />
-                                    </Button>
-                                </Canvas>
-                            </Border>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </Grid>
-            <TextBlock 
-                    VerticalAlignment="Bottom"
-                    Height="30"
+        Height="400" Width="600">
+    <Border Background="White" BorderBrush="Teal" BorderThickness="2">
+        <Grid Margin="10">
+            <StackPanel>
+                <Button 
                     Margin="10"
-                    Text="{Binding ErrorMessage}"
-                    TextWrapping="Wrap" 
-                    Foreground="#FF0000" 
-                    TextAlignment="Left" 
-                    FontSize="13"/>
-            <Button Content="Hoàn thành"
-                    VerticalAlignment="Bottom"
-                    Margin="10" 
-                    Width="200" 
-                    Height="35"                     
+                    HorizontalAlignment="Right"
+                    Command="{Binding CloseDialogCommand}"
+                    CommandParameter="{Binding ElementName=checkInDialog}"
+                    Height="30"
+                    Width="30"
+                    Foreground="Teal"
+                    Style="{StaticResource MaterialDesignIconButton}"
+                    ToolTip="Thoát" >
+                    <materialDesign:PackIcon Kind="Close" Width="20" Height="20"/>
+                </Button>
+                <TextBlock Margin="20 10" 
+                           FontSize="20"
+                           FontWeight="Bold"
+                           Foreground="Teal"
+                           HorizontalAlignment="Center"
+                           Text="Check In"/>
+                <Grid>
+                    <StackPanel>
+                        <materialDesign:DialogHost CornerRadius="20" CloseOnClickAway="True">
+                            <materialDesign:DialogHost.DialogContent>
+                                <StackPanel Width="500" Height="500">
+                                    <Grid Height="60" Margin="5">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="80" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Button Grid.Column="0"
+                                            Margin="10 5"
+                                            Style="{StaticResource MaterialDesignIconButton}">
+                                            <materialDesign:PackIcon Kind="Magnify" />
+                                        </Button>
+                                        <TextBox Grid.Column="1"
+                                                Margin="20 5"
+                                                Text="{Binding ElementName=checkInDialog, Path=DataContext.TextToSearch, UpdateSourceTrigger=PropertyChanged}"
+                                                Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+                                    </Grid>
+                                    <ListView Height="350" Margin="5" 
+                                                    Name="listTasks"
+                                                    SelectionMode="Single"
+                                                    ItemsSource="{Binding ElementName=checkInDialog,Path=DataContext.SearchedTasksCanChoose , UpdateSourceTrigger=PropertyChanged}">
+                                        <b:Interaction.Triggers>
+                                            <b:EventTrigger EventName="SelectionChanged">
+                                                <b:InvokeCommandAction Command="{Binding  GetSelectedTaskCommand}"
+                                                                CommandParameter="{Binding ElementName= listTasks}" />
+                                            </b:EventTrigger>
+                                        </b:Interaction.Triggers>
+                                        <ListView.ItemContainerStyle>
+                                            <Style TargetType="{x:Type ListViewItem}">
+                                                <Setter Property="Foreground" Value="Black" />
+                                                <Setter Property="Background" Value="White" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}"
+                                                            Value="True">
+                                                        <Setter Property="Background" Value="#e1f5fe" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </ListView.ItemContainerStyle>
+                                        <ListView.View>
+                                            <GridView>
+                                                <GridView.Columns>
+                                                    <GridViewColumn Width="250">
+                                                        <GridViewColumn.Header>
+                                                            <TextBlock Text="Title" FontWeight="ExtraBold"></TextBlock>
+                                                        </GridViewColumn.Header>
+                                                        <GridViewColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <TextBlock  Height="40" Text="{Binding Title}" />
+                                                            </DataTemplate>
+                                                        </GridViewColumn.CellTemplate>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn Width="100">
+                                                        <GridViewColumn.Header>
+                                                            <TextBlock Text="ID" FontWeight="ExtraBold"></TextBlock>
+                                                        </GridViewColumn.Header>
+                                                        <GridViewColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <TextBlock  Height="40" Text="{Binding ID}" />
+                                                            </DataTemplate>
+                                                        </GridViewColumn.CellTemplate>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn Width="100">
+                                                        <GridViewColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <ToggleButton
+                                                                        Margin="20 0" 
+                                                                        IsEnabled="False"   
+                                                                        Background="Transparent"
+                                                                        IsChecked="{Binding IsSelected, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}}"
+                                                                        Style="{StaticResource MaterialDesignActionLightToggleButton}"/>
+                                                            </DataTemplate>
+                                                        </GridViewColumn.CellTemplate>
+                                                    </GridViewColumn>
+                                                </GridView.Columns>
+                                            </GridView>
+                                        </ListView.View>
+                                    </ListView>
+                                    <Grid Margin="5">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <Button Width="100"
+                                            Content="Chọn"
+                                            Grid.Column="0"
+                                            Command="{Binding ElementName=checkInDialog, Path=DataContext.ChooseTaskCommand}"
+                                            Style="{StaticResource MaterialDesignIconButton}" />
+                                        <Button Width="100"
+                                            Content="Hoàn tất"
+                                            Grid.Column="1"
+                                            Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                                            Style="{StaticResource MaterialDesignIconButton}" />
+                                    </Grid>
+
+                                </StackPanel>
+                            </materialDesign:DialogHost.DialogContent>
+                            <Canvas Height="40">
+                                <TextBlock Text="Nhiệm vụ khởi đầu:" FontWeight="Bold" Margin="10" Foreground="Gray"/>
+                                <Button Style="{StaticResource MaterialDesignIconButton}"
+                                    Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" Canvas.Right="5">
+                                    <materialDesign:PackIcon Kind="PlaylistPlus" />
+                                </Button>
+                            </Canvas>
+                        </materialDesign:DialogHost>
+                        <Grid Height="100" Margin="10">
+                            <ItemsControl
+                                ItemsSource="{Binding ElementName=checkInDialog, Path=DataContext.StartingTask}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Width="500" Height="50" CornerRadius="10" BorderBrush="Black"
+                                                        BorderThickness="0.5"  Margin="20 30" HorizontalAlignment="Center">
+                                            <Canvas>
+                                                <TextBlock Margin="15" Text="{Binding Title}" />
+                                                <Button Style="{StaticResource MaterialDesignIconButton}"
+                                                                Canvas.Right="0"
+                                                                Command="{Binding ElementName=checkInDialog, Path=DataContext.DeleteSelectedTaskCommand}"
+                                                                CommandParameter="{Binding }">
+                                                    <materialDesign:PackIcon Kind="Close" Foreground="Black" />
+                                                </Button>
+                                            </Canvas>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </Grid>
+                        <TextBlock 
+                                VerticalAlignment="Bottom"
+                                Height="30"
+                                Margin="10"
+                                Text="{Binding ErrorMessage}"
+                                TextWrapping="Wrap" 
+                                Foreground="#FF0000" 
+                                TextAlignment="Left" 
+                                FontSize="13"/>
+                    </StackPanel>
+                </Grid>
+                <Button Grid.Column="0"
+                    Margin="10"
+                    HorizontalAlignment="Center"
+                    Content="Hoàn thành"
                     Command="{Binding CheckInCommand}" 
-                    CommandParameter="{Binding ElementName=checkInDialog}"></Button>
-        </StackPanel>
-    </Grid>
+                    CommandParameter="{Binding ElementName=checkInDialog}"
+                    Height="50"
+                    Width="200"
+                    Background="Teal"
+                    Style="{StaticResource MaterialDesignFlatMidBgButton}"
+                    ToolTip="Hoàn thành check in" />
+            </StackPanel>
+        </Grid>
+    </Border>
 </Window>

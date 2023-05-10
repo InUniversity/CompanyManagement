@@ -13,23 +13,47 @@
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        ResizeMode="NoResize"
         x:Name="updateTaskDialog"
         mc:Ignorable="d"
-        Height="650" Width="700">
-    <Grid>
-        <StackPanel>
-            <TextBlock Margin="10" Text="Thông tin chi tiết" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center"
-                       FontWeight="ExtraBold" />
-            <uc:TaskInputUC Margin="10" DataContext="{Binding TaskInputDataContext}" />
-            <Button Style="{StaticResource MaterialDesignFlatSecondaryMidBgButton}"
-                    Height="50"
+        Height="660" Width="800">
+    <Border Background="White" BorderBrush="Teal" BorderThickness="2">
+        <Grid Margin="10">
+            <StackPanel>
+                <Button 
+                    Margin="10"
+                    HorizontalAlignment="Right"
+                    Command="{Binding CloseDialogCommand}"
+                    CommandParameter="{Binding ElementName=updateTaskDialog}"
+                    Height="30"
+                    Width="30"
+                    Foreground="Teal"
+                    Style="{StaticResource MaterialDesignIconButton}"
+                    ToolTip="Thoát" >
+                    <materialDesign:PackIcon Kind="Close" Width="20" Height="20"/>
+                </Button>
+                <TextBlock Margin="20 10" 
+                           FontSize="20"
+                           FontWeight="Bold"
+                           Foreground="Teal"
+                           HorizontalAlignment="Center"
+                           Text="Cập Nhật Nhiệm Vụ"/>
+                <uc:TaskInputUC DataContext="{Binding TaskInputDataContext}"
+                                      HorizontalAlignment="Center"
+                                      Margin="20 10" />
+                <Button Grid.Column="0"
+                    Margin="10"
+                    HorizontalAlignment="Center"
+                    Content="Lưu"
                     Command="{Binding UpdateTaskCommand}"
                     CommandParameter="{Binding ElementName = updateTaskDialog}"
-                    ToolTip="Thêm"
-                    IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType = Window}}"
-                    Margin="100 10">
-                <materialDesign:PackIcon Kind="Pencil" />
-            </Button>
-        </StackPanel>
-    </Grid>
+                    Height="50"
+                    Width="200"
+                    Background="Teal"
+                    Style="{StaticResource MaterialDesignFlatMidBgButton}"
+                    ToolTip="Cập nhật nhiệm vụ mới" />
+            </StackPanel>
+        </Grid>
+    </Border>
 </Window>

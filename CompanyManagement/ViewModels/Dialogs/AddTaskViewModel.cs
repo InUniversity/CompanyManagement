@@ -12,6 +12,7 @@ namespace CompanyManagement.ViewModels.Dialogs
     public class AddTaskViewModel : BaseViewModel, IInputViewModel<TaskInProject>
     {
         public ICommand AddTaskCommand { get; set; }
+        public ICommand CloseDialogCommand { get; set; }
 
         public ITaskInput TaskInputDataContext { get; set; }
         private Action<TaskInProject> submitObjectAction;
@@ -25,6 +26,19 @@ namespace CompanyManagement.ViewModels.Dialogs
         private void SetCommands()
         {
             AddTaskCommand = new RelayCommand<Window>(AddCommand);
+            CloseDialogCommand = new RelayCommand<Window>(CloseCommand);
+        }
+
+        private void CloseCommand(Window window)
+        {
+            AlertDialogService dialog = new AlertDialogService(
+              "Thêm nhiệm vụ",
+              "Bạn chắc chắn muốn thoát !",
+              () =>
+              {
+                  window.Close();
+              }, () => { });
+            dialog.Show();
         }
 
         private void AddCommand(Window inputWindow)

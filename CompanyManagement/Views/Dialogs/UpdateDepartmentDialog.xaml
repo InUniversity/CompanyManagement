@@ -13,11 +13,12 @@
         TextOptions.TextRenderingMode="Auto"
         Background="White"           
         WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
         WindowStyle="None"
         mc:Ignorable="d"
         x:Name="updateDepartmentWindow"
         Height="600" Width="800">
-    <Border BorderBrush="Teal" BorderThickness="1">
+    <Border Background="White" BorderBrush="Teal" BorderThickness="2">
         <Grid Margin="10">
             <StackPanel>
                 <Button 
@@ -52,7 +53,6 @@
                     Background="Teal"
                     Style="{StaticResource MaterialDesignFlatMidBgButton}"
                     ToolTip="Cập nhật phòng mới" />
-
             </StackPanel>
         </Grid>
     </Border>

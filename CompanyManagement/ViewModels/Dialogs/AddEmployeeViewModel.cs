@@ -13,6 +13,7 @@ namespace CompanyManagement.ViewModels.Dialogs
     public class AddEmployeeViewModel : BaseViewModel, IInputViewModel<Employee>
     {
         public ICommand AddEmployeeCommand { get; }
+        public ICommand CloseDialogCommand { get; }
 
         public EmployeeInputViewModel EmployeeInputDataContext { get; set; }
         private Action<Employee> submitObjectAction;
@@ -23,6 +24,19 @@ namespace CompanyManagement.ViewModels.Dialogs
         {
             EmployeeInputDataContext = new EmployeeInputViewModel();
             AddEmployeeCommand = new RelayCommand<Window>(AddCommand);
+            CloseDialogCommand = new RelayCommand<Window>(CloseCommand);
+        }
+
+        private void CloseCommand(Window window)
+        {
+            var dialog = new AlertDialogService(
+                 "Thêm nhân viên",
+                 "Bạn chắc chắn muốn thoát !",
+                 () =>
+                 {
+                     window.Close();
+                 }, null);
+            dialog.Show();
         }
 
         private void AddCommand(Window inputWindow)

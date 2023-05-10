@@ -13,6 +13,7 @@ namespace CompanyManagement.ViewModels.Dialogs
     public class UpdateMilestoneViewModel : BaseViewModel, IInputViewModel<Milestone>
     {
         public ICommand UpdateMilestoneCommand { get; }
+        public ICommand CloseDialogCommand { get; }
 
         public MilestoneInputViewModel MilestoneInputDataContext { get; }
         private Action<Milestone> submitObjectAction;
@@ -23,6 +24,19 @@ namespace CompanyManagement.ViewModels.Dialogs
         {
             MilestoneInputDataContext = new MilestoneInputViewModel();
             UpdateMilestoneCommand = new RelayCommand<Window>(ExecuteUpdateCommand);
+            CloseDialogCommand = new RelayCommand<Window>(ExecuteCloseCommand);
+        }
+
+        private void ExecuteCloseCommand(Window window)
+        {
+            AlertDialogService dialog = new AlertDialogService(
+               "Cập nhật cột mốc",
+               "Bạn chắc chắn muốn thoát !",
+               () =>
+               {
+                   window.Close();
+               }, null);
+            dialog.Show();
         }
 
         private void ExecuteUpdateCommand(Window inputWindow)

@@ -13,25 +13,46 @@
         xmlns:uc="clr-namespace:CompanyManagement.Views.UserControls"
         FontFamily="{DynamicResource MaterialDesignFont}"
         WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        ResizeMode="NoResize"
         x:Name="updateProjectDialog"
-        mc:Ignorable="d" Width="700" Height="720">
-    <Grid>
-        <StackPanel>
-            <TextBlock Text="Cập nhật dự án" 
-                       FontSize="25" 
-                       Margin="10"
-                       HorizontalAlignment="Center" 
-                       VerticalAlignment="Center"
-                       FontWeight="ExtraBold" />
-            <uc:ProjectInputUC DataContext="{Binding ProjectInputDataContext}" />
-            <Button Style="{StaticResource MaterialDesignFlatSecondaryMidBgButton}"
-                        Command="{Binding UpdateProjectCommand}"
-                        CommandParameter="{Binding ElementName=updateProjectDialog}"
-                        Height="50"
-                        Margin="100 10"
-                        ToolTip="Cập nhật">
-                <materialDesign:PackIcon Kind="Pencil" />
-            </Button>
-        </StackPanel>
-    </Grid>
+        mc:Ignorable="d" Width="800" Height="760">
+    <Border Background="White" BorderBrush="Teal" BorderThickness="2">
+        <Grid Margin="10">
+            <StackPanel>
+                <Button 
+                    Margin="10"
+                    HorizontalAlignment="Right"
+                    Command="{Binding CloseDialogCommand}"
+                    CommandParameter="{Binding ElementName=updateProjectDialog}"
+                    Height="30"
+                    Width="30"
+                    Foreground="Teal"
+                    Style="{StaticResource MaterialDesignIconButton}"
+                    ToolTip="Thoát" >
+                    <materialDesign:PackIcon Kind="Close" Width="20" Height="20"/>
+                </Button>
+                <TextBlock Margin="20 10" 
+                           FontSize="20"
+                           FontWeight="Bold"
+                           Foreground="Teal"
+                           HorizontalAlignment="Center"
+                           Text="Cập Nhật Dự Án"/>
+                <uc:ProjectInputUC DataContext="{Binding ProjectInputDataContext}"
+                                      HorizontalAlignment="Center"
+                                      Margin="20 10" />
+                <Button Grid.Column="0"
+                    Margin="10"
+                    HorizontalAlignment="Center"
+                    Content="Lưu"
+                    Command="{Binding UpdateProjectCommand}"
+                    CommandParameter="{Binding ElementName=updateProjectDialog}"
+                    Height="50"
+                    Width="200"
+                    Background="Teal"
+                    Style="{StaticResource MaterialDesignFlatMidBgButton}"
+                    ToolTip="Cập nhật dự án mới" />
+            </StackPanel>
+        </Grid>
+    </Border>
 </Window>

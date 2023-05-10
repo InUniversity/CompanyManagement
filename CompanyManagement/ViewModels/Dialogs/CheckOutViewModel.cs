@@ -37,6 +37,8 @@ namespace CompanyManagement.ViewModels.UserControls
         public ICommand AddTaskCompletedCommand { get; private set; }
         public ICommand GetAllSelectedTasksCommand { get; private set; }
         public ICommand DeleteTaskCompletedCommand { get; private set; }
+        public ICommand CloseDialogCommand { get; private set; }
+
 
         private TaskCheckOutsDao taskCheckOutsDao = new TaskCheckOutsDao();
         private TasksDao tasksDao = new TasksDao();
@@ -55,13 +57,26 @@ namespace CompanyManagement.ViewModels.UserControls
             GetAllSelectedTasksCommand = new RelayCommand<ListView>(ExecuteGetAllSelectedTasksCommand);
             AddTaskCompletedCommand = new RelayCommand<object>(ExecuteAddTaskCheckOutCommand);
             DeleteTaskCompletedCommand = new RelayCommand<TaskInProject>(ExecuteDeleteTaskCheckOutCommand);
+            CloseDialogCommand = new RelayCommand<Window>(ExecuteCloseCommand);
+        }
+
+        private void ExecuteCloseCommand(Window window)
+        {
+            var dialog = new AlertDialogService(
+                 "Check out",
+                 "Bạn có chắc chắn muốn thoát !",
+                 () =>
+                 {
+                     window.Close();
+                 }, null);
+            dialog.Show();
         }
 
         private void ExecuteCheckOutCommand(Window window)
         {
             var dialog = new AlertDialogService(
                  "Check out",
-                 "Bạn có chắc chắn muốn check out không ?",
+                 "Bạn có chắc chắn muốn check out !",
                  () =>
                  {
                      TimeSheet checkOut = CheckInOutInputDataContext.TimeSheetIns;
