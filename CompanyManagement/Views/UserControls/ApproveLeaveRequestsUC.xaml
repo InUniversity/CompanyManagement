@@ -111,11 +111,11 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTextColumn Width="200" Header="Tên nhân viên" IsReadOnly="True" Binding="{Binding EmployeeRequestIns.Name}" />
+                            <DataGridTextColumn Width="200" Header="Tên nhân viên" IsReadOnly="True" Binding="{Binding Requester.Name}" />
                             <DataGridTextColumn Width="150" Header="Lý do" IsReadOnly="True" Binding="{Binding Reason}" />
-                            <DataGridTextColumn Width="150" Header="Ngày bắt đầu" IsReadOnly="True" Binding="{Binding StartDate, StringFormat='dd/MM/yyyy HH:ss tt'}" />
-                            <DataGridTextColumn Width="150" Header="Ngày kết thúc" IsReadOnly="True" Binding="{Binding EndDate, StringFormat='dd/MM/yyyy HH:ss tt'}" />
-                            <DataGridTextColumn Width="150" Header="Ngày tạo" IsReadOnly="True" Binding="{Binding CreatedDate, StringFormat='dd/MM/yyyy HH:ss tt'}" />
+                            <DataGridTextColumn Width="150" Header="Ngày bắt đầu" IsReadOnly="True" Binding="{Binding Start, StringFormat='dd/MM/yyyy HH:ss tt'}" />
+                            <DataGridTextColumn Width="150" Header="Ngày kết thúc" IsReadOnly="True" Binding="{Binding End, StringFormat='dd/MM/yyyy HH:ss tt'}" />
+                            <DataGridTextColumn Width="150" Header="Ngày tạo" IsReadOnly="True" Binding="{Binding Created, StringFormat='dd/MM/yyyy HH:ss tt'}" />
                             <DataGridTextColumn Width="120" Header="Chú thích" IsReadOnly="True" Binding="{Binding Notes}" />
                         </DataGrid.Columns>
                     </DataGrid>
@@ -173,11 +173,11 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTextColumn Width="200" Header="Tên nhân viên" IsReadOnly="True" Binding="{Binding EmployeeRequestIns.Name}" />
+                            <DataGridTextColumn Width="200" Header="Tên nhân viên" IsReadOnly="True" Binding="{Binding Requester.Name}" />
                             <DataGridTextColumn Width="150" Header="Lý do" IsReadOnly="True" Binding="{Binding Reason}" />
-                            <DataGridTextColumn Width="150" Header="Ngày bắt đầu" IsReadOnly="True" Binding="{Binding StartDate, StringFormat='dd/MM/yyyy HH:ss tt'}" />
-                            <DataGridTextColumn Width="150" Header="Ngày kết thúc" IsReadOnly="True" Binding="{Binding EndDate, StringFormat='dd/MM/yyyy HH:ss tt'}" />
-                            <DataGridTextColumn Width="150" Header="Ngày tạo" IsReadOnly="True" Binding="{Binding CreatedDate, StringFormat='dd/MM/yyyy HH:ss tt'}" />
+                            <DataGridTextColumn Width="150" Header="Ngày bắt đầu" IsReadOnly="True" Binding="{Binding Start, StringFormat='dd/MM/yyyy HH:ss tt'}" />
+                            <DataGridTextColumn Width="150" Header="Ngày kết thúc" IsReadOnly="True" Binding="{Binding End, StringFormat='dd/MM/yyyy HH:ss tt'}" />
+                            <DataGridTextColumn Width="150" Header="Ngày tạo" IsReadOnly="True" Binding="{Binding Created, StringFormat='dd/MM/yyyy HH:ss tt'}" />
                             <DataGridTextColumn Width="120" Header="Chú thích" IsReadOnly="True" Binding="{Binding Notes}" />
                         </DataGrid.Columns>
                     </DataGrid>
@@ -235,11 +235,11 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTextColumn Width="200" Header="Tên nhân viên" IsReadOnly="True" Binding="{Binding EmployeeRequestIns.Name}" />
+                            <DataGridTextColumn Width="200" Header="Tên nhân viên" IsReadOnly="True" Binding="{Binding Requester.Name}" />
                             <DataGridTextColumn Width="150" Header="Lý do" IsReadOnly="True" Binding="{Binding Reason}" />
-                            <DataGridTextColumn Width="150" Header="Ngày bắt đầu" IsReadOnly="True" Binding="{Binding StartDate, StringFormat='dd/MM/yyyy HH:ss tt'}" />
-                            <DataGridTextColumn Width="150" Header="Ngày kết thúc" IsReadOnly="True" Binding="{Binding EndDate, StringFormat='dd/MM/yyyy HH:ss tt'}" />
-                            <DataGridTextColumn Width="150" Header="Ngày tạo" IsReadOnly="True" Binding="{Binding CreatedDate, StringFormat='dd/MM/yyyy HH:ss tt'}" />
+                            <DataGridTextColumn Width="150" Header="Ngày bắt đầu" IsReadOnly="True" Binding="{Binding Start, StringFormat='dd/MM/yyyy HH:ss tt'}" />
+                            <DataGridTextColumn Width="150" Header="Ngày kết thúc" IsReadOnly="True" Binding="{Binding End, StringFormat='dd/MM/yyyy HH:ss tt'}" />
+                            <DataGridTextColumn Width="150" Header="Ngày tạo" IsReadOnly="True" Binding="{Binding Created, StringFormat='dd/MM/yyyy HH:ss tt'}" />
                             <DataGridTextColumn Width="120" Header="Chú thích" IsReadOnly="True" Binding="{Binding Notes}" />
                         </DataGrid.Columns>
                     </DataGrid>

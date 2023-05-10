@@ -90,13 +90,22 @@ namespace CompanyManagement.ViewModels.UserControls
             ReceivedLeaveRequests = leaveDao.SearchByApproverID(currentEmployee.ID);
     
             var listUnapprovedLeaves = ReceivedLeaveRequests.Where(p => p.StatusID == BaseDao.leavRequestUpapproved).ToList();
+            GetRequesterInListLeaveRequests(listUnapprovedLeaves);
             UnapprovedLeaveRequests = listUnapprovedLeaves;
 
             var listApprovedLeaves = ReceivedLeaveRequests.Where(p => p.StatusID == BaseDao.leavRequesApproved).ToList();
+            GetRequesterInListLeaveRequests(listApprovedLeaves);
             ApprovedLeaveRequests = listApprovedLeaves;
 
             var listDeniedLeaveRequests = ReceivedLeaveRequests.Where(p => p.StatusID == BaseDao.leavRequesDenied).ToList();
+            GetRequesterInListLeaveRequests(listDeniedLeaveRequests);
             DeniedLeaveRequests = listDeniedLeaveRequests;
+        }
+
+        private void GetRequesterInListLeaveRequests(List<LeaveRequest> listLeaveRequests)
+        {
+            foreach (var leaveRequest in listLeaveRequests) 
+                leaveRequest.Requester = employeeDao.SearchByID(leaveRequest.RequesterID);
         }
 
         private void SearchDate()
