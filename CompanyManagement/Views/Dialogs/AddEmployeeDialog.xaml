@@ -16,7 +16,7 @@
         mc:Ignorable="d"
         x:Name="addEmployeeWindow"
        Height="600" Width="1000">
-    <Border BorderBrush="Teal" BorderThickness="1">
+    <Border Background="White" BorderBrush="Teal" BorderThickness="1">
         <Grid Margin="10">
             <StackPanel>
                 <Button 

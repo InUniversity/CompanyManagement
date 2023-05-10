@@ -17,32 +17,7 @@
         mc:Ignorable="d"
         x:Name="addLeaveWindow"
         Height="550" Width="800">
-    <!--<Grid>
-        <StackPanel>
-            <TextBlock 
-                Margin="10"
-                FontWeight="Bold"
-                FontSize="25"
-                VerticalAlignment="Center"
-                HorizontalAlignment="Center"
-                Text="Tạo xin nghỉ phép"/>
-
-            <uc:LeaveInputUC Margin="10"  DataContext="{Binding LeaveInputDataContext}"></uc:LeaveInputUC>
-
-            <Button Style="{StaticResource MaterialDesignFlatSecondaryMidBgButton}"
-                    Height="50"
-                    Foreground="White"
-                    FontSize="18"
-                    Command="{Binding AddLeaveCommand}"
-                    CommandParameter="{Binding ElementName=addLeaveWindow}"
-                    Content="Xác nhận"
-                    ToolTip="Tạo bảng xin nghỉ phép"
-                    Background="ForestGreen"
-                    IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-                    Margin="100 10"></Button>
-        </StackPanel>
-    </Grid>-->
-    <Border BorderBrush="Teal" BorderThickness="1">
+    <Border Background="White" BorderBrush="Teal" BorderThickness="1">
         <Grid Margin="10">
             <StackPanel>
                 <Button 
