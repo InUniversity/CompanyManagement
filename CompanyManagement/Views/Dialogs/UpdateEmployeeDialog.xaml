@@ -17,7 +17,7 @@
         xmlns:uc="clr-namespace:CompanyManagement.Views.UserControls"
         x:Name="updateEmployeeWindow"
         Height="600" Width="1000" >
-    <Border Background="White" BorderBrush="Teal" BorderThickness="1">
+    <Border Background="White" BorderBrush="Teal" BorderThickness="2">
         <Grid Margin="10">
             <StackPanel>
                 <Button 

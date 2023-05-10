@@ -18,7 +18,7 @@
         x:Name="updateTaskDialog"
         mc:Ignorable="d"
         Height="660" Width="800">
-    <Border Background="White" BorderBrush="Teal" BorderThickness="1">
+    <Border Background="White" BorderBrush="Teal" BorderThickness="2">
         <Grid Margin="10">
             <StackPanel>
                 <Button 

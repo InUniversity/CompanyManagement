@@ -18,7 +18,7 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         x:Name="updateMilestoneDialog"
         mc:Ignorable="d" Width="800" Height="720">
-    <Border Background="White" BorderBrush="Teal" BorderThickness="1">
+    <Border Background="White" BorderBrush="Teal" BorderThickness="2">
         <Grid Margin="10">
             <StackPanel>
                 <Button 

@@ -17,7 +17,7 @@
         mc:Ignorable="d"
         x:Name="updataLeaveForManagerWindow"
          Height="650" Width="800">
-    <Border Background="White" BorderBrush="Teal" BorderThickness="1">
+    <Border Background="White" BorderBrush="Teal" BorderThickness="2">
         <Grid Margin="10">
             <StackPanel>
                 <Button 
