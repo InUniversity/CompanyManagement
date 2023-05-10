@@ -52,7 +52,6 @@
                     Background="Teal"
                     Style="{StaticResource MaterialDesignFlatMidBgButton}"
                     ToolTip="Thêm nghỉ phép mới" />
-
             </StackPanel>
         </Grid>
     </Border>
