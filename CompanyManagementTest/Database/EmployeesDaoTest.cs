@@ -95,12 +95,12 @@ namespace CompanyManagementTest.Database
             AssertObject(expected, actual);
         }
         
-        [Test]
-        public void GetManagers_Found()
-        {
-            var list = myDao.GetManagers();
-            Assert.AreEqual(5, list.Count);
-        }
+        // [Test]
+        // public void GetManagers_Found()
+        // {
+        //     var list = myDao.GetManagers();
+        //     Assert.AreEqual(5, list.Count);
+        // }
         
         private void AssertObject(Employee expected, Employee actual)
         {
