@@ -1,17 +1,16 @@
-﻿using CompanyManagement.ViewModels.UserControls;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
+using CompanyManagement.ViewModels.UserControls;
 
-namespace CompanyManagement.Views.UserControls
+namespace CompanyManagement.Views.UserControls;
+
+/// <summary>
+///     Interaction logic for DepartmentInputUC.xaml
+/// </summary>
+public partial class DepartmentInputUC : UserControl
 {
-    /// <summary>
-    /// Interaction logic for DepartmentInputUC.xaml
-    /// </summary>
-    public partial class DepartmentInputUC : UserControl
+    public DepartmentInputUC()
     {
-        public DepartmentInputUC()
-        {
-            InitializeComponent();
-            DataContext = new DepartmentInputViewModel();
-        }
+        InitializeComponent();
+        DataContext = new DepartmentInputViewModel();
     }
 }
