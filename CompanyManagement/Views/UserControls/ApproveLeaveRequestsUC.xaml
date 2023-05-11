@@ -179,6 +179,7 @@
                             <DataGridTextColumn Width="150" Header="Ngày kết thúc" IsReadOnly="True" Binding="{Binding End, StringFormat='dd/MM/yyyy HH:ss tt'}" />
                             <DataGridTextColumn Width="150" Header="Ngày tạo" IsReadOnly="True" Binding="{Binding Created, StringFormat='dd/MM/yyyy HH:ss tt'}" />
                             <DataGridTextColumn Width="120" Header="Chú thích" IsReadOnly="True" Binding="{Binding Notes}" />
+                            <DataGridTextColumn Width="120" Header="Phản hồi" IsReadOnly="True" Binding="{Binding Response}" />
                         </DataGrid.Columns>
                     </DataGrid>
                 </Expander>
@@ -241,6 +242,7 @@
                             <DataGridTextColumn Width="150" Header="Ngày kết thúc" IsReadOnly="True" Binding="{Binding End, StringFormat='dd/MM/yyyy HH:ss tt'}" />
                             <DataGridTextColumn Width="150" Header="Ngày tạo" IsReadOnly="True" Binding="{Binding Created, StringFormat='dd/MM/yyyy HH:ss tt'}" />
                             <DataGridTextColumn Width="120" Header="Chú thích" IsReadOnly="True" Binding="{Binding Notes}" />
+                            <DataGridTextColumn Width="120" Header="Phản hồi" IsReadOnly="True" Binding="{Binding Response}" />
                         </DataGrid.Columns>
                     </DataGrid>
                 </Expander>

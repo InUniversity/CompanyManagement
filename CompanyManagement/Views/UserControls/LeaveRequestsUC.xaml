@@ -128,7 +128,8 @@
                                 <DataGridTextColumn Width="Auto" Header="Ngày kết thúc" IsReadOnly="True" Binding="{Binding End, StringFormat='dd/MM/yyyy'}" />
                                 <DataGridTextColumn Width="Auto" Header="Ngày tạo" IsReadOnly="True" Binding="{Binding Created, StringFormat='dd/MM/yyyy'}" />
                                 <DataGridTextColumn Width="150" Header="Người duyệt" IsReadOnly="True" Binding="{Binding Approver.Name}" />
-                            </DataGrid.Columns>
+                                <DataGridTextColumn Width="120" Header="Phản hồi" IsReadOnly="True" Binding="{Binding Response}" />
+                        </DataGrid.Columns>
                         </DataGrid>
                     </Expander>
                     <Expander Grid.Row="1"  
@@ -169,6 +170,7 @@
                             <DataGridTextColumn Width="Auto" Header="Ngày kết thúc" IsReadOnly="True" Binding="{Binding End, StringFormat='dd/MM/yyyy'}" />
                             <DataGridTextColumn Width="Auto" Header="Ngày tạo" IsReadOnly="True" Binding="{Binding Created, StringFormat='dd/MM/yyyy'}" />
                             <DataGridTextColumn Width="150" Header="Người duyệt" IsReadOnly="True" Binding="{Binding Approver.Name}" />
+                            <DataGridTextColumn Width="120" Header="Phản hồi" IsReadOnly="True" Binding="{Binding Response}" />
                         </DataGrid.Columns>
                     </DataGrid>
                 </Expander>

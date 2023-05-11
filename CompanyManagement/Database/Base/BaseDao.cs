@@ -99,6 +99,7 @@ namespace CompanyManagement.Database.Base
         public const string leavStatusID = "StatusID";
         public const string leavEmplID = "EmployeeID";
         public const string leavApproverID = "ApproverID";
+        public const string leavResponse = "Response";
         
         protected const string timeShtTbl = "TimeSheets";
         public const string timeShtID = "ID";

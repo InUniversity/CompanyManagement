@@ -10,11 +10,11 @@ namespace CompanyManagement.Database
         public void Add(LeaveRequest request)
         {
             string sqlStr = $"INSERT INTO {leavTbl}({leavID},{leavReason},{leavNotes},{leavCreated}," +
-                            $"{leavStart},{leavEnd},{leavStatusID},{leavEmplID}, " + $"{leavApproverID}) " +
+                            $"{leavStart},{leavEnd},{leavStatusID},{leavEmplID}, {leavApproverID}, {leavResponse}) " +
                             $"VALUES ('{request.ID}',N'{request.Reason}',N'{request.Notes}'," +
                             $"'{Utils.ToSQLFormat(request.Created)}','{Utils.ToSQLFormat(request.Start)}'," +
                             $"'{Utils.ToSQLFormat(request.End)}','{request.StatusID}'," +
-                            $"'{request.RequesterID}','{request.ApproverID}')";
+                            $"'{request.RequesterID}','{request.ApproverID}', N'{request.Response}')";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
@@ -32,7 +32,8 @@ namespace CompanyManagement.Database
                             $"{leavStart}='{Utils.ToSQLFormat(request.Start)}', " +
                             $"{leavEnd}='{Utils.ToSQLFormat(request.End)}', " +
                             $"{leavStatusID}='{request.StatusID}', {leavEmplID}='{request.RequesterID}', " +
-                            $"{leavApproverID}='{request.ApproverID}' WHERE {leavID} = '{request.ID}'";
+                            $"{leavApproverID}='{request.ApproverID}', {leavResponse} = N'{request.Response}'" +
+                            $"WHERE {leavID} = '{request.ID}'";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 

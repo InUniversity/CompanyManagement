@@ -18,6 +18,7 @@ namespace CompanyManagement.Models
         private string statusID = "";
         private string requesterID = "";
         private string approverID = "";
+        private string response = "Nothing";
         private Employee approver = new Employee();
         private Employee requester = new Employee();
         private LeaveStatus status = new LeaveStatus();
@@ -70,6 +71,12 @@ namespace CompanyManagement.Models
             set => requesterID = value;
         }
 
+        public string Response
+        {
+            get => response;
+            set => response = value;
+        }
+
         public string ApproverID
         {
             get => approverID;
@@ -104,7 +111,7 @@ namespace CompanyManagement.Models
 
         public LeaveRequest() { }
 
-        public LeaveRequest(string id, string reason, string notes, string statusID, string requesterID, string approverID)
+        public LeaveRequest(string id, string reason, string notes, string statusID, string requesterID, string approverID, string respone)
         {
             this.id = id;
             this.reason = reason;
@@ -112,6 +119,7 @@ namespace CompanyManagement.Models
             this.statusID = statusID;
             this.requesterID = requesterID;
             this.approverID = approverID;
+            this.response = respone;
         }
 
         public LeaveRequest(IDataRecord reader)
@@ -127,6 +135,7 @@ namespace CompanyManagement.Models
                 statusID = Utils.GetString(reader, BaseDao.leavStatusID);
                 requesterID = Utils.GetString(reader, BaseDao.leavEmplID);
                 approverID = Utils.GetString(reader, BaseDao.leavApproverID);
+                response = Utils.GetString(reader, BaseDao.leavResponse);
             }
             catch (Exception ex)
             {

@@ -29,7 +29,8 @@ namespace CompanyManagement.ViewModels.UserControls
         public string StatusID { get => leaveRequest.StatusID; set { leaveRequest.StatusID = value; OnPropertyChanged(); } }
         public string EmployeeID { get => leaveRequest.RequesterID; set { leaveRequest.RequesterID = value; OnPropertyChanged(); } }
         public string ApproverID { get => leaveRequest.ApproverID; set { leaveRequest.ApproverID = value; OnPropertyChanged(); } }
-        
+        public string Response { get => leaveRequest.Response; set { leaveRequest.Response = value; OnPropertyChanged(); } }
+
         private string errorMessage = "";
         public string ErrorMessage { get => errorMessage; set { errorMessage = value; OnPropertyChanged(); } }
 
