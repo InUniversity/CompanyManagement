@@ -102,7 +102,7 @@
                     <DataGridTextColumn Header="Email" IsReadOnly="True" Binding="{Binding Email}" />
                     <DataGridTextColumn Header="Số điện thoại" IsReadOnly="True" Binding="{Binding PhoneNumber}" />
                     <DataGridTextColumn Header="Địa chỉ" IsReadOnly="True" Binding="{Binding Address}" />
-                    <DataGridTextColumn Header="Lương (VNĐ)" IsReadOnly="True" Binding="{Binding Salary, StringFormat='##,#'}" />
+                    <DataGridTextColumn Header="Lương (VNĐ)" IsReadOnly="True" Binding="{Binding EmplRole.Salary, StringFormat='##,#'}" />
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>

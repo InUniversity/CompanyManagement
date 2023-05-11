@@ -1,19 +1,20 @@
 using System;
 using CompanyManagement.Database.Base;
+using CompanyManagement.Models;
 
 namespace CompanyManagement.Strategies.Windows.MainView
 {
     public class MainStrategyFactory
     {
-        public static IMainStrategy Create(string roleID)
+        public static IMainStrategy Create(Permission perms)
         {
-            return roleID switch
+            return perms switch
             {
-                BaseDao.managerRole => new MainForManager(),
-                BaseDao.deptHeadRole => new MainForDeptHead(),
-                BaseDao.regularEmplRole => new MainForEmployee(),
-                BaseDao.hrRole => new MainForHR(),
-                _ => throw new ArgumentOutOfRangeException("Not found role ID")
+                Permission.Mgr => new MainForManager(),
+                Permission.DepHead => new MainForDeptHead(),
+                Permission.NorEmpl => new MainForEmployee(),
+                Permission.HR => new MainForHR(),
+                _ => throw new ArgumentOutOfRangeException("Main Strategy: Not found permssion")
             };
         } 
     }

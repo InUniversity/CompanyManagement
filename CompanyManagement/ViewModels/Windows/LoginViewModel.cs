@@ -23,6 +23,7 @@ namespace CompanyManagement.ViewModels.Windows
   
         private AccountsDao accountsDao = new AccountsDao();
         private EmployeesDao employeesDao = new EmployeesDao();
+        private RolesDao rolesDao = new RolesDao();
 
         public LoginViewModel()
         {
@@ -45,18 +46,20 @@ namespace CompanyManagement.ViewModels.Windows
             RefreshAllText();
             var employee = employeesDao.SearchByID(account.EmployeeID);
             employee.Acc = account;
+            employee.EmplRole = rolesDao.SearchByID(employee.RoleID);
             CurrentUser.Ins.EmployeeIns = employee;
             window.Hide();
-            ShowMainWindow(employee.RoleID);
+            ShowMainWindow(employee.EmplRole.Perms);
             window.Show();
         }
 
-        private void ShowMainWindow(string roleID)
+        private void ShowMainWindow(Permission perms)
         {
             try
             {
-                var mainStrategy = MainStrategyFactory.Create(roleID);
-                var nextWindow = new MainWindow { DataContext = new MainViewModel(mainStrategy) };
+                var mainStrategy = MainStrategyFactory.Create(perms);
+                var viewModel = new MainViewModel(mainStrategy);
+                var nextWindow = new MainWindow { DataContext = viewModel };
                 nextWindow.ShowDialog();
             }
             catch (Exception ex)

@@ -82,7 +82,7 @@
                 Grid.Row="2"
                 Grid.Column="1"
                 Height="50"
-                Text="{Binding Worker.Salary, Mode=OneWay}"
+                Text="{Binding WorkerRole.Salary, Mode=OneWay}"
                 Background="White"
                 Margin="10"      
                 IsReadOnly="True"

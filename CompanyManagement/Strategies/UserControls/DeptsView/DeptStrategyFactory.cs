@@ -1,18 +1,19 @@
 ﻿using System;
 using CompanyManagement.Database.Base;
+using CompanyManagement.Models;
 
 namespace CompanyManagement.Strategies.UserControls.DeptsView
 {
     public class DeptStrategyFactory
     {
-        public static IDeptStrategy Create(string roleID)
+        public static IDeptStrategy Create(Permission perms)
         {
-            return roleID switch
+            return perms switch
             {
-                BaseDao.managerRole => new DeptForManager(),
-                BaseDao.deptHeadRole => new DeptForDeptHead(),
-                BaseDao.hrRole => new DeptForHR(),
-                _ => throw new ArgumentOutOfRangeException("Not found role ID")
+                Permission.Mgr => new DeptForManager(),
+                Permission.DepHead => new DeptForDeptHead(),
+                Permission.HR => new DeptForHR(),
+                _ => throw new ArgumentOutOfRangeException("Department Strategy: Not found permssion")
             };
         } 
     }

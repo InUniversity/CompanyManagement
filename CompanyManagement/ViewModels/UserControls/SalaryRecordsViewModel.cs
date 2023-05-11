@@ -135,7 +135,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void CalculateIcome(SalaryRecord salaryRecord)
         {
-            salaryRecord.Income = (decimal)((salaryRecord.TotalWorkDays * salaryRecord.Worker.Salary)/ totalDayByTime + salaryRecord.TotalBonuses);
+            salaryRecord.Income = (salaryRecord.TotalWorkDays * salaryRecord.Worker.EmplRole.Salary)/ totalDayByTime + salaryRecord.TotalBonuses;
         }
 
         private void LoadToTalDay()

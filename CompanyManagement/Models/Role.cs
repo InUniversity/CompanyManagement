@@ -8,19 +8,45 @@ namespace CompanyManagement.Models
     public class Role
     {
         private string id;
+        private Permission perms;
         private string title;
+        private decimal salary;
 
-        public string ID => id;
-        public string Title => title;
+        public string ID
+        {
+            get => id;
+            set => id = value;
+        }
+
+        public Permission Perms
+        {
+            get => perms;
+            set => perms = value;
+        }
+
+        public string Title
+        {
+            get => title;
+            set => title = value;
+        }
+
+        public decimal Salary
+        {
+            get => salary;
+            set => salary = value;
+        }
 
         public Role() { }
         
-        public Role(IDataRecord reader)
+        public Role(IDataRecord record)
         {
             try
             {
-                id = (string)reader[BaseDao.roleID];
-                title = (string)reader[BaseDao.roleName];
+                id = Utils.GetString(record, BaseDao.roleID);
+                string permsStr = Utils.GetString(record, BaseDao.rolePerms);
+                perms = Enum.TryParse(permsStr, out Permission per) ? per : Permission.NotAllow;
+                title = Utils.GetString(record, BaseDao.roleTitle);
+                salary = Utils.GetDecimal(record, BaseDao.roleSalary);
             }
             catch (Exception ex)
             {

@@ -91,7 +91,7 @@ namespace CompanyManagement.ViewModels.UserControls
         {
             LeaveRequests = leaveDao.GetMyRequests(currentEmployee.ID);
 
-            var receivedLeaveRequests = (currentEmployee.RoleID == BaseDao.hrRole)
+            var receivedLeaveRequests = (currentEmployee.EmplRole.Perms == Permission.HR)
                 ? leaveDao.SearchByApproverID(currentEmployee.ID)
                 : leaveDao.GetMyRequests(currentEmployee.ID);
             foreach (LeaveRequest leave in receivedLeaveRequests)

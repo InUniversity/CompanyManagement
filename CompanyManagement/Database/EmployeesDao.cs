@@ -1,5 +1,6 @@
 ﻿using CompanyManagement.Database.Base;
 using System.Collections.Generic;
+using CompanyManagement.Models;
 using CompanyManagement.Utilities;
 
 namespace CompanyManagement.Database
@@ -10,10 +11,10 @@ namespace CompanyManagement.Database
         {
             string sqlStr =
                 $"INSERT INTO {emplTbl} ({emplID}, {emplName}, {emplGender}, {emplBirthday}, " +
-                $"{emplIdentCard}, {emplEmail}, {emplPhoneNo}, {emplAddress}, {emplDeptID}, {emplRoleID}, " +
-                $"{emplSalary}) VALUES ('{empl.ID}', N'{empl.Name}', N'{empl.Gender}', " +
+                $"{emplIdentCard}, {emplEmail}, {emplPhoneNo}, {emplAddress}, {emplDeptID}, {emplRoleID})" +
+                $"VALUES ('{empl.ID}', N'{empl.Name}', N'{empl.Gender}', " +
                 $"'{Utils.ToSQLFormat(empl.Birthday)}', '{empl.IdentifyCard}', '{empl.Email}', " +
-                $"'{empl.PhoneNumber}', N'{empl.Address}', '{empl.DepartmentID}', '{empl.RoleID}', '{empl.Salary}')";
+                $"'{empl.PhoneNumber}', N'{empl.Address}', '{empl.DepartmentID}', '{empl.RoleID}')";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
@@ -30,8 +31,8 @@ namespace CompanyManagement.Database
                 $"{emplBirthday}='{Utils.ToSQLFormat(empl.Birthday)}', " +
                 $"{emplIdentCard}='{empl.IdentifyCard}', {emplEmail}='{empl.Email}', " +
                 $"{emplPhoneNo}='{empl.PhoneNumber}', {emplAddress}=N'{empl.Address}', " +
-                $"{emplDeptID}='{empl.DepartmentID}', {emplRoleID}='{empl.RoleID}', " +
-                $"{emplSalary}='{empl.Salary}' WHERE {emplID}='{empl.ID}'";
+                $"{emplDeptID}='{empl.DepartmentID}', {emplRoleID}='{empl.RoleID}' " +
+                $"WHERE {emplID}='{empl.ID}'";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
@@ -43,7 +44,8 @@ namespace CompanyManagement.Database
 
         public List<Employee> GetAllWithoutManagers()
         {
-            string sqlStr = $"SELECT * FROM {emplTbl} WHERE {emplRoleID} NOT LIKE '{managerRole}'";
+            string sqlStr = $"SELECT E.* FROM {emplTbl} E JOIN {roleTbl} R ON E.{emplRoleID} = R.{roleID} " +
+                            $"WHERE R.{rolePerms} != '{Permission.Mgr}'";
             return dbConnection.GetList(sqlStr, reader => new Employee(reader));
         }
 
@@ -67,7 +69,8 @@ namespace CompanyManagement.Database
 
         public List<Employee> GetHeaderDepts()
         {
-            string sqlStr = $"SELECT * FROM {emplTbl} WHERE {emplRoleID} ='{hrRole}'";
+            string sqlStr = $"SELECT E.* FROM {emplTbl} E JOIN {roleTbl} R ON E.{emplRoleID} = R.{roleID} " +
+                            $"WHERE R.{rolePerms} = '{Permission.HR}'";
             return dbConnection.GetList(sqlStr, reader => new Employee(reader));
         }
 

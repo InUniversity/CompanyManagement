@@ -111,7 +111,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void ExecuteDeleteEmployeeCommand(Employee employee)
         {
-            if (employee.RoleID == BaseDao.deptHeadRole)
+            if (employee.EmplRole.Perms == Permission.DepHead)
                 return;
             EmplsInDept.Remove(employee);
             employeesCanAddInDept.Add(employee);
@@ -134,7 +134,7 @@ namespace CompanyManagement.ViewModels.UserControls
         {
             var listallempl = employeesDao.GetAllWithoutManagers();
             var listDeptHead = from empl in listallempl 
-                               where empl.RoleID == BaseDao.deptHeadRole 
+                               where empl.EmplRole.Perms == Permission.DepHead 
                                select empl;
             GetRoleForListEmployees(listDeptHead.ToList());
             employeesCanbeDeptHead = new List<Employee>(listDeptHead.ToList());
@@ -144,7 +144,7 @@ namespace CompanyManagement.ViewModels.UserControls
         {
             var listallempl = employeesDao.GetAllWithoutManagers();
             var listempl = from empl in listallempl 
-                           where empl.RoleID != BaseDao.hrRole && empl.DepartmentID == "" 
+                           where empl.EmplRole.Perms != Permission.HR && empl.DepartmentID == "" 
                            select empl;
             GetRoleForListEmployees(listempl.ToList());
             employeesCanAddInDept = new List<Employee>(listempl.ToList());

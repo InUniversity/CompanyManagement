@@ -17,7 +17,6 @@ namespace CompanyManagement
         private string email = "";
         private string phoneNumber = "";
         private string address = "";
-        private decimal salary;
         private string departmentID = "";
         private string roleID = "";
         private Account account = new Account();
@@ -71,12 +70,6 @@ namespace CompanyManagement
             set => address = value;
         }
         
-        public decimal Salary
-        {
-            get => Decimal.Round(salary, 0);
-            set => salary = value;
-        }
-
         public string DepartmentID
         {
             get => departmentID;
@@ -104,7 +97,7 @@ namespace CompanyManagement
         public Employee() { }
 
         public Employee(string id, string name, string gender, DateTime birthday, string identifyCard, string email, 
-            string phoneNumber, string address, string departmentID, string roleID, decimal salary)
+            string phoneNumber, string address, string departmentID, string roleID)
         {
             this.id = id;
             this.name = name;
@@ -116,7 +109,6 @@ namespace CompanyManagement
             this.address = address;
             this.departmentID = departmentID;
             this.roleID = roleID;
-            this.salary = salary;
         }
         
         public Employee(IDataRecord reader)
@@ -131,7 +123,6 @@ namespace CompanyManagement
                 email = Utils.GetString(reader, BaseDao.emplEmail);
                 phoneNumber = Utils.GetString(reader, BaseDao.emplPhoneNo);
                 address = Utils.GetString(reader, BaseDao.emplAddress);
-                salary = Utils.GetDecimal(reader, BaseDao.emplSalary);
                 departmentID = Utils.GetString(reader, BaseDao.emplDeptID);
                 roleID = Utils.GetString(reader, BaseDao.emplRoleID);
             }
