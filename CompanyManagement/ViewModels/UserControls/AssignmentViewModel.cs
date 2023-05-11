@@ -1,10 +1,8 @@
-﻿using CompanyManagement.ViewModels.Base;
+﻿using CompanyManagement.Utilities;
+using CompanyManagement.ViewModels.Base;
 using CompanyManagement.Views.UserControls;
+using System;
 using System.Windows.Controls;
-using System.Windows.Input;
-using CompanyManagement.Models;
-using CompanyManagement.Strategies.UserControls.ProjectsView;
-using CompanyManagement.Utilities;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
@@ -19,15 +17,34 @@ namespace CompanyManagement.ViewModels.UserControls
         private ContentControl currentChildView;
         public ContentControl CurrentChildView { get => currentChildView; set { currentChildView = value; OnPropertyChanged(); } }
 
-        private ProjectsUC projectsUC = new ProjectsUC();
-        private ProjectDetailsUC projectDetailsUC = new ProjectDetailsUC();
+        private ProjectsUC projectsUC;
+        private ProjectDetailsUC projectDetailsUC;
 
         public AssignmentViewModel()
         {
+            InitAllView();
+            SetParents();
             MoveToProjectsView();
-            ((IProjects)projectsUC.DataContext).ParentDataContext = this;
-            ((IProjects)projectsUC.DataContext).ProjectDetailsDataContext = (IRetrieveProjectID)projectDetailsUC.DataContext;
-            ((IProjectDetails)projectDetailsUC.DataContext).ParentDataContext = this;
+        } 
+
+        private void InitAllView()
+        {
+            projectsUC = new ProjectsUC();
+            projectDetailsUC = new ProjectDetailsUC();
+        }
+
+        private void SetParents()
+        {
+            try
+            {
+                ((IProjects)projectsUC.DataContext).ParentDataContext = this;
+                ((IProjects)projectsUC.DataContext).ProjectDetailsDataContext = (IRetrieveProjectID)projectDetailsUC.DataContext;
+                ((IProjectDetails)projectDetailsUC.DataContext).ParentDataContext = this;
+            }
+            catch (Exception ex)
+            {
+                Log.Instance.Error(nameof(AssignmentViewModel), ex.Message);
+            }
         }
 
         public void MoveToProjectsView()

@@ -22,7 +22,7 @@ namespace CompanyManagementTest.Database
             var expected = new Employee("EM001", "Nguyễn Văn An", "Nam", 
                 new DateTime(1990, 1, 1), "001234567890", 
                 "an.nguyen@it.company.com", "0123456789", 
-                "TP. Hồ Chí Minh", "", "ER01", (decimal)15000000.0000);
+                "TP. Hồ Chí Minh", "", "ER01");
             var actualSearch = myDao.SearchByID(expected.ID);
             
             AssertObject(expected, actualSearch);
@@ -34,7 +34,7 @@ namespace CompanyManagementTest.Database
             var empl = new Employee("EM12312", "Nguyễn Văn Anh Hoàng", "Nam", 
                 new DateTime(2000, 1, 1), "075234567890", 
                 "an.nguyen12@gmail.com", "0123454357", "Đồng Nai", 
-                "DMP124", "ER04", (decimal)15000000.0000);  
+                "DMP124", "ER04");  
             
             // add
             myDao.Add(empl); 
@@ -43,7 +43,7 @@ namespace CompanyManagementTest.Database
             // update
             var updateObject = new Employee(empl.ID, "Phạm Văn Hoàng", empl.Gender, empl.Birthday, 
                 empl.IdentifyCard, "an.ng12@gmail.com", "0123454456", 
-                "Bạc Liêu", "", "ER02", (decimal)5000000.0);
+                "Bạc Liêu", "", "ER02");
             myDao.Update(updateObject);
             var updated = myDao.SearchByID(empl.ID);  
             
@@ -75,7 +75,7 @@ namespace CompanyManagementTest.Database
             var expected = new Employee("EM001", "Nguyễn Văn An", "Nam", 
                 new DateTime(1990, 1, 1), "001234567890", 
                 "an.nguyen@it.company.com", "0123456789", 
-                "TP. Hồ Chí Minh", "", "ER01", (decimal)15000000.0000);
+                "TP. Hồ Chí Minh", "", "ER01");
             
             var actual = myDao.SearchByIdentifyCard(expected.IdentifyCard);
             
@@ -88,7 +88,7 @@ namespace CompanyManagementTest.Database
             var expected = new Employee("EM001", "Nguyễn Văn An", "Nam", 
                 new DateTime(1990, 1, 1), "001234567890", 
                 "an.nguyen@it.company.com", "0123456789", 
-                "TP. Hồ Chí Minh", "", "ER01", (decimal)15000000.0000);
+                "TP. Hồ Chí Minh", "", "ER01");
             
             var actual = myDao.SearchByPhoneNumber(expected.PhoneNumber);
             
@@ -113,7 +113,6 @@ namespace CompanyManagementTest.Database
             Assert.AreEqual(expected.Email, actual.Email);
             Assert.AreEqual(expected.PhoneNumber, actual.PhoneNumber);
             Assert.AreEqual(expected.Address, actual.Address);
-            Assert.AreEqual(expected.Salary, actual.Salary);
             Assert.AreEqual(expected.DepartmentID, actual.DepartmentID);
             Assert.AreEqual(expected.RoleID, actual.RoleID);
         }

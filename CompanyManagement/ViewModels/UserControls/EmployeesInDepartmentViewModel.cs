@@ -92,7 +92,7 @@ namespace CompanyManagement.ViewModels.UserControls
         private Employee CreateEmployee()
         {
             return new Employee(AutoGenerateID(), "", "", DateTime.Now,
-                "", "", "", "", "", "", 0);
+                "", "", "", "", "","");
         }
 
         private void Add(Employee employee)

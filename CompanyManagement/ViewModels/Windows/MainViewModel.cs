@@ -16,12 +16,12 @@ namespace CompanyManagement.ViewModels.Windows
         private ContentControl currentChildView;
         public ContentControl CurrentChildView { get => currentChildView; set { currentChildView = value; OnPropertyChanged(); } }
 
-        private UserInformationUC userInformationUC = new UserInformationUC();
-        private AssignmentUC assignmentUC = new AssignmentUC();
-        private OrganizationUC organizationUC = new OrganizationUC();
-        private LeaveRequestsUC leavesUC = new LeaveRequestsUC();
-        private ApproveLeaveRequestsUC approveLeavesUC = new ApproveLeaveRequestsUC();
-        private SalaryRecordsUC salaryRecordsUC = new SalaryRecordsUC();
+        private UserInformationUC userInformationUC;
+        private AssignmentUC assignmentUC;
+        private OrganizationUC organizationUC;
+        private LeaveRequestsUC leavesUC;
+        private ApproveLeaveRequestsUC approveLeavesUC;
+        private SalaryRecordsUC salaryRecordsUC;
 
         private bool statusOrganizationView = false;
         public bool StatusOrganizationView { get => statusOrganizationView; set { statusOrganizationView = value; OnPropertyChanged(); } }
@@ -75,8 +75,19 @@ namespace CompanyManagement.ViewModels.Windows
         public MainViewModel(IMainStrategy mainStrategy)
         {
             MainStrategy = mainStrategy;
+            InitAllView();
             ExecuteShowUserInformationViewCommand(null);
             SetCommands();
+        }
+
+        private void InitAllView()
+        {
+            userInformationUC = new UserInformationUC();
+            assignmentUC = new AssignmentUC();
+            organizationUC = new OrganizationUC();
+            leavesUC = new LeaveRequestsUC();
+            approveLeavesUC = new ApproveLeaveRequestsUC();
+            salaryRecordsUC = new SalaryRecordsUC();
         }
 
         private void SetCommands()

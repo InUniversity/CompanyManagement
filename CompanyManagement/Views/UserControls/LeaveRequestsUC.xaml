@@ -37,7 +37,6 @@
                     </Button>
                 </StackPanel>
                 <Button
-                    Visibility="{Binding VisibleAddButton}"
                     ToolTip="Thêm nghỉ phép mới"
                     Width="200"
                     Margin="20 0"

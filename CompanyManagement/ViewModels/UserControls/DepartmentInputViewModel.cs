@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Controls;
@@ -80,7 +80,7 @@ namespace CompanyManagement.ViewModels.UserControls
         {
             var allEmpls = employeesDao.GetAllWithoutManagers();
             var deptHeadList = from e in allEmpls 
-                where e.RoleID == BaseDao.deptHeadRole && (e.DepartmentID == "" || e.DepartmentID == DeptIns.ID)
+                where e.EmplRole.Perms == Permission.DepHead && (e.DepartmentID == "" || e.DepartmentID == DeptIns.ID)
                 select e;
             GetRoleForListEmployees(deptHeadList.ToList());
             employeesCanbeDeptHead = new List<Employee>(deptHeadList.ToList());

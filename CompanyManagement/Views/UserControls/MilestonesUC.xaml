@@ -23,7 +23,6 @@
         <Grid Grid.Row="0">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="20 0">
                 <Button
-                        Visibility="{Binding VisibleAddButton}"
                         ToolTip="Thêm cột mốc"
                         Width="220"
                         HorizontalAlignment="Right"

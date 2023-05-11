@@ -1,6 +1,8 @@
-﻿using System.Windows.Controls;
+﻿using System;
+using System.Windows.Controls;
 using CompanyManagement.Models;
 using CompanyManagement.Strategies.UserControls.ProjectsView;
+using CompanyManagement.Utilities;
 using CompanyManagement.ViewModels.UserControls;
 
 namespace CompanyManagement.Views.UserControls
@@ -13,9 +15,16 @@ namespace CompanyManagement.Views.UserControls
         public ProjectsUC()
         {
             InitializeComponent();
-            var roleID = CurrentUser.Ins.EmployeeIns.RoleID;
-            var projectsStrategy = ProjectsStrategyFactory.Create(roleID);
-            DataContext = new ProjectsViewModel(projectsStrategy);
+            try
+            {
+                var curEmpl = CurrentUser.Ins.EmployeeIns;
+                var projectsStrategy = ProjectsStrategyFactory.Create(curEmpl.EmplRole.Perms);
+                DataContext = new ProjectsViewModel(projectsStrategy);
+            }
+            catch (Exception ex)
+            {
+                Log.Instance.Error(nameof(ProjectsUC), ex.Message);
+            }
         }
     }
 }

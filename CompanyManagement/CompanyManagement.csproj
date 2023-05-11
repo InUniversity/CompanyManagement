@@ -102,6 +102,7 @@
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\Milestone.cs" />
     <Compile Include="Models\MileTask.cs" />
+    <Compile Include="Models\Permission.cs" />
     <Compile Include="Models\ProjectBonus.cs" />
     <Compile Include="Models\SalaryRecord.cs" />
     <Compile Include="Models\TimeSheet.cs" />

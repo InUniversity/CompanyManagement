@@ -17,7 +17,7 @@
         Name="loginWindow"
         Height="700" Width="800">
     <Grid>
-        <materialDesign:Card Width="500" Height="600"                             
+        <materialDesign:Card Width="500" Height="600"
                              HorizontalAlignment="Center"
                              VerticalContentAlignment="Center">
             <Grid>
@@ -34,10 +34,10 @@
                     <RowDefinition />
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top">
-                    <TextBlock Text="Đăng Nhập" 
-                               FontSize="24" 
-                               Style="{StaticResource MaterialDesignButtonTextBlock}" 
-                               FontWeight="ExtraBold" 
+                    <TextBlock Text="Đăng Nhập"
+                               FontSize="24"
+                               Style="{StaticResource MaterialDesignButtonTextBlock}"
+                               FontWeight="ExtraBold"
                                Foreground="Gray" />
                 </Grid>
                 <Grid Grid.Row="1">
@@ -53,23 +53,21 @@
                 </Grid>
                 <Grid Grid.Row="2">
                     <PasswordBox
-                        Height="50"                
+                        Height="50"
                         materialDesign:HintAssist.HelperText="ít nhất 8 ký tự"
                         materialDesign:HintAssist.Hint="Mật Khẩu"
                         materialDesign:TextFieldAssist.HasClearButton="True"
                         helper:PasswordBoxHelper.BindPassword="true"
                         helper:PasswordBoxHelper.BoundPassword="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        Style="{StaticResource MaterialDesignFilledRevealPasswordBox}">
-                    </PasswordBox>
+                        Style="{StaticResource MaterialDesignFilledRevealPasswordBox}" />
                 </Grid>
                 <Grid Grid.Row="3">
                     <Grid Width="auto">
                         <Button
-                            Height="50"      
+                            Height="50"
                             Command="{Binding LoginCommand}"
                             CommandParameter="{Binding ElementName=loginWindow}"
-                            materialDesign:ButtonAssist.CornerRadius="25"
-                            IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
+                            materialDesign:ButtonAssist.CornerRadius="25">
                             <TextBlock Text="Đăng nhập" />
                         </Button>
                     </Grid>
@@ -81,8 +79,7 @@
                         Content="Thoát"
                         materialDesign:ButtonAssist.CornerRadius="25"
                         Style="{StaticResource MaterialDesignPaperButton}"
-                        ToolTip="Resource name: MaterialDesignPaperButton">
-                    </Button>
+                        ToolTip="Resource name: MaterialDesignPaperButton" />
                 </Grid>
             </Grid>
         </materialDesign:Card>

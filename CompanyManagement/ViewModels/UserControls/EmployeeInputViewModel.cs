@@ -1,4 +1,4 @@
-﻿using CompanyManagement.Models;
+using CompanyManagement.Models;
 using System.Collections.Generic;
 using System;
 using CompanyManagement.Database;
@@ -23,7 +23,7 @@ namespace CompanyManagement.ViewModels.UserControls
         public string Address { get => employee.Address; set { employee.Address = value; OnPropertyChanged(); } }
         public string DepartmentID { get => employee.DepartmentID; set { employee.DepartmentID = value; OnPropertyChanged(); } }
         public string RoleID { get => employee.RoleID; set { employee.RoleID = value; OnPropertyChanged(); } }
-        public decimal Salary { get => employee.Salary; set { employee.Salary = value; OnPropertyChanged(); } }
+        public decimal Salary { get => employee.EmplRole.Salary; set { employee.EmplRole.Salary= value; OnPropertyChanged(); } }
 
         private string errorMessage = "";
         public string ErrorMessage { get => errorMessage; set { errorMessage = value; OnPropertyChanged(); } }
@@ -52,7 +52,7 @@ namespace CompanyManagement.ViewModels.UserControls
             ErrorMessage = "";
             if (string.IsNullOrWhiteSpace(Name) || string.IsNullOrWhiteSpace(Gender) ||
                 string.IsNullOrWhiteSpace(IdentifyCard) || string.IsNullOrWhiteSpace(Email) ||
-                string.IsNullOrWhiteSpace(PhoneNumber) || string.IsNullOrWhiteSpace(Address) || 
+                string.IsNullOrWhiteSpace(PhoneNumber) || string.IsNullOrWhiteSpace(Address) ||
                 string.IsNullOrWhiteSpace(RoleID))
             {
                 ErrorMessage = Utils.invalidEmptyMess;

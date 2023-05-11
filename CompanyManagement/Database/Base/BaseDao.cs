@@ -1,12 +1,9 @@
+using System;
+
 namespace CompanyManagement.Database.Base
 {
     public abstract class BaseDao
     {
-        public const string managerRole = "ER01";
-        public const string deptHeadRole = "ER02";
-        public const string hrRole = "ER03";
-        public const string regularEmplRole = "ER04";
-
         public const string completed = "100";
         public const string leavRequestUpapproved = "LS2";
         public const string leavRequesApproved = "LS1";
@@ -25,12 +22,14 @@ namespace CompanyManagement.Database.Base
 
         protected const string deptTbl = "Departments";
         public const string deptID = "ID";
-        public const string deptName = "DepartmentName";
-        public const string deptHead = "DepartmentHead";
+        public const string deptName = "DeptName";
+        public const string deptHead = "DeptHeader";
 
         protected const string roleTbl = "Roles";
         public const string roleID = "ID";
-        public const string roleName = "Title";
+        public const string rolePerms = "Perms";
+        public const string roleTitle = "Title";
+        public const string roleSalary = "BaseSalary";
 
         protected const string emplTbl = "Employees";
         public const string emplID = "ID";
@@ -41,7 +40,6 @@ namespace CompanyManagement.Database.Base
         public const string emplEmail = "Email";
         public const string emplPhoneNo = "PhoneNumber";
         public const string emplAddress = "EmployeeAddress";
-        public const string emplSalary = "BaseSalary";
         public const string emplDeptID = "DepartmentID";
         public const string emplRoleID = "RoleID";
 
@@ -114,13 +112,6 @@ namespace CompanyManagement.Database.Base
         public const string taskOutProgress = "Progress";
         public const string taskOutTimeShtID = "TimeSheetID";
         public const string taskOutTaskID = "TaskID";
-
-        protected const string kpiTbl = "KPIs";
-        public const string kpiID = "ID";
-        public const string kpiMonthYear = "MonthYear";
-        public const string kpiRequireTaskCnt = "RequiredTasksCount";
-        public const string kpiActualTaskCnt = "ActualTasksCount";
-        public const string kpiEmplID = "EmployeeID";
 
         protected const string projBonusTbl = "ProjectBonuses";
         public const string projBonusID = "ID";

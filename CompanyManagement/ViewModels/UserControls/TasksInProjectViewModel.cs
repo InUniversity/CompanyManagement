@@ -53,7 +53,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void LoadTaskInProjects()
         {
-            TasksInProject = string.Equals(currentEmployee.RoleID, BaseDao.regularEmplRole)
+            TasksInProject = string.Equals(currentEmployee.EmplRole.Perms, Permission.NorEmpl)
                ? tasksDao.SearchByEmployeeID(projectID, currentEmployee.ID)
                : tasksDao.SearchByProjectID(projectID);
             foreach (var task in TasksInProject)
@@ -76,7 +76,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void SetVisible()
         {
-            if (!string.Equals(currentEmployee.RoleID, BaseDao.regularEmplRole))
+            if (currentEmployee.EmplRole.Perms != Permission.NorEmpl)
             {
                 visibleDeleteButton = Visibility.Visible;
             }
@@ -96,7 +96,7 @@ namespace CompanyManagement.ViewModels.UserControls
         public void ReceiveProjectID(string projectID)
         {
             this.projectID = projectID;
-            var tasks = string.Equals(currentEmployee.RoleID, BaseDao.regularEmplRole)
+            var tasks = currentEmployee.EmplRole.Perms == Permission.NorEmpl
                 ? tasksDao.SearchByEmployeeID(projectID, currentEmployee.ID)
                 : tasksDao.SearchByProjectID(projectID);
             TasksInProject = tasks;

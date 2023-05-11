@@ -19,7 +19,7 @@
             <RowDefinition Height="50"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        <Border Grid.Row="0" BorderBrush="Gray" BorderThickness="0.1"  Margin="3 0" Name="Menu">
+        <Border Grid.Row="0" BorderBrush="Gray" BorderThickness="0.1"  Margin="3 0">
             <StackPanel Orientation="Horizontal">
                 <Button Margin="20 0"  
                         Command="{Binding ElementName=projectDetailsUC, Path=DataContext.BackProjectsViewCommand}"

@@ -1,20 +1,19 @@
-using System.Collections.Generic;
-using CompanyManagement.Database.Base;
+using System;
+using CompanyManagement.Models;
 
 namespace CompanyManagement.Strategies.UserControls.ProjectsView
 {
     public class ProjectsStrategyFactory
     {
-        private static readonly Dictionary<string, IProjectsStrategy> strategies = new()
+        public static IProjectsStrategy Create(Permission perms)
         {
-            {BaseDao.managerRole, new ProjectsForManager()},
-            {BaseDao.deptHeadRole, new ProjectsForDepartmentHead()},
-            {BaseDao.regularEmplRole, new ProjectsForEmployee()}
-        };
-
-        public static IProjectsStrategy Create(string roleID)
-        {
-            return strategies.TryGetValue(roleID, out var projectsStrategy) ? projectsStrategy : null;
+            return perms switch
+            {
+                Permission.Mgr => new ProjectsForManager(),
+                Permission.DepHead => new ProjectsForDepartmentHead(),
+                Permission.NorEmpl => new ProjectsForEmployee(),
+                _ => throw new ArgumentOutOfRangeException("Projedt strategy: Not found permssion")
+            };
         }
     }
 }

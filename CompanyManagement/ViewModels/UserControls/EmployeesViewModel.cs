@@ -41,7 +41,7 @@ namespace CompanyManagement.ViewModels.UserControls
         {
             var listAllEmpl = employeesDao.GetAllWithoutManagers();
             var listItem = from empl in listAllEmpl 
-                           where empl.DepartmentID == "" && empl.RoleID != BaseDao.hrRole 
+                           where empl.DepartmentID == "" && empl.EmplRole.Perms != Permission.HR
                            select empl;
             GetRoleForListEmployees(listItem.ToList());
             employees = listItem.ToList();
@@ -83,7 +83,7 @@ namespace CompanyManagement.ViewModels.UserControls
         private Employee CreateEmployee()
         {
             return new Employee(AutoGenerateID(), "", "", DateTime.Now,
-                "", "", "", "", "", "", 0);
+                "", "", "", "", "", "");
         }
 
         private void Add(Employee employee)
