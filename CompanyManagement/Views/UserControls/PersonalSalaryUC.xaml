@@ -56,8 +56,8 @@
                 <DataGridTextColumn Width="Auto" Header="Lương Cơ Bản" IsReadOnly="True" Binding="{Binding Worker.Salary, StringFormat='##,#'}" />
                 <DataGridTextColumn Width="Auto" Header="Tổng Ngày Làm" IsReadOnly="True" Binding="{Binding TotalWorkDays}" />
                 <DataGridTextColumn Width="Auto" Header="Tổng Ngày Nghỉ" IsReadOnly="True" Binding="{Binding TotalOffDays, Mode=OneWay}" />
-                <DataGridTextColumn Width="Auto" Header="Tổng Tiền Thưởng" IsReadOnly="True" Binding="{Binding TotalBonuses, StringFormat='##,#'}" />
-                <DataGridTextColumn Width="Auto" Header="Lương Nhận" IsReadOnly="True" Binding="{Binding Income, StringFormat='##,#'}" />
+                <DataGridTextColumn Width="Auto" Header="Tổng Tiền Thưởng (VNĐ)" IsReadOnly="True" Binding="{Binding TotalBonuses, StringFormat='##,#'}" />
+                <DataGridTextColumn Width="Auto" Header="Lương Nhận (VNĐ)" IsReadOnly="True" Binding="{Binding Income, StringFormat='##,#'}" />
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
