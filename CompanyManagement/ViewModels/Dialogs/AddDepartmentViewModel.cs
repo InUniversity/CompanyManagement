@@ -40,14 +40,7 @@ namespace CompanyManagement.ViewModels.Dialogs
 
         private void ExecuteCloseDialogCommand(Window window)
         {
-            var dialog = new AlertDialogService(
-               "Thêm phòng ban",
-               "Bạn chắc chắn muốn thoát !",
-               () =>
-               {                
-                   window.Close();
-               }, null);
-            dialog.Show();
+            window.Close();
         }
 
         private void ExecuteAddDepartmentCommand(Window window)
