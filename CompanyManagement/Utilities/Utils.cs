@@ -13,7 +13,8 @@ namespace CompanyManagement.Utilities
         public const string invalidEmptyMess = "Các thông tin có dấu không được để trống!!!";
         public const string invalidTimeline = "Ngày bắt đầu phải lớn hơn ngày hiện tại và thời gian kết thúc phải lớn hơn ngày bắt đầu!!!";
         public const string invalidIDMess = "ID đã tồn tại!!!";
-        public const string invalidCheckInMess = "Chưa chọn nhiệm vụ để điểm danh!";
+        public const string invalidCheckInMess = "Chưa chọn nhiệm vụ để điểm danh!!!";
+        public static string invalidDeptHead = "Phải có trưởng phòng!!!";
 
         public static readonly DateTime emptyDate = new DateTime(2000, 1, 1, 7, 0, 0);
         private const string formatDateTime = "yyyy-MM-dd hh:mm:ss";

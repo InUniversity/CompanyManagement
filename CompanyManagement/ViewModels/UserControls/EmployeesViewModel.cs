@@ -69,7 +69,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void GetRoleForListEmployees(List<Employee> employees)
         {
-            foreach (Employee empl in employees)
+            foreach (var empl in employees)
                 empl.EmplRole = rolesDao.SearchByID(empl.RoleID);
         }
 
@@ -106,7 +106,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void DeleteEmployee(string id)
         {
-            AlertDialogService dialog = new AlertDialogService(
+            var dialog = new AlertDialogService(
               "Xóa nhân viên",
               "Bạn chắc chắn muốn xóa nhân viên !",
               () =>
@@ -114,7 +114,7 @@ namespace CompanyManagement.ViewModels.UserControls
                   employeesDao.Delete(id);
                   accountsDao.Delete(id); 
                   LoadEmployees();
-              }, () => { });
+              }, null);
             dialog.Show();
         }
 

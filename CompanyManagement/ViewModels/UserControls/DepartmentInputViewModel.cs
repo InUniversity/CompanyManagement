@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Runtime.InteropServices.ComTypes;
-using System.Threading.Tasks;
 using System.Windows.Controls;
-using System.Windows.Documents;
 using System.Windows.Input;
 using CompanyManagement.Database;
 using CompanyManagement.Database.Base;
 using CompanyManagement.Models;
+using CompanyManagement.Utilities;
 using CompanyManagement.ViewModels.Base;
 
 namespace CompanyManagement.ViewModels.UserControls
@@ -24,7 +21,6 @@ namespace CompanyManagement.ViewModels.UserControls
             { 
                 dept = value;
                 LoadEmployeesCanBeDeptHead();
-                LoadEmployeesCanAddInDept();
                 SearchByNameDeptHead();
                 LoadEmployeeInDepartment();
             }
@@ -52,32 +48,15 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private List<Employee> employeesCanbeDeptHead;
 
-        private List<Employee> employeesCanAddInDept;
-
         private ObservableCollection<Employee> searchedEmployeesCanBeDeptHead;
         public ObservableCollection<Employee> SearchedEmployeesCanBeDeptHead
         { get => searchedEmployeesCanBeDeptHead; set { searchedEmployeesCanBeDeptHead = value; OnPropertyChanged(); } }
 
-        private ObservableCollection<Employee> searchedEmployeesCanAddInDept;
-        public ObservableCollection<Employee> SearchedEmployeesCanAddInDept
-        { get => searchedEmployeesCanAddInDept; set { searchedEmployeesCanAddInDept = value; OnPropertyChanged(); } }
-
-        private List<Employee> selectedEmployees = new();
-        public List<Employee> SelectedEmployees
-        { get => selectedEmployees; set { selectedEmployees = value; OnPropertyChanged(); } }
-
         private string textToSearchDeptHead = "";
         public string TextToSearchDeptHead { get => textToSearchDeptHead; set { textToSearchDeptHead = value; OnPropertyChanged(); SearchByNameDeptHead(); } }
 
-        private string textToSearchEmpl = "";
-        public string TextToSearchEmpl { get => textToSearchEmpl; set { textToSearchEmpl = value; OnPropertyChanged(); SearchByNameEmpl(); } }
-
-        public ICommand GetAllSelectedEmployeesCommand { get; private set; }
         public ICommand GetSelectedDeptHeadCommand { get; private set; }
-        public ICommand DeleteEmployeeCommand { get; private set; }
-        public ICommand AddEmployeeCommand { get; private set; }
 
-        private DepartmentsDao departmentsDao = new DepartmentsDao();
         private EmployeesDao employeesDao = new EmployeesDao();
         private RolesDao rolesDao = new RolesDao();
 
@@ -89,39 +68,6 @@ namespace CompanyManagement.ViewModels.UserControls
         private void SetCommands()
         {
             GetSelectedDeptHeadCommand = new RelayCommand<ListView>(ExecuteGetSelectedDeptHeadCommand);
-            GetAllSelectedEmployeesCommand = new RelayCommand<ListView>(ExecuteGetAllSelectedEmployeesCommand);
-            AddEmployeeCommand = new RelayCommand<object>(ExecuteAddEmployeeCommand);
-            DeleteEmployeeCommand = new RelayCommand<Employee>(ExecuteDeleteEmployeeCommand);
-
-        }
-
-        private void ExecuteAddEmployeeCommand(object obj)
-        {
-            if (SelectedEmployees != null)
-            {
-                foreach (var employee in SelectedEmployees)
-                {
-                    EmplsInDept.Add(employee);
-                    employeesCanAddInDept.Remove(employee);
-                    SearchedEmployeesCanAddInDept.Remove(employee);
-                }
-            }
-            SelectedEmployees = null;
-        }
-
-        private void ExecuteDeleteEmployeeCommand(Employee employee)
-        {
-            if (employee.RoleID == BaseDao.deptHeadRole)
-                return;
-            EmplsInDept.Remove(employee);
-            employeesCanAddInDept.Add(employee);
-            SearchedEmployeesCanAddInDept.Add(employee);
-        }
-
-        private void ExecuteGetAllSelectedEmployeesCommand(ListView listView)
-        {
-            var selectedItems = listView.SelectedItems.Cast<Employee>().ToList();
-            selectedEmployees = selectedItems;
         }
 
         private void ExecuteGetSelectedDeptHeadCommand(ListView listView) 
@@ -129,26 +75,15 @@ namespace CompanyManagement.ViewModels.UserControls
             if (listView.SelectedItem == null) return;
             DeptHead = listView.SelectedItem as Employee;
         }
-
+        
         private void LoadEmployeesCanBeDeptHead() 
         {
-            var listallempl = employeesDao.GetAllWithoutManagers();
-            var listDeptHead = from empl in listallempl 
-                               where empl.RoleID == BaseDao.deptHeadRole 
-                               select empl;
-            GetRoleForListEmployees(listDeptHead.ToList());
-            employeesCanbeDeptHead = new List<Employee>(listDeptHead.ToList());
-        }
-
-        private void LoadEmployeesCanAddInDept()
-        {
-            var listallempl = employeesDao.GetAllWithoutManagers();
-            var listempl = from empl in listallempl 
-                           where empl.RoleID != BaseDao.hrRole && empl.DepartmentID == "" 
-                           select empl;
-            GetRoleForListEmployees(listempl.ToList());
-            employeesCanAddInDept = new List<Employee>(listempl.ToList());
-            SearchedEmployeesCanAddInDept = new ObservableCollection<Employee>(employeesCanAddInDept);
+            var allEmpls = employeesDao.GetAllWithoutManagers();
+            var deptHeadList = from e in allEmpls 
+                where e.RoleID == BaseDao.deptHeadRole && (e.DepartmentID == "" || e.DepartmentID == DeptIns.ID)
+                select e;
+            GetRoleForListEmployees(deptHeadList.ToList());
+            employeesCanbeDeptHead = new List<Employee>(deptHeadList.ToList());
         }
 
         private void LoadEmployeeInDepartment()
@@ -160,7 +95,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void GetRoleForListEmployees(List<Employee> employees)
         {
-            foreach (Employee empl in employees)
+            foreach (var empl in employees)
                 empl.EmplRole = rolesDao.SearchByID(empl.RoleID);
         }
 
@@ -176,18 +111,6 @@ namespace CompanyManagement.ViewModels.UserControls
             SearchedEmployeesCanBeDeptHead = new ObservableCollection<Employee>(searchedItems);
         }
 
-        private void SearchByNameEmpl()
-        {
-            var searchedItems = employeesCanAddInDept;
-            if (!string.IsNullOrEmpty(textToSearchEmpl))
-            {
-                searchedItems = employeesCanAddInDept
-                    .Where(item => item.Name.ToLower().Contains(textToSearchEmpl.ToLower()))
-                    .ToList();
-            }
-            SearchedEmployeesCanAddInDept = new ObservableCollection<Employee>(searchedItems);
-        }
-
         public void TrimAllTexts()
         {
             Name = Name.Trim();
@@ -195,16 +118,15 @@ namespace CompanyManagement.ViewModels.UserControls
 
         public bool CheckAllFields()
         {
-
             ErrorMessage = "";
             if (string.IsNullOrWhiteSpace(Name))
             {
-                ErrorMessage = "Các thông tin không được để trống!!!";
+                ErrorMessage = Utils.invalidEmptyMess;
                 return false;
             }
             if (DeptHead == null)
             {
-                ErrorMessage = "Phải có trưởng phòng!!!";
+                ErrorMessage = Utils.invalidDeptHead;
                 return false;
             }
             return true;

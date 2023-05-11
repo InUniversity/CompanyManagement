@@ -1,7 +1,6 @@
 ﻿using CompanyManagement.Database;
 using CompanyManagement.Models;
 using CompanyManagement.Services;
-using CompanyManagement.Utilities;
 using CompanyManagement.ViewModels.Base;
 using CompanyManagement.Views.Dialogs;
 using System;
@@ -64,9 +63,9 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void SetCommands()
         {
-            OpenAddDialogCommand = new RelayCommand<string>(ExecuteOpenAddDialogCommand);
-            DeleteDepartmentCommand = new RelayCommand<string>(Delete);
-            OpenUpdateDialogCommand = new RelayCommand<Department>(ExecuteOpenUpdateDialogCommand);
+            OpenAddDialogCommand = new RelayCommand<string>(OpenAddDeptDialog);
+            DeleteDepartmentCommand = new RelayCommand<string>(ExecuteDelete);
+            OpenUpdateDialogCommand = new RelayCommand<Department>(OpenUpdateDeptDialog);
             ItemClickCommand = new RelayCommand<object>(ExecuteItemClickCommand);
         }
 
@@ -82,14 +81,7 @@ namespace CompanyManagement.ViewModels.UserControls
                 dept.Empls = new ObservableCollection<Employee>( employeesDao.SearchByDepartmentID(dept.ID));
         }
 
-        private void ExecuteOpenUpdateDialogCommand(Department dept)
-        {
-            Log.Instance.Information(nameof(DepartmentsViewModel),"Selected Department: "+dept.Name);
-            var inputService = new InputDialogService<Department>(new UpdateDepartmentDialog(), dept, Update);
-            inputService.Show();
-        }
-
-        private void ExecuteOpenAddDialogCommand(string obj)
+        private void OpenAddDeptDialog(string obj)
         {
             var dept = CreateDepartment();
             var inputService = new InputDialogService<Department>(new AddDepartmentDialog(), dept, Add);
@@ -99,6 +91,12 @@ namespace CompanyManagement.ViewModels.UserControls
         private Department CreateDepartment()
         {
             return new Department(AutoGenerateID(), "", "");
+        }
+
+        private void Add(Department dept)
+        {
+            departmentsDao.Add(dept);
+            LoadDepartment();
         }
 
         private string AutoGenerateID()
@@ -118,30 +116,29 @@ namespace CompanyManagement.ViewModels.UserControls
             ParentDataContext.MoveToEmployeesInDepartmentView(selectedDepartment);
         }
 
-        private void Delete(string departmentID)
+        private void ExecuteDelete(string deptID)
         {
             var dialog = new AlertDialogService(
                "Xóa phòng ban",
                "Bạn chắc chắn muốn Xóa phòng ban !",
                () =>
                {
-                   departmentsDao.Delete(departmentID);
+                   departmentsDao.Delete(deptID);
                    LoadDepartment();
                }, null);
             dialog.Show();        
         }
 
-        private void Add(Department department)
+        private void OpenUpdateDeptDialog(Department dept)
         {
-            departmentsDao.Add(department);
+            var inputService = new InputDialogService<Department>(new UpdateDepartmentDialog(), dept, Update);
+            inputService.Show();
+        }
+        
+        private void Update(Department dept)
+        {
+            departmentsDao.Update(dept);
             LoadDepartment();
         }
-
-        private void Update(Department department)
-        {
-            departmentsDao.Update(department);
-            LoadDepartment();
-        }
-
     }
 }

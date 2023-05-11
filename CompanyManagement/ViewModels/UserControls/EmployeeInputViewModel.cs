@@ -52,8 +52,8 @@ namespace CompanyManagement.ViewModels.UserControls
             ErrorMessage = "";
             if (string.IsNullOrWhiteSpace(Name) || string.IsNullOrWhiteSpace(Gender) ||
                 string.IsNullOrWhiteSpace(IdentifyCard) || string.IsNullOrWhiteSpace(Email) ||
-                string.IsNullOrWhiteSpace(PhoneNumber) || string.IsNullOrWhiteSpace(Address) ||
-                string.IsNullOrWhiteSpace(DepartmentID) || string.IsNullOrWhiteSpace(RoleID))
+                string.IsNullOrWhiteSpace(PhoneNumber) || string.IsNullOrWhiteSpace(Address) || 
+                string.IsNullOrWhiteSpace(RoleID))
             {
                 ErrorMessage = Utils.invalidEmptyMess;
                 return false;

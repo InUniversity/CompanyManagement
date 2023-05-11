@@ -10,7 +10,7 @@ namespace CompanyManagement.Database
         {
             //TODO
             string sqlStr = $"INSERT INTO {deptTbl} ({deptID}, {deptName}, {deptHead})" +
-                            $"VALUES ('{dept.ID}', '{dept.Name}', '{dept.DeptHeadID}')";
+                            $"VALUES ('{dept.ID}', N'{dept.Name}', '{dept.DeptHeadID}')";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
@@ -22,8 +22,7 @@ namespace CompanyManagement.Database
 
         public void Update(Department dept)
         {
-            //TODO
-            string sqlStr = $"UPDATE {deptTbl} SET {deptName} = '{dept.Name}', " +
+            string sqlStr = $"UPDATE {deptTbl} SET {deptName} = N'{dept.Name}', " +
                             $"{deptHead} = '{dept.DeptHeadID}' WHERE {deptID} = '{dept.ID}'";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
@@ -31,7 +30,7 @@ namespace CompanyManagement.Database
         public List<Department> GetAll()
         {
             string sqlStr = $"SELECT * FROM {deptTbl}";
-            return dbConnection.GetList<Department>(sqlStr, reader => new Department(reader));
+            return dbConnection.GetList(sqlStr, reader => new Department(reader));
         }
 
         public Department SearchByID(string dptID)
