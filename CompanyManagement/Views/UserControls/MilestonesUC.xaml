@@ -86,7 +86,7 @@
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                     <DataGridTextColumn Width="200" Header="Tiêu Đề" IsReadOnly="True" Binding="{Binding Title}"/>
-                    <DataGridTemplateColumn Header="Phần Trăm Hoàn Thành" Width="Auto">
+                    <DataGridTemplateColumn Header="Hoàn Thành (%)" Width="Auto">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Vertical">
@@ -97,8 +97,8 @@
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                     <DataGridTextColumn Width="Auto" Header="Người Tạo" IsReadOnly="True" Binding="{Binding Owner.Name}" />
-                    <DataGridTextColumn Width="Auto" Header="Ngày Bắt Đầu" IsReadOnly="True" Binding="{Binding Start}" />
-                    <DataGridTextColumn Width="Auto" Header="Ngày Kết Thúc" IsReadOnly="True">
+                    <DataGridTextColumn Width="Auto" Header="Thời Gian Bắt Đầu" IsReadOnly="True" Binding="{Binding Start}" />
+                    <DataGridTextColumn Width="Auto" Header="Thời Gian Kết Thúc" IsReadOnly="True">
                         <DataGridTextColumn.Binding>
                             <MultiBinding StringFormat="{}{0} (cách {1} ngày)">
                                 <Binding Path="End"/>

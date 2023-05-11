@@ -116,7 +116,7 @@
                         </Button>
                     </Canvas>
                 </materialDesign:Card>
-                <TextBlock Text="Lịch sử :" FontSize="15" Margin="15 5" FontWeight="Bold" />
+                <TextBlock Text="Lịch sử :" Foreground="Gray" FontSize="15" Margin="15 5" FontWeight="Bold" />
                 <materialDesign:Card Margin="10">
                     <ListView MinHeight="450" ItemsSource="{Binding TimeSheetList}">
                         <ListView.View>
