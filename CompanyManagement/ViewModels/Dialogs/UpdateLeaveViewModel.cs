@@ -27,14 +27,7 @@ namespace CompanyManagement.ViewModels.Dialogs
 
         private void ExecuteCloseCommand(Window window)
         {
-            var dialog = new AlertDialogService(
-                "Cập nhật xin phép nghỉ",
-                "Bạn chắc chắn muốn thoát !",
-                () =>
-                {
-                    window.Close();
-                }, () => { });
-            dialog.Show();
+            window.Close();
         }
 
         private void ExecuteUpdateCommand(Window inputWindow)

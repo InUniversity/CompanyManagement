@@ -67,14 +67,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void ExecuteCloseCommand(Window window)
         {
-            var dialog = new AlertDialogService(
-               "Check in",
-               "Bạn chắc chắn muốn thoát !",
-               () =>
-               {
-                   window.Close();
-               }, null);
-            dialog.Show();
+            window.Close();
         }
 
         private void ExecuteGetSelectedTaskCommand(ListView listView)
