@@ -17,22 +17,10 @@ namespace CompanyManagement.Utilities
 
         public static readonly DateTime emptyDate = new DateTime(2000, 1, 1, 7, 0, 0);
         private const string formatDateTime = "yyyy-MM-dd hh:mm:ss";
-        private const string formatSmallDateTime = "CONVERT(SMALLDATETIME, dd-MM-yyyy hh:mm:ss, 105)";
-        private const string formatDate = "yyyy-MM-dd";
 
         public static string ToSQLFormat(DateTime dt)
         {
             return dt.ToString(formatDateTime);
-        }
-
-        public static string ToSQLSmallDateTimeFormat(DateTime dt)
-        {
-            return dt.ToString(formatSmallDateTime);
-        }
-
-        public static string ToOnlyDateSQLFormat(DateTime dt)
-        {
-            return dt.ToString(formatDate);
         }
 
         public static int GetInt(IDataRecord record, string colName)
