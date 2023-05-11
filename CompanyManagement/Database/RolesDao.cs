@@ -12,9 +12,9 @@ namespace CompanyManagement.Database
             return dbConnection.GetList(sqlStr, reader => new Role(reader));
         }
 
-        public Role SearchByID(string roleID)
+        public Role SearchByID(string id)
         {
-            string sqlStr = $"SELECT * FROM {roleTbl} WHERE {BaseDao.roleID}='{roleID}'";
+            string sqlStr = $"SELECT * FROM {roleTbl} WHERE {roleID}='{id}'";
             return (Role)dbConnection.GetSingleObject(sqlStr, reader => new Role(reader));
         }
     }

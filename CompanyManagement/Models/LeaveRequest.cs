@@ -18,6 +18,7 @@ namespace CompanyManagement.Models
         private string statusID = "";
         private string requesterID = "";
         private string approverID = "";
+        private string response = "";
         private Employee approver = new Employee();
         private Employee requester = new Employee();
         private LeaveStatus status = new LeaveStatus();
@@ -68,6 +69,12 @@ namespace CompanyManagement.Models
         {
             get => requesterID;
             set => requesterID = value;
+        }
+
+        public string Response
+        {
+            get => response;
+            set => response = value;
         }
 
         public string ApproverID

@@ -47,7 +47,7 @@ namespace CompanyManagement.ViewModels.UserControls
         {
             try
             {
-                var deptStrategy = DeptStrategyFactory.Create(CurrentUser.Ins.EmployeeIns.RoleID);
+                var deptStrategy = DeptStrategyFactory.Create(CurrentUser.Ins.EmployeeIns.PermsID);
                 var viewModel = new DepartmentsViewModel(deptStrategy)
                 {
                     ParentDataContext = this

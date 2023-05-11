@@ -9,9 +9,9 @@ namespace CompanyManagement.Strategies.UserControls.DeptsView
         {
             return roleID switch
             {
-                BaseDao.managerRole => new DeptForManager(),
-                BaseDao.deptHeadRole => new DeptForDeptHead(),
-                BaseDao.hrRole => new DeptForHR(),
+                BaseDao.managerPermsID => new DeptForManager(),
+                BaseDao.deptHeadPermsID => new DeptForDeptHead(),
+                BaseDao.hrPermsID => new DeptForHR(),
                 _ => throw new ArgumentOutOfRangeException("Not found role ID")
             };
         } 

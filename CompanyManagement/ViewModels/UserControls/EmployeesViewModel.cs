@@ -9,6 +9,7 @@ using CompanyManagement.Services;
 using CompanyManagement.Models;
 using CompanyManagement.Database.Base;
 using CompanyManagement.Views.UserControls;
+using CompanyManagement.Utilities;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
@@ -40,11 +41,11 @@ namespace CompanyManagement.ViewModels.UserControls
         private void LoadEmployees()
         {
             var listAllEmpl = employeesDao.GetAllWithoutManagers();
-            var listItem = from empl in listAllEmpl 
-                           where empl.DepartmentID == "" && empl.RoleID != BaseDao.hrRole 
-                           select empl;
-            GetRoleForListEmployees(listItem.ToList());
-            employees = listItem.ToList();
+            var listItem = (from empl in listAllEmpl 
+                           where empl.DepartmentID == "" && empl.PermsID != BaseDao.hrPermsID 
+                           select empl).ToList();
+            LoadEmplRole(listItem);
+            employees = listItem;
             SearchedEmployees = employees;
         }
 
@@ -53,6 +54,14 @@ namespace CompanyManagement.ViewModels.UserControls
             OpenAddDialogCommand = new RelayCommand<object>(OpenAddEmployeeDialog);
             DeleteEmployeeCommand = new RelayCommand<string>(DeleteEmployee);
             OpenUpdateDialogCommand = new RelayCommand<Employee>(OpenUpdateEmployeeDialog);
+        }
+
+        private void LoadEmplRole(List<Employee> list)
+        {
+            foreach(var empl in list)
+            {
+                empl.EmplRole = rolesDao.SearchByID(empl.RoleID);
+            }    
         }
 
         private void SearchByName()
@@ -67,12 +76,6 @@ namespace CompanyManagement.ViewModels.UserControls
             SearchedEmployees = searchedItems;
         }
 
-        private void GetRoleForListEmployees(List<Employee> employees)
-        {
-            foreach (Employee empl in employees)
-                empl.EmplRole = rolesDao.SearchByID(empl.RoleID);
-        }
-
         private void OpenAddEmployeeDialog(object obj)
         {
             var employee = CreateEmployee();
@@ -83,12 +86,13 @@ namespace CompanyManagement.ViewModels.UserControls
         private Employee CreateEmployee()
         {
             return new Employee(AutoGenerateID(), "", "", DateTime.Now,
-                "", "", "", "", "", "", 0);
+                "", "", "", "", "", "", "");
         }
 
         private void Add(Employee employee)
         {
-            employeesDao.Add(employee);
+            // employeesDao.Add(employee);
+            accountsDao.Add(employee);
             LoadEmployees();
         }
 
@@ -111,8 +115,8 @@ namespace CompanyManagement.ViewModels.UserControls
               "Bạn chắc chắn muốn xóa nhân viên !",
               () =>
               {
-                  employeesDao.Delete(id);
                   accountsDao.Delete(id); 
+                  employeesDao.Delete(id);
                   LoadEmployees();
               }, () => { });
             dialog.Show();
@@ -126,6 +130,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void Update(Employee employee)
         {
+            // accountsDao.Update(employee);
             employeesDao.Update(employee);
             LoadEmployees();
         }

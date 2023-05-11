@@ -17,11 +17,11 @@ namespace CompanyManagement
         private string email = "";
         private string phoneNumber = "";
         private string address = "";
-        private decimal salary;
+        private string permsID = "";
         private string departmentID = "";
         private string roleID = "";
         private Account account = new Account();
-        private Role role = new Role();
+        private Role emplRole = new Role();
 
         public string ID
         {
@@ -70,11 +70,11 @@ namespace CompanyManagement
             get => address;
             set => address = value;
         }
-        
-        public decimal Salary
+
+        public string PermsID
         {
-            get => Decimal.Round(salary, 0);
-            set => salary = value;
+            get => permsID;
+            set => permsID = value;
         }
 
         public string DepartmentID
@@ -94,17 +94,17 @@ namespace CompanyManagement
             get => account;
             set => account = value;
         }
-
+        
         public Role EmplRole
         {
-            get => role;
-            set => role = value;
+            get => emplRole;
+            set => emplRole = value;
         }
 
         public Employee() { }
 
         public Employee(string id, string name, string gender, DateTime birthday, string identifyCard, string email, 
-            string phoneNumber, string address, string departmentID, string roleID, decimal salary)
+            string phoneNumber, string address, string permsID, string departmentID, string roleID)
         {
             this.id = id;
             this.name = name;
@@ -114,9 +114,9 @@ namespace CompanyManagement
             this.email = email;
             this.phoneNumber = phoneNumber;
             this.address = address;
+            this.permsID = permsID;
             this.departmentID = departmentID;
             this.roleID = roleID;
-            this.salary = salary;
         }
         
         public Employee(IDataRecord reader)
@@ -131,7 +131,7 @@ namespace CompanyManagement
                 email = Utils.GetString(reader, BaseDao.emplEmail);
                 phoneNumber = Utils.GetString(reader, BaseDao.emplPhoneNo);
                 address = Utils.GetString(reader, BaseDao.emplAddress);
-                salary = Utils.GetDecimal(reader, BaseDao.emplSalary);
+                permsID = Utils.GetString(reader, BaseDao.emplPermsID);
                 departmentID = Utils.GetString(reader, BaseDao.emplDeptID);
                 roleID = Utils.GetString(reader, BaseDao.emplRoleID);
             }

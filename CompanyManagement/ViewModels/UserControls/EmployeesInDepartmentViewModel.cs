@@ -51,7 +51,7 @@ namespace CompanyManagement.ViewModels.UserControls
         public void LoadEmployees()
         {
             Employees = employeesDao.SearchByDepartmentID(department.ID);
-            GetRoleForListEmployees(Employees);
+            LoadEmplRole(Employees);
             SearchedEmployees = Employees;
         }
 
@@ -63,10 +63,12 @@ namespace CompanyManagement.ViewModels.UserControls
             BackDepartmentViewCommand = new RelayCommand<object>(ExecuteBackDepartmentViewCommand);
         }
 
-        private void GetRoleForListEmployees(List<Employee> employees)
+        private void LoadEmplRole(List<Employee> list)
         {
-            foreach (Employee empl in employees)
+            foreach (var empl in list)
+            {
                 empl.EmplRole = rolesDao.SearchByID(empl.RoleID);
+            }
         }
 
         private void SearchByName()
@@ -92,7 +94,7 @@ namespace CompanyManagement.ViewModels.UserControls
         private Employee CreateEmployee()
         {
             return new Employee(AutoGenerateID(), "", "", DateTime.Now,
-                "", "", "", "", "", "", 0);
+                "", "", "", "", "", "", "");
         }
 
         private void Add(Employee employee)

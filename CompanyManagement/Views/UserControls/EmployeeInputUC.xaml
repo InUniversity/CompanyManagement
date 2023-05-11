@@ -183,7 +183,7 @@
                         Grid.Column="1"
                         Margin="5 5 5 20"
                         materialDesign:HintAssist.Hint="Lương cơ bản (VNĐ)"
-                        Text="{Binding Salary, StringFormat='##,#', UpdateSourceTrigger=PropertyChanged}"
+                        Text="{Binding EmplRole.BaseSalary, StringFormat='##,#', Mode=OneWay}"
                         AcceptsReturn="False"
                         IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedTextBoxEnabledComboBox}"
                         Style="{StaticResource MaterialDesignOutlinedTextBox}"

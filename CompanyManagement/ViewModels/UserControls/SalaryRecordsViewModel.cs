@@ -50,6 +50,7 @@ namespace CompanyManagement.ViewModels.UserControls
         private EmployeesDao employeesDao = new EmployeesDao();
         private TimeSheetsDao timeSheetsDao = new TimeSheetsDao();
         private ProjectBonusesDao projectBonusesDao = new ProjectBonusesDao();
+        private RolesDao rolesDao = new RolesDao();
 
         public ICommand CalculateSalaryCommand { get; private set; }
         public ICommand DistributeSalaryCommand { get; private set; }
@@ -77,14 +78,31 @@ namespace CompanyManagement.ViewModels.UserControls
             listSalaryRecord = (departmentID == "") 
                 ? salaryRecordsDao.GetByTime(Month, Year) 
                 : salaryRecordsDao.GetByDepartmentID(DepartmentID, Month, Year);
+            FillValue(listSalaryRecord);
             SalaryRecords = new ObservableCollection<SalaryRecord>(listSalaryRecord);
         }
-            
+
+        private void FillValue(List<SalaryRecord> list)
+        {
+            foreach(SalaryRecord salaryRecord in list)
+            {
+                SetValueWorker(salaryRecord);
+            }    
+        }
+
+        private void SetValueWorker(SalaryRecord salaryRecord)
+        {
+            salaryRecord.Worker = employeesDao.SearchByID(salaryRecord.EmployeeID);
+            salaryRecord.WorkerRole = rolesDao.SearchByID(salaryRecord.Worker.RoleID);
+            salaryRecord.WorkerDept = departmentsDao.SearchByID(salaryRecord.Worker.DepartmentID);
+        }
+
         private void SetComboBox()
         {
             Departments = new List<Department>();
             Departments.Add(new Department("ALL", "Tất Cả", ""));
             Departments.Add(new Department("MNG", "Management", ""));
+            Departments.Add(new Department("HR", "Human Resource", ""));
             Departments.AddRange(departmentsDao.GetAll());
             Years = Enumerable.Range(2000, DateTime.Now.Year - 1999).OrderByDescending(year => year).ToList();
         }
@@ -92,11 +110,12 @@ namespace CompanyManagement.ViewModels.UserControls
         private void ExecuteCalculateSalary(object obj)
         {
             if (!ValidateCalculateSalary()) return;
-            var employees = employeesDao.GetAll();
+            var employees = employeesDao.GetEmployeeDoing();
             listSalaryRecord.Clear();
             foreach(Employee employee in employees)
             {
                 SalaryRecord salaryRecord = CreateSalaryRecord(employee);
+                SetValueWorker(salaryRecord);
                 CalculateIcome(salaryRecord);
                 listSalaryRecord.Add(salaryRecord);
             }
@@ -135,7 +154,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void CalculateIcome(SalaryRecord salaryRecord)
         {
-            salaryRecord.Income = (decimal)((salaryRecord.TotalWorkDays * salaryRecord.Worker.Salary)/ totalDayByTime + salaryRecord.TotalBonuses);
+            salaryRecord.Income = (decimal)((salaryRecord.TotalWorkDays * salaryRecord.WorkerRole.BaseSalary)/ totalDayByTime + salaryRecord.TotalBonuses);
         }
 
         private void LoadToTalDay()

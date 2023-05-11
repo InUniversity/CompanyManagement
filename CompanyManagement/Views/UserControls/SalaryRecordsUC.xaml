@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="CompanyManagement.Views.UserControls.SalaryRecordsUC"
+<UserControl x:Class="CompanyManagement.Views.UserControls.SalaryRecordsUC"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -127,14 +127,14 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
                         <DataGridTextColumn Width="Auto" Header="Thời Gian" IsReadOnly="True" Binding="{Binding MonthYear, StringFormat='MM/yyyy'}" />
-                        <DataGridTextColumn Width="Auto" Header="Phòng Ban" IsReadOnly="True" Binding="{Binding WorkerDepartment.Name}"/>
-                        <DataGridTextColumn Width="Auto" Header="Mã Nhân Viên" IsReadOnly="False" Binding="{Binding EmployeeID}"/>
+                        <DataGridTextColumn Width="Auto" Header="Phòng Ban" IsReadOnly="True" Binding="{Binding WorkerDept.Name}"/>
+                        <DataGridTextColumn Width="Auto" Header="Mã Nhân Viên" IsReadOnly="True" Binding="{Binding EmployeeID}"/>
                         <DataGridTextColumn Width="Auto" Header="Tên Nhân Viên" IsReadOnly="True" Binding="{Binding Worker.Name}" />
                         <DataGridTextColumn Width="Auto" Header="Chức vụ" IsReadOnly="True" Binding="{Binding WorkerRole.Title}" />
                         <DataGridTextColumn Width="Auto" Header="Tổng Ngày Làm" IsReadOnly="True" Binding="{Binding TotalWorkDays}" />
                         <DataGridTextColumn Width="Auto" Header="Tổng Ngày Nghỉ" IsReadOnly="True" Binding="{Binding TotalOffDays, Mode=OneWay}" />
-                    <DataGridTextColumn Width="Auto" Header="Tổng Tiền Thưởng (VNĐ)" IsReadOnly="True" Binding="{Binding TotalBonuses, StringFormat='##,#'}" />
-                    <DataGridTextColumn Width="Auto" Header="Lương Nhận (VNĐ)" IsReadOnly="True" Binding="{Binding Income, StringFormat='##,#'}" />
+                        <DataGridTextColumn Width="Auto" Header="Tổng Tiền Thưởng" IsReadOnly="True" Binding="{Binding TotalBonuses, StringFormat='##,#'}" />
+                        <DataGridTextColumn Width="Auto" Header="Lương Nhận" IsReadOnly="True" Binding="{Binding Income, StringFormat='##,#'}" />
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>

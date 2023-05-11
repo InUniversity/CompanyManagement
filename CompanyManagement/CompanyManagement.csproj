@@ -208,6 +208,9 @@
       <DependentUpon>CheckOutDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Dialogs\Interfaces\IInputDialog.cs" />
+    <Compile Include="Views\Dialogs\ResponseRequestDialog.xaml.cs">
+      <DependentUpon>ResponseRequestDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Dialogs\SalaryDetailsDialog.xaml.cs">
       <DependentUpon>SalaryDetailsDialog.xaml</DependentUpon>
     </Compile>
@@ -346,6 +349,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Dialogs\CheckOutDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Dialogs\ResponseRequestDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -84,7 +84,7 @@
                                   ItemsSource="{Binding ElementName=leaveInputUC,Path=DataContext.SearchedApprovers , UpdateSourceTrigger=PropertyChanged}">
                             <b:Interaction.Triggers>
                                 <b:EventTrigger EventName="SelectionChanged">
-                                    <b:InvokeCommandAction Command="{Binding  GetSelectedApproverCommand}"
+                                    <b:InvokeCommandAction Command="{Binding  GetSelectedApproveCommand}"
                                                            CommandParameter="{Binding ElementName= approvers}" />
                                 </b:EventTrigger>
                             </b:Interaction.Triggers>

@@ -152,7 +152,7 @@ namespace CompanyManagement.ViewModels.UserControls
         {
             var dialog = new AlertDialogService(
                 "Xóa dự án",
-                "Bạn chắc chắn muỗn xóa dự án này ?",
+                "Bạn chắc chắn muốn xóa dự án này ?",
                 () =>
                 { 
                     projectsDao.Delete(id); 

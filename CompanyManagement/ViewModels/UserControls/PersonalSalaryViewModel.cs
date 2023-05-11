@@ -21,6 +21,9 @@ namespace CompanyManagement.ViewModels.UserControls
         public ICommand OpenSalaryDetailsDialogCommand { get; private set; }
 
         private SalaryRecordsDao salaryRecordsDao = new SalaryRecordsDao();
+        private EmployeesDao employeesDao = new EmployeesDao();
+        private RolesDao rolesDao = new RolesDao();
+        private DepartmentsDao departmentsDao = new DepartmentsDao();
 
         public PersonalSalaryViewModel()
         {
@@ -35,7 +38,20 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void LoadSalaryRecords()
         {
-            SalaryRecords = salaryRecordsDao.GetByEmployeeID(CurrentUser.Ins.EmployeeIns.ID).OrderByDescending(p => p.MonthYear).ToList();
+            var tempSalaryRecords = salaryRecordsDao.GetByEmployeeID(CurrentUser.Ins.EmployeeIns.ID)
+                .OrderByDescending(p => p.MonthYear).ToList();
+            FillValue(tempSalaryRecords);
+            SalaryRecords = new List<SalaryRecord>(tempSalaryRecords);
+        }
+
+        private void FillValue(List<SalaryRecord> list)
+        {
+            foreach(SalaryRecord salaryRecord in list)
+            {
+                salaryRecord.Worker = employeesDao.SearchByID(salaryRecord.EmployeeID);
+                salaryRecord.WorkerRole = rolesDao.SearchByID(salaryRecord.Worker.RoleID);
+                salaryRecord.WorkerDept = departmentsDao.SearchByID(salaryRecord.Worker.DepartmentID);
+            }    
         }
 
         private void ExecuteOpenSalaryDetailsDialog(SalaryRecord salaryRecord)

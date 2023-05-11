@@ -19,9 +19,9 @@ namespace CompanyManagement.ViewModels.Dialogs
         public int TotalOffDays { get => salaryRecordIns.TotalOffDays; }
         public decimal TotalBonuses { get => salaryRecordIns.TotalBonuses; set { salaryRecordIns.TotalBonuses = value; OnPropertyChanged(); } }
         public decimal Income { get => salaryRecordIns.Income; set { salaryRecordIns.Income = value; OnPropertyChanged(); } }
-        public Employee Worker { get => salaryRecordIns.Worker; }
-        public Role WorkerRole { get => salaryRecordIns.WorkerRole; }
-        public Department WorkerDepartment { get => salaryRecordIns.WorkerDepartment; }
+        public Employee Worker { get => salaryRecordIns.Worker; set { salaryRecordIns.Worker = value; OnPropertyChanged(); } }
+        public Role WorkerRole { get => salaryRecordIns.WorkerRole; set { salaryRecordIns.WorkerRole = value; OnPropertyChanged(); } }
+        public Department WorkerDepartment { get => salaryRecordIns.WorkerDept;set { salaryRecordIns.WorkerDept = value; OnPropertyChanged(); } }
 
         private List<LeaveRequest> leaveRequests;
         public List<LeaveRequest> LeaveRequests { get => leaveRequests; set { leaveRequests = value; OnPropertyChanged(); } }

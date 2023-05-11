@@ -5,6 +5,7 @@ using CompanyManagement.ViewModels.Windows;
 using CompanyManagement.Models;
 using System.Windows.Input;
 using System;
+using CompanyManagement.Database;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
@@ -32,15 +33,22 @@ namespace CompanyManagement.ViewModels.UserControls
 
         public UserInformationViewModel() 
         {
+            SetCommands();
+            ExcuteShowMyInformationView(null);
+        }
+
+        private void SetCommands()
+        {
             ShowWorkingView = new RelayCommand<object>(ExcuteShowWorkingView);
             ShowMyInformationView = new RelayCommand<object>(ExcuteShowMyInformationView);
             ShowPersonalSalaryView = new RelayCommand<object>(ExcuteShowPersonalSalaryView);
-            ExcuteShowMyInformationView(null);
         }
 
         private void ExcuteShowMyInformationView(object obj)
         {
-            ((EmployeeInputViewModel)MyInformationView.DataContext).EmployeeIns = CurrentUser.Ins.EmployeeIns;
+            Employee currentEmployee = CurrentUser.Ins.EmployeeIns;
+            currentEmployee.EmplRole = (new RolesDao()).SearchByID(currentEmployee.RoleID);
+            ((EmployeeInputViewModel)MyInformationView.DataContext).EmployeeIns = currentEmployee;
             CurrentChildView = MyInformationView;
             StatusMyInformationView= true; 
         }

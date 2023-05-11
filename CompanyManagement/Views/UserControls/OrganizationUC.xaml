@@ -39,7 +39,7 @@
                     Command="{Binding ElementName=organizationUC, Path=DataContext.ShowEmployeesViewCommand}"
                     BorderBrush="{DynamicResource PrimaryHueMidBrush}"
                     Style="{StaticResource MaterialDesignTabRadioButtonBottom}" >
-                    <TextBlock Text="Nhân viên" Margin="30 0"></TextBlock>
+                    <TextBlock Text="Nhân viên khác" Margin="30 0"></TextBlock>
                 </RadioButton>
             </StackPanel>
         </Border>

@@ -12,6 +12,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using CompanyManagement.Utilities;
 using Microsoft.Expression.Interactivity.Layout;
+using CompanyManagement.Services;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
@@ -29,7 +30,9 @@ namespace CompanyManagement.ViewModels.UserControls
         public string StatusID { get => leaveRequest.StatusID; set { leaveRequest.StatusID = value; OnPropertyChanged(); } }
         public string EmployeeID { get => leaveRequest.RequesterID; set { leaveRequest.RequesterID = value; OnPropertyChanged(); } }
         public string ApproverID { get => leaveRequest.ApproverID; set { leaveRequest.ApproverID = value; OnPropertyChanged(); } }
-        
+        public string Response { get => leaveRequest.Response; set { leaveRequest.Response = value; OnPropertyChanged(); } }
+        public Employee Approver { get => leaveRequest.Approver; set { leaveRequest.Approver = value; OnPropertyChanged(); } }
+
         private string errorMessage = "";
         public string ErrorMessage { get => errorMessage; set { errorMessage = value; OnPropertyChanged(); } }
 
@@ -51,8 +54,10 @@ namespace CompanyManagement.ViewModels.UserControls
         public List<LeaveStatus> LeaveStatuses { get; set;}
 
         public ICommand AddApproverCommand { get; private set; }
-        public ICommand GetSelectedApproverCommand { get; private set; }
+        public ICommand GetSelectedApproveCommand { get; private set; }
+        public ICommand AddDenyRespone { get; private set; }
 
+        private LeaveRequestsDao leaveRequestsDao = new LeaveRequestsDao();
         private LeaveStatusesDao leaveStatusesDao = new LeaveStatusesDao();
         private EmployeesDao employeesDao = new EmployeesDao();
         private DepartmentsDao departmentsDao = new DepartmentsDao();
@@ -70,15 +75,16 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void SetCommands()
         {
-            GetSelectedApproverCommand = new RelayCommand<ListView>(ExecuteGetSelectedApproverCommand);
+            GetSelectedApproveCommand = new RelayCommand<ListView>(ExecuteGetSelectedApprove);
+            AddDenyRespone = new RelayCommand<LeaveRequest>(ExecuteAddReponse);
         }
 
-        private void ExecuteGetSelectedApproverCommand(ListView listView)
+        private void ExecuteGetSelectedApprove(ListView listView)
         {
             if (listView.SelectedItem == null) return;
             var selectedItem = listView.SelectedItem as Employee;
             ApproverID = selectedItem.ID;
-            RoleName = selectedItem.EmplRole.Title;
+            RoleName = rolesDao.SearchByID(selectedItem.RoleID).Title;
         }
 
         private void SetAllComboBox()
@@ -88,12 +94,30 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void LoadApprovers()
         {
-            approvers = employeesDao.GetHeaderDepts();
-            foreach(Employee header in approvers)
-            {
-                header.EmplRole = rolesDao.SearchByID(header.RoleID);
-            }
+            var headerDepts = employeesDao.GetHeaderDepts();
+            LoadEmplRole(headerDepts);
+            approvers = headerDepts;
             SearchedApprovers = new List<Employee>(approvers);
+        }
+
+        private void LoadEmplRole(List<Employee> list)
+        {
+            foreach(Employee empl in list)
+            {
+                empl.EmplRole = rolesDao.SearchByID(empl.RoleID);
+            }    
+        }
+
+        private void ExecuteAddReponse(LeaveRequest leaveRequest)
+        {
+            //var dialog = new AlertDialogService(
+            //    "Thêm phản hồi",
+            //    "Bạn chắc chắn muốn thêm phản hồi?",
+            //    () =>
+            //    {
+            //        leaveRequestsDao.Update(leaveRequest);
+            //    }, null);
+            //dialog.Show();
         }
 
         private void SearchByName()

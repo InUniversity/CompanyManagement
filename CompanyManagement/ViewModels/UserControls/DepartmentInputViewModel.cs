@@ -111,7 +111,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void ExecuteDeleteEmployeeCommand(Employee employee)
         {
-            if (employee.RoleID == BaseDao.deptHeadRole)
+            if (employee.PermsID == BaseDao.deptHeadPermsID)
                 return;
             EmplsInDept.Remove(employee);
             employeesCanAddInDept.Add(employee);
@@ -133,35 +133,36 @@ namespace CompanyManagement.ViewModels.UserControls
         private void LoadEmployeesCanBeDeptHead() 
         {
             var listallempl = employeesDao.GetAllWithoutManagers();
-            var listDeptHead = from empl in listallempl 
-                               where empl.RoleID == BaseDao.deptHeadRole 
-                               select empl;
-            GetRoleForListEmployees(listDeptHead.ToList());
-            employeesCanbeDeptHead = new List<Employee>(listDeptHead.ToList());
+            var listDeptHead = (from empl in listallempl 
+                               where empl.PermsID == BaseDao.deptHeadPermsID 
+                               select empl).ToList();
+            LoadEmplRole(listDeptHead);
+            employeesCanbeDeptHead = new List<Employee>(listDeptHead);
+        }
+
+        private void LoadEmplRole(List<Employee> list)
+        {
+            foreach(Employee empl in list)
+            {
+                empl.EmplRole = rolesDao.SearchByID(empl.RoleID);
+            }    
         }
 
         private void LoadEmployeesCanAddInDept()
         {
             var listallempl = employeesDao.GetAllWithoutManagers();
-            var listempl = from empl in listallempl 
-                           where empl.RoleID != BaseDao.hrRole && empl.DepartmentID == "" 
-                           select empl;
-            GetRoleForListEmployees(listempl.ToList());
-            employeesCanAddInDept = new List<Employee>(listempl.ToList());
+            var listempl = (from empl in listallempl 
+                           where empl.PermsID != BaseDao.hrPermsID && empl.DepartmentID == "" 
+                           select empl).ToList();
+            LoadEmplRole(listempl);
+            employeesCanAddInDept = new List<Employee>(listempl);
             SearchedEmployeesCanAddInDept = new ObservableCollection<Employee>(employeesCanAddInDept);
         }
 
         private void LoadEmployeeInDepartment()
         {
             var list = employeesDao.SearchByDepartmentID(dept.ID);
-            GetRoleForListEmployees(list);
             EmplsInDept = new ObservableCollection<Employee>(list);         
-        }
-
-        private void GetRoleForListEmployees(List<Employee> employees)
-        {
-            foreach (Employee empl in employees)
-                empl.EmplRole = rolesDao.SearchByID(empl.RoleID);
         }
 
         private void SearchByNameDeptHead()

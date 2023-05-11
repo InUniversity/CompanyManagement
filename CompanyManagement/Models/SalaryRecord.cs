@@ -16,13 +16,16 @@ namespace CompanyManagement.Models
 {
     public class SalaryRecord
     {
-        private string id;
-        private string employeeID;
+        private string id = "";
+        private string employeeID = "";
         private DateTime monthYear = Utils.emptyDate;
-        private int totalWorkDays;
-        private int totalOffDays;
-        private decimal totalBonuses;
-        private decimal income;
+        private int totalWorkDays = 0;
+        private int totalOffDays = 0;
+        private decimal totalBonuses = 0;
+        private decimal income = 0;
+        private Employee worker = new Employee();
+        private Role workerRole = new Role();
+        private Department wokerDept = new Department();
 
         public string ID
         {
@@ -71,17 +74,20 @@ namespace CompanyManagement.Models
 
         public Employee Worker
         {
-            get => (new EmployeesDao()).SearchByID(employeeID);
+            get => worker;
+            set => worker = value;
         }
-
+        
         public Role WorkerRole
         {
-            get => (new RolesDao()).SearchByID(Worker.RoleID);
+            get => workerRole;
+            set => workerRole = value;
         }
 
-        public Department WorkerDepartment
+        public Department WorkerDept
         {
-            get => (new DepartmentsDao()).SearchByID(Worker.DepartmentID)??(new Department("", "Management", ""));
+            get => wokerDept;
+            set => wokerDept = value;
         }
 
         public SalaryRecord() { }
@@ -109,7 +115,7 @@ namespace CompanyManagement.Models
             }
             catch (Exception ex)
             {
-                Log.Instance.Error(nameof(Milestone), "CAST ERROR: " + ex.Message);
+                Log.Instance.Error(nameof(SalaryRecord), "CAST ERROR: " + ex.Message);
             }
         }
 

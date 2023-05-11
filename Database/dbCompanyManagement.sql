@@ -1,15 +1,32 @@
 ﻿CREATE DATABASE CompanyManagement
 GO
 USE CompanyManagement
+
+-- Changed 10/5/2023
+-- In Employee: 
+---- Add PermsID:
+----- Manager: MNG
+----- Head Of Department: HOD
+----- Human Resource: HR
+----- Employee: EMP
+-- Move Salary Base to Roles
+
+-- Alter Table Roles (ID, Title, Salary Base)
+
+-- Delete KPIs
+
+-- In Leaves: 
+----- Add column Response
+
 GO
 -- department
 CREATE TABLE Departments(
     ID varchar(20) PRIMARY KEY NOT NULL,
-    DepartmentName nvarchar(100),
-    DepartmentHead varchar(20) DEFAULT ''
+    DeptName nvarchar(100),
+    DeptHeader varchar(20) DEFAULT ''
 );
 GO
-INSERT INTO Departments (ID, DepartmentName, DepartmentHead)
+INSERT INTO Departments (ID, DeptName, DeptHeader)
 VALUES
     ('DPM001', 'Software Development Department', 'EM006'),
     ('DPM002', 'Web Development', 'EM025'),
@@ -18,18 +35,42 @@ VALUES
     ('DPM005', 'Infrastructure Department', 'EM051');
 GO
 
--- employee
+-- employee (Design, Tester,....)
 CREATE TABLE Roles(
     ID varchar(20) PRIMARY KEY NOT NULL,
-    Title nvarchar(50)
+    Title nvarchar(50),
+	BaseSalary DECIMAL(19,4)
+	-- Lương
 );
 GO
-INSERT INTO Roles(ID, Title)
+INSERT INTO Roles(ID, Title, BaseSalary) 
 VALUES
-    ('ER01', N'Quản lý'),
-    ('ER02', N'Trưởng phòng'),
-    ('ER03', N'HR'),
-    ('ER04', N'Nhân viên');
+('ER01', 'Manager', CAST(100000000 AS DECIMAL(19,4))),
+('ER02', 'Header Department', CAST(62000000 AS DECIMAL(19,4))),
+('ER03', 'Humans Resource', CAST(60000000 AS DECIMAL(19,4))),
+('ER04', 'Web Developer', CAST(35000000 AS DECIMAL(19,4))),
+('ER05', 'Software Developer', CAST(40000000 AS DECIMAL(19,4))),
+('ER06', 'Data Scientist', CAST(45000000 AS DECIMAL(19,4))),
+('ER07', 'Mobile Application Developer', CAST(42000000 AS DECIMAL(19,4))),
+('ER08', 'UI/UX Designer', CAST(35000000 AS DECIMAL(19,4))),
+('ER09', 'Front-End Developer', CAST(40000000 AS DECIMAL(19,4))),
+('ER10', 'Back-End Developer', CAST(45000000 AS DECIMAL(19,4))),
+('ER11', 'Full-Stack Developer', CAST(50000000 AS DECIMAL(19,4))),
+('ER12', 'Software Architect', CAST(55000000 AS DECIMAL(19,4))),
+('ER13', 'Product Manager', CAST(48000000 AS DECIMAL(19,4))),
+('ER14', 'DevOps Engineer', CAST(45000000 AS DECIMAL(19,4))),
+('ER15', 'Cloud Engineer', CAST(42000000 AS DECIMAL(19,4))),
+('ER16', 'Artificial Intelligence Engineer', CAST(55000000 AS DECIMAL(19,4))),
+('ER17', 'IT Administrator', CAST(38000000 AS DECIMAL(19,4))),
+('ER18', 'Technical Support Engineer', CAST(32000000 AS DECIMAL(19,4))),
+('ER19', 'Cybersecurity Analyst', CAST(45000000 AS DECIMAL(19,4))),
+('ER20', 'Blockchain Developer', CAST(40000000 AS DECIMAL(19,4))),
+('ER21', 'Database Administrator', CAST(38000000 AS DECIMAL(19,4))),
+('ER22', 'Network Administrator', CAST(32000000 AS DECIMAL(19,4))),
+('ER23', 'Systems Administrator', CAST(30000000 AS DECIMAL(19,4))),
+('ER24', 'Technical Writer', CAST(35000000 AS DECIMAL(19,4))),
+('ER25', 'Quality Assurance (QA) Engineer', CAST(40000000 AS DECIMAL(19,4))),
+('ER26', 'Business Analyst', CAST(45000000 AS DECIMAL(19,4)));
 GO
 
 CREATE TABLE Employees(
@@ -41,68 +82,69 @@ CREATE TABLE Employees(
     Email varchar(50),
     PhoneNumber varchar (10),
     EmployeeAddress nvarchar(255),
-    BaseSalary DECIMAL(19,4),
+	PermsID varchar(20),
     DepartmentID varchar(20) DEFAULT '',
     RoleID varchar(20) DEFAULT ''
 );
+
 GO
-INSERT INTO Employees(ID, FullName, Gender, Birthday, IdentifyCard, Email, PhoneNumber, EmployeeAddress, BaseSalary, DepartmentID, RoleID)
+INSERT INTO Employees(ID, FullName, Gender, Birthday, IdentifyCard, Email, PhoneNumber, EmployeeAddress, PermsID, DepartmentID, RoleID)
 VALUES
-    ('EM001', N'Nguyễn Văn An', 'Nam', CONVERT(DATE, '01-01-1990', 105), '001234567890', 'an.nguyen@it.company.com', '0123456789', N'TP. Hồ Chí Minh', 15000000, '', 'ER01'),
-    ('EM002', N'Trần Thị Bình', N'Nữ', CONVERT(DATE, '02-02-1991', 105), '001234567891', 'binh.tran@it.company.com', '0234567890', N'Bình Dương', 15000000, '', 'ER01'),
-    ('EM003', N'Lê Văn Cường', 'Nam', CONVERT(DATE, '03-03-1992', 105), '001234567892', 'cuong.le@it.company.com', '0345678901', N'Đồng Nai', 15000000, '', 'ER01'),
-    ('EM004', N'Nguyễn Thị Dung', N'Nữ', CONVERT(DATE, '04-04-1993', 105), '001234567893', 'dung.nguyen@it.company.com', '0456789012', N'TP. Hồ Chí Minh', 15000000, '', 'ER01'),
-    ('EM005', N'Phạm Văn Duy', 'Nam', CONVERT(DATE, '05-05-1994', 105), '001234567894', 'duy.pham@it.company.com', '0567890123', N'Bình Dương', 15000000, '', 'ER01'),
-    ('EM006', N'Lê Thị Hà', N'Nữ', CONVERT(DATE, '06-06-1995', 105), '001234567895', 'ha.le@it.company.com', '0678901234', N'TP. Hồ Chí Minh', 15000000, 'DPM001', 'ER02'),
-    ('EM007', N'Nguyễn Văn Hoàng', 'Nam', CONVERT(DATE, '07-07-1996', 105), '001234567896', 'hoang.nguyen@it.company.com', '0789012345', N'Đồng Nai', 15000000, 'DPM001', 'ER04'),
-    ('EM008', N'Trần Thị Hương', N'Nữ', CONVERT(DATE, '08-08-1997', 105), '001234567897', 'huong.tran@it.company.com', '0890123456', N'Bình Phước', 15000000, 'DPM001', 'ER04'),
-    ('EM009', N'Nguyễn Văn Khoa', 'Nam', CONVERT(DATE, '09-09-1998', 105), '001234567898', 'khoa.nguyen@it.company.com', '0901234567', N'TP. Hồ Chí Minh', 15000000, 'DPM001', 'ER04'),
-    ('EM010', N'Lê Thị Lan', N'Nữ', CONVERT(DATE, '10-10-1999', 105), '001234567899', 'lan.le@it.company.com', '0912345678', N'Bình Dương', 15000000, 'DPM001', 'ER04'),
-    ('EM011', N'Phan Văn Minh', 'Nam', CONVERT(DATE, '11-11-2000', 105), '001234567900', 'minh.phan@it.company.com', '0923456789', N'Đồng Nai', 15000000, 'DPM001', 'ER04'),
-    ('EM012', N'Nguyễn Thị Ngọc', N'Nữ', CONVERT(DATE, '12-12-2001', 105), '001234567901', 'ngoc.nguyen@it.company.com', '0934567890', N'TP. Hồ Chí Minh', 15000000, 'DPM001', 'ER04'),
-    ('EM013', N'Trần Văn Phong', 'Nam', CONVERT(DATE, '13-01-1990', 105), '001234567902', 'phong.tran@it.company.com', '0945678901', N'Bình Dương', 15000000, 'DPM001', 'ER04'),
-    ('EM014', N'Lê Thị Quỳnh', N'Nữ', CONVERT(DATE, '14-02-1991', 105), '001234567903', 'quynh.le@it.company.com', '0956789012', N'TP. Hồ Chí Minh', 15000000, 'DPM001', 'ER04'),
-    ('EM015', N'Nguyễn Văn Sơn', 'Nam', CONVERT(DATE, '15-03-1992', 105), '001234567904', 'son.nguyen@it.company.com', '0967890123', N'Bình Phước', 15000000, 'DPM001', 'ER04'),
-    ('EM016', N'Trần Văn Tâm', 'Nam', CONVERT(DATE, '16-04-1993', 105), '001234567905', 'tam.tran@it.company.com', '0978901234', N'Đồng Nai', 15000000, 'DPM001', 'ER04'),
-    ('EM017', N'Phạm Thị Uyên', N'Nữ', CONVERT(DATE, '17-05-1994', 105), '001234567906', 'uyen.pham@it.company.com', '0089012345', N'TP. Hồ Chí Minh', 15000000, 'DPM001', 'ER04'),
-    ('EM018', N'Lê Văn Vĩ', 'Nam', CONVERT(DATE, '18-06-1995', 105), '001234567907', 'vi.le@it.company.com', '0190123456', N'Bình Dương', 15000000, 'DPM001', 'ER04'),
-    ('EM019', N'Nguyễn Thị Xuân', N'Nữ', CONVERT(DATE, '19-07-1996', 105), '001234567908', 'xuan.nguyen@it.company.com', '0201234567', N'Đồng Nai', 15000000, 'DPM001', 'ER04'),
-    ('EM020', N'Trần Văn Yên', 'Nam', CONVERT(DATE, '20-08-1997', 105), '001234567909', 'yen.tran@it.company.com', '0212345678', N'Bình Nhước', 15000000, 'DPM001', 'ER04'),
-    ('EM021', N'Nguyễn Thị Vân', N'Nữ', CONVERT(DATE, '21-09-1998', 105), '001234567910', 'van.nguyen@it.company.com', '0223456789', N'TP. Hồ Chí Minh', 15000000, 'DPM001', 'ER04'),
-    ('EM022', N'Trần Thị Ánh', N'Nữ', CONVERT(DATE, '22-10-1999', 105), '001234567911', 'anh.tran@it.company.com', '0234567890', N'TP. Hồ Chí Minh', 15000000, 'DPM001', 'ER04'),
-    ('EM023', N'Nguyễn Văn Bảo', 'Nam', CONVERT(DATE, '23-11-2000', 105), '001234567912', 'bao.nguyen@it.company.com', '0345678901', N'Bình Dương', 15000000, 'DPM001', 'ER04'),
-    ('EM024', N'Lê Thị Cẩm', N'Nữ', CONVERT(DATE, '24-12-2001', 105), '001234567913', 'cam.le@it.company.com', '0456789012', N'Đồng Nai', 15000000, 'DPM002', 'ER04'),
-    ('EM025', N'Phan Văn Đạt', 'Nam', CONVERT(DATE, '25-01-1990', 105), '001234567914', 'dat.phan@it.company.com', '0567890123', N'TP. Hồ Chí Minh', 15000000, 'DPM002', 'ER02'),
-    ('EM026', N'Nguyễn Thị Eo', N'Nữ', CONVERT(DATE, '26-02-1991', 105), '001234567915', 'eo.nguyen@it.company.com', '0678901234', N'Bình Phước', 15000000, 'DPM002', 'ER04'),
-    ('EM027', N'Trần Văn Phan', 'Nam', CONVERT(DATE, '27-03-1992', 105), '001234567916', 'phan.tran@it.company.com', '0789012345', N'TP. Hồ Chí Minh', 15000000, 'DPM002', 'ER04'),
-    ('EM028', N'Lê Thị Gấm', N'Nữ', CONVERT(DATE, '28-04-1993', 105), '001234567917', 'gam.le@it.company.com', '0890123456', N'Bình Dương', 15000000, 'DPM002', 'ER04'),
-    ('EM029', N'Nguyễn Văn Hải', 'Nam', CONVERT(DATE, '29-05-1994', 105), '001234567918', 'hai.nguyen@it.company.com', '0901234567', N'Đồng Nai', 15000000, 'DPM002', 'ER04'),
-    ('EM030', N'Trần Thị Linh', N'Nữ', CONVERT(DATE, '30-06-1995', 105), '001234567919', 'linh.tran@it.company.com', '0912345678', N'TP. Hồ Chí Minh', 15000000, 'DPM002', 'ER04'),
-    ('EM031', N'Nguyễn Văn Khôi', 'Nam', CONVERT(DATE, '01-07-1996', 105), '001234567920', 'khoi.nguyen@it.company.com', '0923456789', N'Bình Phước', 15000000, 'DPM002', 'ER04'),
-    ('EM032', N'Lê Thị Lộc', N'Nữ', CONVERT(DATE, '02-08-1997', 105), '001234567921', 'loc.le@it.company.com', '0934567890', N'TP. Hồ Chí Minh', 15000000, 'DPM002', 'ER04'),
-    ('EM033', N'Nguyễn Thị Mỹ', N'Nữ', CONVERT(DATE, '03-09-1998', 105), '001234567922', 'my.nguyen@it.company.com', '0945678901', N'Bình Dương', 15000000, 'DPM002', 'ER04'),
-    ('EM034', N'Trần Văn Nghĩa', 'Nam', CONVERT(DATE, '04-10-1999', 105), '001234567923', 'nghia.tran@it.company.com', '0756789012', N'Đồng Nai', 15000000, 'DPM002', 'ER04'),
-    ('EM035', N'Lê Thị Oanh', N'Nữ', CONVERT(DATE, '05-11-2000', 105), '001234567924', 'oanh.le@it.company.com', '0767890123', N'TP. Hồ Chí Minh', 15000000, 'DPM003', 'ER02'),
-    ('EM036', N'Phan Văn Phúc', 'Nam', CONVERT(DATE, '06-12-1991', 105), '001234567925', 'phuc.phan@it.company.com', '0878901234', N'Bình Phước', 15000000, 'DPM003', 'ER04'),
-    ('EM037', N'Nguyễn Thị Quyên', N'Nữ', CONVERT(DATE, '07-01-1992', 105), '001234567926', 'quyen.nguyen@it.company.com', '0989012345', N'TP. Hồ Chí Minh', 15000000, 'DPM003', 'ER04'),
-    ('EM038', N'Trần Văn R', 'Nam', CONVERT(DATE, '08-02-1993', 105), '001234567927', 'r.tran@it.company.com', '0890123456', N'Bình Dương', 15000000, 'DPM003', 'ER04'),
-    ('EM039', N'Lê Thị Sương', N'Nữ', CONVERT(DATE, '09-03-1994', 105), '001234567928', 'suong.le@it.company.com', '0701234567', N'Đồng Nai', 15000000, 'DPM003', 'ER04'),
-    ('EM040', N'Phan Văn Tài', 'Nam', CONVERT(DATE, '10-04-1995', 105), '001234567929', 'tai.phan@it.company.com', '0312345678', N'TP. Hồ Chí Minh', 15000000, 'DPM003', 'ER04'),
-    ('EM041', N'Nguyễn Thị Uyên', N'Nữ', CONVERT(DATE, '11-05-1996', 105), '001234567930', 'uyen.nguyen@it.company.com', '0923456789', N'Bình Phước', 15000000, 'DPM003', 'ER04'),
-    ('EM042', N'Trần Văn Vượng', 'Nam', CONVERT(DATE, '12-06-1997', 105), '001234567931', 'vuong.tran@it.company.com', '0934567890', N'TP. Hồ Chí Minh', 15000000, 'DPM003', 'ER04'),
-    ('EM043', N'Lê Thị Xuyến', N'Nữ', CONVERT(DATE, '13-07-1998', 105), '001234567932', 'xuyen.le@it.company.com', '0845678901', N'Bình Dương', 15000000, 'DPM003', 'ER04'),
-    ('EM044', N'Nguyễn Thị Mĩ Diệu', N'Nữ', CONVERT(DATE, '03-09-1998', 105), '001234567922', 'my.nguyen@it.company.com', '0945678901', N'Bình Dương', 15000000, 'DPM003', 'ER04'),
-    ('EM045', N'Trần Văn Nghĩa', 'Nam', CONVERT(DATE, '04-10-1999', 105), '001234567923', 'nghia.tran@it.company.com', '0756789012', N'Đồng Nai', 15000000, 'DPM004', 'ER02'),
-    ('EM046', N'Lê Thị Oanh', N'Nữ', CONVERT(DATE, '05-11-2000', 105), '001234567924', 'oanh.le@it.company.com', '0967890123', N'TP. Hồ Chí Minh', 15000000, 'DPM004', 'ER04'),
-    ('EM047', N'Phan Văn Phúc', 'Nam', CONVERT(DATE, '06-12-1991', 105), '001234567925', 'phuc.phan@it.company.com', '0378901234', N'Bình Phước', 15000000, 'DPM004', 'ER04'),
-    ('EM048', N'Nguyễn Thị Quyên', N'Nữ', CONVERT(DATE, '07-01-1992', 105), '001234567926', 'quyen.nguyen@it.company.com', '0389012345', N'TP. Hồ Chí Minh', 15000000, 'DPM004', 'ER04'),
-    ('EM049', N'Trần Văn Giang', 'Nam', CONVERT(DATE, '08-02-1993', 105), '001234567927', 'giang.tran@it.company.com', '0990123456', N'Bình Dương', 15000000, 'DPM004', 'ER04'),
-    ('EM050', N'Trần Văn Tài', N'Nam', CONVERT(DATE, '01-01-1990', 105), '123456789012', 'tai.tran@it.company.com', '0123456789', N'Hồ Chí Minh', 15000000, 'DPM005', 'ER04'),
-    ('EM051', N'Lê Thị Hồng', N'Nữ', CONVERT(DATE, '02-02-1995', 105), '123456789013', 'hong.le@it.company.com', '0234567890', N'Cần Thơ', 15000000, 'DPM005',  'ER02'),
-    ('EM052', N'Nguyễn Đình Huy', N'Nam', CONVERT(DATE, '03-03-1992', 105), '123456789014', 'huy.nguyen@it.company.com', '0345678901', N'Vũng Tàu', 15000000, 'DPM005', 'ER04'),
-    ('EM053', N'Phạm Thị Ngọc', N'Nữ', CONVERT(DATE, '04-04-1991', 105), '123456789015', 'ngoc.pham@it.company.com', '0456789012', N'Hồ Chí Minh', 15000000, 'DPM005', 'ER04'),
-    ('EM054', N'Lương Thị Vân', N'Nữ', CONVERT(DATE, '05-05-1994', 105), '123456789016', 'van.luong@it.company.com', '0567890123', N'Cà Mau', 15000000, 'DPM005', 'ER04'),
-    ('EM055', N'Đặng Văn Đức', N'Nam', CONVERT(DATE, '06-06-1993', 105), '123456789017', 'duc.dang@it.company.com', '0678901234', N'Đồng Nai', 15000000, '', 'ER03');
+    ('EM001', N'Nguyễn Văn An', 'Nam', CONVERT(DATE, '01-01-1990', 105), '001234567890', 'an.nguyen@it.company.com', '0123456789', N'TP. Hồ Chí Minh', 'MNG', '', 'ER01'),
+    ('EM002', N'Trần Thị Bình', N'Nữ', CONVERT(DATE, '02-02-1991', 105), '001234567891', 'binh.tran@it.company.com', '0234567890', N'Bình Dương', 'MNG', '', 'ER01'),
+    ('EM003', N'Lê Văn Cường', 'Nam', CONVERT(DATE, '03-03-1992', 105), '001234567892', 'cuong.le@it.company.com', '0345678901', N'Đồng Nai', 'MNG', '', 'ER01'),
+    ('EM004', N'Nguyễn Thị Dung', N'Nữ', CONVERT(DATE, '04-04-1993', 105), '001234567893', 'dung.nguyen@it.company.com', '0456789012', N'TP. Hồ Chí Minh', 'MNG', '', 'ER01'),
+    ('EM005', N'Phạm Văn Duy', 'Nam', CONVERT(DATE, '05-05-1994', 105), '001234567894', 'duy.pham@it.company.com', '0567890123', N'Bình Dương', 'MNG', '', 'ER01'),
+    ('EM006', N'Lê Thị Hà', N'Nữ', CONVERT(DATE, '06-06-1995', 105), '001234567895', 'ha.le@it.company.com', '0678901234', N'TP. Hồ Chí Minh', 'HOD' , 'DPM001', 'ER02'),
+	('EM007', N'Nguyễn Văn Hoàng', 'Nam', CONVERT(DATE, '07-07-1996', 105), '001234567896', 'hoang.nguyen@it.company.com', '0789012345', N'Đồng Nai', 'EMP', 'DPM001', 'ER05'),
+    ('EM008', N'Trần Thị Hương', N'Nữ', CONVERT(DATE, '08-08-1997', 105), '001234567897', 'huong.tran@it.company.com', '0890123456', N'Bình Phước', 'EMP', 'DPM001', 'ER05'),
+    ('EM009', N'Nguyễn Văn Khoa', 'Nam', CONVERT(DATE, '09-09-1998', 105), '001234567898', 'khoa.nguyen@it.company.com', '0901234567', N'TP. Hồ Chí Minh', 'EMP', 'DPM001', 'ER05'),
+    ('EM010', N'Lê Thị Lan', N'Nữ', CONVERT(DATE, '10-10-1999', 105), '001234567899', 'lan.le@it.company.com', '0912345678', N'Bình Dương', 'EMP', 'DPM001', 'ER05'),
+    ('EM011', N'Phan Văn Minh', 'Nam', CONVERT(DATE, '11-11-2000', 105), '001234567900', 'minh.phan@it.company.com', '0923456789', N'Đồng Nai', 'EMP', 'DPM001', 'ER11'),
+    ('EM012', N'Nguyễn Thị Ngọc', N'Nữ', CONVERT(DATE, '12-12-2001', 105), '001234567901', 'ngoc.nguyen@it.company.com', '0934567890', N'TP. Hồ Chí Minh', 'EMP', 'DPM001', 'ER11'),
+    ('EM013', N'Trần Văn Phong', 'Nam', CONVERT(DATE, '13-01-1990', 105), '001234567902', 'phong.tran@it.company.com', '0945678901', N'Bình Dương', 'EMP', 'DPM001', 'ER11'),
+    ('EM014', N'Lê Thị Quỳnh', N'Nữ', CONVERT(DATE, '14-02-1991', 105), '001234567903', 'quynh.le@it.company.com', '0956789012', N'TP. Hồ Chí Minh', 'EMP', 'DPM001', 'ER11'),
+    ('EM015', N'Nguyễn Văn Sơn', 'Nam', CONVERT(DATE, '15-03-1992', 105), '001234567904', 'son.nguyen@it.company.com', '0967890123', N'Bình Phước', 'EMP', 'DPM001', 'ER12'),
+    ('EM016', N'Trần Văn Tâm', 'Nam', CONVERT(DATE, '16-04-1993', 105), '001234567905', 'tam.tran@it.company.com', '0978901234', N'Đồng Nai', 'EMP', 'DPM001', 'ER10'),
+    ('EM017', N'Phạm Thị Uyên', N'Nữ', CONVERT(DATE, '17-05-1994', 105), '001234567906', 'uyen.pham@it.company.com', '0089012345', N'TP. Hồ Chí Minh', 'EMP', 'DPM001', 'ER10'),
+    ('EM018', N'Lê Văn Vĩ', 'Nam', CONVERT(DATE, '18-06-1995', 105), '001234567907', 'vi.le@it.company.com', '0190123456', N'Bình Dương', 'EMP', 'DPM001', 'ER10'),
+    ('EM019', N'Nguyễn Thị Xuân', N'Nữ', CONVERT(DATE, '19-07-1996', 105), '001234567908', 'xuan.nguyen@it.company.com', '0201234567', N'Đồng Nai', 'EMP', 'DPM001', 'ER10'),
+    ('EM020', N'Trần Văn Yên', 'Nam', CONVERT(DATE, '20-08-1997', 105), '001234567909', 'yen.tran@it.company.com', '0212345678', N'Bình Nhước', 'EMP', 'DPM001', 'ER09'),
+    ('EM021', N'Nguyễn Thị Vân', N'Nữ', CONVERT(DATE, '21-09-1998', 105), '001234567910', 'van.nguyen@it.company.com', '0223456789', N'TP. Hồ Chí Minh', 'EMP', 'DPM001', 'ER09'),
+    ('EM022', N'Trần Thị Ánh', N'Nữ', CONVERT(DATE, '22-10-1999', 105), '001234567911', 'anh.tran@it.company.com', '0234567890', N'TP. Hồ Chí Minh', 'EMP', 'DPM001', 'ER09'),
+    ('EM023', N'Nguyễn Văn Bảo', 'Nam', CONVERT(DATE, '23-11-2000', 105), '001234567912', 'bao.nguyen@it.company.com', '0345678901', N'Bình Dương', 'EMP', 'DPM001', 'ER09'),
+    ('EM024', N'Lê Thị Cẩm', N'Nữ', CONVERT(DATE, '24-12-2001', 105), '001234567913', 'cam.le@it.company.com', '0456789012', N'Đồng Nai', 'HOD', 'DPM002', 'ER02'),
+    ('EM025', N'Phan Văn Đạt', 'Nam', CONVERT(DATE, '25-01-1990', 105), '001234567914', 'dat.phan@it.company.com', '0567890123', N'TP. Hồ Chí Minh', 'EMP', 'DPM002', 'ER04'),
+    ('EM026', N'Nguyễn Thị Eo', N'Nữ', CONVERT(DATE, '26-02-1991', 105), '001234567915', 'eo.nguyen@it.company.com', '0678901234', N'Bình Phước', 'EMP', 'DPM002', 'ER04'),
+    ('EM027', N'Trần Văn Phan', 'Nam', CONVERT(DATE, '27-03-1992', 105), '001234567916', 'phan.tran@it.company.com', '0789012345', N'TP. Hồ Chí Minh', 'EMP', 'DPM002', 'ER11'),
+    ('EM028', N'Lê Thị Gấm', N'Nữ', CONVERT(DATE, '28-04-1993', 105), '001234567917', 'gam.le@it.company.com', '0890123456', N'Bình Dương', 'EMP', 'DPM002', 'ER11'),
+    ('EM029', N'Nguyễn Văn Hải', 'Nam', CONVERT(DATE, '29-05-1994', 105), '001234567918', 'hai.nguyen@it.company.com', '0901234567', N'Đồng Nai', 'EMP', 'DPM002', 'ER11'),
+    ('EM030', N'Trần Thị Linh', N'Nữ', CONVERT(DATE, '30-06-1995', 105), '001234567919', 'linh.tran@it.company.com', '0912345678', N'TP. Hồ Chí Minh', 'EMP', 'DPM002', 'ER09'),
+    ('EM031', N'Nguyễn Văn Khôi', 'Nam', CONVERT(DATE, '01-07-1996', 105), '001234567920', 'khoi.nguyen@it.company.com', '0923456789', N'Bình Phước', 'EMP', 'DPM002', 'ER09'),
+    ('EM032', N'Lê Thị Lộc', N'Nữ', CONVERT(DATE, '02-08-1997', 105), '001234567921', 'loc.le@it.company.com', '0934567890', N'TP. Hồ Chí Minh', 'EMP', 'DPM002', 'ER09'),
+    ('EM033', N'Nguyễn Thị Mỹ', N'Nữ', CONVERT(DATE, '03-09-1998', 105), '001234567922', 'my.nguyen@it.company.com', '0945678901', N'Bình Dương', 'EMP', 'DPM002', 'ER10'),
+    ('EM034', N'Trần Văn Nghĩa', 'Nam', CONVERT(DATE, '04-10-1999', 105), '001234567923', 'nghia.tran@it.company.com', '0756789012', N'Đồng Nai', 'EMP', 'DPM002', 'ER08'),
+    ('EM035', N'Lê Thị Oanh', N'Nữ', CONVERT(DATE, '05-11-2000', 105), '001234567924', 'oanh.le@it.company.com', '0767890123', N'TP. Hồ Chí Minh', 'HOD', 'DPM003', 'ER02'),
+	('EM036', N'Phan Văn Phúc', 'Nam', CONVERT(DATE, '06-12-1991', 105), '001234567925', 'phuc.phan@it.company.com', '0878901234', N'Bình Phước', 'EMP', 'DPM003', 'ER17'),
+    ('EM037', N'Nguyễn Thị Quyên', N'Nữ', CONVERT(DATE, '07-01-1992', 105), '001234567926', 'quyen.nguyen@it.company.com', '0989012345', N'TP. Hồ Chí Minh', 'EMP', 'DPM003', 'ER17'),
+    ('EM038', N'Trần Văn R', 'Nam', CONVERT(DATE, '08-02-1993', 105), '001234567927', 'r.tran@it.company.com', '0890123456', N'Bình Dương', 'EMP', 'DPM003', 'ER22'),
+    ('EM039', N'Lê Thị Sương', N'Nữ', CONVERT(DATE, '09-03-1994', 105), '001234567928', 'suong.le@it.company.com', '0701234567', N'Đồng Nai', 'EMP', 'DPM003', 'ER22'),
+    ('EM040', N'Phan Văn Tài', 'Nam', CONVERT(DATE, '10-04-1995', 105), '001234567929', 'tai.phan@it.company.com', '0312345678', N'TP. Hồ Chí Minh', 'EMP', 'DPM003', 'ER23'),
+    ('EM041', N'Nguyễn Thị Uyên', N'Nữ', CONVERT(DATE, '11-05-1996', 105), '001234567930', 'uyen.nguyen@it.company.com', '0923456789', N'Bình Phước', 'EMP', 'DPM003', 'ER23'),
+    ('EM042', N'Trần Văn Vượng', 'Nam', CONVERT(DATE, '12-06-1997', 105), '001234567931', 'vuong.tran@it.company.com', '0934567890', N'TP. Hồ Chí Minh', 'EMP', 'DPM003', 'ER18'),
+    ('EM043', N'Lê Thị Xuyến', N'Nữ', CONVERT(DATE, '13-07-1998', 105), '001234567932', 'xuyen.le@it.company.com', '0845678901', N'Bình Dương', 'EMP', 'DPM003', 'ER18'),
+    ('EM044', N'Nguyễn Thị Mĩ Diệu', N'Nữ', CONVERT(DATE, '03-09-1998', 105), '001234567922', 'my.nguyen@it.company.com', '0945678901', N'Bình Dương', 'EMP', 'DPM003', 'ER18'),
+    ('EM045', N'Trần Văn Nghĩa', 'Nam', CONVERT(DATE, '04-10-1999', 105), '001234567923', 'nghia.tran@it.company.com', '0756789012', N'Đồng Nai', 'HOD', 'DPM004', 'ER02'),
+	('EM046', N'Lê Thị Oanh', N'Nữ', CONVERT(DATE, '05-11-2000', 105), '001234567924', 'oanh.le@it.company.com', '0967890123', N'TP. Hồ Chí Minh', 'EMP', 'DPM004', 'ER06'),
+    ('EM047', N'Phan Văn Phúc', 'Nam', CONVERT(DATE, '06-12-1991', 105), '001234567925', 'phuc.phan@it.company.com', '0378901234', N'Bình Phước', 'EMP', 'DPM004', 'ER06'),
+    ('EM048', N'Nguyễn Thị Quyên', N'Nữ', CONVERT(DATE, '07-01-1992', 105), '001234567926', 'quyen.nguyen@it.company.com', '0389012345', N'TP. Hồ Chí Minh', 'EMP', 'DPM004', 'ER16'),
+    ('EM049', N'Trần Văn Giang', 'Nam', CONVERT(DATE, '08-02-1993', 105), '001234567927', 'giang.tran@it.company.com', '0990123456', N'Bình Dương', 'EMP', 'DPM004', 'ER16'),
+    ('EM050', N'Trần Văn Tài', N'Nam', CONVERT(DATE, '01-01-1990', 105), '123456789012', 'tai.tran@it.company.com', '0123456789', N'Hồ Chí Minh', 'EMP', 'DPM005', 'ER04'),
+	('EM051', N'Lê Thị Hồng', N'Nữ', CONVERT(DATE, '02-02-1995', 105), '123456789013', 'hong.le@it.company.com', '0234567890', N'Cần Thơ', 'HOD', 'DPM005',  'ER14'),
+    ('EM052', N'Nguyễn Đình Huy', N'Nam', CONVERT(DATE, '03-03-1992', 105), '123456789014', 'huy.nguyen@it.company.com', '0345678901', N'Vũng Tàu', 'EMP', 'DPM005', 'ER14'),
+    ('EM053', N'Phạm Thị Ngọc', N'Nữ', CONVERT(DATE, '04-04-1991', 105), '123456789015', 'ngoc.pham@it.company.com', '0456789012', N'Hồ Chí Minh', 'EMP', 'DPM005', 'ER15'),
+    ('EM054', N'Lương Thị Vân', N'Nữ', CONVERT(DATE, '05-05-1994', 105), '123456789016', 'van.luong@it.company.com', '0567890123', N'Cà Mau', 'EMP', 'DPM005', 'ER21'),
+    ('EM055', N'Đặng Văn Đức', N'Nam', CONVERT(DATE, '06-06-1993', 105), '123456789017', 'duc.dang@it.company.com', '0678901234', N'Đồng Nai', 'HR', '', 'ER03');
 GO
 CREATE TABLE Accounts(
     Username varchar(100) NOT NULL UNIQUE,
@@ -251,13 +293,14 @@ CREATE TABLE LeaveRequests(
     EndDate date,
     StatusID varchar(20) DEFAULT '',
     EmployeeID varchar(20) DEFAULT '',
-    ApproverID varchar(20) DEFAULT ''
+    ApproverID varchar(20) DEFAULT '',
+	Response nvarchar(255)
 )
 GO
-INSERT INTO LeaveRequests(ID, EmployeeID, Reason, Notes, CreatedDate, StartDate, EndDate, StatusID, ApproverID)
+INSERT INTO LeaveRequests(ID, EmployeeID, Reason, Notes, CreatedDate, StartDate, EndDate, StatusID, ApproverID, Response)
 VALUES
-    ('LEA0001', 'EM007', N'Nghỉ do bị ốm', N'ghi chú 1', '2023-04-01', '2023-04-08', '2023-04-09', 'LS1', 'EM006'),
-    ('LEA0002', 'EM008', N'Nghỉ đi khám bệnh', N'ghi chú 2', '2023-04-01', '2023-04-10', '2023-04-06', 'LS1', 'EM006');
+    ('LEA0001', 'EM007', N'Nghỉ do bị ốm', N'ghi chú 1', '2023-04-01', '2023-04-08', '2023-04-09', 'LS1', 'EM006', 'Nothing'),
+    ('LEA0002', 'EM008', N'Nghỉ đi khám bệnh', N'ghi chú 2', '2023-04-01', '2023-04-10', '2023-04-06', 'LS1', 'EM006', 'Nothing');
 GO
 
 -- check-in-out
@@ -286,23 +329,6 @@ INSERT INTO TaskCheckOuts(UpdateDate, Progress, TimeSheetID, TaskID)
 VALUES
     ('2023-04-10 01:30 PM', '50', 'TSH00001', 'T000001'),
     ('2023-04-10 11:30 PM', '30', 'TSH00002', 'T000002');
-GO
-
-
--- set KPI
--- set by month
-CREATE TABLE KPIs(
-    ID varchar(20) PRIMARY KEY NOT NULL,
-    MonthYear date,
-    RequiredTasksCount int,
-    ActualTasksCount int,
-    EmployeeID varchar(20) DEFAULT ''
-);
-GO
-INSERT INTO KPIs(ID, MonthYear, RequiredTasksCount, ActualTasksCount, EmployeeID)
-VALUES
-    ('KPI00001', '2023-04-01', 10, 0, 'EM007'),
-    ('KPI00002', '2023-04-01', 5, 0, 'EM008');
 GO
 
 -- salary (store salary of each employee by month)

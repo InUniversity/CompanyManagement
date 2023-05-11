@@ -7,6 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
+using CompanyManagement.Views.Dialogs;
+using CompanyManagement.Services;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
@@ -64,9 +66,19 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void ExecuteDenyLeaveCommand(LeaveRequest leave)
         {
+            //AddDenyRequest(leave);
             leave.StatusID = BaseDao.leavRequesDenied;
             Update(leave);
         }
+
+        //private void AddDenyRequest(LeaveRequest leave)
+        //{
+        //    LeaveInputViewModel leaveInputViewModel = new LeaveInputViewModel();
+        //    ResponseRequestDialog responseRequestDialog = new ResponseRequestDialog();
+        //    leaveInputViewModel.LeaveRequestIns = leave;
+        //    responseRequestDialog.DataContext = leaveInputViewModel;
+        //    responseRequestDialog.Show();
+        //}
 
         private void ExecuteRestoreLeaveCommand(LeaveRequest leave)
         {

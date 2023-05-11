@@ -47,7 +47,7 @@ namespace CompanyManagement.ViewModels.Windows
             employee.Acc = account;
             CurrentUser.Ins.EmployeeIns = employee;
             window.Hide();
-            ShowMainWindow(employee.RoleID);
+            ShowMainWindow(employee.PermsID);
             window.Show();
         }
 

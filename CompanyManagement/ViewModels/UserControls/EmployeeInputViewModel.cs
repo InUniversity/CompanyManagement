@@ -5,6 +5,9 @@ using CompanyManagement.Database;
 using CompanyManagement.Utilities;
 using CompanyManagement.ViewModels.Base;
 using System.Linq;
+using System.Security.Policy;
+using CompanyManagement.Database.Base;
+using CompanyManagement.Strategies.UserControls.DeptsView;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
@@ -21,9 +24,10 @@ namespace CompanyManagement.ViewModels.UserControls
         public string Email { get => employee.Email; set { employee.Email = value; OnPropertyChanged(); } }
         public string PhoneNumber { get => employee.PhoneNumber; set { employee.PhoneNumber = value; OnPropertyChanged(); } }
         public string Address { get => employee.Address; set { employee.Address = value; OnPropertyChanged(); } }
+        public string PermsID { get => employee.PermsID; set { employee.PermsID = value; OnPropertyChanged(); } }
         public string DepartmentID { get => employee.DepartmentID; set { employee.DepartmentID = value; OnPropertyChanged(); } }
-        public string RoleID { get => employee.RoleID; set { employee.RoleID = value; OnPropertyChanged(); } }
-        public decimal Salary { get => employee.Salary; set { employee.Salary = value; OnPropertyChanged(); } }
+        public string RoleID { get => employee.RoleID; set { employee.RoleID = value; OnPropertyChanged(); CreatePermsID(); } }
+        public Role EmplRole { get => employee.EmplRole ; set { employee.EmplRole = value; OnPropertyChanged(); } }
 
         private string errorMessage = "";
         public string ErrorMessage { get => errorMessage; set { errorMessage = value; OnPropertyChanged(); } }
@@ -52,8 +56,8 @@ namespace CompanyManagement.ViewModels.UserControls
             ErrorMessage = "";
             if (string.IsNullOrWhiteSpace(Name) || string.IsNullOrWhiteSpace(Gender) ||
                 string.IsNullOrWhiteSpace(IdentifyCard) || string.IsNullOrWhiteSpace(Email) ||
-                string.IsNullOrWhiteSpace(PhoneNumber) || string.IsNullOrWhiteSpace(Address) ||
-                string.IsNullOrWhiteSpace(DepartmentID) || string.IsNullOrWhiteSpace(RoleID))
+                string.IsNullOrWhiteSpace(PhoneNumber) || string.IsNullOrWhiteSpace(Address) || 
+                string.IsNullOrWhiteSpace(RoleID))
             {
                 ErrorMessage = Utils.invalidEmptyMess;
                 return false;
@@ -79,6 +83,17 @@ namespace CompanyManagement.ViewModels.UserControls
                 return false;
             }
             return true;
+        }
+
+        public void CreatePermsID()
+        {
+            PermsID = RoleID switch
+            {
+                BaseDao.managerRoleID => BaseDao.managerPermsID,
+                BaseDao.deptHeadRoleID => BaseDao.deptHeadPermsID,
+                BaseDao.hrRoleID =>  BaseDao.hrPermsID,
+                _ => BaseDao.emplPermsID
+            };
         }
 
         public void TrimAllTexts()

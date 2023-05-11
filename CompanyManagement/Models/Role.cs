@@ -9,18 +9,21 @@ namespace CompanyManagement.Models
     {
         private string id;
         private string title;
+        private decimal baseSalary;
 
         public string ID => id;
         public string Title => title;
+        public decimal BaseSalary => baseSalary;
 
         public Role() { }
         
-        public Role(IDataRecord reader)
+        public Role(IDataRecord record)
         {
             try
             {
-                id = (string)reader[BaseDao.roleID];
-                title = (string)reader[BaseDao.roleName];
+                id = Utils.GetString(record, BaseDao.roleID);
+                title = Utils.GetString(record, BaseDao.roleTitle);
+                baseSalary = Utils.GetDecimal(record, BaseDao.roleSalary);
             }
             catch (Exception ex)
             {

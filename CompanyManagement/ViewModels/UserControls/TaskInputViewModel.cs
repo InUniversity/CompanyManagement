@@ -81,7 +81,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private TaskStatusesDao taskStatusesDao = new TaskStatusesDao();
         private ProjectAssignmentsDao assignmentsDao = new ProjectAssignmentsDao();
-        private RolesDao roleDao = new RolesDao();
+        private RolesDao rolesDao = new RolesDao();
         
         public TaskInputViewModel()
         {
@@ -92,10 +92,15 @@ namespace CompanyManagement.ViewModels.UserControls
         private void LoadEmployeeCanAssign()
         {
             employees = assignmentsDao.GetEmployeesInProject(task.ProjectID);
-            foreach (var employee in employees)
+            LoadEmplRole(employees);
+        }
+
+        private void LoadEmplRole(List<Employee> list)
+        {
+            foreach (Employee empl in list)
             {
-                employee.EmplRole = roleDao.SearchByID(employee.RoleID);
-            }
+                empl.EmplRole = rolesDao.SearchByID(empl.RoleID);
+            }    
         }
 
         private void SetCommands()

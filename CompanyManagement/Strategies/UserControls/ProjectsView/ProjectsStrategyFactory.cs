@@ -7,9 +7,9 @@ namespace CompanyManagement.Strategies.UserControls.ProjectsView
     {
         private static readonly Dictionary<string, IProjectsStrategy> strategies = new()
         {
-            {BaseDao.managerRole, new ProjectsForManager()},
-            {BaseDao.deptHeadRole, new ProjectsForDepartmentHead()},
-            {BaseDao.regularEmplRole, new ProjectsForEmployee()}
+            {BaseDao.managerPermsID, new ProjectsForManager()},
+            {BaseDao.deptHeadPermsID, new ProjectsForDepartmentHead()},
+            {BaseDao.emplPerms, new ProjectsForEmployee()}
         };
 
         public static IProjectsStrategy Create(string roleID)

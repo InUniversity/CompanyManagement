@@ -9,10 +9,10 @@ namespace CompanyManagement.Strategies.Windows.MainView
         {
             return roleID switch
             {
-                BaseDao.managerRole => new MainForManager(),
-                BaseDao.deptHeadRole => new MainForDeptHead(),
-                BaseDao.regularEmplRole => new MainForEmployee(),
-                BaseDao.hrRole => new MainForHR(),
+                BaseDao.managerPermsID => new MainForManager(),
+                BaseDao.deptHeadPermsID => new MainForDeptHead(),
+                BaseDao.emplPerms => new MainForEmployee(),
+                BaseDao.hrPermsID => new MainForHR(),
                 _ => throw new ArgumentOutOfRangeException("Not found role ID")
             };
         } 
