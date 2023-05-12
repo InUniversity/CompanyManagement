@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Windows.Input;
 using CompanyManagement.Database;
 using CompanyManagement.Models;
@@ -28,7 +30,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private int progressCheckInOut = 20;
         public int ProgressCheckInOut { get => progressCheckInOut; set { progressCheckInOut = value; OnPropertyChanged(); } }
-
+     
         public ICommand ContinueProgessCommand { get; private set; }
 
         private TimeSheetsDao timeSheetsDao = new TimeSheetsDao();
@@ -64,7 +66,9 @@ namespace CompanyManagement.ViewModels.UserControls
                     break;
                 default:
                     ProgressCheckInOut = 20;
-                    return;
+                    CheckInTime = new DateTime();
+                    CheckOutTime = new DateTime();
+                    break;
             }
         }
 
