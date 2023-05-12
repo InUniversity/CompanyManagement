@@ -31,7 +31,9 @@ namespace CompanyManagement.ViewModels.UserControls
         private int progressCheckInOut = 20;
         public int ProgressCheckInOut { get => progressCheckInOut; set { progressCheckInOut = value; OnPropertyChanged(); } }
      
-        public ICommand ContinueProgessCommand { get; private set; }
+        public ICommand CheckInCommand { get; private set; }
+        public ICommand CheckOutCommand { get; private set; }
+        public ICommand StartCommand { get; private set; }
 
         private TimeSheetsDao timeSheetsDao = new TimeSheetsDao();
         private TaskCheckOutsDao taskCheckOutsDao = new TaskCheckOutsDao();
@@ -51,25 +53,26 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void SetCommands()
         {
-            ContinueProgessCommand = new RelayCommand<object>(ExucuteContinueProgessCommand);
+            CheckInCommand = new RelayCommand<object>(ExucuteCheckInCommand);
+            CheckOutCommand = new RelayCommand<object>(ExucuteCheckOutCommand);
+            StartCommand = new RelayCommand<object>(ExucuteStartCommand);
         }
 
-        private void ExucuteContinueProgessCommand(object obj)
+        private void ExucuteStartCommand(object obj)
         {
-            switch (ProgressCheckInOut)
-            {
-                case 20:
-                    OpenCheckInDialog();
-                    break;
-                case 80:
-                    OpenCheckOutDialog();
-                    break;
-                default:
-                    ProgressCheckInOut = 20;
-                    CheckInTime = new DateTime();
-                    CheckOutTime = new DateTime();
-                    break;
-            }
+            ProgressCheckInOut = 20;
+            CheckInTime = new DateTime();
+            CheckOutTime = new DateTime();
+        }
+
+        private void ExucuteCheckOutCommand(object obj)
+        {
+            OpenCheckOutDialog();
+        }
+
+        private void ExucuteCheckInCommand(object obj)
+        {
+            OpenCheckInDialog();
         }
 
         private void OpenCheckInDialog()
