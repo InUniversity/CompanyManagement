@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Windows.Input;
 using CompanyManagement.Database;
 using CompanyManagement.Models;
@@ -26,7 +28,10 @@ namespace CompanyManagement.ViewModels.UserControls
         private DateTime checkOutTime;
         public DateTime CheckOutTime { get => checkOutTime; set { checkOutTime = value; OnPropertyChanged(); } }
 
-        public ICommand ToggledCommand { get; private set; }
+        private int progressCheckInOut = 20;
+        public int ProgressCheckInOut { get => progressCheckInOut; set { progressCheckInOut = value; OnPropertyChanged(); } }
+     
+        public ICommand ContinueProgessCommand { get; private set; }
 
         private TimeSheetsDao timeSheetsDao = new TimeSheetsDao();
         private TaskCheckOutsDao taskCheckOutsDao = new TaskCheckOutsDao();
@@ -46,15 +51,25 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void SetCommands()
         {
-            ToggledCommand = new RelayCommand<object>(Toggled);
+            ContinueProgessCommand = new RelayCommand<object>(ExucuteContinueProgessCommand);
         }
 
-        private void Toggled(object obj)
+        private void ExucuteContinueProgessCommand(object obj)
         {
-            if (IsToggled) OpenCheckInDialog();
-            else OpenCheckOutDialog();
-            if (!string.IsNullOrWhiteSpace(currentTimeSheet.TaskCheckInID))
-                IsToggled = !IsToggled;
+            switch (ProgressCheckInOut)
+            {
+                case 20:
+                    OpenCheckInDialog();
+                    break;
+                case 80:
+                    OpenCheckOutDialog();
+                    break;
+                default:
+                    ProgressCheckInOut = 20;
+                    CheckInTime = new DateTime();
+                    CheckOutTime = new DateTime();
+                    break;
+            }
         }
 
         private void OpenCheckInDialog()
@@ -70,6 +85,7 @@ namespace CompanyManagement.ViewModels.UserControls
             CheckOutTime = new DateTime();
             timeSheetsDao.Add(timeSheet);
             LoadTimeSheetList();
+            ProgressCheckInOut = 80;
         }
 
         private void CreateCheckIn()
@@ -101,6 +117,7 @@ namespace CompanyManagement.ViewModels.UserControls
             CheckOutTime = DateTime.Now;
             timeSheetsDao.Update(timeSheet);
             LoadTimeSheetList();
+            ProgressCheckInOut = 100;
         }
     }
 }

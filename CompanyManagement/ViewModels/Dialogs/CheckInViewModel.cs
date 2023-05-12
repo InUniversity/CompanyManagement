@@ -47,7 +47,6 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private TasksDao tasksDao = new TasksDao();
 
-
         public CheckInViewModel()
         {
             CheckInOutInputDataContext = new TimeSheetInputViewModel();
