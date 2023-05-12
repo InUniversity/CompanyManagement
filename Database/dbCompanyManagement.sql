@@ -289,13 +289,13 @@ CREATE TABLE LeaveRequests(
     StatusID varchar(20) DEFAULT '',
     EmployeeID varchar(20) DEFAULT '',
     ApproverID varchar(20) DEFAULT '',
-	Response nvarchar(255)
+    Response nvarchar(255)
 )
 GO
 INSERT INTO LeaveRequests(ID, EmployeeID, Reason, Notes, CreatedDate, StartDate, EndDate, StatusID, ApproverID, Response)
 VALUES
-    ('LEA0001', 'EM007', N'Nghỉ do bị ốm', N'ghi chú 1', '2023-04-01', '2023-04-08', '2023-04-09', 'LS1', 'EM006', 'Nothing'),
-    ('LEA0002', 'EM008', N'Nghỉ đi khám bệnh', N'ghi chú 2', '2023-04-01', '2023-04-10', '2023-04-06', 'LS1', 'EM006', 'Nothing');
+    ('LEA0001', 'EM007', N'Nghỉ do bị ốm', N'ghi chú 1', '2023-04-01', '2023-04-08', '2023-04-09', 'LS1', 'EM006', ''),
+    ('LEA0002', 'EM008', N'Nghỉ đi khám bệnh', N'ghi chú 2', '2023-04-01', '2023-04-10', '2023-04-06', 'LS1', 'EM006', '');
 GO
 
 -- check-in-out
