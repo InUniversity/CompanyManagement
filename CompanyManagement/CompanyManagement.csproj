@@ -149,7 +149,7 @@
     <Compile Include="ViewModels\Dialogs\AddTaskViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\AlertDialogViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\Interfaces\IInputViewModel.cs" />
-    <Compile Include="ViewModels\Dialogs\ResponeLeaveViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\ResponseLeaveViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\UpdateDepartmentViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\UpdateEmployeeViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\UpdateLeaveViewModel.cs" />
@@ -210,8 +210,8 @@
       <DependentUpon>CheckOutDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Dialogs\Interfaces\IInputDialog.cs" />
-    <Compile Include="Views\Dialogs\ResponeLeaveDialog.xaml.cs">
-      <DependentUpon>ResponeLeaveDialog.xaml</DependentUpon>
+    <Compile Include="Views\Dialogs\ResponseLeaveDialog.xaml.cs">
+      <DependentUpon>ResponseLeaveDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Dialogs\SalaryDetailsDialog.xaml.cs">
       <DependentUpon>SalaryDetailsDialog.xaml</DependentUpon>
@@ -354,7 +354,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Dialogs\ResponeLeaveDialog.xaml">
+    <Page Include="Views\Dialogs\ResponseLeaveDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

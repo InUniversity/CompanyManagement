@@ -18,7 +18,7 @@ namespace CompanyManagement.Models
         private string statusID = "";
         private string requesterID = "";
         private string approverID = "";
-        private string response = "Nothing";
+        private string response = "";
         private Employee approver = new Employee();
         private Employee requester = new Employee();
         private LeaveStatus status = new LeaveStatus();
@@ -111,7 +111,8 @@ namespace CompanyManagement.Models
 
         public LeaveRequest() { }
 
-        public LeaveRequest(string id, string reason, string notes, string statusID, string requesterID, string approverID, string respone)
+        public LeaveRequest(string id, string reason, string notes, string statusID, 
+            string requesterID, string approverID, string response)
         {
             this.id = id;
             this.reason = reason;
@@ -119,23 +120,23 @@ namespace CompanyManagement.Models
             this.statusID = statusID;
             this.requesterID = requesterID;
             this.approverID = approverID;
-            this.response = respone;
+            this.response = response;
         }
 
-        public LeaveRequest(IDataRecord reader)
+        public LeaveRequest(IDataRecord record)
         {
             try
             {
-                id = Utils.GetString(reader, BaseDao.leavID);
-                reason = Utils.GetString(reader, BaseDao.leavReason);
-                notes = Utils.GetString(reader, BaseDao.leavNotes);
-                created = Utils.GetDateTime(reader, BaseDao.leavCreated);
-                start = Utils.GetDateTime(reader, BaseDao.leavStart);
-                end = Utils.GetDateTime(reader, BaseDao.leavEnd);
-                statusID = Utils.GetString(reader, BaseDao.leavStatusID);
-                requesterID = Utils.GetString(reader, BaseDao.leavEmplID);
-                approverID = Utils.GetString(reader, BaseDao.leavApproverID);
-                response = Utils.GetString(reader, BaseDao.leavResponse);
+                id = Utils.GetString(record, BaseDao.leavID);
+                reason = Utils.GetString(record, BaseDao.leavReason);
+                notes = Utils.GetString(record, BaseDao.leavNotes);
+                created = Utils.GetDateTime(record, BaseDao.leavCreated);
+                start = Utils.GetDateTime(record, BaseDao.leavStart);
+                end = Utils.GetDateTime(record, BaseDao.leavEnd);
+                statusID = Utils.GetString(record, BaseDao.leavStatusID);
+                requesterID = Utils.GetString(record, BaseDao.leavEmplID);
+                approverID = Utils.GetString(record, BaseDao.leavApproverID);
+                response = Utils.GetString(record, BaseDao.leavResponse);
             }
             catch (Exception ex)
             {

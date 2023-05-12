@@ -61,21 +61,20 @@ namespace CompanyManagement.ViewModels.UserControls
         private void ExecuteApproveCommand(LeaveRequest leave)
         {
             leave.StatusID = BaseDao.leavRequesApproved;
-            var inputDialogService = new InputDialogService<LeaveRequest>(new ResponeLeaveDialog(), leave, Update);
+            var inputDialogService = new InputDialogService<LeaveRequest>(new ResponseLeaveDialog(), leave, Update);
             inputDialogService.Show();
         }
 
         private void ExecuteDenyLeaveCommand(LeaveRequest leave)
         {
             leave.StatusID = BaseDao.leavRequesDenied;
-            var inputDialogService = new InputDialogService<LeaveRequest>(new ResponeLeaveDialog(), leave, Update);
+            var inputDialogService = new InputDialogService<LeaveRequest>(new ResponseLeaveDialog(), leave, Update);
             inputDialogService.Show();
         }
 
         private void ExecuteRestoreLeaveCommand(LeaveRequest leave)
         {
             leave.StatusID = BaseDao.leavRequestUpapproved;
-            leave.Response = "";
             Update(leave);
         }
 
@@ -91,7 +90,6 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void LoadLeaveRequestList()
         {
-
             ReceivedLeaveRequests = leaveDao.SearchByApproverID(currentEmployee.ID);
     
             var listUnapprovedLeaves = ReceivedLeaveRequests.Where(p => p.StatusID == BaseDao.leavRequestUpapproved).ToList();

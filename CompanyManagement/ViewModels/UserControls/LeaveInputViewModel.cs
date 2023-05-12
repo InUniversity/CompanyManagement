@@ -23,7 +23,6 @@ namespace CompanyManagement.ViewModels.UserControls
         public string ID { get => leaveRequest.ID; set { leaveRequest.ID = value; OnPropertyChanged(); } } 
         public string Reason { get => leaveRequest.Reason; set { leaveRequest.Reason = value; OnPropertyChanged(); } }
         public string Notes { get => leaveRequest.Notes; set { leaveRequest.Notes = value; OnPropertyChanged(); } }
-        public DateTime CreatedDate { get => leaveRequest.Created; set { leaveRequest.Created = value; OnPropertyChanged(); } }
         public DateTime StartDate { get => leaveRequest.Start; set { leaveRequest.Start = value; OnPropertyChanged(); } }
         public DateTime EndDate { get => leaveRequest.End; set { leaveRequest.End = value; OnPropertyChanged(); } }
         public string StatusID { get => leaveRequest.StatusID; set { leaveRequest.StatusID = value; OnPropertyChanged(); } }
@@ -130,8 +129,6 @@ namespace CompanyManagement.ViewModels.UserControls
             ID = ID.Trim();
             Reason = Reason.Trim();
             Notes = Notes.Trim();
-            EmployeeID = EmployeeID.Trim();
-            ApproverID = ApproverID.Trim();
         }
     }
 }

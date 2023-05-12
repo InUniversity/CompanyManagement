@@ -51,10 +51,10 @@ namespace CompanyManagement.ViewModels.Dialogs
             return LeaveInputDataContext.CheckAllFields();
         }
 
-        public void ReceiveObject(LeaveRequest leaveRequest)
+        public void ReceiveObject(LeaveRequest request)
         {
-            LeaveInputDataContext.LeaveRequestIns = leaveRequest;
-            LeaveInputDataContext.RoleName = (new RolesDao()).SearchByID(leaveRequest.Approver.RoleID).Title;
+            LeaveInputDataContext.LeaveRequestIns = request;
+            LeaveInputDataContext.RoleName = (new RolesDao()).SearchByID(request.Approver.RoleID).Title;
         }
 
         public void ReceiveSubmitAction(Action<LeaveRequest> submitObjectAction)

@@ -165,9 +165,16 @@
                     </Button>
                 </StackPanel>
             </materialDesign:DialogHost>
-
+            <TextBox
+                Height="50"
+                IsReadOnly="True"
+                Text="{Binding Response, UpdateSourceTrigger=PropertyChanged}"
+                Background="White"
+                Margin="10"
+                materialDesign:HintAssist.Hint="Phản hồi"
+                Style="{StaticResource MaterialDesignOutlinedTextBox}" /> 
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="{Binding ErrorMessage}" 
+                <TextBlock Text="{Binding ErrorMesssage}" 
                            TextWrapping="Wrap" 
                            Foreground="#FF0000" 
                            TextAlignment="Left" 

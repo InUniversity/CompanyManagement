@@ -64,6 +64,7 @@
                             </StackPanel>
                         </RadioButton>
                         <RadioButton
+                            Visibility="{Binding VisibilityOrganization}"
                             Height="50"
                             Margin="4"
                             IsChecked="{Binding StatusOrganizationView}"

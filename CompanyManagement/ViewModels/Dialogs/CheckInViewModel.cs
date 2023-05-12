@@ -135,9 +135,9 @@ namespace CompanyManagement.ViewModels.UserControls
             SearchedTasksCanChoose = new ObservableCollection<TaskInProject>(searchedItems);
         }
 
-        public void ReceiveObject(TimeSheet timeSheet)
+        public void ReceiveObject(TimeSheet request)
         {
-            CheckInOutInputDataContext.TimeSheetIns = timeSheet;
+            CheckInOutInputDataContext.TimeSheetIns = request;
         }
 
         public void ReceiveSubmitAction(Action<TimeSheet> submitObjectAction)

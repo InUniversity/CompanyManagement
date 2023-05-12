@@ -53,9 +53,9 @@ namespace CompanyManagement.ViewModels.Dialogs
             return true;
         }
 
-        public void ReceiveObject(Milestone milestone)
+        public void ReceiveObject(Milestone request)
         {
-            MilestoneInputDataContext.MilestoneIns = milestone;
+            MilestoneInputDataContext.MilestoneIns = request;
         }
 
         public void ReceiveSubmitAction(Action<Milestone> submitObjectAction)

@@ -56,9 +56,9 @@ namespace CompanyManagement.ViewModels.Dialogs
         }
 
 
-        public void ReceiveObject(Department department)
+        public void ReceiveObject(Department request)
         {
-            DeptInputDataContext.DeptIns = department;
+            DeptInputDataContext.DeptIns = request;
         }
 
         public void ReceiveSubmitAction(Action<Department> submitObjectAction)

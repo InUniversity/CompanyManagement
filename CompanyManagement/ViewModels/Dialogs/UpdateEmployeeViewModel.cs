@@ -55,9 +55,9 @@ namespace CompanyManagement.ViewModels.Dialogs
             return EmployeeInputDataContext.CheckAllFields();
         }
 
-        public void ReceiveObject(Employee employee)
+        public void ReceiveObject(Employee request)
         {
-            EmployeeInputDataContext.EmployeeIns = employee;
+            EmployeeInputDataContext.EmployeeIns = request;
         }
 
         public void ReceiveSubmitAction(Action<Employee> submitObjectAction)

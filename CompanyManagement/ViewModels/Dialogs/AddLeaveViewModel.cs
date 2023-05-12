@@ -60,9 +60,9 @@ namespace CompanyManagement.ViewModels.Dialogs
             return LeaveInputDataContext.CheckAllFields();
         }
 
-        public void ReceiveObject(LeaveRequest leaveRequest)
+        public void ReceiveObject(LeaveRequest request)
         {
-            LeaveInputDataContext.LeaveRequestIns = leaveRequest;
+            LeaveInputDataContext.LeaveRequestIns = request;
         }
 
         public void ReceiveSubmitAction(Action<LeaveRequest> submitObjectAction)
