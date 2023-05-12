@@ -14,7 +14,7 @@ namespace CompanyManagement.Database
             string sqlStr = $"INSERT INTO {taskTbl}({taskID}, {taskTitle}, {taskExplanation}, {taskStart}, " +
                             $"{taskDeadline}, {taskOwnerID}, {taskProgress}, {taskEmplID}, {taskProjID}, " +
                             $"{taskStatusID}) VALUES ('{tsk.ID}', N'{tsk.Title}', N'{tsk.Explanation}', " +
-                            $"'{tsk.StartDate}', '{tsk.Deadline}', '{tsk.OwnerID}', '{tsk.Progress}', " +
+                            $"'{tsk.Start}', '{tsk.Deadline}', '{tsk.OwnerID}', '{tsk.Progress}', " +
                             $"'{tsk.EmployeeID}', '{tsk.ProjectID}', '{(int)tsk.Status}')";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
@@ -28,7 +28,7 @@ namespace CompanyManagement.Database
         public void Update(TaskInProject tsk)
         {
             string sqlStr = $"UPDATE {taskTbl} SET {taskTitle}=N'{tsk.Title}', " +
-                            $"{taskExplanation}=N'{tsk.Explanation}', {taskStart}='{tsk.StartDate}', " +
+                            $"{taskExplanation}=N'{tsk.Explanation}', {taskStart}='{tsk.Start}', " +
                             $"{taskDeadline}='{tsk.Deadline}', {taskOwnerID}='{tsk.OwnerID}', " +
                             $"{taskProgress}='{tsk.Progress}', {taskEmplID}='{tsk.EmployeeID}', " +
                             $"{taskProjID}='{tsk.ProjectID}', {taskStatusID}='{(int)tsk.Status}' " +

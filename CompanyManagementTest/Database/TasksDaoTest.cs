@@ -46,7 +46,7 @@ namespace CompanyManagementTest.Database
             
             // update
             var updateObject = new TaskInProject(task.ID, task.Title + "Updated", task.Explanation, 
-                task.StartDate, task.Deadline, task.Progress, task.OwnerID, "EM008", task.ProjectID, 
+                task.Start, task.Deadline, task.Progress, task.OwnerID, "EM008", task.ProjectID, 
                 task.Status, new Employee());
             myDao.Update(updateObject);
             var updated = myDao.SearchByID(task.ID);  
@@ -93,7 +93,7 @@ namespace CompanyManagementTest.Database
             Assert.AreEqual(expected.ID, actual.ID);
             Assert.AreEqual(expected.Title, actual.Title);
             Assert.AreEqual(expected.Explanation, actual.Explanation);
-            Assert.AreEqual(expected.StartDate, actual.StartDate);
+            Assert.AreEqual(expected.Start, actual.Start);
             Assert.AreEqual(expected.Deadline, actual.Deadline);
             Assert.AreEqual(expected.Progress, actual.Progress);
             Assert.AreEqual(expected.OwnerID, actual.OwnerID);

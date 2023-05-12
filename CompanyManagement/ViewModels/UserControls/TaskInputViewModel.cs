@@ -6,7 +6,9 @@ using CompanyManagement.ViewModels.Base;
 using System.Windows.Input;
 using System.Linq;
 using System.Windows.Controls;
+using CompanyManagement.Database.Base;
 using CompanyManagement.Enums;
+using CompanyManagement.Utilities;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
@@ -34,10 +36,20 @@ namespace CompanyManagement.ViewModels.UserControls
         public string ID { get => task.ID; set { task.ID = value; OnPropertyChanged(); } }
         public string Title { get => task.Title; set { task.Title = value; OnPropertyChanged(); } }
         public string Explanation { get => task.Explanation; set { task.Explanation = value; OnPropertyChanged(); } }
-        public DateTime StartDate { get => task.StartDate; set { task.StartDate = value; OnPropertyChanged(); } }
+        public DateTime StartDate { get => task.Start; set { task.Start = value; OnPropertyChanged(); } }
         public DateTime Deadline { get => task.Deadline; set { task.Deadline = value; OnPropertyChanged(); } }
-        public string Progress { get => task.Progress; set { task.Progress = value; OnPropertyChanged(); } }
 
+        public string Progress
+        {
+            get => task.Progress;
+            set
+            {
+                task.Progress = value;
+                UpdateStatus();
+                OnPropertyChanged();
+            }
+        }
+        
         public Employee Owner
         {
             get => task.Owner;
@@ -61,7 +73,17 @@ namespace CompanyManagement.ViewModels.UserControls
         }
         
         public string ProjectID { get => task.ProjectID; set { task.ProjectID = value; OnPropertyChanged(); } }
-        public ETaskStatus Status { get => task.Status; set { task.Status = value; OnPropertyChanged(); } }
+        
+        public ETaskStatus Status 
+        { 
+            get => task.Status;
+            set
+            {
+                task.Status = value;
+                UpdateProgress();
+                OnPropertyChanged();
+            } 
+        }
 
         private string errorMessage = "";
         public string ErrorMessage { get => errorMessage; set { errorMessage = value; OnPropertyChanged(); } }
@@ -119,12 +141,12 @@ namespace CompanyManagement.ViewModels.UserControls
             ErrorMessage = "";
             if (string.IsNullOrWhiteSpace(Title))
             {
-                ErrorMessage = "Các thông tin không được để trống!!!";
+                ErrorMessage = Utils.invalidEmptyMess;
                 return false;
             }
             if (Deadline < StartDate)
             {
-                ErrorMessage = "Thời gian kết thúc không hợp lệ!!!";
+                ErrorMessage = Utils.invalidTimeline;
                 return false;
             }
             return true;
@@ -146,6 +168,39 @@ namespace CompanyManagement.ViewModels.UserControls
         {
             Title = Title.Trim();
             Explanation = Explanation.Trim();
+        }
+
+        private void UpdateProgress()
+        {
+            string result = GetProgressByStatus(Status, Progress);
+            if (Progress == result) return;
+            Progress = result;
+        }
+        
+        private string GetProgressByStatus(ETaskStatus status, string progress)
+        {
+            return status switch
+            {
+                ETaskStatus.Completed => BaseDao.completed,
+                ETaskStatus.Cancelled => "0",
+                _ => progress
+            };
+        }
+        
+        private void UpdateStatus()
+        {
+            ETaskStatus result = GetStatusByProgress(Progress, Status);
+            if (Status == result) return;
+            Status = result;
+        }
+
+        private ETaskStatus GetStatusByProgress(string progress, ETaskStatus status)
+        {
+            return progress switch
+            {
+                BaseDao.completed => ETaskStatus.Completed,
+                _ => status
+            };
         }
     }
 }

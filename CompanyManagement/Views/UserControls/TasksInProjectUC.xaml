@@ -18,200 +18,131 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
-            <ScrollViewer Grid.Row="0">
+        <ScrollViewer Grid.Row="0">
             <Grid MinHeight="490" MinWidth="1100">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
-                    <Expander Grid.Row="0" 
-                              Margin="10 5"
-                              Background="#f3e5f5"  
-                              Foreground="#4a148c"
-                              ExpandDirection="Down">
-                        <Expander.Header>
-                            <StackPanel Orientation="Horizontal">
-                                <materialDesign:PackIcon VerticalAlignment="Center" 
-                                                         Margin="10 0" Kind="DotsHorizontal"  
-                                                         Foreground="#4a148c" ></materialDesign:PackIcon>
-                                <materialDesign:Badged Badge="{Binding ElementName=dgvOngoingTasks,Path=Items.Count,UpdateSourceTrigger=PropertyChanged}"  
-                                                       Margin="10 0"   
-                                                       BadgeForeground="White"
-                                                       BadgeBackground="#8a24aa"
-                                                       VerticalAlignment="Center">
-                                    <TextBlock                     
-                                        FontWeight="Bold"  
-                                        Margin="5"
-                                        Text="Đang thực hiện"                           
-                                        FontSize="20"></TextBlock>
-                                </materialDesign:Badged>
-                            </StackPanel>
-                        </Expander.Header>
-                        <DataGrid                                                 
-                                Name="dgvOngoingTasks"
-                                CanUserAddRows="False"
-                                AutoGenerateColumns="False"
-                                Background="White"
-                                ItemsSource="{Binding OngoingTasksInProject}"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Top">
-                            <DataGrid.Columns>
-                                <DataGridTemplateColumn Header="Operations" 
-                                                        CanUserResize="False" 
-                                                        IsReadOnly="True"
-                                                        Width="auto">
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <StackPanel Orientation="Horizontal">
-                                                <Button VerticalAlignment="Center"
-                                                        Margin="10 0"
-                                                        Height="30" Width="30"
-                                                        Foreground="#1e5b20"
-                                                        Command="{Binding DataContext.UpdateTaskInProjectCommand, ElementName=tasksInProjectUC}"
-                                                        CommandParameter="{Binding}"
-                                                        Style="{StaticResource MaterialDesignIconForegroundButton}"
-                                                        ToolTip="Edit">
-                                                    <materialDesign:PackIcon Kind="PencilPlus" Height="15" Width="15" />
-                                                </Button>
-                                                <Button VerticalAlignment="Center"
-                                                        Foreground="#d32f2f"
-                                                        Height="30" Width="30"
-                                                        Margin="10 0"
-                                                        Visibility="{Binding DataContext.VisibleDeleteButton, ElementName=tasksInProjectUC}"
-                                                        Command="{Binding DataContext.DeleteTaskInProjectCommand, ElementName=tasksInProjectUC}"
-                                                        CommandParameter="{Binding ID}"
-                                                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-                                                        Style="{StaticResource MaterialDesignIconForegroundButton}"
-                                                        ToolTip="Delete">
-                                                    <materialDesign:PackIcon Kind="DeleteForever" Height="15" Width="15" />
-                                                </Button>
-                                            </StackPanel>
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
-                                <DataGridTextColumn Width="200" Header="Tiêu đề" IsReadOnly="True" Binding="{Binding Title}" />
-                                <DataGridTextColumn Width="150" Header="Người được giao" IsReadOnly="True" Binding="{Binding AssignedEmployee.Name}" />
-                                <DataGridTextColumn Width="125" Header="Tiến độ" IsReadOnly="True" Binding="{Binding Progress, StringFormat= %}" />
-                                <DataGridTextColumn Width="170" Header="Ngày bắt đầu" IsReadOnly="True" Binding="{Binding StartDate, StringFormat=dd/MM/yyyy HH:mm tt}" />
-                                <DataGridTextColumn Width="170" Header="Ngày kết thúc" IsReadOnly="True" Binding="{Binding Deadline, StringFormat=dd/MM/yyyy HH:mm tt}" />
-                                <DataGridTextColumn Width="150" Header="Người giao việc" IsReadOnly="True" Binding="{Binding Owner.Name}" />
-                            </DataGrid.Columns>
-                        </DataGrid>
-                    </Expander>
-                    <Expander Grid.Row="1"
-                        Background="#e8f5e9"
-                        Foreground="#00695c"
-                        Margin="10 5"
-                        ExpandDirection="Down">
-                        <Expander.Header>
-                            <StackPanel Orientation="Horizontal">
-                                <materialDesign:PackIcon VerticalAlignment="Center"
-                                                         Margin="10 0" Kind="Check"
-                                                         Foreground="#00695c" />
-                                <materialDesign:Badged
-                                    Badge="{Binding ElementName=dgvCompletedTasks,Path=Items.Count,UpdateSourceTrigger=PropertyChanged}"
-                                    Margin="10 0"
-                                    BadgeForeground="White"
-                                    BadgeBackground="#80cbc4"
-                                    VerticalAlignment="Center">
-                                    <TextBlock
-                                        FontWeight="Bold"
-                                        Margin="5"
-                                        Text="Đã hoàn thành"
-                                        FontSize="20" />
-                                </materialDesign:Badged>
-                            </StackPanel>
-                        </Expander.Header>
-                        <DataGrid                                                 
-                                Name="dgvCompletedTasks"
-                                CanUserAddRows="False"
-                                AutoGenerateColumns="False"
-                                Background="White"
-                                ItemsSource="{Binding CompletedTasksInProject}"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Top">
-                            <DataGrid.Columns>
-                                <DataGridTemplateColumn Header="Operations" 
-                                                        CanUserResize="False" 
-                                                        IsReadOnly="True"
-                                                        Width="auto">
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <StackPanel Orientation="Horizontal">
-                                                <Button VerticalAlignment="Center"
-                                                        Margin="10 0"
-                                                        Height="30" Width="30"
-                                                        Foreground="#1e5b20"
-                                                        Command="{Binding DataContext.UpdateTaskInProjectCommand, ElementName=tasksInProjectUC}"
-                                                        CommandParameter="{Binding}"
-                                                        Style="{StaticResource MaterialDesignIconForegroundButton}"
-                                                        ToolTip="Edit">
-                                                    <materialDesign:PackIcon Kind="PencilPlus" Height="15" Width="15" />
-                                                </Button>
-                                                <Button VerticalAlignment="Center"
-                                                        Foreground="#d32f2f"
-                                                        Margin="10 0"
-                                                        Height="30" Width="30"
-                                                        Visibility="{Binding DataContext.VisibleDeleteButton, ElementName=tasksInProjectUC}"
-                                                        Command="{Binding DataContext.DeleteTaskInProjectCommand, ElementName=tasksInProjectUC}"
-                                                        CommandParameter="{Binding ID}"
-                                                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-                                                        Style="{StaticResource MaterialDesignIconForegroundButton}"
-                                                        ToolTip="Delete">
-                                                    <materialDesign:PackIcon Kind="DeleteForever" Height="15" Width="15" />
-                                                </Button>
-                                            </StackPanel>
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
-                                <DataGridTextColumn Width="200" Header="Tiêu đề" IsReadOnly="True" Binding="{Binding Title}" />
-                                <DataGridTextColumn Width="150" Header="Người được giao" IsReadOnly="True" Binding="{Binding AssignedEmployee.Name}" />
-                                <DataGridTextColumn Width="125" Header="Tiến độ" IsReadOnly="True" Binding="{Binding Progress}" />
-                                <DataGridTextColumn Width="170" Header="Ngày bắt đầu" IsReadOnly="True" Binding="{Binding StartDate, StringFormat=dd/MM/yyyy HH:mm tt}" />
-                                <DataGridTextColumn Width="170" Header="Ngày kết thúc" IsReadOnly="True" Binding="{Binding Deadline, StringFormat=dd/MM/yyyy HH:mm tt}" />
-                                <DataGridTextColumn Width="150" Header="Người giao việc" IsReadOnly="True" Binding="{Binding Owner.Name}" />
-                            </DataGrid.Columns>
-                        </DataGrid>
-                    </Expander>
-                <Expander
-                    Grid.Row="2"
-                    Background="#ffebee"
-                    Foreground="#c62828"
-                    Margin="10 5"
-                    ExpandDirection="Down">
+                <Expander Grid.Row="0"
+                          Margin="10 5"
+                          Background="#f3e5f5"
+                          Foreground="#4a148c"
+                          ExpandDirection="Down">
                     <Expander.Header>
                         <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Margin="10 0"
-                                                     VerticalAlignment="Center"
-                                                     Kind="Close"
-                                                     Foreground="#c62828" />
+                            <materialDesign:PackIcon VerticalAlignment="Center"
+                                                     Margin="10 0" Kind="DotsHorizontal"
+                                                     Foreground="#4a148c" />
                             <materialDesign:Badged
-                                Badge="{Binding ElementName=dgvTaskOverdue,Path=Items.Count,UpdateSourceTrigger=PropertyChanged}"
+                                Badge="{Binding ElementName=dgvOngoingTasks,Path=Items.Count,UpdateSourceTrigger=PropertyChanged}"
                                 Margin="10 0"
                                 BadgeForeground="White"
-                                BadgeBackground="#ef9a9a"
+                                BadgeBackground="#8a24aa"
                                 VerticalAlignment="Center">
                                 <TextBlock
-                                    Margin="10 0"
                                     FontWeight="Bold"
-                                    Text="Đã quá hạn"
-                                    VerticalAlignment="Center"
+                                    Margin="5"
+                                    Text="Đang thực hiện"
                                     FontSize="20" />
                             </materialDesign:Badged>
                         </StackPanel>
                     </Expander.Header>
-                    <DataGrid                                
-                            Name="dgvTaskOverdue"
-                            CanUserAddRows="False"
-                            AutoGenerateColumns="False"
-                            Background="White"
-                            ItemsSource="{Binding OverdueTasksInProject}"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Top">
+                    <DataGrid
+                        Name="dgvOngoingTasks"
+                        CanUserAddRows="False"
+                        AutoGenerateColumns="False"
+                        Background="White"
+                        ItemsSource="{Binding OngoingTasksInProject}"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top">
                         <DataGrid.Columns>
-                            <DataGridTemplateColumn Header="Operations" 
-                                                    CanUserResize="False" 
+                            <DataGridTemplateColumn Header="Operations"
+                                                    CanUserResize="False"
+                                                    IsReadOnly="True"
+                                                    Width="auto">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Button VerticalAlignment="Center"
+                                                    Margin="10 0"
+                                                    Height="30" Width="30"
+                                                    Foreground="#1e5b20"
+                                                    Command="{Binding DataContext.UpdateTaskInProjectCommand, ElementName=tasksInProjectUC}"
+                                                    CommandParameter="{Binding}"
+                                                    Style="{StaticResource MaterialDesignIconForegroundButton}"
+                                                    ToolTip="Edit">
+                                                <materialDesign:PackIcon Kind="PencilPlus" Height="15" Width="15" />
+                                            </Button>
+                                            <Button VerticalAlignment="Center"
+                                                    Foreground="#d32f2f"
+                                                    Height="30" Width="30"
+                                                    Margin="10 0"
+                                                    Visibility="{Binding DataContext.VisibleDeleteButton, ElementName=tasksInProjectUC}"
+                                                    Command="{Binding DataContext.DeleteTaskInProjectCommand, ElementName=tasksInProjectUC}"
+                                                    CommandParameter="{Binding ID}"
+                                                    IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                                    Style="{StaticResource MaterialDesignIconForegroundButton}"
+                                                    ToolTip="Delete">
+                                                <materialDesign:PackIcon Kind="DeleteForever" Height="15" Width="15" />
+                                            </Button>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Width="200" Header="Tiêu đề" IsReadOnly="True"
+                                                Binding="{Binding Title}" />
+                            <DataGridTextColumn Width="150" Header="Người được giao" IsReadOnly="True"
+                                                Binding="{Binding AssignedEmployee.Name}" />
+                            <DataGridTextColumn Width="125" Header="Tiến độ" IsReadOnly="True"
+                                                Binding="{Binding Progress, StringFormat= %}" />
+                            <DataGridTextColumn Width="170" Header="Ngày bắt đầu" IsReadOnly="True"
+                                                Binding="{Binding Start, StringFormat=dd/MM/yyyy HH:mm tt}" />
+                            <DataGridTextColumn Width="170" Header="Ngày kết thúc" IsReadOnly="True"
+                                                Binding="{Binding Deadline, StringFormat=dd/MM/yyyy HH:mm tt}" />
+                            <DataGridTextColumn Width="150" Header="Người giao việc" IsReadOnly="True"
+                                                Binding="{Binding Owner.Name}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Expander>
+                <Expander Grid.Row="1"
+                          Background="#e8f5e9"
+                          Foreground="#00695c"
+                          Margin="10 5"
+                          ExpandDirection="Down">
+                    <Expander.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon VerticalAlignment="Center"
+                                                     Margin="10 0" Kind="Check"
+                                                     Foreground="#00695c" />
+                            <materialDesign:Badged
+                                Badge="{Binding ElementName=dgvCompletedTasks,Path=Items.Count,UpdateSourceTrigger=PropertyChanged}"
+                                Margin="10 0"
+                                BadgeForeground="White"
+                                BadgeBackground="#80cbc4"
+                                VerticalAlignment="Center">
+                                <TextBlock
+                                    FontWeight="Bold"
+                                    Margin="5"
+                                    Text="Đã hoàn thành"
+                                    FontSize="20" />
+                            </materialDesign:Badged>
+                        </StackPanel>
+                    </Expander.Header>
+                    <DataGrid
+                        Name="dgvCompletedTasks"
+                        CanUserAddRows="False"
+                        AutoGenerateColumns="False"
+                        Background="White"
+                        ItemsSource="{Binding CompletedTasksInProject}"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top">
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="Operations"
+                                                    CanUserResize="False"
                                                     IsReadOnly="True"
                                                     Width="auto">
                                 <DataGridTemplateColumn.CellTemplate>
@@ -243,15 +174,274 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTextColumn Width="200" Header="Tiêu đề" IsReadOnly="True" Binding="{Binding Title}" />
-                            <DataGridTextColumn Width="150" Header="Người được giao" IsReadOnly="True" Binding="{Binding AssignedEmployee.Name}" />
-                            <DataGridTextColumn Width="125" Header="Tiến độ" IsReadOnly="True" Binding="{Binding Progress}" />
-                            <DataGridTextColumn Width="170" Header="Ngày bắt đầu" IsReadOnly="True" Binding="{Binding StartDate, StringFormat=dd/MM/yyyy HH:mm tt}" />
-                            <DataGridTextColumn Width="170" Header="Ngày kết thúc" IsReadOnly="True" Binding="{Binding Deadline, StringFormat=dd/MM/yyyy HH:mm tt}" />
-                            <DataGridTextColumn Width="150" Header="Người giao việc" IsReadOnly="True" Binding="{Binding Owner.Name}" />
+                            <DataGridTextColumn Width="200" Header="Tiêu đề" IsReadOnly="True"
+                                                Binding="{Binding Title}" />
+                            <DataGridTextColumn Width="150" Header="Người được giao" IsReadOnly="True"
+                                                Binding="{Binding AssignedEmployee.Name}" />
+                            <DataGridTextColumn Width="125" Header="Tiến độ" IsReadOnly="True"
+                                                Binding="{Binding Progress}" />
+                            <DataGridTextColumn Width="170" Header="Ngày bắt đầu" IsReadOnly="True"
+                                                Binding="{Binding Start, StringFormat=dd/MM/yyyy HH:mm tt}" />
+                            <DataGridTextColumn Width="170" Header="Ngày kết thúc" IsReadOnly="True"
+                                                Binding="{Binding Deadline, StringFormat=dd/MM/yyyy HH:mm tt}" />
+                            <DataGridTextColumn Width="150" Header="Người giao việc" IsReadOnly="True"
+                                                Binding="{Binding Owner.Name}" />
                         </DataGrid.Columns>
                     </DataGrid>
-                </Expander></Grid>
+                </Expander>
+                <Expander
+                    Grid.Row="2"
+                    Background="#ffebee"
+                    Foreground="#c62828"
+                    Margin="10 5"
+                    ExpandDirection="Down">
+                    <Expander.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Margin="10 0"
+                                                     VerticalAlignment="Center"
+                                                     Kind="Close"
+                                                     Foreground="#c62828" />
+                            <materialDesign:Badged
+                                Badge="{Binding ElementName=dgvTaskOverdue,Path=Items.Count,UpdateSourceTrigger=PropertyChanged}"
+                                Margin="10 0"
+                                BadgeForeground="White"
+                                BadgeBackground="#ef9a9a"
+                                VerticalAlignment="Center">
+                                <TextBlock
+                                    Margin="10 0"
+                                    FontWeight="Bold"
+                                    Text="Quá hạn"
+                                    VerticalAlignment="Center"
+                                    FontSize="20" />
+                            </materialDesign:Badged>
+                        </StackPanel>
+                    </Expander.Header>
+                    <DataGrid
+                        Name="dgvTaskOverdue"
+                        CanUserAddRows="False"
+                        AutoGenerateColumns="False"
+                        Background="White"
+                        ItemsSource="{Binding OverdueTasksInProject}"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top">
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="Operations"
+                                                    CanUserResize="False"
+                                                    IsReadOnly="True"
+                                                    Width="auto">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Button VerticalAlignment="Center"
+                                                    Margin="10 0"
+                                                    Height="30" Width="30"
+                                                    Foreground="#1e5b20"
+                                                    Command="{Binding DataContext.UpdateTaskInProjectCommand, ElementName=tasksInProjectUC}"
+                                                    CommandParameter="{Binding}"
+                                                    Style="{StaticResource MaterialDesignIconForegroundButton}"
+                                                    ToolTip="Edit">
+                                                <materialDesign:PackIcon Kind="PencilPlus" Height="15" Width="15" />
+                                            </Button>
+                                            <Button VerticalAlignment="Center"
+                                                    Foreground="#d32f2f"
+                                                    Margin="10 0"
+                                                    Height="30" Width="30"
+                                                    Visibility="{Binding DataContext.VisibleDeleteButton, ElementName=tasksInProjectUC}"
+                                                    Command="{Binding DataContext.DeleteTaskInProjectCommand, ElementName=tasksInProjectUC}"
+                                                    CommandParameter="{Binding ID}"
+                                                    IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                                    Style="{StaticResource MaterialDesignIconForegroundButton}"
+                                                    ToolTip="Delete">
+                                                <materialDesign:PackIcon Kind="DeleteForever" Height="15" Width="15" />
+                                            </Button>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Width="200" Header="Tiêu đề" IsReadOnly="True"
+                                                Binding="{Binding Title}" />
+                            <DataGridTextColumn Width="150" Header="Người được giao" IsReadOnly="True"
+                                                Binding="{Binding AssignedEmployee.Name}" />
+                            <DataGridTextColumn Width="125" Header="Tiến độ" IsReadOnly="True"
+                                                Binding="{Binding Progress}" />
+                            <DataGridTextColumn Width="170" Header="Ngày bắt đầu" IsReadOnly="True"
+                                                Binding="{Binding Start, StringFormat=dd/MM/yyyy HH:mm tt}" />
+                            <DataGridTextColumn Width="170" Header="Ngày kết thúc" IsReadOnly="True"
+                                                Binding="{Binding Deadline, StringFormat=dd/MM/yyyy HH:mm tt}" />
+                            <DataGridTextColumn Width="150" Header="Người giao việc" IsReadOnly="True"
+                                                Binding="{Binding Owner.Name}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Expander>
+                <Expander
+                    Grid.Row="3"
+                    Background="#e3f2fd"  
+                    Foreground="#0d47a1"
+                    Margin="10 5"
+                    ExpandDirection="Down">
+                    <Expander.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Margin="10 0"
+                                                     VerticalAlignment="Center"
+                                                     Kind="CommentAlertOutline"
+                                                     Foreground="#0d47a1" />
+                            <materialDesign:Badged
+                                Badge="{Binding ElementName=dgvTaskReviewing,Path=Items.Count,UpdateSourceTrigger=PropertyChanged}"
+                                Margin="10 0"
+                                BadgeForeground="White"
+                                BadgeBackground="#42a5f5"
+                                VerticalAlignment="Center">
+                                <TextBlock
+                                    Margin="10 0"
+                                    FontWeight="Bold"
+                                    Text="Đang xem xét"
+                                    VerticalAlignment="Center"
+                                    FontSize="20" />
+                            </materialDesign:Badged>
+                        </StackPanel>
+                    </Expander.Header>
+                    <DataGrid
+                        Name="dgvTaskReviewing"
+                        CanUserAddRows="False"
+                        AutoGenerateColumns="False"
+                        Background="White"
+                        ItemsSource="{Binding ReviewingTasksInProject}"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top">
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="Operations"
+                                                    CanUserResize="False"
+                                                    IsReadOnly="True"
+                                                    Width="auto">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Button VerticalAlignment="Center"
+                                                    Margin="10 0"
+                                                    Height="30" Width="30"
+                                                    Foreground="#1e5b20"
+                                                    Command="{Binding DataContext.UpdateTaskInProjectCommand, ElementName=tasksInProjectUC}"
+                                                    CommandParameter="{Binding}"
+                                                    Style="{StaticResource MaterialDesignIconForegroundButton}"
+                                                    ToolTip="Edit">
+                                                <materialDesign:PackIcon Kind="PencilPlus" Height="15" Width="15" />
+                                            </Button>
+                                            <Button VerticalAlignment="Center"
+                                                    Foreground="#d32f2f"
+                                                    Margin="10 0"
+                                                    Height="30" Width="30"
+                                                    Visibility="{Binding DataContext.VisibleDeleteButton, ElementName=tasksInProjectUC}"
+                                                    Command="{Binding DataContext.DeleteTaskInProjectCommand, ElementName=tasksInProjectUC}"
+                                                    CommandParameter="{Binding ID}"
+                                                    IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                                    Style="{StaticResource MaterialDesignIconForegroundButton}"
+                                                    ToolTip="Delete">
+                                                <materialDesign:PackIcon Kind="DeleteForever" Height="15" Width="15" />
+                                            </Button>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Width="200" Header="Tiêu đề" IsReadOnly="True"
+                                                Binding="{Binding Title}" />
+                            <DataGridTextColumn Width="150" Header="Người được giao" IsReadOnly="True"
+                                                Binding="{Binding AssignedEmployee.Name}" />
+                            <DataGridTextColumn Width="125" Header="Tiến độ" IsReadOnly="True"
+                                                Binding="{Binding Progress}" />
+                            <DataGridTextColumn Width="170" Header="Ngày bắt đầu" IsReadOnly="True"
+                                                Binding="{Binding Start, StringFormat=dd/MM/yyyy HH:mm tt}" />
+                            <DataGridTextColumn Width="170" Header="Ngày kết thúc" IsReadOnly="True"
+                                                Binding="{Binding Deadline, StringFormat=dd/MM/yyyy HH:mm tt}" />
+                            <DataGridTextColumn Width="150" Header="Người giao việc" IsReadOnly="True"
+                                                Binding="{Binding Owner.Name}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Expander>
+                <Expander
+                    Grid.Row="4"
+                    Background="#ffebee"
+                    Foreground="#c62828"
+                    Margin="10 5"
+                    ExpandDirection="Down">
+                    <Expander.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Margin="10 0"
+                                                     VerticalAlignment="Center"
+                                                     Kind="Close"
+                                                     Foreground="#c62828" />
+                            <materialDesign:Badged
+                                Badge="{Binding ElementName=dgvTaskCancelled,Path=Items.Count,UpdateSourceTrigger=PropertyChanged}"
+                                Margin="10 0"
+                                BadgeForeground="White"
+                                BadgeBackground="#ef9a9a"
+                                VerticalAlignment="Center">
+                                <TextBlock
+                                    Margin="10 0"
+                                    FontWeight="Bold"
+                                    Text="Hủy"
+                                    VerticalAlignment="Center"
+                                    FontSize="20" />
+                            </materialDesign:Badged>
+                        </StackPanel>
+                    </Expander.Header>
+                    <DataGrid
+                        Name="dgvTaskCancelled"
+                        CanUserAddRows="False"
+                        AutoGenerateColumns="False"
+                        Background="White"
+                        ItemsSource="{Binding CancelledTasksInProject}"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top">
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="Operations"
+                                                    CanUserResize="False"
+                                                    IsReadOnly="True"
+                                                    Width="auto">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Button VerticalAlignment="Center"
+                                                    Margin="10 0"
+                                                    Height="30" Width="30"
+                                                    Foreground="#1e5b20"
+                                                    Command="{Binding DataContext.UpdateTaskInProjectCommand, ElementName=tasksInProjectUC}"
+                                                    CommandParameter="{Binding}"
+                                                    Style="{StaticResource MaterialDesignIconForegroundButton}"
+                                                    ToolTip="Edit">
+                                                <materialDesign:PackIcon Kind="PencilPlus" Height="15" Width="15" />
+                                            </Button>
+                                            <Button VerticalAlignment="Center"
+                                                    Foreground="#d32f2f"
+                                                    Margin="10 0"
+                                                    Height="30" Width="30"
+                                                    Visibility="{Binding DataContext.VisibleDeleteButton, ElementName=tasksInProjectUC}"
+                                                    Command="{Binding DataContext.DeleteTaskInProjectCommand, ElementName=tasksInProjectUC}"
+                                                    CommandParameter="{Binding ID}"
+                                                    IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                                    Style="{StaticResource MaterialDesignIconForegroundButton}"
+                                                    ToolTip="Delete">
+                                                <materialDesign:PackIcon Kind="DeleteForever" Height="15" Width="15" />
+                                            </Button>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Width="200" Header="Tiêu đề" IsReadOnly="True"
+                                                Binding="{Binding Title}" />
+                            <DataGridTextColumn Width="150" Header="Người được giao" IsReadOnly="True"
+                                                Binding="{Binding AssignedEmployee.Name}" />
+                            <DataGridTextColumn Width="125" Header="Tiến độ" IsReadOnly="True"
+                                                Binding="{Binding Progress}" />
+                            <DataGridTextColumn Width="170" Header="Ngày bắt đầu" IsReadOnly="True"
+                                                Binding="{Binding Start, StringFormat=dd/MM/yyyy HH:mm tt}" />
+                            <DataGridTextColumn Width="170" Header="Ngày kết thúc" IsReadOnly="True"
+                                                Binding="{Binding Deadline, StringFormat=dd/MM/yyyy HH:mm tt}" />
+                            <DataGridTextColumn Width="150" Header="Người giao việc" IsReadOnly="True"
+                                                Binding="{Binding Owner.Name}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Expander>
+            </Grid>
         </ScrollViewer>
         <Button Grid.Row="1"
                 Margin="20 5"

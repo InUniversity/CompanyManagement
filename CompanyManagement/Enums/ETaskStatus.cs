@@ -13,6 +13,6 @@ namespace CompanyManagement.Enums
         [Description("Đang xem xét")]
         Reviewing = 4,
         [Description("Hủy")]
-        Cancelled = 5,
+        Cancelled = 5
     }
 }

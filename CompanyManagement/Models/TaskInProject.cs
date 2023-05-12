@@ -11,7 +11,7 @@ namespace CompanyManagement.Models
         private string id;
         private string title;
         private string explanation;
-        private DateTime startDate;
+        private DateTime start;
         private DateTime deadline;
         private string progress;
         private string ownerID;
@@ -39,10 +39,10 @@ namespace CompanyManagement.Models
             set => explanation = value;
         }
 
-        public DateTime StartDate
+        public DateTime Start
         {
-            get => startDate;
-            set => startDate = value;
+            get => start;
+            set => start = value;
         }
 
         public DateTime Deadline
@@ -95,14 +95,14 @@ namespace CompanyManagement.Models
 
         public TaskInProject() { }
 
-        public TaskInProject(string id, string title, string explanation, DateTime startDate, 
+        public TaskInProject(string id, string title, string explanation, DateTime start, 
             DateTime deadline, string progress, string ownerID, string employeeID, 
             string projectID, ETaskStatus status, Employee owner)
         {
             this.id = id;
             this.title = title;
             this.explanation = explanation;
-            this.startDate = startDate;
+            this.start = start;
             this.deadline = deadline;
             this.progress = progress;
             this.ownerID = ownerID;
@@ -119,7 +119,7 @@ namespace CompanyManagement.Models
                 id = Utils.GetString(reader, BaseDao.taskID);
                 title = Utils.GetString(reader, BaseDao.taskTitle);
                 explanation = Utils.GetString(reader, BaseDao.taskExplanation);
-                startDate = Utils.GetDateTime(reader, BaseDao.taskStart);
+                start = Utils.GetDateTime(reader, BaseDao.taskStart);
                 deadline = Utils.GetDateTime(reader, BaseDao.taskDeadline);
                 progress = Utils.GetString(reader, BaseDao.taskProgress);
                 ownerID = Utils.GetString(reader, BaseDao.taskOwnerID);
