@@ -29,6 +29,12 @@ namespace CompanyManagement.Database
             string sqlStr = $"DELETE FROM {projBonusTbl} WHERE {projBonusID} = '{id}'";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
+        
+        public void DeleteProjID(string projID)
+        {
+            string sqlStr = $"DELETE FROM {projBonusTbl} WHERE {projBonusProjID}='{projID}'";
+            dbConnection.ExecuteNonQuery(sqlStr);
+        }
 
         public void Update(ProjectBonus projectBonuses)
         {

@@ -21,6 +21,12 @@ namespace CompanyManagement.Database
                             $"{projAssignDeptID}='{assign.DeptID}'";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
+        
+        public void DeleteByProjID(string projID)
+        {
+            string sqlStr = $"DELETE FROM {projAssignTbl} WHERE {projAssignID}='{projID}'";
+            dbConnection.ExecuteNonQuery(sqlStr);
+        }
 
         public List<Department> GetAllDepartmentInProject(string projID)
         {

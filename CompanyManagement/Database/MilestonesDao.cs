@@ -32,10 +32,16 @@ namespace CompanyManagement.Database
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
+        public void DeleteProjID(string projID)
+        {
+            string sqlStr = $"DELETE FROM {mileTbl} WHERE {mileProjID}='{projID}'";
+            dbConnection.ExecuteNonQuery(sqlStr);
+        }
+
         public Milestone SearchByID(string id)
         {
             string sqlStr = $"SELECT * FROM {mileTbl} WHERE {mileID} = '{id}'";
-            return (Milestone)dbConnection.GetSingleObject<Milestone>(sqlStr, reader => new Milestone(reader));
+            return (Milestone)dbConnection.GetSingleObject(sqlStr, reader => new Milestone(reader));
         }
         public List<Milestone> SearchByProjectID(string projID)
         {
