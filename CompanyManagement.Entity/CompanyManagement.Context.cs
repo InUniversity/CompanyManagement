@@ -7,41 +7,34 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CompanyManagement.Entity
+using System;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+
+public partial class CompanyManagementContext : DbContext
 {
-    using System;
-    using System.Data.Entity;
-    using System.Data.Entity.Infrastructure;
-    
-    public partial class CompanyManagementContext : DbContext
+    public CompanyManagementContext()
+        : base("name=CompanyManagementContext")
     {
-        public CompanyManagementContext()
-            : base("name=CompanyManagementContext")
-        {
-        }
-    
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            throw new UnintentionalCodeFirstException();
-        }
-    
-        public virtual DbSet<Account> Accounts { get; set; }
-        public virtual DbSet<Department> Departments { get; set; }
-        public virtual DbSet<Employee> Employees { get; set; }
-        public virtual DbSet<KPI> KPIs { get; set; }
-        public virtual DbSet<LeaveRequest> LeaveRequests { get; set; }
-        public virtual DbSet<LeaveStatus> LeaveStatuses { get; set; }
-        public virtual DbSet<Milestone> Milestones { get; set; }
-        public virtual DbSet<MileTask> MileTasks { get; set; }
-        public virtual DbSet<ProjectAssignment> ProjectAssignments { get; set; }
-        public virtual DbSet<ProjectBonus> ProjectBonuses { get; set; }
-        public virtual DbSet<Project> Projects { get; set; }
-        public virtual DbSet<ProjectStatus> ProjectStatuses { get; set; }
-        public virtual DbSet<Role> Roles { get; set; }
-        public virtual DbSet<SalaryRecord> SalaryRecords { get; set; }
-        public virtual DbSet<TaskCheckOut> TaskCheckOuts { get; set; }
-        public virtual DbSet<Task> Tasks { get; set; }
-        public virtual DbSet<TaskStatus> TaskStatuses { get; set; }
-        public virtual DbSet<TimeSheet> TimeSheets { get; set; }
     }
+
+    protected override void OnModelCreating(DbModelBuilder modelBuilder)
+    {
+        throw new UnintentionalCodeFirstException();
+    }
+
+    public virtual DbSet<Account> Accounts { get; set; }
+    public virtual DbSet<Department> Departments { get; set; }
+    public virtual DbSet<Employee> Employees { get; set; }
+    public virtual DbSet<LeaveRequest> LeaveRequests { get; set; }
+    public virtual DbSet<Milestone> Milestones { get; set; }
+    public virtual DbSet<MileTask> MileTasks { get; set; }
+    public virtual DbSet<ProjectAssignment> ProjectAssignments { get; set; }
+    public virtual DbSet<ProjectBonus> ProjectBonuses { get; set; }
+    public virtual DbSet<Project> Projects { get; set; }
+    public virtual DbSet<Role> Roles { get; set; }
+    public virtual DbSet<SalaryRecord> SalaryRecords { get; set; }
+    public virtual DbSet<TaskCheckOut> TaskCheckOuts { get; set; }
+    public virtual DbSet<Task> Tasks { get; set; }
+    public virtual DbSet<TimeSheet> TimeSheets { get; set; }
 }

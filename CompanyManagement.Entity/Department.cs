@@ -7,15 +7,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CompanyManagement.Entity
+using System;
+using System.Collections.Generic;
+
+public partial class Department
 {
-    using System;
-    using System.Collections.Generic;
-    
-    public partial class Department
-    {
-        public string ID { get; set; }
-        public string DepartmentName { get; set; }
-        public string DepartmentHead { get; set; }
-    }
+    public string ID { get; set; }
+    public string DeptName { get; set; }
+    public string DeptHeader { get; set; }
 }

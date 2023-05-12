@@ -18,8 +18,8 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="DepartmentName" Type="nvarchar" MaxLength="100" />
-          <Property Name="DepartmentHead" Type="varchar" MaxLength="20" />
+          <Property Name="DeptName" Type="nvarchar" MaxLength="100" />
+          <Property Name="DeptHeader" Type="varchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="Employees">
           <Key>
@@ -33,19 +33,8 @@
           <Property Name="Email" Type="varchar" MaxLength="50" />
           <Property Name="PhoneNumber" Type="varchar" MaxLength="10" />
           <Property Name="EmployeeAddress" Type="nvarchar" MaxLength="255" />
-          <Property Name="BaseSalary" Type="decimal" Precision="19" Scale="4" />
           <Property Name="DepartmentID" Type="varchar" MaxLength="20" />
           <Property Name="RoleID" Type="varchar" MaxLength="20" />
-        </EntityType>
-        <EntityType Name="KPIs">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="MonthYear" Type="date" />
-          <Property Name="RequiredTasksCount" Type="int" />
-          <Property Name="ActualTasksCount" Type="int" />
-          <Property Name="EmployeeID" Type="varchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="LeaveRequests">
           <Key>
@@ -57,16 +46,10 @@
           <Property Name="CreatedDate" Type="date" />
           <Property Name="StartDate" Type="date" />
           <Property Name="EndDate" Type="date" />
-          <Property Name="StatusID" Type="varchar" MaxLength="20" />
+          <Property Name="StatusID" Type="int" />
           <Property Name="EmployeeID" Type="varchar" MaxLength="20" />
           <Property Name="ApproverID" Type="varchar" MaxLength="20" />
-        </EntityType>
-        <EntityType Name="LeaveStatuses">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="StatusName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Response" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="Milestones">
           <Key>
@@ -83,10 +66,10 @@
         </EntityType>
         <EntityType Name="MileTasks">
           <Key>
-            <PropertyRef Name="ID" />
+            <PropertyRef Name="MileID" />
             <PropertyRef Name="TaskID" />
           </Key>
-          <Property Name="ID" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="MileID" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="TaskID" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
         <EntityType Name="ProjectAssignments">
@@ -119,23 +102,18 @@
           <Property Name="EndDate" Type="smalldatetime" />
           <Property Name="CompletedDate" Type="smalldatetime" />
           <Property Name="Progress" Type="varchar" MaxLength="4" />
-          <Property Name="StatusID" Type="varchar" MaxLength="10" />
+          <Property Name="StatusID" Type="int" />
           <Property Name="OwnerID" Type="varchar" MaxLength="20" />
           <Property Name="BonusSalary" Type="decimal" Precision="19" Scale="4" />
-        </EntityType>
-        <EntityType Name="ProjectStatuses">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="StatusName" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Roles">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="PermsID" Type="int" />
           <Property Name="Title" Type="nvarchar" MaxLength="50" />
+          <Property Name="BaseSalary" Type="decimal" Precision="19" Scale="4" />
         </EntityType>
         <EntityType Name="SalaryRecords">
           <Key>
@@ -171,14 +149,7 @@
           <Property Name="OwnerID" Type="varchar" MaxLength="20" />
           <Property Name="EmployeeID" Type="varchar" MaxLength="20" />
           <Property Name="ProjectID" Type="varchar" MaxLength="20" />
-          <Property Name="StatusID" Type="varchar" MaxLength="10" />
-        </EntityType>
-        <EntityType Name="TaskStatuses">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="StatusName" Type="nvarchar" MaxLength="50" />
+          <Property Name="StatusID" Type="int" />
         </EntityType>
         <EntityType Name="TimeSheets">
           <Key>
@@ -194,20 +165,16 @@
           <EntitySet Name="Accounts" EntityType="Self.Accounts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Departments" EntityType="Self.Departments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="KPIs" EntityType="Self.KPIs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LeaveRequests" EntityType="Self.LeaveRequests" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="LeaveStatuses" EntityType="Self.LeaveStatuses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Milestones" EntityType="Self.Milestones" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MileTasks" EntityType="Self.MileTasks" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProjectAssignments" EntityType="Self.ProjectAssignments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProjectBonuses" EntityType="Self.ProjectBonuses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Projects" EntityType="Self.Projects" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ProjectStatuses" EntityType="Self.ProjectStatuses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SalaryRecords" EntityType="Self.SalaryRecords" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TaskCheckOuts" EntityType="Self.TaskCheckOuts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tasks" EntityType="Self.Tasks" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="TaskStatuses" EntityType="Self.TaskStatuses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TimeSheets" EntityType="Self.TimeSheets" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema>
@@ -228,8 +195,8 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="DepartmentName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="DepartmentHead" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="DeptName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DeptHeader" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
@@ -243,19 +210,8 @@
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="PhoneNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="EmployeeAddress" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="BaseSalary" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="DepartmentID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="RoleID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="KPI">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="MonthYear" Type="DateTime" Precision="0" />
-          <Property Name="RequiredTasksCount" Type="Int32" />
-          <Property Name="ActualTasksCount" Type="Int32" />
-          <Property Name="EmployeeID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="LeaveRequest">
           <Key>
@@ -267,16 +223,10 @@
           <Property Name="CreatedDate" Type="DateTime" Precision="0" />
           <Property Name="StartDate" Type="DateTime" Precision="0" />
           <Property Name="EndDate" Type="DateTime" Precision="0" />
-          <Property Name="StatusID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="StatusID" Type="Int32" />
           <Property Name="EmployeeID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="ApproverID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="LeaveStatus">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="StatusName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Response" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Milestone">
           <Key>
@@ -293,10 +243,10 @@
         </EntityType>
         <EntityType Name="MileTask">
           <Key>
-            <PropertyRef Name="ID" />
+            <PropertyRef Name="MileID" />
             <PropertyRef Name="TaskID" />
           </Key>
-          <Property Name="ID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MileID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="TaskID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
         <EntityType Name="ProjectAssignment">
@@ -329,23 +279,18 @@
           <Property Name="EndDate" Type="DateTime" Precision="0" />
           <Property Name="CompletedDate" Type="DateTime" Precision="0" />
           <Property Name="Progress" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
-          <Property Name="StatusID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="StatusID" Type="Int32" />
           <Property Name="OwnerID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="BonusSalary" Type="Decimal" Precision="19" Scale="4" />
-        </EntityType>
-        <EntityType Name="ProjectStatus">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="StatusName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PermsID" Type="Int32" />
           <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BaseSalary" Type="Decimal" Precision="19" Scale="4" />
         </EntityType>
         <EntityType Name="SalaryRecord">
           <Key>
@@ -381,14 +326,7 @@
           <Property Name="OwnerID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="EmployeeID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="ProjectID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="StatusID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="TaskStatus">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="StatusName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StatusID" Type="Int32" />
         </EntityType>
         <EntityType Name="TimeSheet">
           <Key>
@@ -404,20 +342,16 @@
           <EntitySet Name="Accounts" EntityType="Self.Account" />
           <EntitySet Name="Departments" EntityType="Self.Department" />
           <EntitySet Name="Employees" EntityType="Self.Employee" />
-          <EntitySet Name="KPIs" EntityType="Self.KPI" />
           <EntitySet Name="LeaveRequests" EntityType="Self.LeaveRequest" />
-          <EntitySet Name="LeaveStatuses" EntityType="Self.LeaveStatus" />
           <EntitySet Name="Milestones" EntityType="Self.Milestone" />
           <EntitySet Name="MileTasks" EntityType="Self.MileTask" />
           <EntitySet Name="ProjectAssignments" EntityType="Self.ProjectAssignment" />
           <EntitySet Name="ProjectBonuses" EntityType="Self.ProjectBonus" />
           <EntitySet Name="Projects" EntityType="Self.Project" />
-          <EntitySet Name="ProjectStatuses" EntityType="Self.ProjectStatus" />
           <EntitySet Name="Roles" EntityType="Self.Role" />
           <EntitySet Name="SalaryRecords" EntityType="Self.SalaryRecord" />
           <EntitySet Name="TaskCheckOuts" EntityType="Self.TaskCheckOut" />
           <EntitySet Name="Tasks" EntityType="Self.Task" />
-          <EntitySet Name="TaskStatuses" EntityType="Self.TaskStatus" />
           <EntitySet Name="TimeSheets" EntityType="Self.TimeSheet" />
         </EntityContainer>
       </Schema>
@@ -439,8 +373,8 @@
             <EntityTypeMapping TypeName="CompanyManagementModel.Department">
               <MappingFragment StoreEntitySet="Departments">
                 <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
-                <ScalarProperty Name="DepartmentHead" ColumnName="DepartmentHead" />
+                <ScalarProperty Name="DeptName" ColumnName="DeptName" />
+                <ScalarProperty Name="DeptHeader" ColumnName="DeptHeader" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -455,20 +389,8 @@
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
                 <ScalarProperty Name="EmployeeAddress" ColumnName="EmployeeAddress" />
-                <ScalarProperty Name="BaseSalary" ColumnName="BaseSalary" />
                 <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
                 <ScalarProperty Name="RoleID" ColumnName="RoleID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="KPIs">
-            <EntityTypeMapping TypeName="CompanyManagementModel.KPI">
-              <MappingFragment StoreEntitySet="KPIs">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="MonthYear" ColumnName="MonthYear" />
-                <ScalarProperty Name="RequiredTasksCount" ColumnName="RequiredTasksCount" />
-                <ScalarProperty Name="ActualTasksCount" ColumnName="ActualTasksCount" />
-                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -484,14 +406,7 @@
                 <ScalarProperty Name="StatusID" ColumnName="StatusID" />
                 <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
                 <ScalarProperty Name="ApproverID" ColumnName="ApproverID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="LeaveStatuses">
-            <EntityTypeMapping TypeName="CompanyManagementModel.LeaveStatus">
-              <MappingFragment StoreEntitySet="LeaveStatuses">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+                <ScalarProperty Name="Response" ColumnName="Response" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -512,7 +427,7 @@
           <EntitySetMapping Name="MileTasks">
             <EntityTypeMapping TypeName="CompanyManagementModel.MileTask">
               <MappingFragment StoreEntitySet="MileTasks">
-                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="MileID" ColumnName="MileID" />
                 <ScalarProperty Name="TaskID" ColumnName="TaskID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -553,19 +468,13 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ProjectStatuses">
-            <EntityTypeMapping TypeName="CompanyManagementModel.ProjectStatus">
-              <MappingFragment StoreEntitySet="ProjectStatuses">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="StatusName" ColumnName="StatusName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Roles">
             <EntityTypeMapping TypeName="CompanyManagementModel.Role">
               <MappingFragment StoreEntitySet="Roles">
                 <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="PermsID" ColumnName="PermsID" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="BaseSalary" ColumnName="BaseSalary" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -604,14 +513,6 @@
                 <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
                 <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
                 <ScalarProperty Name="StatusID" ColumnName="StatusID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TaskStatuses">
-            <EntityTypeMapping TypeName="CompanyManagementModel.TaskStatus">
-              <MappingFragment StoreEntitySet="TaskStatuses">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="StatusName" ColumnName="StatusName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

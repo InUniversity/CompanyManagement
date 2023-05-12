@@ -7,14 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CompanyManagement.Entity
+using System;
+using System.Collections.Generic;
+
+public partial class MileTask
 {
-    using System;
-    using System.Collections.Generic;
-    
-    public partial class MileTask
-    {
-        public string ID { get; set; }
-        public string TaskID { get; set; }
-    }
+    public string MileID { get; set; }
+    public string TaskID { get; set; }
 }

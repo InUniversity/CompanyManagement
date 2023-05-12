@@ -7,17 +7,14 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CompanyManagement.Entity
+using System;
+using System.Collections.Generic;
+
+public partial class ProjectBonus
 {
-    using System;
-    using System.Collections.Generic;
-    
-    public partial class ProjectBonus
-    {
-        public string ID { get; set; }
-        public Nullable<decimal> Amount { get; set; }
-        public Nullable<System.DateTime> ReceivedDate { get; set; }
-        public string EmployeeID { get; set; }
-        public string ProjectID { get; set; }
-    }
+    public string ID { get; set; }
+    public Nullable<decimal> Amount { get; set; }
+    public Nullable<System.DateTime> ReceivedDate { get; set; }
+    public string EmployeeID { get; set; }
+    public string ProjectID { get; set; }
 }

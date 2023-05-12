@@ -7,21 +7,19 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CompanyManagement.Entity
+using System;
+using System.Collections.Generic;
+
+public partial class LeaveRequest
 {
-    using System;
-    using System.Collections.Generic;
-    
-    public partial class LeaveRequest
-    {
-        public string ID { get; set; }
-        public string Reason { get; set; }
-        public string Notes { get; set; }
-        public Nullable<System.DateTime> CreatedDate { get; set; }
-        public Nullable<System.DateTime> StartDate { get; set; }
-        public Nullable<System.DateTime> EndDate { get; set; }
-        public string StatusID { get; set; }
-        public string EmployeeID { get; set; }
-        public string ApproverID { get; set; }
-    }
+    public string ID { get; set; }
+    public string Reason { get; set; }
+    public string Notes { get; set; }
+    public Nullable<System.DateTime> CreatedDate { get; set; }
+    public Nullable<System.DateTime> StartDate { get; set; }
+    public Nullable<System.DateTime> EndDate { get; set; }
+    public Nullable<int> StatusID { get; set; }
+    public string EmployeeID { get; set; }
+    public string ApproverID { get; set; }
+    public string Response { get; set; }
 }

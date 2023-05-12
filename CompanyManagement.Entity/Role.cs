@@ -7,14 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CompanyManagement.Entity
+using System;
+using System.Collections.Generic;
+
+public partial class Role
 {
-    using System;
-    using System.Collections.Generic;
-    
-    public partial class Role
-    {
-        public string ID { get; set; }
-        public string Title { get; set; }
-    }
+    public string ID { get; set; }
+    public Nullable<int> PermsID { get; set; }
+    public string Title { get; set; }
+    public Nullable<decimal> BaseSalary { get; set; }
 }

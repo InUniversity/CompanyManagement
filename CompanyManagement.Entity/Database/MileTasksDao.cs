@@ -21,7 +21,7 @@ namespace CompanyManagement.Entity.Database
         {
             using (var db = new CompanyManagementContext())
             {
-                var mile = db.MileTasks.SingleOrDefault(m => m.ID == mileTsk.ID && m.TaskID == mileTsk.TaskID);
+                var mile = db.MileTasks.SingleOrDefault(m => m.MileID == mileTsk.MileID && m.TaskID == mileTsk.TaskID);
                 if (mile == null) return;
                 db.MileTasks.Remove(mile);
                 db.SaveChanges();
@@ -32,7 +32,7 @@ namespace CompanyManagement.Entity.Database
         {
             using (var db = new CompanyManagementContext())
             {
-                var mile = db.MileTasks.SingleOrDefault(m => m.ID == mileID);
+                var mile = db.MileTasks.SingleOrDefault(m => m.MileID == mileID);
                 if (mile == null) return;
                 db.MileTasks.Remove(mile);
                 db.SaveChanges();
@@ -43,7 +43,7 @@ namespace CompanyManagement.Entity.Database
         {
             using (var db = new CompanyManagementContext())
             {
-                var mileTasks = from m in db.MileTasks where m.ID == mileID select m;
+                var mileTasks = from m in db.MileTasks where m.MileID == mileID select m;
                 var query = from t in db.Tasks 
                             join m in mileTasks on t.ID equals m.TaskID select t;
                 return query.ToList();
@@ -54,7 +54,7 @@ namespace CompanyManagement.Entity.Database
         {
             using (var db = new CompanyManagementContext())
             {
-                var mileTasks = from m in db.MileTasks where m.ID == mileID select m;
+                var mileTasks = from m in db.MileTasks where m.MileID == mileID select m;
                 var query = from t in db.Tasks
                             join mt in mileTasks on t.ID equals mt.TaskID
                             where t.Progress == completed

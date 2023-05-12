@@ -7,23 +7,34 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CompanyManagement.Entity
+using System;
+using System.Collections.Generic;
+
+public partial class Employee
 {
-    using System;
-    using System.Collections.Generic;
-    
-    public partial class Employee
+    public string ID { get; set; }
+    public string FullName { get; set; }
+    public string Gender { get; set; }
+    public Nullable<System.DateTime> Birthday { get; set; }
+    public string IdentifyCard { get; set; }
+    public string Email { get; set; }
+    public string PhoneNumber { get; set; }
+    public string EmployeeAddress { get; set; }
+    public string DepartmentID { get; set; }
+    public string RoleID { get; set; }
+
+    public Employee(string id, string name, string gender, DateTime birthday, string identifyCard, string email, 
+        string phoneNumber, string address, string departmentID, string roleID)
     {
-        public string ID { get; set; }
-        public string FullName { get; set; }
-        public string Gender { get; set; }
-        public Nullable<System.DateTime> Birthday { get; set; }
-        public string IdentifyCard { get; set; }
-        public string Email { get; set; }
-        public string PhoneNumber { get; set; }
-        public string EmployeeAddress { get; set; }
-        public Nullable<decimal> BaseSalary { get; set; }
-        public string DepartmentID { get; set; }
-        public string RoleID { get; set; }
+        ID = id;
+        FullName = name;
+        Gender = gender;
+        Birthday = birthday;
+        IdentifyCard = identifyCard;
+        Email = email;
+        PhoneNumber = phoneNumber;
+        EmployeeAddress = address;
+        DepartmentID = departmentID;
+        RoleID = roleID; 
     }
 }

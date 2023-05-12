@@ -7,16 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CompanyManagement.Entity
+using System;
+using System.Collections.Generic;
+
+public partial class TaskCheckOut
 {
-    using System;
-    using System.Collections.Generic;
-    
-    public partial class TaskCheckOut
-    {
-        public System.DateTime UpdateDate { get; set; }
-        public string Progress { get; set; }
-        public string TimeSheetID { get; set; }
-        public string TaskID { get; set; }
-    }
+    public System.DateTime UpdateDate { get; set; }
+    public string Progress { get; set; }
+    public string TimeSheetID { get; set; }
+    public string TaskID { get; set; }
 }

@@ -6,8 +6,6 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{C2F20BDF-3EA7-4EC6-8B01-29AEB79B5257}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>CompanyManagement.Entity</RootNamespace>
-    <AssemblyName>CompanyManagement.Entity</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -64,7 +62,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Account.cs" />
+    <Compile Include="Account.cs">
+      <DependentUpon>CompanyManagement.tt</DependentUpon>
+    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -73,6 +73,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CompanyManagement.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CompanyManagement.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CompanyManagement.tt</DependentUpon>
     </Compile>
     <Compile Include="CompanyManagement.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -92,26 +97,48 @@
     <Compile Include="Database\TasksDao.cs" />
     <Compile Include="Database\TimeSheetsDao.cs" />
     <Compile Include="Database\BaseDao.cs" />
-    <Compile Include="Project.cs" />
-    <Compile Include="ProjectAssignment.cs" />
-    <Compile Include="ProjectBonus.cs" />
-    <Compile Include="ProjectStatus.cs" />
-    <Compile Include="Role.cs" />
-    <Compile Include="SalaryRecord.cs" />
-    <Compile Include="Task.cs" />
-    <Compile Include="TaskCheckOut.cs" />
-    <Compile Include="TaskStatus.cs" />
-    <Compile Include="TimeSheet.cs" />
+    <Compile Include="Department.cs">
+      <DependentUpon>CompanyManagement.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Employee.cs">
+      <DependentUpon>CompanyManagement.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LeaveRequest.cs">
+      <DependentUpon>CompanyManagement.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Milestone.cs">
+      <DependentUpon>CompanyManagement.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MileTask.cs">
+      <DependentUpon>CompanyManagement.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Project.cs">
+      <DependentUpon>CompanyManagement.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectAssignment.cs">
+      <DependentUpon>CompanyManagement.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectBonus.cs">
+      <DependentUpon>CompanyManagement.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Role.cs">
+      <DependentUpon>CompanyManagement.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SalaryRecord.cs">
+      <DependentUpon>CompanyManagement.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Task.cs">
+      <DependentUpon>CompanyManagement.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TaskCheckOut.cs">
+      <DependentUpon>CompanyManagement.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TimeSheet.cs">
+      <DependentUpon>CompanyManagement.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Database\EmployeesDao.cs" />
-    <Compile Include="Department.cs" />
-    <Compile Include="Employee.cs" />
-    <Compile Include="KPI.cs" />
-    <Compile Include="LeaveRequest.cs" />
-    <Compile Include="LeaveStatus.cs" />
-    <Compile Include="Milestone.cs" />
-    <Compile Include="MileTask.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -146,13 +173,19 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="CompanyManagement.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>CompanyManagement.Context.cs</LastGenOutput>
-    </Content>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+    <Content Include="CompanyManagement.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CompanyManagement.edmx</DependentUpon>
+      <LastGenOutput>CompanyManagement.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="CompanyManagement.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CompanyManagement.edmx</DependentUpon>
+      <LastGenOutput>CompanyManagement.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

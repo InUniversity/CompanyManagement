@@ -7,20 +7,17 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CompanyManagement.Entity
+using System;
+using System.Collections.Generic;
+
+public partial class Milestone
 {
-    using System;
-    using System.Collections.Generic;
-    
-    public partial class Milestone
-    {
-        public string ID { get; set; }
-        public string Title { get; set; }
-        public string Explanation { get; set; }
-        public Nullable<System.DateTime> StartDate { get; set; }
-        public Nullable<System.DateTime> EndDate { get; set; }
-        public Nullable<System.DateTime> CompletedDate { get; set; }
-        public string OwnerID { get; set; }
-        public string ProjectID { get; set; }
-    }
+    public string ID { get; set; }
+    public string Title { get; set; }
+    public string Explanation { get; set; }
+    public Nullable<System.DateTime> StartDate { get; set; }
+    public Nullable<System.DateTime> EndDate { get; set; }
+    public Nullable<System.DateTime> CompletedDate { get; set; }
+    public string OwnerID { get; set; }
+    public string ProjectID { get; set; }
 }

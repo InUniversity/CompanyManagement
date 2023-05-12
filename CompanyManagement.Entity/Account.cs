@@ -7,15 +7,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CompanyManagement.Entity
+using System;
+using System.Collections.Generic;
+
+public partial class Account
 {
-    using System;
-    using System.Collections.Generic;
-    
-    public partial class Account
-    {
-        public string Username { get; set; }
-        public string PasswordHash { get; set; }
-        public string EmployeeID { get; set; }
-    }
+    public string Username { get; set; }
+    public string PasswordHash { get; set; }
+    public string EmployeeID { get; set; }
 }

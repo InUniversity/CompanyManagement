@@ -70,6 +70,13 @@ namespace CompanyManagementTest.Database
         }
         
         [Test]
+        public void GetHeaderDepts_Found()
+        {
+            var list = myDao.GetHeaderDepts();
+            Assert.AreEqual(4, list.Count);
+        }
+        
+        [Test]
         public void SearchByIdentifyCard_Found()
         {
             var expected = new Employee("EM001", "Nguyễn Văn An", "Nam", 

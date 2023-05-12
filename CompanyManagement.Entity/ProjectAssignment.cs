@@ -7,14 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CompanyManagement.Entity
+using System;
+using System.Collections.Generic;
+
+public partial class ProjectAssignment
 {
-    using System;
-    using System.Collections.Generic;
-    
-    public partial class ProjectAssignment
-    {
-        public string ProjectID { get; set; }
-        public string DepartmentID { get; set; }
-    }
+    public string ProjectID { get; set; }
+    public string DepartmentID { get; set; }
 }
