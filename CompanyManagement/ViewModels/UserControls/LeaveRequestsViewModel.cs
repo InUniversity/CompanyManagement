@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
+using CompanyManagement.Enums;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
@@ -91,7 +92,7 @@ namespace CompanyManagement.ViewModels.UserControls
         {
             LeaveRequests = leaveDao.GetMyRequests(currentEmployee.ID);
 
-            var receivedLeaveRequests = (currentEmployee.EmplRole.Perms == Permission.HR)
+            var receivedLeaveRequests = (currentEmployee.EmplRole.Perms == EPermission.HR)
                 ? leaveDao.SearchByApproverID(currentEmployee.ID)
                 : leaveDao.GetMyRequests(currentEmployee.ID);
             foreach (LeaveRequest leave in receivedLeaveRequests)

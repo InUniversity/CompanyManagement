@@ -4,7 +4,7 @@ using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Input;
 using CompanyManagement.Database;
-using CompanyManagement.Database.Base;
+using CompanyManagement.Enums;
 using CompanyManagement.Models;
 using CompanyManagement.Utilities;
 using CompanyManagement.ViewModels.Base;
@@ -80,7 +80,7 @@ namespace CompanyManagement.ViewModels.UserControls
         {
             var allEmpls = employeesDao.GetAllWithoutManagers();
             var deptHeadList = from e in allEmpls 
-                where e.EmplRole.Perms == Permission.DepHead && (e.DepartmentID == "" || e.DepartmentID == DeptIns.ID)
+                where e.EmplRole.Perms == EPermission.DepHead && (e.DepartmentID == "" || e.DepartmentID == DeptIns.ID)
                 select e;
             GetRoleForListEmployees(deptHeadList.ToList());
             employeesCanbeDeptHead = new List<Employee>(deptHeadList.ToList());

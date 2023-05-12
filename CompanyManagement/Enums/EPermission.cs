@@ -1,8 +1,8 @@
 using System.ComponentModel;
 
-namespace CompanyManagement.Models
+namespace CompanyManagement.Enums
 {
-    public enum Permission
+    public enum EPermission
     {
         [Description("Manager")]
         Mgr,

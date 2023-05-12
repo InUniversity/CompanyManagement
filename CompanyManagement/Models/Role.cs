@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using CompanyManagement.Database.Base;
+using CompanyManagement.Enums;
 using CompanyManagement.Utilities;
 
 namespace CompanyManagement.Models
@@ -8,7 +9,7 @@ namespace CompanyManagement.Models
     public class Role
     {
         private string id;
-        private Permission perms;
+        private EPermission perms;
         private string title;
         private decimal salary;
 
@@ -18,7 +19,7 @@ namespace CompanyManagement.Models
             set => id = value;
         }
 
-        public Permission Perms
+        public EPermission Perms
         {
             get => perms;
             set => perms = value;
@@ -44,7 +45,7 @@ namespace CompanyManagement.Models
             {
                 id = Utils.GetString(record, BaseDao.roleID);
                 string permsStr = Utils.GetString(record, BaseDao.rolePerms);
-                perms = Enum.TryParse(permsStr, out Permission per) ? per : Permission.NotAllow;
+                perms = Enum.TryParse(permsStr, out EPermission per) ? per : EPermission.NotAllow;
                 title = Utils.GetString(record, BaseDao.roleTitle);
                 salary = Utils.GetDecimal(record, BaseDao.roleSalary);
             }

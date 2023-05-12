@@ -6,9 +6,7 @@ using CompanyManagement.Database;
 using CompanyManagement.Views.Dialogs;
 using CompanyManagement.ViewModels.Base;
 using CompanyManagement.Services;
-using CompanyManagement.Models;
-using CompanyManagement.Database.Base;
-using CompanyManagement.Views.UserControls;
+using CompanyManagement.Enums;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
@@ -41,7 +39,7 @@ namespace CompanyManagement.ViewModels.UserControls
         {
             var listAllEmpl = employeesDao.GetAllWithoutManagers();
             var listItem = from empl in listAllEmpl 
-                           where empl.DepartmentID == "" && empl.EmplRole.Perms != Permission.HR
+                           where empl.DepartmentID == "" && empl.EmplRole.Perms != EPermission.HR
                            select empl;
             GetRoleForListEmployees(listItem.ToList());
             employees = listItem.ToList();

@@ -9,6 +9,7 @@ using System.Windows;
 using CompanyManagement.Database.Base;
 using CompanyManagement.Services;
 using System.Linq;
+using CompanyManagement.Enums;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
@@ -53,7 +54,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void LoadTaskInProjects()
         {
-            TasksInProject = string.Equals(currentEmployee.EmplRole.Perms, Permission.NorEmpl)
+            TasksInProject = string.Equals(currentEmployee.EmplRole.Perms, EPermission.NorEmpl)
                ? tasksDao.SearchByEmployeeID(projectID, currentEmployee.ID)
                : tasksDao.SearchByProjectID(projectID);
             foreach (var task in TasksInProject)
@@ -76,7 +77,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void SetVisible()
         {
-            if (currentEmployee.EmplRole.Perms != Permission.NorEmpl)
+            if (currentEmployee.EmplRole.Perms != EPermission.NorEmpl)
             {
                 visibleDeleteButton = Visibility.Visible;
             }
@@ -96,7 +97,7 @@ namespace CompanyManagement.ViewModels.UserControls
         public void ReceiveProjectID(string projectID)
         {
             this.projectID = projectID;
-            var tasks = currentEmployee.EmplRole.Perms == Permission.NorEmpl
+            var tasks = currentEmployee.EmplRole.Perms == EPermission.NorEmpl
                 ? tasksDao.SearchByEmployeeID(projectID, currentEmployee.ID)
                 : tasksDao.SearchByProjectID(projectID);
             TasksInProject = tasks;
