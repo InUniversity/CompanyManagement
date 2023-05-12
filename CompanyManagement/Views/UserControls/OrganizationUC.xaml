@@ -34,6 +34,7 @@
                     Height="40"
                     Width="300"
                     Margin="4"         
+                    Visibility="{Binding VisibilityEmployees}"
                     IsChecked="{Binding ElementName=organizationUC, Path=DataContext.StatusEmployeesView}"
                     Command="{Binding ElementName=organizationUC, Path=DataContext.ShowEmployeesViewCommand}"
                     BorderBrush="{DynamicResource PrimaryHueMidBrush}"

@@ -3,6 +3,8 @@ using CompanyManagement.Views.UserControls;
 using System.Windows.Controls;
 using System.Windows.Input;
 using CompanyManagement.Utilities;
+using System.Windows;
+using CompanyManagement.Models;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
@@ -45,12 +47,22 @@ namespace CompanyManagement.ViewModels.UserControls
         private bool statusWidgetsView = false;
         public bool StatusWidgetsView { get => statusWidgetsView; set { statusWidgetsView = value; OnPropertyChanged(); } }
 
+        private Visibility visibilityBonusProj;
+        public Visibility VisibilityBonusProj { get => visibilityBonusProj; set { visibilityBonusProj = value; OnPropertyChanged(); } }
+
         public INavigateAssignmentView ParentDataContext { get; set; }
 
         public ProjectDetailsViewModel()
         {
             SetCommands();
+            SetVisibilityViewBonusProj();
         }
+
+        private void SetVisibilityViewBonusProj()
+        {
+            VisibilityBonusProj = CurrentUser.Ins.EmployeeIns.EmplRole.Perms == Enums.EPermission.Mgr ? Visibility.Visible : Visibility.Collapsed;
+        }
+
 
         private void SetCommands()
         {

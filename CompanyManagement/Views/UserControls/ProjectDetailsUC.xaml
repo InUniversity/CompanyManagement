@@ -36,7 +36,8 @@
                     <TextBlock Text="Nhiệm vụ" Margin="30 0"></TextBlock>
                 </RadioButton>
                 <RadioButton
-                            Margin="4"     
+                            Margin="4"   
+                            Visibility="{Binding VisibilityBonusProj}"
                             IsChecked="{Binding ElementName=projectDetailsUC, Path=DataContext.StatusProjectBonusesView}"
                             Command="{Binding ElementName=projectDetailsUC, Path=DataContext.ShowProjectBonusesCommand}"
                             BorderBrush="{DynamicResource PrimaryHueMidBrush}"
