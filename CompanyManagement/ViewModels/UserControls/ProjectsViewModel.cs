@@ -81,6 +81,9 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private ProjectsDao projectsDao = new ProjectsDao();
         private ProjectAssignmentsDao assignmentsDao = new ProjectAssignmentsDao();
+        private TasksDao tasksDao = new TasksDao();
+        private ProjectBonusesDao projBonusDao = new ProjectBonusesDao();
+        private MilestonesDao milestonesDao = new MilestonesDao();
         private Employee currentEmployee = CurrentUser.Ins.EmployeeIns;
 
         private List<Department> departmentsBeforeChange;
@@ -156,10 +159,19 @@ namespace CompanyManagement.ViewModels.UserControls
                 "Bạn chắc chắn muỗn xóa dự án này ?",
                 () =>
                 { 
-                    projectsDao.Delete(id); 
+                    projectsDao.Delete(id);
+                    DeleteProjectDependencies(id);
                     LoadProjects();
                 }, null);
             dialog.Show();
+        }
+
+        private void DeleteProjectDependencies(string projID)
+        {
+            assignmentsDao.DeleteByProjID(projID);
+            tasksDao.DeleteByProjID(projID);
+            projBonusDao.DeleteProjID(projID);
+            milestonesDao.DeleteProjID(projID);
         }
 
         private void OpenUpdateProjectDialog(Project project)
