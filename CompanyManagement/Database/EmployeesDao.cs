@@ -46,7 +46,7 @@ namespace CompanyManagement.Database
         public List<Employee> GetAllWithoutManagers()
         {
             string sqlStr = $"SELECT E.* FROM {emplTbl} E JOIN {roleTbl} R ON E.{emplRoleID} = R.{roleID} " +
-                            $"WHERE R.{rolePerms} != '{EPermission.Mgr}'";
+                            $"WHERE R.{rolePerms} != '{(int)EPermission.Mgr}'";
             return dbConnection.GetList(sqlStr, reader => new Employee(reader));
         }
 
@@ -68,10 +68,10 @@ namespace CompanyManagement.Database
             return (Employee)dbConnection.GetSingleObject(sqlStr, reader => new Employee(reader));
         }
 
-        public List<Employee> GetHeaderDepts()
+        public List<Employee> GetRequestApprovers()
         {
             string sqlStr = $"SELECT E.* FROM {emplTbl} E JOIN {roleTbl} R ON E.{emplRoleID} = R.{roleID} " +
-                            $"WHERE R.{rolePerms} = '{EPermission.HR}'";
+                            $"WHERE R.{rolePerms} = '{(int)EPermission.HR}'";
             return dbConnection.GetList(sqlStr, reader => new Employee(reader));
         }
 

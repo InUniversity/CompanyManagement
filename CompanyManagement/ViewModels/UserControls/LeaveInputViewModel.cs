@@ -77,7 +77,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void LoadApprovers()
         {
-            approvers = employeesDao.GetHeaderDepts();
+            approvers = employeesDao.GetRequestApprovers();
             foreach(Employee header in approvers)
             {
                 header.EmplRole = rolesDao.SearchByID(header.RoleID);
