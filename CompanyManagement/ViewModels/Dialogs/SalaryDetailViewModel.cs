@@ -30,7 +30,6 @@ namespace CompanyManagement.ViewModels.Dialogs
 
         private ProjectBonusesDao projectBonusesDao = new ProjectBonusesDao();
         private LeaveRequestsDao leaveRequestsDao = new LeaveRequestsDao();
-        private LeaveStatusesDao leaveStatusesDao = new LeaveStatusesDao();
 
         public SalaryDetailViewModel()
         {
@@ -47,14 +46,7 @@ namespace CompanyManagement.ViewModels.Dialogs
         {
             var listRequests = leaveRequestsDao.GetMyRequests(EmployeeID);
             var listItem = from request in listRequests /*where request.Start.Month == MonthYear.Month*/  select request;
-            GetStatusForListLeaveRequest(listItem.ToList());
             LeaveRequests = listItem.ToList();
-        }
-
-        private void GetStatusForListLeaveRequest(List<LeaveRequest>leaveRequests)
-        {
-            foreach (var leaveRequest in leaveRequests)
-                leaveRequest.Status = leaveStatusesDao.SearchByID(leaveRequest.ID);
         }
     }
 }

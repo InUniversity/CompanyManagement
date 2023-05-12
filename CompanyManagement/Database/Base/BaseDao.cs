@@ -5,20 +5,6 @@ namespace CompanyManagement.Database.Base
     public abstract class BaseDao
     {
         public const string completed = "100";
-        public const string leavRequestUpapproved = "LS2";
-        public const string leavRequesApproved = "LS1";
-        public const string leavRequesDenied = "LS3";
-        public const string projRunningID = "PST1";
-        public const string projCompletedID = "PST2";
-        public const string projOverdueID = "PST3";
-        public const string projPendingPayID = "PST4";
-        public const string projInProgressID = "PST5";
-
-        public const string completedTask = "TS2";
-        public const string overdueTask = "TS3";
-        public const string underConsiderableTask = "TS4";
-        public const string ongoingTask = "TS1";
-        public const string cancelTask = "TS5";
 
         protected const string deptTbl = "Departments";
         public const string deptID = "ID";
@@ -27,7 +13,7 @@ namespace CompanyManagement.Database.Base
 
         protected const string roleTbl = "Roles";
         public const string roleID = "ID";
-        public const string rolePerms = "Perms";
+        public const string rolePerms = "PermsID";
         public const string roleTitle = "Title";
         public const string roleSalary = "BaseSalary";
 
@@ -48,10 +34,6 @@ namespace CompanyManagement.Database.Base
         public const string accPass = "PasswordHash";
         public const string accEmplID = "EmployeeID";
         
-        protected const string projStasTbl = "ProjectStatuses";
-        public const string projStasID = "ID";
-        public const string projStasName = "StatusName";
-
         protected const string projTbl = "Projects";
         public const string projID = "ID";
         public const string projName = "ProjectName";
@@ -69,10 +51,6 @@ namespace CompanyManagement.Database.Base
         public const string projAssignID = "ProjectID";
         public const string projAssignDeptID = "DepartmentID";
 
-        protected const string taskStasTbl = "TaskStatuses";
-        public const string taskStasID = "ID";
-        public const string taskStasName = "StatusName";
-
         protected const string taskTbl = "Tasks";
         public const string taskID = "ID";
         public const string taskTitle = "Title";
@@ -85,10 +63,6 @@ namespace CompanyManagement.Database.Base
         public const string taskProjID = "ProjectID";
         public const string taskStatusID = "StatusID";
 
-        protected const string leavStasTbl = "LeaveStatuses";
-        public const string leavStasID = "ID";
-        public const string leavStasName = "StatusName";
-        
         protected const string leavTbl = "LeaveRequests";
         public const string leavID = "ID";
         public const string leavReason = "Reason";

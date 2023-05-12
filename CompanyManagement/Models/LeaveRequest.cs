@@ -4,6 +4,7 @@ using System;
 using System.Data;
 using CompanyManagement.Database;
 using System.Windows.Media;
+using CompanyManagement.Enums;
 
 namespace CompanyManagement.Models
 {
@@ -15,13 +16,12 @@ namespace CompanyManagement.Models
         private DateTime created = DateTime.Now;
         private DateTime start = DateTime.Now;
         private DateTime end = DateTime.Now;
-        private string statusID = "";
+        private ELeavStatus status = ELeavStatus.Unapproved;
         private string requesterID = "";
         private string approverID = "";
         private string response = "";
         private Employee approver = new Employee();
         private Employee requester = new Employee();
-        private LeaveStatus status = new LeaveStatus();
 
         public string ID
         {
@@ -59,10 +59,10 @@ namespace CompanyManagement.Models
             set => end = value;
         }
 
-        public string StatusID
+        public ELeavStatus Status
         {
-            get => statusID;
-            set => statusID = value;
+            get => status;
+            set => status = value;
         }
 
         public string RequesterID
@@ -103,21 +103,15 @@ namespace CompanyManagement.Models
             set => requester = value;
         }
 
-        public LeaveStatus Status
-        {
-            get => status;
-            set => status = value;
-        }
-
         public LeaveRequest() { }
 
-        public LeaveRequest(string id, string reason, string notes, string statusID, 
+        public LeaveRequest(string id, string reason, string notes, ELeavStatus status, 
             string requesterID, string approverID, string response)
         {
             this.id = id;
             this.reason = reason;
             this.notes = notes;
-            this.statusID = statusID;
+            this.status = status;
             this.requesterID = requesterID;
             this.approverID = approverID;
             this.response = response;
@@ -133,7 +127,7 @@ namespace CompanyManagement.Models
                 created = Utils.GetDateTime(record, BaseDao.leavCreated);
                 start = Utils.GetDateTime(record, BaseDao.leavStart);
                 end = Utils.GetDateTime(record, BaseDao.leavEnd);
-                statusID = Utils.GetString(record, BaseDao.leavStatusID);
+                status = (ELeavStatus)Utils.GetInt(record, BaseDao.leavStatusID);
                 requesterID = Utils.GetString(record, BaseDao.leavEmplID);
                 approverID = Utils.GetString(record, BaseDao.leavApproverID);
                 response = Utils.GetString(record, BaseDao.leavResponse);

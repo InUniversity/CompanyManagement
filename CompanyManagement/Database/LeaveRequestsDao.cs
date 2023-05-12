@@ -13,7 +13,7 @@ namespace CompanyManagement.Database
                             $"{leavStart},{leavEnd},{leavStatusID},{leavEmplID}, {leavApproverID}, {leavResponse}) " +
                             $"VALUES ('{request.ID}',N'{request.Reason}',N'{request.Notes}'," +
                             $"'{Utils.ToSQLFormat(request.Created)}','{Utils.ToSQLFormat(request.Start)}'," +
-                            $"'{Utils.ToSQLFormat(request.End)}','{request.StatusID}'," +
+                            $"'{Utils.ToSQLFormat(request.End)}','{(int)request.Status}'," +
                             $"'{request.RequesterID}','{request.ApproverID}', N'{request.Response}')";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
@@ -31,7 +31,7 @@ namespace CompanyManagement.Database
                             $"{leavCreated}='{Utils.ToSQLFormat(request.Created)}', " +
                             $"{leavStart}='{Utils.ToSQLFormat(request.Start)}', " +
                             $"{leavEnd}='{Utils.ToSQLFormat(request.End)}', " +
-                            $"{leavStatusID}='{request.StatusID}', {leavEmplID}='{request.RequesterID}', " +
+                            $"{leavStatusID}='{(int)request.Status}', {leavEmplID}='{request.RequesterID}', " +
                             $"{leavApproverID}='{request.ApproverID}', {leavResponse} = N'{request.Response}'" +
                             $"WHERE {leavID} = '{request.ID}'";
             dbConnection.ExecuteNonQuery(sqlStr);

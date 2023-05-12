@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
+using CompanyManagement.Enums;
 using CompanyManagement.Services;
 using CompanyManagement.Views.Dialogs;
 
@@ -60,21 +61,21 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void ExecuteApproveCommand(LeaveRequest leave)
         {
-            leave.StatusID = BaseDao.leavRequesApproved;
+            leave.Status = ELeavStatus.Approved;
             var inputDialogService = new InputDialogService<LeaveRequest>(new ResponseLeaveDialog(), leave, Update);
             inputDialogService.Show();
         }
 
         private void ExecuteDenyLeaveCommand(LeaveRequest leave)
         {
-            leave.StatusID = BaseDao.leavRequesDenied;
+            leave.Status = ELeavStatus.Denied;
             var inputDialogService = new InputDialogService<LeaveRequest>(new ResponseLeaveDialog(), leave, Update);
             inputDialogService.Show();
         }
 
         private void ExecuteRestoreLeaveCommand(LeaveRequest leave)
         {
-            leave.StatusID = BaseDao.leavRequestUpapproved;
+            leave.Status = ELeavStatus.Unapproved;
             Update(leave);
         }
 
@@ -92,15 +93,15 @@ namespace CompanyManagement.ViewModels.UserControls
         {
             ReceivedLeaveRequests = leaveDao.SearchByApproverID(currentEmployee.ID);
     
-            var listUnapprovedLeaves = ReceivedLeaveRequests.Where(p => p.StatusID == BaseDao.leavRequestUpapproved).ToList();
+            var listUnapprovedLeaves = ReceivedLeaveRequests.Where(p => p.Status == ELeavStatus.Unapproved).ToList();
             GetRequesterInListLeaveRequests(listUnapprovedLeaves);
             UnapprovedLeaveRequests = listUnapprovedLeaves;
 
-            var listApprovedLeaves = ReceivedLeaveRequests.Where(p => p.StatusID == BaseDao.leavRequesApproved).ToList();
+            var listApprovedLeaves = ReceivedLeaveRequests.Where(p => p.Status == ELeavStatus.Approved).ToList();
             GetRequesterInListLeaveRequests(listApprovedLeaves);
             ApprovedLeaveRequests = listApprovedLeaves;
 
-            var listDeniedLeaveRequests = ReceivedLeaveRequests.Where(p => p.StatusID == BaseDao.leavRequesDenied).ToList();
+            var listDeniedLeaveRequests = ReceivedLeaveRequests.Where(p => p.Status == ELeavStatus.Denied).ToList();
             GetRequesterInListLeaveRequests(listDeniedLeaveRequests);
             DeniedLeaveRequests = listDeniedLeaveRequests;
         }

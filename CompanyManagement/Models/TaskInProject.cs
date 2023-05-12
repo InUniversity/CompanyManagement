@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using CompanyManagement.Database.Base;
+using CompanyManagement.Enums;
 using CompanyManagement.Utilities;
 
 namespace CompanyManagement.Models
@@ -16,7 +17,7 @@ namespace CompanyManagement.Models
         private string ownerID;
         private string employeeID;
         private string projectID;
-        private string statusID;
+        private ETaskStatus status;
         private Employee owner = new Employee();
         private Employee assignedEmployee = new Employee();
 
@@ -74,10 +75,10 @@ namespace CompanyManagement.Models
             set => projectID = value;
         }
 
-        public string StatusID
+        public ETaskStatus Status
         {
-            get => statusID;
-            set => statusID = value;
+            get => status;
+            set => status = value;
         }
 
         public Employee Owner
@@ -96,7 +97,7 @@ namespace CompanyManagement.Models
 
         public TaskInProject(string id, string title, string explanation, DateTime startDate, 
             DateTime deadline, string progress, string ownerID, string employeeID, 
-            string projectID, string statusID, Employee owner)
+            string projectID, ETaskStatus status, Employee owner)
         {
             this.id = id;
             this.title = title;
@@ -107,7 +108,7 @@ namespace CompanyManagement.Models
             this.ownerID = ownerID;
             this.employeeID = employeeID;
             this.projectID = projectID;
-            this.statusID = statusID;
+            this.status = status;
             this.owner = owner;
         }
 
@@ -124,7 +125,7 @@ namespace CompanyManagement.Models
                 ownerID = Utils.GetString(reader, BaseDao.taskOwnerID);
                 employeeID = Utils.GetString(reader, BaseDao.taskEmplID);
                 projectID = Utils.GetString(reader, BaseDao.taskProjID);
-                statusID = Utils.GetString(reader, BaseDao.taskStatusID);
+                status = (ETaskStatus)Utils.GetInt(reader, BaseDao.taskStatusID);
             }
             catch(Exception ex)
             {

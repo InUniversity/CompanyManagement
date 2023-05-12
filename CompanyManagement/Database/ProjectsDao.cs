@@ -14,7 +14,7 @@ namespace CompanyManagement.Database
                             $"VALUES ('{proj.ID}', N'{proj.Name}', N'{proj.Details}', " +
                             $"'{Utils.ToSQLFormat(proj.CreatedDate)}','{Utils.ToSQLFormat(proj.StartDate)}', " +
                             $"'{Utils.ToSQLFormat(proj.EndDate)}', '{Utils.ToSQLFormat(proj.CompletedDate)}', " +
-                            $"'{proj.Progress}', '{proj.StatusID}', '{proj.OwnerID}', '{proj.BonusSalary}')";
+                            $"'{proj.Progress}', '{(int)proj.Status}', '{proj.OwnerID}', '{proj.BonusSalary}')";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
@@ -32,7 +32,7 @@ namespace CompanyManagement.Database
                             $"{projStart}='{Utils.ToSQLFormat(proj.StartDate)}', " +
                             $"{projEnd}='{Utils.ToSQLFormat(proj.EndDate)}', " +
                             $"{projCompleted}='{Utils.ToSQLFormat(proj.CompletedDate)}'," +
-                            $"{projProgress}='{proj.Progress}', " + $"{projStatusID}='{proj.StatusID}', " +
+                            $"{projProgress}='{proj.Progress}', " + $"{projStatusID}='{(int)proj.Status}', " +
                             $"{projBonus}='{proj.BonusSalary}' WHERE {projID}='{proj.ID}'";
             dbConnection.ExecuteNonQuery(sqlStr);
         }

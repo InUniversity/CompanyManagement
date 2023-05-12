@@ -1,5 +1,6 @@
 using System;
 using CompanyManagement.Database;
+using CompanyManagement.Enums;
 using CompanyManagement.Models;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
@@ -24,7 +25,7 @@ namespace CompanyManagementTest.Database
                 Start = new DateTime(2023, 4, 15).Date,
                 End = new DateTime(2023, 4, 25).Date,
                 Created = new DateTime(2023, 4, 27).Date,
-                StatusID = "LS2",
+                Status = ELeavStatus.Unapproved,
                 RequesterID = "EM007",
                 ApproverID = "EM006"
             };
@@ -40,7 +41,7 @@ namespace CompanyManagementTest.Database
             expected.Created = new DateTime(2023, 4, 1).Date;
             expected.Start = new DateTime(2023, 4, 8).Date;
             expected.End = new DateTime(2023, 4, 9).Date;
-            expected.StatusID = "LS1";
+            expected.Status = ELeavStatus.Approved;
             expected.RequesterID = "EM007";
             expected.ApproverID = "EM006";
             var actualSearch = myDao.SearchByID(expected.ID);
@@ -77,7 +78,7 @@ namespace CompanyManagementTest.Database
             updateObject.Start = leaveRequest.Start;
             updateObject.End = leaveRequest.End;
             updateObject.Created = leaveRequest.Created;
-            updateObject.StatusID = "LS3";
+            updateObject.Status = ELeavStatus.Denied;
             updateObject.RequesterID = leaveRequest.RequesterID;
             updateObject.ApproverID = leaveRequest.ApproverID;
             myDao.Update(updateObject);

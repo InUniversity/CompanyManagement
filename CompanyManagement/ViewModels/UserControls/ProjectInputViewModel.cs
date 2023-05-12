@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
@@ -7,6 +7,7 @@ using CompanyManagement.ViewModels.Base;
 using System.Linq;
 using System.Windows.Controls;
 using CompanyManagement.Database;
+using CompanyManagement.Enums;
 using CompanyManagement.Utilities;
 
 namespace CompanyManagement.ViewModels.UserControls
@@ -25,7 +26,7 @@ namespace CompanyManagement.ViewModels.UserControls
         public DateTime EndDate 
         { get => project.EndDate; set { project.EndDate = value; OnPropertyChanged(); LoadDepartmentsCanAssign(); } }
         public string Progress { get => project.Progress; set { project.Progress = value; OnPropertyChanged(); } }
-        public string StatusID { get => project.StatusID; set { project.StatusID = value; OnPropertyChanged(); } }
+        public EProjStatus Status { get => project.Status; set { project.Status = value; OnPropertyChanged(); } }
         public string OwnerID { get => project.OwnerID; set { project.OwnerID = value; OnPropertyChanged(); } }
         public decimal BonusSalary { get => project.BonusSalary; set { project.BonusSalary = value; OnPropertyChanged(); } }
         public ObservableCollection<Department> DepartmentsInProject 
@@ -51,9 +52,8 @@ namespace CompanyManagement.ViewModels.UserControls
         public ICommand DeleteDepartmentCommand { get; set; }
         public ICommand GetAllSelectedDepartmentCommand { get; set; }
 
-        public List<ProjectStatus> ProjectStatuses { get; set; }
+        public List<EProjStatus> ProjectStatuses { get; set; }
 
-        private ProjectStatusesDao projectStatusesDao = new ProjectStatusesDao();
         private ProjectAssignmentsDao assignmentsDao = new ProjectAssignmentsDao();
         private CheckFormat checker = new CheckFormat();
 
@@ -89,7 +89,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void SetAllComboBox()
         {
-            ProjectStatuses = projectStatusesDao.GetAll();
+            ProjectStatuses = Enum.GetValues(typeof(EProjStatus)).Cast<EProjStatus>().ToList();
         }
         
         private void ExecuteGetAllSelectedDepartment(ListView listView)
@@ -112,11 +112,11 @@ namespace CompanyManagement.ViewModels.UserControls
             SelectedDepartments = null;
         }
 
-        private void ExecuteDeleteDepartmentCommand(Department department)
+        private void ExecuteDeleteDepartmentCommand(Department dept)
         {
-            DepartmentsInProject.Remove(department);
-            departmentsCanAssign.Add(department);
-            SearchedDepartmentsCanAssign.Add(department);
+            DepartmentsInProject.Remove(dept);
+            departmentsCanAssign.Add(dept);
+            SearchedDepartmentsCanAssign.Add(dept);
         }
 
         private void SearchByName()

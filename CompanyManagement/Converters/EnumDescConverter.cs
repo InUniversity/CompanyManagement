@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Windows.Data;
 
-namespace CompanyManagement.Enums
+namespace CompanyManagement.Converters
 {
     public class EnumDescConverter : IValueConverter
     {

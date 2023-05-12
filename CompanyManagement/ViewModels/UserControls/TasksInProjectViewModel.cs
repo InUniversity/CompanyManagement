@@ -120,7 +120,7 @@ namespace CompanyManagement.ViewModels.UserControls
         private TaskInProject CreateTaskInProjectInstance()
         {
             return new TaskInProject(AutoGenerateID(), "", "", DateTime.Now , DateTime.Now, 
-                "0", currentEmployee.ID, "", projectID, "", currentEmployee);
+                "0", currentEmployee.ID, "", projectID, ETaskStatus.InProcess, currentEmployee);
         }
 
         private void ExecuteDeleteCommand(string id)

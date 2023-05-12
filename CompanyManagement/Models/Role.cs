@@ -44,8 +44,7 @@ namespace CompanyManagement.Models
             try
             {
                 id = Utils.GetString(record, BaseDao.roleID);
-                string permsStr = Utils.GetString(record, BaseDao.rolePerms);
-                perms = Enum.TryParse(permsStr, out EPermission per) ? per : EPermission.NotAllow;
+                perms = (EPermission)Utils.GetInt(record, BaseDao.rolePerms);
                 title = Utils.GetString(record, BaseDao.roleTitle);
                 salary = Utils.GetDecimal(record, BaseDao.roleSalary);
             }

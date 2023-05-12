@@ -1,5 +1,4 @@
-﻿using CompanyManagement.Database.Base;
-using CompanyManagement.Database;
+﻿using CompanyManagement.Database;
 using CompanyManagement.ViewModels.Base;
 using LiveCharts;
 using LiveCharts.Wpf;
@@ -8,10 +7,8 @@ using System.Collections.Generic;
 using System.Linq;
 using CompanyManagement.Models;
 using CompanyManagement.Utilities;
-using System.Threading.Tasks;
-using System.Windows.Documents;
-using System.Security.Cryptography;
 using System.Windows.Media;
+using CompanyManagement.Enums;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
@@ -45,15 +42,22 @@ namespace CompanyManagement.ViewModels.UserControls
             TasksInProject = tasksDao.SearchByProjectID(projectID);
             TeamsInProject = projectAssignmentsDao.GetAllDepartmentInProject(projectID);
             EmployeesInProject = projectAssignmentsDao.GetEmployeesInProject(projectID);
-            SetSeriesTaskStatus();
-            SetSeriesTaskProgress();
-            LoadStatusTeam();
+            try
+            {
+                SetSeriesTaskStatus();
+                SetSeriesTaskProgress();
+                LoadStatusTeam();
+            }
+            catch (Exception ex)
+            {
+                Log.Instance.Error(nameof(WidgetsViewModel), ex.Message);
+            }
         }
 
         private void SetSeriesTaskProgress()
         {
             SeriesTaskProgressViews = new SeriesCollection();
-            Dictionary<String, int> numberTasksInPercent = new Dictionary<String, int>() 
+            Dictionary<string, int> numberTasksInPercent = new Dictionary<string, int>() 
             { 
                 { "0%", 0 }, { "10%", 0 }, { "20%", 0 }, 
                 { "30%", 0 }, { "40%", 0 }, { "50%", 0 }, 
@@ -75,53 +79,53 @@ namespace CompanyManagement.ViewModels.UserControls
                    );
 
             LabelsTaskProgressPercent = new List<string>(numberTasksInPercent.Keys);
-            LabelFormat = value => ((int)value).ToString();
+            LabelFormat = value => value.ToString();
         }     
 
         private void SetSeriesTaskStatus()
         {
-            Dictionary<string,int> numberTaskInStatus= new Dictionary<string, int>() 
+            var numberTaskInStatus= new Dictionary<int, int>() 
             {
-                { BaseDao.completedTask , 0 } , 
-                { BaseDao.overdueTask , 0 } ,
-                { BaseDao.ongoingTask , 0 } ,
-                { BaseDao.underConsiderableTask , 0 },
-                { BaseDao.cancelTask, 0}
+                {(int)ETaskStatus.Completed, 0},
+                {(int)ETaskStatus.Overdue, 0},
+                {(int)ETaskStatus.InProcess, 0},
+                {(int)ETaskStatus.Reviewing, 0},
+                {(int)ETaskStatus.Cancelled, 0},
             };
 
             foreach (var task in TasksInProject)
-                numberTaskInStatus[task.StatusID]++;
+                numberTaskInStatus[(int)task.Status]++;
 
             SeriesTaskStatusViews = new SeriesCollection()
             {
                 new PieSeries()
                 {
                     Title ="Đã hoàn thành",
-                    Values = new ChartValues<double>(){GetPercent(numberTaskInStatus[BaseDao.completedTask],TasksInProject.Count)},
+                    Values = new ChartValues<double>(){GetPercent(numberTaskInStatus[(int)ETaskStatus.Completed],TasksInProject.Count)},
                     DataLabels= true       
                 },
                 new PieSeries
                 {
                     Title ="Quá hạn",
-                    Values = new ChartValues<double>(){GetPercent(numberTaskInStatus[BaseDao.overdueTask],TasksInProject.Count)},
+                    Values = new ChartValues<double>(){GetPercent(numberTaskInStatus[(int)ETaskStatus.Overdue],TasksInProject.Count)},
                     DataLabels= true
                 },
                 new PieSeries
                 {
                     Title ="Đang thực hiện",
-                    Values = new ChartValues<double>(){GetPercent(numberTaskInStatus[BaseDao.ongoingTask],TasksInProject.Count)},
+                    Values = new ChartValues<double>(){GetPercent(numberTaskInStatus[(int)ETaskStatus.InProcess],TasksInProject.Count)},
                     DataLabels= true
                 },
                 new PieSeries
                 {
                     Title ="Đang xem xét",
-                    Values = new ChartValues<double>(){GetPercent(numberTaskInStatus[BaseDao.underConsiderableTask],TasksInProject.Count)},
+                    Values = new ChartValues<double>(){GetPercent(numberTaskInStatus[(int)ETaskStatus.Reviewing],TasksInProject.Count)},
                     DataLabels= true
                 },
                 new PieSeries
                 {
                     Title ="Hủy",
-                    Values = new ChartValues<double>(){GetPercent(numberTaskInStatus[BaseDao.cancelTask],TasksInProject.Count)},
+                    Values = new ChartValues<double>(){GetPercent(numberTaskInStatus[(int)ETaskStatus.Cancelled],TasksInProject.Count)},
                     DataLabels= true
                 }
             };
@@ -133,15 +137,15 @@ namespace CompanyManagement.ViewModels.UserControls
             foreach (Department team in TeamsInProject)
                 ListStatusTeam.Add(new TeamStatusItem(team.ID, team.Name, 0, 0, 0, 0, 0));
 
-            var listNumberOverdueTasks = GetListNumberTaskByStatusOfTeam(BaseDao.overdueTask);
+            var listNumberOverdueTasks = GetListNumberTaskByStatusOfTeam(ETaskStatus.Overdue);
 
-            var listNumberCompletedTasks = GetListNumberTaskByStatusOfTeam(BaseDao.completedTask);
+            var listNumberCompletedTasks = GetListNumberTaskByStatusOfTeam(ETaskStatus.Completed);
 
-            var listNumberOngoingTasks = GetListNumberTaskByStatusOfTeam(BaseDao.ongoingTask);
+            var listNumberOngoingTasks = GetListNumberTaskByStatusOfTeam(ETaskStatus.InProcess);
 
-            var listNumberUnderConsiderableTasks = GetListNumberTaskByStatusOfTeam(BaseDao.underConsiderableTask);
+            var listNumberUnderConsiderableTasks = GetListNumberTaskByStatusOfTeam(ETaskStatus.Reviewing);
             
-            var listNumberCancelTasks = GetListNumberTaskByStatusOfTeam(BaseDao.cancelTask);
+            var listNumberCancelTasks = GetListNumberTaskByStatusOfTeam(ETaskStatus.Cancelled);
 
             foreach (TeamStatusItem team in ListStatusTeam)
             {
@@ -172,17 +176,17 @@ namespace CompanyManagement.ViewModels.UserControls
                 var numberCancelTask = listNumberCancelTasks.FirstOrDefault(consider => consider.TeamID == team.TeamID);
                 if (numberCancelTask != null)
                 {
-                    team.NumberCancelTasks = numberUnderConsiderableTask.Number;
+                    team.NumberCancelTasks = numberCancelTask.Number;
                 }
             }
         }
 
-        private List<NumberTaskStatusOfTeam> GetListNumberTaskByStatusOfTeam(string StatusID)
+        private List<NumberTaskStatusOfTeam> GetListNumberTaskByStatusOfTeam(ETaskStatus status)
         {
             var listItem = (from employee in EmployeesInProject
                             join team in TeamsInProject on employee.DepartmentID equals team.ID
                             join task in TasksInProject on employee.ID equals task.EmployeeID
-                            where task.StatusID == StatusID
+                            where task.Status == status
                             select new { TeamID = team.ID, TaskID = task.ID }).GroupBy(g => g.TeamID).Select(p => new NumberTaskStatusOfTeam() { TeamID = p.Key, Number = p.Count() });
             return new List<NumberTaskStatusOfTeam>(listItem);
         }
