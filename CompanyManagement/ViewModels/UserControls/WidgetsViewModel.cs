@@ -85,7 +85,8 @@ namespace CompanyManagement.ViewModels.UserControls
                 { BaseDao.completedTask , 0 } , 
                 { BaseDao.overdueTask , 0 } ,
                 { BaseDao.ongoingTask , 0 } ,
-                { BaseDao.underConsiderableTask , 0 }
+                { BaseDao.underConsiderableTask , 0 },
+                { BaseDao.cancelTask, 0}
             };
 
             foreach (var task in TasksInProject)
@@ -116,6 +117,12 @@ namespace CompanyManagement.ViewModels.UserControls
                     Title ="Đang xem xét",
                     Values = new ChartValues<double>(){GetPercent(numberTaskInStatus[BaseDao.underConsiderableTask],TasksInProject.Count)},
                     DataLabels= true
+                },
+                new PieSeries
+                {
+                    Title ="Hủy",
+                    Values = new ChartValues<double>(){GetPercent(numberTaskInStatus[BaseDao.cancelTask],TasksInProject.Count)},
+                    DataLabels= true
                 }
             };
         }
@@ -133,6 +140,8 @@ namespace CompanyManagement.ViewModels.UserControls
             var listNumberOngoingTasks = GetListNumberTaskByStatusOfTeam(BaseDao.ongoingTask);
 
             var listNumberUnderConsiderableTasks = GetListNumberTaskByStatusOfTeam(BaseDao.underConsiderableTask);
+            
+            var listNumberCancelTasks = GetListNumberTaskByStatusOfTeam(BaseDao.cancelTask);
 
             foreach (TeamStatusItem team in ListStatusTeam)
             {
@@ -158,6 +167,12 @@ namespace CompanyManagement.ViewModels.UserControls
                 if (numberUnderConsiderableTask != null)
                 {
                     team.NumberUnderConsiderableTasks = numberUnderConsiderableTask.Number;
+                }
+                
+                var numberCancelTask = listNumberCancelTasks.FirstOrDefault(consider => consider.TeamID == team.TeamID);
+                if (numberCancelTask != null)
+                {
+                    team.NumberCancelTasks = numberUnderConsiderableTask.Number;
                 }
             }
         }
@@ -202,8 +217,9 @@ namespace CompanyManagement.ViewModels.UserControls
             public int NumberCompletedTasks { get; set; }
             public int NumberUnderConsiderableTasks { get; set; }
             public int NumberOngoingTasks { get; set; }
+            public int NumberCancelTasks { get; set; }
 
-            public TeamStatusItem (string id,string name, int numberOverdueTasks, int numberAllTaskOpenTasks, int numberCompletedTasks, int numberUnderConsiderableTasks, int numberOngoingTasks)
+            public TeamStatusItem (string id,string name, int numberOverdueTasks, int numberCompletedTasks, int numberUnderConsiderableTasks, int numberOngoingTasks, int numberCancelTasks)
             {
                 TeamID = id;
                 TeamName = name;
@@ -211,6 +227,7 @@ namespace CompanyManagement.ViewModels.UserControls
                 NumberCompletedTasks = numberCompletedTasks;
                 NumberUnderConsiderableTasks = numberUnderConsiderableTasks;
                 NumberOngoingTasks = numberOngoingTasks;
+                NumberCancelTasks = numberCancelTasks;
             }
         }
 

@@ -1,36 +1,35 @@
 ﻿using CompanyManagement.Database;
+using CompanyManagement.Models;
 using CompanyManagement.Services;
 using CompanyManagement.Utilities;
 using CompanyManagement.ViewModels.Base;
-using CompanyManagement.ViewModels.UserControls;
 using System;
 using System.Windows.Input;
 using System.Windows;
-using CompanyManagement.Models;
-using CompanyManagement.ViewModels.Dialogs.Interfaces;
 
-namespace CompanyManagement.ViewModels.Dialogs
+namespace CompanyManagement.ViewModels.Dialogs.Interfaces
 {
-    public class AddLeaveViewModel : BaseViewModel, IInputViewModel<LeaveRequest>
+    public class ResponseLeaveViewModel : BaseViewModel, IInputViewModel<LeaveRequest>
     {
-        public ICommand AddLeaveCommand { get; private set; }
+        private LeaveRequest request;
+        public string Response { get => request.Response; set { request.Response = value; OnPropertyChanged(); } }
+
+        public ICommand ResponseLeaveCommand { get; private set; }
         public ICommand CloseDialogCommand { get; private set; }
 
-        public LeaveInputViewModel LeaveInputDataContext { get; private set; }
         private Action<LeaveRequest> submitObjectAction;
 
         private LeaveRequestsDao leaveRequestsDao = new LeaveRequestsDao();
         private CheckFormat checker = new CheckFormat();
 
-        public AddLeaveViewModel()
+        public ResponseLeaveViewModel()
         {
-            LeaveInputDataContext = new LeaveInputViewModel();
             SetCommands();
         }
 
         private void SetCommands()
         {
-            AddLeaveCommand = new RelayCommand<Window>(ExecuteAddCommand);
+            ResponseLeaveCommand = new RelayCommand<Window>(ExecuteResponseCommand);
             CloseDialogCommand = new RelayCommand<Window>(CloseCommand);
         }
 
@@ -39,30 +38,29 @@ namespace CompanyManagement.ViewModels.Dialogs
             window.Close();
         }
 
-        private void ExecuteAddCommand(Window inputWindow)
+        private void ExecuteResponseCommand(Window inputWindow)
         {
-            LeaveInputDataContext.TrimAllTexts();
-            if (!CheckAllFields()) return;
+            TrimAllText();
             var dialog = new AlertDialogService(
-                "Thêm xin nghỉ phép",
-                "Bạn chắc chắn muốn thêm xin nghỉ phép !",
+                "Thêm phản hồi",
+                "Bạn chắc chắn muốn thêm phản hồi cho nghỉ phép!",
                 () =>
                 {
-                    LeaveRequest leaveRequest = LeaveInputDataContext.LeaveRequestIns;
-                    submitObjectAction?.Invoke(leaveRequest);
+                    var leavRequest = request;
+                    submitObjectAction?.Invoke(leavRequest);
                     inputWindow.Close();
                 }, null);
             dialog.Show();
         }
 
-        private bool CheckAllFields()
+        private void TrimAllText()
         {
-            return LeaveInputDataContext.CheckAllFields();
+            Response = Response.Trim();
         }
 
         public void ReceiveObject(LeaveRequest request)
         {
-            LeaveInputDataContext.LeaveRequestIns = request;
+            this.request = request;
         }
 
         public void ReceiveSubmitAction(Action<LeaveRequest> submitObjectAction)

@@ -18,7 +18,7 @@ namespace CompanyManagement.Database.Base
         public const string overdueTask = "TS3";
         public const string underConsiderableTask = "TS4";
         public const string ongoingTask = "TS1";
-        public const string closedTask = "TS5";
+        public const string cancelTask = "TS5";
 
         protected const string deptTbl = "Departments";
         public const string deptID = "ID";
@@ -99,6 +99,7 @@ namespace CompanyManagement.Database.Base
         public const string leavStatusID = "StatusID";
         public const string leavEmplID = "EmployeeID";
         public const string leavApproverID = "ApproverID";
+        public const string leavResponse = "Response";
         
         protected const string timeShtTbl = "TimeSheets";
         public const string timeShtID = "ID";

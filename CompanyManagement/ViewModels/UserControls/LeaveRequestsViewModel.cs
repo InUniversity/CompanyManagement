@@ -128,7 +128,7 @@ namespace CompanyManagement.ViewModels.UserControls
         private LeaveRequest CreateLeave()
         {
             return new LeaveRequest(AutoGenerateID(), "", "", 
-                BaseDao.leavRequestUpapproved, currentEmployee.ID, "");
+                BaseDao.leavRequestUpapproved, currentEmployee.ID, "", "");
         }
 
         private string AutoGenerateID()

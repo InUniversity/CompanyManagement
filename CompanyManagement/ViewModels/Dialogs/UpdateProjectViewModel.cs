@@ -45,9 +45,9 @@ namespace CompanyManagement.ViewModels.Dialogs
             dialog.Show();
         }
 
-        public void ReceiveObject(Project project)
+        public void ReceiveObject(Project request)
         {
-            ProjectInputDataContext.ProjectIns = project;
+            ProjectInputDataContext.ProjectIns = request;
         }
 
         public void ReceiveSubmitAction(Action<Project> submitObjectAction)

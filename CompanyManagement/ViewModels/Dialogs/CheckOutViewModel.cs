@@ -144,9 +144,9 @@ namespace CompanyManagement.ViewModels.UserControls
             taskCheckOutsDao.Add(taskCheckOut);
         }
 
-        public void ReceiveObject(TimeSheet timeSheet)
+        public void ReceiveObject(TimeSheet request)
         {
-             CheckInOutInputDataContext.TimeSheetIns = timeSheet;
+             CheckInOutInputDataContext.TimeSheetIns = request;
         }
 
         public void ReceiveSubmitAction(Action<TimeSheet> submitObjectAction)
