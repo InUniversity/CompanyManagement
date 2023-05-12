@@ -25,7 +25,6 @@ namespace CompanyManagement.ViewModels.UserControls
         public string Notes { get => leaveRequest.Notes; set { leaveRequest.Notes = value; OnPropertyChanged(); } }
         public DateTime StartDate { get => leaveRequest.Start; set { leaveRequest.Start = value; OnPropertyChanged(); } }
         public DateTime EndDate { get => leaveRequest.End; set { leaveRequest.End = value; OnPropertyChanged(); } }
-        public string StatusID { get => leaveRequest.StatusID; set { leaveRequest.StatusID = value; OnPropertyChanged(); } }
         public string EmployeeID { get => leaveRequest.RequesterID; set { leaveRequest.RequesterID = value; OnPropertyChanged(); } }
         public string ApproverID { get => leaveRequest.ApproverID; set { leaveRequest.ApproverID = value; OnPropertyChanged(); } }
         public string Response { get => leaveRequest.Response; set { leaveRequest.Response = value; OnPropertyChanged(); } }
@@ -48,14 +47,10 @@ namespace CompanyManagement.ViewModels.UserControls
         private List<Employee> approvers;
         public List<Employee> Approvers { get => approvers; set { approvers = value; OnPropertyChanged(); } }
 
-        public List<LeaveStatus> LeaveStatuses { get; set;}
-
         public ICommand AddApproverCommand { get; private set; }
         public ICommand GetSelectedApproverCommand { get; private set; }
 
-        private LeaveStatusesDao leaveStatusesDao = new LeaveStatusesDao();
         private EmployeesDao employeesDao = new EmployeesDao();
-        private DepartmentsDao departmentsDao = new DepartmentsDao();
         private RolesDao rolesDao = new RolesDao();
         private CheckFormat checker = new CheckFormat();
 
@@ -64,7 +59,6 @@ namespace CompanyManagement.ViewModels.UserControls
         public LeaveInputViewModel()
         {
             SetCommands();
-            SetAllComboBox();
             LoadApprovers();
         }
 
@@ -79,11 +73,6 @@ namespace CompanyManagement.ViewModels.UserControls
             var selectedItem = listView.SelectedItem as Employee;
             ApproverID = selectedItem.ID;
             RoleName = selectedItem.EmplRole.Title;
-        }
-
-        private void SetAllComboBox()
-        {
-            LeaveStatuses = leaveStatusesDao.GetAll();
         }
 
         private void LoadApprovers()

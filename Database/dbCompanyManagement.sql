@@ -1,19 +1,6 @@
 ﻿CREATE DATABASE CompanyManagement
 GO
 USE CompanyManagement
-
--- Changed 10/5/2023
--- In Employee: 
----- Add PermsID:
------ Manager: MNG
------ Head Of Department: HOD
------ Human Resource: HR
------ Employee: EMP
--- Move Salary Base to Roles
-
--- In Leaves: 
------ Add column Response
-
 GO
 -- department
 CREATE TABLE Departments(
@@ -34,39 +21,39 @@ GO
 -- employee (Design, Tester,....)
 CREATE TABLE Roles(
     ID varchar(20) PRIMARY KEY NOT NULL,
-    Perms varchar(20),
+    PermsID int,
     Title nvarchar(50),
     BaseSalary DECIMAL(19,4)
 );
 GO
-INSERT INTO Roles(ID, Perms, Title, BaseSalary) 
+INSERT INTO Roles(ID, PermsID, Title, BaseSalary) 
 VALUES
-('ER01', 'Mgr','Manager', CAST(100000000 AS DECIMAL(19,4))),
-('ER02', 'DepHead', 'Header Department', CAST(62000000 AS DECIMAL(19,4))),
-('ER03', 'HR', 'Humans Resource', CAST(60000000 AS DECIMAL(19,4))),
-('ER04', 'NorEmpl', 'Web Developer', CAST(35000000 AS DECIMAL(19,4))),
-('ER05', 'NorEmpl', 'Software Developer', CAST(40000000 AS DECIMAL(19,4))),
-('ER06', 'NorEmpl', 'Data Scientist', CAST(45000000 AS DECIMAL(19,4))),
-('ER07', 'NorEmpl', 'Mobile Application Developer', CAST(42000000 AS DECIMAL(19,4))),
-('ER08', 'NorEmpl', 'UI/UX Designer', CAST(35000000 AS DECIMAL(19,4))),
-('ER09', 'NorEmpl', 'Front-End Developer', CAST(40000000 AS DECIMAL(19,4))),
-('ER10', 'NorEmpl', 'Back-End Developer', CAST(45000000 AS DECIMAL(19,4))),
-('ER11', 'NorEmpl', 'Full-Stack Developer', CAST(50000000 AS DECIMAL(19,4))),
-('ER12', 'NorEmpl', 'Software Architect', CAST(55000000 AS DECIMAL(19,4))),
-('ER13', 'NorEmpl', 'Product Manager', CAST(48000000 AS DECIMAL(19,4))),
-('ER14', 'NorEmpl', 'DevOps Engineer', CAST(45000000 AS DECIMAL(19,4))),
-('ER15', 'NorEmpl', 'Cloud Engineer', CAST(42000000 AS DECIMAL(19,4))),
-('ER16', 'NorEmpl', 'Artificial Intelligence Engineer', CAST(55000000 AS DECIMAL(19,4))),
-('ER17', 'NorEmpl', 'IT Administrator', CAST(38000000 AS DECIMAL(19,4))),
-('ER18', 'NorEmpl', 'Technical Support Engineer', CAST(32000000 AS DECIMAL(19,4))),
-('ER19', 'NorEmpl', 'CyberSecurity Analyst', CAST(45000000 AS DECIMAL(19,4))),
-('ER20', 'NorEmpl', 'Blockchain Developer', CAST(40000000 AS DECIMAL(19,4))),
-('ER21', 'NorEmpl', 'Database Administrator', CAST(38000000 AS DECIMAL(19,4))),
-('ER22', 'NorEmpl', 'Network Administrator', CAST(32000000 AS DECIMAL(19,4))),
-('ER23', 'NorEmpl', 'Systems Administrator', CAST(30000000 AS DECIMAL(19,4))),
-('ER24', 'NorEmpl', 'Technical Writer', CAST(35000000 AS DECIMAL(19,4))),
-('ER25', 'NorEmpl', 'Quality Assurance (QA) Engineer', CAST(40000000 AS DECIMAL(19,4))),
-('ER26', 'NorEmpl', 'Business Analyst', CAST(45000000 AS DECIMAL(19,4)));
+('ER01', 1,'Manager', CAST(100000000 AS DECIMAL(19,4))),
+('ER02', 2, 'Header Department', CAST(62000000 AS DECIMAL(19,4))),
+('ER03', 4, 'Humans Resource', CAST(60000000 AS DECIMAL(19,4))),
+('ER04', 3, 'Web Developer', CAST(35000000 AS DECIMAL(19,4))),
+('ER05', 3, 'Software Developer', CAST(40000000 AS DECIMAL(19,4))),
+('ER06', 3, 'Data Scientist', CAST(45000000 AS DECIMAL(19,4))),
+('ER07', 3, 'Mobile Application Developer', CAST(42000000 AS DECIMAL(19,4))),
+('ER08', 3, 'UI/UX Designer', CAST(35000000 AS DECIMAL(19,4))),
+('ER09', 3, 'Front-End Developer', CAST(40000000 AS DECIMAL(19,4))),
+('ER10', 3, 'Back-End Developer', CAST(45000000 AS DECIMAL(19,4))),
+('ER11', 3, 'Full-Stack Developer', CAST(50000000 AS DECIMAL(19,4))),
+('ER12', 3, 'Software Architect', CAST(55000000 AS DECIMAL(19,4))),
+('ER13', 3, 'Product Manager', CAST(48000000 AS DECIMAL(19,4))),
+('ER14', 3, 'DevOps Engineer', CAST(45000000 AS DECIMAL(19,4))),
+('ER15', 3, 'Cloud Engineer', CAST(42000000 AS DECIMAL(19,4))),
+('ER16', 3, 'Artificial Intelligence Engineer', CAST(55000000 AS DECIMAL(19,4))),
+('ER17', 3, 'IT Administrator', CAST(38000000 AS DECIMAL(19,4))),
+('ER18', 3, 'Technical Support Engineer', CAST(32000000 AS DECIMAL(19,4))),
+('ER19', 3, 'CyberSecurity Analyst', CAST(45000000 AS DECIMAL(19,4))),
+('ER20', 3, 'Blockchain Developer', CAST(40000000 AS DECIMAL(19,4))),
+('ER21', 3, 'Database Administrator', CAST(38000000 AS DECIMAL(19,4))),
+('ER22', 3, 'Network Administrator', CAST(32000000 AS DECIMAL(19,4))),
+('ER23', 3, 'Systems Administrator', CAST(30000000 AS DECIMAL(19,4))),
+('ER24', 3, 'Technical Writer', CAST(35000000 AS DECIMAL(19,4))),
+('ER25', 3, 'Quality Assurance (QA) Engineer', CAST(40000000 AS DECIMAL(19,4))),
+('ER26', 3, 'Business Analyst', CAST(45000000 AS DECIMAL(19,4)));
 GO
 
 CREATE TABLE Employees(
@@ -153,20 +140,6 @@ SELECT CONCAT(ID, SUBSTRING(CONVERT(varchar, Birthday, 103), 1, 2), SUBSTRING(CO
 FROM Employees;
 GO
 
--- projects
-CREATE TABLE ProjectStatuses(
-    ID varchar(10) PRIMARY KEY NOT NULL,
-    StatusName nvarchar(50)
-);
-GO
-INSERT INTO ProjectStatuses(ID, StatusName)
-VALUES
-    ( 'PST1', N'Đang triển khai'),
-    ( 'PST2', N'Hoàn thành'),
-    ( 'PST3', N'Quá hạn'),
-    ( 'PST4', N'Đang chờ thanh toán'),
-    ( 'PST5', N'Lên kế hoạch');
-GO
 CREATE TABLE Projects(
     ID varchar(20) PRIMARY KEY NOT NULL,
     ProjectName nvarchar(225),
@@ -176,18 +149,18 @@ CREATE TABLE Projects(
     EndDate SMALLDATETIME,
     CompletedDate SMALLDATETIME DEFAULT '2000-01-01 00:00:00',
     Progress varchar(4),
-    StatusID varchar(10) DEFAULT '',
+    StatusID int DEFAULT 5,
     OwnerID varchar(20) DEFAULT '',
     BonusSalary DECIMAL(19,4)
 );
 GO
 INSERT INTO Projects(ID, ProjectName, Details, CreatedDate, StartDate, EndDate, Progress, StatusID, OwnerID, BonusSalary)
 VALUES
-    ('PRJ001', 'Website Development', '', CONVERT(SMALLDATETIME, '01-01-2023 08:00 AM', 105), CONVERT(SMALLDATETIME, '01-03-2023 08:00 AM', 105), CONVERT(SMALLDATETIME, '30-06-2023 05:00 PM', 105), '50','PST1', 'EM001', 100000000),
-    ('PRJ002', 'Mobile App Development', '', CONVERT(SMALLDATETIME, '01-02-2023 09:30 AM', 105), CONVERT(SMALLDATETIME, '01-02-2023 09:30 AM', 105), CONVERT(SMALLDATETIME, '31-08-2023 07:00 PM', 105),'35', 'PST1', 'EM002', 100234000),
-    ('PRJ003', 'Database Management System', '', CONVERT(SMALLDATETIME, '01-03-2023 10:15 AM', 105), CONVERT(SMALLDATETIME, '01-03-2023 10:15 AM', 105), CONVERT(SMALLDATETIME, '31-10-2023 04:30 PM', 105),'10', 'PST1', 'EM003', 100056700),
-    ('PRJ004', 'Artificial Intelligence Research', '', CONVERT(SMALLDATETIME, '01-04-2023 01:00 PM', 105), CONVERT(SMALLDATETIME, '01-04-2023 01:00 PM', 105), CONVERT(SMALLDATETIME, '31-03-2024 11:00 AM', 105),'0', 'PST1', 'EM004', 112300000),
-    ('PRJ005', 'Cloud Computing Migration', '', CONVERT(SMALLDATETIME, '01-05-2023 02:45 PM', 105), CONVERT(SMALLDATETIME, '01-05-2023 02:45 PM', 105), CONVERT(SMALLDATETIME, '30-11-2023 10:30 AM', 105),'0', 'PST1', 'EM005', 112300456);
+    ('PRJ001', 'Website Development', '', CONVERT(SMALLDATETIME, '01-01-2023 08:00 AM', 105), CONVERT(SMALLDATETIME, '01-03-2023 08:00 AM', 105), CONVERT(SMALLDATETIME, '30-06-2023 05:00 PM', 105), '50',1, 'EM001', 100000000),
+    ('PRJ002', 'Mobile App Development', '', CONVERT(SMALLDATETIME, '01-02-2023 09:30 AM', 105), CONVERT(SMALLDATETIME, '01-02-2023 09:30 AM', 105), CONVERT(SMALLDATETIME, '31-08-2023 07:00 PM', 105),'35', 1, 'EM002', 100234000),
+    ('PRJ003', 'Database Management System', '', CONVERT(SMALLDATETIME, '01-03-2023 10:15 AM', 105), CONVERT(SMALLDATETIME, '01-03-2023 10:15 AM', 105), CONVERT(SMALLDATETIME, '31-10-2023 04:30 PM', 105),'10', 1, 'EM003', 100056700),
+    ('PRJ004', 'Artificial Intelligence Research', '', CONVERT(SMALLDATETIME, '01-04-2023 01:00 PM', 105), CONVERT(SMALLDATETIME, '01-04-2023 01:00 PM', 105), CONVERT(SMALLDATETIME, '31-03-2024 11:00 AM', 105),'0', 1, 'EM004', 112300000),
+    ('PRJ005', 'Cloud Computing Migration', '', CONVERT(SMALLDATETIME, '01-05-2023 02:45 PM', 105), CONVERT(SMALLDATETIME, '01-05-2023 02:45 PM', 105), CONVERT(SMALLDATETIME, '30-11-2023 10:30 AM', 105),'0', 1, 'EM005', 112300456);
 GO
 
 CREATE TABLE ProjectAssignments(
@@ -205,20 +178,6 @@ VALUES
     ('PRJ005', 'DPM005');
 GO
 
--- tasks
-CREATE TABLE TaskStatuses(
-    ID varchar(10) PRIMARY KEY NOT NULL,
-    StatusName nvarchar(50)
-);
-GO
-INSERT INTO TaskStatuses(ID, StatusName)
-VALUES
-    ( 'TS1', N'Đang thực hiện'),
-    ( 'TS2', N'Đã hoàn thành'),
-    ( 'TS3', N'Quá hạn'),
-    ( 'TS4', N'Đang xem xét'),
-    ( 'TS5', N'Hủy');
-GO
 CREATE TABLE Tasks(
     ID varchar(20) PRIMARY KEY NOT NULL,
     Title nvarchar(50),
@@ -229,56 +188,43 @@ CREATE TABLE Tasks(
     OwnerID varchar(20) DEFAULT '',
     EmployeeID varchar(20) DEFAULT '',
     ProjectID varchar(20) DEFAULT '',
-    StatusID varchar(10) DEFAULT ''
+    StatusID int DEFAULT 1 
 );
 GO
 INSERT INTO Tasks(ID, Title, Explanation, StartDate, Deadline, Progress, OwnerID, EmployeeID, ProjectID, StatusID)
 VALUES
-    ('T000001', N'Website Development - Design', N'Thiết kế giao diện website cho khách hàng ABC', CONVERT(SMALLDATETIME, '01-03-2023 09:00 AM', 105), CONVERT(SMALLDATETIME, '15-03-2023 05:00 PM', 105), '50', 'EM002', 'EM007', 'PRJ001', 'TS3'),
-    ('T000002', N'Website Development - Front-end', N'Lập trình phần front-end cho website khách hàng ABC', CONVERT(SMALLDATETIME, '16-03-2023 08:00 AM', 105), CONVERT(SMALLDATETIME, '31-03-2023 05:00 PM', 105), '30', 'EM002', 'EM007', 'PRJ001','TS3'),
-    ('T000003', N'Website Development - Back-end', N'Lập trình phần back-end cho website khách hàng ABC', CONVERT(SMALLDATETIME, '01-04-2023 08:00 AM', 105), CONVERT(SMALLDATETIME, '15-04-2023 05:00 PM', 105), '10', 'EM002', 'EM007', 'PRJ001', 'TS3'),
-    ('T000004', N'Website Development - Testing', N'Kiểm thử và sửa lỗi cho website khách hàng ABC', CONVERT(SMALLDATETIME, '16-04-2023 08:00 AM', 105), CONVERT(SMALLDATETIME, '30-04-2023 05:00 PM', 105), '10', 'EM002', 'EM013', 'PRJ001', 'TS1'),
-    ('T000005', N'Website Development - Deployment', N'Triển khai website khách hàng ABC trên server', CONVERT(SMALLDATETIME, '01-05-2023 08:00 AM', 105), CONVERT(SMALLDATETIME, '15-05-2023 05:00 PM', 105), '0', 'EM002', 'EM017', 'PRJ001', 'TS1'),
+    ('T000001', N'Website Development - Design', N'Thiết kế giao diện website cho khách hàng ABC', CONVERT(SMALLDATETIME, '01-03-2023 09:00 AM', 105), CONVERT(SMALLDATETIME, '15-03-2023 05:00 PM', 105), '50', 'EM002', 'EM007', 'PRJ001', 3),
+    ('T000002', N'Website Development - Front-end', N'Lập trình phần front-end cho website khách hàng ABC', CONVERT(SMALLDATETIME, '16-03-2023 08:00 AM', 105), CONVERT(SMALLDATETIME, '31-03-2023 05:00 PM', 105), '30', 'EM002', 'EM007', 'PRJ001',3),
+    ('T000003', N'Website Development - Back-end', N'Lập trình phần back-end cho website khách hàng ABC', CONVERT(SMALLDATETIME, '01-04-2023 08:00 AM', 105), CONVERT(SMALLDATETIME, '15-04-2023 05:00 PM', 105), '10', 'EM002', 'EM007', 'PRJ001', 3),
+    ('T000004', N'Website Development - Testing', N'Kiểm thử và sửa lỗi cho website khách hàng ABC', CONVERT(SMALLDATETIME, '16-04-2023 08:00 AM', 105), CONVERT(SMALLDATETIME, '30-04-2023 05:00 PM', 105), '10', 'EM002', 'EM013', 'PRJ001', 1),
+    ('T000005', N'Website Development - Deployment', N'Triển khai website khách hàng ABC trên server', CONVERT(SMALLDATETIME, '01-05-2023 08:00 AM', 105), CONVERT(SMALLDATETIME, '15-05-2023 05:00 PM', 105), '0', 'EM002', 'EM017', 'PRJ001', 1),
     
-    ('T000006', N'Develop mobile app UI design', N'Phát triển thiết kế giao diện người dùng cho ứng dụng di động', CONVERT(SMALLDATETIME, '20-04-2023 02:30 PM', 105), CONVERT(SMALLDATETIME, '20-05-2023 05:00 PM', 105), '0', 'EM001', 'EM027', 'PRJ002', 'TS1'),
-    ('T000007', N'Develop mobile app backend', N'Tạo backend cho ứng dụng di động', CONVERT(SMALLDATETIME, '15-05-2023 10:00 AM', 105), CONVERT(SMALLDATETIME, '30-06-2023 01:30 PM', 105), '0', 'EM001', 'EM026', 'PRJ002', 'TS1'),
-    ('T000008', N'Develop mobile app frontend', N'Tạo frontend cho ứng dụng di động', CONVERT(SMALLDATETIME, '01-06-2023 09:15 AM', 105), CONVERT(SMALLDATETIME, '15-07-2023 11:45 AM', 105), '0', 'EM001', 'EM028', 'PRJ002', 'TS1'),
-    ('T000009', N'Test mobile app', N'Kiểm thử ứng dụng di động và báo cáo lỗi', CONVERT(SMALLDATETIME, '20-07-2023 02:00 PM', 105), CONVERT(SMALLDATETIME, '15-08-2023 04:30 PM', 105), '0', 'EM001', 'EM031', 'PRJ002', 'TS1'),
-    ('T000010', N'Deploy mobile app', N'Triển khai ứng dụng di động lên cửa hàng ứng dụng', CONVERT(SMALLDATETIME, '01-09-2023 10:30 AM', 105), CONVERT(SMALLDATETIME, '30-09-2023 03:00 PM', 105), '0', 'EM001', 'EM030', 'PRJ002', 'TS1'),
+    ('T000006', N'Develop mobile app UI design', N'Phát triển thiết kế giao diện người dùng cho ứng dụng di động', CONVERT(SMALLDATETIME, '20-04-2023 02:30 PM', 105), CONVERT(SMALLDATETIME, '20-05-2023 05:00 PM', 105), '0', 'EM001', 'EM027', 'PRJ002', 1),
+    ('T000007', N'Develop mobile app backend', N'Tạo backend cho ứng dụng di động', CONVERT(SMALLDATETIME, '15-05-2023 10:00 AM', 105), CONVERT(SMALLDATETIME, '30-06-2023 01:30 PM', 105), '0', 'EM001', 'EM026', 'PRJ002', 1),
+    ('T000008', N'Develop mobile app frontend', N'Tạo frontend cho ứng dụng di động', CONVERT(SMALLDATETIME, '01-06-2023 09:15 AM', 105), CONVERT(SMALLDATETIME, '15-07-2023 11:45 AM', 105), '0', 'EM001', 'EM028', 'PRJ002', 1),
+    ('T000009', N'Test mobile app', N'Kiểm thử ứng dụng di động và báo cáo lỗi', CONVERT(SMALLDATETIME, '20-07-2023 02:00 PM', 105), CONVERT(SMALLDATETIME, '15-08-2023 04:30 PM', 105), '0', 'EM001', 'EM031', 'PRJ002', 1),
+    ('T000010', N'Deploy mobile app', N'Triển khai ứng dụng di động lên cửa hàng ứng dụng', CONVERT(SMALLDATETIME, '01-09-2023 10:30 AM', 105), CONVERT(SMALLDATETIME, '30-09-2023 03:00 PM', 105), '0', 'EM001', 'EM030', 'PRJ002', 1),
     
-    ('T000011', N'Create new database', N'Tạo cơ sở dữ liệu cho hệ thống quản lý nhân viên', CONVERT(SMALLDATETIME, '01-03-2023 10:15 AM', 105), CONVERT(SMALLDATETIME, '15-03-2023 04:30 PM', 105), '0', 'EM003', 'EM035', 'PRJ003', 'TS3'),
-    ('T000012', N'Optimize database', N'Tối ưu hóa cơ sở dữ liệu cho hệ thống quản lý nhân viên', CONVERT(DATETIME, '05-03-2023 10:15 AM', 105), CONVERT(DATETIME, '20-03-2023 04:30 PM', 105), '0', 'EM003', 'EM036', 'PRJ003', 'TS3'),
-    ('T000013', N'Collect information', N'Thu thập thông tin về các nhân viên trong công ty', CONVERT(SMALLDATETIME, '10-03-2023 10:15 AM', 105), CONVERT(SMALLDATETIME, '25-03-2023 04:30 PM', 105), '0', 'EM003', 'EM037', 'PRJ003', 'TS3'),
-    ('T000014', N'Analyze data', N'Phân tích dữ liệu về các nhân viên trong công ty', CONVERT(SMALLDATETIME, '15-03-2023 10:15 AM', 105), CONVERT(SMALLDATETIME, '30-03-2023 04:30 PM', 105), '0', 'EM003', 'EM038', 'PRJ003', 'TS3'),
-    ('T000015', N'Perform data check', N'Thực hiện kiểm tra dữ liệu đã thu thập và phân tích', CONVERT(SMALLDATETIME, '20-03-2023 10:15 AM', 105), CONVERT(SMALLDATETIME, '31-10-2023 04:30 PM', 105), '0', 'EM003', 'EM039', 'PRJ003', 'TS1'),
+    ('T000011', N'Create new database', N'Tạo cơ sở dữ liệu cho hệ thống quản lý nhân viên', CONVERT(SMALLDATETIME, '01-03-2023 10:15 AM', 105), CONVERT(SMALLDATETIME, '15-03-2023 04:30 PM', 105), '0', 'EM003', 'EM035', 'PRJ003', 3),
+    ('T000012', N'Optimize database', N'Tối ưu hóa cơ sở dữ liệu cho hệ thống quản lý nhân viên', CONVERT(DATETIME, '05-03-2023 10:15 AM', 105), CONVERT(DATETIME, '20-03-2023 04:30 PM', 105), '0', 'EM003', 'EM036', 'PRJ003', 3),
+    ('T000013', N'Collect information', N'Thu thập thông tin về các nhân viên trong công ty', CONVERT(SMALLDATETIME, '10-03-2023 10:15 AM', 105), CONVERT(SMALLDATETIME, '25-03-2023 04:30 PM', 105), '0', 'EM003', 'EM037', 'PRJ003', 3),
+    ('T000014', N'Analyze data', N'Phân tích dữ liệu về các nhân viên trong công ty', CONVERT(SMALLDATETIME, '15-03-2023 10:15 AM', 105), CONVERT(SMALLDATETIME, '30-03-2023 04:30 PM', 105), '0', 'EM003', 'EM038', 'PRJ003', 3),
+    ('T000015', N'Perform data check', N'Thực hiện kiểm tra dữ liệu đã thu thập và phân tích', CONVERT(SMALLDATETIME, '20-03-2023 10:15 AM', 105), CONVERT(SMALLDATETIME, '31-10-2023 04:30 PM', 105), '0', 'EM003', 'EM039', 'PRJ003', 1),
     
-    ('T000016', N'Cloud Computing Migration', N'Migrate các ứng dụng và dữ liệu hiện có đến nền tảng Cloud Computing', CONVERT(SMALLDATETIME, '01-05-2023 02:45 PM', 105), CONVERT(SMALLDATETIME, '30-11-2023 10:30 AM', 105), '0', 'EM004', 'EM045', 'PRJ004', 'TS1'),
-    ('T000017', N'Assess current infrastructure', N'Đánh giá cơ sở hạ tầng công nghệ thông tin hiện tại và xác định các khu vực cần được di chuyển đến đám mây.', CONVERT(SMALLDATETIME, '05-05-2023 02:45 PM', 105), CONVERT(SMALLDATETIME, '15-05-2023 04:30 PM', 105), '0', 'EM004', 'EM046', 'PRJ004', 'TS1'),
-    ('T000018', N'Select cloud provIDer', N'Nghiên cứu và lựa chọn nhà cung cấp đám mây phù hợp cho công ty', CONVERT(SMALLDATETIME, '10-05-2023 02:45 PM', 105), CONVERT(SMALLDATETIME, '25-05-2023 04:30 PM', 105), '0', 'EM004', 'EM047', 'PRJ004', 'TS1'),
-    ('T000019', N'Migrate applications', N'Migrate các ứng dụng hiện có đến nền tảng đám mây', CONVERT(SMALLDATETIME, '15-05-2023 02:45 PM', 105), CONVERT(SMALLDATETIME, '30-11-2023 10:30 AM', 105), '0', 'EM004', 'EM048', 'PRJ004', 'TS1'),
-    ('T000020', N'Migrate data', N'Transfer dữ liệu của công ty đến nền tảng đám mây', CONVERT(SMALLDATETIME, '20-05-2023 02:45 PM', 105), CONVERT(SMALLDATETIME, '30-11-2023 10:30 AM', 105), '0', 'EM004', 'EM049', 'PRJ004', 'TS1'),
+    ('T000016', N'Cloud Computing Migration', N'Migrate các ứng dụng và dữ liệu hiện có đến nền tảng Cloud Computing', CONVERT(SMALLDATETIME, '01-05-2023 02:45 PM', 105), CONVERT(SMALLDATETIME, '30-11-2023 10:30 AM', 105), '0', 'EM004', 'EM045', 'PRJ004', 1),
+    ('T000017', N'Assess current infrastructure', N'Đánh giá cơ sở hạ tầng công nghệ thông tin hiện tại và xác định các khu vực cần được di chuyển đến đám mây.', CONVERT(SMALLDATETIME, '05-05-2023 02:45 PM', 105), CONVERT(SMALLDATETIME, '15-05-2023 04:30 PM', 105), '0', 'EM004', 'EM046', 'PRJ004', 1),
+    ('T000018', N'Select cloud provIDer', N'Nghiên cứu và lựa chọn nhà cung cấp đám mây phù hợp cho công ty', CONVERT(SMALLDATETIME, '10-05-2023 02:45 PM', 105), CONVERT(SMALLDATETIME, '25-05-2023 04:30 PM', 105), '0', 'EM004', 'EM047', 'PRJ004', 1),
+    ('T000019', N'Migrate applications', N'Migrate các ứng dụng hiện có đến nền tảng đám mây', CONVERT(SMALLDATETIME, '15-05-2023 02:45 PM', 105), CONVERT(SMALLDATETIME, '30-11-2023 10:30 AM', 105), '0', 'EM004', 'EM048', 'PRJ004', 1),
+    ('T000020', N'Migrate data', N'Transfer dữ liệu của công ty đến nền tảng đám mây', CONVERT(SMALLDATETIME, '20-05-2023 02:45 PM', 105), CONVERT(SMALLDATETIME, '30-11-2023 10:30 AM', 105), '0', 'EM004', 'EM049', 'PRJ004', 1),
     
-    ('T000021', N'Infrastructure Department', N'Triển khai và quản lý cơ sở hạ tầng công nghệ thông tin cho công ty', CONVERT(SMALLDATETIME, '01-05-2023 02:45 PM', 105), CONVERT(SMALLDATETIME, '30-11-2023 10:30 AM', 105), '0', 'EM051', 'EM050', 'PRJ005', 'TS1'),
-    ('T000022', N'Set up network infrastructure', N'Cài đặt và cấu hình cơ sở hạ tầng mạng cho công ty', CONVERT(SMALLDATETIME, '05-05-2023 02:45 PM', 105), CONVERT(SMALLDATETIME, '15-05-2023 04:30 PM', 105), '0', 'EM051', 'EM050', 'PRJ005', 'TS1'),
-    ('T000023', N'Implement server infrastructure', N'Cài đặt và cấu hình cơ sở hạ tầng máy chủ cho công ty', CONVERT(SMALLDATETIME, '10-05-2023 02:45 PM', 105), CONVERT(SMALLDATETIME, '25-05-2023 04:30 PM', 105), '0', 'EM051', 'EM052', 'PRJ005', 'TS1'),
-    ('T000024', N'Set up security infrastructure', N'Cài đặt và cấu hình cơ sở hạ tầng bảo mật cho công ty', CONVERT(SMALLDATETIME, '15-05-2023 02:45 PM', 105), CONVERT(SMALLDATETIME, '30-11-2023 10:30 AM', 105), '0', 'EM051', 'EM053', 'PRJ005', 'TS1'),
-    ('T000025', N'Implement backup infrastructure', N'Cài đặt và cấu hình cơ sở hạ tầng sao lưu cho công ty', CONVERT(SMALLDATETIME, '20-05-2023 02:45 PM', 105), CONVERT(SMALLDATETIME, '30-11-2023 10:30 AM', 105), '0', 'EM051', 'EM054', 'PRJ005', 'TS1'),
-    ('T000026', N'Manage IT infrastructure', N'Quản lý và duy trì cơ sở hạ tầng công nghệ thông tin cho công ty', CONVERT(SMALLDATETIME, '25-05-2023 02:45 PM', 105), CONVERT(SMALLDATETIME, '30-11-2023 10:30 AM', 105), '0', 'EM051', 'EM054', 'PRJ005', 'TS1');
+    ('T000021', N'Infrastructure Department', N'Triển khai và quản lý cơ sở hạ tầng công nghệ thông tin cho công ty', CONVERT(SMALLDATETIME, '01-05-2023 02:45 PM', 105), CONVERT(SMALLDATETIME, '30-11-2023 10:30 AM', 105), '0', 'EM051', 'EM050', 'PRJ005', 1),
+    ('T000022', N'Set up network infrastructure', N'Cài đặt và cấu hình cơ sở hạ tầng mạng cho công ty', CONVERT(SMALLDATETIME, '05-05-2023 02:45 PM', 105), CONVERT(SMALLDATETIME, '15-05-2023 04:30 PM', 105), '0', 'EM051', 'EM050', 'PRJ005', 1),
+    ('T000023', N'Implement server infrastructure', N'Cài đặt và cấu hình cơ sở hạ tầng máy chủ cho công ty', CONVERT(SMALLDATETIME, '10-05-2023 02:45 PM', 105), CONVERT(SMALLDATETIME, '25-05-2023 04:30 PM', 105), '0', 'EM051', 'EM052', 'PRJ005', 1),
+    ('T000024', N'Set up security infrastructure', N'Cài đặt và cấu hình cơ sở hạ tầng bảo mật cho công ty', CONVERT(SMALLDATETIME, '15-05-2023 02:45 PM', 105), CONVERT(SMALLDATETIME, '30-11-2023 10:30 AM', 105), '0', 'EM051', 'EM053', 'PRJ005', 1),
+    ('T000025', N'Implement backup infrastructure', N'Cài đặt và cấu hình cơ sở hạ tầng sao lưu cho công ty', CONVERT(SMALLDATETIME, '20-05-2023 02:45 PM', 105), CONVERT(SMALLDATETIME, '30-11-2023 10:30 AM', 105), '0', 'EM051', 'EM054', 'PRJ005', 1),
+    ('T000026', N'Manage IT infrastructure', N'Quản lý và duy trì cơ sở hạ tầng công nghệ thông tin cho công ty', CONVERT(SMALLDATETIME, '25-05-2023 02:45 PM', 105), CONVERT(SMALLDATETIME, '30-11-2023 10:30 AM', 105), '0', 'EM051', 'EM054', 'PRJ005', 1);
 GO
 
-
--- leave requests
-CREATE TABLE LeaveStatuses(
-    ID varchar(20) PRIMARY KEY NOT NULL,
-    StatusName nvarchar(50)
-)
-GO
-INSERT INTO LeaveStatuses(ID, StatusName)
-VALUES
-    ('LS1', N'Chấp nhận'),
-    ('LS2', N'Chưa giải quyết'),
-    ('LS3', N'Từ chối');
-GO
 CREATE TABLE LeaveRequests(
     ID varchar(20) PRIMARY KEY NOT NULL,
     Reason nvarchar(255),
@@ -286,7 +232,7 @@ CREATE TABLE LeaveRequests(
     CreatedDate date,
     StartDate date, -- at least 7 days before the creation date
     EndDate date,
-    StatusID varchar(20) DEFAULT '',
+    StatusID int DEFAULT 2,
     EmployeeID varchar(20) DEFAULT '',
     ApproverID varchar(20) DEFAULT '',
     Response nvarchar(255)
@@ -294,8 +240,8 @@ CREATE TABLE LeaveRequests(
 GO
 INSERT INTO LeaveRequests(ID, EmployeeID, Reason, Notes, CreatedDate, StartDate, EndDate, StatusID, ApproverID, Response)
 VALUES
-    ('LEA0001', 'EM007', N'Nghỉ do bị ốm', N'ghi chú 1', '2023-04-01', '2023-04-08', '2023-04-09', 'LS1', 'EM006', ''),
-    ('LEA0002', 'EM008', N'Nghỉ đi khám bệnh', N'ghi chú 2', '2023-04-01', '2023-04-10', '2023-04-06', 'LS1', 'EM006', '');
+    ('LEA0001', 'EM007', N'Nghỉ do bị ốm', N'ghi chú 1', '2023-04-01', '2023-04-08', '2023-04-09', 1, 'EM006', ''),
+    ('LEA0002', 'EM008', N'Nghỉ đi khám bệnh', N'ghi chú 2', '2023-04-01', '2023-04-10', '2023-04-06', 1, 'EM006', '');
 GO
 
 -- check-in-out

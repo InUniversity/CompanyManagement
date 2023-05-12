@@ -87,7 +87,7 @@ namespace CompanyManagement.Models
             }
             catch (Exception ex)
             {
-                Log.Instance.Error(nameof(ProjectStatus), "CAST ERROR: " + ex.Message);
+                Log.Instance.Error(nameof(ProjectBonus), "CAST ERROR: " + ex.Message);
             }
         }
     }

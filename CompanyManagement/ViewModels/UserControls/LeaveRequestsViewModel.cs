@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
+using CompanyManagement.Enums;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
@@ -91,25 +92,27 @@ namespace CompanyManagement.ViewModels.UserControls
         {
             LeaveRequests = leaveDao.GetMyRequests(currentEmployee.ID);
 
-            var receivedLeaveRequests = (currentEmployee.EmplRole.Perms == Permission.HR)
+            var receivedLeaveRequests = (currentEmployee.EmplRole.Perms == EPermission.HR)
                 ? leaveDao.SearchByApproverID(currentEmployee.ID)
                 : leaveDao.GetMyRequests(currentEmployee.ID);
             foreach (LeaveRequest leave in receivedLeaveRequests)
             {
                 leave.Approver = employeeDao.SearchByID(leave.ApproverID);
-            }    
+            }
 
             var unapprovedLeaveList = receivedLeaveRequests
-                .Where(p => p.StatusID == BaseDao.leavRequestUpapproved)
+                .Where(p => p.Status == ELeavStatus.Unapproved)
                 .OrderByDescending(p => p.Created).ToList();
             UnapprovedLeaveRequests = unapprovedLeaveList;
 
-            var listApprovedLeaves = receivedLeaveRequests.Where(p => p.StatusID == BaseDao.leavRequesApproved)
-                                        .OrderByDescending(p => p.Created).ToList();
+            var listApprovedLeaves = receivedLeaveRequests
+                .Where(p => p.Status == ELeavStatus.Approved) 
+                .OrderByDescending(p => p.Created).ToList();
             ApprovedLeaveRequests = listApprovedLeaves;
 
-            var listUnapprovedLeaves = receivedLeaveRequests.Where(p => p.StatusID == BaseDao.leavRequesDenied)
-                                        .OrderByDescending(p => p.Created).ToList();
+            var listUnapprovedLeaves = receivedLeaveRequests
+                .Where(p => p.Status == ELeavStatus.Denied) 
+                .OrderByDescending(p => p.Created).ToList();
             DeniedLeaveRequests = listUnapprovedLeaves;
         }
 
@@ -127,8 +130,8 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private LeaveRequest CreateLeave()
         {
-            return new LeaveRequest(AutoGenerateID(), "", "", 
-                BaseDao.leavRequestUpapproved, currentEmployee.ID, "", "");
+            return new LeaveRequest(AutoGenerateID(), "", "", ELeavStatus.Unapproved, 
+                currentEmployee.ID, "", "");
         }
 
         private string AutoGenerateID()

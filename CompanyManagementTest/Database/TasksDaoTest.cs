@@ -1,6 +1,7 @@
 using System;
 using CompanyManagement;
 using CompanyManagement.Database;
+using CompanyManagement.Enums;
 using CompanyManagement.Models;
 using NUnit.Framework;
 
@@ -25,7 +26,7 @@ namespace CompanyManagementTest.Database
                 new DateTime(2023, 3, 1, 9, 0, 0), 
                 new DateTime(2023, 3, 15, 17, 0, 0), 
                 "50", "EM002", "EM007", "PRJ001", 
-                "TS3", new Employee());
+                ETaskStatus.Overdue, new Employee());
             var actualSearch = myDao.SearchByID(expected.ID);
             
             AssertObject(expected, actualSearch);
@@ -37,7 +38,7 @@ namespace CompanyManagementTest.Database
             var task = new TaskInProject("T2352342", "Test Task", "Test Explanation 111", 
                 new DateTime(2023, 4, 30, 0, 0, 0), 
                 new DateTime(2023, 5, 30, 0, 0, 0), 
-                "0", "EM001", "EM007", "PRJ001", "TS1", new Employee());  
+                "0", "EM001", "EM007", "PRJ001", ETaskStatus.InProcess, new Employee());  
             
             // add
             myDao.Add(task); 
@@ -46,7 +47,7 @@ namespace CompanyManagementTest.Database
             // update
             var updateObject = new TaskInProject(task.ID, task.Title + "Updated", task.Explanation, 
                 task.StartDate, task.Deadline, task.Progress, task.OwnerID, "EM008", task.ProjectID, 
-                task.StatusID, new Employee());
+                task.Status, new Employee());
             myDao.Update(updateObject);
             var updated = myDao.SearchByID(task.ID);  
             
@@ -98,7 +99,7 @@ namespace CompanyManagementTest.Database
             Assert.AreEqual(expected.OwnerID, actual.OwnerID);
             Assert.AreEqual(expected.EmployeeID, actual.EmployeeID);
             Assert.AreEqual(expected.ProjectID, actual.ProjectID);
-            Assert.AreEqual(expected.StatusID, actual.StatusID);
+            Assert.AreEqual(expected.Status, actual.Status);
         }
     }
 }

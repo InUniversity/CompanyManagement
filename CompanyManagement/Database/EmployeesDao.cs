@@ -1,5 +1,6 @@
 ﻿using CompanyManagement.Database.Base;
 using System.Collections.Generic;
+using CompanyManagement.Enums;
 using CompanyManagement.Models;
 using CompanyManagement.Utilities;
 
@@ -45,7 +46,7 @@ namespace CompanyManagement.Database
         public List<Employee> GetAllWithoutManagers()
         {
             string sqlStr = $"SELECT E.* FROM {emplTbl} E JOIN {roleTbl} R ON E.{emplRoleID} = R.{roleID} " +
-                            $"WHERE R.{rolePerms} != '{Permission.Mgr}'";
+                            $"WHERE R.{rolePerms} != '{EPermission.Mgr}'";
             return dbConnection.GetList(sqlStr, reader => new Employee(reader));
         }
 
@@ -70,7 +71,7 @@ namespace CompanyManagement.Database
         public List<Employee> GetHeaderDepts()
         {
             string sqlStr = $"SELECT E.* FROM {emplTbl} E JOIN {roleTbl} R ON E.{emplRoleID} = R.{roleID} " +
-                            $"WHERE R.{rolePerms} = '{Permission.HR}'";
+                            $"WHERE R.{rolePerms} = '{EPermission.HR}'";
             return dbConnection.GetList(sqlStr, reader => new Employee(reader));
         }
 

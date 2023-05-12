@@ -12,6 +12,7 @@ using CompanyManagement.Database;
 using CompanyManagement.Services;
 using CompanyManagement.Strategies.UserControls.ProjectsView;
 using CompanyManagement.Database.Base;
+using CompanyManagement.Enums;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
@@ -121,9 +122,9 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private Project CreateProject()
         {
-            return new Project(AutoGenerateID(), "", "", DateTime.Now, DateTime.Now, DateTime.Now, 
-                Utils.emptyDate, "0", "", currentEmployee.ID, 0,
-                new ObservableCollection<Department>());
+            return new Project(AutoGenerateID(), "", "", DateTime.Now, DateTime.Now, 
+                DateTime.Now, Utils.emptyDate, "0", EProjStatus.Planning, 
+                currentEmployee.ID, 0, new ObservableCollection<Department>());
         }
 
         private void Add(Project project)

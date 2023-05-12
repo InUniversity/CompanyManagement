@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using CompanyManagement.Database;
+using CompanyManagement.Enums;
 using CompanyManagement.Models;
 using CompanyManagement.Strategies.Windows.MainView;
 using CompanyManagement.Utilities;
@@ -53,7 +54,7 @@ namespace CompanyManagement.ViewModels.Windows
             window.Show();
         }
 
-        private void ShowMainWindow(Permission perms)
+        private void ShowMainWindow(EPermission perms)
         {
             try
             {

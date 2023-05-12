@@ -1,18 +1,18 @@
 using System.ComponentModel;
 
-namespace CompanyManagement.Models
+namespace CompanyManagement.Enums
 {
-    public enum Permission
+    public enum EPermission
     {
         [Description("Manager")]
-        Mgr,
+        Mgr = 1,
         [Description("Department Head")]
-        DepHead, 
+        DepHead = 2, 
         [Description("Normal Employee")] 
-        NorEmpl,  
+        NorEmpl = 3,  
         [Description("Human Resource")] 
-        HR, 
+        HR = 4, 
         [Description("Not allow")] 
-        NotAllow
+        NotAllow = 5
     }
 }

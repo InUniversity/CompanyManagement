@@ -6,6 +6,7 @@ using CompanyManagement.ViewModels.Base;
 using System.Windows.Input;
 using System.Linq;
 using System.Windows.Controls;
+using CompanyManagement.Enums;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
@@ -60,13 +61,13 @@ namespace CompanyManagement.ViewModels.UserControls
         }
         
         public string ProjectID { get => task.ProjectID; set { task.ProjectID = value; OnPropertyChanged(); } }
-        public string StatusID { get => task.StatusID; set { task.StatusID = value; OnPropertyChanged(); } }
+        public ETaskStatus Status { get => task.Status; set { task.Status = value; OnPropertyChanged(); } }
 
         private string errorMessage = "";
         public string ErrorMessage { get => errorMessage; set { errorMessage = value; OnPropertyChanged(); } }
 
-        private List<TaskStatus> taskStatuses;
-        public List<TaskStatus> TaskStatuses { get => taskStatuses; set { taskStatuses = value; OnPropertyChanged(); } }
+        private List<ETaskStatus> taskStatuses;
+        public List<ETaskStatus> TaskStatuses { get => taskStatuses; set { taskStatuses = value; OnPropertyChanged(); } }
         
         private List<Employee> employees;
 
@@ -79,7 +80,6 @@ namespace CompanyManagement.ViewModels.UserControls
 
         public ICommand GetSelectedEmployeeCommand { get; private set; }
 
-        private TaskStatusesDao taskStatusesDao = new TaskStatusesDao();
         private ProjectAssignmentsDao assignmentsDao = new ProjectAssignmentsDao();
         private RolesDao roleDao = new RolesDao();
         
@@ -111,7 +111,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void SetAllComboBox()
         {
-            TaskStatuses = taskStatusesDao.GetAll();
+            TaskStatuses = Enum.GetValues(typeof(ETaskStatus)).Cast<ETaskStatus>().ToList();
         }
 
         public bool CheckAllFields()

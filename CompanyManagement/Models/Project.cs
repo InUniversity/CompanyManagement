@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Data;
 using CompanyManagement.Database.Base;
+using CompanyManagement.Enums;
 using CompanyManagement.Models;
 using CompanyManagement.Utilities;
 
@@ -17,7 +18,7 @@ namespace CompanyManagement
         private DateTime endDate;
         private DateTime completedDate;
         private string progress;
-        private string statusID;
+        private EProjStatus status;
         private string ownerID;
         private decimal bonusSalary;
         private ObservableCollection<Department> departments = new ObservableCollection<Department>();
@@ -70,10 +71,10 @@ namespace CompanyManagement
             set => progress = value;
         }
 
-        public string StatusID
+        public EProjStatus Status
         {
-            get => statusID;
-            set => statusID = value;
+            get => status;
+            set => status = value;
         }
 
         public string OwnerID
@@ -97,7 +98,7 @@ namespace CompanyManagement
         public Project() { }
 
         public Project(string id, string name, string details, DateTime createdDate, DateTime startDate, 
-            DateTime endDate, DateTime completedDate, string progress, string statusID, string ownerID, 
+            DateTime endDate, DateTime completedDate, string progress, EProjStatus status, string ownerID, 
             decimal bonusSalary, ObservableCollection<Department> departments)
         {
             this.id = id;
@@ -108,7 +109,7 @@ namespace CompanyManagement
             this.endDate = endDate;
             this.completedDate = completedDate;
             this.progress = progress;
-            this.statusID = statusID;
+            this.status = status;
             this.ownerID = ownerID;
             this.bonusSalary = bonusSalary;
             this.departments = departments;
@@ -126,7 +127,7 @@ namespace CompanyManagement
                 endDate = Utils.GetDateTime(reader, BaseDao.projEnd);
                 completedDate = Utils.GetDateTime(reader, BaseDao.projCompleted);
                 progress = Utils.GetString(reader, BaseDao.projProgress);
-                statusID = Utils.GetString(reader, BaseDao.projStatusID);
+                status = (EProjStatus)Utils.GetInt(reader, BaseDao.projStatusID);
                 ownerID = Utils.GetString(reader, BaseDao.projOwnerID);
                 bonusSalary = Utils.GetDecimal(reader, BaseDao.projBonus);
             }

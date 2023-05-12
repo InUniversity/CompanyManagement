@@ -13,6 +13,7 @@ using CompanyManagement.Utilities;
 using System.ComponentModel;
 using CompanyManagement.Views.Dialogs;
 using CompanyManagement.Database.Base;
+using CompanyManagement.Enums;
 using CompanyManagement.Views.UserControls;
 
 namespace CompanyManagement.ViewModels.UserControls
@@ -208,14 +209,14 @@ namespace CompanyManagement.ViewModels.UserControls
                 "Bạn chắc chắn muốn lưu các thao tác chia tiền thưởng!",
                 () =>
                 {
-                    CommitShareBonnus();
+                    CommitShareBonus();
                 }, null);
             dialog.Show();
         }
 
         private bool ValidateShareBonus()
         {
-            if (currentProject.StatusID != BaseDao.projPendingPayID)
+            if (currentProject.Status != EProjStatus.PendingPay)
             {
                 var dialog = new AlertDialogService(
                     "Thông báo",
@@ -226,12 +227,12 @@ namespace CompanyManagement.ViewModels.UserControls
             return true;
         }
 
-        private void CommitShareBonnus()
+        private void CommitShareBonus()
         {
             projectBonusesDao.DeleteByProjectID(projectID);
             AddShareBonusToDBCommand(bonusNormalList);
             AddShareBonusToDBCommand(bonusSpecial);
-            currentProject.StatusID = BaseDao.projCompletedID;
+            currentProject.Status = EProjStatus.Completed;
             projectsDao.Update(currentProject);
         }
 

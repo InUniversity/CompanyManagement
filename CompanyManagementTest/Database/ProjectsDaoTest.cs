@@ -2,6 +2,7 @@ using System;
 using System.Collections.ObjectModel;
 using CompanyManagement;
 using CompanyManagement.Database;
+using CompanyManagement.Enums;
 using CompanyManagement.Models;
 using NUnit.Framework;
 
@@ -22,7 +23,7 @@ namespace CompanyManagementTest.Database
                 new DateTime(2023, 1, 1, 1, 0, 0), 
                 new DateTime(2023, 12, 1, 1, 0, 0), 
                 new DateTime(2000, 1, 1, 1, 0, 0), 
-                "0", "PST5", "EM001", 
+                "0", EProjStatus.Planning, "EM001", 
                 (decimal)100000.00, new ObservableCollection<Department>()); 
         }
         
@@ -39,7 +40,7 @@ namespace CompanyManagementTest.Database
             Assert.AreEqual(new DateTime(2023, 6, 30, 17, 0, 0), actualSearch.EndDate);
             Assert.AreEqual(new DateTime(2000, 1, 1, 0, 0, 0), actualSearch.CompletedDate);
             Assert.AreEqual("50", actualSearch.Progress);
-            Assert.AreEqual("PST1", actualSearch.StatusID);
+            Assert.AreEqual(EProjStatus.InProcess, actualSearch.Status);
             Assert.AreEqual("EM001", actualSearch.OwnerID);
             Assert.AreEqual(100000000.0000, actualSearch.BonusSalary);
         }
@@ -56,7 +57,7 @@ namespace CompanyManagementTest.Database
             // update
             var updateProject = new Project(project.ID, project.Name + "Updated", project.Details + "more details", 
                 project.CreatedDate, project.StartDate, project.EndDate, project.CompletedDate, project.Progress, 
-                project.StatusID, project.OwnerID, (decimal)123123123.5000, project.Departments);
+                project.Status, project.OwnerID, (decimal)123123123.5000, project.Departments);
             projectsDao.Update(updateProject);
             var updated = projectsDao.SearchByID(project.ID);  
             
@@ -89,7 +90,7 @@ namespace CompanyManagementTest.Database
             Assert.AreEqual(expected.EndDate, actual.EndDate);
             Assert.AreEqual(expected.CompletedDate, actual.CompletedDate);
             Assert.AreEqual(expected.Progress, actual.Progress);
-            Assert.AreEqual(expected.StatusID, actual.StatusID);
+            Assert.AreEqual(expected.Status, actual.Status);
             Assert.AreEqual(expected.OwnerID, actual.OwnerID);
             Assert.AreEqual(expected.BonusSalary, actual.BonusSalary); 
         }

@@ -15,7 +15,7 @@ namespace CompanyManagement.Database
                             $"{taskDeadline}, {taskOwnerID}, {taskProgress}, {taskEmplID}, {taskProjID}, " +
                             $"{taskStatusID}) VALUES ('{tsk.ID}', N'{tsk.Title}', N'{tsk.Explanation}', " +
                             $"'{tsk.StartDate}', '{tsk.Deadline}', '{tsk.OwnerID}', '{tsk.Progress}', " +
-                            $"'{tsk.EmployeeID}', '{tsk.ProjectID}', '{tsk.StatusID}')";
+                            $"'{tsk.EmployeeID}', '{tsk.ProjectID}', '{(int)tsk.Status}')";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
@@ -31,7 +31,7 @@ namespace CompanyManagement.Database
                             $"{taskExplanation}=N'{tsk.Explanation}', {taskStart}='{tsk.StartDate}', " +
                             $"{taskDeadline}='{tsk.Deadline}', {taskOwnerID}='{tsk.OwnerID}', " +
                             $"{taskProgress}='{tsk.Progress}', {taskEmplID}='{tsk.EmployeeID}', " +
-                            $"{taskProjID}='{tsk.ProjectID}', {taskStatusID}='{tsk.StatusID}' " +
+                            $"{taskProjID}='{tsk.ProjectID}', {taskStatusID}='{(int)tsk.Status}' " +
                             $"WHERE {taskID}='{tsk.ID}'";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
