@@ -25,29 +25,34 @@
                                     Background="White">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition Width="auto"></ColumnDefinition>
                             <ColumnDefinition Width="50"></ColumnDefinition>
                             <ColumnDefinition></ColumnDefinition>
                             <ColumnDefinition></ColumnDefinition> 
                         </Grid.ColumnDefinitions>
                         <Border Grid.Column="0"
-                                Width="300"
+                                Width="350"
                                 Margin="10">
                             <StackPanel>
-                                <Grid>
+                                <Grid  Margin="50 0 0 0">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="50"></ColumnDefinition>
-                                        <ColumnDefinition Width="180"></ColumnDefinition>
-                                        <ColumnDefinition Width="50"></ColumnDefinition>
+                                        <ColumnDefinition Width="175"></ColumnDefinition>
+                                        <ColumnDefinition Width="60"></ColumnDefinition>
+                                        <ColumnDefinition ></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
                                     <StackPanel Grid.Column="0" Orientation="Horizontal">
-                                        <materialDesign:PackIcon  Kind="MenuDown" Foreground="Gray"/>
-                                        <TextBlock  Name="textStart" Text="Start" FontSize="10" VerticalAlignment="Center">
+                                        <Button Grid.Column="1"
+                                            Command="{Binding StartCommand}"
+                                            Style="{StaticResource MaterialDesignIconButton}"                                
+                                            Width="30" Height="30">
+                                            <materialDesign:PackIcon  Kind="MenuDown" Foreground="Gray"/>
+                                        </Button>
+                                        <TextBlock  Name="textStart" Text="Start" FontSize="12" VerticalAlignment="Center">
                                             <TextBlock.Style>
                                                 <Style TargetType="{x:Type TextBlock}">
                                                     <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding ElementName= progressBar, Path=Value, UpdateSourceTrigger=PropertyChanged}" Value="20">
-                                                            <Setter Property="Foreground" Value="#4dd0e1"></Setter>
+                                                        <DataTrigger Binding="{Binding ElementName= progressBar, Path=Value, UpdateSourceTrigger=PropertyChanged}" Value="100">
+                                                            <Setter Property="Foreground" Value="#00e5ff"></Setter>
                                                         </DataTrigger>
                                                         <DataTrigger Binding="{Binding ElementName= textIn, Path=Foreground, UpdateSourceTrigger=PropertyChanged}" Value="#006064">
                                                             <Setter Property="Foreground" Value="Gray"></Setter>
@@ -61,13 +66,18 @@
                                         </TextBlock>
                                     </StackPanel>
                                     <StackPanel Grid.Column="1" Orientation="Horizontal">
-                                        <materialDesign:PackIcon  Kind="MenuDown" Foreground="Gray"/>
-                                        <TextBlock Name="textIn" Text="In" FontSize="10" VerticalAlignment="Center">
+                                        <Button Grid.Column="1"
+                                            Command="{Binding CheckInCommand}"
+                                            Style="{StaticResource MaterialDesignIconButton}"                                
+                                            Width="30" Height="30">
+                                            <materialDesign:PackIcon  Kind="MenuDown" Foreground="Gray"/>
+                                        </Button>
+                                        <TextBlock Name="textIn" Text="In" FontSize="12" VerticalAlignment="Center">
                                             <TextBlock.Style>
                                                 <Style TargetType="{x:Type TextBlock}">
                                                     <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding ElementName= progressBar, Path=Value, UpdateSourceTrigger=PropertyChanged}" Value="80">
-                                                            <Setter Property="Foreground" Value="#4dd0e1"></Setter>
+                                                        <DataTrigger Binding="{Binding ElementName= progressBar, Path=Value, UpdateSourceTrigger=PropertyChanged}" Value="20">
+                                                            <Setter Property="Foreground" Value="#00e676"></Setter>
                                                         </DataTrigger>
                                                         <DataTrigger Binding="{Binding ElementName= textStart, Path=Foreground, UpdateSourceTrigger=PropertyChanged}" Value="#006064">
                                                             <Setter Property="Foreground" Value="Gray"></Setter>
@@ -81,13 +91,18 @@
                                         </TextBlock>
                                     </StackPanel>
                                     <StackPanel Grid.Column="2" Orientation="Horizontal">
-                                        <materialDesign:PackIcon  Kind="MenuDown" Foreground="Gray"/>
-                                        <TextBlock  Name="textOut" Text="Out" FontSize="10"  VerticalAlignment="Center">
+                                        <Button Grid.Column="1"
+                                            Command="{Binding CheckOutCommand}"
+                                            Style="{StaticResource MaterialDesignIconButton}"                                
+                                            Width="30" Height="30">
+                                            <materialDesign:PackIcon  Kind="MenuDown" Foreground="Gray"/>
+                                        </Button>
+                                        <TextBlock  Name="textOut" Text="Out" FontSize="12"  VerticalAlignment="Center">
                                             <TextBlock.Style>
                                                 <Style TargetType="{x:Type TextBlock}">
                                                     <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding ElementName= progressBar, Path=Value, UpdateSourceTrigger=PropertyChanged}" Value="100">
-                                                            <Setter Property="Foreground" Value="#4dd0e1"></Setter>
+                                                        <DataTrigger Binding="{Binding ElementName= progressBar, Path=Value, UpdateSourceTrigger=PropertyChanged}" Value="80">
+                                                            <Setter Property="Foreground" Value="#ff1744"></Setter>
                                                         </DataTrigger>
                                                         <DataTrigger Binding="{Binding ElementName= textIn, Path=Foreground, UpdateSourceTrigger=PropertyChanged}" Value="#006064">
                                                             <Setter Property="Foreground" Value="Gray"></Setter>
@@ -101,8 +116,8 @@
                                         </TextBlock>
                                     </StackPanel>
                                 </Grid>
-                                <Border BorderBrush="#006064" BorderThickness="0.5">
-                                    <ProgressBar Name="progressBar" Height="30" Value="{Binding ProgressCheckInOut}">
+                                <Border BorderBrush="Gray" BorderThickness="0.5" Width="300" HorizontalAlignment="Left">
+                                    <ProgressBar Name="progressBar" Height="15" Value="{Binding ProgressCheckInOut}">
                                         <ProgressBar.Template>
                                             <ControlTemplate>
                                                 <Border BorderBrush="#D9DCE1" BorderThickness="0" Background="White" CornerRadius="0" Padding="0">
@@ -112,13 +127,13 @@
                                                                 <Style TargetType="{x:Type Rectangle}">
                                                                     <Style.Triggers>
                                                                         <DataTrigger Binding="{Binding ElementName=progressBar, Path=Value, UpdateSourceTrigger=PropertyChanged}" Value="20">
-                                                                            <Setter Property="Fill" Value="#e0f7fa"></Setter>
+                                                                            <Setter Property="Fill" Value="#00e5ff"></Setter>
                                                                         </DataTrigger>
                                                                         <DataTrigger Binding="{Binding ElementName=progressBar, Path=Value, UpdateSourceTrigger=PropertyChanged}" Value="80">
-                                                                            <Setter Property="Fill" Value="#4dd0e1"></Setter>
+                                                                            <Setter Property="Fill" Value="#00e676"></Setter>
                                                                         </DataTrigger>
                                                                         <DataTrigger Binding="{Binding ElementName=progressBar, Path=Value, UpdateSourceTrigger=PropertyChanged}" Value="100">
-                                                                            <Setter Property="Fill" Value="#0097a7"></Setter>
+                                                                            <Setter Property="Fill" Value="#ff1744"></Setter>
                                                                         </DataTrigger>
                                                                     </Style.Triggers>
                                                                 </Style>
@@ -132,32 +147,26 @@
                                 </Border>
                             </StackPanel>
                         </Border>
-                        <Button Grid.Column="1"
-                                Margin="5"
-                                Command="{Binding ContinueProgessCommand}"
-                                Style="{StaticResource MaterialDesignIconButton}"                                
-                                Width="30" Height="50">
-                            <materialDesign:PackIcon Width="30" Height="50">
-                                <materialDesign:PackIcon.Style>
-                                    <Style TargetType="materialDesign:PackIcon">
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding ElementName=progressBar, Path=Value, UpdateSourceTrigger=PropertyChanged}" Value="20">
-                                                <Setter Property="Kind" Value="Airplane"></Setter>
-                                                <Setter Property="ToolTip" Value="Check in"></Setter>
-                                            </DataTrigger>
-                                            <DataTrigger Binding="{Binding ElementName=progressBar, Path=Value, UpdateSourceTrigger=PropertyChanged}" Value="80">
-                                                <Setter Property="Kind" Value="AirplaneLanding"></Setter>
-                                                <Setter Property="ToolTip" Value="Check out"></Setter>
-                                            </DataTrigger>
-                                            <DataTrigger Binding="{Binding ElementName=progressBar, Path=Value, UpdateSourceTrigger=PropertyChanged}" Value="100">
-                                                <Setter Property="Kind" Value="AirplaneTakeoff"></Setter>
-                                                <Setter Property="ToolTip" Value="Start"></Setter>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </materialDesign:PackIcon.Style>
-                            </materialDesign:PackIcon>
-                        </Button>
+                        <materialDesign:PackIcon Grid.Column="1" Width="30" Foreground="Teal" Height="50">
+                            <materialDesign:PackIcon.Style>
+                                <Style TargetType="materialDesign:PackIcon">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ElementName=progressBar, Path=Value, UpdateSourceTrigger=PropertyChanged}" Value="80">
+                                            <Setter Property="Kind" Value="Airplane"></Setter>
+                                            <Setter Property="ToolTip" Value="Check in"></Setter>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding ElementName=progressBar, Path=Value, UpdateSourceTrigger=PropertyChanged}" Value="100">
+                                            <Setter Property="Kind" Value="AirplaneLanding"></Setter>
+                                            <Setter Property="ToolTip" Value="Check out"></Setter>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding ElementName=progressBar, Path=Value, UpdateSourceTrigger=PropertyChanged}" Value="20">
+                                            <Setter Property="Kind" Value="AirplaneTakeoff"></Setter>
+                                            <Setter Property="ToolTip" Value="Start"></Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </materialDesign:PackIcon.Style>
+                        </materialDesign:PackIcon>
                         <Border Width="200"
                                 Height="30"
                                 Grid.Column="2"

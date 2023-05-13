@@ -21,7 +21,8 @@ namespace CompanyManagement.ViewModels.Windows
         public string Password { get => password; set { password = value; OnPropertyChanged(); } }
 
         public ICommand LoginCommand { get; private set; }
-  
+        public ICommand ExitCommand { get; private set; }
+
         private AccountsDao accountsDao = new AccountsDao();
         private EmployeesDao employeesDao = new EmployeesDao();
         private RolesDao rolesDao = new RolesDao();
@@ -34,6 +35,12 @@ namespace CompanyManagement.ViewModels.Windows
         private void SetCommands()
         {
             LoginCommand = new RelayCommand<Window>(ExecuteLoginCommand);
+            ExitCommand = new RelayCommand<Window>(ExecuteExitCommand);
+        }
+
+        private void ExecuteExitCommand(Window window)
+        {
+            window.Close();
         }
 
         private void ExecuteLoginCommand(Window window)

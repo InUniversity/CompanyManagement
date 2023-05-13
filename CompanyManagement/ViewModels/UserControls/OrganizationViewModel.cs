@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using CompanyManagement.Strategies.UserControls.DeptsView;
 using CompanyManagement.Utilities;
+using System.Windows;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
@@ -31,6 +32,9 @@ namespace CompanyManagement.ViewModels.UserControls
         private bool statusEmployeesView = false;
         public bool StatusEmployeesView { get => statusEmployeesView; set { statusEmployeesView = value; OnPropertyChanged(); } }
 
+        private Visibility visibilityEmployees;
+        public Visibility VisibilityEmployees { get => visibilityEmployees; set { visibilityEmployees = value; OnPropertyChanged(); } }
+
         public ICommand ShowDepartmentsViewCommand { get; private set; }
         public ICommand ShowEmployeesViewCommand { get; private set; }
 
@@ -41,7 +45,13 @@ namespace CompanyManagement.ViewModels.UserControls
             InitDeptStrategy();
             ExecuteShowDepartmentsView(null);
             SetCommand();
+            SetVisibilityViewEmployees();
         }
+
+        private void SetVisibilityViewEmployees()
+        {
+            VisibilityEmployees = CurrentUser.Ins.EmployeeIns.EmplRole.Perms == Enums.EPermission.HR ? Visibility.Visible : Visibility.Collapsed;
+        }    
 
         private void InitDeptStrategy()
         {
