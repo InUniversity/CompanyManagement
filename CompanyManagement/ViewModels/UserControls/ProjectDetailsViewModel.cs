@@ -1,10 +1,11 @@
-﻿using CompanyManagement.ViewModels.Base;
+using CompanyManagement.ViewModels.Base;
 using CompanyManagement.Views.UserControls;
 using System.Windows.Controls;
 using System.Windows.Input;
 using CompanyManagement.Utilities;
 using System.Windows;
 using CompanyManagement.Models;
+using CompanyManagement.Enums;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
