@@ -15,6 +15,7 @@ namespace CompanyManagement.Models
         private string projectID;
         private Employee receiver;
         private Project project;
+        private Role receiverRole;
         private int percent = 0;
 
         public string ID
@@ -56,6 +57,12 @@ namespace CompanyManagement.Models
         public Project Project
         {
             get => (new ProjectsDao()).SearchByID(ProjectID);
+        }
+
+        public Role ReceiverRole
+        {
+            get => receiverRole;
+            set => receiverRole = value;
         }
 
         public int Percent

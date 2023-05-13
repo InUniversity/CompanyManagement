@@ -41,6 +41,7 @@ namespace CompanyManagement.ViewModels.UserControls
         private ProjectAssignmentsDao projectAssignmentDao = new ProjectAssignmentsDao();
         private ProjectsDao projectsDao = new ProjectsDao();
         private ProjectBonusesDao projectBonusesDao = new ProjectBonusesDao();
+        private RolesDao rolesDao = new RolesDao();
 
         public ICommand AddBonusCommand { get; private set; }
         public ICommand AddNonBonusCommand { get; private set; }
@@ -79,6 +80,7 @@ namespace CompanyManagement.ViewModels.UserControls
             {
                 ProjectBonus projectBonuses = new ProjectBonus("", 0, DateTime.Now, emp.ID, projectID);
                 projectBonuses.Receiver = emp;
+                projectBonuses.ReceiverRole = rolesDao.SearchByID(emp.RoleID);
                 createList.Add(projectBonuses);
             }
             return createList;
@@ -117,7 +119,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private decimal CalculateEachAmountOfList(int count)
         {
-            return (decimal)(percentRemaining / count) * BonusSalary;
+            return (decimal) percentRemaining / (count * 100) * BonusSalary;
         }
 
         private string AutoGenerateID()
