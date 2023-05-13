@@ -1,4 +1,5 @@
-﻿using CompanyManagementEntity.Utilities;
+﻿using CompanyManagementEntity.Database.Base;
+using CompanyManagementEntity.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -7,122 +8,59 @@ using System.Threading.Tasks;
 
 namespace CompanyManagementEntity.Database
 {
-    public class TimeSheetsDao 
+    public class TimeSheetsDao : BaseDao<TimeSheet>
     {
-        public void Add(TimeSheet timeSheet)
-        {
-            try
-            {
-                using (var db = new CompanyManagementContext())
-                {
-                    db.TimeSheets.Add(timeSheet);
-                    db.SaveChanges();
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Instance.Error(nameof(EmployeesDao), ex.Message);
-            }       
-        }
-
         public void Delete(string id)
         {
-            try
+            NewDbContext(db =>
             {
-                using (var db = new CompanyManagementContext())
-                {
-                    var item = db.TimeSheets.SingleOrDefault(i => i.ID == id);
-                    if (item == null) return;
-                    db.TimeSheets.Remove(item);
-                    db.SaveChanges();
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Instance.Error(nameof(EmployeesDao), ex.Message);
-            }         
-        }
-
-        public void Update(TimeSheet timeSheet)
-        {
-            try
-            {
-                using (var db = new CompanyManagementContext())
-                {
-                    db.Entry(timeSheet).State = EntityState.Modified;
-                    db.SaveChanges();
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Instance.Error(nameof(EmployeesDao), ex.Message);
-            }        
+                var item = db.TimeSheets.SingleOrDefault(i => i.ID == id);
+                if (item == null) return;
+                db.TimeSheets.Remove(item);
+                db.SaveChanges();
+            });
         }
 
         public List<TimeSheet> GetAll()
         {
-            try
+            var listItems = new List<TimeSheet>();
+            NewDbContext(db =>
             {
-                using (var db = new CompanyManagementContext())
-                {
-                    return db.TimeSheets.ToList();
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Instance.Error(nameof(EmployeesDao), ex.Message);
-                return null;
-            }           
+                listItems = db.TimeSheets.ToList();
+            });
+               return listItems;
         }
 
         public TimeSheet SearchByID(string id)
         {
-            try
+            var item = new TimeSheet();
+            NewDbContext(db =>
             {
-                using (var db = new CompanyManagementContext())
-                {
-                    return db.TimeSheets.SingleOrDefault(t => t.ID == id);
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Instance.Error(nameof(EmployeesDao), ex.Message);
-                return null;
-            }        
+                item = db.TimeSheets.SingleOrDefault(t => t.ID == id);
+            });
+            return item;
         }
 
         public List<TimeSheet> SearchByEmployeeID(string employeeID)
         {
-            try
+            var listItems = new List<TimeSheet>();
+            NewDbContext(db =>
             {
-                using (var db = new CompanyManagementContext())
-                {
-                    var query = from t in db.TimeSheets where t.EmployeeID != employeeID select t;
-                    return query.ToList();
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Instance.Error(nameof(EmployeesDao), ex.Message);
-                return null;
-            }         
+                var query = from t in db.TimeSheets where t.EmployeeID != employeeID select t;
+                listItems = query.ToList();
+            });
+            return listItems;
         }
 
         public int ToTalWorksDayByEmployeeID(string employeeID)
         {
-            try
+            int result =0;
+            NewDbContext(db =>
             {
-                using (var db = new CompanyManagementContext())
-                {
-                    var query = from t in db.TimeSheets where t.EmployeeID != employeeID select t;
-                    return query.Count();
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Instance.Error(nameof(EmployeesDao), ex.Message);
-                return 0;
-            }           
+                var query = from t in db.TimeSheets where t.EmployeeID != employeeID select t;
+                result = query.Count();
+            });
+            return result;
         }
     }
 }

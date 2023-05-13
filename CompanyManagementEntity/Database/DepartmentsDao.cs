@@ -1,4 +1,5 @@
-﻿using CompanyManagementEntity.Utilities;
+﻿using CompanyManagementEntity.Database.Base;
+using CompanyManagementEntity.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -8,89 +9,37 @@ using System.Threading.Tasks;
 
 namespace CompanyManagementEntity.Database
 {
-    public class DepartmentsDao 
+    public class DepartmentsDao : BaseDao<Department>
     {
-        public void Add(Department dept)
-        {
-            try
-            {
-                //TODO
-                using (var db = new CompanyManagementContext())
-                {
-                    db.Departments.Add(dept);
-                    db.SaveChanges();
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Instance.Error(nameof(EmployeesDao), ex.Message);
-            }           
-        }
-
         public void Delete(string id)
         {
-            try
+            NewDbContext(db =>
             {
-                using (var db = new CompanyManagementContext())
-                {
-                    var dept = db.Departments.SingleOrDefault(d => d.ID == id);
-                    if (dept == null) return;
-                    db.Departments.Remove(dept);
-                    db.SaveChanges();
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Instance.Error(nameof(EmployeesDao), ex.Message);
-            }         
-        }
-
-        public void Update(Department dept)
-        {
-            try
-            {
-                using (var db = new CompanyManagementContext())
-                {
-                    db.Entry(dept).State = EntityState.Modified;
-                    db.SaveChanges();
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Instance.Error(nameof(EmployeesDao), ex.Message);
-            }         
+                var dept = db.Departments.SingleOrDefault(d => d.ID == id);
+                if (dept == null) return;
+                db.Departments.Remove(dept);
+                db.SaveChanges();
+            });
         }
 
         public List<Department> GetAll()
         {
-            try
+            var listItems = new List<Department>();
+            NewDbContext(db =>
             {
-                using (var db = new CompanyManagementContext())
-                {
-                    return db.Departments.ToList();
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Instance.Error(nameof(EmployeesDao), ex.Message);
-                return null;
-            }    
+                listItems = db.Departments.ToList();
+            });
+            return listItems;
         }
 
         public Department SearchByID(string dptID)
         {
-            try
+            var item = new Department();
+            NewDbContext(db =>
             {
-                using (var db = new CompanyManagementContext())
-                {
-                    return db.Departments.SingleOrDefault(d => d.ID == dptID);
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Instance.Error(nameof(EmployeesDao), ex.Message);
-                return null;
-            }        
+                item = db.Departments.SingleOrDefault(d => d.ID == dptID);
+            });
+            return item;
         }
     }
 }

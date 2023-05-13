@@ -37,7 +37,7 @@ namespace CompanyManagementEntity.Database.Base
             });
         }
 
-        public void Update(T entity)
+        public virtual void Update(T entity)
         {
             NewDbContext(db =>
             {

@@ -1,4 +1,5 @@
 ﻿using CompanyManagement.Enums;
+using CompanyManagementEntity.Database.Base;
 using CompanyManagementEntity.Utilities;
 using System;
 using System.Collections.Generic;
@@ -7,126 +8,77 @@ using System.Windows.Documents;
 
 namespace CompanyManagementEntity.Database
 {
-    public class MileTasksDao
+    public class MileTasksDao : BaseDao<MileTask>
     {
-        public void Add(MileTask mileTsk)
-        {
-            try
-            {
-                using (var db = new CompanyManagementContext())
-                {
-                    db.MileTasks.Add(mileTsk);
-                    db.SaveChanges();
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Instance.Error(nameof(EmployeesDao), ex.Message);
-            }         
-        }
-
         public void Delete(MileTask mileTsk)
         {
-            try
+            NewDbContext(db =>
             {
-                using (var db = new CompanyManagementContext())
-                {
-                    var mile = db.MileTasks.SingleOrDefault(m => m.MileID == mileTsk.MileID && m.TaskID == mileTsk.TaskID);
-                    if (mile == null) return;
-                    db.MileTasks.Remove(mile);
-                    db.SaveChanges();
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Instance.Error(nameof(EmployeesDao), ex.Message);
-            }  
+                var mile = db.MileTasks.SingleOrDefault(m => m.MileID == mileTsk.MileID && m.TaskID == mileTsk.TaskID);
+                if (mile == null) return;
+                db.MileTasks.Remove(mile);
+                db.SaveChanges();
+            });
         }
 
         public void DeleteByMileID(string mileID)
         {
-            try
+            NewDbContext(db =>
             {
-                using (var db = new CompanyManagementContext())
-                {
-                    var mile = db.MileTasks.SingleOrDefault(m => m.MileID == mileID);
-                    if (mile == null) return;
-                    db.MileTasks.Remove(mile);
-                    db.SaveChanges();
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Instance.Error(nameof(EmployeesDao), ex.Message);
-            }        
+                var mile = db.MileTasks.SingleOrDefault(m => m.MileID == mileID);
+                if (mile == null) return;
+                db.MileTasks.Remove(mile);
+                db.SaveChanges();
+            });
         }
 
         public List<Task> SearchByMileID(string mileID)
         {
-            try
+            var listItems = new List<Task>();
+            NewDbContext(db =>
             {
-                using (var db = new CompanyManagementContext())
-                {
-                    var listItems = from m in db.MileTasks where m.MileID == mileID select m.TaskID;
-                    var query = from t in db.Tasks
-                                where listItems.ToList().Contains(t.ID)
-                                select t;
-                    return query.ToList();
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Instance.Error(nameof(EmployeesDao), ex.Message);
-                return null;
-            }          
+                var listTaskID = from m in db.MileTasks where m.MileID == mileID select m.TaskID;
+                var query = from t in db.Tasks
+                            where listTaskID.ToList().Contains(t.ID)
+                            select t;
+                listItems = query.ToList();
+            });
+            return listItems;
         }
 
         public List<Task> SearchTaskCompletedByMileID(string mileID)
         {
-            try
+            var listItems = new List<Task>();
+            NewDbContext(db =>
             {
-                using (var db = new CompanyManagementContext())
-                {
-                    var listItems = from m in db.MileTasks where m.MileID == mileID select m.TaskID;
-                    var query = from t in db.Tasks
-                                where listItems.ToList().Contains(t.ID) 
-                                && t.StatusID == (int)ETaskStatus.Completed
-                                select t;
-                    return query.ToList();
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Instance.Error(nameof(EmployeesDao), ex.Message);
-                return null;
-            }        
+                var listTaskID = from m in db.MileTasks where m.MileID == mileID select m.TaskID;
+                var query = from t in db.Tasks
+                            where listTaskID.ToList().Contains(t.ID)
+                            && t.StatusID == (int)ETaskStatus.Completed
+                            select t;
+                listItems = query.ToList();
+            });
+            return listItems;
         }
 
         public List<Task> SearchTasksCanAddToMile(Milestone milestone)
         {
-            try
+            var listItems = new List<Task>();
+            NewDbContext(db =>
             {
-                //TODO
-                using (var db = new CompanyManagementContext())
-                {
-                    var miles = from m in db.Milestones where m.ProjectID == milestone.ProjectID select m;
-                    var listItems = from mt in db.MileTasks
-                                    join m in miles on mt.MileID equals m.ID
-                                    select mt.TaskID;
-                    var query = from t in db.Tasks
-                                where !listItems.ToList().Contains(t.ID)
-                                && t.ProjectID == milestone.ProjectID
-                                && t.Deadline <= milestone.EndDate
-                                && t.StartDate >= milestone.StartDate
-                                select t;
-                    return query.ToList();
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Instance.Error(nameof(EmployeesDao), ex.Message);
-                return null;
-            }
+                var miles = from m in db.Milestones where m.ProjectID == milestone.ProjectID select m;
+                var listTaskID = from mt in db.MileTasks
+                                join m in miles on mt.MileID equals m.ID
+                                select mt.TaskID;
+                var query = from t in db.Tasks
+                            where !listTaskID.ToList().Contains(t.ID)
+                            && t.ProjectID == milestone.ProjectID
+                            && t.Deadline <= milestone.EndDate
+                            && t.StartDate >= milestone.StartDate
+                            select t;
+                listItems = query.ToList();
+            });
+            return listItems;
         }
     }
 }

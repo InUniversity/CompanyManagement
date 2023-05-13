@@ -1,4 +1,5 @@
 ﻿using CompanyManagement.Enums;
+using CompanyManagementEntity.Database.Base;
 using CompanyManagementEntity.Utilities;
 using System;
 using System.Collections.Generic;
@@ -8,127 +9,64 @@ using System.Threading.Tasks;
 
 namespace CompanyManagementEntity.Database
 {
-    public class TasksDao 
+    public class TasksDao : BaseDao<Task>
     {
-        public void Add(Task tsk)
-        {
-            try
-            {
-                using (var db = new CompanyManagementContext())
-                {
-                    db.Tasks.Add(tsk);
-                    db.SaveChanges();
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Instance.Error(nameof(EmployeesDao), ex.Message);
-            }        
-        }
-
         public void Delete(string id)
         {
-            try
+            NewDbContext(db =>
             {
-                using (var db = new CompanyManagementContext())
-                {
-                    var tsk = db.Tasks.SingleOrDefault(t => t.ID == id);
-                    if (tsk == null) return;
-                    db.Tasks.Remove(tsk);
-                    db.SaveChanges();
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Instance.Error(nameof(EmployeesDao), ex.Message);
-            }          
-        }
-
-        public void Update(Task tsk)
-        {
-            try
-            {
-                using (var db = new CompanyManagementContext())
-                {
-                    db.Entry(tsk).State = EntityState.Modified;
-                    db.SaveChanges();
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Instance.Error(nameof(EmployeesDao), ex.Message);
-            }          
+                var tsk = db.Tasks.SingleOrDefault(t => t.ID == id);
+                if (tsk == null) return;
+                db.Tasks.Remove(tsk);
+                db.SaveChanges();
+            });
         }
 
         public Task SearchByID(string id)
         {
-            try
+            var item = new Task();
+            NewDbContext(db =>
             {
-                using (var db = new CompanyManagementContext())
-                {
-                    return db.Tasks.SingleOrDefault(t => t.ID == id);
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Instance.Error(nameof(EmployeesDao), ex.Message);
-                return null;
-            }     
+                item = db.Tasks.SingleOrDefault(t => t.ID == id);
+            });
+            return item;
         }
 
         public List<Task> SearchByProjectID(string projID)
         {
-            try
+            var listItems = new List<Task>();
+            NewDbContext(db =>
             {
-                using (var db = new CompanyManagementContext())
-                {
-                    var query = from t in db.Tasks where t.ProjectID == projID select t;
-                    return query.ToList();
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Instance.Error(nameof(EmployeesDao), ex.Message);
-                return null;
-            }        
+                var query = from t in db.Tasks where t.ProjectID == projID select t;
+                listItems = query.ToList();
+            });
+            return listItems;
         }
 
         public List<Task> SearchByEmployeeID(string projID, string emplID)
         {
-            try
+            var listItems = new List<Task>();
+            NewDbContext(db =>
             {
-                using (var db = new CompanyManagementContext())
-                {
-                    var query = from t in db.Tasks where t.ProjectID == projID && t.EmployeeID == emplID select t;
-                    return query.ToList();
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Instance.Error(nameof(EmployeesDao), ex.Message);
-                return null;
-            }         
+                var query = from t in db.Tasks where t.ProjectID == projID && t.EmployeeID == emplID select t;
+                listItems = query.ToList();
+            });
+            return listItems;
         }
 
         public List<Task> SearchTasksCheckOut(string emplID, DateTime curDate)
         {
-            try
+            var listItems = new List<Task>();
+            NewDbContext(db =>
             {
-                using (var db = new CompanyManagementContext())
-                {
-                    var query = from t in db.Tasks
-                                where t.StartDate <= curDate
-                                && t.EmployeeID == emplID
-                                && t.StatusID != (int)ETaskStatus.Completed
-                                select t;
-                    return query.ToList();
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Instance.Error(nameof(EmployeesDao), ex.Message);
-                return null;
-            }          
+                var query = from t in db.Tasks
+                            where t.StartDate <= curDate
+                            && t.EmployeeID == emplID
+                            && t.StatusID != (int)ETaskStatus.Completed
+                            select t;
+                listItems = query.ToList();
+            });
+            return listItems;
         }
     }
 }
