@@ -47,6 +47,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private SalaryRecordsDao salaryRecordsDao = new SalaryRecordsDao();
         private DepartmentsDao departmentsDao = new DepartmentsDao();
+        private RolesDao rolesDao = new RolesDao();
         private EmployeesDao employeesDao = new EmployeesDao();
         private TimeSheetsDao timeSheetsDao = new TimeSheetsDao();
         private ProjectBonusesDao projectBonusesDao = new ProjectBonusesDao();
@@ -135,7 +136,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void CalculateIcome(SalaryRecord salaryRecord)
         {
-            salaryRecord.Income = (salaryRecord.TotalWorkDays * salaryRecord.Worker.EmplRole.Salary)/ totalDayByTime + salaryRecord.TotalBonuses;
+            salaryRecord.Income = (salaryRecord.TotalWorkDays * salaryRecord.WorkerRole.Salary)/ totalDayByTime + salaryRecord.TotalBonuses;
         }
 
         private void LoadToTalDay()
