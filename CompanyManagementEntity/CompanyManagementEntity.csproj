@@ -77,7 +77,6 @@
       <DependentUpon>CompanyManagement.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\AccountsDao.cs" />
-    <Compile Include="Database\Base\BaseDao.cs" />
     <Compile Include="Database\DepartmentsDao.cs" />
     <Compile Include="Database\EmployeesDao.cs" />
     <Compile Include="Database\LeaveRequestsDao.cs" />
@@ -96,6 +95,10 @@
     <Compile Include="Employee.cs">
       <DependentUpon>CompanyManagement.tt</DependentUpon>
     </Compile>
+    <Compile Include="Enums\ELeavStatus.cs" />
+    <Compile Include="Enums\EPermission.cs" />
+    <Compile Include="Enums\EProjStatus.cs" />
+    <Compile Include="Enums\ETaskStatus.cs" />
     <Compile Include="LeaveRequest.cs">
       <DependentUpon>CompanyManagement.tt</DependentUpon>
     </Compile>
@@ -129,6 +132,7 @@
     <Compile Include="TimeSheet.cs">
       <DependentUpon>CompanyManagement.tt</DependentUpon>
     </Compile>
+    <Compile Include="Utilities\Log.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CompanyManagement.Context.cs">

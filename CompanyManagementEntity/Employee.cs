@@ -24,5 +24,6 @@ namespace CompanyManagementEntity
         public string EmployeeAddress { get; set; }
         public string DepartmentID { get; set; }
         public string RoleID { get; set; }
+        public Role EmplRole { get; set; }
     }
 }

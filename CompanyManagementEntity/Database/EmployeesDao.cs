@@ -1,84 +1,145 @@
-﻿using CompanyManagementEntity.Database.Base;
+﻿using CompanyManagement.Enums;
+using CompanyManagementEntity.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CompanyManagementEntity.Database
 {
-    public class EmployeesDao : BaseDao
+    public class EmployeesDao
     {
         public void Add(Employee empl)
         {
-            using (var db = new CompanyManagementContext())
+            try
             {
-                db.Employees.Add(empl);
-                db.SaveChanges();
+                using (var db = new CompanyManagementContext())
+                {
+                    db.Employees.Add(empl);
+                    db.SaveChanges();
+                }
             }
+            catch (Exception ex)
+            {
+                Log.Instance.Error(nameof(EmployeesDao),ex.Message);
+            }
+           
         }
 
         public void Delete(string id)
         {
-            using (var db = new CompanyManagementContext())
+            try
             {
-                var empl = db.Employees.SingleOrDefault(e => e.ID == id);
-                if (empl == null) return;
-                db.Employees.Remove(empl);
-                db.SaveChanges();
+                using (var db = new CompanyManagementContext())
+                {
+                    var empl = db.Employees.SingleOrDefault(e => e.ID == id);
+                    if (empl == null) return;
+                    db.Employees.Remove(empl);
+                    db.SaveChanges();
+                }
             }
+            catch (Exception ex)
+            {
+                Log.Instance.Error(nameof(EmployeesDao), ex.Message);
+            }          
         }
 
         public void Update(Employee empl)
         {
-            using (var db = new CompanyManagementContext())
+            try
             {
-                db.Entry(empl).State = EntityState.Modified;
-                db.SaveChanges();
+                using (var db = new CompanyManagementContext())
+                {
+                    db.Entry(empl).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
             }
+            catch (Exception ex)
+            {
+                Log.Instance.Error(nameof(EmployeesDao), ex.Message);
+            }          
         }
 
         public List<Employee> SearchByCurrentID(string emplID)
         {
-            using (var db = new CompanyManagementContext())
+            try
             {
-                var query = from e in db.Employees where e.ID != emplID select e;
-                return query.ToList();
+                using (var db = new CompanyManagementContext())
+                {
+                    var query = from e in db.Employees where e.ID != emplID select e;
+                    return query.ToList();
+                }
             }
+            catch (Exception ex)
+            {
+                Log.Instance.Error(nameof(EmployeesDao), ex.Message);
+                return null;
+            }           
         }
 
         public Employee SearchByID(string id)
         {
-            using (var db = new CompanyManagementContext())
+            try
             {
-                return db.Employees.SingleOrDefault(e => e.ID == id);
+                using (var db = new CompanyManagementContext())
+                {
+                    return db.Employees.SingleOrDefault(e => e.ID == id);
+                }
             }
+            catch (Exception ex)
+            {
+                Log.Instance.Error(nameof(EmployeesDao), ex.Message);
+                return null;
+            }     
         }
 
         public Employee SearchByIdentifyCard(string identCard)
         {
-            using (var db = new CompanyManagementContext())
+            try
             {
-                return db.Employees.SingleOrDefault(e => e.IdentifyCard == identCard);
+                using (var db = new CompanyManagementContext())
+                {
+                    return db.Employees.SingleOrDefault(e => e.IdentifyCard == identCard);
+                }
             }
+            catch (Exception ex)
+            {
+                Log.Instance.Error(nameof(EmployeesDao), ex.Message);
+                return null;
+            }          
         }
 
         public Employee SearchByPhoneNumber(string phoneNo)
         {
-            using (var db = new CompanyManagementContext())
+            try
             {
-                return db.Employees.SingleOrDefault(e => e.PhoneNumber == phoneNo);
+                using (var db = new CompanyManagementContext())
+                {
+                    return db.Employees.SingleOrDefault(e => e.PhoneNumber == phoneNo);
+                }
             }
+            catch (Exception ex)
+            {
+                Log.Instance.Error(nameof(EmployeesDao), ex.Message);
+                return null;
+            }   
         }
 
         public List<Employee> GetManagers()
         {
-            using (var db = new CompanyManagementContext())
+            try
             {
-                var query = from e in db.Employees where e.RoleID == managerRole select e;
-                return query.ToList();
+                using (var db = new CompanyManagementContext())
+                {
+                    var query = from e in db.Employees where e.EmplRole.PermsID == (int)EPermission.Mgr  select e;
+                    return query.ToList();
+                }
             }
+            catch (Exception ex)
+            {
+                Log.Instance.Error(nameof(EmployeesDao), ex.Message);
+                return null;
+            }    
         }
     }
 }
