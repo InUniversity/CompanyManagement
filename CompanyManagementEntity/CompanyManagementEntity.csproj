@@ -77,6 +77,8 @@
       <DependentUpon>CompanyManagement.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\AccountsDao.cs" />
+    <Compile Include="Database\Base\BaseDao.cs" />
+    <Compile Include="Database\Base\IBaseDao.cs" />
     <Compile Include="Database\DepartmentsDao.cs" />
     <Compile Include="Database\EmployeesDao.cs" />
     <Compile Include="Database\LeaveRequestsDao.cs" />
