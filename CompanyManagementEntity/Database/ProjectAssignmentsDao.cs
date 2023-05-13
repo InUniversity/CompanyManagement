@@ -1,4 +1,5 @@
-﻿using CompanyManagementEntity.Utilities;
+﻿using CompanyManagement.Enums;
+using CompanyManagementEntity.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -69,9 +70,9 @@ namespace CompanyManagementEntity.Database
             {
                 using (var db = new CompanyManagementContext())
                 {
+                    var listItems = from pa in db.ProjectAssignments where pa.ProjectID == projID select pa.DepartmentID;
                     var query = from e in db.Employees
-                                join pa in db.ProjectAssignments on e.DepartmentID equals pa.DepartmentID
-                                where pa.ProjectID == projID
+                                where listItems.ToList().Contains(e.DepartmentID)
                                 select e;
                     return query.ToList();
                 }
@@ -89,8 +90,23 @@ namespace CompanyManagementEntity.Database
             {
                 using (var db = new CompanyManagementContext())
                 {
-                    //TODO
-                    return db.Departments.ToList();
+                    var query = from dept in db.Departments
+                                where !(from projAssign in db.ProjectAssignments
+                                        where (from proj in db.Projects
+                                               where proj.ID != projID &&
+                                                     proj.StatusID != (int)EProjStatus.Completed &&
+                                                     proj.StartDate <= start &&
+                                                     proj.EndDate >= end
+                                               select proj.ID).Contains(projAssign.ProjectID)
+                                        select projAssign.DepartmentID).Contains(dept.ID)
+                                select dept;
+                    var exceptQuery = from dept in db.Departments
+                                      join projAssign in db.ProjectAssignments on dept.ID equals projAssign.DepartmentID
+                                      where projAssign.ProjectID == projID
+                                      select dept;
+
+                    var result = query.Except(exceptQuery);
+                    return result.ToList();
                 }
             }
             catch (Exception ex)
@@ -105,10 +121,12 @@ namespace CompanyManagementEntity.Database
             {
                 using (var db = new CompanyManagementContext())
                 {
+                    var listItems = from pa in db.ProjectAssignments
+                                    join e in db.Employees on pa.DepartmentID equals e.DepartmentID
+                                    where e.ID == emplID
+                                    select pa.ProjectID;
                     var query = from p in db.Projects
-                                join pa in db.ProjectAssignments on p.ID equals pa.ProjectID
-                                join e in db.Employees on pa.DepartmentID equals e.DepartmentID
-                                where e.ID == emplID
+                                where listItems.ToList().Contains(p.ID)
                                 select p;
                     return query.ToList();
                 }
