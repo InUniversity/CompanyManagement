@@ -63,6 +63,13 @@ namespace CompanyManagementTest.Database
         }
 
         [Test]
+        public void GetAll_Found()
+        {
+            var list = myDao.GetAll();
+            Assert.AreEqual(55, list.Count);
+        }
+
+        [Test]
         public void GetAllWithoutManagers_Found()
         {
             var list = myDao.GetAllWithoutManagers();
@@ -95,12 +102,25 @@ namespace CompanyManagementTest.Database
             AssertObject(expected, actual);
         }
         
-        // [Test]
-        // public void GetManagers_Found()
-        // {
-        //     var list = myDao.GetManagers();
-        //     Assert.AreEqual(5, list.Count);
-        // }
+        [Test]
+        public void GetRequestApprovers_Found()
+        {
+            var list = myDao.GetRequestApprovers();
+            Assert.AreEqual(1,list.Count);
+        }
+
+        [Test]
+        public void SearchByDepartmentID_Found()
+        {
+            var expected = new Employee("EM001", "Nguyễn Văn An", "Nam", 
+                new DateTime(1990, 1, 1), "001234567890", 
+                "an.nguyen@it.company.com", "0123456789", 
+                "TP. Hồ Chí Minh", "", "ER01");
+            
+            var list = myDao.SearchByDepartmentID(expected.DepartmentID);
+            
+            Assert.AreEqual(6, list.Count);
+        }
         
         private void AssertObject(Employee expected, Employee actual)
         {

@@ -19,7 +19,7 @@ namespace CompanyManagementTest.Database
         [Test]
         public void MileTasks_Dao_Add_Delete_Update_Test()
         {
-            var addTarget = new MileTask("MIL123132", "T1231244");
+            var addTarget = new MileTask("mileID", "taskID");
             myDao.Add(addTarget);
             var addResult = Search(addTarget);
 
@@ -30,7 +30,7 @@ namespace CompanyManagementTest.Database
             AssertObj(addTarget, addResult);
             
             // test delete
-            Assert.Null(deleteResult);
+            Assert.IsNull(deleteResult);
         }
 
         [Test]
@@ -43,13 +43,13 @@ namespace CompanyManagementTest.Database
         private MileTask Search(MileTask mileTsk)
         {
             DBConnection dbConnection = new DBConnection();
-            string sql = $"SELECT * FROM MileTasks WHERE ID='{mileTsk.MileID}' AND TaskID='{mileTsk.TskID}'";
+            string sql = $"SELECT * FROM MileTasks WHERE MileID='{mileTsk.MileID}' AND TaskID='{mileTsk.TskID}'";
             return (MileTask)dbConnection.GetSingleObject(sql, reader => new MileTask(reader));
         }
 
         private void AssertObj(MileTask expected, MileTask actual)
         {
-            Assert.NotNull(actual);
+            Assert.IsNotNull(actual);
             Assert.AreEqual(expected.MileID, actual.MileID);
             Assert.AreEqual(expected.TskID, actual.TskID);
         } 

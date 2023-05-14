@@ -37,7 +37,7 @@ namespace CompanyManagementTest.Database
             // assert deleted
             Assert.IsNull(afterDelete); 
         }
-
+        
         [Test]
         public void GetAllDepartmentInProject_Found()
         {
@@ -65,6 +65,13 @@ namespace CompanyManagementTest.Database
         public void SearchProjectByEmployeeID_Found()
         {
             var list = myDao.SearchProjectByEmployeeID("EM025");
+            Assert.AreEqual(1, list.Count);
+        }
+
+        [Test]
+        public void SearchProjectByCreatorID_Found()
+        {
+            var list = myDao.SearchProjectByCreatorID("EM001");
             Assert.AreEqual(1, list.Count);
         }
         

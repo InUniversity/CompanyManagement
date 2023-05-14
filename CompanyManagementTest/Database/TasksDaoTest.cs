@@ -1,8 +1,12 @@
 using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using CompanyManagement;
 using CompanyManagement.Database;
+using CompanyManagement.Database.Base;
 using CompanyManagement.Enums;
 using CompanyManagement.Models;
+using CompanyManagement.Utilities;
 using NUnit.Framework;
 
 namespace CompanyManagementTest.Database
@@ -69,10 +73,10 @@ namespace CompanyManagementTest.Database
         [Test]
         public void SearchByProjectID_Found()
         {
-            var list = myDao.SearchByProjectID("PRJ001");
+            var list = myDao.SearchByProjectID("PRJ002");
             Assert.AreEqual(5, list.Count);
         }
-        
+
         [Test]
         public void SearchByEmployeeID_Found()
         {
@@ -87,6 +91,13 @@ namespace CompanyManagementTest.Database
             Assert.AreEqual(1, list.Count);
         }
         
+        private List<TaskInProject> SearchByPrjID(string PrjID)
+        {
+            DBConnection dbConnection = new DBConnection();
+            string sql = $"SELECT * FROM Tasks WHERE ProjectID = '{PrjID}'";
+            return dbConnection.GetList<TaskInProject>(sql, reader => new TaskInProject(reader));
+        }
+
         private void AssertObject(TaskInProject expected, TaskInProject actual)
         {
             Assert.IsNotNull(actual);
