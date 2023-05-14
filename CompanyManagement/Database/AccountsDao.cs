@@ -8,7 +8,7 @@ namespace CompanyManagement.Database
         public void Add(Account acc)
         {
             string sqlStr = $"INSERT INTO {accTbl} ({accName}, {accPass}, {accEmplID})" +
-                            $"VALUES ({acc.Username}, {acc.Password}, {acc.EmployeeID})";
+                            $"VALUES ('{acc.Username}', '{acc.Password}', '{acc.EmployeeID}')";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 

@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Windows;
 using CompanyManagement.Database.Base;
 using CompanyManagement.Models;
+using CompanyManagement.Utilities;
 
 namespace CompanyManagement.Database
 {
@@ -42,18 +44,13 @@ namespace CompanyManagement.Database
             return (TimeSheet)dbConnection.GetSingleObject(sqlStr, reader => new TimeSheet(reader));
         }
 
-        public List<TimeSheet> SearchByEmployeeID(string employeeID)
+        public int ToTalWorksDayByEmployeeID(string employeeID, int month, int year)
         {
-            string sqlStr = $"SELECT * FROM {timeShtTbl} WHERE {timeShtEmplID} = '{employeeID}'";
-            return dbConnection.GetList(sqlStr, reader => new TimeSheet(reader));
+            string sqlStr = $"SELECT COUNT(*) FROM {timeShtTbl} " +
+                            $"WHERE {timeShtEmplID} = '{employeeID}' " +
+                            $"AND MONTH({timeShtInTime}) = '{month}' " +
+                            $"AND YEAR({timeShtInTime}) = '{year}'";
+            return  Decimal.ToInt32(dbConnection.GetDecimal(sqlStr));
         }
-
-        public int ToTalWorksDayByEmployeeID(string employeeID)
-        {
-            string sqlStr = $"SELECT COUNT(*) FROM {timeShtTbl} WHERE {timeShtEmplID} = '{employeeID}'";
-            return Convert.ToInt32(dbConnection.GetDecimal(sqlStr));
-        }
-
-        
     }
 }

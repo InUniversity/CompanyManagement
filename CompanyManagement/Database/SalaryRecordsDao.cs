@@ -27,14 +27,6 @@ namespace CompanyManagement.Database
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
-        public void DeleteByEmployee(string employeeID, DateTime monthYear)
-        {
-            string sqlStr = $"DELETE FROM {salaryTbl} WHERE {salaryEmplID} = '{employeeID}' " +
-                            $"MONTH({salaryMonthYear}) = '{monthYear.Month}' " +
-                            $"AND YEAR({salaryMonthYear}) = '{monthYear.Year}'";
-            dbConnection.ExecuteNonQuery(sqlStr);
-        }
-
         public void DeleteByMonthYear(int month, int year)
         {
             string sqlStr = $"DELETE FROM {salaryTbl} WHERE MONTH({salaryMonthYear}) = '{month}' " +
