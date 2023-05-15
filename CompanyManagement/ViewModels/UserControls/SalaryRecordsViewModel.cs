@@ -1,7 +1,6 @@
 ﻿using CompanyManagement.Database;
 using CompanyManagement.Models;
 using CompanyManagement.Services;
-using CompanyManagement.Utilities;
 using CompanyManagement.ViewModels.Base;
 using CompanyManagement.ViewModels.Dialogs;
 using CompanyManagement.Views.Dialogs;
@@ -86,6 +85,7 @@ namespace CompanyManagement.ViewModels.UserControls
             Departments = new List<Department>();
             Departments.Add(new Department("ALL", "Tất Cả", ""));
             Departments.Add(new Department("MNG", "Management", ""));
+            Departments.Add(new Department("HR", "Human Resource", ""));
             Departments.AddRange(departmentsDao.GetAll());
             Years = Enumerable.Range(2000, DateTime.Now.Year - 1999).OrderByDescending(year => year).ToList();
         }

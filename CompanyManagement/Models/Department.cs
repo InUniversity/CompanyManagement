@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
-using System.Windows.Documents;
-using CompanyManagement.Database;
 using CompanyManagement.Database.Base;
 using CompanyManagement.Utilities;
 

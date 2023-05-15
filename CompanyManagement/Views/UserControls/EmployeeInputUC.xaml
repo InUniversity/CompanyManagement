@@ -5,7 +5,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              Name="employeeInputUC"
-             xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d">
     <Grid Width="900">
         <StackPanel>

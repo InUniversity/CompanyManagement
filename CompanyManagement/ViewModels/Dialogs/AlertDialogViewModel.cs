@@ -1,5 +1,4 @@
 ﻿using CompanyManagement.ViewModels.Base;
-using System.Windows;
 using System.Windows.Input;
 
 namespace CompanyManagement.ViewModels.Dialogs

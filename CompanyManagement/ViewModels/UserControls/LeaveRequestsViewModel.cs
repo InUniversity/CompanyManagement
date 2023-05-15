@@ -1,5 +1,4 @@
 ﻿using CompanyManagement.Database;
-using CompanyManagement.Database.Base;
 using CompanyManagement.Models;
 using CompanyManagement.Services;
 using CompanyManagement.Utilities;

@@ -4,7 +4,6 @@ using System;
 using CompanyManagement.Database;
 using CompanyManagement.Utilities;
 using CompanyManagement.ViewModels.Base;
-using System.Linq;
 
 namespace CompanyManagement.ViewModels.UserControls
 {

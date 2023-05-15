@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Windows;
 using CompanyManagement.Utilities;
 
 namespace CompanyManagement.Database.Base

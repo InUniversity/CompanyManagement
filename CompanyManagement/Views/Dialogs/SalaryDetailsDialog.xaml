@@ -9,7 +9,6 @@
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
         Background="White"
-        xmlns:uc="clr-namespace:CompanyManagement.Views.UserControls"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         WindowStartupLocation="CenterScreen"
@@ -112,7 +111,7 @@
                 Grid.Row="4"
                 Grid.Column="0"
                 Height="50"
-                Text="{Binding TotalBonuses, Mode=OneWay}"
+                Text="{Binding TotalBonuses, Mode=OneWay, StringFormat='##,#'}"
                 Background="White"
                 Margin="10"      
                 IsReadOnly="True"
@@ -122,7 +121,7 @@
                 Grid.Row="4"
                 Grid.Column="1"
                 Height="50"
-                Text="{Binding Income, Mode=OneWay}"
+                Text="{Binding Income, Mode=OneWay, StringFormat='##,#'}"
                 Background="White"
                 Margin="10"      
                 IsReadOnly="True"
@@ -153,18 +152,6 @@
                                     FontSize="20"></TextBlock>
                         </StackPanel>
                     </Expander.Header>
-                    <!--<Border>
-                        <Calendar   
-                            Margin="50 5" 
-                            SelectionMode="MultipleRange"
-                            FirstDayOfWeek="Monday"
-                            IsTodayHighlighted="False"
-                            DisplayDateStart="{Binding StartDate, Mode=OneWay}"
-                            DisplayDateEnd="{Binding EndDate, Mode=OneWay}"
-                            Style="{StaticResource MaterialDesignCalendarPortraitForeground}" >
-                            
-                        </Calendar>
-                    </Border>-->
                     <DataGrid      
                         Height="295"
                         Margin="10 0 10 0"
