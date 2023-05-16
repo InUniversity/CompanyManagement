@@ -67,7 +67,7 @@ namespace CompanyManagement.ViewModels.UserControls
             }
             catch (Exception ex)
             {
-                Log.Instance.Error(nameof(OrganizationViewModel), ex.Message);
+                Log.Ins.Error(nameof(OrganizationViewModel), ex.Message);
             }
         }
 

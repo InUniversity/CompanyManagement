@@ -43,7 +43,7 @@ namespace CompanyManagement.ViewModels.UserControls
             }
             catch (Exception ex)
             {
-                Log.Instance.Error(nameof(AssignmentViewModel), ex.Message);
+                Log.Ins.Error(nameof(AssignmentViewModel), ex.Message);
             }
         }
 

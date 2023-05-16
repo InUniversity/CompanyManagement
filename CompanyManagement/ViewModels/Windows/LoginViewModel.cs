@@ -71,7 +71,7 @@ namespace CompanyManagement.ViewModels.Windows
             }
             catch (Exception ex)
             {
-                Log.Instance.Error(nameof(LoginViewModel), ex.Message);
+                Log.Ins.Error(nameof(LoginViewModel), ex.Message);
             }
         }
 

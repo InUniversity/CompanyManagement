@@ -129,7 +129,7 @@ namespace CompanyManagement.ViewModels.UserControls
         private SalaryRecord CreateSalaryRecord(Employee employee)
         {
             DateTime monthYear = new DateTime(year, month, 1);
-            int totalWorkDays = timeSheetsDao.ToTalWorksDayByEmployeeID(employee.ID, month, year) + totalDayWeekend;
+            int totalWorkDays = timeSheetsDao.TotalWorksDayByEmployeeID(employee.ID, month, year) + totalDayWeekend;
             decimal totalBonuses = projectBonusesDao.ToTalBonusesOfEmployeeByTime(employee.ID, month, year);
             return new SalaryRecord("", employee.ID, monthYear, totalWorkDays, totalBonuses, 0);
         }

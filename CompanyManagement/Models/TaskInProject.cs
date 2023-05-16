@@ -129,7 +129,7 @@ namespace CompanyManagement.Models
             }
             catch(Exception ex)
             {
-                Log.Instance.Error(nameof(TaskInProject), "CAST ERROR: " + ex.Message);
+                Log.Ins.Error(nameof(TaskInProject), "CAST ERROR: " + ex.Message);
             }
         }
     }

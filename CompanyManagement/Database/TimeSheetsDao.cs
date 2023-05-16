@@ -42,7 +42,7 @@ namespace CompanyManagement.Database
             return (TimeSheet)dbConnection.GetSingleObject(sqlStr, reader => new TimeSheet(reader));
         }
 
-        public int ToTalWorksDayByEmployeeID(string employeeID, int month, int year)
+        public int TotalWorksDayByEmployeeID(string employeeID, int month, int year)
         {
             string sqlStr = $"SELECT COUNT(*) FROM {timeShtTbl} " +
                             $"WHERE {timeShtEmplID} = '{employeeID}' " +

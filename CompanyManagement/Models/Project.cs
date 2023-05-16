@@ -133,7 +133,7 @@ namespace CompanyManagement
             }
             catch (Exception ex)
             {
-                Log.Instance.Error(nameof(Project), "CAST ERROR: " + ex.Message);
+                Log.Ins.Error(nameof(Project), "CAST ERROR: " + ex.Message);
             }
         }
     }

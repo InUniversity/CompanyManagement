@@ -124,7 +124,7 @@ namespace CompanyManagement.ViewModels.UserControls
                     .ToList();
             LeaveRequests = new List<LeaveRequest>(allItem);
             
-            Log.Instance.Information(nameof(LeaveRequestsViewModel), "selected date = " + timeCreateLeave.ToShortDateString());
+            Log.Ins.Information(nameof(LeaveRequestsViewModel), "selected date = " + timeCreateLeave.ToShortDateString());
         }
 
         private LeaveRequest CreateLeave()

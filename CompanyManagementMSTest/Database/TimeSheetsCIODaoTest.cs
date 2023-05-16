@@ -55,9 +55,9 @@ namespace CompanyManagementMSTest.Database
         }
 
         [TestMethod]
-        public void ToTalWorksDayByEmployeeID()
+        public void TotalWorksDayByEmployeeID()
         {
-            int total = myDao.ToTalWorksDayByEmployeeID("EM007");
+            int total = myDao.TotalWorksDayByEmployeeID("EM007", 4, 2023);
             Assert.AreEqual(1, total);
         }
         

@@ -47,7 +47,7 @@ namespace CompanyManagement.Models
             }
             catch (Exception e)
             {
-                Log.Instance.Error(nameof(TimeSheet), "Error: " + e.Message);
+                Log.Ins.Error(nameof(TimeSheet), "Error: " + e.Message);
             }
         }
     }

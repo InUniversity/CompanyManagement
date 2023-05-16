@@ -22,12 +22,12 @@ namespace CompanyManagement.Database.Base
                 SqlCommand cmd = new SqlCommand(command, conn);
                 if (cmd.ExecuteNonQuery() > 0)
                 {
-                    Log.Instance.Information(nameof(DBConnection), "Completed");
+                    Log.Ins.Information(nameof(DBConnection), "Completed");
                 }
             }
             catch (Exception ex)
             {
-                Log.Instance.Error(nameof(DBConnection), ex.Message);
+                Log.Ins.Error(nameof(DBConnection), ex.Message);
             }
             finally
             {
@@ -56,7 +56,7 @@ namespace CompanyManagement.Database.Base
             }
             catch (Exception ex)
             {
-                Log.Instance.Error(nameof(DBConnection), ex.Message);
+                Log.Ins.Error(nameof(DBConnection), ex.Message);
             }
             finally
             {
@@ -77,7 +77,7 @@ namespace CompanyManagement.Database.Base
             }
             catch (Exception ex)
             {
-                Log.Instance.Error(nameof(DBConnection), ex.Message);
+                Log.Ins.Error(nameof(DBConnection), ex.Message);
             }
             finally
             {

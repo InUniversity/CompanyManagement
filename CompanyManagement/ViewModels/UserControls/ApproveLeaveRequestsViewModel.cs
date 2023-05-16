@@ -120,7 +120,7 @@ namespace CompanyManagement.ViewModels.UserControls
                     .ToList();
             ReceivedLeaveRequests = new List<LeaveRequest>(allItem);
 
-            Log.Instance.Information(nameof(LeaveRequestsViewModel), "selected date = " + timeCreateLeave.ToShortDateString());
+            Log.Ins.Information(nameof(LeaveRequestsViewModel), "selected date = " + timeCreateLeave.ToShortDateString());
         }
 
         private void Update(LeaveRequest leave)

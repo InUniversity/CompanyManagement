@@ -23,7 +23,7 @@ namespace CompanyManagement.Views.UserControls
             }
             catch (Exception ex)
             {
-                Log.Instance.Error(nameof(ProjectsUC), ex.Message);
+                Log.Ins.Error(nameof(ProjectsUC), ex.Message);
             }
         }
     }

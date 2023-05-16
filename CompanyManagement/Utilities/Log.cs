@@ -8,7 +8,7 @@ namespace CompanyManagement.Utilities
         private static Log instance;
         private TraceSource traceSource;
 
-        public static Log Instance
+        public static Log Ins
         {
             get
             {
@@ -24,7 +24,7 @@ namespace CompanyManagement.Utilities
         {
             traceSource = new TraceSource("Custom Log");
             traceSource.Switch.Level = SourceLevels.Information;
-            traceSource.Listeners.Add(new TextWriterTraceListener("log.txt"));
+            traceSource.Listeners.Add(new TextWriterTraceListener("CustomLogApp.txt"));
         }
 
         public void Information(string tag, string message)
@@ -34,7 +34,7 @@ namespace CompanyManagement.Utilities
 
         public void Error(string tag, string message)
         {
-            traceSource.TraceEvent(TraceEventType.Warning, 0, $"[TAG='{tag}', Time='{DateTime.Now}', MESSAGE='{message}']");
+            traceSource.TraceEvent(TraceEventType.Error, 0, $"[TAG='{tag}', Time='{DateTime.Now}', MESSAGE='{message}']");
         }
     }
 }

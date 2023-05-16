@@ -50,7 +50,7 @@ namespace CompanyManagement.Models
             }
             catch (Exception ex)
             {
-                Log.Instance.Error(nameof(Role), "CAST ERROR: " + ex.Message);
+                Log.Ins.Error(nameof(Role), "CAST ERROR: " + ex.Message);
             }
         }
     }

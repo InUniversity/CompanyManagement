@@ -41,7 +41,7 @@ namespace CompanyManagement.ViewModels.Dialogs
                 "Bạn chắc chắn muốn cập nhật phòng ban!",
                 () =>
                 {
-                    Log.Instance.Information(nameof(UpdateDepartmentViewModel), "Update Department: " + DeptInputDataContext.DeptIns.Name);
+                    Log.Ins.Information(nameof(UpdateDepartmentViewModel), "Update Department: " + DeptInputDataContext.DeptIns.Name);
                     var department = DeptInputDataContext.DeptIns;
                     submitObjectAction?.Invoke(department);
                     inputWindow.Close();
