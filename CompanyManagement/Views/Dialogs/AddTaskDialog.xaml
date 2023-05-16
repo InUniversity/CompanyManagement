@@ -1,0 +1,59 @@
+﻿<Window x:Class="CompanyManagement.Views.Dialogs.AddTaskDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:uc="clr-namespace:CompanyManagement.Views.UserControls"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        WindowStartupLocation="CenterScreen"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        x:Name="addTaskDialog"
+        mc:Ignorable="d"
+        Title="AddTaskDialog" Height="660" Width="800">
+    <Border Background="White" BorderBrush="Teal" BorderThickness="2">
+        <Grid Margin="10">
+            <StackPanel>
+                <Button 
+                    Margin="10"
+                    HorizontalAlignment="Right"
+                    Command="{Binding CloseDialogCommand}"
+                    CommandParameter="{Binding ElementName=addTaskDialog}"
+                    Height="30"
+                    Width="30"
+                    Foreground="Teal"
+                    Style="{StaticResource MaterialDesignIconButton}"
+                    ToolTip="Thoát" >
+                    <materialDesign:PackIcon Kind="Close" Width="20" Height="20"/>
+                </Button>
+                <TextBlock Margin="20 10" 
+                           FontSize="20"
+                           FontWeight="Bold"
+                           Foreground="Teal"
+                           HorizontalAlignment="Center"
+                           Text="Thêm Nhiệm Vụ"/>
+                <uc:TaskInputUC DataContext="{Binding TaskInputDataContext}"
+                                      HorizontalAlignment="Center"
+                                      Margin="20 10" />
+                <Button Grid.Column="0"
+                    Margin="10"
+                    HorizontalAlignment="Center"
+                    Content="Thêm"
+                    Command="{Binding AddTaskCommand}"
+                    CommandParameter="{Binding ElementName = addTaskDialog}"
+                    Height="50"
+                    Width="200"
+                    Background="Teal"
+                    Style="{StaticResource MaterialDesignFlatMidBgButton}"
+                    ToolTip="Thêm nhiệm vụ mới" />
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>

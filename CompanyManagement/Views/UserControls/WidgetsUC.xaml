@@ -1,0 +1,86 @@
+﻿<UserControl x:Class="CompanyManagement.Views.UserControls.WidgetsUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:livecharts="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.FontWeight="Regular"
+             TextElement.FontSize="13"
+             TextOptions.TextFormattingMode="Ideal"
+             TextOptions.TextRenderingMode="Auto"
+             Background="{DynamicResource MaterialDesignPaper}"
+             FontFamily="{DynamicResource MaterialDesignFont}"
+             Name="widgetsUC"
+             mc:Ignorable="d" >
+    <ScrollViewer MinHeight="550" MinWidth="1100">
+        <StackPanel Background="WhiteSmoke">
+            <Grid Height="500" Background="White" Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal"  Grid.Row="0">
+                    <Button Margin="10 0"  Style="{StaticResource MaterialDesignIconForegroundButton}">
+                        <materialDesign:PackIcon Kind="ChartArc" />
+                    </Button>
+                    <TextBlock Text="Trạng Thái Tác Vụ" FontSize="15" FontWeight="Bold" VerticalAlignment="Center"></TextBlock>
+                </StackPanel>
+                <livecharts:PieChart Grid.Row="1" Series="{Binding SeriesTaskStatusViews}" LegendLocation="Left" Hoverable="True" InnerRadius="50" Margin="200 30">
+                    <livecharts:PieChart.ChartLegend>
+                        <livecharts:DefaultLegend BulletSize="30" FontSize="15" FontWeight="Bold"></livecharts:DefaultLegend>
+                    </livecharts:PieChart.ChartLegend>
+                    <livecharts:PieChart.DataTooltip>
+                        <livecharts:DefaultTooltip BulletSize="25"></livecharts:DefaultTooltip>
+                    </livecharts:PieChart.DataTooltip>
+                </livecharts:PieChart>
+            </Grid>
+            <Grid Height="500" Background="White" Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal" Grid.Row="0">
+                    <Button Margin="10 0"  Style="{StaticResource MaterialDesignIconForegroundButton}">
+                        <materialDesign:PackIcon Kind="ChartBar" />
+                    </Button>
+                    <TextBlock Text="Tiến Độ Tác Vụ" FontSize="15" FontWeight="Bold" VerticalAlignment="Center"></TextBlock>
+                </StackPanel>
+                <livecharts:CartesianChart Grid.Row="1"  Series="{Binding SeriesTaskProgressViews}" Margin="10" DataTooltip="{x:Null}">
+                    <livecharts:CartesianChart.AxisX>
+                        <livecharts:Axis Title="Tiến Độ ( % )" Labels="{Binding LabelsTaskProgressPercent}" ></livecharts:Axis>
+                    </livecharts:CartesianChart.AxisX>
+                    <livecharts:CartesianChart.AxisY>
+                        <livecharts:Axis Title="Số Lượng Tác Vụ" LabelFormatter="{Binding LabelFormat}" ></livecharts:Axis>
+                    </livecharts:CartesianChart.AxisY>
+                </livecharts:CartesianChart>
+            </Grid>
+            <Grid Background="White" Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal"  Grid.Row="0">
+                    <Button Margin="10 0"  Style="{StaticResource MaterialDesignIconForegroundButton}">
+                        <materialDesign:PackIcon Kind="HomeAnalytics" />
+                    </Button>
+                    <TextBlock Text="Trạng Thái Phòng" FontSize="15" FontWeight="Bold" VerticalAlignment="Center"></TextBlock>
+                </StackPanel>
+                <DataGrid Grid.Row="1"
+                          Margin="10"
+                          AutoGenerateColumns="False"
+                          Background="White"
+                          ItemsSource="{Binding ListStatusTeam}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Width="400" Header="Team" IsReadOnly="True" Binding="{Binding TeamName}" />
+                        <DataGridTextColumn Width="150" Header="Hoàn thành" IsReadOnly="True" Binding="{Binding NumberCompletedTasks}" />
+                        <DataGridTextColumn Width="150" Header="Quá hạn" IsReadOnly="True" Binding="{Binding NumberOverdueTasks}" />
+                        <DataGridTextColumn Width="150" Header="Đang thực hiện" IsReadOnly="True" Binding="{Binding NumberOngoingTasks}" />
+                        <DataGridTextColumn Width="150" Header="Đang xem xét" IsReadOnly="True" Binding="{Binding NumberUnderConsiderableTasks}" />
+                    </DataGrid.Columns>
+                </DataGrid>        
+            </Grid>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

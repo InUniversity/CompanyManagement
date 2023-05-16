@@ -1,0 +1,107 @@
+﻿<Window x:Class="CompanyManagement.Views.Windows.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:helper="clr-namespace:CompanyManagement.Helpers"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="White"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        Name="loginWindow"
+        Height="700" Width="800">
+    <Border BorderBrush="Teal" BorderThickness="1">
+        <Grid>
+            <Button 
+                Margin="20"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Command="{Binding ExitCommand}"
+                CommandParameter="{Binding ElementName=loginWindow}"
+                Height="30"
+                Width="30"
+                Foreground="Teal"
+                Style="{StaticResource MaterialDesignIconButton}"
+                ToolTip="Thoát" >
+                <materialDesign:PackIcon Kind="Close" Width="20" Height="20"/>
+            </Button>
+            <materialDesign:Card Width="500" Height="600"
+                                 HorizontalAlignment="Center"
+                                 VerticalContentAlignment="Center">
+                <Grid>
+                    <Grid.Resources>
+                        <Style TargetType="Grid">
+                            <Setter Property="Margin" Value="10 20 10 0" />
+                        </Style>
+                    </Grid.Resources>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="100" />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top">
+                        <TextBlock Text="Đăng Nhập"
+                                   FontSize="24"
+                                   Style="{StaticResource MaterialDesignButtonTextBlock}"
+                                   FontWeight="ExtraBold"
+                                   Foreground="Gray" />
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <TextBox
+                            Height="50"
+                            VerticalAlignment="Top"
+                            Text="{Binding Username}"
+                            materialDesign:HintAssist.Hint="Tên Đăng Nhập"
+                            materialDesign:TextFieldAssist.HasClearButton="True"
+                            MaxLength="40"
+                            Style="{StaticResource MaterialDesignFilledTextBox}"
+                            TextWrapping="Wrap" />
+                    </Grid>
+                    <Grid Grid.Row="2">
+                        <PasswordBox
+                            Height="50"
+                            materialDesign:HintAssist.HelperText="ít nhất 8 ký tự"
+                            materialDesign:HintAssist.Hint="Mật Khẩu"
+                            materialDesign:TextFieldAssist.HasClearButton="True"
+                            helper:PasswordBoxHelper.BindPassword="true"
+                            helper:PasswordBoxHelper.BoundPassword="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            Style="{StaticResource MaterialDesignFilledRevealPasswordBox}" />
+                    </Grid>
+                    <Grid Grid.Row="3">
+                        <Grid Width="auto">
+                            <Button
+                                IsDefault="True"
+                                Height="50"
+                                Command="{Binding LoginCommand}"
+                                CommandParameter="{Binding ElementName=loginWindow}"
+                                materialDesign:ButtonAssist.CornerRadius="25">
+                                <TextBlock Text="Đăng nhập" />
+                            </Button>
+                        </Grid>
+                    </Grid>
+                    <Grid Grid.Row="4">
+                        <Button
+                            Width="250"
+                            Command="{Binding ExitCommand}"
+                            CommandParameter="{Binding ElementName=loginWindow}"
+                            HorizontalAlignment="Center"
+                            Content="Thoát"
+                            materialDesign:ButtonAssist.CornerRadius="25"
+                            Style="{StaticResource MaterialDesignPaperButton}"
+                            ToolTip="Resource name: MaterialDesignPaperButton" />
+                    </Grid>
+                </Grid>
+            </materialDesign:Card>
+        </Grid>
+    </Border>
+</Window>

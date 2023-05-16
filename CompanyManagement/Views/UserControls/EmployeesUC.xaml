@@ -1,0 +1,104 @@
+﻿<UserControl x:Class="CompanyManagement.Views.UserControls.EmployeesUC"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.FontWeight="Regular"
+             TextElement.FontSize="13"
+             TextOptions.TextFormattingMode="Ideal"
+             TextOptions.TextRenderingMode="Auto"
+             Background="{DynamicResource MaterialDesignPaper}"
+             FontFamily="{DynamicResource MaterialDesignFont}"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+             x:Name="employeesUC">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Border Grid.Row="0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Button
+                        Height="35"
+                        Width="60"
+                        Margin="20 0 0 0"
+                        HorizontalAlignment="Left"
+                        Command="{Binding OpenAddDialogCommand}"
+                        Background="ForestGreen"                      
+                        Style="{StaticResource MaterialDesignFlatMidBgButton}"
+                        ToolTip="Hiển thị màn hình thêm nhân viên mới">
+                        <materialDesign:PackIcon Kind="AccountPlusOutline" />
+                    </Button>
+                </Grid>
+                <Grid Grid.Column="1" HorizontalAlignment="Right">
+                    <TextBox Grid.Column="2"
+                         Margin="20 5"
+                         materialDesign:TextFieldAssist.PrefixText="Tên: "
+                         Text="{Binding TextToSearch , Mode=TwoWay , UpdateSourceTrigger=PropertyChanged}"
+                         materialDesign:HintAssist.Hint="Tìm kiếm nhân viên"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                         Width="200"/>
+                </Grid>
+            </Grid>
+        </Border>
+        <Grid Grid.Row="1">
+            <DataGrid         
+                CanUserAddRows="False"
+                AutoGenerateColumns="False"
+                Background="White"
+                Margin="5"
+                ItemsSource="{Binding SearchedEmployees}"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Header="Operations" 
+                                            CanUserResize="False" 
+                                            IsReadOnly="True"
+                                            Width="auto">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Margin="10 0 0 0"
+                                            ToolTip="Chỉnh sửa"
+                                            Width="50" Height="30"
+                                        Style="{StaticResource MaterialDesignIconButton}"
+                                        Command="{Binding DataContext.OpenUpdateDialogCommand, ElementName=employeesUC}"
+                                        CommandParameter="{Binding}">
+                                        <materialDesign:PackIcon Kind="AccountEditOutline" Foreground="#00826b" Width="15" Height="15"/>
+                                    </Button>
+                                    <Button Margin="10 0 0 0"
+                                            ToolTip="Xóa"
+                                             Width="50" Height="30"
+                                        Style="{StaticResource MaterialDesignIconButton}"
+                                        Command="{Binding DataContext.DeleteEmployeeCommand, ElementName=employeesUC}"
+                                        CommandParameter="{Binding ID}">
+                                        <materialDesign:PackIcon Kind="DeleteOutline" Foreground="#d50000" Width="15" Height="15" />
+                                    </Button>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="Mã nhân viên" IsReadOnly="True" Binding="{Binding ID}" />
+                    <DataGridTextColumn Header="Họ và tên" IsReadOnly="True" Binding="{Binding Name}" />
+                    <DataGridTextColumn Header="Vị trí công việc" IsReadOnly="True" Binding="{Binding EmplRole.Title}" />
+                    <DataGridTextColumn Header="Giới tính" IsReadOnly="True" Binding="{Binding Gender}" />
+                    <DataGridTextColumn Header="Ngày sinh" IsReadOnly="True" Binding="{Binding Birthday, StringFormat='dd/MM/yyyy'}" />
+                    <DataGridTextColumn Header="Chứng minh nhân dân" IsReadOnly="True" Binding="{Binding IdentifyCard}" />
+                    <DataGridTextColumn Header="Email" IsReadOnly="True" Binding="{Binding Email}" />
+                    <DataGridTextColumn Header="Số điện thoại" IsReadOnly="True" Binding="{Binding PhoneNumber}" />
+                    <DataGridTextColumn Header="Địa chỉ" IsReadOnly="True" Binding="{Binding Address}" />
+                    <DataGridTextColumn Header="Mã Phòng Ban" IsReadOnly="True" Binding="{Binding DepartmentID}" />
+                    <DataGridTextColumn Header="Lương (VNĐ)" IsReadOnly="True" Binding="{Binding EmplRole.Salary, StringFormat='##,#'}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </Grid>
+</UserControl>

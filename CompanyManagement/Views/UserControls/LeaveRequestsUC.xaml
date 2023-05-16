@@ -1,0 +1,241 @@
+﻿<UserControl x:Class="CompanyManagement.Views.UserControls.LeaveRequestsUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.FontWeight="Regular"
+             TextElement.FontSize="13"
+             TextOptions.TextFormattingMode="Ideal"
+             TextOptions.TextRenderingMode="Auto"
+             Background="White"
+             FontFamily="{DynamicResource MaterialDesignFont}"
+             Name="leaveRequestUC"
+             mc:Ignorable="d" >
+    <Grid MinHeight="600" MinWidth="1100">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <materialDesign:ColorZone Grid.Row="0" Height="50" Background="White">
+            <Grid>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button Command="{Binding BackDateCommand}" 
+                        Style="{StaticResource MaterialDesignIconButton}">
+                        <materialDesign:PackIcon Kind="ChevronLeft"  Width="20" Height="20" />
+                    </Button>
+                    <DatePicker
+                      BorderBrush="Teal"
+                      Width="80"                
+                      SelectedDate="{Binding ElementName=leaveRequestUC,Path=DataContext.TimeCreateLeave,UpdateSourceTrigger=PropertyChanged}"
+                      FlowDirection="RightToLeft" />
+                    <Button Command="{Binding NextDateCommand}" 
+                        Style="{StaticResource MaterialDesignIconButton}">
+                        <materialDesign:PackIcon Kind="ChevronRight"  Width="20" Height="20" />
+                    </Button>
+                </StackPanel>
+                <Button
+                    ToolTip="Thêm nghỉ phép mới"
+                    Width="200"
+                    Margin="20 0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Command="{Binding OpenAddLeaveDialogCommand}">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Plus"  Width="20" Height="20" FontWeight="ExtraBold" />
+                        <TextBlock Text="New Leave" FontWeight="ExtraBold"></TextBlock>
+                    </StackPanel>
+                </Button>
+            </Grid>
+        </materialDesign:ColorZone>
+        <ScrollViewer Grid.Row="1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Expander Grid.Row="0" 
+                    Background="#f3e5f5"  
+                    Foreground="#4a148c"
+                    Margin="10 5"
+                    ExpandDirection="Down">
+                        <Expander.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon VerticalAlignment="Center" 
+                                                 Margin="10 0" Kind="CommentProcessingOutline"  
+                                                 Foreground="#4a148c" ></materialDesign:PackIcon>
+                                <materialDesign:Badged Badge="{Binding ElementName=dgNeedApprove,Path=Items.Count,UpdateSourceTrigger=PropertyChanged}"  
+                                               Margin="10 0"   
+                                               BadgeForeground="White"
+                                               BadgeBackground="#8a24aa"
+                                               VerticalAlignment="Center">
+                                    <TextBlock                     
+                                FontWeight="Bold"  
+                                Margin="5"
+                                Text="Yêu cầu xin nghỉ"                           
+                                FontSize="20"></TextBlock>
+                                </materialDesign:Badged>
+                            </StackPanel>
+                        </Expander.Header>
+                    <DataGrid         
+                            CanUserResizeColumns="False"
+                            Name="dgNeedApprove"
+                            CanUserAddRows="False"
+                            AutoGenerateColumns="False"
+                            Background="White"
+                            ItemsSource="{Binding UnapprovedLeaveRequests}"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Top">
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="Operations" 
+                                                    CanUserResize="False" 
+                                                    IsReadOnly="True"
+                                                    Width="auto">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Button
+                                                    Style="{StaticResource MaterialDesignIconButton}"
+                                                    Background="#6a1b9a"
+                                                    Foreground="White"
+                                                    Height="30" Width="30"
+                                                    Margin="5 0"                                               
+                                                    Command="{Binding DataContext.OpenUpdateLeaveDialogCommand, ElementName=leaveRequestUC}"
+                                                    CommandParameter="{Binding}">
+                                                <materialDesign:PackIcon Kind="PencilOutline" Height="15" Width="15"/>
+                                            </Button>
+                                            <Button 
+                                                    Style="{StaticResource MaterialDesignIconButton}"
+                                                    Margin="5 0"           
+                                                    Height="30" Width="30"
+                                                    BorderThickness="0"
+                                                    Foreground="White"
+                                                    Background="#bf360c"
+                                                    Command="{Binding DataContext.DeleteLeaveCommand, ElementName=leaveRequestUC}"
+                                                    CommandParameter="{Binding ID}">
+                                                <materialDesign:PackIcon Kind="DeleteOutline" Height="15" Width="15" />
+                                            </Button>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                                <DataGridTextColumn Width="150" Header="Lý do" IsReadOnly="True" Binding="{Binding Reason}"/>
+                                <DataGridTextColumn Width="200" Header="Chú thích" IsReadOnly="True" Binding="{Binding Notes}" />
+                                <DataGridTextColumn Width="Auto" Header="Ngày bắt đầu" IsReadOnly="True" Binding="{Binding Start, StringFormat='dd/MM/yyyy'}" />
+                                <DataGridTextColumn Width="Auto" Header="Ngày kết thúc" IsReadOnly="True" Binding="{Binding End, StringFormat='dd/MM/yyyy'}" />
+                                <DataGridTextColumn Width="Auto" Header="Ngày tạo" IsReadOnly="True" Binding="{Binding Created, StringFormat='dd/MM/yyyy'}" />
+                                <DataGridTextColumn Width="150" Header="Người duyệt" IsReadOnly="True" Binding="{Binding Approver.Name}" />
+                                <DataGridTextColumn Width="120" Header="Phản hồi" IsReadOnly="True" Binding="{Binding Response}" />
+                        </DataGrid.Columns>
+                        </DataGrid>
+                    </Expander>
+                    <Expander Grid.Row="1"  
+                    Background="#f1f8e9"  
+                    Foreground="#33691e"
+                    Margin="10 5"
+                    ExpandDirection="Down">
+                    <Expander.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon VerticalAlignment="Center" 
+                                                 Margin="10 0" Kind="CommentCheckOutline"  
+                                                 Foreground="#33691e" ></materialDesign:PackIcon>
+                            <materialDesign:Badged Badge="{Binding ElementName=dgApprove,Path=Items.Count,UpdateSourceTrigger=PropertyChanged}"  
+                                               Margin="10 0"   
+                                               BadgeForeground="White"
+                                               BadgeBackground="#80cbc4"
+                                               VerticalAlignment="Center">
+                                <TextBlock                     
+                                FontWeight="Bold"  
+                                Margin="5"
+                                Text="Đã chấp nhận"                           
+                                FontSize="20"></TextBlock>
+                            </materialDesign:Badged>
+                        </StackPanel>
+                    </Expander.Header>
+                    <DataGrid      
+                        Name="dgApprove"
+                        CanUserAddRows="False"
+                        AutoGenerateColumns="False"
+                        Background="White"
+                        ItemsSource="{Binding ApprovedLeaveRequests}"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Width="150" Header="Lý do" IsReadOnly="True" Binding="{Binding Reason}"/>
+                            <DataGridTextColumn Width="200" Header="Chú thích" IsReadOnly="True" Binding="{Binding Notes}" />
+                            <DataGridTextColumn Width="Auto" Header="Ngày bắt đầu" IsReadOnly="True" Binding="{Binding Start, StringFormat='dd/MM/yyyy'}" />
+                            <DataGridTextColumn Width="Auto" Header="Ngày kết thúc" IsReadOnly="True" Binding="{Binding End, StringFormat='dd/MM/yyyy'}" />
+                            <DataGridTextColumn Width="Auto" Header="Ngày tạo" IsReadOnly="True" Binding="{Binding Created, StringFormat='dd/MM/yyyy'}" />
+                            <DataGridTextColumn Width="150" Header="Người duyệt" IsReadOnly="True" Binding="{Binding Approver.Name}" />
+                            <DataGridTextColumn Width="120" Header="Phản hồi" IsReadOnly="True" Binding="{Binding Response}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Expander>
+                <Expander Grid.Row="2"  
+                    Background="#fbe9e7"  
+                    Foreground="#bf360c"
+                    Margin="10 5"
+                    ExpandDirection="Down">
+                    <Expander.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon VerticalAlignment="Center" 
+                                                 Margin="10 0" Kind="CommentRemoveOutline"  
+                                                 Foreground="#bf360c" ></materialDesign:PackIcon>
+                            <materialDesign:Badged Badge="{Binding ElementName=dgNotApprove,Path=Items.Count,UpdateSourceTrigger=PropertyChanged}"  
+                                               Margin="10 0"   
+                                               BadgeForeground="White"
+                                               BadgeBackground="#e57373"
+                                               VerticalAlignment="Center">
+                                <TextBlock                     
+                                FontWeight="Bold"  
+                                Margin="5"
+                                Text="Không chấp nhận"                           
+                                FontSize="20"></TextBlock>
+                            </materialDesign:Badged>
+                        </StackPanel>
+                    </Expander.Header>
+                    <DataGrid       
+                        Name="dgNotApprove"
+                        CanUserAddRows="False"
+                        AutoGenerateColumns="False"
+                        Background="White"
+                        ItemsSource="{Binding DeniedLeaveRequests}"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="Operations" 
+                                                    CanUserResize="False" 
+                                                    IsReadOnly="True"
+                                                    Width="auto">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button 
+                                            Style="{StaticResource MaterialDesignIconButton}"
+                                            Margin="5"           
+                                            Height="30" Width="30"
+                                            BorderThickness="0"
+                                            Foreground="White"
+                                            Background="#bf360c"
+                                            Command="{Binding DataContext.DeleteLeaveCommand, ElementName=leaveRequestUC}"
+                                            CommandParameter="{Binding ID}">
+                                            <materialDesign:PackIcon Kind="DeleteOutline" Height="15" Width="15" />
+                                        </Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Width="150" Header="Lý do" IsReadOnly="True" Binding="{Binding Reason}"/>
+                            <DataGridTextColumn Width="200" Header="Chú thích" IsReadOnly="True" Binding="{Binding Notes}" />
+                            <DataGridTextColumn Width="Auto" Header="Ngày bắt đầu" IsReadOnly="True" Binding="{Binding Start, StringFormat='dd/MM/yyyy'}" />
+                            <DataGridTextColumn Width="Auto" Header="Ngày kết thúc" IsReadOnly="True" Binding="{Binding End, StringFormat='dd/MM/yyyy'}" />
+                            <DataGridTextColumn Width="Auto" Header="Ngày tạo" IsReadOnly="True" Binding="{Binding Created, StringFormat='dd/MM/yyyy'}" />
+                            <DataGridTextColumn Width="150" Header="Người duyệt" IsReadOnly="True" Binding="{Binding Approver.Name}" />
+                            <DataGridTextColumn Width="120" Header="Phản hồi" IsReadOnly="True" Binding="{Binding Response}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Expander>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

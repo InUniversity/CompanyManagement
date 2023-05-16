@@ -1,0 +1,11 @@
+# Ignore Visual Studio build directories
+/.vs/
+bin/
+obj/
+
+# Ignore Rider files
+.idea/
+
+*.htm
+
+TestResult/

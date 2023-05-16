@@ -1,0 +1,535 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{75A735E4-BF04-433F-8313-551F7B9EB194}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>CompanyManagement</RootNamespace>
+    <AssemblyName>CompanyManagement</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <LangVersion>10</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="LiveCharts, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveCharts.0.9.7\lib\net45\LiveCharts.dll</HintPath>
+    </Reference>
+    <Reference Include="LiveCharts.Wpf, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveCharts.Wpf.0.9.7\lib\net45\LiveCharts.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="MaterialDesignColors, Version=2.1.2.0, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
+      <HintPath>..\packages\MaterialDesignColors.2.1.2\lib\net462\MaterialDesignColors.dll</HintPath>
+    </Reference>
+    <Reference Include="MaterialDesignThemes.Wpf, Version=4.8.0.0, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
+      <HintPath>..\packages\MaterialDesignThemes.4.8.0\lib\net462\MaterialDesignThemes.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Expression.Interactions, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Expression.Interaction.3.0.40218.0\lib\net46\Microsoft.Expression.Interactions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.39\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Expression.Interaction.3.0.40218.0\lib\net46\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Converters\EnumDescConverter.cs" />
+    <Compile Include="Database\AccountsDao.cs" />
+    <Compile Include="Database\Base\BaseDao.cs" />
+    <Compile Include="Database\Base\DbConnection.cs" />
+    <Compile Include="Database\MilestonesDao.cs" />
+    <Compile Include="Database\MileTasksDao.cs" />
+    <Compile Include="Database\ProjectBonusesDao.cs" />
+    <Compile Include="Database\SalaryRecordsDao.cs" />
+    <Compile Include="Database\TimeSheetsDao.cs" />
+    <Compile Include="Database\DepartmentsDao.cs" />
+    <Compile Include="Database\EmployeesDao.cs" />
+    <Compile Include="Database\LeaveRequestsDao.cs" />
+    <Compile Include="Database\RolesDao.cs" />
+    <Compile Include="Database\ProjectAssignmentsDao.cs" />
+    <Compile Include="Database\ProjectsDao.cs" />
+    <Compile Include="Database\TaskCheckOutsDao.cs" />
+    <Compile Include="Database\TasksDao.cs" />
+    <Compile Include="Enums\ELeavStatus.cs" />
+    <Compile Include="Enums\EProjStatus.cs" />
+    <Compile Include="Enums\ETaskStatus.cs" />
+    <Compile Include="Helpers\PasswordBoxHelper.cs" />
+    <Compile Include="Models\Account.cs" />
+    <Compile Include="Models\Milestone.cs" />
+    <Compile Include="Models\MileTask.cs" />
+    <Compile Include="Enums\EPermission.cs" />
+    <Compile Include="Models\ProjectBonus.cs" />
+    <Compile Include="Models\SalaryRecord.cs" />
+    <Compile Include="Models\TimeSheet.cs" />
+    <Compile Include="Models\CurrentUser.cs" />
+    <Compile Include="Models\Department.cs" />
+    <Compile Include="Models\Employee.cs" />
+    <Compile Include="Models\LeaveRequest.cs" />
+    <Compile Include="Models\Role.cs" />
+    <Compile Include="Models\Project.cs" />
+    <Compile Include="Models\ProjectAssignment.cs" />
+    <Compile Include="Models\TaskCheckOut.cs" />
+    <Compile Include="Models\TaskInProject.cs" />
+    <Compile Include="Services\AlertDialogService.cs" />
+    <Compile Include="Services\InputDialogService.cs" />
+    <Compile Include="Strategies\UserControls\DeptsView\DeptForDeptHead.cs" />
+    <Compile Include="Strategies\UserControls\DeptsView\DeptForHR.cs" />
+    <Compile Include="Strategies\UserControls\DeptsView\DeptForManager.cs" />
+    <Compile Include="Strategies\UserControls\DeptsView\DeptStrategyFactory.cs" />
+    <Compile Include="Strategies\UserControls\DeptsView\IDeptStrategy.cs" />
+    <Compile Include="Strategies\UserControls\ProjectsView\IProjectsStrategy.cs" />
+    <Compile Include="Strategies\UserControls\ProjectsView\ProjectsForDepartmentHead.cs" />
+    <Compile Include="Strategies\UserControls\ProjectsView\ProjectsForEmployee.cs" />
+    <Compile Include="Strategies\UserControls\ProjectsView\ProjectsForManager.cs" />
+    <Compile Include="Strategies\UserControls\ProjectsView\ProjectsStrategyFactory.cs" />
+    <Compile Include="Strategies\Windows\MainView\IMainStrategy.cs" />
+    <Compile Include="Strategies\Windows\MainView\MainForDeptHead.cs" />
+    <Compile Include="Strategies\Windows\MainView\MainForEmployee.cs" />
+    <Compile Include="Strategies\Windows\MainView\MainForHR.cs" />
+    <Compile Include="Strategies\Windows\MainView\MainForManager.cs" />
+    <Compile Include="Strategies\Windows\MainView\MainStrategyFactory.cs" />
+    <Compile Include="Utilities\CheckFormat.cs" />
+    <Compile Include="Utilities\Log.cs" />
+    <Compile Include="Utilities\Utils.cs" />
+    <Compile Include="ViewModels\Base\BaseViewModel.cs" />
+    <Compile Include="ViewModels\Base\RelayCommand.cs" />
+    <Compile Include="ViewModels\Dialogs\AddDepartmentViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\AddEmployeeViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\AddLeaveViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\AddMilestoneViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\AddProjectViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\AddTaskViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\AlertDialogViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\Interfaces\IInputViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\ResponseLeaveViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\UpdateDepartmentViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\UpdateEmployeeViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\UpdateLeaveViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\UpdateMilesViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\UpdateProjectViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\UpdateTaskViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\ApproveLeaveRequestsViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\AssignmentViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\MilestoneInputViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\MilestonesViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\EmployeesInDepartmentViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\OrganizationViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\ProjectBonusViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\SalaryDetailViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\SalaryRecordsViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\TimeSheetInputViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\TimeSheetViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\CheckInViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\CheckOutViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\DepartmentInputViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\DepartmentsViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\EmployeeInputViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\EmployeesViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\LeaveInputViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\LeaveRequestsViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\ProjectDetailsViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\ProjectInputViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\ProjectsViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\TaskInputViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\TasksInProjectViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\UserInformationViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\PersonalSalaryViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\WidgetsViewModel.cs" />
+    <Compile Include="ViewModels\Windows\LoginViewModel.cs" />
+    <Compile Include="ViewModels\Windows\MainViewModel.cs" />
+    <Compile Include="Views\Dialogs\AddDepartmentDialog.xaml.cs">
+      <DependentUpon>AddDepartmentDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\AddEmployeeDialog.xaml.cs">
+      <DependentUpon>AddEmployeeDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\AddLeaveDialog.xaml.cs">
+      <DependentUpon>AddLeaveDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\AddProjectDialog.xaml.cs">
+      <DependentUpon>AddProjectDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\AddTaskDialog.xaml.cs">
+      <DependentUpon>AddTaskDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\AlertDialog.xaml.cs">
+      <DependentUpon>AlertDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\CheckInDialog.xaml.cs">
+      <DependentUpon>CheckInDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\CheckOutDialog.xaml.cs">
+      <DependentUpon>CheckOutDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\Interfaces\IInputDialog.cs" />
+    <Compile Include="Views\Dialogs\ResponseLeaveDialog.xaml.cs">
+      <DependentUpon>ResponseLeaveDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\SalaryDetailsDialog.xaml.cs">
+      <DependentUpon>SalaryDetailsDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\AddMilestoneDialog.xaml.cs">
+      <DependentUpon>AddMilestoneDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\UpdateDepartmentDialog.xaml.cs">
+      <DependentUpon>UpdateDepartmentDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\UpdateEmployeeDialog.xaml.cs">
+      <DependentUpon>UpdateEmployeeDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\UpdateLeaveDialog.xaml.cs">
+      <DependentUpon>UpdateLeaveDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\UpdateLeaveForManagerDialog.xaml.cs">
+      <DependentUpon>UpdateLeaveForManagerDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\UpdateMilestoneDialog.xaml.cs">
+      <DependentUpon>UpdateMilestoneDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\UpdateProjectDialog.xaml.cs">
+      <DependentUpon>UpdateProjectDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\UpdateTaskDialog.xaml.cs">
+      <DependentUpon>UpdateTaskDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\ApproveLeaveRequestsUC.xaml.cs">
+      <DependentUpon>ApproveLeaveRequestsUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\AssignmentUC.xaml.cs">
+      <DependentUpon>AssignmentUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\MilestoneInputUC.xaml.cs">
+      <DependentUpon>MilestoneInputUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\MilestonesUC.xaml.cs">
+      <DependentUpon>MilestonesUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\DepartmentsUC.xaml.cs">
+      <DependentUpon>DepartmentsUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\EmployeesInDepartmentUC.xaml.cs">
+      <DependentUpon>EmployeesInDepartmentUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\OrganizationUC.xaml.cs">
+      <DependentUpon>OrganizationUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\ProjectBonusUC.xaml.cs">
+      <DependentUpon>ProjectBonusUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\SalaryRecordsUC.xaml.cs">
+      <DependentUpon>SalaryRecordsUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\TimeSheetUC.xaml.cs">
+      <DependentUpon>TimeSheetUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\DepartmentInputUC.xaml.cs">
+      <DependentUpon>DepartmentInputUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\EmployeeInputUC.xaml.cs">
+      <DependentUpon>EmployeeInputUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\EmployeesUC.xaml.cs">
+      <DependentUpon>EmployeesUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\LeaveInputUC.xaml.cs">
+      <DependentUpon>LeaveInputUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\LeaveRequestsUC.xaml.cs">
+      <DependentUpon>LeaveRequestsUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\LeaveViewUC.xaml.cs">
+      <DependentUpon>LeaveViewUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\ProjectDetailsUC.xaml.cs">
+      <DependentUpon>ProjectDetailsUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\ProjectInputUC.xaml.cs">
+      <DependentUpon>ProjectInputUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\ProjectsUC.xaml.cs">
+      <DependentUpon>ProjectsUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\TaskInputUC.xaml.cs">
+      <DependentUpon>TaskInputUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\TasksInProjectUC.xaml.cs">
+      <DependentUpon>TasksInProjectUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\UserInformationUC.xaml.cs">
+      <DependentUpon>UserInformationUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\PersonalSalaryUC.xaml.cs">
+      <DependentUpon>PersonalSalaryUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\WidgetsUC.xaml.cs">
+      <DependentUpon>WidgetsUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Windows\LoginWindow.xaml.cs">
+      <DependentUpon>LoginWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Windows\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Views\Dialogs\AddDepartmentDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Dialogs\AddEmployeeDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Dialogs\AddLeaveDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Dialogs\AddProjectDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Dialogs\AddTaskDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Dialogs\AlertDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Dialogs\CheckInDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Dialogs\CheckOutDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Dialogs\ResponseLeaveDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Dialogs\SalaryDetailsDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Dialogs\AddMilestoneDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Dialogs\UpdateDepartmentDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Dialogs\UpdateEmployeeDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Dialogs\UpdateLeaveDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Dialogs\UpdateLeaveForManagerDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Dialogs\UpdateMilestoneDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Dialogs\UpdateProjectDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Dialogs\UpdateTaskDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\UserControls\ApproveLeaveRequestsUC.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\UserControls\AssignmentUC.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\UserControls\MilestoneInputUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\MilestonesUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\DepartmentsUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\EmployeesInDepartmentUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\OrganizationUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\ProjectBonusUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\SalaryRecordsUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\TimeSheetUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\DepartmentInputUC.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\UserControls\EmployeeInputUC.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\UserControls\EmployeesUC.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\UserControls\LeaveInputUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\LeaveRequestsUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\LeaveViewUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\ProjectDetailsUC.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\UserControls\ProjectInputUC.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\UserControls\ProjectsUC.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\UserControls\TaskInputUC.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\UserControls\TasksInProjectUC.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\UserControls\UserInformationUC.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\UserControls\PersonalSalaryUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\WidgetsUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Windows\LoginWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Windows\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\MaterialDesignThemes.4.8.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.8.0\build\MaterialDesignThemes.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\MaterialDesignThemes.4.8.0\build\MaterialDesignThemes.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MaterialDesignThemes.4.8.0\build\MaterialDesignThemes.targets'))" />
+  </Target>
+</Project>
