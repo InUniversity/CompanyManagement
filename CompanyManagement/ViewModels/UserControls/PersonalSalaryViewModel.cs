@@ -32,7 +32,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void LoadSalaryRecords()
         {
-            SalaryRecords = salaryRecordsDao.GetByEmployeeID(CurrentUser.Ins.EmployeeIns.ID).OrderByDescending(p => p.MonthYear).ToList();
+            SalaryRecords = salaryRecordsDao.GetByEmployeeID(CurrentUser.Ins.Empl.ID).OrderByDescending(p => p.MonthYear).ToList();
         }
 
         private void ExecuteOpenSalaryDetailsDialog(SalaryRecord salaryRecord)

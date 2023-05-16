@@ -37,13 +37,13 @@ namespace CompanyManagement.ViewModels.UserControls
         {
             try
             {
-                ((IProjects)projectsUC.DataContext).ParentDataContext = this;
-                ((IProjects)projectsUC.DataContext).ProjectDetailsDataContext = (IRetrieveProjectID)projectDetailsUC.DataContext;
+                ((ProjectsViewModel)projectsUC.DataContext).ParentDataContext = this;
+                ((ProjectsViewModel)projectsUC.DataContext).ProjectDetailsDataContext = (IRetrieveProjectID)projectDetailsUC.DataContext;
                 ((IProjectDetails)projectDetailsUC.DataContext).ParentDataContext = this;
             }
             catch (Exception ex)
             {
-                Log.Instance.Error(nameof(AssignmentViewModel), ex.Message);
+                Log.Ins.Error(nameof(AssignmentViewModel), ex.Message);
             }
         }
 

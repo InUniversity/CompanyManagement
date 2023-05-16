@@ -77,7 +77,7 @@ namespace CompanyManagementMSTest.Database
         
         private ProjectAssignment Search(ProjectAssignment assign)
         {
-            DBConnection dbConnection = new DBConnection();
+            DbConnection dbConnection = new DbConnection();
             string sql = $"SELECT * FROM ProjectAssignments WHERE ProjectID='{assign.ProjID}' AND DepartmentID='{assign.DeptID}'";
             return (ProjectAssignment)dbConnection.GetSingleObject(sql, reader => new ProjectAssignment(reader)); 
         }

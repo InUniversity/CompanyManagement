@@ -9,7 +9,7 @@ namespace CompanyManagement.Strategies.UserControls.ProjectsView
     {
         private ProjectAssignmentsDao assignmentsDao = new ProjectAssignmentsDao();
         
-        public void SetVisible(IProjects viewModel)
+        public void SetVisible(ProjectsViewModel viewModel)
         {
             viewModel.VisibleAddButton = Visibility.Collapsed;
             viewModel.VisibleDeleteButton = Visibility.Collapsed;

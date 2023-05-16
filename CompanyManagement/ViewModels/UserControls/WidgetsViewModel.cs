@@ -50,7 +50,7 @@ namespace CompanyManagement.ViewModels.UserControls
             }
             catch (Exception ex)
             {
-                Log.Instance.Error(nameof(WidgetsViewModel), ex.Message);
+                Log.Ins.Error(nameof(WidgetsViewModel), ex.Message);
             }
         }
 

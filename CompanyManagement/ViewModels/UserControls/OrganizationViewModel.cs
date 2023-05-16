@@ -50,14 +50,14 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void SetVisibilityViewEmployees()
         {
-            VisibilityEmployees = CurrentUser.Ins.EmployeeIns.EmplRole.Perms == Enums.EPermission.HR ? Visibility.Visible : Visibility.Collapsed;
+            VisibilityEmployees = CurrentUser.Ins.Empl.EmplRole.Perms == Enums.EPermission.HR ? Visibility.Visible : Visibility.Collapsed;
         }    
 
         private void InitDeptStrategy()
         {
             try
             {
-                var curEmpl = CurrentUser.Ins.EmployeeIns;
+                var curEmpl = CurrentUser.Ins.Empl;
                 var deptStrategy = DeptStrategyFactory.Create(curEmpl.EmplRole.Perms);
                 var viewModel = new DepartmentsViewModel(deptStrategy)
                 {
@@ -67,7 +67,7 @@ namespace CompanyManagement.ViewModels.UserControls
             }
             catch (Exception ex)
             {
-                Log.Instance.Error(nameof(OrganizationViewModel), ex.Message);
+                Log.Ins.Error(nameof(OrganizationViewModel), ex.Message);
             }
         }
 

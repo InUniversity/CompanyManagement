@@ -43,7 +43,7 @@ namespace CompanyManagement.ViewModels.UserControls
         private EmployeesDao employeesDao = new EmployeesDao();
 
         private string projectID = "";
-        private Employee currentEmployee = CurrentUser.Ins.EmployeeIns;
+        private Employee currentEmployee = CurrentUser.Ins.Empl;
 
         public TasksInProjectViewModel()
         {

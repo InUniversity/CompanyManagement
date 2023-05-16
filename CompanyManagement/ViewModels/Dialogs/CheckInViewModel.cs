@@ -116,7 +116,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void LoadTasksCanChoose()
         {
-            TasksCanChoose = tasksDao.SearchTasksCheckOut(CurrentUser.Ins.EmployeeIns.ID, DateTime.Now);
+            TasksCanChoose = tasksDao.SearchTasksCheckOut(CurrentUser.Ins.Empl.ID, DateTime.Now);
             SearchedTasksCanChoose = new ObservableCollection<TaskInProject>(TasksCanChoose);
         }
 

@@ -5,34 +5,37 @@ using CompanyManagement.Utilities;
 
 namespace CompanyManagement.Database.Base
 {
-    public class DBConnection
+    public class DbConnection
     {
         private SqlConnection conn;
 
-        public DBConnection()
+        public DbConnection()
         {
             conn = new SqlConnection(Properties.Settings.Default.connStr);
         }
 
-        public void ExecuteNonQuery(string command)
+        public bool ExecuteNonQuery(string command)
         {
+            bool success = false;
             try
             {
                 conn.Open();
                 SqlCommand cmd = new SqlCommand(command, conn);
                 if (cmd.ExecuteNonQuery() > 0)
                 {
-                    Log.Instance.Information(nameof(DBConnection), "Completed");
+                    success = true;
+                    Log.Ins.Information(nameof(DbConnection), "Completed");
                 }
             }
             catch (Exception ex)
             {
-                Log.Instance.Error(nameof(DBConnection), ex.Message);
+                Log.Ins.Error(nameof(DbConnection), ex.Message);
             }
             finally
             {
                 conn.Close();
             }
+            return success;
         }
 
         public object? GetSingleObject<T>(string sqlStr, Func<SqlDataReader, T> converter)
@@ -56,7 +59,7 @@ namespace CompanyManagement.Database.Base
             }
             catch (Exception ex)
             {
-                Log.Instance.Error(nameof(DBConnection), ex.Message);
+                Log.Ins.Error(nameof(DbConnection), ex.Message);
             }
             finally
             {
@@ -77,7 +80,7 @@ namespace CompanyManagement.Database.Base
             }
             catch (Exception ex)
             {
-                Log.Instance.Error(nameof(DBConnection), ex.Message);
+                Log.Ins.Error(nameof(DbConnection), ex.Message);
             }
             finally
             {

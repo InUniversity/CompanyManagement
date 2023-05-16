@@ -79,7 +79,7 @@ namespace CompanyManagement.ViewModels.UserControls
         private Milestone CreateMilestone()
         {
             return new Milestone(AutoGenerateID(), "", "", Utils.emptyDate, Utils.emptyDate,
-                 DateTime.Now, CurrentUser.Ins.EmployeeIns.ID, projectID);
+                 DateTime.Now, CurrentUser.Ins.Empl.ID, projectID);
         }
 
         private string AutoGenerateID()

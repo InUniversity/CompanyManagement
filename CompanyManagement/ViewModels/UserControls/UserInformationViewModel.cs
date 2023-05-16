@@ -38,7 +38,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void ExcuteShowMyInformationView(object obj)
         {
-            ((EmployeeInputViewModel)MyInformationView.DataContext).EmployeeIns = CurrentUser.Ins.EmployeeIns;
+            ((EmployeeInputViewModel)MyInformationView.DataContext).EmployeeIns = CurrentUser.Ins.Empl;
             CurrentChildView = MyInformationView;
             StatusMyInformationView= true; 
         }

@@ -17,13 +17,13 @@ namespace CompanyManagement.Views.UserControls
             InitializeComponent();
             try
             {
-                var curEmpl = CurrentUser.Ins.EmployeeIns;
+                var curEmpl = CurrentUser.Ins.Empl;
                 var projectsStrategy = ProjectsStrategyFactory.Create(curEmpl.EmplRole.Perms);
                 DataContext = new ProjectsViewModel(projectsStrategy);
             }
             catch (Exception ex)
             {
-                Log.Instance.Error(nameof(ProjectsUC), ex.Message);
+                Log.Ins.Error(nameof(ProjectsUC), ex.Message);
             }
         }
     }

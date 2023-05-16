@@ -117,6 +117,6 @@ namespace CompanyManagement.Database.Base
         public const string mileTskID = "MileID";
         public const string mileTskTskID = "TaskID";
         
-        protected DBConnection dbConnection = new DBConnection();
+        protected DbConnection dbConnection = new DbConnection();
     }
 }

@@ -75,9 +75,9 @@ namespace CompanyManagement.ViewModels.UserControls
                 .GetDepartmentsCanAssignWork(project.ID, project.StartDate, project.EndDate);
             SearchedDepartmentsCanAssign = new ObservableCollection<Department>(departmentsCanAssign);
             
-            Log.Instance.Information(nameof(ProjectInputViewModel), $"Start:{StartDate}, End:{EndDate}");
-            Log.Instance.Information(nameof(ProjectInputViewModel), $"{project.ID}");
-            Log.Instance.Information(nameof(ProjectInputViewModel), $"{departmentsCanAssign.Count}");
+            Log.Ins.Information(nameof(ProjectInputViewModel), $"Start:{StartDate}, End:{EndDate}");
+            Log.Ins.Information(nameof(ProjectInputViewModel), $"{project.ID}");
+            Log.Ins.Information(nameof(ProjectInputViewModel), $"{departmentsCanAssign.Count}");
         }
 
         private void SetCommands()

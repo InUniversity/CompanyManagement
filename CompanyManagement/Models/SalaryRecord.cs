@@ -107,7 +107,7 @@ namespace CompanyManagement.Models
             }
             catch (Exception ex)
             {
-                Log.Instance.Error(nameof(Milestone), "CAST ERROR: " + ex.Message);
+                Log.Ins.Error(nameof(Milestone), "CAST ERROR: " + ex.Message);
             }
         }
 

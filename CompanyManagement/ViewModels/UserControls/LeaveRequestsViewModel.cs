@@ -13,7 +13,6 @@ using CompanyManagement.Enums;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
-
     public class LeaveRequestsViewModel : BaseViewModel
     {
         private List<LeaveRequest> leaveRequests;
@@ -32,22 +31,6 @@ namespace CompanyManagement.ViewModels.UserControls
         public List<LeaveRequest>  DeniedLeaveRequests 
         { get => deniedLeaveRequests; set { deniedLeaveRequests = value; OnPropertyChanged(); } }
         
-        private Visibility visibleLeaveRequestsExpander = Visibility.Collapsed;
-        public Visibility VisibleLeaveRequestsExpander 
-        { get => visibleLeaveRequestsExpander; set { visibleLeaveRequestsExpander = value; OnPropertyChanged(); } } 
-
-        private Visibility visibleUnapprovedLeaveRequestsExpander = Visibility.Collapsed;
-        public Visibility VisibleUnapprovedLeaveListExpander 
-        { get => visibleUnapprovedLeaveRequestsExpander; set { visibleUnapprovedLeaveRequestsExpander = value; OnPropertyChanged(); } }
-
-        private Visibility visibleApprovedLeaveRequestsExpander = Visibility.Collapsed;
-        public Visibility VisibleApprovedLeaveRequestsExpander 
-        { get => visibleApprovedLeaveRequestsExpander; set { visibleApprovedLeaveRequestsExpander = value; OnPropertyChanged(); } }
-
-        private Visibility visibleDeniedLeaveRequestsExpander = Visibility.Collapsed;
-        public Visibility VisibleDeniedLeaveRequestsExpander 
-        { get => visibleDeniedLeaveRequestsExpander; set { visibleDeniedLeaveRequestsExpander = value; OnPropertyChanged(); } }
-
         private DateTime timeCreateLeave = DateTime.Now;
         public DateTime TimeCreateLeave { get => timeCreateLeave; set { timeCreateLeave = value; OnPropertyChanged(); SearchDate(); } }
 
@@ -60,7 +43,7 @@ namespace CompanyManagement.ViewModels.UserControls
         private LeaveRequestsDao leaveDao = new LeaveRequestsDao();
         private EmployeesDao employeeDao = new EmployeesDao();
 
-        private Employee currentEmployee = CurrentUser.Ins.EmployeeIns;
+        private Employee currentEmployee = CurrentUser.Ins.Empl;
 
         public LeaveRequestsViewModel()
         {
@@ -124,7 +107,7 @@ namespace CompanyManagement.ViewModels.UserControls
                     .ToList();
             LeaveRequests = new List<LeaveRequest>(allItem);
             
-            Log.Instance.Information(nameof(LeaveRequestsViewModel), "selected date = " + timeCreateLeave.ToShortDateString());
+            Log.Ins.Information(nameof(LeaveRequestsViewModel), "selected date = " + timeCreateLeave.ToShortDateString());
         }
 
         private LeaveRequest CreateLeave()

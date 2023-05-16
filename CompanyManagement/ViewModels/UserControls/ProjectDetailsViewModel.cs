@@ -60,7 +60,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void SetVisibilityViewBonusProj()
         {
-            VisibilityBonusProj = CurrentUser.Ins.EmployeeIns.EmplRole.Perms == Enums.EPermission.Mgr ? Visibility.Visible : Visibility.Collapsed;
+            VisibilityBonusProj = CurrentUser.Ins.Empl.EmplRole.Perms == Enums.EPermission.Mgr ? Visibility.Visible : Visibility.Collapsed;
         }
 
 
@@ -83,7 +83,7 @@ namespace CompanyManagement.ViewModels.UserControls
         private void ExecuteShowProjectsView(object obj)
         {
             ParentDataContext.MoveToProjectsView();
-            Log.Instance.Information(nameof(ProjectsViewModel), "Back to project view");
+            Log.Ins.Information(nameof(ProjectsViewModel), "Back to project view");
         }
 
         private void ShowTasksView()
@@ -116,7 +116,7 @@ namespace CompanyManagement.ViewModels.UserControls
             }
             catch 
             {
-                Log.Instance.Error(nameof(ProjectDetailsViewModel), 
+                Log.Ins.Error(nameof(ProjectDetailsViewModel), 
                     "The data context must have implement interface IRetrieveProjectID");
             }
         }

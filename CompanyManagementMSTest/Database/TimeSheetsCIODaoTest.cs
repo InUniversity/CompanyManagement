@@ -55,15 +55,15 @@ namespace CompanyManagementMSTest.Database
         }
 
         [TestMethod]
-        public void ToTalWorksDayByEmployeeID()
+        public void TotalWorksDayByEmployeeID()
         {
-            int total = myDao.ToTalWorksDayByEmployeeID("EM007");
+            int total = myDao.TotalWorksDayByEmployeeID("EM007", 4, 2023);
             Assert.AreEqual(1, total);
         }
         
         public TimeSheet Search(TimeSheet timeSheet)
         {
-            DBConnection dbConnection = new DBConnection();
+            DbConnection dbConnection = new DbConnection();
             string sqlStr = $"Select * From TimeSheets Where ID = '{timeSheet.ID}'";
             return (TimeSheet)dbConnection.GetSingleObject(sqlStr, reader => new TimeSheet(reader));
         }

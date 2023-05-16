@@ -54,7 +54,7 @@ namespace CompanyManagement.ViewModels.Windows
             var employee = employeesDao.SearchByID(account.EmployeeID);
             employee.Acc = account;
             employee.EmplRole = rolesDao.SearchByID(employee.RoleID);
-            CurrentUser.Ins.EmployeeIns = employee;
+            CurrentUser.Ins.Empl = employee;
             window.Hide();
             ShowMainWindow(employee.EmplRole.Perms);
             window.Show();
@@ -71,7 +71,7 @@ namespace CompanyManagement.ViewModels.Windows
             }
             catch (Exception ex)
             {
-                Log.Instance.Error(nameof(LoginViewModel), ex.Message);
+                Log.Ins.Error(nameof(LoginViewModel), ex.Message);
             }
         }
 

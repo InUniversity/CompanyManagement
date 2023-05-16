@@ -37,7 +37,7 @@ namespace CompanyManagement.Models
             }
             catch(Exception ex)
             {
-                Log.Instance.Error(nameof(ProjectAssignment), "CAST ERROR: " + ex.Message);
+                Log.Ins.Error(nameof(ProjectAssignment), "CAST ERROR: " + ex.Message);
             }
         }
     }
