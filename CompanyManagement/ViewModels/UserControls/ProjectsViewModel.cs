@@ -84,7 +84,7 @@ namespace CompanyManagement.ViewModels.UserControls
         private TasksDao tasksDao = new TasksDao();
         private ProjectBonusesDao projBonusDao = new ProjectBonusesDao();
         private MilestonesDao milestonesDao = new MilestonesDao();
-        private Employee currentEmployee = CurrentUser.Ins.EmployeeIns;
+        private Employee currentEmployee = CurrentUser.Ins.Empl;
 
         private List<Department> departmentsBeforeChange;
 

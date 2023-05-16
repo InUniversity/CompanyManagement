@@ -91,7 +91,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void CreateCheckIn()
         {
-            currentTimeSheet = new TimeSheet(AutoGenerateID(), CurrentUser.Ins.EmployeeIns.ID,
+            currentTimeSheet = new TimeSheet(AutoGenerateID(), CurrentUser.Ins.Empl.ID,
                 Utils.emptyDate, Utils.emptyDate, "");
         }
 

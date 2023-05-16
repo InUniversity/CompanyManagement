@@ -17,7 +17,7 @@ namespace CompanyManagement.Views.UserControls
             InitializeComponent();
             try
             {
-                var curEmpl = CurrentUser.Ins.EmployeeIns;
+                var curEmpl = CurrentUser.Ins.Empl;
                 var projectsStrategy = ProjectsStrategyFactory.Create(curEmpl.EmplRole.Perms);
                 DataContext = new ProjectsViewModel(projectsStrategy);
             }

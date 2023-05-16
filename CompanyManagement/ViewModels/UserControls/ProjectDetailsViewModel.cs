@@ -60,7 +60,7 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void SetVisibilityViewBonusProj()
         {
-            VisibilityBonusProj = CurrentUser.Ins.EmployeeIns.EmplRole.Perms == Enums.EPermission.Mgr ? Visibility.Visible : Visibility.Collapsed;
+            VisibilityBonusProj = CurrentUser.Ins.Empl.EmplRole.Perms == Enums.EPermission.Mgr ? Visibility.Visible : Visibility.Collapsed;
         }
 
 

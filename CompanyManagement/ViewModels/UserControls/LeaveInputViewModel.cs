@@ -49,7 +49,7 @@ namespace CompanyManagement.ViewModels.UserControls
         private RolesDao rolesDao = new RolesDao();
         private CheckFormat checker = new CheckFormat();
 
-        private Employee currentEmployee = CurrentUser.Ins.EmployeeIns;
+        private Employee currentEmployee = CurrentUser.Ins.Empl;
 
         public LeaveInputViewModel()
         {

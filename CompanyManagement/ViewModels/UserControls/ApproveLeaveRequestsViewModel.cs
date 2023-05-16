@@ -41,7 +41,7 @@ namespace CompanyManagement.ViewModels.UserControls
         private DepartmentsDao departmentDao = new DepartmentsDao();
         private EmployeesDao employeeDao = new EmployeesDao();
 
-        private Employee currentEmployee = CurrentUser.Ins.EmployeeIns;
+        private Employee currentEmployee = CurrentUser.Ins.Empl;
 
         public ApproveLeaveRequestsViewModel()
         {

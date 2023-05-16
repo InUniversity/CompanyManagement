@@ -5,7 +5,7 @@
         private static CurrentUser instance;
         
         private Employee employee;
-        public Employee EmployeeIns { get => employee; set => employee = value; }
+        public Employee Empl { get => employee; set => employee = value; }
         
         public static CurrentUser Ins
         {
