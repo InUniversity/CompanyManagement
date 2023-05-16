@@ -5,7 +5,7 @@ namespace CompanyManagement.Strategies.UserControls.ProjectsView
 {
     public interface IProjectsStrategy
     {
-        void SetVisible(IProjects viewModel);
+        void SetVisible(ProjectsViewModel viewModel);
         List<Project> GetProjects(string employeeID);
     }
 }

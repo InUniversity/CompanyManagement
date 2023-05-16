@@ -16,23 +16,7 @@ using CompanyManagement.Enums;
 
 namespace CompanyManagement.ViewModels.UserControls
 {
-    public interface IProjects
-    {
-        List<Project> Projects { get; set; }
-        Project SelectedProject { get; set; }
-        Visibility VisibleAddButton { get; set; }
-        Visibility VisibleDeleteButton { get; set; }
-        Visibility VisibleUpdateButton { get; set; }
-        ICommand OpenProjectInputCommand { get; }
-        ICommand DeleteProjectCommand { get; }
-        ICommand UpdateProjectCommand { get; }
-        ICommand ItemClickCommand { get; }
-        IProjectsStrategy ProjectsStrategy { set; }
-        INavigateAssignmentView ParentDataContext { set; }
-        IRetrieveProjectID ProjectDetailsDataContext { set; }
-    }
-    
-    public class ProjectsViewModel : BaseViewModel, IProjects
+    public class ProjectsViewModel : BaseViewModel
     {
         private List<Project> projects;
         public List<Project> Projects { get => projects; set { projects = value; OnPropertyChanged(); } }
