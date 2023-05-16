@@ -14,14 +14,16 @@ namespace CompanyManagement.Database.Base
             conn = new SqlConnection(Properties.Settings.Default.connStr);
         }
 
-        public void ExecuteNonQuery(string command)
+        public bool ExecuteNonQuery(string command)
         {
+            bool success = false;
             try
             {
                 conn.Open();
                 SqlCommand cmd = new SqlCommand(command, conn);
                 if (cmd.ExecuteNonQuery() > 0)
                 {
+                    success = true;
                     Log.Ins.Information(nameof(DBConnection), "Completed");
                 }
             }
@@ -33,6 +35,7 @@ namespace CompanyManagement.Database.Base
             {
                 conn.Close();
             }
+            return success;
         }
 
         public object? GetSingleObject<T>(string sqlStr, Func<SqlDataReader, T> converter)
