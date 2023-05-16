@@ -72,11 +72,8 @@ namespace CompanyManagement.Database.Base
             {
                 conn.Open();
                 SqlCommand cmd = new SqlCommand(sqlStr, conn);
-                SqlDataReader reader = cmd.ExecuteReader();
-                if (reader.Read())
-                    variable = (decimal)reader[0];
+                variable = Convert.ToDecimal(cmd.ExecuteScalar());
                 cmd.Dispose();
-                reader.Close();
             }
             catch (Exception ex)
             {

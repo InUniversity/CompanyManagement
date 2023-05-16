@@ -3,10 +3,7 @@ using CompanyManagement.ViewModels.Base;
 using CompanyManagement.Views.UserControls;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System;
 using CompanyManagement.Services;
-using CompanyManagement.Models;
-using CompanyManagement.Database.Base;
 using CompanyManagement.Strategies.Windows.MainView;
 
 namespace CompanyManagement.ViewModels.Windows

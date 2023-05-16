@@ -5,7 +5,6 @@ using System.Windows.Input;
 using CompanyManagement.Utilities;
 using System.Windows;
 using CompanyManagement.Models;
-using CompanyManagement.Enums;
 
 namespace CompanyManagement.ViewModels.UserControls
 {

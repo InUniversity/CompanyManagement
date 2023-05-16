@@ -1,7 +1,6 @@
 ﻿using CompanyManagement.Database.Base;
 using System.Collections.Generic;
 using CompanyManagement.Enums;
-using CompanyManagement.Models;
 using CompanyManagement.Utilities;
 
 namespace CompanyManagement.Database

@@ -1,7 +1,5 @@
 ﻿using System;
-using CompanyManagement.Database.Base;
 using CompanyManagement.Enums;
-using CompanyManagement.Models;
 
 namespace CompanyManagement.Strategies.UserControls.DeptsView
 {

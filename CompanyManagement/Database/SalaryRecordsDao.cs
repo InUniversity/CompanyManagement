@@ -1,11 +1,8 @@
 ﻿using CompanyManagement.Database.Base;
 using CompanyManagement.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Serialization;
+using CompanyManagement.Enums;
 
 namespace CompanyManagement.Database
 {
@@ -24,14 +21,6 @@ namespace CompanyManagement.Database
         public void Delete(string id)
         {
             string sqlStr = $"DELETE FROM {salaryTbl} WHERE {salaryID} = '{id}'";
-            dbConnection.ExecuteNonQuery(sqlStr);
-        }
-
-        public void DeleteByEmployee(string employeeID, DateTime monthYear)
-        {
-            string sqlStr = $"DELETE FROM {salaryTbl} WHERE {salaryEmplID} = '{employeeID}' " +
-                            $"MONTH({salaryMonthYear}) = '{monthYear.Month}' " +
-                            $"AND YEAR({salaryMonthYear}) = '{monthYear.Year}'";
             dbConnection.ExecuteNonQuery(sqlStr);
         }
 
@@ -57,10 +46,14 @@ namespace CompanyManagement.Database
 
         public List<SalaryRecord> GetByDepartmentID(string departmentID, int month, int year)
         {
+            string roleMgr = (new RolesDao()).GetAll().Where(r => r.Perms == EPermission.Mgr).FirstOrDefault().ID;
+            string roleHR = (new RolesDao()).GetAll().Where(r => r.Perms == EPermission.HR).FirstOrDefault().ID;
             string sqlStr = $"SELECT * FROM {salaryTbl} WHERE MONTH({salaryMonthYear}) = '{month}' " +
                             $"AND YEAR({salaryMonthYear}) = '{year}' AND {salaryEmplID} " +
                             $"IN (SELECT {emplID} FROM {emplTbl} WHERE {emplDeptID} = '{departmentID}' " +
-                            $"OR ('{departmentID}' = 'MNG' AND {emplDeptID} = '') OR '{departmentID}' = 'ALL')";
+                            $"OR ('{departmentID}' = 'MNG' AND {emplRoleID} = '{roleMgr}' ) " +
+                            $"OR ('{departmentID}' = 'HR' AND {emplRoleID} = '{roleHR}' ) " +
+                            $"OR '{departmentID}' = 'ALL')";
             return dbConnection.GetList<SalaryRecord>(sqlStr, reader => new SalaryRecord(reader));
         }
 

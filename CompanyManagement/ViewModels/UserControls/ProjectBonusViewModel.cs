@@ -6,15 +6,8 @@ using System.Linq;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using CompanyManagement.Services;
-using System.Windows.Documents;
 using System.Collections.Generic;
-using System.Windows;
-using CompanyManagement.Utilities;
-using System.ComponentModel;
-using CompanyManagement.Views.Dialogs;
-using CompanyManagement.Database.Base;
 using CompanyManagement.Enums;
-using CompanyManagement.Views.UserControls;
 
 namespace CompanyManagement.ViewModels.UserControls
 {

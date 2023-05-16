@@ -2,15 +2,8 @@
 using CompanyManagement.Database.Base;
 using CompanyManagement.Utilities;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media;
+using CompanyManagement.Enums;
 
 namespace CompanyManagement.Models
 {
@@ -81,7 +74,12 @@ namespace CompanyManagement.Models
 
         public Department WorkerDepartment
         {
-            get => (new DepartmentsDao()).SearchByID(Worker.DepartmentID)??(new Department("", "Management", ""));
+            get
+            {
+                Department department = (new DepartmentsDao()).SearchByID(Worker.DepartmentID);
+                return department != null? department:(WorkerRole.Perms == EPermission.Mgr? new Department("", "Management", ""):
+                    new Department("", "Human Resource", ""));
+            }
         }
 
         public SalaryRecord() { }

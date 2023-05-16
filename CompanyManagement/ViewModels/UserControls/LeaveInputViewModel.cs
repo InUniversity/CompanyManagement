@@ -1,17 +1,12 @@
 ﻿using CompanyManagement.Database;
-using CompanyManagement.Database.Base;
 using CompanyManagement.Models;
 using CompanyManagement.ViewModels.Base;
-using CompanyManagement.Views.UserControls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Remoting.Messaging;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using CompanyManagement.Utilities;
-using Microsoft.Expression.Interactivity.Layout;
 
 namespace CompanyManagement.ViewModels.UserControls
 {

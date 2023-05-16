@@ -1,8 +1,6 @@
 ﻿using CompanyManagement.Models;
 using CompanyManagement.ViewModels.Base;
 using System;
-using System.Net;
-using System.Xml.Linq;
 
 namespace CompanyManagement.ViewModels.UserControls
 {

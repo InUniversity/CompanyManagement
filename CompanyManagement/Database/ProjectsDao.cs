@@ -1,6 +1,5 @@
 ﻿using CompanyManagement.Database.Base;
 using CompanyManagement.Utilities;
-using System.Windows.Documents;
 
 namespace CompanyManagement.Database
 {
