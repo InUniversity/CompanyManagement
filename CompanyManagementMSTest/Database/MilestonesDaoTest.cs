@@ -80,7 +80,7 @@ namespace CompanyManagementMSTest.Database
 
         private Milestone Search(string id)
         {
-            DBConnection dbConnection = new DBConnection();
+            DbConnection dbConnection = new DbConnection();
             string sql = $"SELECT * FROM Milestones WHERE ID='{id}'";
             return (Milestone)dbConnection.GetSingleObject(sql, reader => new Milestone(reader)); 
         }

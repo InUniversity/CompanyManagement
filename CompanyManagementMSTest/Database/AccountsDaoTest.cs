@@ -54,7 +54,7 @@ namespace CompanyManagementMSTest.Database
         
         public Account Search(Account account)
         {
-            DBConnection dbConnection = new DBConnection();
+            DbConnection dbConnection = new DbConnection();
             string sqlStr = $"SELECT * FROM Accounts WHERE Username = '{account.Username}' ";
             return (Account)dbConnection.GetSingleObject(sqlStr, reader => new Account(reader));
         }

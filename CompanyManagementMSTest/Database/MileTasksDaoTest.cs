@@ -42,7 +42,7 @@ namespace CompanyManagementMSTest.Database
 
         private MileTask Search(MileTask mileTsk)
         {
-            DBConnection dbConnection = new DBConnection();
+            DbConnection dbConnection = new DbConnection();
             string sql = $"SELECT * FROM MileTasks WHERE MileID='{mileTsk.MileID}' AND TaskID='{mileTsk.TskID}'";
             return (MileTask)dbConnection.GetSingleObject(sql, reader => new MileTask(reader));
         }

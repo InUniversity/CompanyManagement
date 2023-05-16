@@ -63,7 +63,7 @@ namespace CompanyManagementMSTest.Database
         
         public TimeSheet Search(TimeSheet timeSheet)
         {
-            DBConnection dbConnection = new DBConnection();
+            DbConnection dbConnection = new DbConnection();
             string sqlStr = $"Select * From TimeSheets Where ID = '{timeSheet.ID}'";
             return (TimeSheet)dbConnection.GetSingleObject(sqlStr, reader => new TimeSheet(reader));
         }

@@ -91,7 +91,7 @@ namespace CompanyManagementMSTest.Database
         
         private List<TaskInProject> SearchByPrjID(string PrjID)
         {
-            DBConnection dbConnection = new DBConnection();
+            DbConnection dbConnection = new DbConnection();
             string sql = $"SELECT * FROM Tasks WHERE ProjectID = '{PrjID}'";
             return dbConnection.GetList<TaskInProject>(sql, reader => new TaskInProject(reader));
         }

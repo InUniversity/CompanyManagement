@@ -47,14 +47,14 @@ namespace CompanyManagementMSTest.Database
 
         private TaskCheckOut Search(string timeShtID, string tskID)
         {
-            DBConnection dbConnection = new DBConnection();
+            DbConnection dbConnection = new DbConnection();
             string sql = $"SELECT * FROM TaskCheckOuts WHERE TimeSheetID='{timeShtID}' AND TaskID='{tskID}'";
             return (TaskCheckOut)dbConnection.GetSingleObject(sql, reader => new TaskCheckOut(reader));
         }
         
         private void Delete(string timeShtID, string tskID)
         {
-            DBConnection dbConnection = new DBConnection();
+            DbConnection dbConnection = new DbConnection();
             string sql = $"DELETE FROM TaskCheckOuts WHERE TimeSheetID='{timeShtID}' AND TaskID='{tskID}'";
             dbConnection.ExecuteNonQuery(sql);
         }

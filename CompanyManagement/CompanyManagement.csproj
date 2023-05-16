@@ -82,7 +82,7 @@
     <Compile Include="Converters\EnumDescConverter.cs" />
     <Compile Include="Database\AccountsDao.cs" />
     <Compile Include="Database\Base\BaseDao.cs" />
-    <Compile Include="Database\Base\DBConnection.cs" />
+    <Compile Include="Database\Base\DbConnection.cs" />
     <Compile Include="Database\MilestonesDao.cs" />
     <Compile Include="Database\MileTasksDao.cs" />
     <Compile Include="Database\ProjectBonusesDao.cs" />

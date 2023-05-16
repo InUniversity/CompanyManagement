@@ -72,13 +72,13 @@ namespace CompanyManagementMSTest.Database
 
         public SalaryRecord Search(SalaryRecord salaryRecord)
         {
-            DBConnection dbConnection = new DBConnection();
+            DbConnection dbConnection = new DbConnection();
             string sqlStr = $"Select * From SalaryRecords where ID = '{salaryRecord.ID}'";
             return (SalaryRecord)dbConnection.GetSingleObject(sqlStr, reader => new SalaryRecord(reader));
         }
         public List<SalaryRecord> SearchByMonthYear(int month, int year)
         {
-            DBConnection dbConnection = new DBConnection();
+            DbConnection dbConnection = new DbConnection();
             string sqlStr = $"Select * From SalaryRecords where Month(MonthYear) = '{month}' AND Year(MonthYear) = '{year}'";
             return dbConnection.GetList(sqlStr, reader => new SalaryRecord(reader));
         }

@@ -5,11 +5,11 @@ using CompanyManagement.Utilities;
 
 namespace CompanyManagement.Database.Base
 {
-    public class DBConnection
+    public class DbConnection
     {
         private SqlConnection conn;
 
-        public DBConnection()
+        public DbConnection()
         {
             conn = new SqlConnection(Properties.Settings.Default.connStr);
         }
@@ -24,12 +24,12 @@ namespace CompanyManagement.Database.Base
                 if (cmd.ExecuteNonQuery() > 0)
                 {
                     success = true;
-                    Log.Ins.Information(nameof(DBConnection), "Completed");
+                    Log.Ins.Information(nameof(DbConnection), "Completed");
                 }
             }
             catch (Exception ex)
             {
-                Log.Ins.Error(nameof(DBConnection), ex.Message);
+                Log.Ins.Error(nameof(DbConnection), ex.Message);
             }
             finally
             {
@@ -59,7 +59,7 @@ namespace CompanyManagement.Database.Base
             }
             catch (Exception ex)
             {
-                Log.Ins.Error(nameof(DBConnection), ex.Message);
+                Log.Ins.Error(nameof(DbConnection), ex.Message);
             }
             finally
             {
@@ -80,7 +80,7 @@ namespace CompanyManagement.Database.Base
             }
             catch (Exception ex)
             {
-                Log.Ins.Error(nameof(DBConnection), ex.Message);
+                Log.Ins.Error(nameof(DbConnection), ex.Message);
             }
             finally
             {

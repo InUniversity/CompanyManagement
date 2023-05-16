@@ -71,20 +71,20 @@ namespace CompanyManagementMSTest.Database
 
         public ProjectBonus Search(ProjectBonus projectBonus)
         {
-            DBConnection dbConnection = new DBConnection();
+            DbConnection dbConnection = new DbConnection();
             string sqlStr = $"Select * From ProjectBonuses Where ID = '{projectBonus.ID}'";
             return (ProjectBonus)dbConnection.GetSingleObject(sqlStr, reader => new ProjectBonus(reader));
         }
 
         public List<ProjectBonus> SearchByProjectID(string prjectID)
         {
-            DBConnection dbConnection = new DBConnection();
+            DbConnection dbConnection = new DbConnection();
             string sqlStr = $"Select * From ProjectBonuses Where ProjectID = '{prjectID}'";
             return dbConnection.GetList(sqlStr, reader => new ProjectBonus(reader));
         }
         public List<ProjectBonus> SearchByEmployeeID(string employeeID)
         {
-            DBConnection dbConnection = new DBConnection();
+            DbConnection dbConnection = new DbConnection();
             string sqlStr = $"Select * From ProjectBonuses Where EmployeeID = '{employeeID}'";
             return dbConnection.GetList(sqlStr, reader => new ProjectBonus(reader));
         }
