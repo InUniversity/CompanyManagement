@@ -34,11 +34,6 @@ namespace CompanyManagement.Utilities
             return identifyCard.Length == IDENTIFY_CARD_LENGTH;
         }
 
-        public bool ValidatePassword(string password)
-        {
-            return password.Length >= PASSWORD_MINIMUM_LENGTH;
-        }
-
         public bool ValidateBirthday(DateTime birthday)
         {
             DateTime today = DateTime.Now;
