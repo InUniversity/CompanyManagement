@@ -55,20 +55,21 @@ namespace CompanyManagement.ViewModels.UserControls
 
         private void InitDeptStrategy()
         {
+            IDeptStrategy strategy = new DeptForDeptHead();
             try
             {
                 var curEmpl = CurrentUser.Ins.Empl;
-                var deptStrategy = DeptStrategyFactory.Create(curEmpl.EmplRole.Perms);
-                var viewModel = new DepartmentsViewModel(deptStrategy)
-                {
-                    ParentDataContext = this
-                };
-                departmentsView.DataContext = viewModel;
+                strategy = DeptStrategyFactory.Create(curEmpl.EmplRole.Perms);
             }
             catch (Exception ex)
             {
                 Log.Ins.Error(nameof(OrganizationViewModel), ex.Message);
             }
+            var viewModel = new DepartmentsViewModel(strategy)
+            {
+                ParentDataContext = this
+            };
+            departmentsView.DataContext = viewModel;
         }
 
         private void SetCommand()
