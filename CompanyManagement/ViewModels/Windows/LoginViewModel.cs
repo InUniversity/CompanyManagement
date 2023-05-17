@@ -62,17 +62,18 @@ namespace CompanyManagement.ViewModels.Windows
 
         private void ShowMainWindow(EPermission perms)
         {
+            IMainStrategy strategy = new MainForEmployee();
             try
             {
-                var mainStrategy = MainStrategyFactory.Create(perms);
-                var viewModel = new MainViewModel(mainStrategy);
-                var nextWindow = new MainWindow { DataContext = viewModel };
-                nextWindow.ShowDialog();
+                strategy = MainStrategyFactory.Create(perms);
             }
             catch (Exception ex)
             {
                 Log.Ins.Error(nameof(LoginViewModel), ex.Message);
             }
+            var viewModel = new MainViewModel(strategy);
+            var nextWindow = new MainWindow { DataContext = viewModel };
+            nextWindow.ShowDialog();
         }
 
         private void RefreshAllText()
